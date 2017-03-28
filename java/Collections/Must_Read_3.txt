@@ -1,0 +1,12 @@
+/*
+Please read SimpleUtilityFunctinos.java first
+*/
+
+Hashing
+
+Please please read TIJ3.pdf from page 565 to page 572.
+Excellent stuff on hashing.
+
+/*
+Please read SpringDetector.java next
+*/

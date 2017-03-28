@@ -1,0 +1,22 @@
+Managing, configuring, monitoring Websphere MQ
+
+1) Using commands called MQ Script commands (MQSC). For example, the command.
+   DEFINE QLOCAL(MY.QUEUE) DESCR(‘Test Queue’) DEFPSIST(YES)
+   defines a new MQ.
+   
+2) By sending and receiving messages on some well known queue names defined by IBM MQ. These
+   messages have to be in the well known format called PCF (Programmable Command Format).
+   
+3) Use MQ explorer application, which is an eclipse based tool shipped with IBM MQ.
+
+We'll learn about the details later.
+
+However, there are two products that are frequently used alongside WebSphere MQ:
+
+1) Websphere Message Broker.
+2) Websphere Application Broker
+
+I'll learn about these later.
+
+
+

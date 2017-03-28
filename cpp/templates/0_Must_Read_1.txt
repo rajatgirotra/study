@@ -1,0 +1,2 @@
+Inheritance and composition provide a way to reuse object code. The template feature in C++ provides
+a way to reuse source code.

@@ -1,0 +1,29 @@
+Please read Must_Read_1.txt first
+
+Regular Expressions
+-------------------
+
+-? --->> Zero or one occurrence of - sign.
+So ? indicates zero or one occurrence of the preceding character.
+
+In other languages, a \ means that the next character has special meaning. For eg: a \d means a digit.
+In JAVA however a \\ indicates that the next character has special meaning. So \\d means a digit.
+a \\\\ means a literal \. \t and \n mean general tab & newline characters.
+
++ means one or more occurrence of the preceding character.
+so -?\\d+ means a possibly minus sign followed by one or more digits.
+
+(-|\\+)? - represents a possible minus or plus sign. Since + has special meaning in regular
+expressions, it needs to be escaped here.
+
+\\W - represents a non word character
+\\W+ - represents one or more occurrences of non-word characters.
+\\w i.e. a lowercase w means a word character. i.e. 'a' or 'x' or 'P' i.e. a single alphabet.
+\\s - represents a whitespace
+\\S - represents a non-whitespace
+\\d - represents a digit
+\\D - represents a non-digit
+\\b - represents a search at a word boundary
+\\B - represents a search at a non-word boundary.
+
+Please read TestRegularExpressions.java next

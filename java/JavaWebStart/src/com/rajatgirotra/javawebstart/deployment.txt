@@ -1,0 +1,35 @@
+/*
+Please read Must_Read_3.txt first
+*/
+
+Ok now that you have your jnlp file and the jar file, there are two ways to deploy your application.
+
+1) You create an HTML page in which you use the Java Deployment Toolkit and its functions to launch your
+   Java web start application. This also makes use of Javascript.  
+   
+2) The other easy way is that you just inclue a direct link to your jnlp file in the browser and that's it :)
+   The only thing is that you cannot take advantage of the additional checks that the Deployment Toolkit functions provide.
+   
+   <a href="/absolute path to JNLP file/dynamictree_webstart.jnlp">Launch Notepad Application</a>
+   
+   
+a) Then you just place the application's JAR file, JNLP file, and HTML page in the appropriate folders.
+
+b) For this example, place DynamicTree.jar, dynamictree.jnlp, and JavaWebStartAppPage.html in the same directory on the local machine
+   or a web server. A web server is not required to test the Java Web Start application.
+
+c) Open the application's HTML page in a browser to view the application.
+
+d) You might need to configure your web server to handle Java Network Launch Protocol (JNLP) files.
+   If the web server is not set up properly, the Java Web Start application will not launch when you click on the link to the JNLP file.
+   Configure the web server so that files with the .jnlp extension are set to the application/x-java-jnlp-file MIME type.
+   The specific steps to set up the JNLP MIME type will vary depending on the web server. As an example, to configure an Apache web server,
+   you should add the following line to the mime.types file.
+
+   application/x-java-jnlp-file JNLP
+   
+   For other web servers, check the documentation for instructions on setting MIME types.
+   
+   /*
+   Please read running.txt next
+   */ 

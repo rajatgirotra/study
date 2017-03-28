@@ -1,0 +1,13 @@
+The hierarchy of constructor calls brings up an interesting dilemma. What happens if youre inside a constructor and you call a virtual function? Inside an ordinary member function you can imagine what will happen  the virtual call is resolved at runtime because the object cannot know whether it belongs to the class the member function is in, or some class derived from it. For consistency, you might think this is what should happen inside constructors.
+
+
+This is not the case. If you call a virtual function inside a constructor, only the local version of the function is used. That is, the virtual mechanism doesnt work within the constructor.
+
+
+This behavior makes sense for two reasons. Conceptually, the constructors job is to bring the object into existence (which is hardly an ordinary feat). Inside any constructor, the object may only be partially formed  you can only know that the base-class objects have been initialized, but you cannot know which classes are inherited from you. A virtual function call, however, reaches forward or outward into the inheritance hierarchy. It calls a function in a derived class. If you could do this inside a constructor, youd be calling a function that might manipulate members that hadnt been initialized yet, a sure recipe for disaster.
+
+
+The second reason is a mechanical one. When a constructor is called, one of the first things it does is initialize its VPTR. However, it can only know that it is of the current type  the type the constructor was written for. The constructor code is completely ignorant of whether or not the object is in the base of another class. When the compiler generates code for that constructor, it generates code for a constructor of that class, not a base class and not a class derived from it (because a class cant know who inherits it). So the VPTR it uses must be for the VTABLE of that class. The VPTR remains initialized to that VTABLE for the rest of the objects lifetime unless this isnt the last constructor call. If a more-derived constructor is called afterwards, that constructor sets the VPTR to its VTABLE, and so on, until the last constructor finishes. The state of the VPTR is determined by the constructor that is called last. This is another reason why the constructors are called in order from base to most-derived.
+
+
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" href="dynamic_tree.jnlp">
+    <information>
+        <title>Dynamic Tree Demo</title>
+        <vendor>Dynamic Team</vendor>
+    </information>
+    <resources>
+        <!-- Application Resources -->
+        <j2se version="1.6+"
+              href="http://java.sun.com/products/autodl/j2se"/>
+        <jar href="DynamicTree.jar"
+            main="true" />
+
+    </resources>
+    <application-desc
+         name="Dynamic Tree Demo Application"
+         main-class=
+           "com.rajatgirotra.javawebstart.DynamicTreeApplication"
+         width="300"
+         height="300">
+     </application-desc>
+     <update check="background"/>
+</jnlp>                

@@ -1,0 +1,41 @@
+Please read Reading_a_fix_message.txt first
+
+Each FIX message has a default c'tor which takes as input
+all fields which are mandatory. 
+
+Further, the fix message class defines the set() method to set fields which are part of the spec.
+
+Eg:
+    FIX41::OrderCancelRequest message(
+                      FIX::OrigClOrdID("123"),
+                      FIX::ClOrdID("321"),
+                      FIX::Symbol("LNUX"),
+                      FIX::Side(FIX::Side_BUY));
+
+    message.set(FIX::Text("Cancel My Order!"));
+	
+//to set any field on any message, there are overloaded versions of "setField()" available
+
+
+1) void setField( const FieldBase& field, bool overwrite = true ) throw ( RepeatedTag )
+eg:
+ FIX::Header header& = message.getHeader();
+ header.setField(FIX::BeginString("FIX.4.2"));
+ header.setField(FIX::SenderCompID(TW));
+ 
+// Set a field without a field class
+2) void setField( int field, const std::string& value ) throw( RepeatedTag, NoTagValue )
+
+  FIX::Message message;
+  // BeginString
+  message.getHeader().setField(8, "FIX.4.2");
+  // SenderCompID
+  message.getHeader().setField(49, "TW");
+  // TargetCompID, with enumeration
+  message.getHeader().setField(FIX::FIELD::TargetCompID, "TARGET");
+  // MsgType
+  message.getHeader().setField(35, 'F');
+  // OrigClOrdID
+  message.setField(41, "123");
+  
+  etc etc..

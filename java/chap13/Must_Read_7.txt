@@ -1,0 +1,22 @@
+/*
+Please read TypeHolder.java first
+*/
+
+Supertype Wildcards
+-------------------
+
+A supertype wildcard can be one of the following:
+
+List<? super MyClass> - This means that the wildcard can be any base class of MyClass.
+This means that you can put inside the list MyClass or any type derived from MyClass. 
+
+List<? super T> - This means that the wildcard can be any base class of the generic type parameter T
+This means that you can put inside the list T or any type derived from T.
+
+
+// Not allowed
+List<T super Myclass> - You cannot give a generic type parameter a supertype bound.
+
+/*
+Please read SuperTypeWildcards.java next
+*/ 

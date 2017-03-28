@@ -1,0 +1,33 @@
+Modern microprocessors have an instruction pipeline where they prefetch and decode the next instructions to be executed.
+This is what makes them fast as they fetch and decode ahead of time.
+
+However, when they see branch in code (if-else), they must decide which side of the branch instructions to fetch
+and decode. Different microprocessor's have different and complex algorithms for doing this; called as branch
+prediction algorithms. If they predict a wrong branch, they only find this out 10-20 clock cycles later, and obviously
+all the instructions fetched and decoeded previously becomes waste and results in wasted cpu cycles. So branch
+predictions becomes a very important feature for microprocessors.
+
+1) They can predict a branch by looking at the behavior in the past.
+Most likely, if one side of the branch executes almost all the time and the other side only executes once
+in a while, then branch prediction is highly accurate. A branch where each side executes 50% of the time will
+have wrong branch predicition almost 50% of the time.
+
+Even for and while loops need to do branch prediction to decide whether to do the next iteration of to exit the loop.
+Switch statements are need to do branch predictions.
+
+So
+
+1) Minimize branches in your code.
+2) When possible, use certain ways to avoid it. Example.
+
+Eg:
+double a;
+bool b;
+
+a == b ? 1.2 : 2.5; // This is a branch depending on boolean variable b.
+
+We can write it like this using a LOOKUP TABLE. We need no branching.
+double a;
+bool b = 0;
+static const double lookup[] {2.5, 1.2};
+a = lookup[b];

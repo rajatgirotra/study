@@ -1,0 +1,32 @@
+Ok, here is the all important startup stuff.
+
+When emacs is first started, it tries to load the a startup file for initilizing settings.
+It searches for one of the following files in order
+1) ~/.emacs
+2) ~/.emacs.el
+3) ~/.emacs.d/init.el
+
+If any one is found, it is loaded.
+
+Also there is a another library default.el which if available is loaded. This file is loaded after ~/.emacs
+file is loaded. Although the default emacs implementation do not provide any default.el library, your sys admin
+may create one. The default.el is looked up in the default search path for Lisp libraries. the default search
+paths are inside /usr/local/share/emacs/ mostly. Look at load-path variable to see its value.
+Also if the ~/.emacs file can inhibit loading of the default library. This is exactly what we will do. We do not
+want any special default library.
+
+Along with default, sys admin can also install a site-startup.el library in the default search lisp library paths.
+This is loaded before ~/.emacs is loaded. However, we do not want this as well. To prevent this from getting loaded
+we always start emacs like:
+
+$ emacs --no-site-file
+
+Also, we want to make sure that whenever we work on some other system or setup a new emacs, we keep our personal
+keybindings and variable settings into a different file and best is to host it somewhere on the server.
+Then we create ~/.emacs file in which we load our special keybinding and variable setting file).
+This way if we go to our friends seat, we can quickly get our set of keybindings by just using 
+M-x load-file.
+
+We keep our settings in ~/.emacs.d/lisp/setting.el
+and add ~/.emacs.d/lisp to load-path in ~/.emacs
+

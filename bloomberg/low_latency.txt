@@ -1,0 +1,24 @@
+I work for a financial company that produces low latency software for communication directly with exchanges (for submitting trades and streaming prices). We currently develop primarily in Java. Whilst the low latency side isn't an area I work in directly I have a fair idea of the skillset required, which would include the following in my opinion:
+
+Detailed knowledge of the Java memory model and techniques to avoid unnecessary garbage collection (e.g. object pooling). Some of the techniques used might typically be regarded as "anti-patterns" in a traditional OO-environment.
+Detailed knowledge of TCP/IP and UDP multicast including utilities for debugging and measuring latency (e.g. DTrace on Solaris).
+Experience with profiling applications.
+Knowledge of the java.nio package, experience developing NIO-based scalable server applications, experience designing wire protocols. Also note that we typically avoid using frameworks and external libraries (e.g. Google Protobuf), preferring to write a lot of bespoke code.
+Knowledge of FIX and commercial FIX libraries (e.g. Cameron FIX).
+Unfortunately many of the skills can only be developed "on the job" as there's no substitute for the experience gained implementing a price server or trading engine based on a spec. from an exchange or vendor. However, it's also worth mentioning that our company at least tend not to look for specific experience in this (or other) niche areas, instead preferring to hire people with good analytical and problem solving skills.
+---------------------------------------------------------------------------------------------
+
+
+Low latency is a function of many things, the two most important ones being:
+
+network latency - i.e. the time taken on the network to transmit/receive messages.
+processing latency - i.e. the time taken by your application to act on a message/event.
+So, if you are say writing an Order Matching system, the network latency would represent how soon within your network were you able to receive the order matching request. And processing latency would represent the time taken by your application to match the Order against existing, open orders.
+
+Multicast, UDP, reliable multicast, Kernel bypass (supported by Java 7, Informatica Ultra Messaging, and many others) on Infiniband networks are some common technologies used by all companies in this field.
+
+Additionally, there are low latency programming frameworks like disruptor (http://code.google.com/p/disruptor/) which implement design patterns for dealing with low latency applications. What could kill you is having to write to a DB or log files as part of your main workflow. You will have to come up with unique solutions that fulfill the requirements of the problem you are trying to solve.
+
+In languages like Java, implementing your app such that it creates (almost) zero garbage becomes extremely important to latency. As Adamski says, having a knowledge of Java memory model is extremely important. Understand different JVM implementations, and their limitations. Typical Java design patterns around small object creation are the first things that you will throw out of the window - one can never fix the Java Garbage Collector enough to achieve low latency - the only thing that can be fixed is the garbage.
+
+Good luck!

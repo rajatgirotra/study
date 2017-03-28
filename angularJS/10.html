@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+
+<html lang="en-us" data-ng-app="myApp">
+  <head>
+    <title>Introduction to AngularJS</title>
+    <meta charset="UTF-8">
+
+    <!-- load bootstrap and fontawesome via CDN -->
+    <!-- min means minified, since these files are very large, the minified version has all spaces,
+         comments, etc removed, so the file size becomes manageable to download -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+      html, body
+      {
+         font-size: 1.1em;
+      }
+    </style>
+
+    <!-- load angular via CDN -->
+    <script src="https://code.angularjs.org/1.5.0-beta.2/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.0-beta.2/angular-messages.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.0-beta.2/angular-resource.min.js"></script>
+    <script src="10.js"></script>
+
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="/">AngularJS</a>
+          </div>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div data-ng-controller="MainController">
+        <!-- Create an input box -->
+        <div>
+          <label> What's your twitter handle 
+            <input type="text" ng-model="handle" />
+            </label>
+        </div>
+        <div data-ng-if="handle.length !== characterCount">
+          <!-- We want to show this if text is not exactly 8 characters -->
+          <!-- So we can use ng-if. What goes after ng-if is essentially javascript-->
+          <!-- If the condition is false, Angular will remove the div completely -->
+          <!-- View page source to confirm to yourself. Also angular leaves some comment
+               so you can always know why it did something -->
+          Must be 8 characters..
+        </div>
+
+        <hr/>
+        <!-- ng-show is also similar, except that Angular will add a class = ng-hide when ng-show returns false. -->
+        <div data-ng-show="handle.length !== characterCount">
+          Must be 8 characters..
+        </div>
+        
+        <hr/>
+        <div data-ng-hide="handle.length === characterCount">
+          Must be 8 characters..
+        </div>
+
+        <!-- Let add some Bootstrap styling and use ng-class directive -->
+        <!-- ng-class can be used to dynamically add/remove class attributes from elements -->
+        <hr/>
+        <!-- If field is less than 8 characters, add class="alert-warning", if more than 8, all class "alert-danger" -->
+        <div class="alert" data-ng-class="{'alert-warning': handle.length < characterCount, 'alert-danger': handle.length > characterCount }" data-ng-show="handle.length !== characterCount">
+          Must be 8 characters..
+        </div>
+
+        <!-- Then we have ng-click which can be tied to a function on the client side. -->
+        <div data-ng-click="onClick()">
+          <button type="text" value="Click Me" name="button">Click Me.</button>
+        </div>
+
+        <!-- sometimes when internet is too slow or page takes a large time to load, you can see some data in the {{ }} expression.
+           This is because that's the original page downloaded by the browser. So Angular says use ng-cloak option which hides all variables
+           inside {{}}, and when AngularJS has processed this, only then show it. So as a good practice always use data-ng-cloak -->
+        <div data-ng-cloak>{{ handle }} </div>
+
+        <!-- ng-repeat tag - to repeat over a sequence -->
+        <br/>
+          <ul >
+            <li data-ng-repeat="rule in rules">{{ rule.rulename }}</li>
+          </ul>
+
+
+    </div>
+   </div>      
+    
+  </body>
+  </html>

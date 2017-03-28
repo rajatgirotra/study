@@ -1,0 +1,10 @@
+For ease of use, boost provides a number of typeder's for class error_info in the boost namespace.
+
+1] errinfo_api_function     : Where argument type T is const char*
+2] errinfo_at_line          : Where argument type T is int
+3] errinfo_errno            : Where argument type T is int
+4] errinfo_file_handle      : Where argument type T is a weak_ptr<FILE>
+5] errinfo_file_name        : Where argument type T is a const char*
+6] errinfo_file_open_mode   : Where argument type T is std::string
+7] errinfo_nested_exception : Where argument type T is
+8] errinfo_type_info_name   : Where argument type T is std::string

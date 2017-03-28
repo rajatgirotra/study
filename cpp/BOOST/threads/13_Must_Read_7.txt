@@ -1,0 +1,57 @@
+/*
+Condition Variables - This concept is very similar to the wait(), notify(), and notifyAll() calls in Java.
+Basically you use conidtion variables for synchronisation among several threads. The basic idea is that one or more threads could be waiting for an event to occur which can be caused by
+another thread.
+
+So all theese threads share a condition variable. In their repective thread function they check for the event (could be a simple boolean variable). If event hasn't occurred, they call
+condition.wait(mutex) and get blocked and the mutex is automatically unlocked. 
+
+The thread that can cause the event, also uses the same mutex, fires the event and then can call notify_one() or notify_all() on the condition object. this causes the waiting threads to
+unblock and one of these threads is scheduled run. Also, the mutex lock is automatically granted to this thread which runs.
+*/
+
+How to wait on a condition variable:
+************************************
+
+boost::condition_variable cond;
+boost::mutex mut;
+bool data_ready;
+
+void process_data();
+
+void wait_for_data_availability() {
+	boost::unique_lock <boost::mutex> lock(mut);
+	while(!data_ready) {
+		cond.wait(lock); //pass the lock object to cond.wait() , the condition object automatically keeps tracks of threads waiting on it.
+	}
+	
+	process_data();
+}
+
+
+How to prepare the event
+************************
+
+void retrieve_data();
+void prepare_data();
+
+void prepare_data_for_processing() {
+	retrieve_data();
+
+	prepare_data();
+
+	{
+		boost::unique_lock <boost::mutex> lock(mut);
+		data_ready = true;
+	}
+	cond.notify_one(); //or cond.notify_all();
+}
+
+//Very simple :-)
+
+The boost library provides two classes for condition objects:
+
+1] condition_variable : This works only with boost::unique_lock <boost::mutex> . This is mostly for optimization and is faster then condition_variable_any.
+2] condition_variable_any : this will with all lock types and mutex types. This is a little complex implementation
+
+Many overloaded versions of wait are available. eg: timed_wait(), timed_wait() with a predicate function, etc etc. Have a look at the online documentation.

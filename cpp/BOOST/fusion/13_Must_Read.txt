@@ -1,0 +1,15 @@
+Sequence comparisons..
+
+Boost Fusion provides a number of comparison operators. I am not going to write code for all of these but are failrly straight-forward
+
+typedef boost::fusion::vector<> v1();
+typedef boost::fusion::vector<> v2();
+
+v1 == v2; // will compare each element one by one.
+v1 != v2;
+v1 < v2; v1 <= v2;
+v1 > v2; v1 >= v2;
+
+
+
+

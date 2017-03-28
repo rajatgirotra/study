@@ -1,0 +1,14 @@
+Please read deployment.txt first.
+
+There are three ways to run a java web start application.1
+
+Browser
+1) Open the browser, click the link to the jnlp and you are done.
+
+Java Cache Viewer
+2) If you have java 6 or above, then you can use the java cache viewer. Java 6 or higher caches all web start applications locally,
+   so you don't need to start the web browser every time. Just go to ControlPanel->Java->General->View (to open the java cache viewer)
+   and launch the application from there.
+   
+Desktop
+3) From the Java cache viewer, you can select "Install Shortcuts" which will place desktop shortcuts to launch the application.

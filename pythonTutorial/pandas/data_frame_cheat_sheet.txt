@@ -1,0 +1,106 @@
+Accessing a column.
+==================
+
+df['column_name'] or df.column_name - Returns a Series
+
+Accessing a Row 
+==============
+df.loc['index_name'] or df.iloc[row_number] - Returns a Series in which the column names become the index names
+Better still use df.ix['label'] or df.ix[0] - Ie it takes both label and positional index parameter.
+
+Accessing a cell
+================
+df.column_name.index_name
+
+Get column name list or index name list
+======================================
+df.columns or df.index
+You can also change all columns/index to lower case very easily
+df.columns = [x.lower() for x in df.columns]
+df.index & df.columns is of type pandas.core.index.Index
+
+Add a new column
+================
+df['new_column_name'] = some_operation(df['some_existing_column'])
+The DataFrame is modified in place
+
+Add a new cloumn by creating a copy
+==================================
+df.assign(NewColumn=some_operation(df[old_column_name)))
+Example: iris.assign(sepal_ratio = iris['SepalWidth'] / iris['SepalLength'])
+or
+iris.assign(sepal_ratio = lambda x: (x['SepalWidth'] / x['SepalLength']))
+
+Get first or last n rows()
+===========================
+df.head(5) - By default gets 5 rows
+df.tail(3)
+
+Remove column/row from dataFrame
+============================
+Use drop command
+df.drop(labels, axis=0, inplace=False, errors='raise')
+Labels can be a column name or index name or a list of columns or indexes.
+axis = 0 (means column wise) means take the first column as a Series and delete label given.
+So axis=0 when deleting a row.
+Similarly, axis=1 means row-wise(horizontally), meaning take the first row as a Series and delete the label
+given. So use axis=1 when deleting a column.
+inplace=True means modify this df. else will return a copy and not modify the existing data-frame
+errors = 'ignore' or 'raise'
+
+df.shape gives tuple of rows and columns (df.shape[0] or df.shape[1])
+df.values returns an array where each item is a list of csv values of the rows.
+
+Subtract
+========
+df.sub(series/dataframe/scalar, axis=0/1/'cloumns'/'index', fill_value=None, level=None)
+Can be used to subtract values from every cell of the dataFrame.
+eg:
+  s = df.ix[0]  --> gives a series where indexes are columns of the df.
+  df.sub(s, axis=1) --> axis 1 will give you Series of rows where indexes are column names again
+                    --> if you would give axis = 0, it would give columns where indexes will be indexes of the df. so subtraction wont be proper
+                     --> level is used when you have hierarchical index.
+                     --> fill_value i think is not currently supported.
+
+
+Add
+====
+
+df.add(df2, fill_value=0) --> which means that whenever you find a NaN in only ONE CELL and NOT ITS CORRESPONDING CELL,
+instead of using NaN use the fill_value. If both cells are NaN, keep it NaN
+
+Copy
+===
+df2 = df will just give you an alias to the same dataframe.
+use df2 = df.copy() for deep-copying.
+
+Assign NaN
+==========
+To assign NaN, use df['a']['b'] = np.nan (use import numpy as np)
+
+GroupBy
+=======
+GroupBy is just a separation of the dataframe columns or rows where each group has a name.
+Eg:
+   df.groupby('Key1') or
+   df.groupby('Key1', 'Key2')
+are groupby clauses which basically split the dataframe into multiple groups. Key1 and Key2 are column names here.
+you can also split columns but we'll come to that later. Also groupby can take many diff parameters. We'll come to that
+also later.
+groupby returms a pandas.core.groupby.DataFrameGroupedBy object. Groupby basically provids a mapping between the group names and the labels.
+Look at the groups attribute which is a dictionary of this mapping. FOr example, if I say
+
+grouped = df.groupby('bloomberg_id')
+grouped.groups it printed a dictionary where keys were bbgid like NOH6, NKZ5 etc and values where a list of indexes of the rows in that group.
+Now within a group you can access a column by saying the column name simply.
+For example, to get the group for bbgid = NKZ5 i say
+nkz5_group = grouped['NKZ5']
+nkz5_group['exchange']
+
+Iterating a group:
+for name, group in grouped:
+    print(name)
+    print(group) --> This is a DataFrame for the group
+
+You can also say
+grouped.get_group('NKZ5')

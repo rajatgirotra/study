@@ -1,0 +1,8 @@
+An interface declaration introduces a new reference type whose members are classes, interfaces, constants and abstract methods. This type has no implementation, but otherwise unrelated classes can implement it by providing implementations for its abstract methods.
+
+A nested interface is any interface whose declaration occurs within the body of another class or interface. A top-level interface is an interface that is not a nested interface.
+
+Interfaces may contain member type declarations (8.5). A member type declaration in an interface is implicitly static  and public.
+
+If a member type declared with simple name C is directly enclosed within the declaration of an interface with fully qualified name N, then the member type has the fully qualified name N.C
+

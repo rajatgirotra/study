@@ -1,0 +1,139 @@
+Step 1 : Initialize the API
+---------------------------
+Initialize the API using
+    solClient_returnCode_t solClient_initialize(	solClient_log_level_t 	initialLogLevel,
+                                                solClient_propertyArray_pt 	props	 
+                                              )
+defined in solClient.h
+typedef solClient_returnCode solClient_returnCode_t  
+is defined. solClient_returnCode is just an enum. 
+solClient_log_level_t is the default logging level to set across all log categories. You can pass the default log level
+via a config option, so that you dont need to re-compile when you want to change the log level. Or use  SOLCLIENT_LOG_DEFAULT_FILTER
+for the default logging level. solClient_propertyArray_pt is a char** (a pointer to strings of type "key=value"), or NULL
+There are a no. of API wide properties, called GLOBAL properties, which can be configured. Mostly, pass NULL to accept default properties.
+All global properties start with "GLOBAL_" and there are typedef defined for each GLOBAL property.
+Search for "Global Configuration Properties" in the C API doc. Function should return SOLCLIENT_OK.
+
+For Java, Not Applicable
+
+Don't forget solClient_cleanup()
+ solClient_returnCode_t solClient_cleanup	(void)
+When your application is going down, you must call solClient_cleanup() to cleanup. This will free up all resources within Context, Sessions
+etc which were not destroyed earlier. Typically, when application exits, resources are automatically recovered. But this API is required 
+in rare cases where the application wants to free API wide resources, but wants to continue further w/o the API.
+
+For Java, Not Applicable
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Step 2 : Creating Contexts
+--------------------------
+
+You already know that a context encapsulates threads for network I/O and message delivery notifications for Sessions and
+Session components associated with that Context. Each client application must have atleast one Context.
+Each context can have some properties, if none is specified at context creation time, default settings are applied.
+
+Defined in solClient.h
+ solClient_returnCode_t solClient_context_create  ( solClient_propertyArray_pt  props,  
+                                                    solClient_opaqueContext_pt *  opaqueContext_p,  
+                                                    solClient_context_createFuncInfo_t *  funcInfo_p,  
+                                                    size_t  funcInfoSize  ) 
+The first argument is nothing but a char** (a list of name/value pairs) of context properties. Context property names must start
+with CONTEXT_. All other property names will be ignored. At the moment, there are only two properties you can configure here.
+1) #define SOLCLIENT_CONTEXT_PROP_CREATE_THREAD   "CONTEXT_CREATE_THREAD" 
+Used to tell the API to create whether to create its own Context thread internally or have the application create an external thread.
+   For creating it internally (recommended), value should be "1" (Use #define SOLCLIENT_PROP_ENABLE_VAL   "1")
+2) #define SOLCLIENT_CONTEXT_PROP_TIME_RES_MS   "CONTEXT_TIME_RES_MS" 
+The internal timer resolution. Valid range is >= 10 and <= 10000.
+THE BEST is to use the #define  SOLCLIENT_CONTEXT_PROPS_DEFAULT_WITH_CREATE_THREAD as the first argument which will cause Context to use
+its own internal thread and the default value for the second argument will be 50.
+
+The second argument is the Context object as returned by the API. This is used by the application for creating Sessions etc.
+For now ignore the third and fourth arguments. For them always use.
+
+solClient_context_createFuncInfo_t contextFuncInfo = SOLCLIENT_CONTEXT_CREATEFUNC_INITIALIZER; //3rd arg : &contextFuncInfo
+//4th arg: sizeof(contextFuncInfo)
+
+Opposite of creating a context is:
+
+solClient_returnCode_t solClient_context_destroy(solClient_opaqueContext_pt*);
+//Must not be called from the Context callback method for the Context being destroyed.
+
+Note that the context thread is run in many cases like:
+1) When completing a Session connection.
+2) When subscribing for a new Topic subscription.
+etc etc.. Basically the point is that our application must not do any heavy processing on the Context thread. Or the system can deadlock
+or performance can descrease drastically. So best is to offload the callback handling to another thread and free the Context thread.
+
+--------------------------------------------------------------------------------------------------------------------------------
+About Context timers
+--------------------
+A context also has a timer task concept.
+An application can also schedule callbacks/tasks with a Context Timer. These can be either repeating or one time timers.
+These are guaranteed to be called on the Context thread when the timer expires. Use solClient_context_startTimer() as shown below:
+A timer could be used to publish messages at set intervals or to perform an asynchronous operation just once.
+
+solClient_returnCode_t solClient_context_startTimer 
+           (solClient_opaqueContext_pt context, //context associated with this timer
+            solClient_context_timerMode_t timerMode, //SOLCLIENT_CONTEXT_TIMER_ONE_SHOT or SOLCLIENT_CONTEXT_TIMER_REPEAT
+			solClient_uint32_t durarionInMilliSec,
+			solClient_context_timerCallbackFunc_t callBackFunc, // void (*)(solClient_opaqueContext_pt, void* userData)
+			void*    userData,
+			solClient_context_timerId_t*  poTimerId // to be used to stop a repeating timer task using 
+		   ) 	
+
+solClient_returnCode_t solClient_context_stopTimer (solClient_opaqueContext_pt, solClient_context_timerId_t*);
+----------------------------------------------------------------------------------------------------------------------------------
+
+About Logging
+-------------
+
+The API supports many log levels, (Critical, Error, Warn, Notice, Info, Debug)
+By default, all solClient API logs are redirected to stderr. However, you can call solClient_log_setFile() to redirect to a file.
+
+solClient_returnCode_t solClient_log_setFile(const char* logFileName);
+
+If an error is encountered when writing to the log file, the logging is automatically reverted to stderr. This function can be called
+even before solClient_initialize().
+
+Set the logging level with
+
+solClient_returnCode_t solClient_log_setFilterLevel(solClient_log_category_t category,
+                                                    solClient_log_level_t level)
+Category can be: SOLCLIENT_LOG_CATEGORY_ALL, SOLCLIENT_LOG_CATEGORY_SDK, SOLCLIENT_LOG_CATEGORY_APP
+SOLCLIENT_LOG_CATEGORY_SDK means solClient C API logging, SOLCLIENT_LOG_CATEGORY_APP means logs raised by application using solClient_log() function.
+Level can be: SOLCLIENT_LOG_DEBUG, SOLCLIENT_LOG_INFO , SOLCLIENT_LOG_WARNING, SOLCLIENT_LOG_ERROR, SOLCLIENT_LOG_CRITICAL
+
+NEVER SET API LOG LEVEL TO INFO OR BELOW. IT WILL SEVERELY IMPACT PERFORMANCE.
+
+Optionally, you can also register a callback for logging. In this case the API will call your function on every unfiltered log that the API
+generates. I dont think it is a good option, so i'll go into this in detail.
+Use solClient_log_setCallback() to configure logging callback.
+----------------------------------------------------------------------------------------------------------------------------------
+
+About Session Statistics
+
+Solace API allows us to gather and log Transmission and Receive statistics of a session.
+For transmission statistics use:
+
+solClient_returnCode_t solClient_session_getTxStats (solClient_opaqueSession_pt session,
+                                                     solClient_stats_pt txStatsArray,
+													 solClient_uint32_t arraySize);
+For receive statistics use:
+solClient_returnCode_t solClient_session_getTxStats (solClient_opaqueSession_pt session,
+                                                     solClient_stats_pt txStatsArray,
+													 solClient_uint32_t arraySize);
+													 
+Solace defines a number of statistics like
+1) No of bytes sent/received on the session
+2) No of msgs sent/received on the session
+etc etc etc.
+All these statistics are given a unique no in enum solClient_stats_tx or enum solClient_stats_rx, so the best way is to create an array like this
+
+solClient_stats_t rxStats[SOLCLIENT_STATS_RX_NUM_STATS];
+solClient_stats_t txStats[SOLCLIENT_STATS_TX_NUM_STATS];
+solClient_session_getRxStats ( session_p, rxStats, SOLCLIENT_STATS_RX_NUM_STATS ) );
+solClient_session_getTxStats ( session_p, txStats, SOLCLIENT_STATS_TX_NUM_STATS ) );
+and then use the enum to index into the resultant array to get the statistic.
+
+solClient_returnCode_t solClient_session_clearStats  ( solClient_opaqueSession_pt  opaqueSession_p  ) //to clear statistics
+----------------------------------------------------------------------------------------------------------------------------------

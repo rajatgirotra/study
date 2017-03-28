@@ -1,0 +1,4 @@
+A Python module is nothing but a python script containing definitions and statements that can be used by multiple scripts.
+A file name is the module name with the suffix .py appended to it. You can import a module into another module and start using its definitions and features.
+
+Please read fibo.py next

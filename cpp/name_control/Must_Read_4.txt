@@ -1,0 +1,53 @@
+A namespace groups different identifiers in a named scope. By defining all identifiers in a
+namespace, the name of the namespace is the only global identifier that might conflict with other
+global symbols. Similar to the handling of classes, you have to qualify a symbol in a namespace
+by preceding the identifier with the name of the namespace, separated by the operator :: as
+follows:
+
+//defining identifiers in namespace josuttis
+namespace josuttis {
+class File;
+void myGlobalFunc();
+...
+}
+...
+//using a namespace identifier
+josuttis::File obj;
+...
+josuttis::myGlobalFunc();
+
+Unlike classes, namespaces are open for definitions and extensions in different modules. Thus
+you can use namespaces to define modules, libraries, or components even by using multiple
+files. A namespace defines logical modules instead of physical modules (in UML and other
+modeling notations, a module is also called a package).
+You don't have to qualify the namespace for functions if one or more argument types are defined
+in the namespace of the function. This rule is called Koenig lookup(or ADL ie argument dependent lookup). For example:
+
+
+//defining identifiers in namespace josuttis
+namespace josuttis {
+class File;
+void myGlobalFunc(const File&);
+...
+}
+...
+josuttis::File obj;
+...
+myGlobalFunc(obj); //OK, lookup finds josuttis::myGlobalFunc()
+
+
+By using a using declaration, you can avoid the (remaining) tedious, repeated qualification of the
+namespace scope. For example, the declaration
+
+using josuttis::File;
+
+makes File a local synonym in the current scope that stands for josuttis::File.
+A using directive makes all names of a namespace available, because they would have been
+declared outside their namespace. However, the usual name conflicts may arise. For example,
+the directive
+
+using namespace josuttis;
+
+makes File and myGlobalFunc() global in the current scope. The compiler will report an
+ambiguity if there also exists an identifier File or myGlobalFunc() in the global scope and the
+user uses the name without qualification.

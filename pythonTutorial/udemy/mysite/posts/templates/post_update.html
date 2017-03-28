@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Form</title>
+</head>
+<body>
+<form action="{% url 'first-posts:post_update' pk=instance.id  %}" method="POST">
+    {%  csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Confirm Edit">
+</form>
+</body>
+</html>

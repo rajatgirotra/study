@@ -1,0 +1,118 @@
+<!-- media queries. A lot of times to create responsive web pages, we need to have different CSS based
+on the target device/media/viewport. For this CSS defines media queries. The syntax is
+
+@media not|only <deviceType> and (expressions) {
+    // Your CSS here
+}
+
+Also, since mobile devices are very common now and also since they have limited cpu capacity,
+it is advisable to write CSS which targets mobile devices (ie mobile first) and then define media
+queries for larger viewports/devices.
+
+eg:
+
+@media only screen and (min-width: 768px) {
+    .col-1 {
+        width: 50%;
+    }
+
+    .col-2 {
+        width: 60%;
+    }
+}
+
+You can also add media queries on the device orientation/resolution not only its width/height
+@media only screen and (orientation: landscape) {
+}
+
+CSS also allows you to have media specific sheets and then include them using the link tag
+<link rel="stylesheet" media="mediatype and|not|only and (expressions)" href="path/to/my.css" />
+
+Supported values for mediatypes is:
+all, print (for printers), screen (for monitors), speech (for screenreaders that read out aloud)
+See this for all the different expressions that you can write
+https://www.w3schools.com/cssref/css3_pr_mediaquery.asp
+
+More examples:
+@media (min-width: 600px) and (max-width: 800px) {
+  html { background: red; }
+}
+
+// OR - using comma, ie bg is red upto max width of 600, or if min-width is still 800
+@media (max-width: 600px), (min-width: 800px) {
+  html { background: red; }
+}
+
+// NOT - ie apply red color for width of 600 and beyond
+@media not all and (max-width: 600px) {
+  html { background: red; }
+}
+
+// Write media queries like this for mutual exclusion
+@media (max-width: 400px) {
+  html { background: red; }
+}
+@media (min-width: 401px) and (max-width: 800px) {
+  html { background: green; }
+}
+@media (min-width: 801px) {
+  html { background: blue; }
+}
+
+// What would happen when more than one media queries are active at the same time.
+// the last one would be effective, in this case background color would be blue if min-width is 800px or more
+@media (min-width: 400px) {
+  html { background: red; }
+}
+@media (min-width: 600px) {
+  html { background: green; }
+}
+@media (min-width: 800px) {
+  html { background: blue; }
+}
+
+//
+<link rel="stylesheet" media="screen and (color)" href="example.css" />
+This example expresses that a certain style sheet (example.css) applies to devices of a certain media type
+(‘screen’) with certain feature (it must be a color screen).
+
+//
+A shorthand syntax is offered for media queries that apply to all media types; the keyword ‘all’ can be left out (along with the trailing ‘and’). I.e. if the media type is not explicitly given it is ‘all’.
+I.e. these are identical:
+
+@media all and (min-width:500px) { … }
+@media (min-width:500px) { … }
+As are these:
+
+@media (orientation: portrait) { … }
+@media all and (orientation: portrait) { … }
+
+the presence of the keyword ‘not’ at the beginning of the media query negates the result. I.e.,
+if the media query had been true without the ‘not’ keyword it will become false, and vice versa.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+       /*@media not all and (max-width: 600px) {
+             html { background: red; }
+        }*/
+
+        @media (min-width: 400px) {
+            html { background: red; }
+        }
+        @media (min-width: 600px) {
+            html { background: green; }
+        }
+        @media (min-width: 800px) {
+          html { background: blue; }
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>

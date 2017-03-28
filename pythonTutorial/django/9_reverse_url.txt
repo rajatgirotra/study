@@ -1,0 +1,74 @@
+What is reverse URL?
+
+At a lot many places in your application, you need to provide URL's that point to some other location in your app.
+It is a very bad idea to embed the actual full URL at these places, because if later you decide to change a URL, you'll need to change it everywhere.
+
+Django has designed a way of Reverse URL finding. A technique which allows you to give a name to your view and then use that name in places like templates, python code etc so that you dont have to change the URL everywhere.
+
+example:
+urlpatterns = [
+    url(r'^articles/([0-9]{4})/$', views.year_archive, name='news-year-archive')
+]
+
+Now you can use 'news-year-archive' name in templates, like this for eg:
+<a href="{% url 'news-year-archive' 2012 %}">2012 Archive</a>
+{# Or with the year in a template context variable: #}
+<ul>
+    {% for yearvar in year_list %}
+        <li><a href="{% url 'news-year-archive' yearvar %}">{{ yearvar }} Archive</a></li>
+    {% endfor %}
+</ul>
+
+In python code: you use the reverse() function
+
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+
+def redirect_to_year(request):
+    year = 2006
+    # reverse() takes a name and a tuple of arguments called args
+    return HttpResponseRedirect(reverse('news-year-archive', args=(year,)))
+
+Now URL names should be unique across apps. So django introduced a namespace concept to make sure that everyone has unique names for the URL's.
+How does it work?
+
+In Django, an the same application can be deployed more than once in the same project. So we have a concept of
+1) Application namespace: Will be same for the app which is deployed multiple times.
+2) Instance namespace: Each instance of an application will have its own instance namespace.
+
+Application name: You define the application name using the "app_name" variable in your URLConf module (same place where you define your "urlpatterns")
+
+Instance name: You define your instance name as an argument to the include() function.
+1) include(module_path, namespace='instance_name')
+2) include(url_patterns_list, namespace='instance_name')
+
+Eg:
+in the ROOT_URLCONF (urls.py), we have:
+
+from django.config.urls import url, include
+
+urlpatterns = [
+    url(r'author-polls/', include('polls.urls', namespace='author-polls')),
+    url(r'publisher-polls/', include('polls.urls', namespace='publisher-polls'))
+]
+
+polls/urls.py
+from django.config.urls import url
+
+app_name = 'polls'
+urlpatterns = [
+    url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^(?P<pk>\d+)/$', views.DetailView.as_view(), name='detail'),
+]
+
+"So now when you have to use the URL name what name you use?" You need to use the
+"application_namespace:url_name" syntax (ie separated by :)
+
+Rules for finding out which URL will be retrieved when you use "polls:index" for example
+1) django will find out if there is an application with name "polls" and get all its instances
+2) Django will find which is the current application instance. If there is a current application instance, it will return the URL resolver for that instance. The "current_app" can also be specified as an argument to the reverse() function. reverse('polls:index', current_app=self.request.resolver_match.namespace).
+When using a url template tag in a template, django uses the most recently resolved view as the current app instance.
+3) If there is no current app defined, it tries to find a default application instance. ie an application instance where with the same name as the application name. If found, that instance will be used.
+4) If no default instance, will use the last deployed application instance.
+5) If "polls" doesnt match any application name, django will start to match any application instance with that name.
+

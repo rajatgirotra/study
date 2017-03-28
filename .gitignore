@@ -1,0 +1,9 @@
+books/
+clion/
+fromSCB/
+GTAGS
+GPATH
+GRTAGS
+*.pyc
+build/
+static_cdn/

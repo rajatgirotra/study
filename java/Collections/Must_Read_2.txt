@@ -1,0 +1,25 @@
+/*
+Please read Map1.java first
+*/
+Remember you had once drawn the complete Collection hierarchy on the ION Meeting room
+white-board. Try to remember that. 
+
+In the class hierarchy, you can see a number of classes whose names begin
+with “Abstract,” and these can seem a bit confusing at first. They are
+simply tools that partially implement a particular interface. If you were
+making your own Set, for example, you wouldn’t start with the Set
+interface and implement all the methods, instead you’d inherit from
+AbstractSet and do the minimal necessary work to make your new class.
+However, the containers library contains enough functionality to satisfy
+your needs virtually all the time. So for our purposes, you can ignore any
+class that begins with “Abstract.”
+
+Therefore, when you look at the diagram, you’re really concerned with
+only those interfaces at the top of the diagram and the concrete classes
+(those with solid boxes around them). You’ll typically make an object of a
+concrete class, upcast it to the corresponding interface, and then use the
+interface throughout the rest of your code.
+
+/*
+Please read SimpleCollection.java next
+*/

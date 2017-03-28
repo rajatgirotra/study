@@ -1,0 +1,4 @@
+Why it is good to always measure time in clock cycles rather than in secs/us/ns etc.
+Its because timimgs can always get obsolete as processors get more stroger.
+However, if you say an instruction takes n clock cycles, it will always take n clock cycles,
+even when processor speeds double.

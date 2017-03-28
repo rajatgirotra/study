@@ -1,0 +1,44 @@
+Definition
+
+Boost MSM (Meta State Machine) defines an API for state machines.
+The Boost statechart library also provides a similar feature. So I could have really studied any of these. I choose MSM randomly.
+
+You know already what a state machine is. A state machine defines an objects lifetime. It defines the stages in the life of an object.
+Find below a glossary of terms used in a state machine.
+
+State machine glossary
+
+state machine: the life cycle of a thing. It is made of states, regions, transitions and processes incoming events.
+
+state: a stage in the life cycle of a state machine. A state (like a submachine) can have an entry and exit behaviors.
+
+event: an incident provoking (or not) a reaction of the state machine
+
+transition: a specification of how a state machine reacts to an event. It specifies a source state, the event triggering the transition, the target state (which will become the newly active state if the transition is triggered), guard and actions.
+
+action: an operation executed during the triggering of the transition.
+
+guard: a boolean operation being able to prevent the triggering of a transition which would otherwise fire.
+
+transition table: representation of a state machine. A state machine diagram is a graphical, but incomplete representation of the same model. A transition table, on the other hand, is a complete representation.
+
+initial state: The state in which the state machine starts. Having several orthogonal regions means having as many initial states.
+
+submachine: A submachine is a state machine inserted as a state in another state machine and can be found several times in a same state machine.
+
+orthogonal regions: (logical) parallel flow of execution of a state machine. Every region of a state machine gets a chance to process an incoming event.
+
+terminate pseudo-state: when this state becomes active, it terminates the execution of the whole state machine. MSM does not destroy the state machine as required by the UML standard, however, which lets you keep all the state machine's data.
+
+entry/exit pseudo state: defined for submachines and are defined as a connection between a transition outside of the submachine and a transition inside the submachine. It is a way to enter or leave a submachine through a predefined point.
+
+fork: a fork allows explicit entry into several orthogonal regions of a submachine.
+
+history: a history is a way to remember the active state of a submachine so that the submachine can proceed in its last active state next time it becomes active.
+
+completion events (also called completion/anonymous transitions): when a transition has no named event triggering it, it automatically fires when the source state is active, unless a guard forbids it.
+
+transition conflict: a conflict is present if for a given source state and incoming event, several transitions are possible. UML specifies that guard conditions have to solve the conflict.
+
+internal transitions: transition from a state to itself without having exit and entry actions being called.
+

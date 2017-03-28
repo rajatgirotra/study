@@ -1,0 +1,10 @@
+gSOAP is a C/C++ toolkit which provides support for XML Web services and XML data bindings for C/C++.
+What you can do with gSOAP.
+1) It provides support for XML schema validations (against XSD schemas)
+2) You can provide it with an XSD schema and it can generate XML data bindings for C/C++.
+   XML data binding means relating an XML type (simple type or complex type) to a C/C++ type. So for example, integers in XML are bound to integers in C++. Complex types will be bound to C structs or C++ classes. So it can generate these bindings for you. Once you have these bindings, you can quickly convert an XML to C++ (de-serialization) and C++ to XML (serialization).
+3) It provides support for JSON also.
+
+Lets get started.
+
+Please read hr.xsd next

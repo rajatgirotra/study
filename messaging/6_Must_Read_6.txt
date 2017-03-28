@@ -1,0 +1,52 @@
+Configuring an MQ.
+
+Step 1
+------
+Create the Q Manager. this is done by a IBM MQ administrator.
+Command:   crtmqm QMA   (Names are case - sensitive)
+
+You can create as many Q managers on a machine (server) as you may like. and you can also define a default q manager 
+to be used if your application does not specify any. But this is usually not a good practice and the application must
+explicitly specify the q manager to use
+
+Step 2
+-------
+Start the Q manager.
+Command: strmqm QMA
+It is now possible for applications to start putting and getting messages; the administrator can perform additional configuration
+by using the WebSphere MQ administration tools.
+
+
+Step 3
+------
+Create or Configure other MQ objects
+All other MQ objects will be actually children of this MQ manager. You can use the 
+
+"runmqsc <Q Manager Name>" command to bring up a prompt where you can create/configure other MQ objects.
+C> runmqsc QMA
+5724-H72 (C) Copyright IBM Corp. 1994, 2011. ALL RIGHTS RESERVED.
+Starting MQSC for queue manager QMA.
+
+Step 4
+-------
+Create a local queue.
+C> runmqsc QMA
+5724-H72 (C) Copyright IBM Corp. 1994, 2011. ALL RIGHTS RESERVED.
+Starting MQSC for queue manager QMA.
+
+define qlocal('QUEUE1')
+1 : define qlocal('QUEUE1')
+AMQ8006: WebSphere MQ queue created.
+define channel('TO.QMB') chltype(sdr) xmitq('QMB') conname(hostB)
+2 : define channel('TO.QMB') chltype(sdr) xmitq('QMB') conname(hostB)
+AMQ8014: WebSphere MQ channel created.
+define qlocal('QMB') usage(xmitq)
+3 : define qlocal('QMB') usage(xmitq)
+AMQ8006: WebSphere MQ queue created.
+end
+4 : end
+3 MQSC commands read.
+No commands have a syntax error.
+All valid MQSC commands were processed.
+
+ALWAYS REMEMBER, MQ object names (like, TO.QMB, QMB) are case sensitive.

@@ -1,0 +1,35 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+void swap(char* x, char* y)
+{
+    *x = *x ^ *y;
+    *y = *x ^ *y;
+    *x = *x ^ *y;
+}
+
+void per(char* s, int lb, int ub)
+{
+    if(lb >= ub)
+        cout << s << endl;
+    else
+    {
+        per(s, lb+1, ub);
+        for(int i = lb+1; i <= ub; ++i)
+        {
+            swap(s+lb, s+i);
+            per(s,lb+1, ub);
+            swap(s+lb, s+i);
+        }
+    }
+
+}
+
+int main(int argc, char* argv[])
+{
+    char str[] = "ABCD";
+    per(str, 0, 3);
+
+    return 0;
+}

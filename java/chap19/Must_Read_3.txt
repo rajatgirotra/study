@@ -1,0 +1,44 @@
+/*
+Please read OrnamentalGarden.java first
+*/
+
+Different states of a thread in JAVA:
+-------------------------------------
+
+1] New - This means that a thread has been created and initialized. A thread remains in this state only momentarily before
+the scheduler puts it into Blocked or Runnable state.
+
+2] Runnable - This means that the task is now contending for CPU cycles. It in the ready queue i.e. the queue of tasks that
+are waiting to be assigned the CPU.
+
+3] Blocked - This means that the thread can run, but something prevents it. It could be for example - an explicit sleep()
+call, or some I/O wait etc..
+
+4] Dead - The task is finished and not needed anymore. This happens either automatically when you return from the run() call;
+or if someone forces task termination.
+
+How can threads become blocked
+-------------------------------
+
+1] If you explicitly call Thread.sleep() function or the Thread.join() function.
+
+2] Some I/O wait operation.
+
+3] If you call the wait() function. When wait() is called, the task execution is suspended until someone calls notify() or 
+notifyAll(). In JAVA 5 and above, you also have calls to signal() and signalAll().
+
+4] If you call a synchronized method on an object which is already inside another synchronized method.()
+
+
+
+The problem
+-----------
+
+Sometimes you have to force termination of a thread which is in blocked state. Ideally, a thread must examine its own state
+using some kind of "isCancel" flag and terminate itself when required. But if this cannot be done, then you have to force
+the thread to come out of its blocked state. You normally do it using Thread.interrupt().
+
+/*
+Please read Interrupting.java next
+*/
+ 

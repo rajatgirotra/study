@@ -1,0 +1,32 @@
+What makes a program slow.
+
+Many factors
+
+1) Shared executables vs static executables
+Dynamically linked libraries are slower than static ones and can make your program go slower
+   a) First both the executable and one or more DLL's have to loaded into memory
+   b) A link to a function is resolved at load time or run time.
+   c) Calling a function takes longer than in a static library as it needs an extra jump through
+   a pointer in an import table.
+   d) Your address will become more fragmented when you use multiple DLLs. DLL's are always
+   loaded at round memory addresses divisible by the memory page size (4096).
+   This will make all DLL's contend for the same cache lines. So your code caching and data caching becomes
+   ineffecient.
+
+2) Lot many context switches.
+
+3) Cache misses & Memory access - Accessing data in RAM takes a lot longer than doing computation on them.
+That's why we have caches. typically we'll have Level 1 cache and L2 cache or may a level 3 cache.
+If the total size of your code and data exceeds the level 3 cache and the data is scattered in memory
+and accessed in random manner, changes are memory access is the biggest bottleneck. Reading from cache takes
+about 2-3 clock cycles. Reading from memory takes about hundreds of clock cycles.
+
+4) Dependedncy chains - CPU's can do out of order execution. So if you have to calculate two values A and B
+and calculating A takes a long time, CPU can calculate the value of B first, given that calculation of B does
+not depend on calculation of A. So in order to take advantage of out of order execution, avoid having long
+dependecny chains in your application.
+
+the execution core of modern microprocessors is split between several execution units.
+Typically there will be 2 or more integer units, one or 2 floating point addition units,
+and one or 2 floating point multiplication units. So it is possible to do an integer addition,
+a floating point addition & a floating point multiplication at the same time.

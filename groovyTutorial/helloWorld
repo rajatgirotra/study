@@ -1,0 +1,20 @@
+#!/usr/bin/env groovy 
+
+/*
+ Please read README.txt first.
+ Note you can not pass any arguments to groovy when you are running with shebang (#!).
+*/
+
+println ("Hello World");
+
+for (a in this.args) {
+	println("Argument: " + a)
+}
+
+/*
+Run like
+chmod 755 helloWorld
+./helloWorld "Rajat Girotra"
+
+Please read 1.groovy next.
+*/

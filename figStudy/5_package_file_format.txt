@@ -1,0 +1,46 @@
+A fig package file (package.fig) has the following format
+
+1) Start with the fig grammer version (v0, v1 or v2)
+2) Next is the asset information (archive and resource tags)
+3) Next are retrieve tags
+4) Next you can specify  n number of configs - Each config can have "set, append, add, include, include-file and command" tags
+
+Eg:
+
+grammar v1
+
+archive path/somefile.tar.gz
+resource foo/*.jar
+
+retrieve LOCATION_VARIABLE->"some relative directory path/[package]"
+
+config default
+    set VARIABLE=value
+    add CLASSPATH='foo.jar'
+
+    include dependency/1.2.3
+    override indirect-dependency/4.5.6
+
+    command
+        echo 'Hello,' "world!"
+    end
+end
+
+
+
+Instead of creating a package definition file, you can also create package description from command line
+using --set, --add, --archive, --resource, --include, --override switches
+This creates an in memory image of the package file.
+
+Try the following command.
+
+fig --publish-local myFirstPackage/1.0.0:default --set TOAST=bar 
+
+When testing your package creation, always publish your package locally using --publish-locally instead of --publish
+Only when you are done testing and you have a final version, should you publish using --publish
+
+Also, it is best to use --update-if-missing (-m) option to update the package locally from the repository,
+as it will only download stuff if needed. If you use --update, fig will always download stuff irrespective if the local copy
+is out of date or not.
+
+

@@ -1,0 +1,63 @@
+The ASIO library is used for synchronous and asynchronous I/O programming.
+Lets understand how the Synchronous and asynchronous operations work in ASIO and also some core classes.
+
+io_service
+----------
+ASIO provides a class io_service (in namespace boost::asio). This class is the interface between the
+application and the operating system. All synchronous and asynchronous operations will be forwarded to this class.
+
+The application will first need to create an input/object. For example, a socket. We call this as an i/o object in
+asio. Eg: boost::asio::ip::tcp::socket sock(io_service).
+
+Synchronous Operation
+--------------------
+1) You create an object of io_service
+2) You create an i/o object.
+3) Make a synchronous call
+Eg:
+boost::asio::io_service service;
+boost::asio::ip::tcp::socket socket(service);
+socket.connect(connection_details)
+
+The connect call will forward the call to io_service, which will forward it to the OS.
+The OS will return the result to io_service, which will return the result to the connect call.
+
+If the operation fails, the connect call will throw an exception of type boost::system::system_error
+If the connect was called like,
+socket.connect(connection_details, boost::system::error_code ec), then exception is not thrown
+and the ec parameter is populated with any error condition.
+Also ec can be tested as a boolean
+
+if(!ec) --> if ec is false, there is no error
+{
+   cout << "No error"
+}
+else
+{
+   cout << "Error " << ec;
+}
+
+Asynchronous Operation
+--------------------
+In asynchronous operation, you would call the aync API instead of the sync API.
+like
+socket.asyn_connect(connection_details, CallbackHandler)
+This is an asynchronous call, the call will be handled by io_service which forward it to OS. The OS will
+store the operation completed event on a queue, which will be retrived by io_service
+For io_service to retrieve the event, the application must call io_service::run() method.
+This is a blocking call, blocking for as long as there are unfinished asynchronous operations.
+After that the io_service::run() method will dequeue the result of the operation and call the
+CallbackHandler.
+
+
+A note on io_service object
+---------------------------
+
+The io_service object is thread safe. Boost guarantees this. This means that you can have
+one io_service object and many threads can use it to call its run method() without using any
+explicit locking.
+Also Boost guarantees that the completion_handlers (ie CallbackHandlers) will be called
+on the same thread on which io_service::run() is called. This means that if you have just one
+place where you call run(), then all your callbacks will basically be synchronous.
+So basically what io_service::run() is doing is that it is blocking everytime it is called.
+and when the asynchronous operation is completed. The completion_handler is called on that thread.

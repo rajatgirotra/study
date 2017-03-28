@@ -1,0 +1,616 @@
+           <!--
+            ************************* LCHERA Test Batch **************************
+            -->
+            <batch>
+                <name>LCHERA Test Batch</name>
+                <!-- a batch can be scheduled for a specified set of executiontimes.
+                    Each execution time has a day of week number and a
+                    time of day.
+
+                    The day of week used corresponds to the Java Calendar convention:
+
+                    SUN=1
+                    MON=2
+                    TUE=3
+                    WED=4
+                    THU=5
+                    FRI=6
+                    SAT=7
+
+                    The time of day should be in the UK locale's format (HH:MM:SS)
+                    eg 03:34:02, or 23:33:59
+                -->
+
+
+                <!-- Standard weekday (next morning) executions -->
+                <!--
+                <executiontime>
+                    <dayofweek>2</dayofweek>
+                    <timeofday>22:55:00</timeofday>
+                </executiontime>
+                <executiontime>
+                    <dayofweek>3</dayofweek>
+                    <timeofday>22:55:00</timeofday>
+                </executiontime>
+                <executiontime>
+                    <dayofweek>4</dayofweek>
+                    <timeofday>22:55:00</timeofday>
+                </executiontime>
+                <executiontime>
+                    <dayofweek>5</dayofweek>
+                    <timeofday>22:55:00</timeofday>
+                </executiontime>
+                <executiontime>
+                    <dayofweek>6</dayofweek>
+                    <timeofday>22:55:00</timeofday>
+                </executiontime>
+		-->
+                <!-- GetUrlFiles task retrieves files via FTP or HTTP download
+
+                    The method element contains the file transfer type: either ftp
+                    or http.
+
+                    The hostname element contains the name of the host to connect to:
+                    1) Internal FTP might require a hostname of eg SUN17
+                    2) External FTP might require a hostname of firewall.mydomain.com
+                        which permits pass through ftp
+
+                    The username and password elements contain either:
+                    1) The user name and password for local ftp
+                    2) For external, username might be anonymous@ftp.lch.co.uk
+                        and password might be myemail@mydomain.com
+
+                  -->
+
+        <!--
+        ************************* LCHERA **************************
+        -->
+                <!-- Standard weekday  executions -->
+               <task>
+                    <name>Copy Global File</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1000</offset>
+                    <period>300000</period>
+                    <retries>24</retries>
+                    <action>copy</action>
+                    <file>
+                        <namingstyle>fixed</namingstyle>
+                        <name>RAWRGBLF</name>
+                        <path>/home/oodg/ranmargin/data/opsfiles</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                        <extension>csv</extension>
+                    </file>
+                    <to>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Global</name>
+                        <path>/home/oodg/ranmargin/data/exchangefiles/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                        <extension>csv</extension>
+                    </to>
+                    <depends></depends>
+               </task>
+               <task>
+                    <name>Copy ExchangeRate File</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1100</offset>
+                    <period>300000</period>
+                    <retries>24</retries>
+                    <action>copy</action>
+                    <file>
+                        <namingstyle>fixed</namingstyle>
+                        <name>EXCHANGERATEF</name>
+                        <path>/home/oodg/ranmargin/data/opsfiles</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                        <extension>csv</extension>
+                    </file>
+                    <to>
+                        <namingstyle>fixed</namingstyle>
+                        <name>ExchangeRate</name>
+                        <path>/home/oodg/ranmargin/data/exchangefiles/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                        <extension>csv</extension>
+                    </to>
+                    <depends></depends>
+               </task>
+               <task>
+                    <name>Copy Bucket File</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1200</offset>
+                    <period>300000</period>
+                    <retries>24</retries>
+                    <action>copy</action>
+                    <file>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Bucket</name>
+                        <path>/home/oodg/ranmargin/data/opsfiles/</path>
+                        <postfix>.csv</postfix>
+                    </file>
+                    <to>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Bucket</name>
+                        <path>/home/oodg/ranmargin/data/exchangefiles/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix>.csv</postfix>
+                    </to>                    
+               </task>
+               <task>
+                    <name>Copy Equity File</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1300</offset>
+                    <period>300000</period>
+                    <retries>24</retries>
+                    <action>copy</action>
+                    <file>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Equity</name>
+                        <path>/home/oodg/ranmargin/data/opsfiles/</path>
+                        <postfix>.csv</postfix>
+                    </file>
+                    <to>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Equity</name>
+                        <path>/home/oodg/ranmargin/data/exchangefiles/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix>.csv</postfix>
+                    </to>                    
+               </task>
+               <task>
+                    <name>Copy Price File</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1400</offset>
+                    <period>300000</period>
+                    <retries>24</retries>
+                    <action>copy</action>
+                    <file>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Price</name>
+                        <path>/home/oodg/ranmargin/data/opsfiles/</path>
+                        <postfix>.csv</postfix>
+                    </file>
+                    <to>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Price</name>
+                        <path>/home/oodg/ranmargin/data/exchangefiles/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix>.csv</postfix>
+                    </to>                    
+               </task>
+               
+               <task>
+                    <name>Process LCHERA Data To RANProtocol</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.ParloaderExec</class>
+                    <offset>1500</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <commandline>lcheraloader</commandline>
+                    <inputfile>
+                        <namingstyle>fixed</namingstyle>
+                        <name>Global</name>
+                        <path>
+                            -I /home/oodg/ranmargin/data/exchangefiles/ExchangeRate.csv
+                               /home/oodg/ranmargin/data/exchangefiles/Bucket.csv
+                               /home/oodg/ranmargin/data/exchangefiles/Equity.csv
+                               /home/oodg/ranmargin/data/exchangefiles/Price.csv
+                               /home/oodg/ranmargin/data/exchangefiles</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix>.csv</postfix>
+                        <extension></extension>
+                    </inputfile>
+                    <commandargs checkdate="true">-X LCH -C /home/oodg/ranmargin/bin/lchera.config</commandargs>
+                    <targetfile>
+                        <namingstyle>reuters</namingstyle>
+                        <name>lchera</name>
+                        <path>
+                            -o D5  /home/oodg/ranmargin/data/ranprotocol/v27/D5.out
+                            -o D1  /home/oodg/ranmargin/data/ranprotocol/v27/lcheraD1.out
+                            -o P22 /home/oodg/ranmargin/data/ranprotocol/v27/lcheraP22.out
+                            -O /home/oodg/ranmargin/data/ranprotocol/v27</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                        <extension></extension>
+                    </targetfile>
+                    <depends>Copy Global File</depends>
+                    <depends>Copy ExchangeRate File</depends>
+                    <depends>Copy Bucket File</depends>
+                    <depends>Copy Equity File</depends>
+                    <depends>Copy Price File</depends>
+                </task>
+
+		<task>
+                    <name>Append LCHERA P22 to Main LCHERA file</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1600</offset>
+                        <period>300000</period>
+                    	<retries>2</retries>
+                        <action>append</action>
+                        <file>
+                        <namingstyle>fixed</namingstyle>
+                            <name>lcheraP22</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                            <extension>out</extension>
+                        </file>
+                        <to>
+                        <namingstyle>reuters</namingstyle>
+                            <name>lchera</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                            <extension></extension>
+                        </to>
+                    <depends>Process LCHERA Data To RANProtocol</depends>
+                </task>                
+                <task>
+                    <name>Create Empty LCHERA Instruments File</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1700</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <action>create</action>
+                    <file>
+                        <namingstyle>reuters</namingstyle>
+                        <name>lcheraD1</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                    </file>
+                    <depends>Append LCHERA P22 to Main LCHERA file</depends>
+                </task>
+                <task>
+                    <name>Diff LCHERA Instruments</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.DiffParloaderOuput</class>
+                    <offset>1800</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <inputfile>
+                        <namingstyle>fixed</namingstyle>
+                        <name>lcheraD1</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                        <extension>out</extension>
+                    </inputfile>
+                    <benchmarkfile>
+                        <namingstyle>fixed</namingstyle>
+                        <name>lcheraD1.out.benchmark</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/benchmark/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                    </benchmarkfile>
+                    <targetfile>
+                        <namingstyle>reuters</namingstyle>
+                        <name>lcheraD1</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                    </targetfile>
+                    <depends>Create Empty LCHERA Instruments File</depends>
+                </task>
+		<task>
+                    <name>Append Header to lcheraD1 file</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>1900</offset>
+                        <period>300000</period>
+                    	<retries>2</retries>
+                        <action>append</action>
+                        <file>
+                        <namingstyle>fixed</namingstyle>
+                            <name>B1</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                            <extension>TXT</extension>
+                        </file>
+                        <to>
+                        <namingstyle>reuters</namingstyle>
+                            <name>lcheraD1</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                            <extension></extension>
+                        </to>
+                    <depends>Diff LCHERA Instruments</depends>
+                </task>
+		<task>
+                    <name>Append Tail to lcheraD1 file</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>2000</offset>
+                        <period>300000</period>
+                    <retries>2</retries>
+                        <action>append</action>
+                        <file>
+                        <namingstyle>fixed</namingstyle>
+                            <name>E1</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                            <extension>TXT</extension>
+                        </file>
+                        <to>
+                        <namingstyle>reuters</namingstyle>
+                            <name>lcheraD1</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                        </to>
+                    <depends>Append Header to lcheraD1 file</depends>
+                </task>                                
+                
+                <task>
+                    <name>Append lchera Instrument Data To lchera file</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>2100</offset>
+                        <period>300000</period>
+                    <retries>2</retries>
+                        <action>append</action>
+                        <file>
+                        <namingstyle>reuters</namingstyle>
+                            <name>lcheraD1</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                        </file>
+                        <to>
+                        <namingstyle>reuters</namingstyle>
+                            <name>lchera</name>
+                            <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                            <prefix></prefix>
+                            <dateformat></dateformat>
+                            <postfix></postfix>
+                        </to>
+                    <depends>Append Tail to lcheraD1 file</depends>
+                </task>
+
+                <task>
+                    <name>Process LCHERA data to margin engine</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.SetPersistentDataForComponent</class>
+                    <validateonly>true</validateonly>
+                    <offset>2200</offset>
+                    <period>300000</period>
+                    <wrappedmessages>false</wrappedmessages>
+                    <retries>2</retries>
+                    <inputfile>
+                        <namingstyle>reuters</namingstyle>
+                        <name>lchera</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                    </inputfile>
+                    <comparepreviousfile>
+		    	<maxsizepercentreduction>95</maxsizepercentreduction>
+		    	<failonexceed>true</failonexceed>
+		    </comparepreviousfile>
+                    <depends>Append lchera Instrument Data To lchera file</depends>
+                </task>
+                
+               
+                <task>
+                    <name>FTP LCHERA RANProtocol to MarginDirect1</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.SendURLFiles</class>
+                    <offset>2300</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <zip>false</zip>
+                    <zipextension></zipextension>
+                    <keepzipfile></keepzipfile>
+                    <hostname>MARGINDIRECT01</hostname>
+                    <port></port>
+                    <proxyhost></proxyhost>
+                    <proxyport></proxyport>
+                    <ftpfiletype>binary</ftpfiletype>
+                    <file>
+                        <username>ftp_user</username>
+                        <password>ftp$user</password>
+                        <encryptedpassword>false</encryptedpassword>
+                        <namingstyle>reuters</namingstyle>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <targetfile>
+                            <namingstyle>reuters</namingstyle>
+                            <name>lchera</name>
+                            <postfix></postfix>
+                            <path>data/ranprotocol/</path>
+                        </targetfile>
+                    </file>
+                    <depends>Process LCHERA data to margin engine</depends>
+                </task>
+                
+               <task>
+                    <name>Move main output file for MarginDirect</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>2400</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <action>move</action>
+                    <file>
+                        <namingstyle>reuters</namingstyle>
+                        <name>lchera</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <postfix></postfix>
+                    </file>
+                    <to>
+                        <namingstyle>reuters</namingstyle>
+                        <name>lcheraMD</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                    </to>                    
+                    <depends>FTP LCHERA RANProtocol to MarginDirect1</depends>
+               </task>
+                
+                
+               <task>
+                    <name>Move LCHERA P22 file to Main output file</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.FileActionTask</class>
+                    <offset>2500</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <action>copy</action>
+                    <file>
+                        <namingstyle>fixed</namingstyle>
+                        <name>lcheraP22</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <postfix>.out</postfix>
+                    </file>
+                    <to>
+                        <namingstyle>reuters</namingstyle>
+                        <name>lchera</name>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <dateformat></dateformat>
+                        <postfix></postfix>
+                    </to> 
+                    <depends>Move main output file for MarginDirect</depends>                   
+               </task>
+                
+
+                <task>
+                  <name>FTP LCHERA RANProtocol to rxpp7</name>
+                  <class>com.rolfeandnolan.ccp.scheduler.tasks.SendURLFiles</class>
+                  <offset>2600</offset>
+                  <period>300000</period>
+                  <retries>2</retries>
+                  <zip>true</zip>
+                  <zipextension>.zip</zipextension>
+                  <keepzipfile>true</keepzipfile>
+                  <hostname>rxpp7.ranplc.co.uk</hostname>
+                  <port></port>
+                  <proxyhost></proxyhost>
+                  <proxyport></proxyport>
+                  <ftpfiletype>binary</ftpfiletype>
+                  <file>
+                        <username>ESO7</username>
+                        <password>0ff31bf169b4</password>
+                        <encryptedpassword>true</encryptedpassword>
+                        <namingstyle>reuters</namingstyle>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <name>lchera</name>
+                        <postfix></postfix>
+                        <targetpath>RXPP7_DISK_01:[RANSYS7.RANMAR]</targetpath>
+                        <targetname></targetname>
+                  </file>
+                  <depends>Move LCHERA P22 file to Main output file</depends>
+                </task>
+                <task>
+                    <name>FTP LCHERA RANProtocol to AlertsDirect1</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.SendURLFiles</class>
+                    <offset>2700</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <zip>false</zip>
+                    <zipextension></zipextension>
+                    <keepzipfile></keepzipfile>
+                    <hostname>193.133.185.7</hostname>
+                    <port></port>
+                    <proxyhost></proxyhost>
+                    <proxyport></proxyport>
+                    <ftpfiletype>binary</ftpfiletype>
+                    <file>
+                        <username>alertadmin</username>
+                        <password>welcome</password>
+                        <encryptedpassword>false</encryptedpassword>
+                        <namingstyle>reuters</namingstyle>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <targetfile>
+                            <namingstyle>reuters</namingstyle>
+                            <name>lchera</name>
+                            <postfix></postfix>
+                            <path>data/ranprotocol/</path>
+                        </targetfile>
+                    </file>
+                    <depends>Move LCHERA P22 file to Main output file</depends>
+                </task>
+                <task>
+                    <name>FTP LCHERA RANProtocol to US MOLCH1 Server</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.SendURLFiles</class>
+                    <offset>2800</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <zip>false</zip>
+                    <zipextension></zipextension>
+                    <keepzipfile></keepzipfile>
+                    <hostname>192.168.110.85</hostname>
+                    <port></port>
+                    <proxyhost></proxyhost>
+                    <proxyport></proxyport>
+                    <usetemptargetname>true</usetemptargetname>
+                    <temptargetpostfix>_tmp</temptargetpostfix>
+                    <ftpfiletype>binary</ftpfiletype>
+                    <file>
+                        <username>oe</username>
+                        <password>temp4321</password>
+                        <encryptedpassword>false</encryptedpassword>
+                        <namingstyle>reuters</namingstyle>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <targetfile>
+                            <namingstyle>reuters</namingstyle>
+                            <name>lchera</name>
+                            <postfix></postfix>
+                            <path>/home/oe/ranmargin/prices/</path>
+            </targetfile>
+                    </file>
+                    <depends>Move LCHERA P22 file to Main output file</depends>
+                </task>
+                <task>
+                    <name>FTP LCHERA RANProtocol to Goldman Sachs</name>
+                    <class>com.rolfeandnolan.ccp.scheduler.tasks.SendURLFiles</class>
+                    <offset>2900</offset>
+                    <period>300000</period>
+                    <retries>2</retries>
+                    <zip>false</zip>
+                    <zipextension></zipextension>
+                    <keepzipfile></keepzipfile>
+                    <hostname>ftpserver.gs.com</hostname>
+                    <port></port>
+                    <proxyhost></proxyhost>
+                    <proxyport></proxyport>
+                    <usetemptargetname>true</usetemptargetname>
+                    <temptargetpostfix>_tmp</temptargetpostfix>
+                    <ftpfiletype>binary</ftpfiletype>
+                    <file>
+                        <username>rolfeftp</username>
+                        <password>bdf4ert</password>
+                        <encryptedpassword>false</encryptedpassword>
+                        <namingstyle>reuters</namingstyle>
+                        <path>/home/oodg/ranmargin/data/ranprotocol/v27/</path>
+                        <prefix></prefix>
+                        <targetfile>
+                            <namingstyle>reuters</namingstyle>
+                            <name>lchera</name>
+                            <postfix></postfix>
+                            <path>/incoming/</path>
+                        </targetfile>
+                    </file>
+                    <depends>Move LCHERA P22 file to Main output file</depends>
+                </task>
+            </batch>

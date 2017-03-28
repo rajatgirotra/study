@@ -1,0 +1,10 @@
+Functions that modify outside objects
+
+In the iostreams library one overloaded version of the get( ) function takes a char& as an argument, and the whole point of the function is to modify its argument by inserting the result of the get( ). However, when you read code using this function it.s not immediately obvious to you that the outside object is being modified:
+
+    char c;
+    cin.get(c); 
+
+Instead, the function call looks like a pass-by-value, which suggests the outside object is not modified.
+
+Because of this, it's probably safer from a code maintenance standpoint to use pointers when you.re passing the address of an argument to modify.

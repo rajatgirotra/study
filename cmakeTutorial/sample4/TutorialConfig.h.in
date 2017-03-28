@@ -1,0 +1,7 @@
+#ifndef _TUTORIAL_CONFIG_H_
+#define _TUTORIAL_CONFIG_H_ 1
+
+#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+
+#endif // _TUTORIAL_CONFIG_H_

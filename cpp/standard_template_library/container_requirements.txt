@@ -1,0 +1,92 @@
+Requirements for Container Elements
+
+Containers, iterators, and algorithms of the STL are templates. Thus, they can process any type,
+whether predefined or user defined. However, because of the operations that are called, some
+requirements apply. The elements of STL containers must meet the following three fundamental
+requirements:
+
+1. An element must be copyable by a copy constructor. The generated copy should be
+equivalent to the source. This means that any test for equality returns that both are equal
+and that both source and copy behave the same.
+All containers create internal copies of their elements and return temporary copies of
+them, so the copy constructor is called very often. Thus, the copy constructor should
+perform well (this is not a requirement, but a hint to get better performance). If copying
+objects takes too much time you can avoid copying objects by using the containers with
+reference semantics. See Section 6.8, for details.
+
+2. An element must be assignable by the assignment operator. Containers and algorithms
+use assignment operators to overwrite old elements with new elements.
+
+3. An element must be destroyable by a destructor. Containers destroy their internal copies
+of elements when these elements are removed from the container. Thus, the destructor
+must not be private. Also, as usual in C++, a destructor must not throw; otherwise, all
+bets are off. These three operations are generated implicitly for any class. Thus, a class meets the
+requirements automatically, provided no special versions of these operations are defined and no
+special members disable the sanity of those operations.
+Elements might also have to meet the following requirements:
+
+-->>	 For some member functions of sequence containers, the default constructor must be
+available. For example, it is possible to create a nonempty container or increase the
+number of elements with no hint of the values those new elements should have. These
+elements are created without any arguments by calling the default constructor of their
+type.
+
+-->>	 For several operations, the test of equality with operator == must be defined. It is
+especially needed when elements are searched.
+
+
+-->>	 For associative containers the operations of the sorting criterion must be provided by the
+elements. By default, this is the operator <, which is called by the less<> function
+object.
+
+Value Semantics or Reference Semantics
+
+All containers create internal copies of their elements and return copies of those elements. This
+means that container elements are equal but not identical to the objects you put into the
+container. If you modify objects as elements of the container, you modify a copy, not the original
+object.
+
+Copying values means that the STL containers provide value semantics. They contain the values
+of the objects you insert rather than the objects themselves. In practice, however, you also need
+reference semantics. This means that the containers contain references to the objects that are
+their elements.
+
+The approach of the STL, only to support value semantics, has strengths and weaknesses. Its
+strengths are:
+-->>	 Copying elements is simple.
+-->>	 References are error prone. You must ensure that references don't refer to objects that
+	 no longer exist. You also have to manage circular references, which might occur.
+
+Its weaknesses are:
+-->>	 Copying elements might result in bad performance or may not even be possible.
+-->>	 Managing the same object in several containers at the same time is not possible.
+
+In practice you need both approaches; you need copies that are independent of the original data
+(value semantics) and copies that still refer to the original data and get modified accordingly
+(reference semnatics). Unfortunately, there is no support for reference semantics in the C++
+standard library. However, you can implement reference semantics in terms of value semantics.
+
+The obvious approach to implementing reference semantics is to use pointers as elements.
+However, ordinary pointers have the usual problems. For example, objects to which they refer
+may no longer exist, and comparisons may not work as desired because pointers instead of the
+objects are compared. Thus, you should be very careful when you use ordinary pointers as
+container elements.
+
+A better approach is to use a kind of smart pointer objects that have a pointer-like interface but
+that do some additional checking or processing internally. The important question here is, how
+smart do they have to be? The C++ standard library does provide a smart pointer class that might
+look like it would be useful here: auto_ptr (see Section 4.2). However, you can't use
+auto_ptrs because they don't meet a fundamental requirement for container elements. That is,
+after a copy or an assignment of an auto_ptr is made, source and destination are not
+equivalent. In fact, the source auto_ptr gets modified because its value gets transferred and
+not copied(see page 43 and page 47). In practice, this means that sorting or even printing the
+elements of a container might destroy them. So, do not use auto.ptrs as container elements (if
+you have a standard-conforming C++ system, you will get an error at compile time if you try to
+use an auto_ptr as a container element).
+
+To get reference semantics for STL containers you must write your own smart pointer class. But
+be aware: Even if you use a smart pointer with reference counting (a smart pointer that destroys
+its value automatically when the last reference to it gets destroyed), it is troublesome. For
+example, if you have direct access to the elements, you can modify their values while they are in
+the container. Thus, you could break the order of elements in an associative container. You don't
+want to do this.

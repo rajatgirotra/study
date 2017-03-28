@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+import "a2.proto";
+import "a1.proto";
+
+message A3 {
+    required A1 a1 = 1;
+}

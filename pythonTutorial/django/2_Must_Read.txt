@@ -1,0 +1,43 @@
+the url() function in urlpatterns list in mysite/urls.py has the following signature
+
+url(regex, view, kwargs, name)
+regex is the pattern to match in the URL.
+view is the function that will be called when a particular URL matches.
+kwargs will be  keyword arguments passed to the function along with the HttpRequest Object.
+name is a unique name for ur URL - allows you to refer to your URL uniquely from multiple places from Django.
+
+Ok in mysite/mysite/settings.py - You have ROOT_URLCONF variable. This is set to the name of a module.
+This module must have a "urlpatterns" variable which is a list of url() instances.
+
+Each url() instance is look'ed up in sequence. The first that matches, its corresponding view (ie function) is called.
+The regex can also have named or unnamed groups. When a regex matches
+
+1) The unnamed groups that match are passed as positional arguments.
+2) The named groups that match are passed as a dictionary
+3) The keyword args passed to the url() function are also passed as a dictionary. An item in named group with the same key as specified in url() is overriden with value from the url() instance.
+4) the second argument of url() can also be the include() function, where the argument is the module name where again urlpatterns must be defined. This is a way of forwarding the url resolution.
+5) Alternatively, the include() can also take a list of url() instances also instead of a module name
+
+example:
+urlpatterns = [
+    # always preceed the regex with 'r' to tell python that its a raw string and  do not escape any characters.
+    url(r'^articles/2003/$', views.special_case_2003),
+    url(r'^articles/(?P<year>[0-9]{4})/$', views.year_archive),
+    url(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/$', views.month_archive),
+    url(r'^articles/(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2})/$', views.article_detail),
+    ]
+
+A request to /articles/2005/03/ would call the function views.month_archive(request, year='2005', month='03'), instead of views.month_archive(request, '2005', '03').
+A request to /articles/2003/03/03/ would call the function views.article_detail(request, year='2003', month='03', day='03').
+
+Your first urlpatterns list defined in ROOT_URLCONF must also define support for un-resolved urls using one of the four supported variables.
+handler400 – See django.conf.urls.handler400.
+handler403 – See django.conf.urls.handler403.
+handler404 – See django.conf.urls.handler404.
+handler500 – See django.conf.urls.handler500.
+
+
+urlpatterns = [
+    url(r'^community/', include('django_website.aggregator.urls')),
+    url(r'^contact/', include('django_website.contact.urls')),
+   ]

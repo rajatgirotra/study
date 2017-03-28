@@ -1,0 +1,97 @@
+Django helps in maintaining session information also. Session information is required when a user is following some workflow on your server and you need to store the session data/interaction data for that user. Typically a session is given a sessionID which is exchanged between the server and client using Cookies. However all of that is abstracted by Django and you dont need to think about it. Session data however can be stored in
+1) Files (called File backed sessions)
+2) Database (called database backed sessions)
+3) Or Memory (called cache backed sessions)
+
+To use sessions, make sure:
+1) settings.py has django.contrib.sessions.middleware.SessionMiddleware in MIDDLEWARE list
+2) settings.py has django.contrib.sessions in INSTALLED_APPS.
+
+Its always good to use Cache backed sessions. However, ONLY use it with memcached. If you dont use memcached and use a simple local memory based cache backend, then local memory doesnt retain data for long enough, and also is not multithreaded safe.
+
+How to use cache backend. There are a number of settings in settings.py
+1) CACHES: It is a nested dictionary. This is where we specify all the caches which we want to use in Django. We must specify a default value as u see below
+CACHES =
+    {
+        default:   # This is the cache alias name, it is a dictionary of name to cache_name.
+        {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            # Other caches you want to configure
+        },
+        <some_other_cache_alias_name>
+        {
+            // name to cache_name mapping.
+        }
+     }
+
+
+BACKEND means Session backend caches. We have the following options:
+'django.core.cache.backends.db.DatabaseCache'
+'django.core.cache.backends.dummy.DummyCache'
+'django.core.cache.backends.filebased.FileBasedCache'
+'django.core.cache.backends.locmem.LocMemCache'
+'django.core.cache.backends.memcached.MemcachedCache'
+'django.core.cache.backends.memcached.PyLibMCCache'
+
+SESSION_ENGINE: This setting tell Django whether to store session_data or not. For cache based backends you can tell whether you want cache to persist data to db or not. If not, then data can be evicted from the cache when it fills up and needs more data.
+SESSION_ENGINE can be:
+'django.contrib.sessions.backends.db'
+'django.contrib.sessions.backends.file'
+'django.contrib.sessions.backends.cache'
+'django.contrib.sessions.backends.cached_db'
+'django.contrib.sessions.backends.signed_cookies'
+
+For File based backends, you'll need to set SESSION_FILE_PATH. Actually look at the documentation before setting.
+Lets configure CACHES, SESSION_CACHE_ALIAS, SESSION_ENGINE to use memcache based cache backend.
+
+For using memcached, we installed memcached (using vagrant and conda). Memcached was dependant on libevent, so i installed that too.
+Memcached on its own is simply a key/value store daemon (ie it is just a distributed hashMap which supports get() and set()). Installing it does not automatically accelerate or cache any of your data: your web applications do not become faster by just installing memcached or starting the memcached daemon
+Your applications need to be programmed to utilize the service. Also your applications will need clients, of which there should be ones readily available for your language of choice. For example, we installed "pip install python-memcached" to install python bindings for memcached".
+Starting the memcached server/daemon is also straight forward. Just start memcached in terminal and it by default listens on port 11211. We configure this ip/port combination in settings.py 
+
+"When a view receives an HttpRequest", the request object has a session attribute which is a dictionary used to store whatever data you want. This is the main object where you can get/set session data, and it also has a bunch of other functions. You can "print(dir(request.session))" to see session functions. Since request.session is like a dictionary, you can do like:
+
+request.session['fav.color'] = 'Red'
+fav_color = request.session['fav.color']
+del request.session['fav.color']
+'fav.color' in request.session
+request.session.get('fav.color', 'Blue') --> Default blue will be returned
+request.session.keys(), request.session.items(), request.session.setdefault(), request.session.clear()
+
+Other important functions
+-------------------------
+request.session.flush() --> Used to flush() the current session data from the session and delete the session cookie so that the browser cannot accees the session data again. Used when someone calls logout. Actually django.contrib.auth.logout() function calls it.
+
+set_test_cookie() - Sets a test cookie to determine whether the user's browsers supports cookies. Due to the way cookies works, you wont be able to test this until the uers next page request.
+test_cookie_workd()
+delete_test_cookie()
+
+set_expiry(value) --> to set expiry time. After the expiry, session dictionary is removed.
+and many other methods.
+
+the request.session object is actually a django.contrib.sessions.backends.cached_db.SessionStore object. Depending on the backend you use, it can be a SessionStore object from that backend too. So always use it like this:
+
+>>> from importlib import import_module
+>>> from django.conf import settings
+>>> SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
+
+You can also pass the session object to function where you can manipulate it.
+API:
+s = SessionStore()
+s.create() - Creates a new entry in the SessionStore table
+s.session_key
+s=SessionStore.objects.get(session_key='someKey')
+s.session_data
+
+Session data can also be serialized. By default you should always use Json serializer. Pickle serializer is also one way but it has security issues, so as far as possible, try to use json serialization.
+
+By default, session data is stored when session object is written to. However, when you say
+request.session['foo']['bar'] = 'baz', the session data is not saved as request.session object is itself not modified. To fix this we can do two things:
+1) explicitly set request.session.modified = True
+2) or set SESSION_SAVE_EVERY_REQUEST = True in settings.py - Django will save the session data on every request (prefer first approach)
+
+ SESSION_EXPIRE_AT_BROWSER_CLOSE : This is a setting that tells whether to delete session cookies after browser close or to keep the cookies until the SESSION_COOKIE_AGE. Keep this false if you dont want users to log in every time they open the browser. This can be overriden on a per session basis using set_expiry() method.
+
+If you are using a DB backend, then the django_session database can grow over time if stale session entries are not deleted. Django provides a command which can be run as cron to delete stale entries.
+1) "django-admin clearsessions" (make sure DJANGO_SETTINGS_MODULE and PYTHONPATH is correctly setup)
+2) "python manage.py clearsessions"

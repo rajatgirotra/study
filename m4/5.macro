@@ -1,0 +1,34 @@
+# this also works
+define(PARENS, ())dnl
+brackets = PARENS
+
+# Infact
+define(LPAREN, `(')dnl # Will need quoting to protect the (
+define(RPAREN, `)')dnl
+LPAREN HELLO RPAREN
+
+# Problem
+define(LEFT, `[')dnl
+LEFT
+# Redefine to something else
+define(LEFT, `}')dnl
+LEFT
+[
+
+# What is happening. m4 sees the define "LEFT" and converts it to [
+# So when it sees define(LEFT, `{') the second time, it replaces LEFT with [
+# so a new macro define([, `{') is actually defined. However the [ in line 16 also doesn't
+# replace to {
+# So basically m4 allows you to define macros with invalid names. (valid names must start with character or underscore and can have digits), but they are not preprocessed. We'll see later how defining invalid macro names is useful, but to avoid the above problem, quote ur macro name
+
+define(`RIGHT', `]')dnl
+RIGHT
+define(`RIGHT', `}')dnl
+RIGHT
+
+# This is the reason undefine() macro doesnt work when its argument is not quoted.
+define(`ABCD', abcd)dnl
+ABCD
+# undefine(ABCD)dnl
+undefine(`ABCD')dnl
+ABCD

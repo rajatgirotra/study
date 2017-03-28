@@ -1,0 +1,31 @@
+/*
+boost optional basicall provides us a wrapper class which can hold the initialisation state
+of a an object.
+
+boost::optional<T> just provides us to work formally with uninitialised variables.
+plus it must provide all support/operations on underlying type T, like:
+
+Default Construction: To introduce a formally uninitialized wrapped object.
+Direct Value Construction via copy: To introduce a formally initialized wrapped object whose value is obtained as a copy of some object.
+Deep Copy Construction: To obtain a new yet equivalent wrapped object.
+Direct Value Assignment (upon initialized): To assign a value to the wrapped object.
+Direct Value Assignment (upon uninitialized): To initialize the wrapped object with a value obtained as a copy of some object.
+Assignment (upon initialized): To assign to the wrapped object the value of another wrapped object.
+Assignment (upon uninitialized): To initialize the wrapped object with value of another wrapped object.
+Deep Relational Operations (when supported by the type T): To compare wrapped object values taking into account the presence of uninitialized states.
+Value access: To unwrap the wrapped object.
+Initialization state query: To determine if the object is formally initialized or not.
+Swap: To exchange wrapped objects. (with whatever exception safety guarantees are provided by T's swap).
+De-initialization: To release the wrapped object (if any) and leave the wrapper in the uninitialized state.
+
+the motivation behind optional<T> is that sometimes you dont actually have a value to return from a function, 
+so you end up using many different types of approcahes such as:
+
+1) using specially designated values like EOF, string::npos etc..
+2) using a wider type, for example using int in place of char in fget() to raccomodate EOF.
+3) Using a complex return type, such as std::pair<point, bool> where the boolean value tells if the point value
+is initialised and valid or not.
+
+So optional<T> is just formallising all that and giving you a consistent way to work with uninitialised variables.
+The interface provides all necesarry functions to work with the underlying type T, plus many other functions as listed above.
+*/

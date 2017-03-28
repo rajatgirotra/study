@@ -1,0 +1,36 @@
+Lets start with a sample tutorial.
+
+Step 1
+======
+auto-generate your default project files.
+"django-admin startproject <project_name>"
+This generates a number of files like urls.py, settings.url, wsgi.url, __init__.py, manage.py
+
+Step 2
+======
+Test auto-generated project is OK by running the empty server app. (which does nothing).
+python manage.py runserver
+go to http://127.0.0.1:8000/ to see the default welcome page
+Note that django has a built in light weight webserver which you just started. NEVER EVER USE THIS FOR PRODUCTION. This is only provided by django for development purposes. So you can forget about details of web server configuration and concentrate on business logic.
+python manage.py runserver 8080 --> to use a different port number other than the default 8000
+python manage.py runserver 0.0.0.0:8080 --> to let others in your network access the web server on your machine.
+
+Django will mostly reload the changes you make to your python code; so an explicit restart is not always required.
+
+Step 3: Creation of an App
+======
+Upto now you only created a project. Now we will create an app. An app is a web application which does something.
+A project can have multiple apps. An app can be in multiple projects. A project is a collection of configuration
+and apps for a particular website. Apps can be used in multiple projects, you can package them up and distribute them for use by other projects.
+Your app should be somewhere on the PYTHONPATH. you can either create it in the internal mysite folder like:
+mysite/mysite/polls. You you'll have to import mysite.polls.* in your application. The other way is to put at along side the manage.py file, so you can import it directly. Also in browser: you can type http://127.0.0.1:8000/mysite/polls/index.html instead of http://127.0.0.1:8000/mysite/mysite/polls/index.html
+"python manage.py startapp polls"
+
+Step 4: (create a view and map it to URL)
+=======
+Go to polls/views.py and create a funtion
+def index(request):
+    print("Hello World.")
+Go to polls/urls.py and see how to map a URL to view
+The next step is to point the root URLconf at polls.urls which we do in the project config file mysite/urls.py
+

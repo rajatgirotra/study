@@ -1,0 +1,37 @@
+In emacs lisp prgrams you can use regular expressions.
+Note that when emacs lisp processes strings, it removes the first slash \ from thr string.
+You u basically need two slashes to escape regular expression operators.
+However, \n, \t,\e only single one slash.
+
+Regex operators in emacs
+
+.  --> any character
+.* --> one or more characters
+.+  --> zero or more characters
+? --> zero or one character
+[abcdef]
+[a-f]    --> any character from a to f.
+^ --> match at beginning
+$ --> match at end
+\\| --> used to or two regex's
+\\(abc\\) --> create abc as a group
+
+read\\(file\\)? --> matches read or readfile
+
+read\\|get --> matches read or get
+
+\\(read\\|get\\)file --> matches readfile or getfile
+
+^\\*+  --> match one or more occurrences of * at the beginning
+
+[.?!][]\"')}]*\\($\\|\t\\|  \\)[ \t\n]*" --> matches dot, question mark or exclamation mark, followed by one or more occurences of (], \, ", ', ), or })
+                                           followed by either $ or tab or space, followed by or more occurences of (space, tab or newline)
+
+\\<program\\> --> matches program literally, doesnt match programmer, programming or microprogram etc.
+
+\\<program\\('s\\|s\\)?\\>   --> matches program, programs or program's
+
+(replace-regexp "\\<program\\('s\\|s\\)?\\>" "module\\1") --> \\1 means the 1st subexpression in the \\( and \\)
+
+replace-regexp "\\([a-zA-Z0-9_]+\\)\\.c" "\\1.java") --> replaces anything beginning with character or _ having extension *.c to *.java
+

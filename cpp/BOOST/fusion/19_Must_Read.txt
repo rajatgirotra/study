@@ -1,0 +1,9 @@
+We have few more functions to convert one fusion sequence to another.
+
+as_list()
+as_vector()
+as_set()
+as_deque()
+as_map() etc.
+
+Not very difficult but we'll go through them when we need to use these.

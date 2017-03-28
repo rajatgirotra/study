@@ -1,0 +1,62 @@
+/*
+boost::call_traits<> is a template class which contain typedef's to provide the best method
+to pass arguments to a function and return values from a function for a given type T.
+
+Also it ensures that references to references do not occur (which are illegal)
+
+For a given type T, the following typedefs exist.
+
+T                      :   boost::call_traits<T>::value_type
+(return by value)
+
+T&
+(return by reference)  :   boost::call_traits<T>::reference
+
+const T&
+(return by const reference)  :   boost::call_traits<T>::const_reference
+
+const T&                   : boost::call_traits<T>::param_type.
+(function parameter)      
+
+Note:
+
+1) If T is an array type, then call_traits defines value_type as a const pointer to type. This may or may not be a problem
+depending on what you are doing. So basically, be careful. One example where this is good is the std::make_pair problem.
+
+make_pair is defines as:
+template <class T1, class T2>
+  pair<T1,T2> make_pair (const T1 x, const T2 y);
+Now if T1 or T2 or both are actually an array of some type. then T1 will be const reference to an array type.
+So the function will try to return an array which it will copy construct from the argument passed: which is illegal.
+So having it as pointer type here is advantageous.
+
+2) If T is a built in type of a pointer, then param_type is defined as const T, instead of const T&.
+You might think think that const T& is better, but passing const T enables the compiler to perform some
+optimizations.  the reason that this is "optimal" for small built-in types is that with the value passed as
+"T const" instead of "const T&" the compiler is able to tell both that the value is constant and that it is free of aliases.
+With this information the compiler is able to cache the passed value in a register, unroll the loop, or use explicitly parallel
+instructions: if any of these are supported.
+
+You can also create a template class of you own and typedef the call_traits typedef for ease of use.
+*/
+
+#include <iostream>
+#include <string>
+#include <boost/call_traits.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
+#include <boost/scoped_ptr.hpp>
+
+template <typename T>
+struct utils
+{
+	typedef typename T    value_type;
+	typedef typename boost::call_traits<T>::param_type  param_type;
+	typedef typename boost::call_traits<T>::reference_type  reference;
+	typedef typename boost::call_traits<T>::const_reference const_reference;
+	typedef typename boost::call_traits<T>::value_type  result_type;
+	typedef boost::shared_ptr<T>  Ptr;
+	typedef boost::scoped_ptr<T> SPtr;
+	typedef boost::weak_ptr<T>  WPtr;
+};
+

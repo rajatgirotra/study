@@ -1,0 +1,11 @@
+document.getElementById("someId") --> returns an Element object or null if not found.
+
+Element object identifies an html element.
+
+
+document.getElementById("someId").innerHTML - A DOMString representing the markup of the element's content
+
+You can look up Mozilla Developer Network (MDN) for details of any HTML Element like HTMLImageElement, HTMLParagraphElement, etc.
+document.createElement("tagName");
+
+

@@ -1,0 +1,122 @@
+Protobuf has two encoding versions at the moment - version 2 and 3
+Encoding of tags 1-15 (ie the first fifteen fields) takes one byte only, after that it takes 2 or more bytes. So keep most commonly used fields near the top.
+Tags start at 1 and upto pow(2, 19) -1.
+19000-19999 are reserverd by google. Cannot use.
+FieldDescriptor::kFirstReservedNumber = 19000
+FieldDescriptor::kLastReservedNumber = 19999
+Due to a bug, repeated fields of scalar type are not very efficienty coded. So use [packed=true]; option to make it more efficient
+repeated int32 samples = 4 [packed=true,other_option_name=other_option_value];
+You would already know about reserved, optional and repeated keywords
+
+ProtoTypes        C++ Type             Remarks
+double            double               
+float             float
+int32             int32
+int64             int64         int32 and int64 used varaible length coding, but they are not good for storing -ive numbers. Use sint32, sint64 instead.
+sint32            int32
+sint64            int64         Same- Use variable length coding but are much more efficient in encoding -ive numbers.
+uint32            uint32
+uint64            uint64
+fixed32           uint32
+fixed64           uint64        Fixed length encoding and only unsigned numbers can be stored.
+sfixed32          int32
+sfixed64          int64         Fixed length encoding and both signed and unsigned.
+bool              bool
+string            string
+bytes             string
+Us fixed length encoding only when numbers will be large +ive or large -ive. For smaller numbers it makes sense to use fixed length encoding as those are more efficient for storing smaller numbers.
+
+Default values for optional fields in protobuf
+1) string  - "" --> empty string
+2) bool - false
+3) numeric types - 0
+4) enums - First enum value you define. So whenever you define an enum, always define the first value as invalid/unknown.
+
+An enum can have the same value for different constants. FOr example, BANANA and KELA have same value 1.
+enum Fruit {
+    option allow_alias = true; //need to set this at the enum level.
+    BANANA = 1;
+    APPLE = 2;
+    KELA = 1;
+};
+
+By default, you can only use definitions in the proto files you directly include. If c.proto includes b.proto and b.proto includes a.proto, c.proto cannot use definitions from a.proto. Also sometimes if you change the location of your pproto, instead of changing the import statement in all client protos, just put a proto in the old location to forward to imports to the new location. Eg:
+
+// new.proto in some new location
+
+// old.proto
+include public "new.proto"
+
+//client.proto
+include "old.proto" // client doesnt change and still includes "old.proto"
+
+Removing Fields - If you remove a field from your proto which is already in production, then future users can resuse the deleted tag number for some other field. This can cause bugs and undefined behavior. Instead, always mark fields which you are removing as reserved. This way protoc compiler will not allow you to resue the field for any other purpose. Eg:
+
+message MyMsg {
+   reserved 2,5,9 to 11;
+   reserved "foo", "bar";
+   };
+
+Updating a message: What you can and what you cannot. Given that a proto is in production and used by several interacting clients, if one client wants to update the proto what you can do.
+1) You can only add new fields which are optional or repeated. This way messages serialised by new code will be accepted by old code as the new fields are optional. Infact the old code does not discard the unknown fields. Should you use the old code to serialize the same message and send it out, it will send the unknown fields as such without any change.
+2) Messages serialized by old code can still be received by new code as all required fields will be present. Just that the new fields will get default values. So choose default values wisely.
+
+3) Removing optional/required fields is also fine. Just mark them as reserved. Message serialized by new code will not have them; but they were anyway optional/repeated so old code is fine. The old code may set some values, but the new code will not use it anyway.
+
+4) int32, uint32, int64, uint64, bool are all compatible to each other. So you can change them without breaking any backwards/forward compatibility. But an int64 sent over the wire if interpreted as int32 will behave like its truncated to 32 bits.
+
+5) sint32, sint64 - same as above
+6) fixed32, fixed64, sfixed32, sfixed64 - same as above
+7) string and bytes - same as above
+8) Default values can be changed. But remember, default values are not sent over the wire. This means that if a message is generated and serialized and no value is explicitly set for the default field, then the old and new versions will see different values. Default values are also read from that versions proto file. Not from the wire message.
+9) optional is interchangeable with repeated. repeated field when interpreted as optional will see only the last value of the repeated fields when it is a primitive type, or merge all inputs if its a message type. Need to find out what this merging is.
+
+Extensions
+----------
+You can allow for your message types to be extended by others.
+message MyMsg {
+    extensions 1000 to max; // max is a keyword. OR
+    extensions 2000 to 3000;
+    };
+
+Then your client can do
+extend MyMsg {
+   optional int bar = 2000;
+   };
+
+Note that you need to avoid 19000-19999 which are reserved by protobuf. Also make sure that different teams that can extend the proto do not give different types to the same tag numbers. Best is to create multiple extensions for different teams with their tag number range. Also there is a different API for setting extension fields. We'll see later when we write extensions, but it is analogous to what you have for normal field types.
+
+oneof --> When there are multiple optional fields in your proto and you know that AT MOST ONE will be set at any time, you can include all these together in a oneof block. This way they all will use the same memory. Example:
+
+message MyMsg {
+    oneof MyOneOf {
+        string name; // NOTE , cannot be repeated. Also optional is implicit and doesnt need to be put explicitly.
+        SubMsg sub_message;
+    }
+};
+
+MyMsg message;
+SubMsg* sub_message = message.mutable_sub_message();
+message.set_name("name");      // Will delete sub_message
+sub_message->set_...            // Crashes here
+Setting a oneof field will automatically clear the ones set previously.
+
+Also if you use the SWAP() API to swap two messages, then the oneof fields will also get swapped.
+1) Extensions are not supported with oneof
+
+Maps:
+Protobuf also provide you a map API. For that you need to define a map type in your protobuf. They key_type must be an integral primitive type of string (floating types and bytes not allowed). Eg:
+
+map<string, Project> projects = 3;  // where Project is some message type.
+Maps cannot be repeated, optional, or required.
+Wire format ordering and map iteration ordering of map values is undefined, so you cannot rely on your map items being in a particular order.
+When generating text format (XML or JSON for example) for a .proto, maps are sorted by key. Numeric keys are sorted numerically.
+
+packages:
+Just like namespace to avoid name clashes
+package foo.bar;
+message Open {};
+
+RPC
+---
+protobuf also provides support for RPC service. Historically, you used to define your RPC servcies and protobuf will generate an abstract API for you which you could use with any 3rd part RPC implementation. However now you can actaully specify the RPC implementatin of your choice and it will generate code for that RPC implementation. gRPC RPC looks good and i'll explore it. There are some known issues with proto2 and gRPC. So recommendation is to use proto3 with gRPC. If you want to use proto2 with gRPC for some reason, use atleast gRPC version 3.0 or above.

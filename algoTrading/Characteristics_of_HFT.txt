@@ -1,0 +1,9 @@
+1) They use extraordinarly high speeds and sophisticated programs to generate, route and execute orders
+2) They use co-location services and individual data feeds offerred by exchanges to minimize network & other latencies.
+3) They have very short timeframes for establishing and liquidating positions.
+4) They submit numerous orders which are cancelled shortly after subimission.
+5) They will end their trading day as close to a flat position. (ie they do not carry naked or unhedged position through to the next trading day).
+
+The two main strategies which HFT use:
+a) Market Making Strategy by quoting a bid and ask prices.
+b) The Arbitrage strategy

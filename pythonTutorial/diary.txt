@@ -1,0 +1,7 @@
+This is a simple text file.
+This is the next line.
+This is the third line.
+and a fourth line is also there.
+In total there are five lines.
+Python writing line 1
+Python writing line 2

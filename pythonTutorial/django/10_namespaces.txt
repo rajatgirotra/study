@@ -1,0 +1,17 @@
+URL Namespaces
+-------------
+We need to master this. As you read before in 9_reverse_url.txt, it is always good to have a name for your URL/view, so that reverse URL is possible.
+However, because the name of a URL might clash with a similar name used by another app, we should use some unique prefix. This is where URL namespaces come in handy.
+
+Note that in Django, it is possible that the same app can be deployed more than once. We say that we have an application that has more than one instances deployed.
+
+Each application is given a unique name called application namespace.
+Each instance of an application also has a unique name called instance namespace. Note that an instance name can be the same as the application namespace, which means that this instance is the default. We'll see what default means below.
+
+Now we define the URL name in the same way as before. Just give it a simple name. However when we use it in template code or in python code (using reverse() function), we use it like this:
+
+"App/Instance_Name:URL_name"
+
+There are some rules how the "App/Instance_Name:URL_name" is resolved correctly.
+
+1) 

@@ -1,0 +1,105 @@
+<!-- You also have pesudo classes and pseudo elements on which you can specify CSS
+pseudo-classes: are classes where the element have a particular state. Example
+1) Lets say an element is hovered on
+2) Lets say a link is visited or unvisited
+3) A button or item is selected or clicked and others.
+ pseudo-classes are specified using
+
+selector:state {
+} example,
+
+a:hover {
+}
+
+a.visited {
+}
+
+a.highlight:hover {
+}
+Some more pseudo classes are: active, nth-child, focus, first-of-type,link, only-child and many more.
+pseudo-elements are used to apply css before or after elements
+selector::after {
+}
+
+selector::before {
+}
+pseudo elements are: before, after, first-letter, first-line, selection.
+
+You also have combine selectors like explained below
+
+li a {
+   // Will apply the css whenever the anchor tag is a descendant of li tag
+}
+
+li > a {
+// Will apply the css whenever the anchor tag is an immediate child of li tag
+}
+
+li ~ a {
+// Will apply the css whenever the anchor tag is at the same level as the li tag. Ie general siblings
+}
+
+li + a {
+// Will apply the css whenever the anchor tag is an immediate sibling of the li tag. Ie real siblings
+}
+
+Other selectors
+
+p {
+// will apply to p elements
+}
+
+.cashew {
+// will apply to all elements with class cashew
+}
+
+#para {
+// will apply css to elements with id = para
+}
+
+h1, h2, p {
+// will apply to h1, h2, p
+}
+
+a[target] {
+// will apply to all anchor tags with attribute target
+}
+
+a[target="abc"] {
+// will apply to all anchor tags with attribute target and value abc
+}
+
+a[target~="abc"] {
+// will apply to all anchor tags with attribute target and containing "abc" as its value (whole word)
+// like <a target="xyz abc">
+}
+a[target|="abc"] {
+// will apply to all anchor tags with attribute target and value beginning with abc (as a whole word)
+// example target="abc", or target="abc-xyz" but not target="abcd"
+}
+
+a[target^="abc"] {
+// will apply to all anchor tags with attribute target and value beginning with abc
+// example target="abc", or target="abc-xyz" or target="abcd"
+}
+
+a[target$="abc"] {
+// will apply to all anchor tags with attribute target and value ending with abc
+// example target="abc", or target="xyz-abc" or target="dabc"
+}
+
+a[target*="abc"] {
+// will apply to all anchor tags with attribute target and containing value abc anywhere
+}
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>

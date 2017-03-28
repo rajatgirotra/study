@@ -1,0 +1,24 @@
+Some application spend most of their time in executing library functions.
+Time consuming library functions often belong to these categories.
+
+1) File input and output
+2) Memory and string manipulation
+3) Mathematical functions
+4) Graphics processing
+5) Encryption, decryption, data compression etc.
+
+Most compilers include standard libraries for many of these purposes.
+Sometimes standard libraries are not always fully optimized.
+
+So if your profiler shows that a lot of CPU time is spent in library functions,
+it might be a good idea to consider a different function library.
+
+GNU compiler comes with the standard gnu library for all these tasks.
+But the gnu compiler also inserts built-in code instead of using the most common
+library functions. Examples, we have __builtin_abs((n)) vs abs() in gnu
+and __builtin_strcpy((d), (s)) vs strcpy(d, s). GNU claims it is a good idea
+to use the builtins (which are enabled by default) as it gives more effecient code.
+You can use -fno-builtin to disable using builtin functions.
+
+agner_fog also has written some standard functions which we can use.
+Try downloading asmlib.zip from his website and playing with it.

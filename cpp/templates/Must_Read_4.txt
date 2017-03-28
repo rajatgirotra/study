@@ -1,0 +1,10 @@
+A template is not compiled once to generate code usable for any type; instead, it is compiled for
+each type or combination of types for which it is used. This leads to an important problem in the
+handling of templates in practice: You must have the implementation of a template function
+available when you call it, so that you can compile the function for your specific type. Therefore,
+the only portable way of using templates at the moment is to implement them in header files by
+using inline functions.
+
+To avoid the problem of templates having to be present in header files, the standard introduced a
+template compilation model with the keyword export. However, I have not seen it implemented yet.
+

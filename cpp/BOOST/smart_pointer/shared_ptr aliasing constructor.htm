@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>  shared_ptr aliasing constructor</title>
+
+<meta name="generator" content="WordPress 2.2.2" /> <!-- leave this for stats -->
+
+<link rel="stylesheet" href="http://codesynthesis.com/~boris/blog/wp-content/themes/plain/style.css" type="text/css" media="screen" />
+<link rel="alternate" type="application/rss+xml" title="A Sense of Design RSS Feed" href="http://codesynthesis.com/~boris/blog/feed/" />
+<link rel="pingback" href="http://codesynthesis.com/~boris/blog/xmlrpc.php" />
+
+<style type="text/css" media="screen">
+
+	#page { background: url("http://codesynthesis.com/~boris/blog/wp-content/themes/plain/images/kubrickbgwide.jpg") repeat-y top; border: none; }
+
+</style>
+
+	<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://codesynthesis.com/~boris/blog/xmlrpc.php?rsd" />
+</head>
+<body>
+<div id="page">
+
+<div id="header">
+
+</div>
+
+
+<hr />
+
+	<div id="content" class="widecolumn">
+
+	
+		<div class="navigation">
+			<div class="alignleft">&laquo; <a href="http://codesynthesis.com/~boris/blog/2012/04/18/cxx11-generalized-attributes/">C++11 generalized attributes</a></div>
+			<div class="alignright"><a href="http://codesynthesis.com/~boris/blog/2012/05/02/odb-2-0-0-released/">ODB 2.0.0 released</a> &raquo;</div>
+		</div>
+
+		<div class="post" id="post-90">
+			<h2><a href="http://codesynthesis.com/~boris/blog/2012/04/25/shared-ptr-aliasing-constructor/" rel="bookmark" title="Permanent Link: shared_ptr aliasing constructor">shared_ptr aliasing constructor</a></h2>
+
+			<div class="entry">
+				<p>One of the interesting C++11 additions to <code>std::shared_ptr</code> compared to TR1 is the aliasing constructor (also available in <code>boost::shared_ptr</code> since 1.35.0). This constructor allows us to create a <code>shared_ptr</code> that <em>shares ownership</em> of one object but <em>points</em> to another. The signature of this constructor looks like this:</p>
+<pre>
+template &lt;class Y&gt;
+shared_ptr (const shared_ptr&lt;Y&gt;&amp; r, T* p) noexcept;
+</pre>
+<p>The first argument (<code>r</code>) is the pointer with which we will share ownership of object <code>Y</code>. While the second argument (<code>p</code>) is the object which we will actually point to. That is, <code>get()</code> and <code>operator-&gt;</code> will return <code>p</code>, not <code>r</code>. In fact, to understand this better, it is useful to think of <code>shared_ptr</code> as consisting of two parts: the object that it owns (or, more precisely, shares ownership of) and the object that it stores. When we use other <code>shared_ptr</code> constructors, these two objects are the same (give or take base-derived differences). The aliasing constructor allows us to create a shared pointer that has different objects in these two parts. Note also that the stored object is never deleted by <code>shared_ptr</code>. If a shared pointer created with the aliasing constructor goes out of scope, and it is the last pointer owning <code>r</code>, then <code>r</code> is deleted, not <code>p</code>.</p>
+<p>What can the aliasing constructor be useful for? Because the stored object is never deleted by <code>shared_ptr</code>, to avoid the possibility of dangling pointers, we need to make sure that the lifetime of the stored object is at least as long as that of the owned object. The two primary arrangements that meet this requirement are data members in classes and elements in containers. Passing a pointer to a data member while ensuring the lifetime of the containing object will probably be the major use-case of the aliasing constructor. Here are a few examples:</p>
+<pre>
+struct data {&#46;..};
+&nbsp;
+struct object
+{
+&nbsp;&nbsp;data data_;
+};
+&nbsp;
+void f ()
+{
+&nbsp;&nbsp;shared_ptr&lt;object&gt; o (new object); // use_count == 1
+&nbsp;&nbsp;shared_ptr&lt;data&gt; d (o, &amp;o-&gt;data_); // use_count == 2
+&nbsp;
+&nbsp;&nbsp;o.reset (); // use_count == 1
+&nbsp;
+&nbsp;&nbsp;// When d goes out of scope, object is deleted.
+}
+&nbsp;
+void g ()
+{
+&nbsp;&nbsp;typedef std::vector&lt;object&gt; objects;
+&nbsp;
+&nbsp;&nbsp;shared_ptr&lt;objects&gt; os (new objects); // use_count == 1
+&nbsp;&nbsp;os-&gt;push_back (object ());
+&nbsp;&nbsp;os-&gt;push_back (object ());
+&nbsp;
+&nbsp;&nbsp;shared_ptr&lt;object&gt; o1 (os, &amp;os-&gt;at (0)); // use_count == 2
+&nbsp;&nbsp;shared_ptr&lt;object&gt; o2 (os, &amp;os-&gt;at (1)); // use_count == 3
+&nbsp;
+&nbsp;&nbsp;os.reset (); // use_count == 2
+&nbsp;
+&nbsp;&nbsp;// When o1 goes out of scope, use_count becomes 1.
+&nbsp;&nbsp;// When o2 goes out of scope, objects is deleted.
+}
+</pre>
+<p>While the above examples are synthetic, here is a real-world case, taken from <a href="http://www.codesynthesis.com/products/odb/">ODB</a>, an ORM for C++. In ODB, when one needs to save an object to or load it from a database, it is done using the <code>database</code> class. Underneath, the <code>database</code> class has a database connection factory which can have different implementations (e.g, a pool or a connection per thread). Sometimes, however, one may need to perform a low-level operation which requires accessing the connection directly instead of going through the <code>database</code> interface. To support this, the <code>database</code> class provides a function which returns a connection. The tricky part is to make sure the connection does not outlive the factory that created it. This would be bad, for example, if a connection tried to return itself to the connection pool that has already been deleted. The aliasing constructor allows us to solve this quite elegantly:</p>
+<pre>
+class connection {&#46;..};
+class connection_factory {&#46;..};
+&nbsp;
+class database
+{
+&nbsp;&nbsp;&#46;..
+&nbsp;
+&nbsp;&nbsp;database (const std::shared_ptr&lt;connection_factory&gt;&amp;);
+&nbsp;
+&nbsp;&nbsp;std::shared_ptr&lt;connection&gt; connection ()
+&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;return std::shared_ptr&lt;connection&gt; (
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factory_, factory_-&gt;connection ());
+&nbsp;&nbsp;}
+&nbsp;
+private:
+&nbsp;&nbsp;std::shared_ptr&lt;connection_factory&gt; factory_;
+};
+</pre>
+<p>While there is no aliasing constructor for <code>weak_ptr</code>, we can emulate one by first creating <code>shared_ptr</code>:</p>
+<pre>
+shared_ptr&lt;object&gt; o (new object);
+shared_ptr&lt;data&gt; d (o, &amp;o-&gt;data_);
+weak_ptr&lt;data&gt; wd (d);
+</pre>
+<p>At first it may seem that passing around aliased <code>weak_ptr</code> is the same as passing a raw pointer. However, <code>weak_ptr</code> has one major advantage: we can check if the pointer is still valid and also make sure that the object is not deleted while we are working with it:</p>
+<pre>
+if (shared_ptr&lt;data&gt; d = wd.lock ())
+{
+&nbsp;&nbsp;// wd is still valid and we can safely use data
+&nbsp;&nbsp;// as long as we hold d.
+}
+</pre>
+<p>Let&#8217;s now look at some interesting special cases that are made possible with the aliasing constructor. Remember that without the aliasing constructor we can only create shared pointers that own and store the same object. If, for example, we initialize a shared pointer with <code>nullptr</code>, then both the owned and stored objects will be <code>NULL</code>. With the aliasing constructor, however, it is possible to have one <code>NULL</code> while the other non-<code>NULL</code>.</p>
+<p>Let&#8217;s start with the case where the owned object is <code>NULL</code> while the stored one is not. This is perfectly valid, although a bit strange; the <code>use_count</code> will be 0 while <code>get()</code> will return a valid pointer. What can something like this be useful for? One interesting use-case that I could think of is to turn a shared pointer into essentially a raw pointer. This could be useful, for example, if an interface expects a shared pointer but in some special cases we need to pass, say, a statically allocated object which shall never be deleted. Continuing with the ODB example, if we are using a connection per thread factory, it doesn&#8217;t make sense to have more than one instance of this factory in an application. So we might as well allocate it statically:</p>
+<pre>
+class connection_per_thread_factory {&#46;..};
+static connection_per_thread_factory cpt_factory_;
+static std::shared_ptr&lt;connection_factory&gt; cpt_factory (
+&nbsp;&nbsp;std::shared_ptr&lt;connection_factory&gt; (), &amp;cpt_factory_);
+&nbsp;
+void f ()
+{
+&nbsp;&nbsp;database db (cpt_factory);
+}
+</pre>
+<p>Note also that while the same can be achieved by providing a no-op deleter, the aliasing constructor approach has an advantage of actually not performing any reference counting, which can be expensive because of the atomicity requirement.</p>
+<p>The other special case is where the stored object is <code>NULL</code> while the owned one is not. In fact, we can generalize this case by observing that the stored value doesn&#8217;t really have to be a pointer since all <code>shared_ptr</code> does with it is copy it around and return it from <code>get()</code>. So, more generally, <code>shared_ptr</code> can be made to store any value of the <code>size_t</code> width. It can be 0, some flag, counter, index, timestamp, etc.</p>
+<p>What can we use this for? Here is one idea: Let&#8217;s say our application works with a set of heterogeneous objects but we only want some limited number of them to ever be present in the application&#8217;s memory. Say, they can be loaded from the database, if and when needed. So what we need is some kind of cache that keeps track of all the objects already in memory. When a new object needs to be loaded, the cache finds the oldest object in memory and purges it (i.e., the FIFO protocol).</p>
+<p>Here is how we can implement this using the aliasing constructor. Our cache will be the only place in the application holding shared pointers to the object. Except instead of storing a pointer to the object, we will store a timestamp in <code>shared_ptr</code>. Other parts of our application will all hold weak pointers to the objects they are working with. Before accessing the object, they will lock <code>weak_ptr</code> to check if the object is still in memory and to make sure it will not be unloaded while being used. If the weak pointer is not valid, then the application asks the cache to load it. Here is an outline of this cache implementation:</p>
+<pre>
+class fifo_cache
+{
+public:
+&nbsp;&nbsp;template &lt;class T&gt;
+&nbsp;&nbsp;std::weak_ptr&lt;T&gt; load (unsigned long obj_id)
+&nbsp;&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;// Remove the oldest object from objects_.
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;std::shared_ptr&lt;T&gt; o (/* load object given its id */);
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;size_t ts (/* generate timestamp */);
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;std::shared_ptr&lt;void&gt; x (
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o, reinterpret_cast&lt;void*&gt; (ts));
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;objects_.push_back (x);
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;return std::weak_ptr&lt;T&gt; (o);
+&nbsp;&nbsp;}
+&nbsp;
+private:
+&nbsp;&nbsp;std::vector&lt;std::shared_ptr&lt;void&gt;&gt; objects_;
+};
+</pre>
+<p>If you know of any other interesting uses for these two special cases, do share in the comments.</p>
+
+				
+				<p class="postmetadata alt">
+					<small>
+						This entry was posted
+												on Wednesday, April 25th, 2012 at 9:02 am						and is filed under <a href="http://codesynthesis.com/~boris/blog/category/c/" title="View all posts in C++" rel="category tag">C++</a>.
+						You can follow any responses to this entry through the <a href='http://codesynthesis.com/~boris/blog/2012/04/25/shared-ptr-aliasing-constructor/feed/'>RSS 2.0</a> feed.
+
+													Both comments and pings are currently closed.
+
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+
+	<h3 id="comments">One Response to &#8220;shared_ptr aliasing constructor&#8221;</h3>
+
+	<ol class="commentlist">
+
+	
+		<li class="alt" id="comment-2000">
+			<cite>Marek</cite> Says:
+						<br />
+
+			<small class="commentmetadata"><a href="#comment-2000" title="">April 26th, 2012 at 2:59 am</a> </small>
+
+			<p>Hi, nice article, I didn&#8217;t know about the aliasing ctor. I think you should replace std::size_t by std::intptr_t or std::uintptr_t to more clearly communicate your intend to hold pointer value inside a integer variable (i know size_t is an equialent to uintptr_t).</p>
+
+		</li>
+
+	
+	
+	</ol>
+
+ 
+
+
+	
+	</div>
+
+
+<hr />
+<div id="footer">
+<!-- If you'd like to support WordPress, having the "powered by" link somewhere on your blog is the best way, it's our only promotion or advertising. -->
+	<p>
+		A Sense of Design is proudly powered by
+		<a href="http://wordpress.org/">WordPress</a>
+		<br /><a href="http://codesynthesis.com/~boris/blog/feed/">Entries (RSS)</a>
+		and <a href="http://codesynthesis.com/~boris/blog/comments/feed/">Comments (RSS)</a>.
+		<!-- 18 queries. 0.516 seconds. -->
+	</p>
+</div>
+</div>
+
+<!-- Gorgeous design by Michael Heilemann - http://binarybonsai.com/kubrick/ -->
+
+		</body>
+</html>

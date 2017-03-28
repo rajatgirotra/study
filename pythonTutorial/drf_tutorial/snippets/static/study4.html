@@ -1,0 +1,66 @@
+<!-- before you understand display: inline-block, lets use float and clear propeties to draw floating boxes
+ie boxes side by side (make two thee rows) and then lets see how inline-block makes things easy for us.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .floating-box {
+            border: 5px solid green;
+            width: 150px;
+            height: 150px;
+            float: left;
+            margin: 30px;
+        }
+
+        .afterbox {
+            content: normal;
+            clear: both;
+            display: table;
+            border: 3px solid red;
+        }
+
+        .inlineblock {
+            border: 5px solid green;
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            margin: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="floating-box"></div>
+<div class="floating-box"></div>
+<div class="floating-box"></div>
+<div class="floating-box"></div>
+<div class="floating-box"></div>
+<div class="floating-box"></div>
+<div class="floating-box"></div>
+<div class="floating-box"></div>
+
+<div class="afterbox">
+    This is a box after all the floating boxes
+</div>
+
+<!-- Now inline-block means an element which is inline but you can still specify a width and height for it.
+Normally for inline elements you cannot specify width and height but for inline-block you can.
+-->
+<div class="inlineblock"></div>
+<div class="inlineblock"></div>
+<div class="inlineblock"></div>
+<div class="inlineblock"></div>
+<div class="inlineblock"></div>
+<div class="inlineblock"></div>
+<div class="inlineblock"></div>
+<div class="inlineblock"></div>
+<!-- no need to use the clear property now -->
+<div>
+    This is a box after all the floating boxes
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+Creating a namespace
+The creation of a namespace is notably similar to the creation of a class:
+
+
+//: C10:MyLib.cpp
+namespace MyLib {
+  // Declarations
+}
+int main() {} ///:~
+This produces a new namespace containing the enclosed declarations. There are significant differences from class, struct, union and enum, however:
+
+
+A namespace definition can appear only at global scope, or nested within another namespace.
+No terminating semicolon is necessary after the closing brace of a namespace definition.
+A namespace definition can be continued over multiple header files using a syntax that, for a class, would appear to be a redefinition:
+//: C10:Header1.h
+#ifndef HEADER1_H
+#define HEADER1_H
+namespace MyLib {
+  extern int x;
+  void f();
+  // ...
+} 
+#endif // HEADER1_H ///:~
+//: C10:Header2.h
+#ifndef HEADER2_H
+#define HEADER2_H
+#include "Header1.h"
+// Add more names to MyLib
+namespace MyLib { // NOT a redefinition!
+  extern int y;
+  void g();
+  // ...
+} 
+#endif // HEADER2_H ///:~
+//: C10:Continuation.cpp
+#include "Header2.h"
+int main() {} ///:~
+A namespace name can be aliased to another name, so you dont have to type an unwieldy name created by a library vendor:
+//: C10:BobsSuperDuperLibrary.cpp
+namespace BobsSuperDuperLibrary {
+  class Widget { /* ... */ };
+  class Poppit { /* ... */ };
+  // ...
+}
+// Too much to type! Ill alias it:
+namespace Bob = BobsSuperDuperLibrary;
+int main() {} ///:~
+You cannot create an instance of a namespace as you can with a class.
+Unnamed namespaces
+Each translation unit contains an unnamed namespace that you can add to by saying namespace without an identifier:
+
+
+//: C10:UnnamedNamespaces.cpp
+namespace {
+  class Arm  { /* ... */ };
+  class Leg  { /* ... */ };
+  class Head { /* ... */ };
+  class Robot {
+    Arm arm[4];
+    Leg leg[16];
+    Head head[3];
+    // ...
+  } xanthan;
+  int i, j, k;
+}
+int main() {} ///:~
+The names in this space are automatically available in that translation unit without qualification. It is guaranteed that an unnamed space is unique for each translation unit. If you put local names in an unnamed namespace, you dont need to give them internal linkage by making them static.
+
+
+C++ deprecates the use of file statics in favor of the unnamed namespace.
+
+
+

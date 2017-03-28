@@ -1,0 +1,134 @@
+/*
+Please read Must_Read_1.txt first
+*/
+
+There are a number of base classes in the Operators library. Each class contributes operators to your class according to the concept it names. You can inherit one or more of these classes depending on which operators your class to provide. Below we describe the most common classes in the library. We also explain the features each class provides and the demands they place on your derived class.
+
+--------------------------------------------------------------------------------------------------------------------------
+less_than_comparable
+The less_than_comparable concept augments your class with the following operators.
+
+bool operator<(const T&,const T&); 
+bool operator>(const T&,const T&); 
+bool operator<=(const T&,const T&);
+bool operator>=(const T&,const T&);
+
+When deriving from boost::less_than_comparable, the derived class (T) must provide the equivalent of
+
+bool operator<(const T&, const T&); 
+
+Note that the return type need not be exactly bool, but it must be implicitly convertible to bool.
+--------------------------------------------------------------------------------------------------------------------------
+equality_comparable
+The equality_comparable concept requires the following semantics for a type T.
+
+bool operator==(const T&,const T&);
+bool operator!=(const T&,const T&);
+
+When deriving from boost::equality_comparable, the derived class (T) must provide the equivalent of
+
+bool operator==(const T&,const T&);
+
+Again, the return type needn't be bool, but it must be a type implicitly convertible to bool
+--------------------------------------------------------------------------------------------------------------------------
+addable
+The addable concept requires the following semantics for a type T.
+
+T operator+(const T&,const T&);
+T operator+=(const T&);
+
+When deriving from boost::addable, the derived class (T) must provide the equivalent of
+
+T operator+=(const T&);
+--------------------------------------------------------------------------------------------------------------------------
+subtractable
+The subtractable concept requires the following semantics for a type T.
+
+T operator-(const T&,const T&);
+T operator+=(const T&);
+
+When deriving from boost::subtractable, the derived class (T) must provide the equivalent of
+
+T operator-=(const T&,const T&);
+--------------------------------------------------------------------------------------------------------------------------
+orable
+The orable concept requires the following semantics for a type T.
+
+T operator|(const T&,const T&);
+T operator|=(const T&,const T&);
+
+When deriving from boost::orable, the derived class (T) must provide the equivalent of
+
+T operator|=(const T&,const T&);
+The return type must be implicitly convertible to T. The class orable equips T with T operator|(const T&,const T&).
+--------------------------------------------------------------------------------------------------------------------------
+andable
+The andable concept requires the following semantics for a type T.
+
+T operator&(const T&,const T&);
+T operator&=(const T&,const T&);
+
+When deriving from boost::andable, the derived class (T) must provide the equivalent of
+
+T operator&=(const T&,const T&);
+--------------------------------------------------------------------------------------------------------------------------
+incrementable
+The incrementable concept requires the following semantics for a type T.
+
+T& operator++(T&);
+T operator++(T&,int);
+
+When deriving from boost::incrementable, the derived class (T) must provide the equivalent of
+
+T& operator++(T&);
+--------------------------------------------------------------------------------------------------------------------------
+decrementable
+The decrementable concept requires the following semantics for a type T.
+
+T& operator--(T&);
+T operator--(T&,int);
+
+When deriving from boost::decrementable, the derived class (T) must provide the equivalent of
+
+T& operator--(T&);
+--------------------------------------------------------------------------------------------------------------------------
+equivalent
+The equivalent concept requires the following semantics for a type T.
+
+bool operator<(const T&,const T&);
+bool operator==(const T&,const T&);
+
+When deriving from boost::equivalent, the derived class (T) must provide the equivalent of
+
+bool operator<(const T&,const T&);
+--------------------------------------------------------------------------------------------------------------------------
+dereferenceable
+The dereferenceable concept requires the following semantics for a type T, assuming that T is the operand, R is the reference type, and P is a pointer type (for example, T is an iterator type, R is a reference to the iterator's value_type, and P is a pointer to the iterator's value_type).
+
+P operator->() const;
+R operator*() const;
+
+When deriving from boost::dereferenceable, the derived class (T) must provide the equivalent of
+
+R operator*() const;
+
+For example, you can provide a class WrapPointer (type T), which has a pointer to double. So R is double and P is double*
+
+Additionally, the unary operator& for R must be implicitly convertible to P (ie P = &R should not fail). This means that R doesn't actually need to be the reference typeit can just as well be a proxy class (with an overloaded & operator). The class dereferenceable equips T with P operator->() const.
+--------------------------------------------------------------------------------------------------------------------------
+indexable
+The indexable concept requires the following semantics for a type T, assuming that T is the operand, R is the reference type, P is a pointer type, and D is the difference_type (for example, T is an iterator type, R is a reference to the iterator's value_type, P is a pointer to the iterator's value_type, and D is the difference_type).
+
+R operator[](D) const;
+R operator+(const T&,D);
+
+When deriving from boost::indexable, the derived class (T) must provide the equivalent of
+
+R operator+(const T&,D);
+
+The class indexable equips T with R operator[](D) const.
+--------------------------------------------------------------------------------------------------------------------------
+
+/*
+Please read 3.cpp next
+*/

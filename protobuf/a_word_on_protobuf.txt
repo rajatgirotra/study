@@ -1,0 +1,24 @@
+protoc compiler is slightly wierd in the sense where it generates the cpp outfiles.
+For example: i have the following heirarchy
+
+proto_files
+   - a.proto
+   - b.proto
+   - some_folder
+        - c.proto
+        - d.proto
+
+Now you invoke protoc like this
+
+protoc -I <some_path_1> -I <some_path_2> --cpp_out <output_path> xxx.proto
+
+Now -I/--proto-path is the same option. You can use either one of them. These are used to tell protobuf where to find imported protobuf files.
+
+If I run
+
+1) protoc -I proto_files --cpp_out $HOME c.proto  
+   a) Protoc will first check that there should be atleast one -I option which should be a prefix of the absolute path of c.proto; otherwise it will give you an error.
+   b) If multiple such -I paths are found, it will use the shortest path and create the cpp files in 
+      $HOME/<abosulte_prefix - shortest_prefix_matched>/ folder
+
+   So in this case my cpp files should be in $HOME/some_folder/

@@ -1,0 +1,30 @@
+Please read Compare and Swap first.
+
+Copy and Write (also called COW) is a data structure which has multiple applications, most notably optimization, lock free implementation, and software 
+transactional memory (STM).
+
+Copy and Write is used, in cases where some piece of data is used simultaneously by mutiple threads/processes. In this case, it makes sense
+to NOT make separate copies of the data, rather just share the pointer to the memory location. Later, when any thread tries to write data
+to that memory, we create a local copy of the data for that thread, and then do the modification.
+In essence, the original data memory is NOT MODIFIED.
+Hence, it is called copy-on-write.
+
+Uses:
+
+1) Virtual Memory implementations
+When a process forks itself, it does not immediately create a copy of the process address space. Rather it will only mark pages that
+can be modified by either process as READ-ONLY. Later when either of the process does a write to these read-only pages, the MMU raises an exception
+which is handled by the kernel (OS). The kernel will create a copy of the page and allocate physical memory at that time.
+
+2) Calloc implementation - Initialises a block of memory with all zeroes.
+This can be done in O(1) time, by alreading setting aside some physical memory with all zeroes. Evry call to calloc will just return 
+that address of the physical memory. Later on when something is written, memory gets allocated.
+
+3) Also used in application programming:
+
+std::string x("Hello");
+std::string y = x;  // x and y use the same buffer
+y += ", World!";    // now y uses a different buffer
+                    // x still uses the same old buffer
+					
+4) Undo operations - If you store all of your copy-on-write operations in a list, then undoing them becomes trivial.

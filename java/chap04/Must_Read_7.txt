@@ -1,0 +1,50 @@
+// Very trivial stuff to follow
+
+Java provides a similar syntax for initializing non-static variables for
+each object. Heres an example:
+Chapter 4: Initialization & Cleanup 215
+//: c04:Mugs.java
+// Java "Instance Initialization."
+import com.bruceeckel.simpletest.*;
+class Mug {
+Mug(int marker) {
+System.out.println("Mug(" + marker + ")");
+}
+void f(int marker) {
+System.out.println("f(" + marker + ")");
+}
+}
+public class Mugs {
+static Test monitor = new Test();
+Mug c1;
+Mug c2;
+{
+c1 = new Mug(1);
+c2 = new Mug(2);
+System.out.println("c1 & c2 initialized");
+}
+Mugs() {
+System.out.println("Mugs()");
+}
+public static void main(String[] args) {
+System.out.println("Inside main()");
+Mugs x = new Mugs();
+monitor.expect(new String[] {
+"Inside main()",
+"Mug(1)",
+"Mug(2)",
+"c1 & c2 initialized",
+"Mugs()"
+});
+}
+} ///:~
+You can see that the instance initialization clause: Feedback
+{
+c1 = new Mug(1);
+c2 = new Mug(2);
+System.out.println("c1 & c2 initialized");
+}
+
+looks exactly like the static initialization clause except for the missing
+static keyword. This syntax is necessary to support the initialization of
+anonymous inner classes (see Chapter 8).

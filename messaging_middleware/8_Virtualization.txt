@@ -1,0 +1,8 @@
+What is it.
+
+Is is just the sharing of the physical appliance among many applications by creating virtual versions of this hardware.
+Solace allows you to configure multiple, so called "Virtual Message Brokers". Each VMB is a fully functional message broker
+sharing the resources on the appliance.
+
+1) Some example of configuration could be:
+    a) No. of subscriptions allowed.

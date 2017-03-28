@@ -1,0 +1,45 @@
+/*
+Please read Exercise21.java first
+*/
+
+Missed Signals:
+
+Consider you have two threads T1 and T2.
+Assume you have variable i = 5;
+
+T1:
+	synchronized (sharedMonitor) {
+		<setup condition for T2> .. eg: i = 10
+		sharedMonitor.notify()
+	}
+	
+T2:
+	while(someCondition) eg. while(i == 5) {
+		//point 1
+		synchronized(sharedMonitor) {
+			wait();
+		}
+	}
+	
+Lets say that T2 gets scheduled first and find the condition to be true. Then at point 1, thread T1 gets scheduled which
+sets i = 10. and calls notify().
+
+Later thread T2 gets the CPU but there is no way for it to know that value of i has changed, and that it should not wait().
+As a result, i end up waiting() forever, and we have a deadlock.
+
+To overcome this flawed approach, we must use the while() condition inside the synchronized block as below:
+
+T2:
+	synchronized (sharedMonitor) {
+		while(someCondition) {
+			sharedMonitor.wait();
+		}
+	}
+
+Now, if T2 gets scheduled first, it will wait() because i = 5, but will get notified when T1 sets i = 10 and calls notify()
+Also, if T1 gets scheduled first, it will set i = 10; right away, so thread T2 does not wait for all.
+So either way, you never miss a signal.
+
+/*
+Please read NotifyVsNotifyAll.java next
+*/

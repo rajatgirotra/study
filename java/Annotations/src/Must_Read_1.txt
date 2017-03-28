@@ -1,0 +1,23 @@
+
+First file in this folder.
+
+Java has introduced a formal way of combining metadata togther with the Java source code.
+Using Annotations you can provide information that you need to fully describe your prgram, but that cannot be
+expressed in Java. You basically they allow you to store extra information in your code in a proper format
+which is verified and tested by your compiler. They can be used to
+
+1] Generate descriptor files.
+2] Generate new class definitions.
+
+There is also an annotations API to help you to build processing tools for your annotations.
+In general, the kind of annotations you add and what you do with them is entirely up to you.
+
+java.lang provides three standard annotations:
+
+1] @Override, to indicate that a method definition is intented to override a method in its base class.
+2] @Deprecated, to produce a compiler warning if you try to use a deprecated element.
+3] @SuppressWarnings, to turn off inappropriate compiler warnings.
+
+Java has introduced the "@" (at the rate) sign to specify annotations.
+
+please read main.Testable.java next

@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>
+        {%  block head_title %}
+            Try Django 1.9
+        {% endblock head_title %}
+     </title>
+
+
+    <!-- Latest compiled and CSS -->
+    <script src="{% static 'posts/jquery/jquery-3.1.1.min.js' %}" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'posts/bootstrap-3.3.7/css/bootstrap.css' %}" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{% static 'posts/bootstrap-3.3.7/css/bootstrap-theme.css' %}" crossorigin="anonymous">
+    <!-- Latest compiled and JavaScript -->
+    <script src="{% static 'posts/bootstrap-3.3.7/js/bootstrap.js' %}" crossorigin="anonymous"></script>
+  <style>
+        {% block style %}
+        {%  endblock style %}
+    </style>
+</head>
+<body>
+<div class="container">
+{% block content %}
+
+
+{% endblock content %}
+</div>
+</body>
+</html>

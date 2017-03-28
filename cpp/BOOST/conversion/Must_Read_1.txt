@@ -1,0 +1,6 @@
+We are four different casts in boost:
+
+1] polymorphic_cast : to provide better type safety.
+2] polymorphic_downcast : to provide better efficiency with preserved type safety.
+3] numeric_cast : to provde range checked numeric conversions.
+4] lexical_cast : for lexical conversions.

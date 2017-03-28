@@ -1,0 +1,23 @@
+{%  extends 'base.html' %}
+
+{% block head_title %}
+{{ instance.title }} | {{ block.super }}
+{% endblock head_title %}
+
+{% block style %}
+    h1 {
+        color: green;
+    }
+{% endblock style %}
+
+{%  block content %}
+    <h1>{{ title }}</h1>
+    <div>
+        <label>Title: </label> {{ instance.title }}<br/>
+        <label>Content: </label> {{ instance.content }}<br/>
+        <label>Created: </label> {{ instance.created }}<br/>
+        <label>Last Updated: </label> {{ instance.last_updated }}<br/>
+        <label>Id: </label> {{ instance.id }}<br/>
+    </div>
+    <br/>
+{% endblock content %}

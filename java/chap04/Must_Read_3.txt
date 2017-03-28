@@ -1,0 +1,50 @@
+What happens if you want to give a variable an initial value? One direct
+way to do this is simply to assign the value at the point you define the
+variable in the class. (Notice you cannot do this in C++, although C++
+novices always try.) Here the field definitions in class InitialValues are
+changed to provide initial values:
+
+class InitialValues {
+boolean b = true;
+char c = 'x';
+byte B = 47;
+short s = 0xff;
+int i = 999;
+long l = 1;
+float f = 3.14f;
+double d = 3.14159;
+//. . .
+
+You can also initialize nonprimitive objects in this same way. If Depth is
+a class, you can create a variable and initialize it like so: Feedback
+
+class Measurement {
+Depth d = new Depth();
+// . . .
+
+If you havent given d an initial value and you try to use it anyway, youll
+get a run-time error called an exception (covered in Chapter 9). Feedback
+You can even call a method to provide an initialization value:
+
+class CInit {
+int i = f();
+//...
+}
+
+This method can have arguments, of course, but those arguments cannot
+be other class members that havent been initialized yet. Thus, you can do
+this:
+
+class CInit {
+int i = f();
+int j = g(i);
+//...
+}
+
+But you cannot do this: Feedback
+class CInit {
+int j = g(i);
+int i = f();
+//...
+}
+

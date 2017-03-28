@@ -1,0 +1,24 @@
+/*
+Please read Must_Read_3.txt first
+*/
+
+The cost of erasure is significant. Generic types cannot be used in operations that explicitly refer to runtime types, 
+such as casts, instanceof operations, and new expressions. Because all the type information about the parameters is lost, 
+whenever you’re writing generic code you must constantly be reminding yourself that it only appears that you have type 
+information about a parameter. So when you write a piece of code like this:
+
+
+class Foo<T> {
+	T var;
+}
+
+it appears that when you create an instance of Foo:
+Foo<Cat> f = new Foo<Cat>();
+
+the code in class Foo ought to know that it is now working with a Cat. The syntax strongly suggests that the type T is 
+being substituted everywhere throughout the class. But it isn’t, and you must remind yourself, "No, it’s just an 
+Object," whenever you’re writing the code for the class.
+
+/*
+Please read ErasureAndInheritance.java next
+*/

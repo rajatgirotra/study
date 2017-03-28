@@ -1,0 +1,19 @@
+/*
+First file in this folder.
+1) Java Web Start is a software that is bundled with the JRE. Not need to install it separately.
+2) It enables you to download & launch Java applications through the click of a button. 
+3) There is no need to go through any installation procedures.
+4) The application downloaded is also cached for faster performance.
+5) The Java Web Start software can also specify the JRE version needed to run a Java application
+   and can also download the required JRE.
+6) The Java Web Start uses security inherent in the Java platform. Also, applications
+   have restricted access to local drives and network resources.
+7) Upgraded versions of the Java application can be downloaded and run by default.
+8) Different clients can have different versions of the JRE or even different OS'es. It works equally well
+   with Windows, Linux, Solaris or Mac.
+9) You can also create a quick launch type of shortcut on your desktop.
+
+Next we'll create a Swing based GUI application, which we'll launch through Java Web Start.
+
+Please read DynamicTreePanel.java next
+*/

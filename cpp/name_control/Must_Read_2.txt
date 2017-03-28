@@ -1,0 +1,17 @@
+Confusion
+Heres an example of how the two meanings of static can cross over each other. All global objects implicitly have static storage class, so if you say (at file scope),
+
+
+int a = 0;
+then storage for a will be in the programs static data area, and the initialization for a will occur once, before main( ) is entered. In addition, the visibility of a is global across all translation units. In terms of visibility, the opposite of static (visible only in this translation unit) is extern, which explicitly states that the visibility of the name is across all translation units. So the definition above is equivalent to saying
+
+
+extern int a = 0;
+But if you say instead,
+
+
+static int a = 0;
+all youve done is change the visibility, so a has internal linkage. The storage class is unchanged  the object resides in the static data area whether the visibility is static or extern.
+
+
+

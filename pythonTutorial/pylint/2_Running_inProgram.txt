@@ -1,0 +1,24 @@
+Things to note
+-------------
+
+pylint "abc.py"  --> will always work
+pylint "directory/abc.py" --> make sure directory has __init__.py file or "directory" is in PYTHONPATH.
+
+Running pylint from inside another python program
+------------------------------------------------
+from pylint import epylint as lint
+lint.py_run(pylint_options)
+
+from pylint import epylint as lint
+(pylint_stdout, pylint_stderr) = lint.py_run('abc.py', return_std=True)
+
+Examples
+--------
+In [1]: from pylint import epylint as lint
+In [2]: pylint_options='simplecaeser.py --reports=n'
+In [3]: lint.py_run(pylint_options)
+
+In [1]: from pylint import epylint as lint
+In [2]: (pylint_stdout, pylint_stderr) = lint.py_run('simplecaeser.py', return_std=True)
+In [3]: print pylint_stdout.buf
+In [4]: print pylint_stderr.buf

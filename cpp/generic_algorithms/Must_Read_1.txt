@@ -1,0 +1,13 @@
+The count_if( ) algorithm, for example, returns the number of elements in a sequence satisfying a given predicate. The following call to count_if( ), if applied to a sequence of integers similar to the examples earlier in this chapter, yields the number of integer elements that are greater than 15:
+
+size_t n = count_if(a, a + SIZE, gt15);
+ 
+Since count_if( ) must look at every element exactly once, it is specified to make a number of comparisons exactly equal to the number of elements in the sequence. The copy( ) algorithm has the same specification.
+
+Other algorithms can be specified to take at most a certain number of operations. The find( ) algorithm searches through a sequence in order until it encounters an element equal to its third argument:
+
+int* p = find(a, a + SIZE, 20);
+ 
+It stops as soon as the element is found and returns a pointer to that first occurrence. If it doesnt find one, it returns a pointer one position past the end of the sequence (a+SIZE in this example). So find() makes at most a number of comparisons equal to the number of elements in the sequence.
+
+

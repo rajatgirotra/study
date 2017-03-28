@@ -1,0 +1,27 @@
+32 bit vs 64 bit systems
+
+Obviously 64 bit systems are better than their 32 bit counterparts.
+
+1) If you have an application which uses large amounts of RAM, then it can benefit
+  from a larger address space available in 64 bit systems.
+
+2) The number of processor registers are doubled. So you can store more intermediate
+data in processor registers rather than in memory.
+
+3) 64 bit systems allow function parameters (arguments) to be put straight into processor
+registers unlike 32 bit systems. In fact 64 bit Linux allows upto 14 variables (6 integer and
+8 floating point) to be xferred in registers.
+
+4) all 64 bit systems support SSE2 instruction sets so you can do more parallel work.
+
+5) 64 bit system support self relative addressing of data. This makes position independent code
+more efficient.
+
+There are a few disadvantages though.
+
+1) Pointers, references stack pointers are all 64 bits rather than 32 bits. So your caching effeciency
+is reduced.
+
+2) Address calculation is more complex when size of address space (code + data) goes above 2 GB.
+
+3) Some instructions in 64 bit are 1 byte longer than in 32 bits.

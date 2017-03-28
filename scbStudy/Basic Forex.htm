@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- InstanceBegin template="/Templates/content_page.dwt" codeOutsideHTMLIsLocked="false" -->
+
+ 
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Inclusion of css and js files -->
+<link rel="stylesheet" type="text/css" href="../css/tree.css" />
+<script src="../scripts/util.js" type="text/javascript"></script>
+<script src="../scripts/node.js" type="text/javascript"></script>
+<script src="../scripts/note.js" type="text/javascript"></script>
+<script src="../scripts/page_content.js" type="text/javascript"></script>
+<link rel="image_src" href="http://www.fimarkets.com/images/logo_home.jpg" />
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-39294283-1']);
+_gaq.push(['_setDomainName', 'fimarkets.com']);
+_gaq.push(['_trackPageview']);
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<!-- InstanceBeginEditable name="head" -->
+<link rel="stylesheet" type="text/css" href="../css/pages.css" />
+<title>Basic Forex</title>
+<meta name="description" lang="en" content="Foreign exchange: spot exchange, forward or outright exchange, calculation of forward rates, forex swap, front-to-back processing of a currency transaction..." />
+<!-- InstanceEndEditable -->
+</head>
+<!-- Header code in body -->
+<body class="contentBody" style="background-image:url(../images/nav_bar_h_background_left.png); background-repeat: repeat-y;" >
+<div class="contentZone">   <!-- Start of content zone -->
+<div class="headerTitle">Basic Forex</div>
+<div class="pageToolbar">
+<div class="toolbarButtonGroup">
+<div class="toolbarButtonLine">
+<div class="toolbarHButton">
+<a href="../pagesen/write-article-finance.php"><img alt="Propose an article" title="Propose an article" src="../images/buttons/write_article.png" class="toolbarHButtonImage" /></a>
+<a href="../pagesen/write-article-finance.php" class="toolbarHButtonLink">Propose an article</a>
+</div>
+</div>
+<div class="toolbarButtonLine">
+<div class="toolbarHButton">
+<a href="../php/comments.php?page_name=operations_change&lang=en&rank=1&sort=asc&action=add_comment"><img alt="Comment" title="Comment" src="../images/buttons/comment.png" class="toolbarHButtonImage" /></a>
+<a href="../php/comments.php?page_name=operations_change&lang=en&rank=1&sort=asc&action=add_comment" class="toolbarHButtonLink">Comment</a>
+</div>
+</div>
+</div>
+<div class="toolbarButtonGroup">
+<div class="toolbarButtonLine">
+<div class="toolbarHButton">
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.fimarkets.com%2Fpagesen%2Fforeign_exchange.php&amp;locale=en_GB&amp;send=false&amp;layout=button_count&amp;width=110&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=verdana&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="toolbarHButton">
+<div class="g-plusone" data-size="medium" data-annotation="none" href="http://www.fimarkets.com/pagesen/foreign_exchange.php"></div>
+</div>
+</div>
+<div class="toolbarButtonLine">
+<div class="toolbarHButton">
+<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/Share"></script>
+</div>
+<div class="toolbarHButton">
+<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/FollowCompany" data-id="607708" data-counter="none"></script>
+</div>
+</div>
+</div>
+<div class="toolbarVButtonBlock">
+<div class="toolbarVButton">
+<a href="../pages/operations_change.php"><img alt="Français" title="Français" src="../images/buttons/fr.png" class="toolbarVButtonImage" /></a>
+<br /><a href="../pages/operations_change.php" class="toolbarVButtonLink">Français</a>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+window.___gcfg = {lang: 'en'};
+(function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+po.src = 'https://apis.google.com/js/plusone.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
+<div class="contentText">   <!-- Start of content text -->
+<!--** Start exclude from PDF **-->
+<!-- InstanceBeginEditable name="toc_and_partner_excluded_from_pdf" -->
+<ul>
+  <li><a name="top"></a><a href="#spot">Spot exchange </a></li>
+  <li><a href="#rates">Rates</a></li>
+  <li><a href="#crossrates">Cross rates</a></li>
+  <li><a href="#forward">Forward or outright exchange</a></li>
+  <li><a href="#calculation">Calculation of forward rates</a></li>
+  <li><a href="#characteristics">Characteristics of forward exchange </a></li>
+  <li><a href="#swap">Forex swap </a></li>
+  <li><a href="#trading">Front-to-back processing of a currency transaction </a></li>
+  <li><a href="#trading">Trading</a></li>
+  <li><a href="#position">Position keeping </a></li>
+  <li><a href="#backoffice">Back Office </a></li>
+  <li><a href="#more">For more information </a></li>
+</ul>
+<!-- InstanceEndEditable -->
+<!--** End exclude from PDF **-->
+<!-- InstanceBeginEditable name="content" -->
+<h2 class="header2">Forex transactions</h2>
+<p>These entail all transactions involving the exchange of two currencies. The world currency market is extremely active: demand fuelled by importers and exporters is picked up and amplified by speculation. This is an over-the-counter market directed by banks and brokers.</p>
+<h3 class="header3"><a name="spot"></a>Spot exchange </h3>
+<p>An OTC or spot forex transaction consists of swapping two currencies at a negotiated rate on the “spot date,” two days following the trading date. </p>
+<p>The main characteristics of a spot transaction include: </p>
+<ul>
+  <li>The main currency </li>
+  <li>The direction: Buy or sell </li>
+  <li>The secondary or “price” currency: Currency sold, if it is a purchase, or currency bought if it is a sale. </li>
+  <li>The trade date </li>
+  <li>The spot date: depending on the traded currency, but most usually the trading date + 2 working days. Comment: A spot currency contract has no lifespan; there is no end date. </li>
+  <li>The agreed-upon amount is expressed in the main currency </li>
+  <li>The trade price </li>
+  <li>The amount in the secondary currency whose calculation is based on the amount of the main currency and the exchange rate </li>
+</ul>
+<p>Characteristics common to all market transactions: </p>
+<ul>
+  <li>The orderbook and perhaps the trader's identity </li>
+  <li>The counterparty </li>
+  <li>Possibly the broker through whom the trade was made </li>
+  <li>Settlement instructions: Identification of correspondent banks (the bank's and the counterparty's) where the currencies must be delivered/received. </li>
+</ul>
+<p>The example below illustrates the cash flow exchange in a trade involving the purchase of &euro;1m in exchange for dollars. </p>
+<p><img src="../images/illustrations/spot_eng.jpg" width="700" height="165" /></p>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h3 class="header3"><a name="rates"></a>Rates</h3>
+<p>Market participants always quote currencies in price intervals: The lower price figure represents the trader's buy price: in other words, the bid price, while the higher figure is the sell or ask price. In light of the fact that all market players are familiar with the current price and that it changes too fast, only the last two figures are quoted. These are called pips. Pips are the last figure after the decimal point in a quote. A price expressed as Ccy1/Ccy2 means “a unit of Ccy1 = the price of Ccy2. Ccy1 is thus the traded currency and Ccy2 the price currency. </p>
+<p>For example, EUR / USD = 1.0210/40 means that the trader is buying one euro for USD 1.0210 and selling for USD 1.0240. </p>
+<p>The way of expressing the rate is a convention relating to the relative trading priority of currencies. A &quot;direct quote&quot; expresses the quantity of the other currency that you will receive for one unit of the base currency. The euro quotes directly against all other currencies. The US dollar quotes directly against all other currencies… except the euro. </p>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h3 class="header3"><a name="crossrates"></a>Cross rates</h3>
+<p>Rates are posted on the market for the most actively traded currencies: the euro and dollar rates are listed daily on a continuous basis against other currencies. For currency pairs typically not listed on the market, the trade goes through an intermediary of one of the two currencies in order to obtain a cross rate. </p>
+<p>For example, if a trader wants to quote JPY/CHF, he will use the USD/JPY and USD/CHF rates. JPY/CHF = (USD/CHF) / (USD/JPY). </p>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h3 class="header3"><a name="forward"></a>Forward or Outright exchange </h3>
+<p>Forward or outright currency trading entails a swap between two currencies at a negotiated date (value date) and exchange rate. This type of contract enables traders to set an exchange rate between two currencies in the future and thus hedge against currency risk. </p>
+<p>The characteristics of a forward currency transaction are defined in relation to a benchmark spot rate for the day's trading. “Forward points” are the&nbsp;number of&nbsp;basis points&nbsp;added&nbsp;to or subtracted from&nbsp;the current spot rate&nbsp;to determine the forward rate. When the forward rate is above the spot rate, the currency is said to be in contango; when the spot rate is above the forward rate, it is in backwardation. But how is a forward rate determined? </p>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h3 class="header3"><a name="calculation"></a>Calculation of forward rates </h3>
+<p>Forward rates are not listed on the market. However, we know the lending/borrowing rate for each currency for different time periods. These are the rates that are used to calculate forward rates. </p>
+<p>From the viewpoint of the trader quoting the transaction, the forward currency transaction entails three operations: </p>
+<ul>
+  <li>A spot transaction running in the same direction as the forward. </li>
+  <li>A loan of the currency bought on the same terms as the forward transaction (the loan pay-back incoming cash flow coinciding with the forward purchase). </li>
+  <li>A borrowing of the currency sold (pay-back flow coinciding with the forward sale). </li>
+</ul>
+<p>The graph below illustrates the logic of a forward purchase of currency C1 for C2. Bear in mind that the dotted lines do not represent real cash flows but are only used to illustrate transaction logic. Only the cash flows at value date lines are the real cash flows of the transaction. </p>
+<p align="center"><img src="../images/illustrations/outright_graph.jpg" width="700" height="242" /></p>
+<p>Let's assume that the trader quotes the deal on the basis of the following rates: </p>
+<ul>
+  <li>Spot rate C1/C2 : S<code>12</code> / S<code>21</code> (which means that the trader wants to buy at S<code>12</code> and sell at S<code>21</code> ). </li>
+  <li>Rate C1 : r<code>1b</code> / r<code>1l</code> (the trader would loan the currency D1 for the period under consideration at r<code>1l </code>and would borrow at r<code>1b</code> ). </li>
+  <li>Rate C2 : r<code>2b</code> /r<code>2l</code>. </li>
+</ul>
+<p>The trader  must quote a forward purchase of amount A<code>1</code> of currency C<code>1</code>. </p>
+<p>He would have to lend amount A'<code>1</code> today for the payback from the imaginary  loan of C<code>1</code> to equal this amount A<code>1</code>: </p>
+<p>A<code>1</code> = A'<code>1</code> + A'<code>1</code> * r<code>1l</code> * N/36000 = A'<code>1</code> (1 + r<code>1l</code> * N/36000). </p>
+<p>Where N is the loan's life in days. </p>
+<p>Likewise, Amount A<code>2</code> at maturity date corresponds to a borrowed amount today A'<code>2</code> such that: </p>
+<p>A<code>2</code> = A'<code>2</code> + A'<code>2</code> * r<code>2b</code> * N / 36000 = A'<code>2</code> (1 + r<code>2b</code> *N / 36000) </p>
+<p>Therefore the forward rate is equal to: </p>
+<p>R<code>12</code> = A<code>1 </code>/ A<code>2</code> = (A'<code>1</code> (1 + r<code>1l</code> * N / 36000)) / (A'<code>2</code> (1 + r<code>2b</code> * N / 36000)) </p>
+<p>We know that the spot rate for S<code>12</code> is equal to: </p>
+<p>S<code>12</code> = A'<code>1</code> / A'<code>2</code> </p>
+<p>Thus, </p>
+<p align="center">R<code>12</code> = S<code>12</code> ( 1 + r<code>2b</code> * N / 36000) / (1 + r<code>1l</code> * N / 36000) </p>
+<p>Where </p>
+<ul>
+  <li>S<code>12</code> is the buy spot price </li>
+  <li>r<code>2b</code> is the interest rate on the price currency. </li>
+  <li>r<code>1l</code> is the negotiated rate on the traded currency. </li>
+</ul>
+<p>Equally for a forward sale: </p>
+<p align="center">T<code>21</code> = S<code>21</code> ( 1 + r<code>2l</code> * N / 36000) / (1 + r<code>1b</code> * N / 36000) </p>
+<p>Where, </p>
+<ul>
+  <li>S<code>21</code> is the sell spot price </li>
+  <li>r<code>2l</code> is the interest rate on the price currency. </li>
+  <li>r<code>1b</code> is the interest rate on the traded currency. </li>
+</ul>
+<p>This is a bit complicated but once the formula is input into the Excel program, we don't have to think about it anymore! </p>
+<p>This means that the forward price is not an anticipated future spot rate, despite what we might think. It is nonetheless based on a currency evaluation via market rates. </p>
+<p>The contango or backwardation, defined above, depend on the level of currency interest rates. When the forward exchange rate is such that a forward trade costs more than a spot trade today costs, there is said to be a forward premium. If the reverse were true, such that the forward trade were cheaper than a spot trade then there would be a forward discount. </p>
+<p>Comments: </p>
+<ul>
+  <li>This calculation applies only to periods of less than one year. For longer periods, the calculation of loan/borrowing interest rates become more complicated, but the logic remains the same. </li>
+  <li> Moreover, we assumed that for the two currencies the method of calculation of interest rates was “Exact / 360”, i.e. the number of days in a year is set at 360 and we apply the exact number of days for the period. Other calculation methods exist, depending on the currencies. </li>
+  </ul>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h3 class="header3"><a name="characteristics"></a>Characteristics of a forward exchange </h3>
+<p align="left">The characteristics of forward currency transaction are thus: </p>
+<ul>
+  <li>The main currency </li>
+  <li>The direction (buy or sell) vis-&agrave;-vis the main currency </li>
+  <li>The secondary currency (currency sold for a purchase, currency bought for a sale of the main currency) </li>
+  <li>The spot rate </li>
+  <li>Forward points: Forward rate = spot rate + forward points </li>
+  <li>Trade date </li>
+  <li>Value date: the date when the currencies will actually be exchanged. </li>
+</ul>
+<p>Characteristics common to all market transactions: </p>
+<ul>
+  <li>The book and perhaps the trader's identity </li>
+  <li>Counterparty </li>
+  <li>Perhaps a broker or other intermediary</li>
+  <li> Settlement instructions: identification of correspondent banks (the bank's and the counterparty's) at which the currency are to be delivered/received. </li>
+  </ul>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h3 class="header3"><a name="swap"></a>Forex swap </h3>
+<p>A forex swap consists of two legs: a spot foreign exchange transaction, and a forward foreign exchange transaction. These two legs are executed simultaneously for the same quantity, and therefore offset each other. The “swap points” indicate the difference between the spot rate and the forward rate. </p>
+<p>A forex swap enables an investor to obtain currencies immediately and then sell them at a price agreed upon in the contract at swap maturity date. For example, a client possessing money denominated in euros wishing to investment in US 3-month T-bills buys dollars today to pay for the purchase. He then sells them at maturity at a known price. </p>
+<p>Comment: In comparison with a forward currency contract, the monies exchanged involve the money actually loaned by the trader and bought on a forward basis and the actual borrowing of the sold currency. The forward rate is calculated in the same way. </p>
+<p>The characteristics of a forex swap include: </p>
+<p>The short leg has the characteristics of a spot exchange: </p>
+<ul>
+  <li>Main currency </li>
+  <li>Direction: buy or sell </li>
+  <li>Secondary currency </li>
+  <li>Amount of main currency </li>
+  <li>Spot rate </li>
+  <li>Value date = trade date + 2 working days </li>
+</ul>
+<p>The far leg has the characteristics of a forward contract which are deduced from the spot exchange: </p>
+<ul>
+  <li>The currency bought is the currency sold of the short leg </li>
+  <li>The currency sold is the currency bought of the short leg </li>
+  <li>Amount expressed in the main currency is identical </li>
+  <li>The value date is the date at which the reciprocal exchange will be made.</li>
+  <li> The rate is the spot rate + swap points. </li>
+  </ul>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h2 class="header2">Front-to-back processing of a currency transaction </h2>
+<h3 class="header3"><a name="trading"></a>Trading</h3>
+<p>The forex market is an OTC market, driven by banks and brokers. Beside telephone, electronic trading platforms such as Reuters Dealing and EBS (Electronic Broking Service) are popular among traders. Trades can be made in conversation mode: traders literally talk online before making deals. Otherwise the platforms match up the proposals made by participants: as such, it is the system that makes the deals and counterparties only learn each other's identity once the trade is concluded. </p>
+<h3 class="header3"><a name="position"></a>Position keeping </h3>
+<p>The Front office system records the deals in real time. Deals negotiated by telephone are registered by the trader while those made via electronic platforms are transmitted automatically. </p>
+<p>The position holding system offers basic but minimum features such as: </p>
+<ul>
+  <li>Pricing (as seen above) </li>
+  <li>Manual or automatic deal recording </li>
+  <li>Deal validation </li>
+  <li>Risk control: Counterparty and market risk limits checking </li>
+  <li>Positions update in real time </li>
+  <li>Calculation of P&amp;L (earnings) in real time </li>
+  <li>Possibility of automatic deal generation
+  <ul>
+    <li>Hedging deals </li>
+    <li>In-house deals (e.g. between sales and trading desks) </li>
+    <li>Split : generation of two deals via a third currency (cross rates method described earlier) </li>
+    <li>Break-up: breaking up a position bought or sold as a single position or in several deals (making it possible to generate several client deals from a deal negotiated with a broker) </li>
+  </ul>
+  </li>
+  <li>Transmission of the ticket validated in the back office. </li>
+  </ul>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h3 class="header3"><a name="backoffice"></a>Back office </h3>
+<p>The back office system acts to materialise transactions made by the trader: </p>
+<ul>
+  <li>vis-&agrave;-vis counterparties: 
+  <ul>
+    <li><strong>Confirmation</strong> issuance: currency transactions are confirmed by <a href="swift-network-messages.php">SWIFT</a> MT300 messages. </li>
+    <li>Reconciliation of confirmations: given the considerable trading volumes, back offices use automated systems to reconcile confirmations issued with those received. This makes it possible to detect errors or miscommunications before launching payments. </li>
+    <li><strong>Payment</strong> issuance: generation of a payment order (MT202) for the correspondent bank in the payment currency and of a notice of cash receipts (MT210) for the correspondent bank in the currency received. If the counterparty is internal (client, deal between two desks), payment is made via the accounting department (debit/credit in general ledger). </li>
+  </ul>
+  </li>
+</ul>
+<p>The graph below illustrates the information flow between two banks and their correspondent banks when Bank A buys Currency 1 in exchange for Currency 2 from Bank B: </p>
+<p align="center"><img src="../images/illustrationsen/forex_messages_flow.gif" width="545" height="281" /></p>
+<ul>
+  <li>Vis-&agrave;-vis the bank: 
+  <ul>
+    <li>Transaction accounting entry: 
+    <ul>
+      <li>Currency deals are recorded off-balance sheet (accrual accounting) for the period between the trade and the value dates. At the value date, the off-balance sheet accounting item is reversed and the deals are recorded on the bank's balance sheet. </li>
+      <li>Currency transactions add to the accounts that are not denominated in the bank's balance sheet currency. The positions held add to the currency position accounts the daily revaluation of which triggers re-measurement of the bank's currency risk. </li>
+    </ul>
+    </li>
+  </ul>
+  </li>
+</ul>
+<div class="topPageBlock"><a href="#top"><img src="../images/top.png" /></a><div class="topPageTextLink"><a href="#top">Top</a></div></div>
+<h2 class="header2"><a name="more"></a>For more information</h2>
+<p>See the <a target="_blank" href="http://www.realtimeforex.com/forex-education.htm">education pages</a> of the <a target="_blank" href="http://www.realtimeforex.com/">realtime forex</a> website. </p>
+<!-- InstanceEndEditable -->
+<!--** Start exclude from PDF **-->
+<!-- InstanceBeginEditable name="sponsor_excluded_from_pdf" -->
+<!-- InstanceEndEditable -->
+<!--** End exclude from PDF **-->
+<!-- Footer code in body -->
+<div class="pagesDatesFooter">
+<div class="pagesDates">
+Published on: June 04, 2008</div>
+<div class="socialNetworkToolbarLine">
+<div class="toolbarHButton">
+<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.fimarkets.com%2Fpagesen%2Fforeign_exchange.php&amp;locale=en_GB&amp;send=false&amp;layout=button_count&amp;width=110&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=verdana&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:110px; height:21px;" allowTransparency="true"></iframe>
+</div>
+<div class="toolbarHButton">
+<div class="g-plusone" data-size="medium" data-annotation="none" href="http://www.fimarkets.com/pagesen/foreign_exchange.php"></div>
+</div>
+<div class="toolbarHButton">
+<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/Share"></script>
+</div>
+<div class="toolbarHButton">
+<script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/FollowCompany" data-id="607708" data-counter="none"></script>
+</div>
+</div>
+</div>
+<div class="writerBlock valdereWriterBlock">
+  <div class="writerHeader">Translated from French by <b>Valdere Translations</b></div>
+  <div class="writerImageTextBlock">
+    <span class="writerImage"><a rel="nofollow" target="_blank" href="../php/engine/go.php?name=valdere&source=operations_change_en&type=html"><img src="../images/translator_valdere.gif" /></a></span>
+    <span class="writerText"><a rel="nofollow" target="_blank" href="../php/engine/go.php?name=valdere&source=operations_change_en&type=html">Financial Translation / Traduction financière</a></span>
+  </div>
+</div>
+<div class="commentsIntroFooter">An error in the article?<br/>Additional information you would like to share?</div>
+<div class="commentsFooter"><a href="../php/comments.php?page_name=operations_change&lang=en&rank=1&sort=asc&action=add_comment" class="commentsFooterLink">Add a comment</a></div>
+<div class="adsense_bottom">
+<script type="text/javascript"><!--
+google_ad_client = "pub-2997891334331963";
+/* LeaderBoard_1 */
+google_ad_slot = "9055175537";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+<div class="footerSection">
+  <div class="footerLeft">&copy; 2008-2013 FiMarkets</div>
+  <div class="footerMiddle">Website content protected - Copyrightdepot.com <a href="http://www.copyrightdeposit.com/rep8/0029461.htm">#0029461</a></div>
+<div class="footerRight">
+<a href="http://www.xiti.com/xiti.asp?s=114087" title="WebAnalytics">
+<script type="text/javascript">
+<!--
+Xt_param = 's=114087&p=en:4:operations_change';
+try {Xt_r = top.document.referrer;}
+catch(e) {Xt_r = document.referrer; }
+Xt_h = new Date();
+Xt_i = '<img width="80" height="15" border="0" alt="" ';
+Xt_i += 'src="http://logv22.xiti.com/g.xiti?'+Xt_param;
+Xt_i += '&hl='+Xt_h.getHours()+'x'+Xt_h.getMinutes()+'x'+Xt_h.getSeconds();
+if(parseFloat(navigator.appVersion)>=4)
+{Xt_s=screen;Xt_i+='&r='+Xt_s.width+'x'+Xt_s.height+'x'+Xt_s.pixelDepth+'x'+Xt_s.colorDepth;}
+document.write(Xt_i+'&ref='+Xt_r.replace(/[<>"]/g, '').replace(/&/g, '$')+'" title="Internet Audience">');
+//-->
+</script>
+<noscript>
+Mesure d'audience ROI statistique webanalytics par <img width="80" height="15" src="http://logv22.xiti.com/g.xiti?s=114087&p=en:4:operations_change" alt="WebAnalytics" />
+</noscript></a>
+</div>
+</div>
+</div>   <!-- End of content text -->
+</div>   <!-- End of content zone -->
+<div class="genToolbar">
+<div class="toolbarButtonLine">
+<div class="toolbarHButton">
+<form class="genToolbarSearchForm" method="get" onsubmit="return siteSearch(this, '../php/site_search.php', 'en')" action="" target="_top">
+<div class="genToolbarSearchHeader">Site search:</div>
+<input class="genToolbarSearchField" size="30" name="searchString" id="searchString" />
+<input type="image" class="genToolbarSearchButton" src="../images/buttons/site_search_small.png" />
+</form>
+</div>
+</div>
+</div>
+<div class="pageHeaderBar" style="background-image:url(../images/nav_bar_v_background.png)">
+</div>
+<div class="tabsBlock">
+<map name="tabs">
+<area alt="" shape="poly" coords="3,26,3,6,9,0,102,0,108,6,108,26,3,26" href="../indexen.php" />
+<area alt="" shape="poly" coords="110,26,110,6,116,0,209,0,215,6,215,26,110,26" href="../pagesen/financial-market-players.php" />
+<area alt="" shape="poly" coords="217,26,217,6,223,0,316,0,322,6,322,26,217,26" href="../pagesen/back-middle-front-office.php" />
+<area alt="" shape="poly" coords="324,26,324,6,330,0,423,0,429,6,429,26,324,26" href="../pagesen/financial-products.php" />
+<area alt="" shape="poly" coords="431,26,431,6,437,0,530,0,536,6,536,26,431,26" href="../pagesen/financial-regulatory-authority.php" />
+</map>
+<div class="tabsImageBlock">
+<img alt="" src="../images/en/tree_tab_produit.png" usemap="#tabs" />
+</div>
+<div class="tabsThemeImageBlock_en" id="tabsThemeImageBlock">
+<img alt="" src="../images/nav_bar_section_produit.jpg" />
+</div>
+<div class="headerBackgroundImage">
+<img alt="" src="../images/nav_bar_title.gif" />
+</div>
+</div>
+<div class="leftCornerBlock">
+<img alt="" src="../images/nav_bar_corner_left.png" />
+</div>
+<a href="../indexen.php">
+<img src="../images/logo_top.jpg" class="logoTopLeft" alt="Home" />
+</a>
+<div class="treeButtonBarBlock">
+  <span class="treeButtonBarIcon">
+    <a onfocus="this.blur()" onmouseover='status="";return true;' href='javascript:collapseNodes(new Array("titres", "produits_taux_change", "produits_derives", "carbone"), true)'><img alt="Collapse all" src="../images/collapse_all.gif" /></a>
+  </span>
+  <span class="treeButtonBarLink">
+    <a onfocus="this.blur()" onmouseover='status="";return true;' href='javascript:collapseNodes(new Array("titres", "produits_taux_change", "produits_derives", "carbone"), true)'>Collapse all</a>
+  </span>
+  <span class="treeButtonBarIcon">
+    <a onfocus="this.blur()" onmouseover='status="";return true;' href='javascript:expandNodes(new Array("titres", "produits_taux_change", "produits_derives", "derives_credit", "carbone"), true)'><img alt="Expand all" src="../images/expand_all.gif" /></a>
+  </span>
+  <span class="treeButtonBarLink">
+    <a onfocus="this.blur()" onmouseover='status="";return true;' href='javascript:expandNodes(new Array("titres", "produits_taux_change", "produits_derives", "derives_credit", "carbone"), true)'>Expand all</a>
+  </span>
+</div>
+<div class="treeBlock">
+<div class="leaf">
+  <img alt="" src="../images/dot.gif" />
+  <a onfocus="this.blur()" href="../pagesen/financial-products.php">The financial products</a>
+</div>
+<div class="node">
+  <a class="nodeLink" onmouseover='status="";return true;' 
+     name="titresFatherLink" id="titresFatherLink"
+     href='javascript:toggleNode("titres", true)'>
+  <img alt="" src="../images/opened_folder.gif"
+    name="titresFolderArrow" id="titresFolderArrow" />
+  Securities</a>
+<div id="titresSonsZone" style="display: block">
+<div class="leaf">
+  <img alt="" src="../images/dot.gif" />
+  <a onfocus="this.blur()" href="../pagesen/old-french-stocks.php">Old stocks</a>
+</div>
+<div class="leaf">
+  <img alt="" src="../images/dot.gif" />
+  <a onfocus="this.blur()" href="../pagesen/securitization.php">Securitization</a>
+</div>
+</div>
+</div>
+<div class="node">
+  <a class="nodeLink" onmouseover='status="";return true;' 
+     name="produits_taux_changeFatherLink" id="produits_taux_changeFatherLink"
+     href='javascript:toggleNode("produits_taux_change", true)'>
+  <img alt="" src="../images/opened_folder.gif"
+    name="produits_taux_changeFolderArrow" id="produits_taux_changeFolderArrow" />
+  Foreign exchange</a>
+<div id="produits_taux_changeSonsZone" style="display: block">
+<div class="currentLeaf">
+  <img alt="" src="../images/dotEnhanced.gif" />
+  <a onfocus="this.blur()" href="../pagesen/foreign_exchange.php">Basic Forex</a>
+</div>
+</div>
+</div>
+<div class="node">
+  <a class="nodeLink" onmouseover='status="";return true;' 
+     name="produits_derivesFatherLink" id="produits_derivesFatherLink"
+     href='javascript:toggleNode("produits_derives", true)'>
+  <img alt="" src="../images/opened_folder.gif"
+    name="produits_derivesFolderArrow" id="produits_derivesFolderArrow" />
+  Derivatives</a>
+<div id="produits_derivesSonsZone" style="display: block">
+<div class="leaf">
+  <img alt="" src="../images/dot.gif" />
+  <a onfocus="this.blur()" href="../pagesen/interest-rate-swap.php">Interest rate swap</a>
+</div>
+<div class="node">
+  <a class="nodeLink" onmouseover='status="";return true;' 
+     name="derives_creditFatherLink" id="derives_creditFatherLink"
+     href='javascript:toggleNode("derives_credit", true)'>
+  <img alt="" src="../images/opened_folder.gif"
+    name="derives_creditFolderArrow" id="derives_creditFolderArrow" />
+  Credit Derivatives</a>
+<div id="derives_creditSonsZone" style="display: block">
+<div class="leaf">
+  <img alt="" src="../images/dot.gif" />
+  <a onfocus="this.blur()" href="../pagesen/credit-derivative.php">Definition</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="node">
+  <a class="nodeLink" onmouseover='status="";return true;' 
+     name="carboneFatherLink" id="carboneFatherLink"
+     href='javascript:toggleNode("carbone", true)'>
+  <img alt="" src="../images/opened_folder.gif"
+    name="carboneFolderArrow" id="carboneFolderArrow" />
+  Carbon finance</a>
+<div id="carboneSonsZone" style="display: block">
+<div class="leaf">
+  <img alt="" src="../images/dot.gif" />
+  <a onfocus="this.blur()" href="../pagesen/carbon_finance.php">Introduction</a>
+</div>
+</div>
+</div>
+<br/></div>
+<div id="noteContainer" style="position:absolute; left:0px; top:0px; z-index: 20;"></div>
+<script type="text/javascript">manageScreen(1340);</script>
+ 
+</body>
+
+<!-- InstanceEnd -->
+</html>

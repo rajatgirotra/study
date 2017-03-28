@@ -1,0 +1,31 @@
+Handling Exception
+
+In general if an exception is thrown by a function in python code, python always sets a global variable to indicate the exception. So when an exception or error occurs in your custom module code, you should also set the exception type. You dont need to modify the global variable directly, python provides a set of Functions "PyErr_Set*()" which you can use.
+Infact there are three global variables
+
+1) One to indicate the exception type
+2) Second to indicate the exceptions associated value (if any)
+3) And third to indicate or store the stack trace where the error originated.
+All these three global variables directly correspond to three variables in python
+sys.exc_type, sys.exc_value, sys.exc_traceback.
+
+PyErr_SetString(PyObject* err, "Some string indicating Exception value") - You dont need to increment or decrement the reference count. Python will internally convert the string argument to a Python object
+
+PyErr_SetObject(PyObject* type, PyObject* value) - Very similar to above, except that you specify the PyObject directly as the value of the exception.
+
+void PyErr_SetNone(PyObject *type)
+This is a shorthand for PyErr_SetObject(type, Py_None).
+
+PyErr_SetFromErrNo(PyObject* type) - This can be used when a C library function throws an exception and you python to figure out the errno and set the exception value automatically. Python sets the value to be "ErrNo ErrMsg" corresponding to that errno.
+
+PyObject* PyErr_Occurred() - Return the exception object if set. Otherwise return NULL.
+
+PyErr_Clear() - Clear the exception indicator, if not set this has no effect.
+Typically you would not like to call this and let the error propogate higher (ie back) to the python code that called it. This will be caught by the Python interpreter and it will search for an appropriate handler specified by the python programmer. However, you can use it when you want to completely handle the exception inside your code and do not want the exception to propogate higher to the python interpreter.
+
+You can also create new Exception classes using
+
+PyObject* PyErr_NewException(char *name, PyObject *base, PyObject *dict)
+name is of the form "modulename.classname", base is usually NULL, indicating that this exception class should dervie from standard python Exception class. Dict argument is also usually NULL.
+
+PyObject* PyErr_NewExceptionWithDoc(char *name, char* doc, PyObject *base, PyObject *dict) - Nothing to explain here.

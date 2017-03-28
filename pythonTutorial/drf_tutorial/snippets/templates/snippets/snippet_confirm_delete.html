@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'snippets:delete' pk=object.id %}" method="POST">
+    <h1>Snippet {{ object }}</h1>
+    <input type="submit" value="Confirm delete??" name="submit">
+</form>
+</body>
+</html>

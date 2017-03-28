@@ -1,0 +1,18 @@
+If you do need to use one of these words as an identifier (for example, if you are accessing a class written
+in a different language), you can prefix the identifier with the @ symbol to indicate to the compiler that
+what follows is to be treated as an identifier, not as a C# keyword (so abstract is not a valid identifier,
+but @abstract is).
+
+Finally, identifiers can also contain Unicode characters, specified using the syntax \uXXXX , where XXXX is
+the four - digit hex code for the Unicode character. The following are some examples of valid identifiers:
+
+ Name
+ Identifier
+ \u005fIdentifier
+
+The last two items in this list are identical and interchangeable (because 005f is the Unicode code for the
+underscore character), so obviously these identifiers couldn  t both be declared in the same scope. Note
+that although syntactically you are allowed to use the underscore character in identifiers, this isn  t
+recommended in most situations. That  s because it doesn  t follow the guidelines for naming variables
+that Microsoft has written to ensure that developers use the same conventions, making it easier to read
+each other's code

@@ -1,0 +1,20 @@
+## There are a number of ways in which you can format the output
+
+## Use the write() function of the file object. The reference to the standard output is called sys.stdout
+## Use the various functions of the string module.
+## Use the str() or repr() function.
+## Use the str.format() function.
+
+I am not going to anything here and I expect you learn this on the go.
+
+
+Reading & Writing files
+
+1) Use the open() command to open files for reading & writing
+   open (filename, mode) 
+
+mode can be 'r' for reading, 'w' for writing, 'r+' for reading & writing, 'rb' for reading binary files. 
+
+In text mode, the default when reading is to convert platform-specific line endings (\n on Unix, \r\n on Windows) to just \n. When writing in text mode,
+the default is to convert occurrences of \n back to platform-specific line endings. This behind-the-scenes modification to file data is fine for text files,
+but will corrupt binary data like that in JPEG or EXE files. Be very careful to use binary mode when reading and writing such files.

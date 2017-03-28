@@ -1,0 +1,33 @@
+Solace hardware based messaging middleware provides all benefits listed in 1_What_is_it.
+
+1) Each solace router can handle the workload of about 30 servers running messaging software, so there are
+   fewer devices to manage. You require less rack space, less power and cooling.
+   
+2) A single device can support many different types of messaging:
+   a) Reliable
+   b) Guaranteed
+   c) JMS based
+
+3) It provides a command line interface for managing and monitoring. It also provides a graphical tool
+   called SolAdmin for the same. So you have single tool SolAdmin which is used to manage your messaging system
+   and also troubleshoot problems with the appliance, your application or even network
+
+4) The most important point is virtualization. Solace provides virtual messaging environments. In solace you can setup
+   a messaging VPN. Each messaging VPN gives you your own fully compartmentalised virtual messaging environment. When
+   these messaging VPN's are setup, messages never cross between environments, and administrators can fully configure the
+   behavior of, and the resources available to each virtual messaging partition. You essentially you are using the same
+   same Solace appliance (Solace actually calls it applicance as the "Solace Messaging Router")
+   You can use this same virtualization concept to run several discrete development and test environments.
+   Go back and check your Solace settings to see how stuff is getting routed in your environment.
+   Solace supports the creation of hundreds of virtual messaging environments per appliance.
+   Messages don’t cross between environments unless you want them to.
+
+   
+5) Solace routers have two planes. One is the control plane for managing and monitoring the appliance.
+   The other plane is the data plane, which is made up of PCIe cards which manage protocol termination, message routing
+   and persistence. So the flow of messages is completely separated from the management functionality.
+   Also each message router is a chassis that can accomodate a number of hardware cards that perform functions such
+   as network I/O, message routing, and guaranteed delivery. This lets customers configure them to meet their needs,
+   and expand functionality over time within that same footprint. Second, Solace message routers automatically propagate
+   subscriptions and share information about network availability so they can identify the shortest path for each message.
+   This means the capacity and/or functionality of a system can be increased simply by deploying another message router.  

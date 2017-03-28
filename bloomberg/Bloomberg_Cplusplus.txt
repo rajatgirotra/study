@@ -1,0 +1,69 @@
+INTERVIEW QUESTION - If I have fully optimised my multi-threaded/single threaded program... Are there any tricks that can make it run any faster??
+
+Core Bind / CPU Affinity
+This feature was recently added to Linux Kernel (for kernel version > 2.5). It has existed in Windows for a long time and Linux developers were getting jealous...
+Functions set or report the current CPU_Affinity for the current thread:
+set_cpu_affinity(int newAffinity);
+int result = get_cpu_affinity();
+The affinity value is a 32-bit value. If bit 0 is set (=="1") then this thread can run on CPU core 0, similarly for bit 1 <-> CPU core 1, etc.
+
+
+
+
+
+INTERVIEW QUESTION - Write a Singleton that is safe in a Multi-Threaded environment
+class Singleton {
+    Singleton get_instance() {
+         static bool isInitialised = false;
+
+        // INTERVIEW QUESTION - Why do you need to test the lock twice ??
+        // Answer: Otherwise what happens if one thread is actually doing the init, and another has got as far as waiting in the lock... the second thread would also execute the init code
+        // See wikipedia "Design Patterns" for "double-lock" pattern/explanation.
+
+        if(isInitialised) {  // Avoid testing mutex lock if we are already initialised, because that is an extra call and adds delay
+            enterMutexLock();
+            if(isInitialised) {  // Check init again - "double-lock" design pattern... 
+
+            // Do the init...
+            actualObjectPtr = new SingletonObject();
+
+            isInitialised = true;
+            exitMutexLock();
+        }
+        return actualObjectPtr;
+    }
+};
+
+// INTERVIEW QUESTION - What would be the bug if we used if(actualObjectPtr) instead of if(isInitialised) ???
+Exmple Code:
+    Singleton get_instance() {
+        if(!actualObjectPtr) {  // Avoid testing mutex lock if we are already initialised, because that is an extra call and adds delay
+            enterMutexLock();
+            if(actualObjectPtr) {  // Check init again - "double-lock" design pattern... 
+                // Do the init...
+                actualObjectPtr = new SingletonObject();
+            exitMutexLock();
+        }
+        return actualObjectPtr;
+    }
+// Answer - because the C++ compiler can execute the statement in ANY ORDER of execution: "actualObjectPtr = new SingletonObject();"
+// Answer - GNU C++ has a habit of doing them in the following order:
+// Answer -      1) Do the "new".
+// Answer -      2) Put the address into actualObjectPtr (at which point "if(actualObjectPtr)" becomes true)
+// Answer -      3) Call the SingletonObject constructor
+// Answer - so if the order of execution is unknown/unspecified/"not dictated by the C++ standards",
+// Answer - then second thread could get true from if(actualObjectPtr) and immediately drop through to the return statement
+// Answer - so it receives uninitialised or partially initialised object...
+
+
+INTERVIEW QUESTION - Write the prototypes for "malloc" and "free":
+Answer: extern void* malloc(size_t nBytes);
+Answer: extern void  free(void*    pMem);
+INTERVIEW QUESTION - How is malloc implemented? and how does "free" know the amount of memory to release, as we don't pass the nBytes into free?
+Answer - malloc allocates a bit of extra memory from the heap and uses that to remember the size of memory allocated.
+Bonus point - If malloc is implemented to use underlying blocks of fixed sizes rather than allocating whatever size is requested memory fragmentation can't occur.
+
+
+
+
+

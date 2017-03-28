@@ -1,0 +1,88 @@
+Division
+--------
+division is faster with unsigned rather than signed when you divide an integer with
+a constant which is a power of 2 (because simple right shifting is done)
+division_signed_vs_unsigned.cpp does that
+Also remember the general rule of C binary ops (including division) is that the operands will both
+be converted to the same type, which is one of: int, unsigned int, long, unsigned long, intmax_t, uintmax_t, float, double, long double.
+If both operands are of types in that list, they'll both be converted to the later one.
+If neither is, they'll both be converted to int
+So signed vs unsigned division can also give wrong results.
+
+
+Conversion to floating point is faster for signed rather than unsigned integers
+
+So
+
+int a, b;
+double c
+b = (unsigned int)a/10;  // will be faster than a/10;
+c = a * 2.5; // will be faster than (unsigned int)a * 2.5;
+
+Pre-increment and Post-Increment
+-------------------------------
+Generally, ++i should faster than i++.
+But there are cases, when post-increment is more effecient.
+eg:
+x = arr[i++] vs x = arr[++i], post-increment is faster
+as the calculation of address of arr index will need to wait for
+2-3 clock cycles for computation of ++i.
+
+
+&& and ||
+---------
+if a is True 50% of the time and b is True 10% of the time,
+then b & a is more effecient than a & b.
+Also a || b is more effecient than b || a.
+
+Floating Point Operations
+-------------------------
+Microprocessors can do floating point operations in two ways:
+1) Either use the floating point stack registers which have long double (80 bits) precision.
+   All floating point comparisons are done in long double and conversion between
+   different precisions takes no extra time.
+
+   or
+
+2) Use the XMM or YMM vector registers for floating point calculations.
+Where SSE, SSE2 instruction sets are supported by the compiler, the XMM and YMM vector
+registers are available. Using SSE2, upto 4 single precision or 2 double precision
+floating point numbers can be acted upon together (parallely). We'll study this shortly.
+The disadvantage is that when you have operations involving different precesions, then
+precision conversion can be quite time consuming.
+
+So if your operations have different precisions, and you are using register stack operations,
+conversions take no extra time. But if you use vector registers (XMM & YMM), then it can be
+quite time consuming
+
+float a, double b;
+a += b; // will be time consuming if using vector operations
+
+Integer to floating point conversion
+-------------------------------------
+Converting signed integer to float or double takes less time than converting unsigned to
+float or double. So it is faster to convert unsigned to signed before converting to double
+given that there is no risk of overflow.
+unsigned int u; double f;
+f = (double)(signed int)u;
+
+Actually, if possible, try to avoid int to floating operations if possible.
+Eg:
+double a[100];
+for (int i = 0; i< 100; ++i)
+    a[i] = 2 * i;
+
+CAN BE BETTER WRITTEN AS:
+double a[100]; double d2;
+for(int i = 0, d2 = 0; i < 100; i++, d2 += 2.0)
+    a[i] = d2;
+
+Floating to int conversion
+---------------------------
+
+This is very time consuming and should be avoided in your critical path
+of the code. It is because the C++ standard says to truncate the value
+and the for truncation the rounding mode of the floating point has to be changed
+to truncation and then back again.
+
+So avoid it or use the SSE2 instructions as those are faster.

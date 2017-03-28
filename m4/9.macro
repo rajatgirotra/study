@@ -1,0 +1,17 @@
+# Read carefully
+define(args, ``NAME', `Marie'')dnl
+args
+define(args)dnl
+NAME
+# Understandable until here
+
+# We are redefining the args macro in the argument passed to args.
+# However, the expansion was already in force, so it will print "NAME, Marie"
+# but from now on args is renamed to Rachael.
+args(define(`args', `Rachael'))
+args
+
+# Hope this is understandable
+define(`msg', `undefine(`msg')Secret message.')
+msg
+msg

@@ -1,0 +1,81 @@
+Message Types (Tag 35)
+
+35=0 <Heartbeat message>
+35=1 <Test Request>
+35=2 <Resend Request>
+35=3 <Reject>
+35=4 <Sequence Reset>
+35=5 <Logout>
+35=A <Logon>
+35=B <News>
+35=C <Email>
+35=D <Order Single>
+35=E <Order List>
+35=F <Order Cancel Request>
+35=G <Order Cancel/Replace Request>
+35=H <Order Status>
+
+Validation in FIX communication will occur at two levels:
+
+at the FIX engine level - FIX engine can only validate aspects of the fix communication.
+For eg:
+1) Out of sequence messages
+2) Messages with wrong message type
+3) Incorrect checksum
+4) Network issues.
+
+The problem here is that most of the time fix engine will try to handle this by itself and not even tell the application about it.
+The application will only note that it is not receiving any fix messages. So there is better way to know for the application that there
+is a problem with the FIX commuication. It is to use File Watchers.. A file watcher is nothing but a bash or shell script to look for
+certain patterns in a log file to identify potential problems. Eg: Veritas is a commercial tool.
+
+at the business level - This is where the application will validate the body of the fix message to validate everything is in order.
+For eg: Validating the custom defined tags etc..
+
+
+
+Application Level Rejects:
+
+1) Applicatin level rejects indicate that there is a BusinessReject message.
+2) this should ideally not happen. and indicates a problem with the extent of the UAT testing.
+3) Every business application must not ignore business reject messages.
+4) Every business should send send BusinessReject with clear reasons for rejection.
+
+Although FIX supports literally hundreds of pre-defined tags, there is room for custome defined tags (field numbers 5000 to 9999).
+
+Common tags in the header
+
+8=FIX.x.y -- > Fix Version
+9=body length
+35=MessageType
+34=SequenceNumber
+43=PossDupFlag
+49-SenderCompID
+115=OnBehalfOfCompId
+56=TargetCompId
+52=timestamp
+
+Trailer
+10=Checksum
+
+A Fix engine can be either 
+1) An initiator - ie a client and send a logon message and end with a logout message  
+2) An acceptor - ie a server - Receives a login request, validate it and estabishes a connection.
+
+An implementation of the FIX protocol is called a FIX engine. Eg:
+1) Quickfix (open source)
+2) FIX Antenna
+3) VersaFix
+4) UL FIX
+5) CameronFIX( vendor)
+6) Financial Fusion(TradeForce)
+7) Reuters - Traid
+
+When you need to decide which FIX engine you want to use think about the following
+1) What versions of FIX it supports
+2) Does it support two or more different versions simultaneously.
+3) How is the performance? (Through put and CPU performance etc)
+4) Does it suppor the asset class you need?
+5) What about support? FIX engine monitoring utilities?
+6) Any business logic offered by the FIX engine?
+etc..

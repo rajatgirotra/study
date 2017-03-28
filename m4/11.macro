@@ -1,0 +1,7 @@
+# using conditionals.
+# ifdef(`a', b) outputs b is a is defined. ifdef(`a', b, c) outputs c if a is not defined.
+`a' is ifdef(`a', defined, not_defined)
+# define a now
+define(`a')dnl
+`a' is ifdef(`a', defined, not_defined)
+

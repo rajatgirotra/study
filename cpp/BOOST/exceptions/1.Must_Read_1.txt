@@ -1,0 +1,27 @@
+Boost Exceptions
+
+Problem
+Many times when you catch an exception, you do not have access to all the data which you would like to fill in your
+exception class. For eg: in
+
+void read_file( FILE * f )
+{
+    ....
+    size_t nr=fread(buf,1,count,f);
+    if( ferror(f) )
+        throw file_read_error(???); //You do not have the file name to populate your exception. You only have the file pointer.
+   ....
+}
+
+So one way is that u pass the filename as an extra parameter. But that ofcourse is not a good approach.
+
+
+One solution is to wrap your exception inside an another exception as bubble up from the point of failure. This approach is also used in Java (using the
+cause() method of the Exception class).
+
+But boost approach is slightly different.
+
+In boost, you create an exception by deriving from the boost::exception class and then incrementally build your object as you bubble up from the point of
+failure. At each level, you keep on adding more information to your exception object.
+
+See how we use it in the next example. The header file to use is "boost/exception/all.hpp"

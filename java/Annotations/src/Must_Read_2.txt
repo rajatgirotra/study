@@ -1,0 +1,18 @@
+
+Please read UseCaseTracker.java first
+
+Annotations are especially useful when you want some sort of additional information to accompany your source files.
+For example, when you are working with frameworks such as EJB's, web services, Hibernate etc, you need an external
+descriptor file. This way you end up with two separate sources of information about a class, which usually leads to
+code synchronization problems. In such cases, you can use annotation to generate those external files for you
+automatically. 
+
+Next we'll see how we can write some annotations to generate code for creating a database table, given the 
+java bean class.
+
+
+We'll need an annotation at the class level to get the name of the db table. Then we'll need annotations for 
+various constraints on fields/columns in the db table. Then we'll need annotations to define the type of fields.
+String, Integer etc.
+
+Please read DBTable.java next.

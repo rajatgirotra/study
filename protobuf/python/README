@@ -1,0 +1,2 @@
+Just creating simple proto messages, where one message has a repeat of the other proto message
+and then we serialize to json how it looks. Then we try to see how we can achieve similar serialization using django rest_framework

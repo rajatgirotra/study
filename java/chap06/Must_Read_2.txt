@@ -1,0 +1,4 @@
+constructors are not polymorphic (theyre actually static methods, but the static
+declaration is implicit), its important to understand the way constructors
+work in complex hierarchies and with polymorphism. This understanding
+will help you avoid unpleasant entanglements

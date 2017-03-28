@@ -1,0 +1,19 @@
+100 - 4%, return 104
+ER = 50
+5000 - 20%, you get 6000
+
+USD/INR = 50
+
+ER doesn't move, convert back to USD = 6000/50, 120, u return 104, u earn 16$ risk free
+
+ER moves down, convert back to USD = 5400/40, 150, u return 104, u earn 46 risk free
+
+ER moves up, convert back to USD = 5400/60, 100, u return 104, u loose 4 $
+So u need to cover this using a USD/INR forward contract for 1 year.
+
+theoretical Forward rate = 50 * (1.2)/(1.04) = 57.69
+So if USD/INR 1 yr price remains below 57.69, u have an arbitrage opportunity
+
+6000/57.69 = 104, no profit no loss.
+
+If price is 57, 56, 55, 54 etc.. we have an arbitrage opportuinty.

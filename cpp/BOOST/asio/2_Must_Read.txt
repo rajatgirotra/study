@@ -1,0 +1,60 @@
+Lets look at some of io_service members and functions
+
+header file: boost/asio/io_service.hpp
+
+//C'tor
+io_service();
+io_service(size_t concurrency_hint) --> hint on how many no. of threads it should allow to run simultaneously.
+
+//subclass id
+io_service::id --> class used to uniquely identify a service.
+
+//run function - to start the service objects event processing loop.
+size_t run() --> this version throws boost::system::system_error on failure.
+size_t run(boost::system::error_code& ec) ; this version does not throw and sets parameter "ec" on error.
+Blocking call which works until all the handlers are called by the function or until
+someone calls the stop() method to stop event processing. Can be called from multiple threads as you know
+Each call will create a thread on which a handler can be invoked.
+After calling stop(), cannot call run(), run_one(), poll() or poll_one() unless you call reset().
+
+//void stop();
+//bool stopped();
+//void reset(); -- must be called to reuse the same io_service object after a call to
+run(), run_one(), poll() or poll_one() functions have returned.
+
+//size_t run_one()
+//size_t run_one(boost::system::error_code& ec)
+Same as run() but will only block until one handler is dispatched.
+
+//poll function
+size_t poll()
+size_t poll(boost::system_error::error_code& ec)
+Very similar to run() but non blocking. poll() will run/dispatch all handlers that are ready for
+processing and will return immediately after that.
+run() on the other hand will block for unfinished asynchronous operations too.
+
+//dispatch
+template <typename CompletionHandler>
+void dispatch(CompletionHandler handler)
+Used to ask io_service to explicitly run this CompletionHandler.
+ASIO guarantees that the handler will run in one the threads in which run(), run_one(),
+poll() or poll_one() is currently being invoked. The handler can be called inside this function
+if the guarantee can be met.
+
+//post function
+void post(CompletionHandler handler)
+Exactly same as dispatch but gurantees that handler will not be called inside this function.
+Very small difference between post() and dispatch(). However still need to understand the difference
+between these two.
+
+io_service::work class
+Very trivial.
+//C'tor
+work(io_service& service) --> Used to tell io_service that work has begun and is underway.
+This keeps run() from returning until the work object is destroyed.
+
+
+Later we'll see examples of how this is implemented.
+
+Do not call reset() while any of the run(), run_one(), poll() or poll_one() are still blocked. Causes
+undefined behavior.

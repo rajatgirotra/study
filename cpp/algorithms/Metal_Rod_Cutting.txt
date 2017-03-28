@@ -1,0 +1,20 @@
+You are given a metal rod of some length n.
+Separately you are given prices of metal rods of length less than equal to n.
+Eg: 
+
+Length: 1		2		3		4		5		6		7		8
+Price:	1		5		8		9		10		17		17		20
+
+You have to cut the given rod into smaller pieces, so as to maximise the profit.
+For eg:for n = 8, you will cut into length of 2 and 6 for  max profit of 22.
+
+Solution:
+Start from the beginning
+
+for length 1: max profit is price[0]
+for length 2: max profit is max(price[1], price[1]+price[1])
+for length 3: max profit is max(price[2], price[1]+price[2])
+for length 4: max profit is max(price[3], price[0]+price[2], price[1]+price[1])
+
+So for each rod length n, you look at max profits of earlier lengths.
+Solution will be O(n*n)

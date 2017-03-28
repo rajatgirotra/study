@@ -1,0 +1,3 @@
+# No space should be there b/w define and opening bracket
+define(AUTHOR, W.Shakespeare)dnl
+Hamlet was written by AUTHOR

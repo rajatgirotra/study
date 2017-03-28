@@ -1,0 +1,25 @@
+Read FriendScope*.cpp and Box*.cpp first
+
+
+Friend templates
+
+You can be precise as to which specializations of a template are friends of a class. In the examples in the previous section, only the specialization of the function template f with the same type that specialized Friendly was a friend. For example, only the specialization f<int>(const Friendly<int>&) is a friend of the class Friendly<int>. This was accomplished by using the template parameter for Friendly to specialize f in its friend declaration. If we had wanted to, we could have made a particular, fixed specialization of f a friend to all instances of Friendly, like this:
+  // Inside Friendly:
+  friend void f<>(const Friendly<double>&);
+ 
+
+By using double instead of T, the double specialization of f has access to the non-public members of any Friendly specialization. The specialization f<double>( ) still isnt instantiated unless it is explicitly called.
+
+Likewise, if you declare a non-template function with no parameters dependent on T, that single function is a friend to all instances of Friendly:
+  // Inside Friendly:
+  friend void g(int);  // g(int) befriends all Friendlys
+ 
+
+As always, since g(int) is unqualified, it must be defined at file scope (the namespace scope containing Friendly).
+
+It is also possible to arrange for all specializations of f to be friends for all specializations of Friendly, with a so-called friend template, as follows:
+template<class T> class Friendly {
+  template<class U> friend void f<>(const Friendly<U>&);
+ 
+
+Since the template argument for the friend declaration is independent of T, any combination of T and U is allowed, achieving the friendship objective. Like member templates, friend templates can appear within non-template classes as well.

@@ -1,0 +1,26 @@
+The first example in this chapter was
+if(t == null)
+throw new NullPointerException();
+
+It can be a bit horrifying to think that you must check for null on every
+reference that is passed into a method (since you can’t know if the caller
+has passed you a valid reference). Fortunately, you don’t. this is part of
+the standard run-time checking that Java performs for you, and if any call
+is made to a null reference, Java will automatically throw a
+NullPointerException. So the above bit of code is always superfluous.
+
+There’s a whole group of exception types that are in this category. They’re
+always thrown automatically by Java and you don’t need to include them
+in your exception specifications (eg NullPointerException & ArrayIndexOutofBoundsException).
+Conveniently enough, they’re all grouped together by putting them under a single base class called
+RuntimeException, which is a perfect example of inheritance: it
+establishes a family of types that have some characteristics and behaviors
+in common. Also, you never need to write an exception specification
+saying that a method might throw a RuntimeException (or any type
+inherited from RuntimeException) because they are unchecked
+exceptions. Because they indicate bugs, you don’t usually catch a
+RuntimeException;it’s dealt with automatically. If you were forced to
+check for RuntimeExceptions your code could get too messy. Even
+though you don’t typically catch RuntimeExceptions, in your own
+packages you might choose to throw some of the RuntimeExceptions.
+

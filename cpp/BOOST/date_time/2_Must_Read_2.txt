@@ -1,0 +1,71 @@
+We'll discuss time_duration first.
+This class is used to play with time. It supports time upto milliseconds and nanoseconds level.
+
+The heirarchy of class is:
+
+1] Top Level Base class boost::posix_time::time_duration.
+
+and then multiple derived classes for hours, minutes, seconds, milliseconds and nanoseconds.
+
+2] boost::posix_time::hours;
+3] boost::posix_time::minues;
+4] boost::posix_time::seconds;
+5] boost::posix_time::millisec;
+6] boost::posix_time::nanosec;
+
+There are several constructors available to create a time_duration object.
+Important ones are:
+
+1] Passing arguments for hours, minutes, seconds and milliseconds.
+time_duration td(1, 2, 3, 4) --> 01:02:03.000004
+
+By default the 4th argument is treated as milliseconds. If you build with BOOST_DATE_TIME_POSIX_TIME_STD_CONFIG flag, the fourth parameter will be treated as nanoseconds.
+
+
+2] Using count based construction.
+time_duration td = hours(3);
+time_duration td = minutes(3);
+time_duration td = seconds(3);
+time_duration td = milliseconds(3);
+time_duration td = nanoseconds(3);
+time_duration td = hours(1) + minutes(2) + seconds(3) + milliseconds(100);
+//Each of the above functions; hours, minutes, seconds etc returns a time_duration object, and because the operator + is well defined, hours(1) + minutes(2) work seamlessly.
+
+3] Special value time_duration c'tor:
+time_duration(special_value rv);
+Eg: neg_infin, pos_infin, not_a_date_time etc.
+When time_duration represents a special value, all of the getter methods like hours(), minutes(), seconds(), etc return undefined results.
+
+
+4] from string:
+std::string ts("23:59:59.000");
+time_duration td(duration_from_string(ts));
+
+Also note that time_duration can also be negative.
+
+So time_duration td(-1, 0, 0) is valid. and td.hours() will return -1.
+
+ACCESSORS: are self explanatory.
+
+long hours()
+long minutes()
+long seconds()
+long fractional_seconds()
+long total_seconds()
+long total_milliseconds()
+long total_nanoseconds()
+long total_microseconds()
+bool is_neg_infinity()
+bool is_pos_infinity()
+bool is_negative()
+time_duration invert_sign();
+bool is_not_a_date_time()
+bool is_special() etc etc..
+std::string to_simple_string(time_duration); //Format is: HH:MM:SS.fffffff
+std::string to_iso_string(time_duration); //Format is: HHMMSS, fffffff
+
+
+cout << time_duration(1, 2, 4, 5) << endl; works nicely.
+Also you'll be surprised to see that cin >> time_duration works as nicely as cout. See 3.cpp
+
+Also time_duration can be converted to tm struct using to_tm(time_duration) function.

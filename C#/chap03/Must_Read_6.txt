@@ -1,0 +1,123 @@
+//ToSting() overriding & Extension Classes
+
+The Object Class
+As indicated earlier, all .NET classes are ultimately derived from System.Object . In fact, if you don  t
+specify a base class when you define a class, the compiler will automatically assume that it derives
+from Object . Because inheritance has not been used in this chapter, every class you have seen here is
+actually derived from System.Object . (As noted earlier, for structs this derivation is indirect: A struct
+is always derived from System.ValueType , which in turn derives from System.Object .)
+The practical significance of this is that, besides the methods and properties and so on that you define,
+you also have access to a number of public and protected member methods that have been defined for
+the Object class. These methods are available in all other classes that you define.
+System.Object Methods
+
+The ToString() Method
+You  ve already encountered ToString() in Chapter 2 ,  C# Basics.  It provides the most convenient way
+to get a quick string representation of an object.
+For example:
+int i = -50;
+string str = i.ToString(); // returns -50
+Here  s another example:
+enum Colors {Red, Orange, Yellow};
+
+// later on in code...
+
+Colors favoriteColor = Colors.Orange;
+string str = favoriteColor.ToString(); // returns Orange
+
+
+Object.ToString() is actually declared as virtual, and all these examples are taking advantage of the
+fact that its implementation in the C# predefined data types has been overridden for us in order to
+return correct string representations of those types. You might not think that the Colors enum counts as
+a predefined data type. It actually gets implemented as a struct derived from System.Enum , and
+System.Enum has a rather clever override of ToString() that deals with all the enums you define.
+
+If you don  t override ToString() in classes that you define, your classes will simply inherit the
+System.Object implementation  which displays the name of the class. If you want ToString() to
+return a string that contains information about the value of objects of your class, you will need to
+override it. To illustrate this, the following example, Money , defines a very simple class, also called
+Money , which represents U.S. currency amounts. Money simply acts as a wrapper for the decimal class
+but supplies a ToString() method. Note that this method must be declared as override because it is
+replacing (overriding) the ToString() method supplied by Object . Chapter 4 discusses overriding in
+more detail. The complete code for this example is as follows. Note that it also illustrates use of
+properties to wrap fields:
+
+using System;
+namespace Wrox.ProCSharp.OOCSharp
+{
+class MainEntryPoint
+{
+static void Main(string[] args)
+{
+Money cash1 = new Money();
+cash1.Amount = 40M;
+Console.WriteLine(cash1.ToString() returns:  + cash1.ToString());
+Console.ReadLine();
+}
+}
+class Money
+{
+private decimal amount;
+public decimal Amount
+{
+get
+{
+return amount;
+}
+set
+{
+amount = value;
+}
+}
+public override string ToString()
+{
+return $ + Amount.ToString();
+}
+}
+}
+This example is here just to illustrate syntactical features of C#. C# already has a predefined type to
+represent currency amounts, decimal , so in real life, you wouldn  t write a class to duplicate this
+functionality unless you wanted to add various other methods to it. And in many cases, due to
+formatting requirements, you  d probably use the String.Format() method (which is covered in
+Chapter 8 ) rather than ToString() to display a currency string.
+In the Main() method, you first instantiate a Money object. The ToString() method is then
+called, which actually executes the override version of the method. Running this code gives the
+following results:
+StringRepresentations
+cash1.ToString() returns: $40
+
+Extension Methods
+There are many ways to extend a class. If you have the source for the class, then inheritance, which is
+covered in Chapter 4 , is a great way to add functionality to your objects. What if the source code isn  t
+available? Extension methods can help by allowing you to change a class without requiring the source
+code for the class.
+Extension methods are static methods that can appear to be part of a class without actually being in the
+source code for the class. Let  s say that the Money class from the previous example needs to have a
+method AddToAmount(decimal amountToAdd) . However, for whatever reason the original source for
+the assembly cannot be changed directly. All that you have to do is create a static class and add the
+AddToAmount method as a static method. Here is what the code would look like:
+namespace Chapter3.Extensions
+{
+public static class MoneyExtension
+{
+public static void AddToAmount(this Money money, decimal amountToAdd)
+{
+money.Amount += amountToAdd;
+}
+}
+}
+Notice the parameters for the AddToAmount method. For an extension method, the first parameter is the
+type that is being extended preceded by the this keyword. This is what tells the compiler that this
+method is part of the Money type. In this example Money is the type that is being extended. In the
+extension method you have access to all the public methods and properties of the type being extended.
+In the main program the AddToAmount method appears just as another method. The first parameter
+doesn  t appear, and you do not have to do anything with it. To use the new method, you make the call
+just like any other method:
+
+cash1.AddToAmount(10M);
+
+Even though the extension method is static, you use standard instance method syntax. Notice that we
+called AddToAmount using the cash1 instance variable and not using the type name.
+If the extension method has the same name as a method in the class, the extension method will never be
+called. Any instance methods already in the class take precedence
+

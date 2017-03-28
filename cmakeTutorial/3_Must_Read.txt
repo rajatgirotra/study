@@ -1,0 +1,13 @@
+For VERBOSE option:
+do either
+
+cmake .
+make VERBOSE=1
+
+or
+
+cmake -DCMAKE_VERBOSE_MAKEFILE=ON
+make
+Ofcourse you can also set variables using the set(CMAKE_VERBOSE_MAKEFILE ON) command
+-----------------------------------------------------------------------------------------------------------
+

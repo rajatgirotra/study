@@ -1,0 +1,20 @@
+What is YUM?
+Yum stands for Yellowdog Updater, Modified.
+It's a repository management tool for RedHat, Centos, Fedora and many other linux distributions
+used for software package installation.
+
+Software installation is done using RPM (RedHat Package Manager). So understand the difference between YUM and RPM
+
+YUM is used to manage different repositories which host RPM packages, getting information about those packages
+etc.
+
+while RPM is an archive which can be pulled from the repository using YUM and then extracted.
+
+Creating a new YUM repository is very simple:
+1) Create an empty directory, example: /var/yum
+2) Copy all the rpm files which you want to host in your repository.
+3) Create metadata for your repository. This is done using the createrepo command. Install using yum if this is not available
+4) Add the repository information in your yum configuration.
+
+
+

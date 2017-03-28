@@ -1,0 +1,30 @@
+/*
+First file in this folder
+*/
+C++ operators can be grouped into related sets:
+eg: 
+1] Comparison operators: <, >, <=, >= etc etc.
+2] Arithmetic operators: +, -, +=, -= etc etc.
+3] Shift operators: <<, >> etc.
+
+When you encounter a class with one operator from one of these sets, you typically expect to find others too. For eg: when a class provides operator==, you expect to find
+operator!= and probably operator<, operator<= etc. 
+
+Often a class only provides operator< to define an ordering so objects can be used in associative containers; but that often leaves your class users wanting for more.
+Similarly, a class with value semantics that provides operator+ but not operator+= or operator- is limiting its potential uses. 
+
+When you define one operator from a set for your class, you should typically provide the remaining operators from that set to avoid surprises. Unfortunately, it is cumbersome and error prone to augment a class with the many operators needed to support comparisons or arithmetic, and iterator classes must provide certain sets of operators according to the iterator category they model just to function correctly.
+
+1] Boost.Operators allows you to define only a subset of the required comparison or arithmetic operators, and then defines the rest for you based upon those you provide. This way it enforces the correct operator semantics, and reduces your chance of making mistakes.
+
+2] An additional value of the Operators library is the explicit naming of concepts that apply for different operations, such as addable for classes supporting operator+ and operator+=, shiftable for classes supporting operator<< and operator>>, and so on. This is important for two reasons: 
+
+	2.a] A consistent naming scheme aids understanding
+	2.b] The classes named after them, can be part of class interfaces, clearly documenting important behaviors.
+
+There are a number of operators that are well suited to be implemented in terms of other operators, and Boost.Operators is of great use here.
+
+/*
+Please read Must_Read_2.txt next
+*/
+

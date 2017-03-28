@@ -1,0 +1,221 @@
+Probably the most important topic to understanding class based views and mixins correctly and be a pro in Django.
+In django, you already know that you have class based views and django also provides generic class based views like DetailView and ListView in django.views.generic
+
+You can also inherit from View classes yourself and extend or override default implementation. It turns out all the functionality is not implemented in just View or its subclasses. We have a number of other classes called Mixins, which are also inherited by View classes and they also provide commonly needed implementations. We'll look at some of the common Views and Mixins and their function call heirarchy ti understand correctly. Otherwise it is easy to get lost. From 20.txt you already know about the Biew class
+
+1) At the top of the View class hierarchy is the View class. It has a dispatch() function which read the 'request' (HttpRequest) parameter, and calls 'get', 'post', 'head', 'patch', 'put' functions based on the method type.
+
+2) Let's take a look at TemplateView. TemplateView derives from 
+a) TemplateResponseMixin
+b) ContentMixin
+c) View
+
+Now TemplateView overrides get.
+def get(self, request, *args, **kwargs):
+    # It first calls get_context_data to create a context object
+    context = self.get_context_data(**kwargs)
+    # get_context_data() is defined in ContextMixin which be default populates the kwargs ie the keyword arguments passed to the request in the URL. It also add a key called 'view' with value = self. ie the instance of the TemplateView class.
+    # then it calls
+    self.render_to_response(context, **kwargs)
+    # Now render_to_response() is provided in TemplateResponseMixin
+
+The TemplateResponseMixin defines a few members which are used to configure the template response
+1) template_name or get_template_names() - User must provide either of them
+2) template_engine - the template engine to use.
+3) response_class - A HttpResponse or a subclass of HttpResponse. Default is TemplateResponse class which knows how to populate a template and return an HttpResponse.
+4) content_type - 'like text/html, application/json etc'
+
+So really you can use TemplateResponseMixin to return a JsonResponse also. Just set
+1) response_class - JsonResponse (django.http.JsonResponse)
+2) content_type - 'application/json'
+3) override render_to_response(context, **response_kwargs), where context is a dictionary of keyword arguments received in the request URL, and response_kwargs are any extra arguments you wish to specify. Mostly the response_kwargs means key value pairs which will be set in the response message, so response_kwargs are one of 'content-type', 'status', 'reason', 'charset'
+Note that your View class should be derived from View class or its subclass. Then you will have access to 
+1) self.request = HttpRequest object
+2) self.args = args in request
+3) self.kwargs = keyword args in request.
+
+So upto now, the hierarchy is
+
+dispatch()
+  get()
+    get_context_data()
+    render_to_response()
+
+
+--------------------------------------------------------------------------------------------------------------------
+list view hierarchy is:
+dispatch()
+   get()
+      get_queryset()
+      get_allow_empty()
+      get_ordering()
+      get_pagination_related() functions
+   get_context_data()
+      get_context_object_name()
+
+Now lets see ListView. ListView is also simple. It dervies from 
+
+1) MultipleObjectTemplateResponseMixin(TemplateResponseMixin): which overrides "get_template_names()", which overrides "get_template_names()" in TemplateResponseMixin
+and
+2) BaseListView(MutipleObjectMixin, View): BaseListView overrides "get". So for ListView, hierarchy is:
+
+dispatch()
+  get()
+     self.object_list = self.get_queryset() (default implementation in MultipleObjectMixin)
+     allow_empty = self.get_allow_empty() (default implementation in MultipleObjectMixin)
+     /// Something with pagination of list
+     get_context_data() (default implementation in MultipleObjectMixin)
+     render_to_response()  (default implementation in TemplateResponseMixin)
+
+3) Now MultipleObjectMixin is the main class which has all importat attributes for a ListView.
+   allow_empty = True/False (True if a page should allow empty lists, False if a 404 should be returned instead)
+   queryset = None (the QuerySet object that will be passed to the template)
+   model = None (the name of the model)
+   paginated_by = None (We'll see this later)
+   context_object_name = None (by default self.object_list is a QuerySet of model instances)
+   ordering = None (for ordering of elements in the QuerySet).
+
+Now remeber something, for each attribute above and in general, mixins provide a function too which you can override. For simple cases, you can directly set the attribute values in your own Views. and for complex scenarios/designs, you can override the functions corresponding to each mixin attribute. For example, MultipleObjectMixin provides:
+
+def get_allow_empty(self):
+    return self.allow_empty  # so you can override this function in your view for complex scenarios
+
+def get_queryset(self):
+    if self.queryset is not None:
+        queryset = self.queryset # if someone has directly set the attribute, then use it.
+    else:
+        queryset = model._default_manager.all() # default is too return all items in DB.
+   
+    ordering = self.get_ordering() # you can override this too to define your own order
+    # then return the QuerySet based on the request ordering
+
+
+def get_context_name(self, object_list):
+    if self.context_object_name:
+        return self.context_object_name  # use if provided on the attribute
+    else:
+        context_object_name = modelName_list 
+
+
+def get_context_data(self, **kwargs):
+    # Creates a context with some "paginated" keys and an "object_list" which is the result of get_queryset()
+    # and "modelName_list" which is also the same queryset.
+
+
+So now never forget this
+---------------------------------------------------------------------------------------------------------------------
+Next lets look at DetailView. Details view is used to show information about one Model instance. The
+
+DetailView(SingleObjectTemplateResponseMixin, BaseDetailView):
+SingleObjectTemplateResponseMixin(TemplatesResponseMixin): and overrides "get_template_names()".
+def get_template_names():
+   1) Either define template_name attribute in your view
+   2) Or if you want to act on a specific field of your object (model instance), template_name_field attribute. In this case django will look for a template file names after the field attribute. like username.html for example for username field.
+   3) Otherwise use "modelName_detail.html" template.
+
+BaseDetailView(SingleObjectMixin): overrides get. Very straighforward hierarchy
+
+dispatch()
+    get()
+        get_object() (sets self.object)
+           get_queryset() 
+        get_context_data()
+            get_context_object_name()
+        render_to_response()
+--------------------------------------------------------------------------------
+
+We need to look at Editing Views also. which are
+1) CreateView
+2) UpdateView
+3) DeleteView
+------------------------------------------------------------------------
+Lets see the heirarchy of classes  that make up the CreateView, then we'll see what all aspects (attributes and functions) you can override.
+
+TemplateResponseMixin
+SingleObjectTemplateResponseMixin
+CreateView
+
+View
+ProcessView
+BaseCreateView
+
+ContextMixin
+FormMixin
+ModelFormMixin
+FormMixin
+
+ContextMixin
+SingleObjectMixin
+
+ModelFormMixin and ProcessFormView
+BaseCreateView
+CreateView
+
+Now the CreateView overrides "get()", "post()" and "put()".
+get() is used to render an empty form. post() and put() are used to validate() and save() the form data to the model instance.
+
+Lets study get as it is easy:
+
+get(request, *args, **kwargs): from BaseCreateView
+    self.object = get(request, args, kwargs)  # get from ProcessView
+    self.get_context_data() # in FormMixin or SingleObjectMixin
+      get_context_data, sets all keyword arguments from URLConf and sets
+      kwargs['form'] = get_form(), # get_form() return the "form" attribute that you set.
+      get_form()
+         get_form_class() # creates a form object passing a dictionary of "initial" and "prefix" keys and ("data" and "files") if request
+         if of type PUT or POST.  "data" is nothing but self.request.POST and "files" is self.request.FILES
+             get_form_kwargs()
+    self.render_to_response(with the context data)
+
+So request is simple, let's now look at put/post
+
+post(request, *args, **kwargs): from BaseCreateView
+    self.object = None
+    post(request, *args, **kwargs) # post from ProcessView
+    get_form()
+       get_form_class() # creates a form object passing a dictionary of "initial" and "prefix" keys and ("data" and "files") if request
+       if of type PUT or POST.  "data" is nothing but self.request.POST and "files" is self.request.FILES. Also "instance" is set to 
+       self.object
+          get_form_kwargs()
+    if form.is_valid():
+        return self.form_valid(form)
+            # form_valid calls redirect(get_success_url())
+    else
+        return self.form_invalid(form)
+            # form_invalid calls render_to_response(get_context_data(form=form))
+
+# Now the important attributes you need to override for create view:
+template_name_suffix = "_form" # _form is default, so django will search for appsName/modelName_form.html
+form_class = Your form name class
+success_url = # redirect url for 
+initial = {}
+prefix = None
+"initial {}" and "prefix" are passed as kwargs to form_class() c'tor when an instance is created.
+
+-------------------------------------------------------------------------------------------------------------
+
+UpdateView (Very similar to CreateView except that the get(), post(), put() functions in BaseUpdateView class.
+get():
+    self.object = get_object() # in createView self.object was None so 'object' was not set in the context dictionary passed to template
+                               # but in this case, it will be set.
+                               # Also get_object(), get_queryset() can be overriden in your view class (they come from SimpleObjetMixin) 
+
+put():
+    self.object = self.get_object()
+-------------------------------------------------------------------------------------------------------------
+
+DeleteView is also similar: Just that the get(), delete(), post() are overriden
+and the "template_name_suffix = "_confirm_delete" by default
+get(): # uses get_object()
+    self.object = get_object()
+    context = self.get_context_data(object=self.object)
+    self.render_to_response(context)
+
+delete():
+    self.object = self.get_object()
+    self.object.delete()
+    return redirect(success_url)
+
+post(): is same as delete
+
+-------------------------------------------------------------------------------------------------------------

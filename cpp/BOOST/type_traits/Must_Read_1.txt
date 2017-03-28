@@ -1,0 +1,65 @@
+/*
+Boost has added a type_traits library which consists of a set of trait classes (which are all template classes) where each traits class encapsulates a trait from the C++ type system. 
+For example,
+1] there is a templatized traits class which tells you if the template parameter is of integral type.
+2] there is a templatized traits class which tells you if the template parameter is a pointer or a reference.
+2] there is a templatized traits class which tells you if the template parameter has a const or volatile qualifier or not.
+
+Each of these traits classes derive from either true_type class or false_type class.
+Each of the traits class has a member variable "value" which is true if the class has the specific trait or false otherwise.
+
+Motivation behind the type_traits library:
+
+We all know that generic programming is good. However, there are times when the difference between the specific generic types is so large that the generic implementation is not very efficient.
+In such cases, we have traits classes which encapsulate the properties of a c++ type.
+
+So by encapsulating those properties that need to be considered on a type by type basis inside a traits class, we can minimize the amount of code that has to differ from one type to another, and maximize the amount of generic code.
+
+The type-traits library also contains a set of classes that perform a specific transformation on a type; for example, they can remove a top-level const or volatile qualifier from a type. Each class that performs a transformation defines a single typedef-member type that is the result of the transformation
+
+*/
+
+The simplest trait type is shown below as an example. is_void<> template class will only have value as true when its template parameter is void.
+
+template <typename T> 
+struct is_void : public false_type{};
+
+template <> 
+struct is_void<void> : public true_type{};
+
+
+Another example:
+
+template <typename T> 
+struct is_pointer : public false_type{};
+
+template <typename T> 
+struct is_pointer<T*> : public true_type{};
+
+So is_pointer<> template will only have "value" true when T is a pointer type.
+
+As a more complex example of partial specialization consider the class remove_extent<T>. This class defines a single typedef-member "type" that is the same type as T but with any top-level array bounds removed; this is an example of a traits class that performs a transformation on a type:
+
+template <typename T> 
+struct remove_extent
+{ typedef T type; };
+
+template <typename T, std::size_t N> 
+struct remove_extent<T[N]>
+{ typedef T type; };
+
+The aim of remove_extent is this: imagine a generic algorithm that is passed an array type as a template parameter, remove_extent provides a means of determining the underlying type of the array. For example remove_extent<int[4][5]>::type would evaluate to the type int[5]. This example also shows that the number of template parameters in a partial specialization does not have to match the number in the default template. However, the number of parameters that appear after the class name do have to match the number and type of the parameters in the default template.
+
+Class template integral_constant is the common base class for all the value-based type traits. The two typedef's true_type and false_type are provided for convenience: most of the value traits are Boolean properties and so will inherit from one of these.
+
+template <typename T, T val>
+struct integral_constant {
+	typedef integral_constant<T, val> type;
+	typedef T value_type;
+	static const T value = val;
+};
+
+typedef integral_constant<bool, true> true_type;
+typedef integral_constant<bool, false> false_type;
+
+

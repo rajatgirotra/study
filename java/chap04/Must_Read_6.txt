@@ -1,0 +1,64 @@
+// The only thing we stress here is that JAVA also allows a static block
+as shown below. Other than that everything else remains the same.
+
+
+
+Java allows you to group other static initializations inside a special
+static clause (sometimes called a static block) in a class. It looks like
+this: Feedback
+class Spoon {
+static int i;
+static {
+i = 47;
+}
+// . . .
+It appears to be a method, but its just the static keyword followed by a
+block of code. This code, like other static initializations, is executed only
+once, the first time you make an object of that class or the first time you
+access a static member of that class (even if you never make an object of
+that class). For example: Feedback
+//: c04:ExplicitStatic.java
+// Explicit static initialization with the "static" clause.
+import com.bruceeckel.simpletest.*;
+class Cup {
+Cup(int marker) {
+System.out.println("Cup(" + marker + ")");
+}
+void f(int marker) {
+System.out.println("f(" + marker + ")");
+}
+}
+class Cups {
+static Cup c1;
+static Cup c2;
+static {
+c1 = new Cup(1);
+c2 = new Cup(2);
+}
+Cups() {
+System.out.println("Cups()");
+}
+}
+public class ExplicitStatic {
+static Test monitor = new Test();
+public static void main(String[] args) {
+System.out.println("Inside main()");
+Cups.c1.f(99); // (1)
+monitor.expect(new String[] {
+"Inside main()",
+"Cup(1)",
+"Cup(2)",
+"f(99)"
+});
+}
+// static Cups x = new Cups(); // (2)
+// static Cups y = new Cups(); // (2)
+} ///:~
+The static initializers for Cups run when either the access of the static
+object c1 occurs on the line marked (1), or if line (1) is commented out and
+the lines marked (2) are uncommented. If both (1) and (2) are commented
+out, the static initialization for Cups never occurs. Also, it doesnt matter
+if one or both of the lines marked (2) are uncommented; the static
+initialization only occurs once
+
+

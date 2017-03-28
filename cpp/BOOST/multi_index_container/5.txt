@@ -1,0 +1,93 @@
+In
+//define a MIC now.
+typedef boost::multi_index_container < Employee,
+            indexed_by <
+                //NO TAG
+                ordered_unique < identity < Employee >, std::greater<std::string> >,
+                //WITH TAG
+                ordered_non_unique < tag<by_name>, member < Employee, std::string, &Employee::name > >,
+                //WITH TAG
+                sequenced < tag < by_sequence> >
+            >
+        > EmployeeSet;
+
+the general format of ordered_unique index is
+
+[ Tag, Key Extractor, Comparison Predicate ]
+
+The Key extractor tells how the sorting will be performed and on which field(s). For example, in the EmployeeSet MIC, we have two indexes.
+
+1] in the first index, we have identity<Employee> which basically returns the Employee object which serves as the key.
+2] in the second index, we have member<Employee, string, &Employee::name> which returns as key the member of  the
+element specified.
+
+Basically a key extractor is a function object where:
+1] the return type is typedef'ed to result_type
+2] the value returned is as specified by the creator of the MIC. So member<Employee, string, &Employee::name> returns:
+struct implementation_defined_type {
+    typedef string result_type;
+    result_type operator() (const Employee& e) {
+        return e.name; 
+    }
+};
+
+
+Other extractors.
+
+After "identity" and "member", you have
+
+a) const_mem_fun <Class, Type, &Class::member_function>
+    The member function of the class must be const since elements in a multi_index_container are treated as constant, much as elements of an std::set.
+    It should also not take any arguments. SO basically, MIC will call your const member function and it should return a
+    key based on which sorting will be performed.
+
+b) You also have global_fun which must take as argument "const Element&", and return a key based on which sorting will
+   be performed. Instead of a simple global function it could also be a static function of a class.
+
+I'll show u examples in a while. Also you have mem_fun available which does not require your class member function to be
+const but its a bit tricky to use. We'll see that also later.
+
+c) composite_key - This is a key extractor that can be used when you want to sort elements on more than one fields. Also,
+composite_key extractor allows you to specify the sorting order (less than or greater than). 
+
+
+d) The last one is the user defined key extractor. To create a user defined key extractor, you'll have to do two things.
+One: Create a "result_type" typedef which will be the type of the key used for sorting.
+Two: Create an function call operator() with one parameter, which will be of type "const Element&", using which you
+return the key object.
+
+
+So all in all you have the following key extractors
+
+1) identity
+2) member: ALWAYS USE BOOST_MULTI_INDEX_MEMBER macro which is portable. By default:
+            BOOST_MULTI_INDEX_MEMBER(A, type, x) expands to
+  member<A, type, &A::x> or member<A, type, offsetof(A, x)>. So use it always.
+
+3) const_mem_fun: INSTEAD ALWAYS USE BOOST_MULTI_INDEX_CONST_MEM_FUN for Portable code.
+4) global_fun
+5) composite_key
+6) user-defined extractor.
+
+
+Also, each of the boost defined extractors are overloaded so that you can use different types of the same element:
+For example, with the following key extractor.
+
+struct name_extractor
+{
+  typedef std::string result_type;
+
+  const result_type& operator()(const employee& e)const{return e.name;}
+  result_type&       operator()(employee* e)const{return e->name;}
+}; 
+
+Your MIC can contain either "employee" or "employee*".
+This way whenever you define a key extractor, you must define overloads so you can use the plain object,
+the object pointer or the object pointer wrapped in a smart pointer like boost::shared_ptr.
+
+Next we'll use each of these key extractor in an example, where the conatiner item will be
+
+1] the plain object
+2] the object pointer
+3] a smart pointer.
+

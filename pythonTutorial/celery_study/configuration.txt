@@ -1,0 +1,24 @@
+Celery can be configured in a number of ways. Before we talk about configuration options, lets see how to load configurations
+
+1) Hardcoding in the code
+app = Celery('tasks', broker=..., backend=...)
+app.conf.update(
+   key1=value1,
+   key2=value2,
+   key3=value3)
+
+2) Create a module (a python file with key value pairs), and use that. Standard is to name it celeryconfig
+app.configure_from_object('celeryconfig')  # celeryconfig.py
+app.configure_from_object('myapp.celeryconfig') # a module name
+
+3) Specify the module name also through an environment variable instead of putting in code
+app.configure_from_envvar(env_var_name)  # environment variable name
+
+4) there is also app.configure_from_cmdline() which i think is used to override configurations loaded from file.
+
+Always check your celeryconfig using "python -m celeryconfig", or if you have pylint, then use that.
+
+I think you dont need to restart your celery workers most of the time. Most of the time, you can use "celery control" command
+to manage and monitor celery. Read the management and monitoring guide for more.
+
+Read celery_proj project next.

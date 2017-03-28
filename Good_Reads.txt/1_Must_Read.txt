@@ -1,0 +1,7 @@
+After Chandler Carruth's talk on Efficiency of Algorithms and Performace of Data Structures, read
+
+1) How std::unordered_map works (buckets and hash)
+2) How to use vectors as associative containers. (by not using buckets, open addressing etc)
+3) What is vector in place storage. How C++11 broke it by implementing move c'tor
+4) Why are maps bad.
+5) What is cuckoo hashing. How bubble sort O(n2) is faster than cuckoo hashing O(lgN) in practice.

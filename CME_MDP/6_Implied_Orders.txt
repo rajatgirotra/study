@@ -1,0 +1,4 @@
+CME in a bid to provide liquidity and quantity, can match outright orders with calendar-spread orders in the spread market.
+When a futures order is matched to a spread order it is said to be an implied order.
+See: http://www.cmegroup.com/confluence/display/EPICSANDBOX/Implied+Orders
+for more details. Its not very difficult though.

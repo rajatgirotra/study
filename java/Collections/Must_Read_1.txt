@@ -1,0 +1,25 @@
+/*
+First file in the folder
+*/
+
+The “disadvantage” to using the Java containers is that you lose type
+information when you put an object into a container. This happens
+because the programmer of that container class had no idea what specific
+type you wanted to put in the container, and making the container hold
+only your type would prevent it from being a general-purpose tool. So
+instead, the container holds references to Object, which is the root of all
+the classes so it holds any type.
+
+Since the type information is lost, the only thing the container
+knows that it holds is a reference to an object. You must perform a
+cast to the correct type before you use it.
+
+But Java won’t let you misuse the objects that you put into a
+container. If you throw a dog into a container of cats and then try to treat
+everything in the container as a cat, you’ll get a RuntimeException
+when you pull the dog reference out of the cat container and try to cast it
+to a cat.
+
+/*
+Please read com.rajatgirotra.util.Generator.java next
+*/ 

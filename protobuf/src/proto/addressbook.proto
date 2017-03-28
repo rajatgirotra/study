@@ -1,0 +1,31 @@
+syntax = "proto2";
+
+package tutorial;  // name of namespace that will be generated
+
+message Person {  // name of class 
+    required string name = 1;  // getter will be name(), setter will be set_name()
+    optional int32 id = 2;
+    optional string email = 3;
+    // 1, 2, 3 are unique tags.
+
+    enum PhoneType {  // enum type.
+        HOME   = 0;
+        WORK   = 1;
+        MOBILE = 2;
+    }
+
+    message PhoneNumber {
+        required string number = 1;
+        optional PhoneType type = 2 [default = HOME];
+    }
+
+    repeated PhoneNumber phone = 4;  // repeated means can be 0 or more times.
+}
+
+message AddressBook {
+    repeated Person person = 1;
+}
+
+// Lets run protoc compiler
+// protoc -I <path_where_other_proto_files_can_be_imported> --cpp_out=<dest_dir> <your_proto_file>
+// Read addressbook.cpp next

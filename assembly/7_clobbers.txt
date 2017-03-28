@@ -1,0 +1,13 @@
+'cc' - You already know cc means the flags register.
+
+'memory' - memory means that the asm may perform some write to some memory location which is not in the inupt or output operand list.
+This means that the compiler cannot make any assumptions about values stored at a particular memory address that it read before the asm began.
+So it must read again next time it needs it. It also causes cpu to flush all its internal register values to memory.
+This effectively becomes a read/write memory barrier. Note that the CPU can  still execute a read operation past a write operation (StoreLoad can happen
+out-of-order). You'll need a CPU fence like instruction to prevent that.
+
+Simple Memory read/write barrier:
+asm volatile ("" ::: "memory");
+
+CPU barrier
+asm volatile ("mfence" ::: "memory");

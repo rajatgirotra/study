@@ -1,0 +1,61 @@
+There are various products for which market data is distributed. CME divides these products into separate groups called channels or market data group.
+All information regarding that product will be available on that channel.
+
+In each channel there are multiple UDP feeds described below.
+
+1) Incremental Feed: CME provides two UDP feeds A and B for incremental market data using encoded FIX messages.
+    The following are some fix message types that are supported.
+
+    a) SecurityDefinition message 35=d
+    b) Market data security message 35=f
+    c) Market data incremental refresh 35=X
+    d) Request for quote 35=R
+
+    All this information is provided on both A and B feeds to minimize packet loss. Ideally clients should
+    1) Listen to both Incremental Feeds A and B.
+    2) Process packets based on incremental sequence numbers
+    3) Discard packets if sequence number has already been processed.
+    4) If a gap is detected, it means packet loss occurred on both feeds and clients must initiate a recovery procedure.
+
+2) Market Recovery Feed: feeds A and B.
+   The mark recovery feed is used to distribute market data snapshot messages (35=?) for all books on that channel that have activity since the beginning of the week.
+   Feed B is only used in case Feed A is non-operational. Each UDP packet again can have multiple snapshot messages.
+
+3) Instrument Definition Feed: A and B
+   Same as above but instead of snaphot messages it has security/instrument definition messages (35=d).
+
+4) TCP relay: This is used to request CME to replay a set of packets already sent by CME on the Incremental Feed. For this CME will be the acceptor and we will be the initiator.
+   We will need to send a Market data request message (35=V) specifying the start an end packet sequence numbers to be replayed. CME will send the information and close the TCP connection.
+
+
+CME also provides something called "Market data Services" which provide kind of meta-data needed to process the market data coming on the channels above.
+Eg
+1) Schema Distribution - A method of providing all the currently active template specifications. See below for details.
+2) Channel Configurations
+3) Security Definition flat file.
+4) Market schedule file - Contains timing information for securities for the current week.
+
+This service is nothing but an FTP service where you can download the above meta-data for all three environments. "Cert", "Next Release", or "Production"
+
+1) Schema definitions: This is an XML file that is used to decode information sent on the incremental data feed. Get it here:
+    a) For Production: ftp://ftp.cmegroup.com/SBEFix/Production/Templates/templates_FixBinary.xml
+                       curl -O  "ftp://ftp.cmegroup.com/SBEFix/Production/Templates/templates_FixBinary.xml"
+   Schema definition file should be updated once every sunday before market open
+   This file contains the various message types and a unique Id corresponding to each called the template id . Also the file has a unique id called the schema id. The message must be decoded based on
+   information provided in the template.
+
+2) Channel Configuration: Again channel configuration XML file. Get it here:
+   For Production: curl -O "ftp://ftp.cmegroup.com/SBEFix/Production/Configuration/config.xml"
+   This file is updated daily. So its good to keep it upto date. This is the same file we have in mts/etc/cme.channels.prod.xml
+
+
+3) Security Definition file: Get it here: This is a gzip compressed file containing 35=d (security definition FIX messages). This file is not refreshed intra-day and really you should be listening to the incremental feed or the insrtument definition feed for 
+intra-day updats to security definitions. Get it here:
+   wget  "ftp://ftp.cmegroup.com/SBEFix/Production/secdef.dat.gz"
+
+4) Market schedule file: Again a file containing FIX messages (35=BJ, trading session list) containing timing information. Get the FIX description and the timimg file here:
+   curl -O "ftp://ftp.cmegroup.com/SBEFix/Production/TradingSessionList.pdf"
+   curl -O "ftp://ftp.cmegroup.com/SBEFix/Production/TradingSessionList.dat"
+
+   This page contains information where you can look for "Cert" and "New Release" files:
+   http://www.cmegroup.com/confluence/display/EPICSANDBOX/MDP+3.0+-+FTP+Site+Information

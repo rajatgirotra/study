@@ -1,0 +1,14 @@
+Different types of classes in JAVA:
+
+1. Top-level class or Outer class
+This is a class at the highest level, not nested inside any other class and there may be multiple top-level or outer classes in a single .java file.
+
+2. Nested classes:
+They are divided into two categories:
+	2.a) Static nested classes: Those that can be instantiated independently and do not require an instance of the containing class.
+
+	2.b) Inner classes: These are further divided into 3 categories:
+		2.a.1) Named Inner class: Those which require an instance of the containing class to bind to.
+		2.a.2) Anonymous class: These are classes which are defined inside a method and do not have a name associated with them.
+		2.a.3) Named local class: Same as above but they have a name associated with them.
+

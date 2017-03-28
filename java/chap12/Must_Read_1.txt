@@ -1,0 +1,19 @@
+Please read SimpleFormat.java first
+
+JAVA Strings
+-------------
+
+The JAVA String object is immutable. So whenever you call the toLowerCase(), toUpperCase() & like functions, you actually get a
+reference to a new String.
+
+Prior to JDK-5, JAVA used the StringBuffer class because it ensured thread safety; so it was very expensive. From JDK-5 onwards
+JAVA uses the StringBuilder class.
+
+Decompiling a class file
+------------------------
+use javap tool, provided in the bin folder.
+usage:
+-----
+javap -c <ClassName> //remember only class name eg: javap -c SimpleFormat & not javap -c SimpleFormat.class
+
+Please read Must_Read_2.txt next

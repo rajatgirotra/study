@@ -1,0 +1,85 @@
+PL/SQL is a procedural extension to SQL; by oracle.
+The basic code unit of PL/SQL is called a BLOCK. A block is divided into different structural parts by keywords
+DECLARE (declarative part), BEGIN (exceutable part), EXCEPTION (Exception handing part) and END;
+
+<<label>> Option
+DECLARE -- optional 
+   --Declare variables, constant etc. Will get destroyed after the block is executed.
+BEGIN
+    // SQL exceutable statement
+EXCEPTION
+   -- Exception handling code
+END;
+
+Such a block as shown above is called an anonymous block.
+
+Subprogram - A PL/SQL subprogram is a named PL/SQL block which can be called repeatedly. There are two types of subprograms in PL/SQL.
+Procedures - Which do not return a value
+Functions - Which return a value.
+Both Procedures and Functions can take parameters.
+
+Package
+A package is a schema object that groups logically related PL/SQL types, variables, constants, subprograms, cursors, and exceptions.
+A package is compiled and stored in the database, where many applications can share its contents.
+You can think of a package as an application
+
+Triggers
+A trigger is a named PL/SQL unit that is stored in the database and run in response to an event that occurs in the database.
+You can specify the event, whether the trigger fires before or after the event, and whether the trigger runs for each event or 
+for each row affected by the event.
+
+Input/Output
+Most PL/SQL input and output (I/O) is done with SQL statements that store data in database tables or query those tables.
+All other PL/SQL I/O is done with PL/SQL packages that Oracle Database supplies. Eg the DBMS_OUPUT package.
+
+Cursor
+A cursor is like a pointer to a private SQL area which stores the result of an SQL select statement or PL/SQL SELECT INTO statement
+or any other data retreival statement. You can use the cursor to retrieve the rows of the result set one at a time.
+
+Composite Variables
+A composite variable has internal components, which you can access individually. You can pass entire composite variables to subprograms as parameters. PL/SQL has two kinds of composite variables, collections and records. (basically nothing but like containers in C++).
+Collection
+----------
+In a collection, the internal components are always of the same data type, and are called elements.
+You access each element by its unique index. Lists and arrays are classic examples of collections.
+Records
+--------
+In a record, the internal components can be of different data types, and are called fields. You access each field by its name. A record variable can hold a table row, or some columns from a table row.
+
+%ROWTYPE
+--------
+The %ROWTYPE attribute lets you declare a record that represents either a full or partial row of a database table or view.
+For every column of the full or partial row, the record has a field with the same name and data type.
+If the structure of the row changes, then the structure of the record changes accordingly.
+
+%TYPE
+-----
+The %TYPE attribute lets you declare a data item of the same data type as a previously declared variable or column (without knowing what that type is). If the declaration of the referenced item changes, then the declaration of the referencing item changes accordingly. The %TYPE attribute is particularly useful when declaring variables to hold database values
+
+ADT (Abstract Data Type) - Created using the "CREATE TYPE" statement. it is just like a class in C++
+an ADT is made up of variables (called attributes) and subprograms (called methods).
+
+How to declare variables: (Simple scalar variables as const and non const)
+
+DECLARE
+    part_number NUMBER(6); -- SQL data type
+    part_name VARCHAR2(20); -- SQL data type
+    in_stock BOOLEAN; -- PL/SQL-only data type
+    part_price NUMBER(6,2); -- SQL data type
+    part_description VARCHAR2(50); -- SQL data type
+	credit_limit CONSTANT REAL := 5000.00; -- SQL data type
+    max_days_in_year CONSTANT INTEGER := 366; -- SQL data type
+    urban_legend CONSTANT BOOLEAN := FALSE; -- PL/SQL-only data type
+	hours_worked INTEGER := 40;  -- specifying an initial value. Good practice
+    employee_count INTEGER := 0;
+    pi CONSTANT REAL := 3.14159;
+    radius REAL := 1;
+    area REAL := (pi * radius**2); -- Multiplication is **, assignment operator is :=
+BEGIN
+    NULL;
+END;
+
+
+
+
+

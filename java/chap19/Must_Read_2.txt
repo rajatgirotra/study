@@ -1,0 +1,26 @@
+/*
+Please read SingleThreadExecutor.java first
+*/
+
+You now know that Runnable.run() does not return any value. It returns void.
+If you want a task to return a value. You can use the Callable interface. The Callable interface is defined as follows:
+
+interface Callable<V> {
+	V call();
+}
+
+Here the type parameter V actually represents the return type of task. and instead of implementing the run() method, you should not
+implement the call() method.
+
+Also you must invoke this thread using ExecutorService.submit() method. This method also returns on object which implements the
+Future interface. Interface future is defined as:
+ interface Future<V> {
+ 	V get()
+ 	...// other 4-5 methods
+ }
+ 
+ where the parameter type V is the type returned  by call(). So you can use the Future<V>.get() call to get the actual return value.
+ 
+/*
+Please read CallableDemo.java next which explains this even more thoroughly
+*/ 

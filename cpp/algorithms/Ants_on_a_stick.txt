@@ -1,0 +1,20 @@
+Here’s a fun logic puzzle I first encountered on the New York Times. Suppose we have a stick which is exactly 1 meter long, which we think of as a one-dimensional line segment. We also have 100 ants on this stick. Each ant starts by pointing in a certain direction and each ant walks at a speed of 1 meter per minute. When two ants meet each other on the stick, they each turn around and go in the opposite direction in which they had been going (in physics terms, an elastic collision happens). The stick is narrow enough that ants cannot pass by each other. If an ant reaches an end of the stick, it falls off.
+
+Given an initial configuration of ants on the stick (ie, the position of the 100 ants as well as the direction they start walking in), determine how long it will take for all ants to fall off. Your solution should be easy enough to implement by hand.
+Think about this puzzle for a while. If you’re stuck, I’ll provide a hint below the fold, and then further beyond that the complete solution.
+Hint: Think about what happens if, instead of 100 ants, there are only 2 ants.
+
+
+Solution
+--------
+
+Of the crux of the solution is that the ants are indistiguishable. If two ants are on a collision corse, 
+then after the collision, just think that the walked past each other. and dont think that they are reversing directions.
+So it becomes a fairly easy puzzle. It will only take as much time as based on simple speed, distance time formula given their initial positions.
+
+
+A variation to the puzzle is:
+
+A and B send 50 and 20 ants to each other respectvely and at every collision they turn their direction. So how many ants will end up
+with A and how many with B.
+Solution is simple now: A will get 20 ants and B will get 50

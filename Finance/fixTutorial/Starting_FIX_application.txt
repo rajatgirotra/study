@@ -1,0 +1,51 @@
+/* Please read Fix_class_hierarchy.txt first */
+/* Starting a fix application is now easy */
+
+#include "quickfix/FileStore.h"
+#include "quickfix/FileLog.h"
+#include "quickfix/SocketAcceptor.h"
+#include "quickfix/Session.h"
+#include "quickfix/SessionSettings.h"
+#include "quickfix/Application.h"
+
+int main( int argc, char** argv )
+{
+  try
+  {
+    //Read session Settings filename from command line
+    if(argc < 2) return 1;
+    std::string fileName = argv[1];
+
+	//read the settings. 
+    FIX::SessionSettings settings(fileName);
+
+	//create your application object
+    MyApplication application;
+	
+	//Initialise file based messaging store.
+    FIX::FileStoreFactory storeFactory(settings);
+	
+	//Initialise file based logging
+    FIX::FileLogFactory logFactory(settings);
+	
+	//Create a SocketAcceptor (we'll be running as server)
+    FIX::SocketAcceptor acceptor
+      (application, storeFactory, settings, logFactory /*optional*/);
+	  
+	//start
+    acceptor.start();
+	
+	//wait in an infinite loop
+    while( condition == true ) { do something; }
+	
+	//stop
+    acceptor.stop();
+	
+    return 0;
+  }
+  catch(FIX::ConfigError& e)
+  {
+    std::cout << e.what();
+    return 1;
+  }
+}

@@ -1,0 +1,75 @@
+Lets look at some of the instructions in SSE
+
+DATA TYPES
+==========
+
+__m128 = 4 byte float (or packed single precision)
+__m128d = 8 byte double (or packed double precision)
+__m128i = 4 byte integer (or packed integer )
+
+
+INSTRUCTION CATEGORIES
+======================
+
+We have SSE instructions in various categories like
+
+1) Load and Store instructions
+2) Arithmetic
+3) Comparison
+4) Logical
+5) Shuffle instructions
+6) Miscellaneous
+
+Most intrinsic functions are suffixed with either ss, ps, pd or sd. What do they mean?
+
+ps : packed single precision float
+pd : packed double precision float
+ss : single precision float (applies to lower data element)
+sd : double precision float (applies to lower data element)
+
+
+Assembly Instruction suffix for integer operations: (We'll understand all this in a bit)
+b: byte
+w: word (16 bits or 2 bytes)
+d: doubleword (32 bits or 4 bytes)
+q: quadword (64 bits or 8 bytes)
+dq: double quadword (128 bits or 16 bytes)
+
+Data is stored in XMM registers in little endian order
+So if you have data where the words are 
+
+W0 W1 W2 W3 W4 W5 W6 W7
+
+where W0 is the LSB and W7 is MSB, then stey are stored like
+           
+		         XMM0             
+  128  				                     0
+  ----------------------------------------
+ | W7 | W6 | W5 | W4 | W3 | W2 | W1 | W0 |
+  ----------------------------------------
+  
+Also, to move data in XMM registers, you can say
+
+movdqa xmm0, [a]  --> given that a is 16 byte aligned
+movdqu xmm0, [a]  --> if a is not 16 byte aligned.
+
+Also worth noting is the SSE instruction set, we have
+
+instruction<suffix> xmm, xmm/m128, [imm8/r32]
+where m128 is a 16 byte aligned memory location
+imm8 is an 8-bit operand
+r32 is a 32 bit register operand.
+
+Similarly intrinsics also have a simiar format
+
+_mm_<instruction>_suffix(...)
+eg:
+
+_mm_<instruction>_ps --> packed single precision (4 byte)
+_mm_<instruction>_pd --> packed single precision (8 byte)
+_mm_<instruction>_ss --> scalar single precision (4 byte)
+_mm_<instruction>_sd --> scalar single precision (8 byte)
+_mm_<instruction>_si# --> scalar integer(8, 16, 32, 64, 128 bits)
+_mm_<instruction>_su# --> scalar unsigned integer(8, 16, 32, 64, 128 bits) 
+_mm_<instruction>_[e]pi# --> packed integer(8, 16, 32, 64, 128 bits), like _mm_cvtpd_pi32, _mm_movepi64_pi64 etc
+_mm_<instruction>_[e]pu# --> packed unsigned integer(8, 16, 32, 64, 128 bits)

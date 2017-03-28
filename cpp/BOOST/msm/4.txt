@@ -1,0 +1,26 @@
+Consider next that there is an error in your state machine. Typically an error can be originated in any state.
+So you can create a new state "ErrorFound" which can be reached from any state. So your state chart will have arrows
+from all states to the ErrorFound state, which will be a terminal state.
+
+This is not very neat. What you can do instead in MSM is, basically define a new Region. Think of a region as a small
+place where a lightweight state machine is running in parallel to your state machine. So you have two regions now. One
+in which your actual state machine is running and another one in which you run a separate lightweight state machine.
+At any time you have two active states, one in each region. These two state machines can influence each other. I'll
+show later how this is done.
+
+Any event that occurs can be handled by any of the regions, based on the priority that the user defines. So to handle
+errors, you can create a new region with just two states. AllOk and ErrorFound. Most of the time AllOk will be active.
+When an error occurs, you move from AllOk to ErrorFound state.
+
+The no_transition() function is called by MSM, only if no region is able to handle an incoming event. The main region
+can simply choose to ignore this event. The other region can report this error in its action function.
+Also, as UML mandates, every region gets a chance of handling the event, in the order as declared by the initial_state
+type.
+
+To create a new region, you just define a slightly modified initial_state. Eg:
+
+  typedef mpl::vector<Empty,AllOk> initial_state;
+
+//An event will be first sent to the main region and then to the second region based on the order defined above.
+
+Let us now tailer 3.cpp to have a new region.

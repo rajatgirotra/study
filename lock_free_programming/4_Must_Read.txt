@@ -1,0 +1,69 @@
+We have seen already that a processor can re-order reads/writes, which in effect causes memory - reordering.
+
+The compiler can also do memory-reordering by re-ordering instructions but making sure that it does not effect the observable behavior of a single
+threaded application.
+
+Eg: Let say
+
+int A, B;
+void foo()
+{
+    A = B + 1;
+    B = 0;
+}
+Try to generate the asm code for this when optimization is turned on and off. See 4.cpp
+g++-4.8.2 -S -masm=intel 4.cpp
+g++-4.8.2 -O2 -S -masm=intel 4.cpp, with optimization, you'll see that the compiler reorders the instruction
+
+In case with optimization, it brings B in an internal register and then modified B to 0, then adds 1 to internal register and then rights to A.
+So in effect, B = 0 even before A = 1.
+This is OK, because the obeservable behavior of a single thereaded application does not change.
+But this can cause issues, in lock-free programming, eg:
+
+void sendMessage(int x)
+{
+    value = x;
+    isPublished = 1;
+}
+
+So what would happen, if isPublished = 1 even before value = x?? Havoc..
+To prevent this, we can use a compiler barries:
+asm volatile ("" ::: "memory"); between the two instructions.
+
+int A, B;
+void foo()
+{
+    A = B + 1;
+    asm volatile ("" ::: "memory"); //This will force the compiler to keep the memory Store instructions in the desired order.
+    B = 0;
+}
+
+If you just have a single processor system, then compiler barrier are enough as processor re-ordering does not matter (There is only a single processor and it will never see its own reads and writes out of order).
+Only when we have multi core systems, we will need a CPU fence instruction, or any other type of instruction that acts like a MEMORY BARRIER, like you saw before.
+The CPU fence instruction which you saw in 1_Must_Read.txt is also a MEMORY BARRIER only.
+
+The difference between
+asm volatile ("" ::: "memory") - This is a full memory barrier which prevents compiler  re-ordering. i.e a compiler barrier too.
+AND
+asm volatile ("mfence" ::: "memory") - This is a full memory barrier which prevents CPU re-ordering.
+
+The CPU fence instruction acts like a compiler barrier too. How.. ?? See explanation below
+Lets assume the code above generates the following machine instructions
+
+mov eax, B
+mov B, 0
+add eax, 1
+mov A, eax
+
+Now if we had an "asm volatile("mfence" ::: "memory"); barrier between
+A = B + 1;
+B = 0; this would mean that all stores/loads till A = B + 1 should have been completed, before B was set to 0. But with the above generated code,
+that wont be possible. So the code generated must be like:
+
+mov eax, B
+add eax, 1
+mov A, eax
+fence::
+mov B, 0
+
+Hence it becomes a compiler barrier too..

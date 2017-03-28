@@ -1,0 +1,18 @@
+There are three typical scenarios when smart pointers are appropriate:
+
+Shared ownership of resources
+
+When writing exception-safe code
+
+Avoiding common errors, such as resource leaks
+
+Shared ownership is the case when two or more objects must use a third object. How (or rather when) should that third object be deallocated? 
+To be sure that the timing of deallocation is right, every object referring to the shared resource would have to know about each other to be able to correctly time the release of that resource. That coupling is not viable from a design or a maintenance point of view. The better approach is for the owners to delegate responsibility for lifetime management to a smart pointer. When no more shared owners exist, the smart pointer can safely free the resource.
+
+Exception safety at its simplest means not leaking resources and preserving program invariants when an exception is thrown. When an object is dynamically allocated, it won't be deleted when an exception is thrown. As the stack unwinds and the pointer goes out of scope, the resource is possibly lost until the program is terminated (and even resource reclamation upon termination isn't guaranteed by the language). Not only can the program run out of resources due to memory leaks, but the program state can easily become corrupt. Smart pointers can automatically release those resources for you, even in the face of exceptions.
+
+Avoiding common errors. Forgetting to call delete is the oldest mistake in the book. A smart pointer doesn't care about the control paths in a program; it only cares about deleting a pointed-to object at the end of its lifetime. Using a smart pointer eliminates your need to keep track of when to delete objects. Also, smart pointers can hide the deallocation details, so that clients don't need to know whether to call delete, some special cleanup function, or not delete the resource at all.
+
+Safe and efficient smart pointers are vital weapons in the programmer's arsenal. Although the C++ Standard Library offers std::auto_ptr, that's not nearly enough to fulfill our smart pointer needs. For example, auto_ptrs cannot be used as elements of STL containers. The Boost smart pointer classes fill a gap currently left open by the Standard.
+
+

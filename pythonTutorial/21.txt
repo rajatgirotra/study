@@ -1,0 +1,18 @@
+## Please read fibo.py first
+
+I opened the python3 interpreter and executed the following
+
+$ python3
+Python 3.2.3 (default, Jul 23 2012, 16:48:24)
+[GCC 4.5.3] on cygwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import fibo
+>>> fibo.fib(3000)
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584
+>>> print(fibo.fib2(4000))
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584]
+>>> print(fibo.fib2(5000))
+[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181]
+
+
+## Very trivial

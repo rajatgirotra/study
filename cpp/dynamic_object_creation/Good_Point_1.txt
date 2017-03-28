@@ -1,0 +1,50 @@
+Operate new
+
+If you say
+
+    MyType *fp = new MyType(1,2);
+
+at runtime, the equivalent of malloc(sizeof(MyType)) is called (often, it is
+literally a call to malloc( )), and the constructor for MyType is called with
+the resulting address as the this pointer, using (1,2) as the argument list.
+By the time the pointer is assigned to fp, it.s a live, initialized object .
+you can.t even get your hands on it before then. It.s also automatically the
+proper MyType type so no cast is necessary.
+
+The default new checks to make sure the memory allocation was successful
+before passing the address to the constructor, so you don.t have to explicitly
+determine if the call was successful. Later in the chapter you.ll find out
+what happens if there.s no memory left.
+
+---------------------------------------------------------------------------------
+
+Operator delete
+
+The complement to the new-expression is the delete-expression, which first
+calls the destructor and then releases the memory (often with a call to free(
+)). Just as a new-expression returns a pointer to the object, a
+delete-expression requires the address of an object.
+
+    delete fp;
+
+This destructs and then releases the storage for the dynamically allocated
+MyType object created earlier.
+
+delete can be called only for an object created by new. If you malloc( ) (or
+calloc( ) or realloc( )) an object and then delete it, the behavior is
+undefined. Because most default implementations of new and delete use malloc(
+) and free( ), you.d probably end up releasing the memory without calling the
+destructor.
+
+If the pointer you.re deleting is zero, nothing will happen. For this reason,
+people often recommend setting a pointer to zero immediately after you delete
+it, to prevent deleting it twice. Deleting an object more than once is
+definitely a bad thing to do, and will cause problems.
+
+-----------------------------------------------------------------------------------
+
+When you overload operator new( ) and operator delete( ), it's important to remember that you're changing only the way raw storage is allocated. The compiler will simply call your new instead of the default version to allocate storage, then call the constructor for that storage. So, although the compiler allocates storage and calls the constructor when it sees new, all you can change when you overload new is the storage allocation portion. (delete has a similar limitation.)
+
+When you overload operator new( ), you also replace the behavior when it runs out of memory, so you must decide what to do in your operator new( ): return zero, write a loop to call the new-handler and retry allocation, or (typically) throw a bad_alloc exception.
+
+Overloading new and delete is like overloading any other operator. However, you have a choice of overloading the global allocator or using a different allocator for a particular class.

@@ -1,0 +1,50 @@
+1] -C <initial-cache>
+
+When cmake is first run in an empty build tree, it creates a CMakeCache.txt file and populates it with customizable settings for the project. This option may be used to specify a file from which to load cache entries before the first pass through the project's cmake listfiles. The loaded entries take priority over the project's default values. The given file should be a CMake script containing SET commands that use the CACHE option, not a cache-format file.
+
+2] -D <var>:<type>=<value>: Create a cmake cache entry. 
+This option may be used to specify a setting that takes priority over the project's default value.
+
+3] -G <generator-name>: Specify a makefile generator.
+CMake may support multiple native build systems on certain platforms. A makefile generator is responsible for generating a particular build system. Type "cmake" to see the list of available generators on your platform.
+eg: cmake -G "Visual Studio 9 2008" .  generates Visual Studio 9 2008 project files.
+
+4] -Wno-dev: Suppress developer warnings.
+Suppress warnings that are meant for the author of the CMakeLists.txt files.
+
+5] -Wdev: Enable developer warnings.
+Enable warnings that are meant for the author of the CMakeLists.txt files.
+
+6] -E: CMake command mode
+For true platform independence, CMake provides a list of commands that can be used on all systems. Run with -E help for the usage information. eg: cmake -E
+
+7] --build <dir>: Build a CMake-generated project binary tree.
+This abstracts a native build tool's command-line interface with the following
+options:
+
+  <dir>          = Project binary directory to be built.
+  --target <tgt> = Build <tgt> instead of default targets.
+  --config <cfg> = For multi-configuration tools, choose <cfg>.
+  --clean-first  = Build target 'clean' first, then build.
+                   (To clean only, use --target 'clean'.)
+  --use-stderr  =  Don't merge stdout/stderr.
+  --             = Pass remaining options to the native tool.
+
+Run cmake --build with no options for quick help.
+
+8] -warn-uninitialized: Warn about uninitialized values.
+Print a warning when an uninitialized variable is used.
+
+9] --warn-unused-vars: Warn about unused variables.
+
+10] --help-command cmd [file]: Print help for a single command and exit.
+Full documentation specific to the given command is displayed. If a file is specified, the documentation is written into and the output format is determined
+depending on the filename suffix. Supported are man page, HTML, DocBook and plain text.
+
+11] cmake --help-command-list : List all the available commands in cmake.
+
+12] --help-modules [file]: Print help for all modules and exit.
+
+Similarly you have --help-properties-list and --help-variable-list
+
+

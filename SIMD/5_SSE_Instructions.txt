@@ -1,0 +1,4 @@
+Based on information in 4_SSE_Instructions, lets take a look at some common functions
+
+_mm_setzero_<ps,pd,ss,sd,si64,si128 etc>       --> set to zero
+_mm_set1_<ps,pd,ss,sd,si64,si128 etc>          --> set all elements to a value

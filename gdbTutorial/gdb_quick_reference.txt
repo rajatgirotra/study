@@ -1,0 +1,1047 @@
+------------------------------------------------------------------------------------------------------------------------------
+size
+
+You can use the size command to list out the size of the various sections:
+
+$ size hello_world-1.o hello_world-1.exe
+   text    data     bss     dec     hex filename
+     56       0       0      56      38 hello_world-1.o
+    912     388      64    1364     554 hello_world-1.exe
+
+
+The  GNU  size  utility  lists the section sizes---and the total size---for each of the object or archive files objfile in its argument
+list.  By default, one line of output is generated for each object file or each module in an archive.
+
+You can also get the size of the sections of the object file using "objdump -h" or "objdump -x"
+
+objdump -h  ---> Display the contents of the section headers
+objdump -x  ---> Display the contents of all headers
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Good Questions:
+   1. Suppose a program makes 5 function calls. How many frames should be on the stack?
+   2. We saw that the stack grows linearly downward, and that when a function returns, the last frame on the stack is deallocated and returned to unused memory. Is it possible for a frame somewhere in the middle of the stack to be returned to unused memory? If it did, what would that mean about the running program?
+   3. Can a goto() statement cause frames in the middle of the stack to be deallocated? The answer is no, but why?
+   4. Can longjmp() cause frames in the middle of the stack to be deallocated?
+
+A symbol is a variable or a function. A symbol table is exactly what you think: it's a table of variables and functions within an executable. Normally, symbol tables contain only memory addresses of symbols, since computers don't use (or care) what we name variables and functions.
+
+But in order for GDB to be useful to us, it needs to be able to refer to variable and function names, not their addresses. Humans use names like main() or i. Computers use addresses like 0x804b64d or 0xbffff784. To that end, we can compile code with "debugging information" which tells GDB two things:
+
+   1. How to associate the address of a symbol with its name in the source code.
+   2. How to associate the address of a machine code with a line of source code.
+
+If you plan on debugging an executable, a corefile resulting from an executable, or a running process, you must compile the executable with an enhanced symbol table. To generate an enhanced symbol table for an executable, we must compile it with gcc's -g option:
+You can also give a numerical argument to -g, -ggdb and all the other debugging format options, with 1 being the least amount of information and 3 being the most. Without a numerical argument, the debug level defaults to 2. By using -g3 you can even access preprocessor macros, which is really nice. I suggest you always use -ggdb3 to produce an enhanced symbol table.
+
+Debugging information compiled into an executable will not be read into memory unless GDB loads the executable. This means that executables with debug information will not run any slower than executables without debug information (a common misconception). While it's true that debugging executables take up more disk space, the executable will not have a larger "memory footprint" unless it's from within GDB. Similarly, executable load time will be nearly the same, again, unless you run the debug executable from within GDB.
+
+However, you should generally turn off optimizations when debugging an executable because there are situations that will confuse GDB. Variables may get optimized out of existence, functions may get inlined, and more things may happen that may or may not confuse gdb. To be on the safe side, turn off optimization when you're debugging a program.
+
+Create a test Hello world program(say try1)  and:
+   1. Run "strip --only-keep-debug try1". Look at the file size of try1. Now run "strip --strip-debug try1 and look at the file size. Now run strip --strip-all try1 and look at the file size. Can you guess what's happening? If not, your punishment is to read "man strip", which makes for some provocative reading.
+   2. You stripped all the unnecessary symbols from try1 in the previous exercise. Re-run the program to make sure it works. Now run "strip --remove-section=.text try1" and look at the file length. Now try to run try1. What do you suppose is going on?
+   3. Read this link about symbol tables (it's short). // This is a wiki link
+   4. Optional: Read this link about the COFF object file format.// This is a wiki link
+   
+------------------------------------------------------------------------------------------------------------------------------
+
+breakpoints
+   
+You get GDB to pause execution by using breakpoints.
+ Remember these principles:
+
+   1. break 5 means to pause at line 5.
+   2. This means GDB pauses between lines 4 and 5. Line 4 has executed. Line 5 has not.
+------------------------------------------------------------------------------------------------------------------------------
+
+backtrace
+
+We can look at the stack by using GDB's backtrace command:
+
+   (gdb) backtrace
+   #0  main () at try1.c:10
+   (gdb) 
+
+There's one frame on the stack, numbered 0, and it belongs to main(). If we execute the next line of code, we'll be in display(). From the previous section, you should know exactly what should happen to the stack: another frame will be added to the bottom of the stack. Let's see this in action. You can execute the next line of code using GDB's step command:
+
+------------------------------------------------------------------------------------------------------------------------------
+step
+
+   (gdb) step
+   display (z=5, zptr=0xbffffb34) at try1.c:15
+   15              printf("In display():\n");
+   (gdb) 
+------------------------------------------------------------------------------------------------------------------------------
+Look at the stack again, and make sure you understand everything you see:
+
+   (gdb) backtrace
+   #0  display (z=5, zptr=0xbffffb34) at try1.c:15
+   #1  0x08048455 in main () at try1.c:10
+------------------------------------------------------------------------------------------------------------------------------   
+frame
+
+Recall that the frame is where automatic variables for the function are stored. Unless you tell it otherwise, GDB is always in the context of the frame corresponding to the currently executing function. Since execution is currently in display(), GDB is in the context of frame 0. We can ask GDB to tell us which frame its context is in by giving the frame command without arguments:
+
+   (gdb) frame
+   #0  display (z=5, zptr=0xbffffb34) at try1.c:17
+   17         printf("   zptr holds %p and points to %d.\n", zptr, *zptr);
+
+Since GDB's context is in frame 0, we have access to all the local variables in frame 0. Conversely, we don't have access to automatic variables in any other frame. Let's investigate this.
+------------------------------------------------------------------------------------------------------------------------------   
+print
+
+GDB's print command can be used to give us the value of any variable within the current frame. Since z and zptr are variables in display(), and GDB is currently in the frame for display(), we should be able to print their values:
+
+   (gdb) print z
+   $1 = 5
+   (gdb) print zptr
+   $2 = (int *) 0xbffffb34
+
+But we do not have access to automatic variables stored in other frames. Try to look at the variables in main(), which is frame 1:
+
+   (gdb) print x
+   No symbol "x" in current context.
+   (gdb) print xptr
+   No symbol "xptr" in current context.
+
+Now for magic. We can tell GDB to switch from frame 0 to frame 1 using the frame command with the frame number as an argument. This gives us access to the variables in frame 1. As you can guess, after switching frames, we won't have access to variables stored in frame 0. Follow along:
+
+   (gdb) frame 1                           <--- switch to frame 1
+   #1  0x08048455 in main () at try1.c:10
+   10         display(x, xptr);
+   (gdb) print x
+   $5 = 5                                  <--- we have access to variables in frame 1
+   (gdb) print xptr
+   $6 = (int *) 0xbffffb34                 <--- we have access to variables in frame 1
+   (gdb) print z
+   No symbol "z" in current context.       <--- we don't have access to variables in frame 0
+   (gdb) print zptr
+   No symbol "zptr" in current context.    <--- we don't have access to variables in frame 0
+------------------------------------------------------------------------------------------------------------------------------   
+
+acorn
+murwin
+set def [path]
+sho def
+edit/read build.com
+@build
+
+help
+
+GDB has a help feature. If you type help foo, GDB will print a description of command foo. Enter GDB (don't give GDB any arguments) and read the help blurb for all GDB commands we've used in this section
+
+eg: help shell
+    help search
+    
+apropos args
+    The apropos args command searches through all of the GDB commands, and their documentation, for the regular expression specified in args. It prints out all matches found. For example:
+
+    apropos reload
+
+    results in:
+
+    set symbol-reloading -- Set dynamic symbol table reloading
+                                     multiple times in one run
+    show symbol-reloading -- Show dynamic symbol table reloading
+                                     multiple times in one run
+
+complete args
+    The complete args command lists all the possible completions for the beginning of a command. Use args to specify the beginning of the command you want completed. For example:
+
+
+    complete i
+
+    results in:
+
+    if
+    ignore
+    info
+    inspect
+    
+In addition to help, you can use the GDB commands info and show to inquire about the state of your program, or the state of GDB itself
+
+info
+    This command (abbreviated i) is for describing the state of your program. For example,
+    
+    1] you can list the arguments given to your program with info args
+    2] list the registers currently in use with info registers
+    3] or list the breakpoints you have set with info breakpoints.
+    You can get a complete list of the info sub-commands with help info. 
+    
+show
+    In contrast to info, show is for describing the state of GDB itself. You can change most of the things you can show, by using the related command set; for example, you can control what number system is used for displays with set radix, or simply inquire which is currently in use with show radix. 
+    Using show with  no arguments displays all the settings.
+    
+
+------------------------------------------------------------------------------------------------------------------------------   
+
+backtrace
+
+Debug try1 again and set a breakpoint anywhere in display(), then run the program. Figure out how to display the stack along with the values of every local variable for each frame at the same time. Hint: If you did the previous exercise, and read each blurb, this should be easy.
+Solution : backtrace full.
+
+------------------------------------------------------------------------------------------------------------------------------   
+list
+
+You can list source code with GDB's list command, abbreviated by l. Run GDB on the executable and use the list command:
+
+$ gdb driver
+(gdb) list
+12    }
+13
+14
+15
+16    int main(int argc, char *argv[])
+17    {
+18        double x, dx, ans;
+19        double Forw, ForwDelta, Cent, CentDelta, Extr, ExtrDelta;
+20
+21        if (argc != 1) {
+
+By default, GDB always lists 10 lines of source code. When you first issue list, GDB lists 10 lines of source code centred on main(). Subsequent use of list gives the next 10 lines of source code.
+
+"list -" works like list, except in reverse. It lists the 10 lines previous to the last listed lines. Since line 50 was the last listed line, list -should print lines 41 through 50:
+
+(gdb) list -
+41
+42                Extr      = ExtrapolatedDiff(x, dx, &f);
+43                ExtrDelta = fabs(Extr - ans);
+44
+45                printf("dx=%e: %.5e %.4f  %.5e %.4f  %.5e %.4f\n",
+46                    dx, Forw, ForwDelta, Cent, CentDelta, Extr, ExtrDelta);
+47            }
+48
+49        return 0;
+50    }
+(gdb)
+
+If you give list a line number, GDB lists 10 lines centered on that line number:
+
+(gdb) list 13
+8
+9      double f(double x)
+10     {
+11          return cos(log(x));
+12     }
+13
+14
+15
+16     int main(int argc, char *argv[])
+17     {
+
+Other listing operations you'll find useful:
+starting with some line number	(gdb) list 5,
+ending with some line number 	(gdb) list ,28
+between two numbers: 	(gdb) list 21,25
+by function name: 	(gdb) list f
+functions in the other file: 	(gdb) list CentralDiff
+by filename and line number: 	(gdb) list derivative.c:12
+filename and function name: 	(gdb) list derivative.c:ForwardDiff
+
+list has a "memory" of what file was list used to print source code. We started out by listing lines from driver.c. We then switched to derivative.c by telling GDB to list CentralDiff(). So now, list is in the "context" of derivative.c. Therefore, if we use list by itself again, it'll list lines lines from derivative.c.
+
+But what if we wanted to start listing lines from driver.c again? How do we go back to that file? We simply list anything that lives in driver.c, like a function or line number. All these commands will reset list's command context from derivative.c back to driver.c:
+
+   list main
+   list f
+   list driver.c:main
+   list driver.c:f
+   list driver.c:20
+
+------------------------------------------------------------------------------------------------------------------------------   
+
+.gdbinit
+
+Upon startup, GDB reads and executes an initialization file named .gdbinit. It can contain any command (eg set and break), and more. For example, "set listsize" and "set prompt" can go into .gdbinit. There are two locations where GDB will look for this file (in order):
+
+   1. In your home directory
+   2. In the current directory
+
+You can put commands to be executed for all your programming projects in $HOME/.gdbinit and project-specific commands in $PWD/.gdbinit.
+
+You can comment your .gdbinit files with bash's "#". And blank lines, of course, are ignored.
+
+------------------------------------------------------------------------------------------------------------------------------   
+
+run
+
+The run command with no arguments runs your program without command line arguments. If you want to give the program arguments, use the run command with whatever arguments you want to pass to the program:
+
+   $ gdb arguments
+   (gdb) run 1 2
+   Starting program: try2 1 2
+   Argument 0: arguments
+   Argument 1: 1
+   Argument 2: 2
+   
+   Program exited normally.
+   (gdb)
+
+Nothing could be simpler. From now on, whenever you use run again, it'll automatically use the arguments you just used (ie, "1 2"):
+
+   (gdb) run
+   Starting program: arguments 1 2
+   Argument 0: arguments
+   Argument 1: 1
+   Argument 2: 2
+   
+   Program exited normally.
+   (gdb)
+
+until you tell it to use different arguments:
+
+   (gdb) run testing one two three
+   Starting program: arguments testing one two three
+   Argument 0: testing
+   Argument 1: one
+   Argument 2: two
+   Argument 3: three
+   
+   Program exited normally.
+   (gdb)
+
+Suppose you want to run the program without command line arguments? How do you get run to stop automatically passing them? There's a "set args" command. If you give this command without any parameters, run will no longer automatically pass command line arguments to the program:
+
+   (gdb) set args
+   (gdb) run
+   Starting program: arguments 
+   Argument 0: try2
+   
+   Program exited normally.
+   (gdb)
+
+If you do give an argument to set args, those arguments will be passed to the program the next time you use run, just as if you had given those arguments directly to run.
+
+There's one more use for set args. If intend on passing the same arguments to a program every time you begin a debugging session, you can put it in your .gdbinit file. This will make run pass your arguments to the program without you having to specify them every time you start GDB on a given project.
+
+run with no arguments uses the same arguments used by the previous run, or those set by the set args command.
+
+set args
+    Specify the arguments to be used the next time your program is run. If set args has no arguments, run executes your program with no arguments. Once you have run your program with arguments, using set args before the next run is the only way to run it again without arguments.
+
+show args
+    Show the arguments to give your program when it is started. 
+
+------------------------------------------------------------------------------------------------------------------------------   
+
+breakpoints
+
+Breakpoints come in three flavors:
+
+   1. A breakpoint stops your program whenever a particular point in the program is reached. We will discuss breakpoints momentarily.
+   2. A watchpoint stops your program whenever the value of a variable or expression changes. We'll discuss watchpoints later on in this chapter.
+   3. A catchpoint stops your program whenever a particular event occurs. We won't discuss catchpoints until I get a chance to write about them.
+   
+Sometimes you may be surprised at where gdb stops. You may have specified a breakpoint at line 5 of the source code, but gdb could stop at line 7, for instance. This can happen for 2 reasons. First, if you compile a program with optimization set, some lines of source code may be optimized out of existence; they exist in your source code, but not in the executable. Secondly, not every line of source code gets compiled into machine code instruction.
+
+Each breakpoint, watchpoint, and catchpoint you set is assigned a number starting with 1. You use this number to refer to that breakpoint. To see the list of all breakpoints and watchpoints you've set, type info breakpoints (which can be abbreviated by i b. I show a sample resulting output:
+
+	(gdb) info breakpoints 
+	Num Type           Disp Enb Address    What
+	1   breakpoint     keep y   0x080483f6 in main at try5.c:4
+			  breakpoint already hit 1 time
+	2   breakpoint     keep n   0x0804841a in display at try5.c:14
+			  breakpoint already hit 1 time
+	3   hw watchpoint  keep y   i
+
+According to the output, there are two breakpoints, one at line 4 and the other at line 14 of the source code. They are assigned to numbers 1 and 2 respectively. There is also a watchpoint set: the program will halt whenever the variable i (local to display()) changes value.
+
+In addition to being assigned a number, each breakpoint and watchpoint can be enabled or disabled. A program's execution won't stop at a disabled breakpoint or watchpoint. By default, when you create a new breakpoint or watchpoint, it's enabled. To disable the breakpoint or watchpoint assigned to number n, type:
+
+	disable n
+
+To re-enable this breakpoint or watchpoint, type:
+
+	enable n
+
+If you look at the sample output of info breakpoints above, you'll see that breakpoint 2 has been disabled.
+
+disable [breakpoints] [range...]
+    Disable the specified breakpoints--or all breakpoints, if none are listed. A disabled breakpoint has no effect but is not forgotten. All options such as ignore-counts, conditions and commands are remembered in case the breakpoint is enabled again later. You may abbreviate disable as dis.
+
+enable [breakpoints] [range...]
+    Enable the specified breakpoints (or all defined breakpoints). They become effective once again in stopping your program.
+
+enable [breakpoints] once range...
+    Enable the specified breakpoints temporarily. GDB disables any of these breakpoints immediately after stopping your program.
+
+enable [breakpoints] delete range...
+    Enable the specified breakpoints to work once, then die. GDB deletes any of these breakpoints as soon as your program stops there. 
+
+There are four major ways to set a breakpoint, in roughly the order that I personally use them.:
+
+   1. By function name.
+   2. By line number.
+   3. By filename and line number.
+   4. By address.
+
+By Function Name
+
+We've already seen the most common way of setting a brekpoint: with the function name.
+
+   (gdb) break main
+   Breakpoint 1 at 0x8048464: file main.c, line 6.
+   (gdb)
+
+By Line Number
+
+A second way of setting breakpoints is with a line number. The line number refers to the file GDB is currently in. Right now, we're in main.c, so line numbers are with respect to that file for now. Let's set a breakpoint at line 9, where the printf() statement is.
+
+   (gdb) break 9
+   Breakpoint 2 at 0x804846b: file main.c, line 9.
+   (gdb)
+
+By Filename And Line Number
+
+A third way of setting breakpoints is with a filename and line number, separated with a colon. Let's set a breakpoint at line 10 of fgets.c:
+
+   (gdb) break fgets.c:10
+   Breakpoint 3 at 0x80483fd: file fgets.c, line 10.
+   (gdb) 
+
+By Address
+
+A fourth way of setting breakpoints is with a memory address within the process's VM space. I'll find the address of TakeGuess() and set a breakpoint at that address:
+
+   (gdb) print TakeGuess 
+   $1 = {int (const char *)} 0x80483f4 <TakeGuess>
+   (gdb) break *0x80483f4
+   Breakpoint 4 at 0x80483f4: file fgets.c, line 7.
+
+
+Removing Breakpoints
+
+Just as you can set breakpoints, you can also remove them. There are numerous ways to remove a breakpoint:
+
+    * If you want to remove the breakpoint by its location, use clear.
+    * If you want to remove the breakpoint by its identifier, use delete. delete with no argument deletes all breakpoints.
+
+So let's use clear to remove the four breakpoints the way we set them; kind of like "undoing" what we did:
+
+   (gdb) clear *0x80483f4
+   Deleted breakpoint 4 
+   (gdb) clear fgets.c:10
+   Deleted breakpoint 3 
+   (gdb) clear 9
+   Deleted breakpoint 2 
+   (gdb) clear main
+   Deleted breakpoint 1 
+
+You can enable or disable breakpoints using the enable and disable commands which take an argument of the breakpoint identifier for the breakpoint you want to enable or disable
+
+The disable command permanently disabled a breakpoint until you explicitly enable it with enable. However, it's possible to temporarily disable a breakpoint. Use GDB's help utility to read about the ignore  command, which disables a breakpoint "for n crossings".
+
+(gdb) help ignore
+Set ignore-count of breakpoint number N to COUNT.
+Usage is `ignore N COUNT'.
+(gdb)
+
+So you can say:
+
+break foo.c: foo() // which sets breakpoint at function foo() in foo.c; say brakpoint identifier is 1
+ignore 1 5 // disbale breakpoint 1 for 5 times. after that if foo() is called; break there.
+
+There's a command, info breakpoints which lists all your breakpoints, their identifiers, and lots more information
+   (gdb) info breakpoints 
+   Num Type           Disp Enb Address    What
+   1   breakpoint     keep y   0x08048464 in main at main.c:6
+           breakpoint already hit 1 time
+   2   breakpoint     keep y   0x0804846b in main at main.c:9
+           breakpoint already hit 1 time
+   3   breakpoint     keep y   0x08048477 in main at main.c:12
+
+This is a very important command, and I find myself using it all the time. It should be completely self explanatory except for a couple of things:
+
+   1. The Num field gives the identifier.
+   2. The Type field gives the type of breakpoint. There are different types of breakpoints, like hardware watchpoints, which we'll cover shortly.
+   3. The Disp field (short for disposition) describes what will happen to the breakpoint the next time it's activated (the next time it pauses execution). keep indicates nothing will happen to the breakpoint, however, it's possible to disable or even remove a breakpoint the next time it's reached. These situations are identified by the Disp field.
+
+To set a breakpoint 2 lines down from the current line, use break +2. Similarly, you can set a breakpoint 3 lines up from the current line by break -3.
+
+An inportant form of break command is the conditional breakpoint. They are quite useful but little understood. Perhaps part of the reason is that the gdb User Manual does a really poor job explaining them. Here is the form:
+
+	break ... if cond
+
+where ... represents any one of the previous forms of breakpoints we've learned about already and cond is any conditional in the language you're using. Here is an example:
+
+	$ gdb try5
+	(gdb) break 16 if i==2
+	Breakpoint 1 at 0x8048430: file try5.c, line 16.
+	(gdb) r
+	Starting program: /www/p/linux/gdb/try5 
+	i is 0.
+	i is 1.
+
+	Breakpoint 1, display (x=3) at try5.c:16
+	16                 printf("i is %d.\n", i);
+
+We used the 1st form of break with the conditional i==2. We could've also used a test for inequality, like i!=2 or i>2. This is mega useful when you're inside of a loop that's going to repeat a million times. This form of break is your friend!
+
+tbreak args
+    Set a breakpoint enabled only for one stop. args are the same as for the break command, and the breakpoint is set in the same way, but the breakpoint is automatically deleted after the first time your program stops there. See section Disabling breakpoints.
+
+hbreak args
+    Set a hardware-assisted breakpoint. args are the same as for the break command and the breakpoint is set in the same way, but the breakpoint requires hardware support and some target hardware may not have this support. The main purpose of this is EPROM/ROM code debugging, so you can set a breakpoint at an instruction without changing the instruction. This can be used with the new trap-generation provided by SPARClite DSU and some x86-based targets. These targets will generate traps when a program accesses some data or instruction address that is assigned to the debug registers. However the hardware breakpoint registers can take a limited number of breakpoints. For example, on the DSU, only two data breakpoints can be set at a time, and GDB will reject this command if more than two are used. Delete or disable unused hardware breakpoints before setting new ones (see section Disabling). See section Break conditions.
+
+thbreak args
+    Set a hardware-assisted breakpoint enabled only for one stop. args are the same as for the hbreak command and the breakpoint is set in the same way. However, like the tbreak command, the breakpoint is automatically deleted after the first time your program stops there. Also, like the hbreak command, the breakpoint requires hardware support and some target hardware may not have this support. See section Disabling breakpoints. See also Break conditions.
+
+rbreak regex
+    Set breakpoints on all functions matching the regular expression regex. This command sets an unconditional breakpoint on all matches, printing a list of all breakpoints it set. Once these breakpoints are set, they are treated just like the breakpoints set with the break command. You can delete them, disable them, or make them conditional the same way as any other breakpoint.
+
+    The syntax of the regular expression is the standard one used with tools like `grep'. Note that this is different from the syntax used by shells, so for instance foo* matches all functions that include an fo followed by zero or more os. There is an implicit .* leading and trailing the regular expression you supply, so to match only functions that begin with foo, use ^foo.
+
+    When debugging C++ programs, rbreak is useful for setting breakpoints on overloaded functions that are not members of any special classes. 
+
+------------------------------------------------------------------------------------------------------------------------------   
+
+ptype
+
+ The whole purpose of setting a breakpoint or watchpoint is to see what's going on with your variables, so let's take a look at inspecting your variables. You can print the data type of a variable using the ptype command. Here are some examples:
+ 
+ gdb) ptype argc
+    type = int
+    (gdb) ptype myfloat
+    type = float
+    (gdb) ptype argv 
+    type = char **
+    (gdb) ptype mystring
+    type = unsigned char *
+    (gdb) pt myIntArray
+    type = int [10]
+ 
+ You can even use ptype to look at structures. Take, for example, the fstat structure defined in sys/stat.h.
+ 
+    (gdb) ptype fstat
+    type = struct stat {
+        __dev_t st_dev;
+        short unsigned int __pad1;
+        __ino_t st_ino;
+        __mode_t st_mode;
+        __nlink_t st_nlink;
+        __uid_t st_uid;
+        __gid_t st_gid;
+        __dev_t st_rdev;
+        short unsigned int __pad2;
+        __off_t st_size;
+        long unsigned int st_blksize;
+        __blkcnt_t st_blocks;
+        __time_t st_atime;
+        long unsigned int __unused1;
+        __time_t st_mtime;
+        long unsigned int __unused2;
+        __time_t st_ctime;
+        long unsigned int __unused3;
+        long unsigned int __unused4;
+        long unsigned int __unused5;
+    }
+ 
+That's quite a structure! You can abbreviate ptype by pt.
+------------------------------------------------------------------------------------------------------------------------------   
+
+print
+
+You can view the value of a variable using the print command.
+
+	(gdb) print myfloat
+	$1 = 3.29999995
+
+and doubles get printed as doubles:
+
+	(gdb) print mydouble
+	$1 = 1.0466666666666666
+
+and chars get printed as chars:
+
+	(gdb) print mychar
+	$1 = 65 'A'
+
+By the way, you can use the abbreviation p for print:
+
+	(gdb) p argc
+	$1 = 1
+
+You may be wondering what the numbers preceeded by $ (like $1 or $3) mean. They're kind of like a variable history. Everytime you print any variable, the $n gets incremented by 1. $ by itself refers to the last variable you printed and $n refers to the n'th variable you printed. Look at the following example to see this:
+
+	(gdb) p mychar
+	$26 = 65 'A'
+	(gdb) p mydouble
+	$27 = 1.0466666666666666
+	(gdb) p $
+	$28 = 1.0466666666666666
+	(gdb) p $27
+	$29 = 1.0466666666666666
+	(gdb) p $26
+	$30 = 65 'A'
+
+You can even typecast a variable when you print it! Here's MyNegativeInt as an int, char and double respectively:
+
+	(gdb) p MyNegativeInt
+	$41 = -1
+	(gdb) p (char) MyNegativeInt
+	$42 = -1 '?'
+	(gdb) p (double) MyNegativeInt
+	$43 = -1
+Printing array values is much the same as printing other variables. gdb still uses the concept of being `comfortable'. In other words, when you print an array, that's exactly what you get! From the code snippet of the previous section:
+
+   (gdb) p myIntArray
+   $46 = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+Of course, gdb knows how to access elements of an array:
+
+	(gdb) pt myIntArray
+	type = int [10]
+	(gdb) pt myIntArray[3]
+	type = int
+	(gdb) p myIntArray[3]
+	$48 = 3
+
+You can do kind of advanced stuff too -- things that you'd expect from only Perl :-). Here's how you print 5 elements of myIntArray, starting at element 3:
+
+	(gdb) p myIntArray[3]@5
+	$49 = {3, 4, 5, 6, 7}
+
+GDB will not, however, check bounds of the array. Previously we defined myIntArray as an array of 10 ints. Let's see what happens when we try printing 4 ints past the end of the array:
+
+	(gdb) p myIntArray[3]@11
+	$54 = {3, 4, 5, 6, 7, 8, 9, 10, 1107293224, 1079194419, -1947051841}
+
+Doh! Hopefully, that's not someone's password. :-). You can also print structures:
+
+	(gdb) p myStruct
+	$2 = {name = 0x40014978 "Miles Davis", EyeColour = 1}
+
+However, this might get out of hand for very large structs. You can set pretty printing of structures by set print pretty:
+
+	(gdb) set print pretty
+	(gdb) p myStruct
+	$4 = {
+	  name = 0x40014978 "Miles Davis", 
+	  EyeColour = 1
+	}
+	(gdb) 
+
+or, if you only want one of the elements of the structure, you can print it in the way that would seem obvious:
+
+	(gdb) print myStruct.name
+	$6 = 0x40014978 "Miles Davis"
+
+this works too, but why is a mystery to me:
+
+	(gdb) print myStruct->name 
+	$15 = 0x40014978 "Miles Davis"
+
+
+You can print things using a format specifier:
+
+	print /FMT variable
+
+Where FMT is:
+o	octal 		x	hex 		d	decimal		u	unsigned decimal
+t	binary		f	float		a	address		c	char
+
+Here's some examples of printing some of our variables using a format specifier:
+
+	(gdb) p mychar
+	$33 = 65 'A'
+	(gdb) p /o mychar
+	$34 = 0101
+	(gdb) p /x mychar 
+	$35 = 0x41
+	(gdb) p /d mychar 
+	$36 = 65
+	(gdb) p /u mychar 
+	$37 = 65
+	(gdb) p /t mychar 
+	$38 = 1000001
+	(gdb) p /f mychar 
+	$39 = 65
+	(gdb) p /a mychar 
+	$40 = 0x41
+
+By the way, memory addresses in gdb are printed in hex by default. Therefore, p /a mychar prints mychar interpreted as an address, the hexidecimal representation of 65. This is very different from the address of mychar!
+
+Speaking of the address of mychar, one would expect that since C loves pointers, gdb would love pointers too. And in fact, it does! Printing the address of mychar is obvious to C programmers (sorry, Fortran users!):
+
+	(gdb) p &mychar
+	$42 = 0xbffff41b "A33S@?X?\213%???H???\023?\003@\001"
+
+gdb even knows about the dereference operator. How's this for being perverse?
+
+	(gdb) p *(&mychar)
+	$43 = 65 'A'
+	
+There are two ways you can change the value of a variable in gdb. Let's change the value of double myvariable to 10.0. Firstly, you can use the set command:
+
+	set myvariable = 10.0
+
+which is the `quiet' way. gdb will simply set myvariable to 10 without printing anything. Then there's the `noisy' way using the print command:
+
+	print myvariable = 10.0
+
+which will set myvariable to 10.0 and then print this new value to the screen. The print command ends up being less keystrokes because you can use the abbreviation p for print.
+
+Remember, you can only change the value of a variable which is defined within the current context. Make sure the variable you want to change is defined in the currently selected frame. If it's not, you need to set the frame before you can change the variable.
+------------------------------------------------------------------------------------------------------------------------------   
+step & next
+
+There are two commands used to step through your program:
+
+step:
+    Execute a single line in the program. If the current statement calls a function, the function is single stepped. 
+next:
+    Execute a single line in the program but treat function calls as a single line. This command is used to skip over function calls. 
+------------------------------------------------------------------------------------------------------------------------------   
+
+where
+To find out where you are at any time, type the command:
+
+	where
+
+This will show you the current line number. For example, a line like this:
+
+	#0  foo () at foo.f:12
+
+shows that the execution of our program is currently at a location that corresponds to line 12 in the Fortran source file, foo.f.
+------------------------------------------------------------------------------------------------------------------------------   
+ Debugging processes
+ 
+ So far, we've debugged executables, with and without core files. However, we can debug processes too. Think about that -- we can debug a process that has already been started outside the debugger. There are two ways of doing this: Using command line arguments and using the attach command.
+ 
+ 
+ Download and read beer-process.c and its Makefile. Compile it, and run it as a background job in one console (or xterm). It'll simply print out the number of bottles of beer on the wall:
+ 
+    $ ./beer-process &
+    [1] 17399
+    p@satan$ 100000 bottles of beer on the wall.
+    99999 bottles of beer on the wall.
+    99998 bottles of beer on the wall.
+    99997 bottles of beer on the wall.
+ 
+ bash$3.01> gdb program_name program_pid
+ 
+At this point, the backtrace should be very familiar to you. But there's an important distinction. We didn't run this program from within GDB. We ran it from the command line, and then had GDB attach to an already running process.
+
+Look at the output of the beer process: you should notice that the process has stopped! Whenever GDB attaches to a running process, the process is paused so you can get a handle on what the call stack looks like. Let's do some interesting things.
+
+In my output above, i=9997. Yours is probably different, but nevertheless, you should be able to follow along with me. Let's verify the value of i by selecting the stack frame for main() and looking at its value:
+
+   (gdb) frame 3
+   #3  0x080483eb in main () at beer-process.c:15
+   15                      GoToSleep();
+   (gdb) print i
+   $1 = 99997
+
+No surprises here. As you'd expect, we can use next and step (which takes us out of nanosleep() and sleep() respectively, putting us into GoToSleep()):
+
+   (gdb) next
+   Single stepping until exit from function nanosleep, 
+   which has no line number information.
+   0x410c6358 in sleep () from /lib/tls/libc.so.6
+   (gdb) step
+   Single stepping until exit from function sleep, 
+   which has no line number information.
+   GoToSleep () at beer-process.c:34
+   34      }
+   (gdb) bt
+   #0  GoToSleep () at beer-process.c:34
+   #1  0x080483eb in main () at beer-process.c:15
+
+Looking at the code, the next things to happen are that i will be decremented and then PrintMessage() will print 99996 bottles of beer on the wall. However, suppose we wanted more beer? Let's change to the stack frame for main() (where i lives) and change the number of beers on the wall.
+
+   (gdb) frame 3
+   #3  0x080483eb in main () at beer-process.c:15
+   15                      GoToSleep();
+   (gdb) set var i = 99999999
+
+Now quit GDB. When GDB detaches from the process, the process will continue along its merry way. We could also use the detach command to detach from the process without quiting GDB; I'll explain detach in the next session.
+
+   (gdb) quit
+   The program is running.  Quit anyway (and detach it)? (y or n) y
+   Detaching from program: code/running_process/beer-process,
+   process 17399
+
+but with the new value for i:
+
+   $ ./beer-process &
+   [1] 17399
+   p@satan$ 100000 bottles of beer on the wall.
+   99999 bottles of beer on the wall.
+   99998 bottles of beer on the wall.
+   99997 bottles of beer on the wall.
+   99999998 bottles of beer on the wall.
+   99999997 bottles of beer on the wall.
+   99999996 bottles of beer on the wall.
+   99999995 bottles of beer on the wall.
+   99999994 bottles of beer on the wall.
+
+I hope you're impressed by this! We attached GDB to a process that was already running. The process halted and we were able to do everything that we would've been able to do had we started the process from within GDB. Now that's power!
+
+With The Attach Command
+
+We can also debug an already running process using GDB's attach command to attach to a running process. Again, once attached, we can use the detach command to detach from the process.
+
+If you quit the running background process from the previous section, restart beer-process in the background. Start GDB with no command line arguments. But use the attach command to attach to the running process.
+
+   $ gdb
+   (gdb) attach 17399
+   Attaching to process 17399
+   Reading symbols from code/running_process/beer-process...done.
+   0x410c64fb in nanosleep () from /lib/tls/libc.so.6
+   (gdb) 
+
+As before, the process should halt. This is when you do whatever it is you want to do with the process: debug, snoop, spy, modify, etc. When you're done futzing around, quit GDB:
+
+   The program is running.  Quit anyway (and detach it)? (y or n) y
+   Detaching from program: code/running_process/beer-process,
+   process 17399
+
+As before, once you detach from the process, it'll continue running.
+------------------------------------------------------------------------------------------------------------------------------   
+
+Man for ptrace and google it to understand it.
+------------------------------------------------------------------------------------------------------------------------------   
+Invoking GDB
+
+1] Passing command line arguments to the executable program: Lets say a.out is the executable. 
+Then one way is to say:
+
+gdb a.out
+<Some Warranty stuff gets printed>
+(gdb) r <enter command line arguments here>
+
+The other way is to say
+> gdb --args a.out <command-line args>
+
+
+2] gdb a.out <core-filename> tells gdb to use <core-filename> as the core file.
+
+
+When GDB starts, it reads any arguments other than options as specifying an executable file and core file (or process ID). This is the same as if the arguments were specified by the `-se' and `-c' (or `-p' options respectively. (GDB reads the first argument that does not have an associated option flag as equivalent to the `-se' option followed by that argument; and the second argument that does not have an associated option flag, if any, as equivalent to the `-c'/`-p' option followed by that argument.) If the second argument begins with a decimal digit, GDB will first attempt to attach to it as a process, and if that fails, attempt to open it as a corefile. If you have a corefile whose name begins with a digit, you can prevent GDB from treating it as a pid by prefixing it with `./', eg. `./12345'.
+
+If GDB has not been configured to included core file support, such as for most embedded targets, then it will complain about a second argument and ignore it.
+
+Many options have both long and short forms; both are shown in the following list. GDB also recognizes the long forms if you truncate them, so long as enough of the option is present to be unambiguous. (If you prefer, you can flag option arguments with `--' rather than `-', though we illustrate the more usual convention.)
+
+-symbols <file>
+-s <file>
+    Read symbol table from file file.
+
+-exec <file>
+-e <file>
+    Use file file as the executable file to execute when appropriate, and for examining pure data in conjunction with a core dump.
+
+-se <file>
+    Read symbol table from file file and use it as the executable file.
+
+-core <file>
+-c <file>
+    Use file file as a core dump to examine.
+
+-c <number>
+-pid <number>
+-p <number>
+    Connect to process ID number, as with the attach command. If there is no such process, GDB will attempt to open a core file named number.
+
+-command <file>
+-x <file>
+    Execute GDB commands from file file.
+
+-directory <directory>
+-d <directory>
+    Add directory to the path to search for source files.
+
+-m
+-mapped
+    Warning: this option depends on operating system facilities that are not supported on all systems.
+    If memory-mapped files are available on your system through the mmap system call, you can use this option to have GDB write the symbols from your program into a reusable file in the current directory. If the program you are debugging is called `/tmp/fred', the mapped symbol file is `/tmp/fred.syms'. Future GDB debugging sessions notice the presence of this file, and can quickly map in symbol information from it, rather than reading the symbol table from the executable program.
+
+    The `.syms' file is specific to the host machine where GDB is run. It holds an exact image of the internal GDB symbol table. It cannot be shared across multiple host platforms.
+
+-r
+-readnow
+    Read each symbol file's entire symbol table immediately, rather than the default, which is to read it incrementally as it is needed. This makes startup slower, but makes future operations faster.
+
+You typically combine the -mapped and -readnow options in order to build a `.syms' file that contains complete symbol information. (See section Commands to specify files, for information on `.syms' files.) A simple GDB invocation to do nothing but build a `.syms' file for future use is:
+
+ 	
+
+gdb -batch -nx -mapped -readnow <program-name>
+
+
+--batch            Exit after processing options.
+--nx               Do not read .gdbinit file.
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Shell commands
+
+If you need to execute occasional shell commands during your debugging session, there is no need to leave or suspend GDB; you can just use the shell command.
+
+shell command string (eg shell ls -ltr )
+    Invoke a standard shell to execute command string. If it exists, the environment variable SHELL determines which shell to run. Otherwise GDB uses the default shell (`/bin/sh' on Unix systems, `COMMAND.COM' on MS-DOS, etc.). 
+    
+commands like "make", "cd" "pwd" etc.. which are used very often run without using the shell keyword.    
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Your program's environment
+
+The environment consists of a set of environment variables and their values. Environment variables conventionally record such things as your user name, your home directory, your terminal type, and your search path for programs to run. Usually you set up environment variables with the shell and they are inherited by all the other programs you run. When debugging, it can be useful to try running your program with a modified environment without having to start GDB over again.
+
+path directory
+    Add directory to the front of the PATH environment variable (the search path for executables) that will be passed to your program. The value of PATH used by GDB does not change. You may specify several directory names, separated by whitespace or by a system-dependent separator character (`:' on Unix, `;' on MS-DOS and MS-Windows). If directory is already in the path, it is moved to the front, so it is searched sooner.
+
+    You can use the string `$cwd' to refer to whatever is the current working directory at the time GDB searches the path. If you use `.' instead, it refers to the directory where you executed the path command. GDB replaces `.' in the directory argument (with the current path) before adding directory to the search path.
+
+show paths
+    Display the list of search paths for executables (the PATH environment variable).
+
+show environment [varname]
+    Print the value of environment variable varname to be given to your program when it starts. If you do not supply varname, print the names and values of all environment variables to be given to your program. You can abbreviate environment as env.
+
+set environment varname [=value]
+    Set environment variable varname to value. The value changes for your program only, not for GDB itself. value may be any string; the values of environment variables are just strings, and any interpretation is supplied by your program itself. The value parameter is optional; if it is eliminated, the variable is set to a null value.
+
+    For example, this command:
+
+     	
+
+    set env USER = foo
+
+    tells the debugged program, when subsequently run, that its user is named `foo'. (The spaces around `=' are used for clarity here; they are not actually required.)
+
+unset environment varname
+    Remove variable varname from the environment to be passed to your program. This is different from `set env varname ='; unset environment removes the variable from the environment, rather than assigning it an empty value. 
+---------------------------------------------------------------------------------------------------------------------------------------------
+info terminal
+    Displays information recorded by GDB about the terminal modes your program is using. 
+
+You can redirect your program's input and/or output using shell redirection with the run command. For example,
+
+ 	
+
+run > outfile
+
+starts your program, diverting its output to the file `outfile'.
+
+Another way to specify where your program should do input and output is with the tty command. This command accepts a file name as argument, and causes this file to be the default for future run commands. It also resets the controlling terminal for the child process, for future run commands. For example,
+
+ 	
+
+tty /dev/ttyb
+
+directs that processes started with subsequent run commands default to do input and output on the terminal `/dev/ttyb' and have that as their controlling terminal.
+
+An explicit redirection in run overrides the tty command's effect on the input/output device, but not its effect on the controlling terminal.
+
+When you use the tty command or redirect input in the run command, only the input for your program is affected. The input for GDB still comes from your terminal.
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Killing the child process
+
+kill
+    Kill the child process in which your program is running under GDB. 
+
+This command is useful if you wish to debug a core dump instead of a running process. GDB ignores any core dump file while your program is running.
+
+On some operating systems, a program cannot be executed outside GDB while you have breakpoints set on it inside GDB. You can use the kill command in this situation to permit running your program outside the debugger.
+
+The kill command is also useful if you wish to recompile and relink your program, since on many systems it is impossible to modify an executable file while it is running in a process. In this case, when you next type run, GDB notices that the file has changed, and reads the symbol table again (while trying to preserve your current breakpoint settings). 
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Watchpoints
+
+You can use a watchpoint to stop execution whenever the value of an expression changes, without having to predict a particular place where this may happen.
+
+Depending on your system, watchpoints may be implemented in software or hardware. GDB does software watchpointing by single-stepping your program and testing the variable's value each time, which is hundreds of times slower than normal execution. (But this may still be worth it, to catch errors where you have no clue what part of your program is the culprit.)
+
+On some systems, such as HP-UX, GNU/Linux and some other x86-based targets, GDB includes support for hardware watchpoints, which do not slow down the running of your program.
+
+watch expr
+    Set a watchpoint for an expression. GDB will break when expr is written into by the program and its value changes.
+
+rwatch expr
+    Set a watchpoint that will break when watch expr is read by the program.
+
+awatch expr
+    Set a watchpoint that will break when expr is either read or written into by the program.
+
+info watchpoints
+    This command prints a list of watchpoints, breakpoints, and catchpoints; it is the same as info break. 
+
+GDB sets a hardware watchpoint if possible. Hardware watchpoints execute very quickly, and the debugger reports a change in value at the exact instruction where the change occurs. If GDB cannot set a hardware watchpoint, it sets a software watchpoint, which executes more slowly and reports the change in value at the next statement, not the instruction, after the change occurs.
+
+When you issue the watch command, GDB reports
+
+ 	
+
+Hardware watchpoint num: expr
+
+if it was able to set a hardware watchpoint.
+
+Currently, the awatch and rwatch commands can only set hardware watchpoints, because accesses to data that don't change the value of the watched expression cannot be detected without examining every instruction as it is being executed, and GDB does not do that currently. If GDB finds that it is unable to set a hardware breakpoint with the awatch or rwatch command, it will print a message like this:
+
+ 	
+
+Expression cannot be implemented with read/access watchpoint.
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Catchpoints
+
+ You can use catchpoints to cause the debugger to stop for certain kinds of program events, such as C++ exceptions or the loading of a shared library. Use the catch command to set a catchpoint.
+ 
+ catch <event>
+     Stop when event occurs. event can be any of the following:
+ 
+     throw
+         The throwing of a C++ exception.
+ 
+     catch
+         The catching of a C++ exception.
+ 
+     exec
+         A call to exec. This is currently only available for HP-UX.
+ 
+     fork
+         A call to fork. This is currently only available for HP-UX.
+ 
+     vfork
+         A call to vfork. This is currently only available for HP-UX.
+ 
+     load
+     load libname
+         The dynamic loading of any shared library, or the loading of the library libname. This is currently only available for HP-UX.
+ 
+     unload
+     unload libname
+         The unloading of any dynamically loaded shared library, or the unloading of the library libname. This is currently only available for HP-UX. 
+ 
+ tcatch event
+     Set a catchpoint that is enabled only for one stop. The catchpoint is automatically deleted after the first time the event is caught.
+ 
+ Use the info break command to list the current catchpoints.
+ 
+ There are currently some limitations to C++ exception handling (catch throw and catch catch) in GDB:
+ 
+     * If you call a function interactively, GDB normally returns control to you when the function has finished executing. If the call raises an exception, however, the call may bypass the mechanism that returns control to you and cause your program either to abort or to simply continue running until it hits a breakpoint, catches a signal that GDB is listening for, or exits. This is the case even if you set a catchpoint for the exception; catchpoints on exceptions are disabled within interactive calls.
+ 
+     * You cannot raise an exception interactively.
+ 
+     * You cannot install an exception handler interactively. 
+ 
+ Sometimes catch is not the best way to debug exception handling: if you need to know exactly where an exception is raised, it is better to stop before the exception handler is called, since that way you can see the stack before any unwinding takes place. If you set a breakpoint in an exception handler instead, it may not be easy to find out where the exception was raised.
+ 
+ To stop just before an exception handler is called, you need some knowledge of the implementation. In the case of GNU C++, exceptions are raised by calling a library function named __raise_exception which has the following ANSI C interface:
+ 
+  	
+ 
+     /* addr is where the exception identifier is stored.
+        id is the exception identifier.  */
+     void __raise_exception (void **addr, void *id);
+ 
+ To make the debugger catch all exceptions before any stack unwinding takes place, set a breakpoint on __raise_exception (see section Breakpoints; watchpoints; and exceptions).
+ 
+With a conditional breakpoint (see section Break conditions) that depends on the value of id, you can stop your program when a specific exception is raised. You can use multiple conditional breakpoints to stop your program when any of a number of exceptions are raised. 
+------------------------------------------------------------------------------------------------------------------------------------------
+

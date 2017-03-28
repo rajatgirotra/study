@@ -1,0 +1,69 @@
+Threads
+
+The boost::thread class is used to create threads. Each boost::thread object represents a single thread of execution. To create a thread, you can do two things:
+
+1] Hand over an object of a class which overloads the function call operator to the boost::thread c'tor.
+Eg:
+
+struct callable {
+	void operator() ();
+};
+
+int main() {
+	callable x;
+	boost::thread newThread(x);
+}
+
+boost::thread copies the object x into its own internal structure and then creates a new thread calling the overloaded function call operator function.
+If you dont want to or can't pass in the object by value, you can use boost::ref(x), i.e. you can pass by reference. But you need to make sure that the 
+object passed by reference outlives the newly created thread.
+
+
+2] The second way is by passing the address of a function. In this case, you can also pass in extra arguments to your thread, if you want.
+Eg:
+	void find_the_question(int the_answer);
+	int main() {
+		boost::thread newThread(&find_the_question, the_answer);
+	}
+
+The header file to include is boost/thread/thread.hpp
+
+If your thread throws any exception apart from thread_interrupted, terminate() will be called. See 2.cpp
+
+Also note that thread library is not headers only. You'll need to link against boost_thread.
+
+
+Once the boost::thread object that created a thread gets destroyed, we say that the thread is detached. The detached thread also continues to execute until the callable object
+or function has completed. You can also detach a thread using the detach() API, in this case the boost::thread object is NOT-A-THREAD.
+
+By using join() and timed_join(), you can wait for a particular thread to finish and the calling thread remains blocked. If the thread has already completed, the join() call
+returns immediately.
+
+A thread can be interrupted by calling the interrupt() function. The thread will actually get interrupted when it next reaches an interruption point in its execution.
+It will cause an thread_interrupted exception, which if not caught, will terminate the thread.
+
+You can also temporarily disable interruption of your thread by creating an object of boost::this_thread::disable_interruption. boost::this_thread is a namespace and
+disable::interruption is the class name. An object of this class stores the current state of the interrupts and then disables it. When the object goes out of scope, the 
+previous state is restored. While interruption is disabled, you can restore them temporarily by creating an object of boost::this_thread::restore_interruption. When this
+object gets destroyed, thread again becomes un-interruptible.
+
+Each thread has a thread id. You can get the thread by calling the boost::thread.get_id() member function. Thread id is actually a class defined in boost::thread class.
+From within a thread, you can call boost::this_thread::get_id() function.
+
+Important functions of thread class.
+
+1] id get_id()
+2] bool joinable()
+3] void join()
+4] bool timed_join(system_time&)
+5] void detach()
+6] void swap(thread& x)
+7] void interrupt()
+8] bool interruption_requested()
+9] static void yield()
+10] static void sleep(system_time& xt);
+
+Also thread_group is an interesting class where you can add threads to a group and call join on them and wait for each thread to finish before proceeding your own task.
+We can use this to implement count down latch.
+
+

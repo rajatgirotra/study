@@ -1,0 +1,33 @@
+
+std::reference_wrapper<T>  // include <functional>
+
+Let say you have a reference to a variable.
+int a = 10;
+int& ref = a;
+so ref and a are aliases.
+Now a function to which you want to pass the value of a, you can have either of the two signatures
+void foo(int& newRef) : In this case, newRef and ref are basically aliases.
+void foo(int copyInteger) : In this case, we are creating a new integer all together.
+
+However, std::reference_wrapper<T> wraps or holds a reference to type T, and the std::reference_wrapper class
+is also copyable (copy ctor and copy assignment are available).
+How and when it is usable, we'll see shortly.
+
+Note that argument T can be a type or function.
+The std::reference_wrapper class defines a number of typedef as explained below.
+Many of these are not always defined, it depends on the type T which ones are available.
+
+std::reference_wrapper<T>::type ---> always refers to T
+
+std::reference_wrapper<T>::result_type --> 
+1) If T is a pointer to function or pointer to member function, the return type of the function
+2) If T is some user-defined class which defines result_type, then T::result_type.
+3) Otherwise not defined
+
+std::reference_wrapper<T>::argument_type
+1) If T is a function or pointer to function taking only one argument, the first argument type
+2) If T is some pointer to member function and takes no argument, then the class type of which T is a member.
+3) If T is some user-defined class which defines argument_type, then T::argument_type.
+4) Otherwise not defined
+
+Similarly, std::reference_wrapper<T>::first_argument_type and std::reference_wrapper<T>::second_argument_type

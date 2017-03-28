@@ -1,0 +1,56 @@
+Predicates
+
+A special kind of auxiliary function for algorithms is a predicate. Predicates are functions that
+return a Boolean value. They are often used to specify a sorting or a search criterion. Depending
+on their purpose, predicates are unary or binary. Note that not every unary or binary function that
+returns a Boolean value is a valid predicate. The STL requires that predicates always yield the
+same result for the same value. This rules out functions that modify their internal state when they
+are called.
+
+Unary Predicates
+Unary predicates check a specific property of a single argument. A typical example is a function
+that is used as a search criterion to find the first prime number:
+
+Binary Predicates
+Binary predicates typically compare a specific property of two arguments. For example, to sort
+elements according to your own criterion you could provide it as a simple predicate function. This
+might be necessary because the elements do not provide operator < or because you wish to use
+a different criterion.
+
+The following example sorts elements of a set by the first name and last name of a person:
+// stl/sort1.cpp
+#include <iostream>
+#include <string>
+#include <deque>
+#include <algorithm>
+using namespace std;
+class Person {
+public:
+string firstname() const;
+string lastname() const;
+...
+};
+/*binary function predicate:
+*- returns whether a person is less than another person
+*/
+bool personSortCriterion (const Person& p1, const Person& p2)
+{
+/*a person is less than another person
+*- if the last name is less
+*- if the last name is equal and the first name is less
+*/
+return p1.lastname()<p2.1astname() ||
+(!(p2.1astname()<p1.lastname()) &&
+p1.firstname()<p2.firstname());
+}
+int main()
+{
+deque<Person> coll;
+...
+sort (coll. begin(), coll. end() , //range
+personSortCriterion); //sort criterion
+...
+}
+Note that you can also implement a sorting criterion as a function object. This kind of
+implementation has the advantage that the criterion is a type, which you could use, for example,
+to declare sets that use this criterion for sorting its elements.

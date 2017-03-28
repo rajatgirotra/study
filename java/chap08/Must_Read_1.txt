@@ -1,0 +1,33 @@
+/*
+Please read Adventure.java first
+*/
+The interface keyword produces a completely abstract class, one that provides no
+implementation at all. Youll learn that the interface is more than just an
+abstract class taken to the extreme, since it allows you to perform a
+variation on C++s multiple inheritance, by creating a class that can be
+upcast to more than one base type. 
+
+I think the above is achieved when a class implements more than one interfaces.
+
+An interface can also contain fields, but
+these are implicitly static and final. An interface provides only a form,
+but no implementation.
+
+Thus, any code that uses a particular interface
+knows what methods might be called for that interface, and thats all. So
+the interface is used to establish a protocol between classes.
+
+You can choose to explicitly declare the method declarations in an
+interface as public. But they are public even if you dont say it. So
+when you implement an interface, the methods from the interface
+must be defined as public. Otherwise they would default to package
+access, and youd be reducing the accessibility of a method during
+inheritance, which is not allowed by the Java compiler.
+
+It doesnt matter if you are upcasting
+to a regular class called Instrument, an abstract class called
+Instrument, or to an interface called Instrument.
+
+/*
+Please read Month.java next
+*/

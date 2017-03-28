@@ -1,0 +1,107 @@
+We will study as many lisp functions as possible.
+
+require and provide functions
+In emacs lisp, you can group together a set of functions, variables, macros and other functionality. You can give all of it a name
+This name is called a "feature". Let say u write all lisp functions, variables etc in a file "abc.el", then your first line of abc.el should be
+(provide 'abc)
+
+Any lisp code that anyone else writes that is dependent of your abc.el, will use
+(require 'abc) at the top of the file. This will load all functions, variables, macros from your abc.el 
+
+When a feature is loaded, the provide function also updates the feature name in the "features" global variable.
+Either do: C-h v RET features RET, or use the (featurep feature) function to see if a feature is loaded. Will return either t or nil.
+(featurep 'cl)
+
+Also there are ways to define subfeatures in your feature file - in case your feature file provides complex facilities and doesnt make sense to 
+load all the file. Then provide  will be
+(provide 'feature &optional subfeatureList) 
+
+(require feature &optional filename noerror) --> load feature, if not loaded already, use filename to find the feature file. If not found, try to
+find file with the same name as the feature name. If noerror is non-nil, then dont return error if loading fails, just return nil.
+else if loading is successfull, return the feature name.
+
+There is a common lisp package called cl. That should the first line of your init.el
+(require 'cl-lib) --> NOT (require 'cl)
+That's because the older cl package does not use a clean namespace. If some definitions dont have the cl-prefix. So there
+might be some name clashes.
+---------------------------------------------------------------------------------------
+
+Some more functions in the following context. We want to write an emacs lisp program which will generate code
+based on a template file, in case you open a buffer and it does not exist.
+So we 
+1) Hijack C-x C-f to "ask if you want to generate source file from template"
+2) If yes, do it and do the subsititution in the template file.
+
+The template file has the following that we need to subsitute.
+a) %filename%
+b) %author%
+c) %class%
+d) %package%
+e) %date%
+f) %once%
+
+(defvar template-file-name "file-template") --> Very simple, define a variable called template-file-name to "file-template". Define the variable only
+if it does not already hold a value. Otherwise override it. Returns the variable name (template-file-name)
+
+lambda - lambda is an anonymous function. ie a function that does not have a name. Whenever you are writing a lambda, you have to include 
+the entire function body then and there. Eg:
+(lambda (arg)
+    (* arg 7))
+
+This lambda function takes an argument. So how do we call it as it does not have a name. It turns out that the argument must be given after you define
+it. Eg
+((lambda (arg)
+   (* arg 7)) 3)
+
+(file-name-nondirectory FILENAME) --> return the filename after removing the path to it.
+(file-name-directory FILENAME) --> return the directory of the file 
+(file-name-extension FILENAME) --> return the file extension
+(user-full-name) --> returns logged in user name
+(current-time-string) --> current
+(concat arg1 arg2 arg3) --> concatinate all arguments and return a string
+(file-readable-p fileName) -> return t if file exists and you can read it.
+(string-equal arg1 arg2) --> return t if arg1 equal to arg2
+(y-or-n-p PROMPT) --> User will be prompted for yes or no and will display the prompt string. Returns t if answer is y, otherwise returns nil
+(buffer-disable-undo) --> delete all undo information of this buffer. and stop recording any future undo information.
+(buffer-enable-undo) --> Just the opposite of above
+(buffer-file-name) --> Not a function, a variable
+(insert-file "contents") --> insert data in file at the current point location.
+(car the-list) -> returns the first element in the list. Doesnt modify the list
+(cdr the-list) -> return the rest of the list except the first element. Doesnt modify the list.
+(funcall arg1 arg2 arg3) --> call arg1 as a function. passing arg2 and arg3 as parameters to it. so (funcall 'cons 'x 'y ) --> return (x y)
+(set-buffer-modified-p nil) --> set the current buffer as modified or unmodified based on flag
+
+---------------------------------------
+
+Hook - A hook is a variable which holds a list of functions which are executed when an event occurs in emacs.
+the best way to add a function to a hook is to use the add-hook function.
+
+Most hook variables end with "-hook" and mean that they are normal hooks. ie all the functions in the list are called one by one 
+without any arguments. 
+
+There are also ABNORMAL hooks which end in "-functions" which are special in some way. For eg, there may be some abnormal hooks which
+stop executing functions when a function returns a nil value, or the functions take some value.
+
+Major modes hooks apply to other major modes that are derived from the original mode. For example,
+we have a major mode called CC-mode and then several derived modes which are also major modes:
+1) c-mode
+2) c++-mode
+3) java-mode
+4) idl-mode etc etc.
+the main CC-mode has a hook "c-mode-common-hook". Any functions in this list will be called for all the above modes too.
+Eg:
+(add-hook 'text-mode-hook 'auto-fill-mode)
+To remove a hook
+(remove-hook 'text-mode-hook 'auto-fill-mode)
+(setq hook-variable nil) --> to remove all hooks.
+
+---------------------------------------
+
+In emacs, we have three major modes apart from the fundamental mode.
+1) Text mode,
+2) Prog mode
+3) Special mode.
+
+Any new mode that you define must inherit from one of the these three modes.
+Also we have a function
+(derived-mode-p &rest MODES) -> which returns non-nil if the current major mode derives from one of the MODES in the argument list.

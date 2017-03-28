@@ -1,0 +1,13 @@
+1) Install emacs version 24.3 of higher
+2) Download and install latest version of GNU Global with Exhuberant Ctags (from sourceforge)
+   ./configure --prefix=<PREFIX> --with-exuberant-ctags=/usr/local/bin/ctags
+   make && make install
+3) Create folder 
+   ~/.emacs.d/packages/
+   ~/.emacs.d/settings/
+4) Copy custom-24.el and custom-generic.el to ~/.emacs.d/settings/
+5) Copy ggtags.el to ~/.emacs.d/packages/
+6) Copy init.el from your repo to ~/.emacs.d/
+7) Download yasnippet and yas-snippets. Put yassnippet.el in ~/.emacs.d/packages/
+   and unzip all snippets in ~/.emacs.d/packages/snippets/
+

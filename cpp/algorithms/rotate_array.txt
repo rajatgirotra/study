@@ -1,0 +1,23 @@
+One Way;
+-------
+
+void rotate(iterator first, iterator middle, iterator last) //last is one past the end of the array
+{
+    iterator next = middle;
+	while(first != next)
+	{
+	    swap(first, next);
+		++first; ++next;
+		if(next == last) next = middle;
+		else if(first == middle) middle = next;
+	}
+}
+
+Second Way
+----------
+void rotate(iterator first, iterator middle, iterator last) //last is pointing to last element
+{		
+    reverse from(middle to last);
+	reverse from(first, middle-1);
+	reverse from(first, last)
+}

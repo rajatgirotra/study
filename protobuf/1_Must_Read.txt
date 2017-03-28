@@ -1,0 +1,16 @@
+Not much to explain, its almost self-explanatory.
+
+1) Google protobuf is a serialization API (ie handles Marshalling and demarshalling).
+2) It has a language guide which we can use to define the structure of our class.
+3) You then run the protobuf complier to generate language code (like C++, Java, Go, Python, PHP etc).
+4) This code provides implementation for getters, setters, serialization and de-serialization.
+5) Serialization is in Binary format, so it is faster and also much smaller than text serializtion like XML and JSON.
+6) It is backwards compatible, so you can add more fields to your .proto file and the destination application need not change. It will just ignore the new fields.
+7) You can also read more Protobuf Binary Encoding on Google.
+8) We can also use this in RPC calls.
+
+Disadvantages
+1) Cannot be used everywhere. For example, you would not want to use protobuf where you have text based document with Markup (eg HTML). since you cannot easily interleave structure with text.
+
+Lets read 2_Must_Read.txt and then move on to addressbook.proto
+Lets get started and define an addressbook.proto

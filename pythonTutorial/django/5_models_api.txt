@@ -1,0 +1,158 @@
+Lets delve into models and fields a bit.
+1) When you write a model class it must derive from django.db.models.Model
+2) Each field becomes a Database column. Each field is an instance of Field class.
+3) Django automatically generates table_name, field_names, field_types, extra_fields (like id) for you in the given SQL format specified in the settings file. A lot of this is also configurable like what table_name, what field_name you want etc.
+4) Django automatically creates a Database access API for your fields which we'll show you later. Like "select from table_name where field_name_contains <something>'.
+5) Field types are also important. They decide what "widget" django will automatically render when using it as a form field.
+6) Although there are dozens of fields available, you can also write your own custom field type.
+7) Each field is different so it may require a different set of arguments. Like CharField requires a max_length always, etc
+8) All fields also have a common set of arguments. However all are optional. Important ones are:
+   a) null=True/False - This means that Django will use the string "NULL" to store/represent empty values in DB.
+                        Never use null=True for string fields, because empty string values will always be stored as "".
+                        So having "NULL" also creates redundancy.
+   b) blank=True/False - This is more from display perspective. If True, user will be allowed to leave this field blank.
+   c) choices=an iterable of 2-tuple. This will convert the field into a select box when displayed. The first value in the 2 tuple is the value stored in DB and the second will be displayed in HTML. Example:
+
+   from django.db import models
+   class Person(models.Model):
+       SHIRT_SIZE = (('S', 'Small'),
+                     ('M', 'Medium'),
+                     ('L', 'Large'),
+                     ('XL', 'Extra Large'),
+       name = models.CharField(max_length=200)
+       shirt_size = models.CharField(max_length=2, choices=SHIRT_SIZE)
+
+   >> p = Person(name='Fred Flinstone', shirt_size='XL')
+   >> p.save()
+   >> p.shirt_size  --> will give you XL
+   >> p.get_shirt_size_display() --> will give you 'Extra Large'
+   Can also couple blank and default with the above choices if some choice has to be selected by default.
+
+   d) default=10 - to specify a default value
+   e) primary_key=True - This will will be the primary_key. When using DB API, and you try to alter the PK of a DB row, a new row is created instead as PK's are not modifiable. Also django will NOT add "id" column as PK which it normally does by default.
+   f) help_text="help" --> extra help text to display in your form widget.
+   g) unique=True - Unique constraint will be added automatically.
+   Read about more field options here: https://docs.djangoproject.com/en/1.10/ref/models/fields/#common-model-field-options
+   h) verbose_name: By default all fields take a first argumeent as a verbose_name for your field. I'm yet to find how is this name used.
+
+
+Relationships
+=============
+
+ForeignKey ie ManytoOne
+----------------------
+Example, different types of Cars manufacturd by the same Manufacturer. Very easy to create. FK field takes a number of additional arguments. See what all arguments are needed when you create a foreign key. AS A RULE OF THIM, always create a FK field name as the name of the FK Model in all lower case. eg manufacturer for Manufacturer model
+
+class Manufacturer(models.Model):
+    pass
+
+class Car(models:Model):
+    manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+    pass
+
+
+ManyToMany: Example, Pizza and Topping.
+--------------------------------------
+A Pizza can have multiple topping or the same topping can be on mutiple pizza. For such a relationship, create a ManyToManyField in either Pizza model or Topic model but NOT BOTH. Think what makes sense. Generally we say a Pizza can have multiple topping, instead that a topping can be on multile pizzas. AS A RULE OF THUMB, create ManyToManyField name as the model name in lower case followed by "s"
+Eg:
+class Pizza(models.Model):
+    toppings = models.ManyToManyField(Topping)
+
+ManyToMany through another Model: 
+--------------------------------
+sometimes you want to store other metadata about your relationship. Example: Persons and Bands. A person can belong to mutiple bands. and a band can have multiple persons. So ManyToMany. However, if you also want to store the date of joining along with this, you can use another model that stores the relationship information.
+class Person(models.Model):
+    name = models.CharField(max_length=128)
+
+    def __str__(self):              # __unicode__ on Python 2
+            return self.name
+
+class Group(models.Model):
+    name = models.CharField(max_length=128)
+        members = models.ManyToManyField(Person, through='Membership')
+
+    def __str__(self):              # __unicode__ on Python 2
+            return self.name
+
+class Membership(models.Model):
+    # Must specify the two models as ForeignKey
+    person = models.ForeignKey(Person, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    # metadata
+    date_joined = models.DateField()
+    # metadata
+    invite_reason = models.CharField(max_length=64)
+I'll discuss later on the API used to add rows to membership table.
+
+
+OneToOne
+--------
+This is used to basically extend your current model. Let say you have trade related information in a DB. which has 200 fields. 10 are very important and other 190 are other helpful fields but not really required. So you can create two tables, with a one to one relationship.
+Every row in the second table refers to exactly one unique row in the first table.
+
+Note that you can easily import models of another app and then define relationships on them.
+
+Meta class
+---------
+You can also add a meta class to your model. A meta class has metadata about your table. Can explore later on how this is used. Here you can specify options like 'ordering' for default ordering of rows, 'abstract=True' if you want to make ur class abstract (see below on what abstract is) and many db_table for db table name , verbose_name etc etc.
+
+Model class Attributes and Functions
+====================================
+The models.Model class has an important attribute called "Manager". This is the main attribute which is the access point for database queries and updates. By default, the name of the Manager object in Model is "objects".
+Apart from this there a number of functions in Model which you can override (like save(), delete() for saving and deleting a row from database). These operations are for single row saving and deletion and might not even be called for bulk saving and deleting so please take note. Also you must override
+1) __str__() for Python 3 and __unicode__() for python 2 --> To give a string representation a row of your class.
+2) get_absolute_url() --> to get the absolute URL of the row of ur table. 
+This tells Django how to calculate the URL for an object (ie a URL of a row in a table). Django uses this in its admin
+interface, and any time it needs to figure out a URL for an object.  Any object that has a URL that uniquely identifies it should define this method.
+
+Model Inheritance
+================
+1) Abstract inheritance - Let say you have 5-10 field which are common among 2 or more tables. Then you can declare them in a model class and declare "abstract=True" as a Meta class member. This means django will not create any db table for that model. Also any Meta class in the Abstract model should also be inherited in the derived class. Eg:
+Note: When meta class is inherited, django automatically sets "abstract=False" for your derived class so you are safe. Eg:
+class Base(models.Model):
+    class Meta:
+        abstract=True
+
+class Derived(Base):
+    class Meta(Base.meta):
+        pass
+
+
+2) Multi Table inheritance:
+   This is when the Base class is its own model(ie table in db) and the derived class is its own model. Django automatically maintains a one to one mapping between the two tables: Eg:
+   class Place(models.Model):
+       name = ...
+       address = ...
+
+   class Restaurant(Place):
+      serves_pizza = ...
+
+ You can use both:
+ >>> Place.objects.filter(name="Bob's Cafe")
+ >>> Restaurant.objects.filter(name="Bob's Cafe")
+
+Also
+>>> p = Place.objects.get(id=12)
+# If p is a Restaurant object, this will give the child class:
+>>> p.restaurant
+<Restaurant: ...>
+Otherwise it will throw a "DoesNotExist" exception.
+Also since the Meta class in Base has already been applied to the Base table, it does not make sense to inherit it in the Derived Meta class. So a child class does not have access to its parent meta class if "abstract=True" is not defined.
+
+You also need to thoroughly understand related_name and related_query_name arguments to ForeignKey and ManyToMany relationships and understand how they effect certain cases in inheritance.
+
+Proxy Models (Last type of inheritance)
+--------------------------------------
+Here you derive from the Base model you have defined and then set the proxy=True meta class attribute. Eg:
+class Person(models.Model):
+    pass
+class MyPerson(Person):
+   class Meta:
+       ordering=['last_name']
+       proxy=True
+So MyPerson is just a proxy for Person. Not a separate table in DB. also it has an ordering based on last_name.
+
+
+Also if you have multiple models, you should create polls/models/__init__.py and import all models in it.
+from .organic import Person
+from .synthetic import Robot

@@ -1,0 +1,129 @@
+What are memory barriers really??
+
+As you already know, both compiler and CPU can reorder memory interactions. They mostly do this to improve performance.
+So independent mempry operations are effectively performed in random order.
+
+Memory barriers are a way of intervening to instruct the compiler and CPU to restrict the order, otherwise this will be a problem
+for a CPU-CPU interaction and for I/O. They impose a perceived ordering over the memory operations on either side of the barrier.
+
+An example problem:
+
+The stores committed by a CPU to the memory system may not be perceived by the loads made by another CPU in the same order as the stores were
+committed.
+
+consider this sequence of events:
+
+	CPU 1				CPU 2
+	===============			===============
+	{ A == 1, B == 2, C = 3, P == &A, Q == &C }
+
+	B = 4;				Q = P;
+	P = &B;				D = *Q;
+
+At the end of the sequence, any of the following results are possible:
+
+	(Q == &A) and (D == 1)
+	(Q == &B) and (D == 2)
+	(Q == &B) and (D == 4)
+
+VARIETIES OF MEMORY BARRIER
+---------------------------
+
+Barriers are placed *between* memory operations.  Given the following:
+
+   memOpA
+   memOpB
+   ...
+   memOpP
+---barrier---
+   memOpQ
+   memOpR
+   ...
+
+4 basic varities:
+
+1) StoreStore Memory barriers: A StoreStore (or write) memory barrier gives a guarantee that all the STORE operations specified before the barrier
+   will appear to happen before all the STORE operations specified after the barrier with respect to other components of the system.
+
+2) LoadLoad Memory Barrier: A LoadLoad (or read or load) memory barrier gives a guarantee that all the LOAD  operations specified before the barrier
+   will appear to happen before all the LOAD operations specified after the barrier with respect to other components of the system. A LoadLoad barrier
+   implies a Data dependency barrier, so you can substitue for them.
+
+3) LoadStore - Loads before the barrier can't be reordered past Stores that are after the barrier.
+
+4) StoreLoad - Stores before the barrier can't be reordered past Loads that are after the barrier.
+
+5) Data dependency barrier: This is a weaker form of a LoadLoad barrier.  In the case where two loads are performed such that the second 
+   depends on the result of the first (eg: the first load retrieves the address to which the second load will be directed), 
+   a data dependency barrier would be required to make sure that the target of the second load is updated before the address obtained by 
+   the first load is accessed.
+
+For now just remember that StoreLoad is expensive to implement, but later I'll show you why?
+
+
+There are two more varitites
+
+The other way of looking at memory barriers, is by placing constraints *ON* memory operations, instead of between them.  In particular:
+
+1) Acquire operations: The acquaire semantics can only be applied to operations that READ from shared memory. A read operation with an 
+   acquaire semantics cannot be reordered with any read or write that follows it in program order. this basically acts like a 
+     LoadLoad + LoadStore operation because 
+   a) It will prevent a load from going down and anything from below coming up.
+
+2) Release operations: The release semantics can only be applied to operations that WRITE (Store) to shared memory. A store operation with a 
+   release semantics cannot be reordered with any read or write that precedes it in program order. this basically acts like a 
+   StoreStore + LoadStore operation because
+  a) It will prevent a previous store or load from above from coming down and a store from going up.
+  
+
+eg:
+   read_acquaire(x) - read x with 'acquaire' semantics
+   write_release(x, 1) - write x = 1 with 'release' semantics
+
+Acquire and release fences are considered low-level lock-free operations. If you stick with higher-level, sequentially consistent atomic types, such as volatile variables in Java 5+, or default atomics in C++11, you don't need acquire and release fences. The tradeoff is that sequentially consistent types are slightly less scalable or performant for some algorithms
+
+
+For example, consider two threads
+
+   Thread 1                             Thread 2
+   -------                              -------
+  
+   A = 42;                                read_acquarie(ready); //implies keep all memory operations below this line.
+   -----                                   -----
+   write_release(ready = 1);               int r2 = A;
+   implies keep all memory operations
+   above the line
+
+A must be 42 in Thread 2 if ready is 1.
+To standardize above in C++11, we use:
+
+Thread 1
+--------
+A = 42;
+Ready.store(1, memory_order_release);
+
+and
+Thread 2
+-------
+Ready.load(memory_order_acquaire);
+int r2 = A;
+
+where Ready is really nothing but std::atomic<int> Ready;
+I know, it's kind of a silly change, considering that loads and stores of int are already atomic on every modern CPU that exists today.
+But you'll see this is good practice when you see implementation of Singleton after a while.
+More on this in a while when you read about atomic and non-atomic operations.
+
+If you see the two thread implementations above, you'll realise that in Thread 1, only the StoreStore semantics was important
+whereas in Thread 2 only the LoadLoad semantics was important. 
+
+One case in which the #LoadStore part becomes essential is when using acquire and release semantics to implement a (mutex) lock. In fact, this is where the names come from: acquiring a lock implies acquire semantics, while releasing a lock implies release semantics! All the memory operations in between are contained inside a nice little barrier sandwich, preventing any undesireable memory reordering across the boundaries.
+
+                     read_acquaire(x) --> All Stores and Loads will happen afterwards
+                -------------------------------
+               |  All Memory operations here.  |
+               |                               |
+                -------------------------------
+                    write_release(x) -->> All store and loads will happen before. 
+
+Here, acquire and release semantics ensure that all modifications made while holding the lock will propagate fully to the next thread which obtains the lock. Every implementation of a lock, even one you roll on your own, should provide these guarantees. Again, it's all about passing information reliably between threads, especially in a multicore or multiprocessor environment. I'll show an example later where i implement a lock using acquire and release
+semantics (in 12.cpp)

@@ -1,0 +1,152 @@
+Pointers to members
+
+A pointer is a variable that holds the address of some location. You can change what a pointer selects at runtime, and the destination of the pointer can be either data or a function. The C++ pointer-to-member follows this same concept, except that what it selects is a location inside a class. The dilemma here is that a pointer needs an address, but there is no .address. inside a class; selecting a member of a class means offsetting into that class. You can.t produce an actual address until you combine that offset with the starting address of a particular object. The syntax of pointers to members requires that you select an object at the same time you.re dereferencing the pointer to member.
+
+To understand this syntax, consider a simple structure, with a pointer sp and an object so for this structure. You can select members with the syntax shown:
+
+    //: C11:SimpleStructure.cpp
+    struct Simple { int a; };
+    int main() {
+      Simple so, *sp = &so;
+      sp->a;
+      so.a;
+    } ///:~
+
+Now suppose you have an ordinary pointer to an integer, ip. To access what ip is pointing to, you dereference the pointer with a .*.:
+
+    *ip = 4;
+
+Finally, consider what happens if you have a pointer that happens to point to something inside a class object, even if it does in fact represent an offset into the object. To access what it.s pointing at, you must dereference it with *. But it.s an offset into an object, so you must also refer to that particular object. Thus, the * is combined with the object dereference. So the new syntax becomes .>* for a pointer to an object, and .* for the object or a reference, like this:
+
+    objectPointer->*pointerToMember = 47;
+    object.*pointerToMember = 47;
+
+Now, what is the syntax for defining pointerToMember? Like any pointer, you have to say what type it.s pointing at, and you use a * in the definition. The only difference is that you must say what class of objects this pointer-to-member is used with. Of course, this is accomplished with the name of the class and the scope resolution operator. Thus,
+
+    int ObjectClass::*pointerToMember;
+
+defines a pointer-to-member variable called pointerToMember that points to any int inside ObjectClass. You can also initialize the pointer-to-member when you define it (or at any other time):
+
+    int ObjectClass::*pointerToMember = &ObjectClass::a;
+
+There is actually no .address. of ObjectClass::a because you.re just referring to the class and not an object of that class. Thus, &ObjectClass::a can be used only as pointer-to-member syntax.
+
+Here.s an example that shows how to create and use pointers to data members:
+
+    //: C11:PointerToMemberData.cpp
+    #include <iostream>
+    using namespace std;
+
+    class Data {
+    public:  
+      int a, b, c; 
+      void print() const {
+        cout << "a = " << a << ", b = " << b
+             << ", c = " << c << endl;
+      }
+    };
+
+    int main() {
+      Data d, *dp = &d;
+      int Data::*pmInt = &Data::a;
+      dp->*pmInt = 47;
+      pmInt = &Data::b;
+      d.*pmInt = 48;
+      pmInt = &Data::c;
+      dp->*pmInt = 49;
+      dp->print();
+    } ///:~
+
+Obviously, these are too awkward to use anywhere except for special cases (which is exactly what they were intended for).
+
+Also, pointers to members are quite limited: they can be assigned only to a specific location inside a class. You could not, for example, increment or compare them as you can with ordinary pointers.
+Functions
+
+A similar exercise produces the pointer-to-member syntax for member functions. A pointer to a function (introduced at the end of Chapter 3) is defined like this:
+
+    int (*fp)(float);
+
+The parentheses around (*fp) are necessary to force the compiler to evaluate the definition properly. Without them this would appear to be a function that returns an int*.
+
+Parentheses also play an important role when defining and using pointers to member functions. If you have a function inside a class, you define a pointer to that member function by inserting the class name and scope resolution operator into an ordinary function pointer definition:
+
+    //: C11:PmemFunDefinition.cpp
+    class Simple2 { 
+    public: 
+      int f(float) const { return 1; }
+    };
+    int (Simple2::*fp)(float) const;
+    int (Simple2::*fp2)(float) const = &Simple2::f;
+    int main() {
+      fp = &Simple2::f;
+    } ///:~
+
+In the definition for fp2 you can see that a pointer to member function can also be initialized when it is created, or at any other time. Unlike non-member functions, the & is not optional when taking the address of a member function. However, you can give the function identifier without an argument list, because overload resolution can be determined by the type of the pointer to member.
+An example
+
+The value of a pointer is that you can change what it points to at runtime, which provides an important flexibility in your programming because through a pointer you can select or change behavior at runtime. A pointer-to-member is no different; it allows you to choose a member at runtime. Typically, your classes will only have member functions publicly visible (data members are usually considered part of the underlying implementation), so the following example selects member functions at runtime.
+
+    //: C11:PointerToMemberFunction.cpp
+    #include <iostream>
+    using namespace std;
+
+    class Widget {
+    public:
+      void f(int) const { cout << "Widget::f()\n"; }
+      void g(int) const { cout << "Widget::g()\n"; }
+      void h(int) const { cout << "Widget::h()\n"; }
+      void i(int) const { cout << "Widget::i()\n"; }
+    };
+
+    int main() {
+      Widget w;
+      Widget* wp = &w;
+      void (Widget::*pmem)(int) const = &Widget::h;
+      (w.*pmem)(1);
+      (wp->*pmem)(2);
+    } ///:~
+
+Of course, it isn.t particularly reasonable to expect the casual user to create such complicated expressions. If the user must directly manipulate a pointer-to-member, then a typedef is in order. To really clean things up, you can use the pointer-to-member as part of the internal implementation mechanism. Here.s the preceding example using a pointer-to-member inside the class. All the user needs to do is pass a number in to select a function.[48]
+
+    //: C11:PointerToMemberFunction2.cpp
+    #include <iostream>
+    using namespace std;
+
+    class Widget {
+      void f(int) const { cout << "Widget::f()\n"; }
+      void g(int) const { cout << "Widget::g()\n"; }
+      void h(int) const { cout << "Widget::h()\n"; }
+      void i(int) const { cout << "Widget::i()\n"; }
+      enum { cnt = 4 };
+      void (Widget::*fptr[cnt])(int) const;
+    public:
+      Widget() {
+        fptr[0] = &Widget::f; // Full spec required
+        fptr[1] = &Widget::g;
+        fptr[2] = &Widget::h;
+        fptr[3] = &Widget::i;
+      }
+      void select(int i, int j) {
+        if(i < 0 || i >= cnt) return;
+        (this->*fptr[i])(j);
+      }
+      int count() { return cnt; }
+    };
+
+    int main() {
+      Widget w;
+      for(int i = 0; i < w.count(); i++)
+        w.select(i, 47);
+    } ///:~
+
+In the class interface and in main( ), you can see that the entire implementation, including the functions, has been hidden away. The code must even ask for the count( ) of functions. This way, the class implementer can change the quantity of functions in the underlying implementation without affecting the code where the class is used.
+
+The initialization of the pointers-to-members in the constructor may seem overspecified. Shouldn.t you be able to say
+
+    fptr[1] = &g;
+
+because the name g occurs in the member function, which is automatically in the scope of the class? The problem is this doesn.t conform to the pointer-to-member syntax, which is required so everyone, especially the compiler, can figure out what.s going on. Similarly, when the pointer-to-member is dereferenced, it seems like
+
+    (this->*fptr[i])(j);
+
+is also over-specified; this looks redundant. Again, the syntax requires that a pointer-to-member always be bound to an object when it is dereferenced.

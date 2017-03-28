@@ -1,0 +1,3 @@
+syntax = "proto2";
+
+import public "new/new_a1.proto";

@@ -1,0 +1,12 @@
+The library has three main components:
+
+The options description component, which describes the allowed options and what to do with the values of the options.
+
+The parsers component, which uses this information to find option names and values in the input sources and return them.
+
+The storage component, which provides the interface to access the value of an option. It also converts the string representation of values that parsers return into desired C++ types.
+
+To be a little more concrete, the options_description class is from the options description component, the parse_command_line function is from the parsers component, and the variables_map class is from the storage component.
+
+For that outside world, the storage component is the most important. It provides a class which stores all option values and that class can be freely passed around your program to modules which need access to the options.
+All the other components can be used only in the place where the actual parsing is the done.

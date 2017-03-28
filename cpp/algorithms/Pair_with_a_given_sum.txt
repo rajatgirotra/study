@@ -1,0 +1,32 @@
+Given an array A[] and a number x, check for pair in A[] with sum as x
+Solution:
+--------
+1) Sort first : O(nlgn)
+2) Then use to variables to travese together from starting and from last
+Loop while l < r.
+       (a) If (A[l] + A[r] == sum)  then return 1
+       (b) Else if( A[l] + A[r] <  sum )  then l++
+       (c) Else r--    
+4) No candidates in whole array - return 0
+
+
+
+
+
+Variation: The sorted array is now rotated at some arbitrary point
+Examples:
+Input: arr[] = {11, 15, 6, 8, 9, 10}, x = 16
+Output: true
+There is a pair (6, 10) with sum 16
+
+Input: arr[] = {11, 15, 26, 38, 9, 10}, x = 35
+Output: true
+There is a pair (26, 9) with sum 35
+
+Input: arr[] = {11, 15, 26, 38, 9, 10}, x = 45
+Output: false
+There is no pair with sum 45.
+
+1) Solution: travese first to find the largest element, the element after that is the minimum.
+Again traverse from minimum to largest
+

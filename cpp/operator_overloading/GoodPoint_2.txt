@@ -1,0 +1,11 @@
+Operator "=" is only allowed to be a member function.
+This is because if the user does not specify a nonstatic "=" member function, then the compiler will synthesize one for the class.
+In that case the = member function and the friend function become ambiguous.
+
+The subscript, operator[ ], must be a member function and it requires a single
+argument. Because operator[ ] implies that the object it.s being called for
+acts like an array, you will often return a reference from this operator, so
+it can be conveniently used on the left-hand side of an equal sign
+
+The operators new and delete control dynamic storage allocation and can be
+overloaded in a number of different ways. 

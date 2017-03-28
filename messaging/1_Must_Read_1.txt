@@ -1,0 +1,43 @@
+Why we need a messaging middleware, i.e. a messaging based solution?
+
+Business requirements are changing constantly. You might have any of the following scenarios where messaging should be used.
+
+1) An application which is 20 yrs old needs to exchange data with an application which is just written 2 days back.
+2) Lets say twop companies are merging and their products need to exchange data.
+3) Different applications of the same company want to exchange data.
+etc etc..
+
+Having a messaging based solution allows developers to focus on the business problem without worrying too much about transport, delivery, reliablity, recovery etc...
+All of that will be handled by the messaging middleware.
+
+Another feature of messaging framework is asynchronous messaging. i.e decoupling the two applications which are producing and consuming data.
+The two applications need not be running and available at the same time.
+
+Important feautres of message based solution:
+
+1) Once-only processing - There should be not loss of duplication of messages. Business transaction should only be done once. 
+2) Ubiquity - Messaging provder should be able to integrate applications on different operating systems & hardware requirements.
+3) Easy to change, manage and configure
+4) Performance & availability
+5) Security
+
+Examples:
+
+Retail kiosks - Lets say there are 25000+ kiosks in a city all of which are connected to a central database.
+Data is changing rapidly, and it needs to be distributed rapidly to these kiosks. Then all of them need to have the same consistent information.
+
+Bank Transactions/Payments
+
+IBM WebSphere MQ was introduced in 1993 under the name MQSeries focused on providing an available, reliable, scalable, secure, and high-performance transport mechanism.
+
+
+IBM TDE (Tivoli Data Exchange) - Built on top of Websphere MQ.
+
+WebSphere MQ File Transfer Edition is a solution for the integration of applications that are FILE-BASED and NOT MESSAGE-BASED,
+making it possible to reliably transfer files between systems. WebSphere MQ File Transfer Edition provides management, monitoring, and security of those transfers.
+WebSphere MQ File Transfer Edition uses existing skills and infrastructure as it uses WebSphere MQ as its backbone transfer medium.
+
+Advanced Message Security (AMS) is a solution to the problem of securing message contents, even when those messages are at rest in queues or logs.
+Several regulatory frameworks require data to be protected from viewing, changing, or being stored on disks in the clear even during processing.
+One example of these regulations is the Payment Card Industry (PCI) for dealing with credit card data. There are other regulatory bodies for other
+types of data, for example, healthcare, that have similar requirements.

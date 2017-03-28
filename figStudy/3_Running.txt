@@ -1,0 +1,39 @@
+As you know already, fig is used for storing environment settings and other files.
+You need to setup the environment before you run your application or command.
+
+So you can say, something like
+
+fig -- 'echo Hello World'
+In this case, fig will load the settings in package.fig in the CWD and then execute the command "echo Hello World"
+
+fig xmlbeans/2.4.0 -- "echo \$CLASSPATH"
+xmlbeans/2.4.0 package in the local repository sets up the CLASSPATH variable. So this command displays
+the correct CLASSPATH
+
+fig --file different.fig -- 'echo CruelWorld'
+Will try to load settings in different.fig in CWD and then run the command. If different.fig does not exist,
+FIG will throw an error.
+
+Also REMEMBER that a fig file can contain multiple configs (I'll show you later what a config is).
+By default if config is not specified, the "default" config is assumed. So all the above commands
+looks for the "default" config to load settings. If you want to use some non-default config, use
+
+fig package_name/version_name:config_name -- echo foo 
+OR
+fig --file different.fig --config <someNonDefaultConfig> -- echo foo
+
+You can also embed the command to be run inside the package.fig itself.
+Each config in the file can have atmost one command which will be run if that config is loaded.
+
+Also there is an option to add extra parameters to the command which is already in the package.fig file
+
+eg:
+
+fig xmlbeans/2.4.0 
+will run the command (if any) specifed in the "default" config
+
+fig --run-command-statement 
+will run the command in the package.fig file in the CWD.
+
+fig --command-extra-args <extraArgs>
+will append "extraArgs" to the command in the specified package and then run the command.

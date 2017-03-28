@@ -1,0 +1,42 @@
+sed '3q' emp.lst
+
+sed -n '1,3p' emp.lst
+
+sed -n '1,3!p' emp.lst
+
+sed -n '1,3p
+7,9p
+$p' emp.lst
+
+sed -n '/director/p' emp.lst
+
+sed -n '/sales/,/director/p' emp.lst  : to select lines between sales and director
+
+sed -n '1,/dasgupta/p' emp.lst   , to select lines starting from first line to dasgupta.
+
+sed -n "/[Aa]gg*[ar][ra]wal/p" emp.lst
+
+sed -n "/50......$/p" emp.lst : to select lines with year = 1950
+
+sed -n '/director/w dlist
+/manager/w mlist
+/executive/w elist' emp.lst,             note that -n is used with -w option also.
+
+sed -n '1,4w half
+5,$w secondhalf' emp.lst
+
+sed '1i \
+#include <iostream> \
+#include <string> \
+' emp.lst               , for inserting
+
+sed 'a \
+
+ ' emp.lst  , if address is missing, command applies to all lines. So here we are appending a blank line to everyline.
+
+sed '/director/d' emp.lst   -- same as "grep -v" command.
+
+sed 's/|/:/g' emp.lst  - substitute | with : globally
+sed '1,3s/|/:/g' emp.lst - same as above but with address specified. If no address is specified, command applies to all lines.
+
+sed 's/ *//g' emp.lst    --> Compress multiple whitespaces

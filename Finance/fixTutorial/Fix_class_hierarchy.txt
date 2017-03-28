@@ -1,0 +1,187 @@
+   Please read  HowToWriteAQuickFIXApplication.txt first
+  Let us go through some of the basic classes of Quickfix FIX implementation
+  
+1) FixFieldNumbers.h - Very simple class which contains a constant int definition for each tag value defined in FIX.
+eg:
+namespace FIX {
+    namespace FIELD {
+	    const int BeginString = 8;
+		const int MsgType = 35; etc etc
+	}
+}
+Very trivial
+---------------------------------------------------------------------------------------------------------------
+
+2) Field.h - Here we have a base class called "FieldBase" which has many derived classes. The class has the following important methods
+
+int getField() const { returns the integer value of tag of this field }
+const string& getString() const { return the string representation of the value of this field }
+const string& getValue() const { returns the complete field eg: 55=IBM<SOH>, remember <SOH> is also returned }
+void setField(int field)
+void setString(string);
+int getLength(); //return length of complete field eg: 35=A<SOH> etc.
+int getTotal();  // return the total of the fields characters added together (ie ascii values added together).
+                // Will verify these when I write my own FIX application.
+
+Then you have a number of derived classes, dervied fron FieldBase: One separate class for each data type supported by FIX.
+
+class StringField : public FieldBase{};
+class CharField : public FieldBase{};
+class IntField : public FieldBase{};
+class DoubleField : public FieldBase{};
+class BoolField : public FieldBase{};
+class UtcTimeStampField : public FieldBase{};
+class UtcDateField : public FieldBase{};
+class UtcTimeOnlyField : public FieldBase{};
+class CheckSumField : public FieldBase{};
+---------------------------------------------------------------------------------------------------------------
+
+FixFields.h
+
+This is the class which defines a number of macros like
+DEFINE_STRING(BeginString); 
+DEFINE_INT(HeartBtInt); etc etc..
+Each of this define is nothing but a macro to create a class derived from either StringField or CharField or IntField or DoubleField etc..
+ie. all the fix fields are declared as classes here. Each fix field can hold the tag number and the value of that field.
+---------------------------------------------------------------------------------------------------------------
+
+SessionID.h
+
+QuickFix identifies each session using a combination of 
+1) BeginString
+2) SenderCompID
+3) TargetCompID
+4) SessionQualifier
+The toString() method SessionID class return the "beginString":"SenderCompID->"TargetCompID"[:"SessionQualifier]
+It has other trivial methods like getBeginString(), getSenderCompId(), getTargetCompId() etc.. 
+---------------------------------------------------------------------------------------------------------------
+
+SessionSettings.h
+You already know that a FIX session can be an initiator (client) or an acceptor (server). The SessionSettings file
+is used by the quickfix engine at start time to read all default and session related configuration.
+The SessionSettings class can read configuration from a C++ istream (ie filestream and stringstream) or you can also
+pass a filename as an argument to its c'tor. The SessionSettings class has "key=value" like settings. The settings can be under the
+default heading or the Session heading.. eg:
+
+[DEFAULT]
+ConnectionType=initiator
+
+[SESSION]
+BeginString=FIX.4.1
+TargetCompID=ARCA
+StartTime=12:30:00
+EndTime=23:30:00
+HeartBtInt=20
+SocketConnectPort=9823
+SocketConnectHost=123.123.123.123
+DataDictionary=somewhere/FIX41.xml
+
+[SESSION]
+BeginString=FIX.4.0
+TargetCompID=ISLD
+StartTime=12:00:00
+EndTime=23:00:00
+HeartBtInt=30
+SocketConnectPort=8323
+SocketConnectHost=23.23.23.23
+DataDictionary=somewhere/FIX40.xml  etc etc..
+
+Refer: http://www.quickfixengine.org/quickfix/doc/html/configuration.html
+for allowed settings.
+
+class SessionSettings
+{
+    //c'tor
+	SessionSettings(istream& stream) throw (ConfigError);
+	SessionSettings(string filename) throw (ConfigError);
+	
+	bool has(const SessionID&); //true if settings for this session are present.
+	
+    //Get and set the dictionary. dictionary here means a map <string, string> of key=value pairs for this session.
+	//It is used later during validation of fix messages.
+	const Dictionary& get( const SessionID& ) const throw( ConfigError );
+	void set( const SessionID&, Dictionary ) throw( ConfigError );
+	
+	//Get and set global dictionary..
+	const Dictionary& get() const { return m_defaults; }
+	void set( const Dictionary& defaults ) throw( ConfigError );
+	
+	//Number of session settings
+	int size() const { return m_settings.size(); }
+};
+---------------------------------------------------------------------------------------------------------------
+
+Dictionary.h - A very simple class you alrady know, contains std::map<string, string>. Each dictionary can also have a name.
+Very simple interface available for getting and setting values.
+
+  /// Get a value as a string.
+  std::string getString( const std::string&, bool capitalize = false ) const throw( ConfigError, FieldConvertError );
+  long getLong( const std::string& ) const throw( ConfigError, FieldConvertError );
+  double getDouble( const std::string& ) const throw( ConfigError, FieldConvertError );
+  bool getBool( const std::string& ) const throw( ConfigError, FieldConvertError );
+  int getDay( const std::string& ) const  throw( ConfigError, FieldConvertError );
+  bool has( const std::string& ) const;
+
+---------------------------------------------------------------------------------------------------------------
+
+FileStore.h
+
+Quickfix engine can use a database (MySQL, MSSQL, Oracle etc) to store session information, outgoing messages, logs and a lot of other information.
+Optionally, if you don't want to use a database, you can use a file based implementation provided by this class.
+
+For that you create an object of FileStorFactory class passing the SessionSettings as argument.
+This file based implementation creates 4 files
+
+FILE* m_msgFile;   --> [path]+[BeginString]-[SenderCompID]-[TargetCompID].body for storing outgoing messages
+FILE* m_headerFile; --> [path]+[BeginString]-[SenderCompID]-[TargetCompID].header for indexing above
+FILE* m_seqNumsFile;  --> [path]+[BeginString]-[SenderCompID]-[TargetCompID].seqnums for storing sequence numbers
+FILE* m_sessionFile; [path]+[BeginString]-[SenderCompID]-[TargetCompID].session --> for storing session creation time.
+
+---------------------------------------------------------------------------------------------------------------
+
+FileLog.h
+
+Just like above, but used for logging. The FileLogFactory class is passed the SessionSettings and two log files are crated by this
+implementation. One for messages, and one for events.
+
+---------------------------------------------------------------------------------------------------------------
+
+MessageCracker.h - this is the main class used to decode the fix message. This class derives from multiple MessageCracker classes, each
+of which is specialised to decode the message for a particular FIX version.
+
+class MessageCracker : public fix40::MessageCracker, public fix41::MessageCracker, public fix42::MessageCracker
+...
+{
+    //two overloaded functions are very helpful
+	void crack(const Message&, const SessionID&);
+	void crack(Message&, const SessionID&);
+	
+	//each of the crack functions look at the BeginString and hand over the job to the correct MessageCracker class.
+}
+
+The crack method in the base classes call the onMessage() function for the type of message encountered and the fix version used.
+Eg:
+onMessage( const FIX40::NewOrderSingle& message, const FIX::SessionID& sessionID )
+onMessage( const FIX41::NewOrderSingle& message, const FIX::SessionID& sessionID ) and so on..
+
+The normal approcach is to derive your Application class from both FIX::Application and FIX::MessageCracker,
+and override all needed onMessage() functions.
+
+Almost most of the times, in your fromApp(), you'll just call crack(), which will call the correct onMessage().
+---------------------------------------------------------------------------------------------------------------
+
+FixValues.h
+
+This class defines the enumeration values for a fix field. eg for Fix::OrdType field, we have
+
+  const char OrdType_LIMIT_OR_BETTER = '7';
+  const char OrdType_MARKET = '1';
+  const char OrdType_FOREX_MARKET = 'C';
+  const char OrdType_FOREX_PREVIOUSLY_QUOTED = 'H';
+  const char OrdType_ONBASIS = '9';
+  const char OrdType_PREVIOUSLYINDICATED = 'E';
+  const char OrdType_PREVIOUS_FUND_VALUATION_POINT = 'L';
+  const char OrdType_PEGGED = 'P';
+... and soon
+
+---------------------------------------------------------------------------------------------------------------

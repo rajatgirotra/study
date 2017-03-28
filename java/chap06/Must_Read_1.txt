@@ -1,0 +1,24 @@
+Javas final keyword has slightly different meanings depending on the
+context, but in general it says This cannot be changed.
+
+In the case of a compile-time constant, the compiler is allowed to fold
+the constant value into any calculations in which its used; that is, the
+calculation can be performed at compile time, eliminating some run-time
+overhead. In Java, these sorts of constants must be primitives and are
+expressed using the final keyword. A value must be given at the time of
+definition of such a constant.
+
+A field that is both static and final has only one piece of storage that
+cannot be changed. 
+
+When using final with object references rather than primitives the
+meaning gets a bit confusing. With a primitive, final makes the value a
+constant, but with an object reference, final makes the reference a
+constant. Once the reference is initialized to an object, it can never be
+changed to point to another object. However, the object itself can be
+modified; Java does not provide a way to make any arbitrary object a
+constant. (You can, however, write your class so that objects have the
+effect of being constant.) This restriction includes arrays, which are also
+objects. 
+
+

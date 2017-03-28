@@ -1,0 +1,33 @@
+/*
+Please read InterruptingIdiom.java first
+*/
+
+JAVA provides wait(), notify(), and notifyAll() API's to synchronize activities between two tasks.
+
+A wait() call suspends the execution of the current task and waits for a condition to change which is out of control of the 
+current task. the other way of waiting for a change in condition could be to test for the condition in a continuous while
+loop; which is called busy waiting and is not good because we waste a lot of CPU cycles. A call to notify() or notifyAll()
+method causes the task to wake up and check if the condition has changed.
+
+points to note
+--------------
+a call to wait(), notify() or notifyAll() methods can only occur inside a synchronized block. This is because these calls
+manipulate the lock on an object. This is also the reason that these API's are inside the Object class & not the Thread class.
+
+A wait() call will release its lock on the synchronized object allowing other tasks to enter synchronized methods on that 
+object. this is very different from sleep() or yield() that do not release the lock on the object.
+
+So you can call wait() from any synchronized block irrespective of whether that object extends Thread or implements Runnable.
+
+to call notify() or notifyAll(), so must have a synchronozed block like below:
+
+synchronized (x) {
+	x.notifyAll()
+}
+
+If you try calling the above API's from outside of synchronized methods(), your code will compile but you'll get an
+"IllegalMonitorStateException" when you run it.
+
+/*
+Please read WaxOMatic.java next
+*/ 

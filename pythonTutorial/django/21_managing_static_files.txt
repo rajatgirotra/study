@@ -1,0 +1,31 @@
+Very trivial. How to do? In your app folder, create subfolder static/<myappname>. for example
+1) If your app name is posts. Create
+posts/static/posts/
+
+2) Make sure settings.py has staticfiles in INSTALLED_APPS
+3) STATIC_URL should be defined to '/static/'
+4) You can optionally also specify STATICFILES_DIRS = []  ie a list of additional directories to search for static files.
+5) STATIC_ROOT = /some/path/outside of your website where django will collect all static files from all different apps.
+
+Now in your apps's urls.py, just say
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [...]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+What we have done is tell django, that static files are in "/static/" folder in my app. Note that static() function only works in DEVELOPMENT environment. If settings.DEBUG is False (ie in prod environment), this function is a no-op.
+Also STATIC_ROOT is the location where django will collect all static files from your app when running in production mode.In production mode, you should have one location where all static files should reside. Now in your templates, just say at the top as first line
+
+{% load static %}
+then use it like:
+{% static 'posts/images/abc.png' %}
+
+Very simple, in dev mode, STATIC_ROOT is not really used. That's atleast what i saw. The only use case of STATIC_ROOT was when you use the collectstatic command, then it copies all static from posts/static/posts/ to STATIC_ROOT
+
+bash$> python manage.py collectstatic
+
+We'll see later how to manage static files in a production environment using may be nginx. But in dev environment, if staticfiles is in your INSTALLED_APPS, then then app automatically will server static content.

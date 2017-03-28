@@ -1,0 +1,14 @@
+Interest rate parity tells you how closely are interest rates linked to FX forward rates
+Basically the assumption is that the "hedged" returns from investing in different currencies should be the same,
+regardless of the level of their interest rates.
+
+Forward rates should incorporate the difference in interest rates between the two currencies, otherwise an arbitrage opportunity would exist.
+For example:
+
+a) borrow a currency with a lower rate of interest
+b) exchange it at the current exchange rate.
+c) invest at a higher rate of interest
+d) or hedge the exchange risk by buy a forward contract to convert the proceeds in step c) back to the first currency
+
+The cost of hedging negates the higher returns that would acrus from investing in a currency that offers a higher interest rate.
+So the returns would be the same as those obtained from investing in the lower interest rate currency.

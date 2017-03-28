@@ -1,0 +1,26 @@
+Disaster Recovery.
+
+Solace is capable of continuously replicating messages, queues, current status and configuration across data centers
+in real time enabling near real time recovery.
+
+With software based solutions, you'll need to use some Synchronous replication protocol (SRDP), to synchronize your SAN's in
+different data centres.
+
+---------------------------------------------------------------
+
+
+Message Caching
+
+Solace offers a caching solution called SolCache, which is an in memory cache. So when a solace appliance requests a
+local cache lookup, an entry is not present, the data is fetched from the remote cache and a copy is stored in the local
+cache for use for subsequent lookups.
+
+
+---------------------------------------------------------------
+
+
+You already know about WAN optimizations
+
+---------------------------------------------------------------
+
+and Web based messaging.

@@ -1,0 +1,91 @@
+ Exceptions. You already know that exceptions in C++ fall in 3 broad category. 
+ 1) Exceptions for language support: like bad_cast, bad_typeid, bad_exception, bad_function_call, bad_alloc etc.
+ 2) logic exceptions: Exceptions normally raised in application and those can be removed: Eg. invalid_argument, out_of_range, length_error,
+                      future_error. 
+ 3) runtime errors: overflow_error, underflow_error, range_error, system_error, ios_base::failure etc..
+
+ The base class exception provides a what() member function which returns a C style string which is the description of the error.
+ Separately, the class system_error and future_error provide and its derived classes provide a function code() which gives you more info
+ about the type of error.
+
+     const error_code& code() const noexcept; //its not virtual.
+
+ Now the standard provides two different types of errors. 
+ 1) Error Codes
+ 2) Error Conditions
+
+ Error Conditions are nothing but a description of standard system errors which are defined in file errno. nothing but a C++11 enum
+ system_error exceptions will have error_conditions encapsulated.
+
+ grep for std::errc in C++11 headers.
+
+ Error Codes are not standard, rather implementation specific. std::io_errc provides error code for ios_base::failure exception
+ std::future_errc provide error codes for std::future_error exception.
+
+ For handling error codes and error conditions, the standard also provides two classes: std::error_code & std::error_condition.
+ The library is so defined, so that if you have an object ec of either type, then so you can say
+
+ if(ec == std::errc::invalid_argument) OR
+ if(ec == std::future_error::broken_promise) ie, you can compare error codes and error conditions.
+
+ Class error_code then provides member functions to get some details of the error:
+ namespace std {
+     class error_code {
+        public:
+            const error_category& category() const noexcept;
+            int value() const noexcept;
+            string message() const;
+            explicit operator bool() const noexcept;
+            error_condition default_error_condition() const noexcept;
+            ...
+     };
+ }
+
+ This interface is driven by the following design:
+ 
+ Different libraries might use the same integral values for different error codes. So, each error has
+ a category and a value. Only inside a category is each value distinct and has a clear specified
+ meaning.
+
+ operator bool() yields whether an error code is set (0 is the value that stands for no error.
+ When exceptions are caught, this operator usually should yield true.
+
+ default_error_condition() returns the corresponding error_condition, again providing category(), value(), message(), and operator bool():
+ namespace std {
+ class error_condition {
+ public:
+ const error_category& category() const noexcept;
+ int value() const noexcept;
+ string message() const;
+ explicit operator bool() const noexcept;
+ ...
+ };
+ }
+ Class std::error_category provides the following interface:
+ namespace std {
+ class error_category {
+ public:
+ virtual const char* name() const noexcept = 0;
+ virtual string message (int ev) const = 0;
+ virtual error_condition default_error_condition (int ev)
+ const noexcept;
+ bool operator == (const error_category& rhs) const noexcept;
+ bool operator != (const error_category& rhs) const noexcept;
+ ...
+ };
+ }
+
+The following category names are defined by the C++ standard library:
+For each category, global functions are provided that return the category:3
+const error_category& generic_category() noexcept; // in <system_errror>
+const error_category& system_category() noexcept; // in <system_error>
+const error_category& iostream_category(); // in <ios>
+const error_category& future_category() noexcept; // in <future>
+
+Thus, for an error code object e, you can also call the following to find out whether it is an I/O
+failure:
+if (e.code().category() == std::iostream_category())
+
+At the moment there is not much clarity how to use error_code and error_condition.
+It will become more clearer as we go on.
+

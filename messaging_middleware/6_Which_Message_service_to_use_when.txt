@@ -1,0 +1,52 @@
+Reliable Messaging: Can be used in applications which require real time flow of information; such as market data feed handlers.
+Can be used in situations where achieving the lowest possible latency is more important than a guarantee that every single message
+be delivered everytime.
+
+Solace's message processing is embedded in hardware, so there is no OS. this means that there are no interrupts, no context switching
+and no data copies from user space to kernel space.
+
+When a message is sent to a solace I/O card, the card forwards the messsage Topic to Topic Routing Blade. The blade can store upto
+10 million subscriptions, that include wildcards. This blade determines the appropriate destinations of the message, and directs the I/O
+card to route them accordingly.
+
+So this messaging is actually unicast. Unicast delivery ensures that companies will never experience the expense or embarassment
+of slowdowns and downtime caused by multicast storms.
+
+Unicast as you'll see later is much better than multicast (More Precise, and More Secure).
+
+Unicast delivery means every client receives exactly the messages they need, so they don’t waste
+CPU identifying and deleting unwanted messages. It also means applications only get messages they are
+authorized to receive and publish on topics they are allowed to publish on, which is critical to
+the security of the system.
+-------------------------------------------------------------------------------
+
+Gauranteed Messaging
+
+With the guaranteed messaging mechanism, a copy of the message is persisted by the solace middleware until is successfully delivered to
+all subscribers. Solace uses a patented approach by persisting to a non-volatile RAM which is much faster than persisting to disk.
+If a recepient can't receive a message, only then is a message persisted to disk. The disk is not part of the appliance and is 
+made available separately. Also with guaranteed messaging, there are two modes of operations.
+
+1) Store and Forward
+2) Cut-through Persistence. 
+
+Read more about 1) and 2) packet switching to understand more.
+
+-------------------------------------------------------------------------------
+
+JMS based messaging
+
+You already know about this.
+
+JMS provider, JMS client, Connection Factories, Destinations (Queue or Topic, Publish/subscribe or PTP), Synchronous/Asynchronous
+Reliable etc.
+
+-------------------------------------------------------------------------------
+
+IPC based shared memory
+
+For scenarios like in High Frequency Trading, where programmers want to squeeze every drop of latency out their system,
+Solace provides a technique with average latency of 400 nanoseconds. In this case, all applications sharing information must be
+running on the same multi core machine and will share memory. So you eliminate the need to use network connections all-together.
+
+-------------------------------------------------------------------------------

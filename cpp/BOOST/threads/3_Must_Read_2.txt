@@ -1,0 +1,54 @@
+/* Boost mutexes: 
+
+A mutex is an object that is used for sychronization among threads that share commond data or resource. Mutexes provide lock() and unlock() functions using which threads can get exclusive access to
+the shared data.
+
+Boost provides 4 concepts to model Mutexes. Each concept extends from the concept above it:
+
+1] Lockable
+2] TimedLockable
+3] SharedLockable
+4] UpgradeLockable
+
+1] Lockable provides very basic functions:
+	a) lock()
+	b) unlock()
+	c) try_lock()
+
+2] TimedLockable provides above functions plus:
+	a) bool timed_lock(const syste_time&);  //blocks until mutex is available or timeout expires. returns false if mutex could not be acquired.
+	b) template <typename TimeDuration>
+	    bool timed_lock(TimeDuration& rel_time);
+
+3] SharedLockable provides above functions plus:
+	a) lock_shared()
+	b) unlock_shared()
+	c) try_lock_shared()
+	d) timed_lock_shared(syste_time& rel_time)
+
+SharedLockable models a typical multiple readers/single writer model, where several threads can call lock_shared() and get access to the resource, but only when no one else is holding
+the mutex by calling lock().
+
+
+4] UpgradeLockable provides the above functoins plus:
+	a) lock_upgrade()
+	b) unlock_upgrade()
+	c) unlock_upgrade_and_lock()
+	d) unlock_upgrade_and_lock_shared()
+	e) unlock_and_lock_upgarde()
+
+Here, you can have an exclusive lock, a shared lock or an upgradable lock. The highest level of lock is Exclusive lock, then Upgradable Lock and then Shared Lock.
+A single thread may have upgradable ownership at the same time as others have shared ownership. An upgradable lock allows you to upgrade your ownership to an exclusive ownership, or downgrade your ownership to 
+shared ownership.
+
+Very trivial.
+Note that these are not actually classes, this is just the way how BOOST explains its mutex types. I'll explain later the core class names that implement these mutex concepts.
+
+
+BOOST doesn't allo you to use the mutex types directly. It basically provides an abstraction to these mutex types using several classes which it calls Lock Types classes.
+Each of these Lock Type classes encapsualates a mutex type. 
+
+Next I'll try to explain these Lock Type classes.
+
+*/	
+

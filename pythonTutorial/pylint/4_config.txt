@@ -1,0 +1,25 @@
+You can specify a configuration file on the command line using the --rcfile option. Otherwise, Pylint searches for a configuration file in the following order and uses the first one it finds:
+
+pylintrc in the current working directory
+.pylintrc in the current working directory
+If the current working directory is in a Python module, Pylint searches up the hierarchy of Python modules until it finds a pylintrc file. This allows you to specify coding standards on a module-by-module basis. Of course, a directory is judged to be a Python module if it contains an __init__.py file.
+The file named by environment variable PYLINTRC
+if you have a home directory which isn’t /root:
+.pylintrc in your home directory
+.config/pylintrc in your home directory
+/etc/pylintrc
+
+The --generate-rcfile option will generate a commented configuration file on standard output according to the current configuration and exit. This includes:
+
+
+
+Output Format
+=============
+
+--output-format=(text,json,custom)
+When using custom, you must specify a custom template string using --msg-template="template string" option. Example:
+pylint --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}'
+View this page to see what all things can be specified in the template.
+https://docs.pylint.org/en/latest/user_guide/output.html
+
+-j $(CPU_CORES) is also supported for || execution

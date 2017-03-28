@@ -1,0 +1,30 @@
+CME has a Market Data Platform (MDP) called Globex MPD3 which provides event based market data.
+which means it provides (desseminates) data to its client based on events occuring on the exchange like Trade, BookUpdate, Reset, Recovery, InstrumentDefinition etc.
+
+Market data includes:
+1) Bids & Asks (basically Top of Book or Market level or Book Updates or Market Depth.. call it whatever)
+2) Trade information
+3) Market Statistical information
+4) Start of week book population 
+
+It also provides and recovery and support services for market data processing
+
+Also market data is xferred using SBE (Simple Binary Encoding) which is based on primitive encoding, 
+optimized for low bandwidth, low latency and direct data access.
+
+SBE is nothing but a simple way of encoding & decoding information sent by exchange. Most of this information is nothing but FIX messages.
+
+Advantages:
+
+Data is xferred in UDP packets. Each packet can have multiple messages which are nothing but FIX messages. However each message completely resides in one UDP
+packet and is never broken down into multiple packets. An event at the exchange can be one or multiple packets.
+Each event has a type (BookUpdate, Trade etc) followed by one or more packets containing messages for that event.
+Each FIX message also has an indicator whether there are more messages to follow for that event.
+
+So the FIX messages are basically SBE encoded.
+
+Also since each packet has complete fix message, you can process the packet as soon as you fetch it.
+You dont have to wait for subseqent packets 
+
+Also you have Fixed length fields, which means that you dont have to parse the message.
+Rather you can just access the message based on offsets. We'll see shortly how this is done.

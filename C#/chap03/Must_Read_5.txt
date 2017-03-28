@@ -1,0 +1,20 @@
+// Static classes
+Static Classes
+
+Earlier, this chapter discussed static constructors and how they allowed the initialization of static
+member variables. If a class contains nothing but static methods and properties, the class itself can
+become static. A static class is functionally the same as creating a class with a private static constructor.
+An instance of the class can never be created. By using the static keyword, the compiler can help by
+checking that instance members are never accidentally added to the class. If they are, a compile error
+happens. This can help guarantee that an instance is never created. The syntax for a static class looks
+like this:
+static class StaticUtilities
+{
+   public static void HelperMethod()
+   {
+   }
+}
+
+An object of type StaticUtilities is not needed to call the HelperMethod() . The type name is used
+to make the call:
+StaticUtilities.HelperMethod();

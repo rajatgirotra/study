@@ -1,0 +1,57 @@
+Very easy
+
+By default, you write tests in tests.py (Django by default runs all tests in files that start with test*.py
+
+
+from django.test import TestCase
+
+
+# create a subclass of Testcase
+class MyTestClass(TestCase):
+    # define test functions starting with test_
+    def test_testOne(self):
+        # Create a Model instance
+        instance = ModelName()
+        x=instance.some_function_in_model_you_are_testing(args...)
+        self.assertIs(x, True) # for example
+
+
+To test from shell
+python manage.py shell
+In [1]: from django.test.utils import setup_test_environment
+
+In [2]: setup_test_environment() # this is needed so that we can query the HttpResponse.context object which is same as template context object.
+
+In [3]: from django.test.client import Client  # A test client helper class which is used to send HttpRequests to your app.
+
+In [4]: client = Client()  # when you are writing a test case in tests.py, the client object is part of TestCase subclass.
+
+In [5]: response = client.get('/')
+Not Found: /
+
+In [6]: response.status_code
+Out[6]: 404
+
+In [7]: from django.urls import reverse
+
+In [8]: response = client.get(reverse('polls:index'))
+
+In [9]: response.status_code
+Out[9]: 200
+
+In [10]: response.content
+Out[10]: '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=display-width, initial-scale=1">\n    <title>Title</title>\n    <!-- Latest compiled and minified CSS -->\n    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">\n    <!-- Optional theme -->\n    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">\n    <!-- Latest compiled and minified JavaScript -->\n    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>\n</head>\n<body>\n    \n        <h1>Recent Questions</h1>\n        <br/>\n        <ul>\n        \n        <li><a href="/polls/3/">Are we in the future??</a> </li>\n        \n        <li><a href="/polls/1/">What&#39;s up?</a> </li>\n        \n        <li><a href="/polls/2/">How would you rate yourself on C++11/14 standard?</a> </li>\n        \n        </ul>\n    \n</body>\n</html>'
+
+In [11]: response.content['questions']
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-11-ed788b10c133> in <module>()
+----> 1 response.content['questions']
+
+TypeError: string indices must be integers, not str
+
+In [12]: response.context['questions']  # same as template context object.
+Out[12]: <QuerySet [<Question: Are we in the future??>, <Question: What's up?>, <Question: How would you rate yourself on C++11/14 standard?>]>
+
+In [13]: 
+

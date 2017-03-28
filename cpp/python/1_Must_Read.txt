@@ -1,0 +1,4 @@
+Python provides an extensible interface in the form of "Python.h" header file.
+This file contains a list of functions, macros, variables etc to directly interact with python run time system. You can use the Python API to say create a new built in type, or call c library functions or make system calls directly from python. All these functions, macros, variables start with Py or PY
+
+We'll start straight away and keep explaining as we go along.

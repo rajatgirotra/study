@@ -1,0 +1,27 @@
+/*
+Please read Manipulator2.java first
+*/
+
+We say that a generic type parameter erases to its first bound (it’s possible to have multiple bounds, as you shall see later).
+We also talk about the erasure of the type parameter. The compiler actually replaces the type parameter with its erasure,
+so in the above case, T erases to HasF, which is the same as replacing T with HasF in the class body.(See Manipulation.java) and try
+to fit HasF in place of T and you'll know what the previous line means.
+
+This brings up an important point: Generics are only useful when you want to use type parameters that are more "generic" than
+a specific type (and all its subtypes)—that is, when you want code to work across multiple classes. As a result, the type
+parameters and their application in useful generic code will usually be more complex than simple class replacement.
+However, you can’t just say that anything of the form <T extends HasF> is therefore flawed. For example, if a class has a
+method that returns T, then generics are helpful, because they will then return the exact type:
+
+//: generics/ReturnGenericType.java
+class ReturnGenericType<T extends HasF> {
+private T obj;
+public ReturnGenericType(T x) { obj = x; }
+public T get() { return obj; }
+} ///:~
+
+You have to look at all the code and understand whether it is "complex enough" to warrant the use of generics.
+
+/*
+Please read ExtendingGenerics.java next
+*/

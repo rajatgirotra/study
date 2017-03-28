@@ -1,0 +1,8 @@
+All contruction variables known internally to scons
+
+1) LIBS = list of static or shared libraries to link with an executable
+2) LIBPATH = list of paths to lookup for static and shared libraries
+3) CPPPATH = list of include paths to be searched for include files -I
+4) CCFLAGS = space separated list of c++ compiler flags.
+5) PROGPREFIX = prefix to give to targets specified in Program() builder function
+6) PROGPSUFFIX = suffix to give to targets specified in Program() bui    lder function

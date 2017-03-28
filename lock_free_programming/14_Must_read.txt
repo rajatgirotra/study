@@ -1,0 +1,13 @@
+A strong hardware memory model is one in which every machine instruction comes implicitly with acquire and release semantics. 
+As a result, when one CPU core performs a sequence of writes, every other CPU core sees those values change in the same order that they were written.
+
+It's not too hard to visualize. Just imagine a refinement of the source control analogy where all modifications are committed to 
+shared memory in-order (no StoreStore reordering), pulled from shared memory in-order (no LoadLoad reordering), 
+and instructions are always executed in-order (no LoadStore reordering). StoreLoad reordering, however, still remains possible.
+
+Why?? u ask is StoreLoad still possible.
+Becuase CPU is always faster than memory. So it actually buffers all its write and therefore can read ahead of a load.
+So a StoreLoad re-ordering is possible.
+
+In a sequentially consistent memory model, there is no memory reordering. It's as if the entire program execution is reduced to a 
+sequential interleaving of instructions from each thread. In particular, the result r1 = r2 = 0 you saw before is not possible.

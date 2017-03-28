@@ -1,0 +1,56 @@
+# How m4 actually works. m4 starts reading its input and splitting the text into tokens
+# Names
+# Quoted Strings
+# Macro arguments
+# numbers
+# puncuation marks
+# Words, Number, whitespace and punctuation marks act like token boundaries.
+
+# Eg:
+# define( `Version2', A – 1 )99Version2:Version2_   Version22
+# will give
+define( `Version2', A – 1 )99Version2:Version2_   Version22
+# Version2 is a macro name, so Version2_ and Version22 are tokens which do not match it.
+
+# Eg 2:
+# Version2(arg1, arg2) Version2 (junk) garbage(trash)Version2()
+# will give
+Version2(arg1, arg2) Version2 (junk) garbage(trash)Version2()
+# m4 assumes that arg1 and arg2 are arguments passed to macro Version2. However, it just swallows the arguments and prints the expansion string.
+
+So m4:
+it reads in the macro's arguments (if any)
+it determines the expansion of the macro and inserts this expansion at the beginning of its input
+m4 continues scanning the input, starting with the expansion
+
+
+# num is no macro so is printed as such
+# definenum expansion defines a new macro num with value 99
+# the expansion of the macro
+define(`definenum', `define(`num',99)')dnl
+num
+definenum num
+# As soon as m4 gets to the end of “definenum” on the last line above, it recognizes it as a macro and replaces it
+# with “define(`num', 99)” -- however, instead of outputting this expansion, it sticks it back on the beginning of
+# its input buffer and starts again from there. Thus, the next thing it reads in is “define(`num', 99)”. As the
+# define macro expands to an empty string, nothing is output; however, the new macro num is now defined. Then m4 reads
+# in a space which it echoes to the output, followed by the macro num, which it replaces with its expansion.
+# The last line therefore results in the output “ 99”.
+
+# If you dont want the space, do the below. Its self explainatory
+define(`definenum2', `define(`num2',99)dnl')dnl
+num2
+definenum2
+num2
+
+# Not quoting a nested macro will however define it then and there
+# the following will define num3 immediately. definenum3 expands to empty string
+# as the define('num3,99) macro by defaults expands to empty string 
+define(`definenum3', define(`num3',99))dnl
+num3
+definenum3 ABCD
+
+# If you dont want to expand the macro you ca use double quotes
+define(statement, ``define(`Y',`yyy')'')
+statement
+Y

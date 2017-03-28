@@ -1,0 +1,86 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+/*
+ First element has to jnlp, which has codebase and href attributes.
+ codebase refers to the exact path relative to which the href is specified. If codebase is absent
+ default is the directory in which the href file is located.
+*/
+
+<jnlp href="Rajat.jnlp">
+
+/*
+General Information element which has a lot of nested elements
+*/   
+    <information>
+        <title>Straight2Bank exchange FX Development Client</title>
+        <vendor>Straight2Bank exchange Development</vendor>
+        <icon href="images/SCB_Icon.gif" width="32" height="32" kind="default"/>
+        
+        // Specified to tell that the application can be run offline.
+        <shortcut online="true">  
+        //Specified to create a desktop shortcut.
+            <desktop/> 
+        //Specified to add an entry in the program->Menu.
+            <menu submenu="Straight2Bank exchange"/> 
+        </shortcut> 
+    </information>
+    <security>
+    //Give full permissions to this app.
+        <all-permissions/>
+    </security>
+    <resources>
+    //Minumum version of JRE required, plus the JVM arguments.
+        <j2se version="1.5+" initial-heap-size="256m" max-heap-size="1024m"
+            java-vm-args="-ea -Ddebug-log-level=INFO -D__debug_tps__=true -D__debug_tps_window__=true"/>
+        
+   // Various JAR files to add to the class Path.
+        <!-- MAIN JAR -->
+        <jar href="core.jar"/>
+        <jar href="desktop.jar"/>
+        <jar href="idlruntime.jar"/>
+        <jar href="s2bexch-application.jar"/>
+        <jar href="s2bexch-gui.jar"/>
+        <jar href="s2bexch-model.jar"/>
+        <jar href="fx-gui.jar"/>
+        <jar href="fx-model.jar"/>
+        <jar href="mm-gui.jar"/>
+        <jar href="mm-model.jar"/>
+
+	    <jar href="synthetica.jar"/>
+	    <jar href="syntheticaBatik.jar"/>
+	    <jar href="syntheticaWhiteVision.jar"/>
+ 
+  // Properties that are passed to the application. Available via System.getProperties().
+        <!-- Java Properties -->
+        <property name="jnlp.packEnabled" value="true"/>
+        
+        <!-- Application Properties -->
+        <property name="__allpermissions__" value="true"/>
+        <property name="plugin.1.name" value="FXMODEL"/>
+        <property name="plugin.1.class" value="com.scb.ecom.puma.fxmodel.FXModelPlugin"/>
+        <property name="plugin.2.name" value="FXGUI"/>
+        <property name="plugin.2.class" value="com.scb.ecom.puma.fxgui.FXGUIPlugin"/>
+        <property name="plugin.3.name" value="MMMODEL"/>
+        <property name="plugin.3.class" value="com.scb.ecom.puma.mmmodel.MMModelPlugin"/>
+        <property name="plugin.4.name" value="MMGUI"/>
+        <property name="plugin.4.class" value="com.scb.ecom.puma.mmgui.MMGUIPlugin"/>
+
+        <property name="installedplugin.1.name" value="FXMODEL"/>
+        <property name="installedplugin.2.name" value="FXGUI"/>
+        <property name="installedplugin.3.name" value="MMMODEL"/>
+        <property name="installedplugin.4.name" value="MMGUI"/>
+        
+        <property name="application.mode" value="internal"/>
+        <property name="sun.awt.noerasebackground" value="true"/>
+        <property name="environment.type" value="development"/>
+        <property name="environment.title" value="Rajat's Env"/>
+        <property name="connection-type" value="socket"/>
+        <property name="authentication-user-interface-type" value="dialog"/>
+        <property name="host.names" value="primary"/>
+        <property name="primary.details" value="primary,mylpadeci16.my.standardchartered.com,28110"/>      
+    </resources>
+    
+    // Information of where to find the main class of the application. (public static void main(String[] args).
+    <application-desc main-class="com.scb.ecom.puma.core.startup.StartupControl"/>
+ </jnlp>

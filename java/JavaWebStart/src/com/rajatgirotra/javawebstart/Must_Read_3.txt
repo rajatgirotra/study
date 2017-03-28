@@ -1,0 +1,19 @@
+Please read Must_Read_2.txt first
+
+Now to launch this simple Swing based GUI app using Java Web Start in the following way:
+
+1) Create a Jar file out of this project.
+2) Java Web Start applications are launched via Java Network Launching Protocol (JNLP).
+   So we need to create a JNLP file.
+   
+Next we create the JNLP file as follows:
+
+/*
+Please read dynamic_tree.jnlp next
+You may not completely understand the jnlp contents as of now,
+but you will in due course.
+
+You should read rajat.jnlp.txt where I have tried to explain most of the stuff.
+
+After that please read deployment.txt
+*/

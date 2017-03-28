@@ -1,0 +1,50 @@
+# How to interpret a backtick as a backtick and not the start of a quote.
+# by default whatever is in the quotes is output without quotes.
+I said, `Quote me.'
+
+# so we use two set of quotes
+I said, ``Quote me.''
+
+# Let say i only want to print the backtick, not the closing quote.
+# in such cases using a single or double backtick results in error
+# I said, ``Quote me.  # uncomment ans check.
+
+# We can use the changequote() macro
+# changequote(<!,!>) --> start quote is <! and end quote is !>. Note this changes the quote characters globally and are best avoided.
+changequote(<!,!>)dnl
+This is a `Quo<!ted str!>ing'.
+
+# When changequote is called without arguments it restores default quotes.
+changequote
+define(x, ``xyz'')dnl
+x
+changequote({,})
+x  # will be `xyz'
+changequote
+
+# Similar to changequote, you also have changecom(`@@') - for changing the comment character
+# or use changecom(/*,*/) ie two arguments to write comments that can span multiple lines
+# calling changecom without argument will restore default comment character #
+changecom(@@)
+define(VERSION,`A1')dnl
+@@ VERSION
+VERSION
+
+changecom(/*,*/)dnl
+VERSION
+/*
+VERSION
+*/
+changecom
+VERSION
+
+# an alternative to comments is to use `dnl'. When we `dnl' m4 doesnt echo anything upto and including the newline.
+dnl this will never output. So put your comments here.
+
+# a hack to enter multiline comments that are not output/echoed to stdout is to use the ifelse() macro with just one argument.
+# if else macro with one argument is a No.op
+ifelse(`This is a
+multiline comment
+which will not
+be echoed')dnl
+

@@ -1,0 +1,19 @@
+Solace has a Unified API which provides a robust and uniform client access to all of Solace’s capabilities including
+reliable, ultra-low-latency and guaranteed messaging, WAN optimization, web streaming, IPC messaging and message caching. 
+
+Solace's unified API is available in the following languages:
+
+C: Low-level threadless API that lets developers use any thread model. Available for 32- and 64-bit Linux and Windows, and
+Solaris x86 and SPARC.
+
+Java: Pure Java with support for reliable and guaranteed delivery. JMS: Supports JMS 1.1 including queues and topics, and provides
+an admin console for managing the JMS Provider and JMS managed objects accessible via JNDI.
+
+.NET: Simple interface to reliable and guaranteed messaging services for applications built with .NET languages such as C# and
+Visual Basic.
+
+JavaScript: Dynamic and downloadable for running in web browsers, mobile devices, or on servers in Node.js
+
+ActionScript: Enables streaming to applications built with Adobe Flash and Flex.
+
+Silverlight: Enables streaming to apps built with Microsoft Silverlight.

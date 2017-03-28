@@ -1,0 +1,11 @@
+A <form></form> is an HTML element which includes one or more other elements. The information entered in these elements can be sent back to the server.
+
+In Django, you have a Form class where you can define multiple Form fields. Each field corresponds to an HTML element which is displayed by Django automatically. Each form field also has a default Widget class which tells which HTML markup will be used. For example, for CharField(), the markup could be an <input type="text"> element. However, you can also override this to be whatever you want.
+
+You already know about MVC design pattern for web-applications. Django has MVT.
+1) Model (you already know).
+2) Views (You already know)
+3) Templates (These are HTML blueprints which you allow you do dynamically create content and then render it)
+in Django, Controller is Django itself.
+
+Lets get down to creating a contact us page.

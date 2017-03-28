@@ -1,0 +1,70 @@
+There are a number of tools used to disassemble object files.
+We will not study any one, but all. Majorly we will concentrate on the following
+
+1) nm
+2) readelf
+3) objdump
+4) strings
+5) strip
+
+and others
+
+
+An object file (*.o, *.so or executable) will have symbols. To view the symbol table; do
+1) readelf -s a.out
+
+Symbols tell you about the variables in your source, like
+a) if a symbol is a variable, a function, a section etc
+b) if it is global, local etc
+c) size of the symbol
+d) location of the symbol
+etc etc.
+
+2) to strip all symbols, use
+strip -s a.out  //-s means strip-all
+
+671 [03:32:24] rgirotra@mylpadeci12:~
+$ g++ -std=c++11 pp.cpp
+672 [03:37:14] rgirotra@mylpadeci12:~
+$ ls -ltr a.out
+-rwxr-xr-x 1 rgirotra ecommdev 7334 Jun 12 03:37 a.out
+673 [03:37:18] rgirotra@mylpadeci12:~
+$ strip -s a.out
+674 [03:37:35] rgirotra@mylpadeci12:~
+$ ls -ltr a.out
+-rwxr-xr-x 1 rgirotra ecommdev 4680 Jun 12 03:37 a.out
+675 [03:37:37] rgirotra@mylpadeci12:~
+675 [03:37:37] rgirotra@mylpadeci12:~
+$ g++ -g -std=c++11 pp.cpp
+676 [03:38:08] rgirotra@mylpadeci12:~
+$ ls -ltr a.out
+-rwxr-xr-x 1 rgirotra ecommdev 8614 Jun 12 03:38 a.out
+
+
+See above about the difference in a.out size
+
+To view all symbols (including debug symbols), do
+
+3) readelf -a a.out //-a means all
+it shows a very big and detailed output
+
+4) to strip debug symbols only
+strip -g a.out
+
+the ELF you know is made of many sections like .rodata, .text, .debug, etc etc.
+to view sections do
+
+5) readelf -S a.out //read section headers
+
+6) to remove a complete section, do
+strip -R <section name>
+eg:
+strip -R .note.ABI-tag a.out
+
+7) to strip all symbols except some special one's
+strip -s -K<symbolName> a.out //-s means strip all and -K means dont strip that special one
+multiple -K options can be used.
+
+8) to strip a special symbol only, use -N option
+strip -N<symbolName> a.out
+

@@ -1,0 +1,81 @@
+Core Concepts of Websphere MQ
+
+In IBM MQ, the message has three parts:
+
+1) The MQ Message descriptor (MQMD) : This consists of message identifier and control information.
+2) An optional set of user defined fields which the consumer may or may not read. This is not part of the payload.
+3) The actual payload. The MQ is largely not concerned about this data.
+
+An individual message can contain up to 100 MB of data. There are no constraints on the format of this data. It can be readable text, binary, XML, or any combination.
+
+In IBM MQ infrastructure, there are nodes that are called Q managers. Q managers actually provide reliability. These are the nodes
+that manage multiple Q's. They are fault tolerant, so if the Q manager goes down or the sending or receiving application goes down
+or there is a power loss, then the messages are still safe and recoverable.
+
+Also it provides support for asynchronous messaging. The sender does not need to wait for the receiver to reply back immediately. The sender
+can simply send and forgot about it. The MQ will take care of the rest. 
+
+If the application itself had to do all this, it will be a major task for it. Plus the application would also need to write code to handle fault tolerances.
+So its good to use this middleware in between.
+
+In IBM MQ the Q manager is called the server which uses a server run time library.
+And there is a separate application called the MQ client which does not need this library. Its a lightweight application which is part of the IBM MQ.
+
+The client application does not require the Q manager server run time library. So the MQ client and Q manager can be on different hosts/platform in order to
+communicate with each other.
+
+Using a WebSphere MQ client is an effective way of implementing WebSphere MQ messaging and queuing. The following benefits are available by using a WebSphere MQ client:
+
+1) There is no need for a licensed WebSphere MQ server installation on the client machine.
+2) Hardware requirements on the client system are reduced.
+3) System administration requirements on the client system are reduced.
+4) An application that uses a WebSphere MQ client can connect to multiple queue managers on different machines.
+
+There are several implementations (API's) of the WebSphere MQ client that allow work in different language environments, including Java and .Net classes.
+
+1) MQI (Message Queue Interface) 
+This is the native API. For each programming language like C, COBOL, Java, C#, IBM provides an API that can be used.
+
+2) Standard API
+In this case, programmers use a standard API such as JMS (Java Messaging Service) for Java. and IBM basically provides an adapter API
+behind JMS. These have some reduced capabilities than the native API's because the standard API's were written considering the common functionality
+provided by all messaging solutions at that time.
+
+So normally use the Native API.
+
+Each message is of either of the two types
+
+1) Persistent Messages: Which must be stored in the Q Manager and not lost in the event of a failure. Messages like business transactions
+2) Non-Persistent Messages: Messages which may not be stored. Just as query messages. Which can be lost without a great harm because the query can be repeated.
+Non-persistent message storage is based in system memory, so it is possible that the non-persistent messages can be lost in situations, such as network errors, operating
+system errors, hardware failure, queue manager restart, and internal software failure.
+
+WebSphere MQ assures once-only delivery of persistent messages and it assures at-most-once delivery of non-persistent messages. Both persistence options allow developers
+to write applications with the knowledge that there are no duplicated messages.
+
+
+Units of work
+Many operations that are performed by an application cannot be considered in isolation. An
+application might need to send and receive multiple messages as part of one overall action.
+Only if all of these messages are successfully sent or received are any messages sent or
+received. These actions are considered to be a unit of work (UOW). All WebSphere MQ
+implementations support transactional operations, with sets of messages being committed or
+backed out as a single action.
+
+An application that processes messages might also need to perform coordinated work
+against other resources and the WebSphere MQ infrastructure. For example, it might perform
+updates to information in a database based upon the contents of each message. The actions
+of retrieving the message, sending any subsequent reply, and updating the information in the
+database must only complete if all actions are successful.
+
+Messaging Style
+
+1) Point to point -  This is used when you know there is only one source of messages and only one destination for those messages.
+In this case, the source application writes to the queue in an asynchronous manner and the receiver application reads from the queue in an
+asynchronous manner. The source application will only need to know the name of the queue to which it has to write. Similarly, the receiver
+application will need to know the name of the queue from which it should read.
+
+2) Publish/Subscribe - In such a model, the applications agree on assigning a label to the message, called a topic. So each message is labled with
+a topic. The consumers or subscribers just register their interest with the MQ manager in a particular topic, and those messages are delivered to the subscribers.
+A topic is actually in the form of an hierarchy, eg: /Prices/Fruits/Apples. The subscriber can register an interest in either the exact topic name or use a wild card
+to register interest in one or more topics.

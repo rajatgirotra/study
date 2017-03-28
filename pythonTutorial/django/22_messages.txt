@@ -1,0 +1,92 @@
+django message framework is very easy to understand. Sometimes you want to send custom messages (flash messages) to be shown on the browser. Like if your submitted a form, and there were some errors or if everything was successfull. Then a success message. You can use messages framwork for that. 
+
+NOTE that messages are set and retrived using the request (HttpRequest) parameter.
+
+How to
+=====
+1) Make sure INSTALLED_APPS has django.contrib.messages
+2) Make sure MIDDLEWARE has SessionMiddleware and MessageMiddleware
+3) Make sure TEMPLATES has django.contrib.messages.context_processors.messages
+
+The context_processor makes sure that messages you set are available for use in your templates by default.
+
+messages framework use a backend. ie. a store where to put the messages. This can be 
+1) django.contrib.messages.storage.sessions.SessionStorage - Stores messages on the session object
+2) django.contrib.messages.storage.cookie.CookieStorage - Stores messages on the client side cookie
+3) django.contrib.messages.storage.fallback.FallbackStorage - Stores messages on the client side cookie first, if not possible then in Session. This is also the default.
+
+messages have levels. A level is nothing but an integer. Each django provided message level also has an associated level tag which is nothing but a string. You can also override the default tag on a message level or define new message levels and tag using the MESSAGE_TAGS variable Default message levels and tags are:
+
+DEBUG - 10, tag is debug
+INFO  - 20, tag is info
+SUCCESS - 25, tag is success
+WARN - 30, tag is warn
+ERROR - 40, tag is error
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'trace', # override DEBUG tag to 'trace'
+    50: 'critical'  # defines a new message level 50 and tag as critical
+}
+    
+Creating Messages
+================
+1) Long way
+from django.contrib import messages
+messages.add_message(request, messages.INFO, 'Hello World')
+
+2) Short way
+messages.info(request, 'Hello World')
+
+extra_tags and fail_silently
+============================
+1) You can set extra_tags when adding a message. Tags are basically used as css classes in the browser
+2) fail_silently=True will not report message errors and ignore them silently. This is needed if you are writing a generic app which can be used by everyone and you dont know whether the user has messages apps enabled or not.
+
+
+
+Getting Messages
+================
+Note that you should always iterate over messages even if there is a single message that you are setting. 
+Iterating over messages clears them automatically. Otherwise they will be available forever.
+
+In python use get_messages(request)
+
+storage = messages.get_messages(request)
+for message in storage:
+    do_something(message)
+
+get_messages() returns an instance of a django.contrib.messages.storage.base.Message class (which is simple attributes)
+1) message - the actual message
+2) tags - Space separated list of level tag and extra tag
+3) extra_tags - extra tags if any specified when creating a message
+4) level_tag - default level tag
+5) level - the message level (integer value)
+
+In templates do something like this:
+{% if messages %}
+
+<ul class="messages">
+  {% for msg in messages %}
+    <li {% if msg.tags %}class="{{ msg.tags }}"{% endif %}>{{ msg.message }} />
+  {% endfor %}
+</ul>
+
+{% endif %}
+
+django context_processor for messages also provides one more variable called
+DEFAULT_MESSAGE_LEVELS which is a mapping of the message level names to their integer value.
+eg DEFAULT_MESSAGE_LEVELS.ERROR = 30. You can also use it like
+
+{% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+Important: {% endif %}
+{{ msg.message }}
+
+Whenever you are using adding messages you can also set the message level, so that all messages added below a certain message level will be ignored. Eg:
+
+from django.contrib import messages
+
+messages.set_level(request, messages.SUCCESS)
+messages.info(request, 'Info message')  # will be ignored.
+messages.warn(request, 'Warn message')  # will be added.
+
+messages.set_level(request, None) # restore the default message level

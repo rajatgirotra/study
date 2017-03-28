@@ -1,0 +1,40 @@
+pylint can check your python code based on PEP-8.
+It can give you warnings or erros about your code and a message corresponding to the warning or error.
+
+It takes a configuration file as input. You can selectively enable/disable message types using the config.
+There are also command line options to view the output from pylint in a specific format.
+
+We have a sample python code "simplecaeser.py" and we'll use pylint on it.
+The output from pylint is of the form
+
+MESSAGE_TYPE: LINE_NUM:[OBJECT:] MESSAGE
+There are 5 kind of message types :
+(C) convention, for programming standard violation
+(R) refactor, for bad code smell
+(W) warning, for python specific problems
+(E) error, for much probably bugs in the code
+(F) fatal, if an error occurred which prevented pylint from doing further processing.
+
+When you run only "pylint simplecaeser.py", the output consists of two sections.
+1) A message section
+2) A reports section
+
+We can disable the reports section using "pylint --reports=n simplecaeser.py"
+
+Also the message has a msg identifier in round brackets at the end. Example:
+C:  1, 0: Missing module docstring (missing-docstring)
+You can always lookup more help on the message using
+"pylint --help-msg=missing-docstring"
+
+For complex errors like:
+:too-many-instance-attributes (R0902): *Too many instance attributes (%s/%s)*
+you can say
+"pylint --help-msg=R0902"
+
+"pylint --disable=<msg-id>" eg
+"pylint --disable=deprecated-module" to disable warning errors about usage of deprecated python features.
+
+Lets see issues with simplecaeser.py and fix it in simplecaeser_fixed.py
+
+--disable=all will disable all checkers
+--enable and --disable can take a comma separated list of message ids, or checkers or categories.

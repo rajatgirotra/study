@@ -1,0 +1,158 @@
+/* Variadic sequence
+ * A variadic sequence is a member of sequence classes which has both variadic and numbered forms.
+ *
+ * 1] 
+ * Let say Seq denotes the name of a generic sequence, then the variadic form allows us to specify a sequence of
+ * n elements t1, t2, ..., tn where n is a predefined configurable limit BOOST_MPL_LIMIT_seq_SIZE allows us to specify a
+ * sequence of
+ * n elements t1, t2, ..., tn where n is a predefined configurable limit BOOST_MPL_LIMIT_seq_SIZE
+ *
+ * You had used BOOST_MPL_LIMIT_VECTOR_SIZE 40 in ebbs_deal_server in SCB when writin the transition table in boost MSM.
+ *
+ * 2] The numbered form also allows to specify a sequence of n elements where n is specified at the time of creation.
+ * There is no maximum limit on the size of n except that dictated by the compiler
+ *
+ * Seqn < t1, t2, ... tn>
+ *
+ * The BOOST MPL provides vector, map and list  and many other as variadic sequences; so we have
+ *
+ * boost::mpl::vector<>
+ * boost::mpl::vectorn<>
+ *
+ * boost::mpl::list<>
+ * boost::mpl::listn<>
+ *
+ * and many more.
+ *
+ * So let us now continue with defining our dimensions using boost::mpl
+ */
+
+#include <iostream>
+#include <boost/mpl/vector.hpp>
+#include <boost/mpl/int.hpp>
+#include <boost/mpl/vector_c.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/equal.hpp>
+#include <boost/mpl/assert.hpp>
+
+using namespace std;
+namespace mpl = boost::mpl;
+
+//Define our dimensions.
+
+typedef mpl::vector< mpl::int_<1>,
+                     mpl::int_<0>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0> > mass;
+
+typedef mpl::vector< mpl::int_<0>,
+                     mpl::int_<1>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0>, 
+                     mpl::int_<0> > length;
+
+// Instead of the verbose definition above, we can use vector_c class which is nothing but a wrapper to create a
+// variadic sequence of integral constants like int_, bool_ etc.
+typedef mpl::vector_c<int, 0, 0, 1, 0, 0, 0, 0> Time;
+typedef mpl::vector_c<int, 0, 0, 0, 1, 0, 0, 0> charge;
+typedef mpl::vector_c<int, 0, 0, 0, 0, 1, 0, 0> temperatur;
+typedef mpl::vector_c<int, 0, 0, 0, 0, 0, 1, 0> intensity;
+typedef mpl::vector_c<int, 0, 0, 0, 0, 0, 0, 1> angle;
+
+
+//Complex types
+typedef mpl::vector_c<int, 0, 1, -1, 0, 0, 0, 0> velocity; // l/t
+typedef mpl::vector_c<int, 0, 1, -2, 0, 0, 0, 0> accelaration; // l/(t2)
+typedef mpl::vector_c<int, 1, 1, -1, 0, 0, 0, 0> momentum; // ml/t
+typedef mpl::vector_c<int, 1, 1, -2, 0, 0, 0, 0> force; // ml/t2
+
+//Scalar type. ie no dimension like Pi, e, etc..
+typedef mpl::vector_c<int, 0, 0, 0, 0, 0, 0, 0> scalar; // scalar
+
+// Now we need a way to represent a quantity in these types. Let say mass of 49.5, or length of 2.3.
+// For this we create a class called quantity which takes two template parameters, one for value and one for dimension.
+template <typename T, typename Dimension>
+struct quantity
+{
+    private:
+        T m_value;
+
+    public:
+        explicit quantity(const T& roT) : m_value(roT)
+        {
+        }
+
+        T value() const { return m_value; }
+
+   public:
+       template <typename Otherdimension>
+       quantity(const quantity<T, Otherdimension>& lhs) : m_value (lhs.value())
+       {
+           BOOST_MPL_ASSERT (( mpl::equal<Dimension, Otherdimension> ));
+       }
+};
+
+//Addition and subtraction should be easy to define now.
+template <typename T, typename D>
+quantity<T, D> operator + (const quantity<T, D>& lhs, const quantity<T, D>& rhs)
+{
+    return quantity<T,D>(lhs.value() + rhs.value());
+}
+
+template <typename T, typename D>
+quantity<T, D> operator - (const quantity<T, D>& lhs, const quantity<T, D>& rhs)
+{
+    return quantity<T,D>(lhs.value() - rhs.value());
+}
+
+
+//SO what we can do is wrap the mpl::plus inside a class and then use that class as a type.
+
+struct plus_f
+{
+    template <typename T1, typename T2>
+    struct apply
+    {
+        typedef typename mpl::plus<T1, T2>::type type;
+    };
+};
+
+struct minus_f
+{
+    template <typename D1, typename D2>
+    struct apply : mpl::minus <D1, D2> 
+    {};
+};
+
+template <typename T, typename D1, typename D2>
+quantity<T, typename mpl::transform<D1, D2, plus_f>::type >
+operator * (const quantity<T, D1>& lhs, const quantity<T, D2>& rhs)
+{
+    typedef typename mpl::transform<D1, D2, plus_f>::type newDim;
+    return quantity<T, newDim> (lhs.value() * rhs.value());
+}
+
+//Similarly for division
+template <typename T, typename D1, typename D2>
+quantity<T, typename mpl::transform<D1, D2, minus_f>::type >
+operator / (const quantity<T, D1>& lhs, const quantity<T, D2>& rhs)
+{
+    typedef typename mpl::transform<D1, D2, minus_f>::type newDim;
+    return quantity<T, newDim> (lhs.value() / rhs.value());
+}
+
+int main()
+{
+    quantity<float, mass> m(5.0f); //mass is 5 Kg
+    quantity<float, accelaration> a(9.8f); //gravity = 9.8m/s2.
+    quantity<float, force> f = m * a; //This wont compile now. Very wierd reason. Apprantlty, the type retuned by
+                                     //transform is not the same as force. So we need to provide a function for doing
+                                     //this.
+
+}
+

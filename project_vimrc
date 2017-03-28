@@ -1,0 +1,15 @@
+let sourceDir=$PUMA_SVN_DIR
+let &path.="".sourceDir."/fx/cpp/src/libs,".sourceDir."/common/cpp/src/libs,".sourceDir."/fx/cpp/src/gen-src"
+
+"set cache directory for CtrlP to local source dir
+let g:ctrlp_cache_dir = $PUMA_SVN_DIR.'/.cache/ctrlp'
+
+"abbreviations for fixing typo's and inserting commonly used code.
+iabbrev adn and
+iabbrev enld endl
+iabbrev @@ rajat.girotra@sc.com
+iabbrev info L_INFO <<
+iabbrev debug L_DEBUG <<
+iabbrev crit L_CRIT <<
+iabbrev warn L_WARN <<
+

@@ -1,0 +1,46 @@
+How can you profile?
+
+Instrumentation - The compiler inserts extra code at each function call to count how many times
+a function is called and how much time it takes.
+
+Debugging - The profiler will insert temporary breakpoints at every function or every code-line.
+
+Time-based sampling - This means not touching the code. But the profiler instructs the OS to generate an
+interrupt, say every 1 ms. The profiler will count how many times an interrupt occurs in each part of the
+program in that one ms.
+
+Event-based sampling - Same as above but profiler asks OS for interrupts to be generated when some event occurs
+Lets say when 1000 cache misses have occurred. This makes it possible to see which part of the program has most
+cache misses, branch mispredictions, floating point exceptions etc.
+
+Problems with profiles
+----------------------
+
+Lot many problems:
+
+1) Coarse grain measurement - If your profiler counts time in ms resolution; and your functions takes time in us or ns,
+then all results will be 0.
+
+2) Reporting too little or too much
+If your profiler runs for a very small time, there may be very little data generated for you to analyze. If your profiler
+runs for a longer time, there may be too much produced for your profiler to handle.
+
+3) What if the thread/process you are profiling moves to another CPU, the performance counters do not.
+
+4) Interferance by other processes -
+
+5) Some profilers require debug symbols to be present, so the app you are trying to profile may not be optimized.
+
+6) bad reporting - profilers tend to trace back memory addresses to function names. But if they go wrong,
+you get bad wrong results.
+
+Its not that you should not use a profiler, but be very very careful when using it.
+
+Also consider an alternative of recording information within the program as it is running.
+Identify hotspots or critical sections and use instructions like RDTSCP to generate clock cycle
+usage and dump with for analysis later. Include all this inside an #if directive so you can disable
+when you are running live.
+
+Another way is to bring up a debugger, and hit break 10-20 times.If there is a hotspot in your code
+which takes 90% of the cpu time, it is likely that 90% of the times, you'll hit break at that point.
+

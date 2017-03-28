@@ -1,0 +1,150 @@
+Name lookup issues
+
+When the compiler encounters an identifier it must determine the type and scope (and in the case of variables, the lifetime) of the entity the identifier represents. Templates add complexity to the situation. Because the compiler doesnt know everything about a template when it first sees the definition, it cant tell whether the template is being used properly until it sees the template instantiation. This predicament leads to a two-phase process for template compilation.
+Names in templates
+
+In the first phase, the compiler parses the template definition looking for obvious syntax errors and resolving all the names it can. It can resolve names that do not depend on template parameters using normal name lookup, and if necessary through argument-dependent lookup (discussed below). The names it cant resolve are the so-called dependent names, which depend on template parameters in some way. These cant be resolved until the template is instantiated with its actual arguments. So instantiation is the second phase of template compilation. Here, the compiler determines whether to use an explicit specialization of the template instead of the primary template.
+
+Before you see an example, you must understand two more terms. A qualified name is a name with a class-name prefix, a name with an object name and a dot operator, or a name with a pointer to an object and an arrow operator. Examples of qualified names are:
+MyClass::f();
+x.f();
+p->f();
+ 
+
+We use qualified names many times in this book, and most recently in connection with the typename keyword. These are called qualified names because the target names (like f above) are explicitly associated with a class or namespace, which tells the compiler where to look for the declarations of those names.
+
+The other term is argument-dependent lookup[64] (ADL), a mechanism originally designed to simplify non-member function calls (including operators) declared in namespaces. Consider the following:
+#include <iostream>
+#include <string>
+// ...
+  std::string s("hello");
+  std::cout << s << std::endl;
+ 
+
+Note that, following the typical practice in header files, there is no using namespace std directive. Without such a directive, you must use the std:: qualifier on the items that are in the std namespace. We have, however, not qualified everything from std that we are using. Can you see what is unqualified?
+
+We have not specified which operator functions to use. We want the following to happen, but we dont want to have to type it!
+std::operator<<(std::operator<<(std::cout,s),std::endl);
+ 
+
+To make the original output statement work as desired, ADL specifies that when an unqualified function call appears and its declaration is not in (normal) scope, the namespaces of each of its arguments are searched for a matching function declaration. In the original statement, the first function call is:
+operator<<(std::cout, s);
+ 
+
+Since there is no such function in scope in our original excerpt, the compiler notes that this functions first argument (std::cout) is in the namespace std; so it adds that namespace to the list of scopes to search for a unique function that best matches the signature operator<<(std::ostream&, std::string). It finds this function declared in the std namespace via the <string> header.
+
+Namespaces would be very inconvenient without ADL. Note that ADL generally brings in all declarations of the name in question from all eligible namespacesif there is no single best match, an ambiguity will result.
+
+To turn off ADL, you can enclose the function name in parentheses:
+(f)(x, y);  // ADL suppressed
+ 
+
+Now consider the following program:[65]
+//: C05:Lookup.cpp
+// Only produces correct behavior with EDG,
+// and Metrowerks using a special option.
+#include <iostream>
+using std::cout;
+using std::endl;
+ 
+void f(double) { cout << "f(double)" << endl; }
+ 
+template<class T> class X {
+public:
+  void g() { f(1); }
+};
+ 
+void f(int) { cout << "f(int)" << endl; }
+ 
+int main() {
+  X<int>().g();
+} ///:~
+ 
+
+The only compiler we have that produces correct behavior without modification is the Edison Design Group front end,[66] although some compilers, such as Metrowerks, have an option to enable the correct lookup behavior. The output should be:
+f(double)
+ 
+
+because f is a non-dependent name that can be resolved early by looking in the context where the template is defined, when only f(double) is in scope. Unfortunately, there is a lot of existing code in the industry that depends on the non-standard behavior of binding the call to f(1) inside g( ) to the latter f(int), so compiler writers have been reluctant to make the change.
+
+/*
+Please also read del.cpp
+*/
+
+Here is a more detailed example:[67]
+//: C05:Lookup2.cpp {-bor}{-g++}{-dmc}
+// Microsoft: use option Za (ANSI mode)
+#include <algorithm>
+#include <iostream>
+#include <typeinfo>
+using std::cout;
+using std::endl;
+ 
+void g() { cout << "global g() << endl; }
+ 
+template<class T> class Y {
+public:
+  void g() {
+    cout << "Y<" << typeid(T).name() << ">::g() << endl;
+  }
+  void h() {
+    cout << "Y<" << typeid(T).name() << ">::h() << endl;
+  }
+  typedef int E;
+};
+ 
+typedef double E;
+ 
+template<class T> void swap(T& t1, T& t2) {
+  cout << "global swap << endl;
+  T temp = t1;
+  t1 = t2;
+  t2 = temp;
+}
+ 
+template<class T> class X : public Y<T> {
+public:
+  E f() {
+    g();
+    this->h();
+    T t1 = T(), t2 = T(1);
+    cout << t1 << endl;
+    swap(t1, t2);
+    std::swap(t1, t2);
+    cout << typeid(E).name() << endl;
+    return E(t2);
+  }
+};
+ 
+int main() {
+  X<int> x;
+  cout << x.f() << endl;
+} ///:~
+ 
+
+The output from this program should be:
+global g()
+Y<int>::h()
+0
+global swap
+double
+1
+ 
+
+Looking at the declarations inside of X::f( ):
+
+      E, the return type of X::f( ), is not a dependent name, so it is looked up when the template is parsed, and the typedef naming E as a double is found. This may seem strange, since with non-template classes the declaration of E in the base class would be found first, but those are the rules. (The base class, Y, is a dependent base class, so it cant be searched at template definition time). PLEASE READ DEL1.cpp also.
+
+      The call to g( ) is also non-dependent, since there is no mention of T. If g had parameters that were of class type of defined in another namespace, ADL would take over, since there is no g with parameters in scope. As it is, this call matches the global declaration of g( ).
+
+      The call this->h( ) is a qualified name, and the object that qualifies it (this) refers to the current object, which is of type X, which in turn depends on the name Y<T> by inheritance. There is no function h( ) inside of X, so the lookup will search the scope of Xs base class, Y<T>. Since this is a dependent name, it is looked up at instantiation time, when Y<T> are reliably known (including any potential specializations that might have been written after the definition of X), so it calls Y<int>::h( ).
+
+      The declarations of t1 and t2 are dependent.
+
+      The call to operator<<(cout, t1) is dependent, since t1 is of type T. This is looked up later when T is int, and the inserter for int is found in std.
+
+      The unqualified call to swap( ) is dependent because its arguments are of type T. This ultimately causes a global swap(int&, int&) to be instantiated.
+
+      The qualified call to std::swap( ) is not dependent, because std is a fixed namespace. The compiler knows to look in std for the proper declaration. (The qualifier on the left of the :: must mention a template parameter for a qualified name to be considered dependent.) The std::swap( ) function template later generates std::swap(int&, int&), at instantiation time. No more dependent names remain in X<T>::f( ).
+
+To clarify and summarize: name lookup is done at the point of instantiation if the name is dependent, except that for unqualified dependent names the normal name lookup is also attempted early, at the point of definition. All non-dependent names in templates are looked up early, at the time the template definition is parsed. (If necessary, another lookup occurs at instantiation time, when the type of the actual argument is known.)

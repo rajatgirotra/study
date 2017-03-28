@@ -1,0 +1,110 @@
+//C# c'tors
+
+The syntax for declaring basic constructors in C# is the same as in Java and C++. You declare a method
+that has the same name as the containing class and that does not have any return type:
+
+public class MyClass
+{
+   public MyClass()
+   {
+   }
+   // rest of class definition
+}
+
+As in C++ and Java, it  s not necessary to provide a constructor for your class. We haven't supplied one
+for any of the examples so far in this book. In general, if you don't supply any constructor, the compiler
+will just make up a default one for you behind the scenes. It will be a very basic constructor that just
+initializes all the member fields by zeroing them out ( null reference for reference types, zero for
+numeric data types, and false for bool s). Often, that will be adequate; if not, you  ll need to write your
+own constructor.
+
+For C++ programmers: Because primitive fields in C# are by default initialized by
+being zeroed out, whereas primitive fields in C++ are by default uninitialized, you
+may find that you dont need to write constructors in C# as often as you would in C++.
+Constructors follow the same rules for overloading as other methods (that is, you can provide as many
+overloads to the constructor as you want, provided they are clearly different in signature):
+
+One novel feature of C# is that it is also possible to write a static no - parameter constructor for a class.
+Such a constructor will be executed only once, as opposed to the constructors written so far, which are
+instance constructors that are executed whenever an object of that class is created. There is no equivalent
+to the static constructor in C++ or Visual Basic 6.
+
+class MyClass
+{
+   static MyClass() // No access modifier, public, private etc etc.. ; no return type and no argument list.
+   {
+   // initialization code
+   }
+
+   // rest of class definition
+}
+One reason for writing a static constructor is if your class has some static fields or properties that need to
+be initialized from an external source before the class is first used.
+The .NET runtime makes no guarantees about when a static constructor will be executed, so you
+should not place any code in it that relies on it being executed at a particular time (for example, when an
+assembly is loaded). Nor is it possible to predict in what order static constructors of different classes will
+execute. However, what is guaranteed is that the static constructor will run at most once, and that it
+will be invoked before your code makes any reference to the class. In C#, the static constructor usually
+seems to be executed immediately before the first call to any member of the class.
+Notice that the static constructor does not have any access modifiers. It  s never called by any other C#
+code, but always by the .NET runtime when the class is loaded, so any access modifier like public
+or private would be meaningless. For this same reason, the static constructor can never take any
+parameters, and there can be only one static constructor for a class. It should also be obvious that a static
+constructor can access only static members, not instance members, of the class.
+
+Calling Constructors from Other Constructors
+You may sometimes find yourself in the situation where you have several constructors in a class, perhaps
+to accommodate some optional parameters, for which the constructors have some code in common.
+For example, consider this:
+class Car
+{
+   private string description;
+   private uint nWheels;
+   public Car(string description, uint nWheels)
+   {
+      this.description = description;
+      this.nWheels = nWheels;
+   }
+   public Car(string description)
+   {
+      this.description = description;
+      this.nWheels = 4;
+   }
+   // etc.
+
+Both constructors initialize the same fields. It would clearly be neater to place all the code in one place,
+and C# has a special syntax, known as a constructor initializer, to allow this:
+
+class Car
+{
+   private string description;
+   private uint nWheels;
+   public Car(string description, uint nWheels)
+   {
+      this.description = description;
+      this.nWheels = nWheels;
+   }
+   public Car(string description) : this(description, 4)
+   {
+
+In this context, the this keyword simply causes the constructor with the nearest matching parameters to
+be called. Note that any constructor initializer is executed before the body of the constructor. Say that the
+following code is run:
+
+Car myCar = new Car(Proton Persona);
+
+In this example, the two - parameter constructor executes before any code in the body of the one -
+parameter constructor (though in this particular case, because there is no code in the body of the
+one - parameter constructor, it makes no difference).
+
+A C# constructor initializer may contain either one call to another constructor in the same class (using
+the syntax just presented) or one call to a constructor in the immediate base class (using the same syntax,
+but using the keyword base instead of this ). It is not possible to put more than one call in the initializer.
+The syntax for constructor initializers in C# is similar to that for constructor initialization lists in C++,
+but C++ developers should beware: Behind the similarity in syntax, C# initializers follow very different
+rules for what can be placed in them. Whereas you can use a C++ initialization list to indicate initial
+values of any member variables or to call a base constructor, the only thing you can put in a C# initializer
+is one call to one other constructor. This forces C# classes to follow a strict sequence for how they get
+constructed, whereas C++ allows some leniency.
+
+

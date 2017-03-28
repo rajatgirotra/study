@@ -1,0 +1,14 @@
+How to begin processing of Market data at the beginning of the week.
+In CME, mostly markets open on Sunday evening and we should follow the following procedure.
+
+1) Download the schema file and channel configuration on Sunday before market open. This will be used to correctly decode market data and subscribe to the write channels.
+2) Listen to the incremental feed for incremental market data.
+
+Typically at start of week. CME will do the following
+1) First send a fix message (35=f, Market security status) with tag 326-SecurityTradingStatus=21 (Pre-open).
+   MAKE SURE A MARKET PARTICIPANT DOES NOT SEND AND ORDER TO CME BEFORE RECEIVING 35-f, else it results in disciplinary action.
+2) After that it send multiple (35=d, security definition) messages, with tag 980=SecurityUpdateAction = "Add" even if the security was already there in the last week.
+
+So each week is a fresh week.
+
+For mid week startup, you there is some recovery process which I am skipping for now, Will come back to it later.

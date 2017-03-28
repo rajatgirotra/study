@@ -1,0 +1,26 @@
+You already know about storage available in memory.
+
+1) Stack
+Which is the fastest and should be used most of the times.
+Stack is created every time a function gets called. It stores the return address of the calling
+function, the values to registers to be restored, function arguments and local variables.
+
+2) Static Memory
+To store global and static variables; string and floating point constants; switch statement jump tables etc
+Divided into three parts mainly:
+1) To store global variables which are const
+2) to store global variables which are non-const and uninitialized
+3) to store global variables which are non-const and initialized
+Problem is that variables in static memory like through out the execution of the
+whole program. Good thing is that they are initialized before the start of the program.
+
+3) Register storage - Ie storing data inside processor registers.
+
+4) Thread local - Very ineffcient, Avoid these. Access is through a pointer stored in the
+thread control block. So takes more time to access.
+
+5) Volatile - You already know. This means dont optimized this variable. Dont bring it inside cache
+Always read from memory (again slower). Almost useless in multithreading programming.
+
+6) Heap - For new and delete, also slow. Fragmentation can occur
+Data might get scattred in different places making caching less efficient.

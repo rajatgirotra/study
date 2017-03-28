@@ -1,0 +1,42 @@
+Market events are mostly triggered by
+
+1) Order Entry
+2) Market state
+
+1) Order Entry
+   A single order acceptance can result in a book update message.
+   An matching event (when an incoming order is macthed to resting orders in the book) can result in
+   a) a trade message followed by a
+   b) volume updates (if any)
+   c) book update (if any), followed by
+   d) statistical updates (if any, like change in high and lows etc).
+   A trade can also result in triggering other stop orders which can generate a sequence of messages.
+
+2) Market state events: Eg a scheduled close of market will result in a "MarketSecurityStatus" message (35=f) followed by book updates containing day order eliminations.
+
+Mostly you'll see only 35=X on the incremental feed.
+
+Important tags are:
+
+60 - Nanotimestamp when the exchange processed the event. Multiple messages for the same event will have the same nanotimestamp.
+269 - MDEntryType - the event that triggered this message, could be:
+   *) Order Entry
+   *) Matching event
+   *) State change
+   *) Security definition
+   *) Daily Statistics
+
+268 - NoMDEntries - Number of detailed messages (containing order information) for trades at each different price.
+      So if there is a single matching event, containing orders that matched at price 100 and at 100.05, then
+    268=2 and there will be two detailed messages one for TradeSummary@100 and one for TradeSummary@100.05268 - NoMDEntries - Number of detailed messages (containing order information) for trades at each different price.
+          So if there is a single matching event, containing orders that matched at price 100 and at 100.05.
+
+5799 - MatchEventIndicator - Each message will have this tag indicating if this is the last message for this event or are there more to follow.
+       This can be there even in messages where 268=0 (ie no data). Typically
+       5799=00000000 if not the last message and
+       5799=10000000 if the last message
+
+It is possible that sometimes a Market state change can happen during an event being handled.
+In that case CME can send out 35=f with 5799=00000000 ie. there are more messages to  follow in the event.
+
+Also CME provides a way to correlate every market data message which correlates do a given order entry.

@@ -1,0 +1,16 @@
+Many of the I/O objects in ASIO are stream oriented.
+
+like
+
+1) boost::asio::ip::tcp::socket
+2) boost::asio::ssl::stream<>
+3) posix::stream_descriptor<>
+etc.
+
+These objects model one or more of the following concepts
+1) SyncReadStream - ie i/o object implements the functions read_some()
+2) ASyncReadStream - ie i/o object implements the functions async_read_some()
+3) SyncWriteStream - ie i/o object implements the functions write_some()
+4) ASyncWriteStream - ie i/o object implements the functions async_write_some()
+
+

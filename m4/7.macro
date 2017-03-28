@@ -1,0 +1,19 @@
+# lets define a simple macro plus
+define(`plus',`+')
+plus
+
+# Now how do you output ++ together
+plusplus doesnt work
+
+# So you can do this trick
+plus()plus
+# the plus takes an empty set of args which are swallowed by m4.
+
+# But another problem
+define(`oper', `plus')
+oper()oper
+# this becomes plusoper and gets printed as such.
+# so the workaround is to add an empty quote which servers as a token boundary
+oper`'oper
+# will mean plus`'oper --> +`'oper --> +`'plus --> +`'+ --> ++
+

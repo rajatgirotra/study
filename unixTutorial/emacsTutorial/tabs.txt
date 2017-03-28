@@ -1,0 +1,25 @@
+For tabs
+-------
+
+1) Also do M-x untabify in C/C++ mode to remove all tabs
+2) set indent-tabs-mode to nil to disable using tabs for indentation.
+   (setq-default indent-tabs-mode nil)
+3) set tab-width to 4.
+4) set c-basic-offset to 4 (always to be same as tab-width)
+Heres the long story. tab-width only specifies the display width. When you hit enter, the C-mode might indent using a combination of spaces and tabs. If indent-tabs-mode is nil, then indentation cannot use tabs.
+
+Also if say c-basic-offset is 4, and tab-width is 8, then when you hit enter, it cannot insert a tab, because it will occupy 8 spaces and c-basic-offset is only set to 4.
+Moreover in other editors, which cannot differentiate between tab and indentation width, you might get some strange bevahior.
+So by default also set the above.
+
+Other indentation commands:
+
+TAB - Will insert white space or indent the current line or region in a mode specific way. The exact behavior depends on the major mode but ideally it advances to the first non-whitespace character on the preceeding line.
+
+C-M-o : split the current line at spot.
+M-m : go to first line of cursor.
+M-i : indent whitespace at point
+M-^ - merge with line on the previous lin
+C-M-\  - Indent all lines in region.
+C-x TAB:  Very nice, select a region and then use arrow keys to indent space by space if needed.
+

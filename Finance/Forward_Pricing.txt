@@ -1,0 +1,63 @@
+FX Forward contract is an obligation where the two parties are obliged to exchange funds at a predefined exchange rate at a given time in future.
+The forward pricing depends on
+
+1) The current spot price.
+2) The interest rates of the two currencies.
+
+Consider that USD/INR spot price is 50.0
+Let say one year interest rate in US in 4% and in India it is 8%
+
+So in one year 1 USD will become 1(1+0.04), based on interest calculation.
+You already know the formula for this, as you have studied this many times.
+
+A * pow((1+r/m), mn)
+
+where r is the interest rate per annum, m is compounding frequency and n is the number of years.
+
+Similarly 50 INR will be 50(1+0.08)
+
+This implies 
+
+1 USD = 50 INR (now)
+1 (1+.04) USD = 50 (1+.08) INR (in one year)
+implies 
+
+1 USD = 50 (1+0.08)
+           -------  INR  (in one year)		   
+		   (1+0.04)
+		   
+implies
+
+1 USD = 51.92 in One year. This is the 1 year forward price for USD/INR
+
+So a forward price is nothing but the spot price adjusted for the Interest rate differential of the two currencies.
+
+Now the forward price - spot price is
+51.92 - 50.0 = 1.92
+We multiply the 1.92 with 10 to the power no.of decimals in the spot price (for USD/INR assume 2)
+so 1.92 * 100 = 192 
+This 192 is called the forward points or forward pips.
+So forward points are quoted in pips.
+
+Another example, consider USD/CAD
+
+Forward Rate = Spot Rate X (1 + Interest Rate of Overseas/Foreign country)
+                            ---------------------------------------------
+                           (1 + Interest Rate of Domestic country)
+
+USD/CAD spot rate = 1.0650 (4 decimal points)
+CAD interest rate (1 year) = 3.64%
+USD interest rate (1 year) = 3.15%
+implies 
+1 year USD/CAD forward price = 1.0650 * (1+0.0364)
+                                        ---------   = 1.0700										
+										(1+0.0315)										
+Therefore forward points = (forward price - spot price) = 1.0700 - 1.0650 = 0.0050 * 1000 = 50 pips.
+
+Notice this:
+
+1) If the currency on the left hand side has a lower rate of interest than the currency on the right hand side,
+then the forward points will always be positive. We call this as a forward premium.
+2) If the currency on the left hand side has a higher rate of interest than the currency on the right hand side,
+then the forward points will always be negative. We call this as a forward discount (eg, see EUR/CHF forward points online, as EUR interest rates
+are higher than CHF interest rates)

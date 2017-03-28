@@ -1,0 +1,71 @@
+The Boost MSM is divided into 2 parts.
+We call it the front end and the back end.
+
+1) The front end defines a set of classes used to specify the state machine definition in the most easy way as possible. It basically is nothing but a descriptive language for a state machine. MSM defines 3 ways or 3 front-ends, out of which one (called eUML) is experimental. So we'll ignore it here. We'll first study the conventional way in which each state is defines a class.
+
+2) The back end has many other useful functions and feature as you will see.
+For eg: It defines a function process_event() which basically fires an event which is defined in your state machine.
+
+In short the boost msm consists of:
+
+1) A state machine definition class. A class which derives from boost::msm::front::state_machine_def.
+class player_ : public state_machine_def<player_> {
+}; //a state machine.
+
+2) Events: Events are external actions which have an influence on the state machine.
+
+3) States are the various stages in the objects lifetime. A state is defined as a class in boost msm.
+class state : boost::msm::front::state<> {
+};
+A state can have entry/exit behaviors. i.e. functions that are called when a state is entered or exited. Note that these behaviors are dependent on the Event that is taking place.
+
+template <typename Event, typename Fsm>
+void on_entry(const Event&, Fsm&);
+
+template <typename Event, typename Fsm>
+void on_exit(const Event&, Fsm&);
+
+it is best to define your states as nested classes inside your state machine class although this is not a requirement.
+
+Just like states, state machine class also has similar on_entry() and on_exit() functions.
+
+3) Actions : Action is a function that is executed when a state transition/change occurs. It is best to define it as a member function of your state machine def. It always returns void and takes as argument the Event that has ocurred.
+
+template <typename Event>
+void action_function(const Event& event);
+
+4) Gaurd : Guards are just like action functions. The only difference is that they return a bool instead of void and they tell you whether the transition should occur or not. If they return false. the transition will not take place.
+
+5) The transition table: The transition table encapsulates a state machine. Ie. the start state, the event, the target state, the action and the guard. It is defined using boost::mpl::vector. Eg:
+
+struct transition_table : boost::mpl::vector <
+     //----------Start--------Event---------Target-------Action--------Guard
+  a_row<   empty,           eject,          open,    &player::detect_cd    >
+ > 
+{};
+Many different types of rows can be specified.
+
+row<> : Where you must specify both an action and a guard function
+a_row<>: Where you can omit the guard function.
+g_row<> : Where you can omit the action function.
+_row<> : Where you can omit both the action and guard functions.
+
+6) define the initial_state.
+typefe Empty initial_state.
+
+and you're done specifying your state machine.
+
+:)
+
+Also you have a no transition function which basically asserts when there is
+not transition defined. You can always override and specify your
+implementation like throwing an error and logging an error.
+
+Back end: in Boost MSM, the back end derives from the front-end.
+So you can always say
+
+boost::msm::back::state_machine<launcher_>& fsm = 
+        static_cast<boost::msm::back::state_machine<launcher_>& > (*this);  
+fsm.process_event(event_name); //the process_event() function of the back end
+is used to fire an event.
+

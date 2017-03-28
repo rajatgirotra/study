@@ -1,0 +1,11 @@
+There’s a third form of RTTI in Java. This is the keyword instanceof that
+tells you if an object is an instance of a particular type. It returns a
+boolean so you use it in the form of a question, like this:
+
+if(x instanceof Dog)
+((Dog)x).bark();
+
+The above if statement checks to see if the object x belongs to the class
+Dog before casting x to a Dog. It’s important to use instanceof before a
+downcast when you don’t have other information that tells you the type of
+the object; otherwise you’ll end up with a ClassCastException.

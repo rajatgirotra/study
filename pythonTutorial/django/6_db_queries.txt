@@ -1,0 +1,149 @@
+The api to interact with database using model managers is very simple. Assume
+model.Manager object name is "objects"
+
+"save()"
+=======
+>>> from blog.models import Blog
+# Create an object
+>>> b = Blog(name='Beatles Blog', tagline='All the latest Beatles news.')
+>>> b.save()  #save() is when django hits the DB.
+>>> b.name = 'Rajat' # change name and save again
+>>> b.save() 
+save() has a lot of arguments you can specify, see the api reference for more details.
+
+Foreign Key Save
+===============
+>>> entry = Entry.objects.get(pk=1) # Get by primary key
+>>> blog = Blog.objects.get(name='Cheddar Talk') # get by name
+>>> entry.cheese_blog = blog # cheese_blog is a foreign key to Blog table.
+>>> entry.save() # again easy
+
+ManyToMany Key Save:
+==================
+You use add() instead of save() and you use add() on the field "authors" instead of on the objects Manager object.
+
+class Entry(models.Model):
+    authors = models.ManyToManyField(Author)
+    
+>>> joe = Author.objects.create(name="Joe")
+>>> rajat = Author.objects.create(name="Rajat")
+>>> entry.authors.add(joe, rajat)
+
+Retrieve
+========
+>>> entries = Blog.objects.all() # Returns a QuerySet which is a list of Model instances corresponding to all rows
+
+Filter on QuerySet
+-------------------
+2 ways:
+1) filter(**kwargs) --> takes keyword args and returns rows matching the filter
+2) exclude(**kwargs) --> takes keyword args and exclude rows matching the filter
+>>> Entry.objects.filter(pub_date__year=2006) # where pub_date is the name of a DateField, and __year is a way to filter on a DateField
+>>> Entry.objects.all().filter(pub_date__year=2006)  # same as above but prefer above.
+
+Filters can also be chained.
+>>> Entry.objects.filter(headline__startswith='What')  # __startswith is self explanatory
+                 .exclude(pub_date__gte=datetime.date.today()) # __gte = greater than
+                 .filter(pub_date__gte=datetime(2005, 1, 30))
+# django provides __<criteria> after field name to filter on a field
+
+>>> q1 = Entry.objects.filter(headline__startswith='What')
+>>> q2 = q1.exclude(pub_date__gte=datetime.date.today())
+>>> q3 = q2.filter(pub_date__gte=datetime(2005, 1, 30)) # This is same as above
+
+>>> q = Entry.objects.filter(headline__exact="What is C++")
+>>> q = Entry.objects.filter(headline="What is C++") # by default __exact is implied if you only give fieldname
+
+
+QuerySets are lazy. This means that the above statements will not touch the db yet. QuerySet touches a DB only when it is evaluated, ie if we say:
+>>> print(q3)  # then db is contacted.
+
+>>> entry = Entry.objects.get(pk=1) # get() will throw exception MultipleObjecteReturned if more than one items are retruned and will throw Entry.DoesNotExist if get() does not return anything.
+
+
+Limit Query Sets
+---------------
+>>> Entry.objects.all()[:5] # will give first first, similar to oracle ROWNUM < 5
+>>> Entry.objects.all()[6:10]
+
+>>> Entry.objects.order_by(headline)[0]
+
+Retrieve based on Foreign Key: Blog is a FK in Entry table
+----------------------------
+>> entry = Entry.objects.filter(blog_id=4)
+>> entry = Entry.objects.filter(headline__iexact='c++') # case insensitive search
+
+
+Blog is a FK in Entry table. And Here we are filtering based on blog.name
+>>> entry = Entry.objects.filter(blog__name='Beatles Blog')
+
+>>> Blog.objects.filter(entry__headline__contains='Lennon')  # Reverse mapping. "entry" is the lowercase name of the Entry model. This is really Cool.... Django will go to entry table and look for all headlines which have "Lennon" and return you the corresponding blog objects.
+
+>>> Blog.objects.filter(entry__authors__name = 'Lennon') # if there was no author associated with any entry row, an epty QuerySet is returned
+
+>>> Blog.objects.filter(entry__authors__name__isnull='True') # will consider entry rows which has no author associated with it and also entry rows where author.name is empty.
+
+>>> Blog.objects.filter(entry__authors__isnull=False, entry__authors__name__isnull='True')  # entries with empty author column will be filtered out. This is like the AND condition
+
+>>> Blog.objects.filter(entry__headline__contains='Lennon').filter(entry__pub_date__year=2008)
+
+
+F expressions
+-------------
+Used to compare columns in the same model
+>>> from django.db.models import F
+>>> Entry.objects.filter(n_comments__gt=F('n_pingbacks'))
+>>> Entry.objects.filter(n_comments__gt=F('n_pingbacks') * 2)
+>>> Entry.objects.filter(rating__lt=F('n_comments') + F('n_pingbacks'))
+n_comments, n_pingbacks, rating are all IntegerField()
+
+F expressions also support date/time and bitand and bitor
+
+Primary Key lookup
+------------------
+>>> Blog.objects.get(id__exact=14) # Explicit form
+>>> Blog.objects.get(id=14) # __exact is implied
+>>> Blog.objects.get(pk=14) # pk implies id__exact
+
+>>> Entry.objects.filter(headline__contains='%')  # will look for a headline which contains the % character. Same for underscore.
+
+Q Objects
+----------
+Very nice way of creating complex queries. You can create multiple Q objects joined together by & or |. Can be combined with keyword arguments as well. However, when Q objects and keyword arguments are mixed together, the Q objects must preceed the keyword argument. Eg:
+
+from django.db.models import Q
+Polls.objects.get(
+    Q(pub_date=date(2005,5,2)) | Q(pub_date=date(2005,5,6)), question__startswith='Who') # specifying multiple queries to get() function
+
+generates SQL like:
+SELECT * from polls WHERE question LIKE 'Who%'
+    AND (pub_date = '2005-05-02' OR pub_date = '2005-05-06')
+
+Comparing
+---------
+Compares the primary key
+some_entry == other_entry  # implicit
+some_entry_id == other_entry_id  # explicit form
+some_entry_name == other_entry_name # if pk is not id but name
+
+Deleting
+-------
+
+.delete() function is provided
+e.delete() # will delete and return the number of entries deleted.
+
+Bulk delete is done using the QuerySet.delete() function. In that case, the delete() function in model is not called.
+queryset.delete()
+
+Copying
+-------
+blog = Blog(name='My blog', tagline='Blogging is easy')
+blog.save() # blog.pk == 1
+blog.pk = None
+blog.save() # blog.pk == 2
+
+Bulk Update
+----------
+# Update all the headlines with pub_date in 2007.
+Entry.objects.filter(pub_date__year=2007).update(headline='Everything is the same')
+

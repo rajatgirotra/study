@@ -1,0 +1,56 @@
+DJango template language has the following
+
+1) Variables
+{{ variable_name }} --> will be looked up from context dictionary and the value will be substituted.
+Value in context can be
+a) a simple string
+b) a dictionary
+c) a list
+d) an instance of some class
+e) a callable
+Eg: Context = {location : { address:Simei, pincode:522167 }, name = ['Rajat', 'Vidhu', 'Myra']} Then u can use
+{{ location.pincode }}
+{{ name.0 }} # for list
+{{ instance.attribute_name }} for instance
+
+
+2) Tags
+Tags can mean a number of things. It can substitute text, used as control structures etc. Always enclosed within {%  tag %}
+Example:
+{% csrf_token %}
+
+{% if user.is_authenticated %}
+Hello, {{ user.username }}
+{% endif %}
+
+3) Filter - Filter transform the values and tags. Syntax is:
+{{ variable|filter:"filter_arg" }}
+example: Context = {django: "the web framweork"}
+{{ django|title }} = "The Web Framework"
+{{ my_date|date:'%Y-%m-%d' }}
+Many more filters are available
+
+4) Comments:
+Single line comments: {# singe line comment #}
+Multiline comments:
+{% comments...
+......
+....
+%}
+
+
+Context - A simple django.template.Context object. Constructor takes two arguments (both are optional)
+1) a dictionary of context variables
+2) Name of application. Used in case ur template does reverse URL lookup.
+The context class also contains additional metadata.
+
+RequestContext - Instead of using Context class, you can use RequestContext.
+1) RequestContext takes an HttpRequest object.
+2) Additionally it applies all the context_processors specified in the OPTIONS in TEMPLATES setting. context_processors is a list of callables() which are called with the HttpRequest object as parameter and returns a dictionary which is merged into this RequestContext.
+3) RequestContext derives from Context
+
+
+Loaders: Loaders are classes which tell how to look for templates, where to look for them and how to create Template class instances which is returned by the get_template() or select_template(). You have builtin loaders and can have custom loaders too.
+
+Context Processors:
+Context processors are functions that receive the current HttpRequest as an argument and return a dict of data to be added to the rendering context. Their main use is to add common data shared by all templates to the context without repeating code in every view.

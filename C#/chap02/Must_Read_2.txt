@@ -1,0 +1,62 @@
+List of types in C#. Note that C# does not define any types of its own. It completely uses the types of the .NET base classes.
+
+Type		CTS Type
+
+int		System.Int32   (signed)
+short 		System.Int16   (signed)
+long		System.Int64   (signed)
+byte		System.Byte    (unsigned)
+sbyte		System.SByte   (signed)
+ushort		System.UInt16  (unsigned)
+uint		System.UInt32  (unsigned)
+ulong		System.UInt64  (unsigned)
+float(32 bits)	System.Single  (signed, 7 decimal precision)
+double(64 bits)	System.Double  (signed, 15/16 decimal precision)
+decimal(128bits)System.Decimal (signed, 28 decimal precision)
+bool		System.Boolean (true or false)
+char		System.Char
+
+object		System.Object	The root type. All other types in the CTS (Common Type System) are derived from System.Object
+string		System.String
+
+If there is any ambiguity about whether an integer is int , uint , long , or ulong , it will default to an int .
+To specify which of the other integer types the value should take, you can append one of the following characters to the number:
+
+uint ui   = 1234U;
+long l    = 1234L;
+ulong ul  = 1234UL;
+
+If you hard - code a non - integer number (such as 12.3) in your code, the compiler will normally assume that you want the number interpreted 
+as a double . If you want to specify that the value is a float , you append the character F (or f ) to it:
+
+float f = 12.3F;
+
+To specify that your number is a decimal type rather than a double , float , or an integer, you can append the M (or m ) character to the value,
+as shown in the following example:
+
+decimal d = 12.30M;
+
+
+The object type implements a number of basic, general - purpose methods, which include Equals() , GetHashCode() , GetType() , and ToString().
+Responsible user - defined classes may need to provide replacement implementations of some of these methods using an object - oriented technique
+known as overriding. When you override ToString() , for example, you equip your class with a method for intelligently providing a string
+representation of itself. If you don ’ t provide your own implementations for these methods in your classes, the compiler will pick up the
+implementations in object , which may or may not be correct or sensible in the context of your classes
+
+String literals are enclosed in double quotation marks ("..."); if you attempt to enclose a string in single quotation marks, the compiler will take
+the value as a char , and throw an error. C# strings can contain the same Unicode and hexadecimal escape sequences as char's. 
+Because these escape sequences start with a backslash, you can’t use this character unescaped in a string. Instead, you need to escape it with
+two backslashes ( \\ ):
+
+string filepath = "C:\\ProCSharp\\First.cs";
+
+Even if you are confident that you can remember to do this all the time, typing all of those double backslashes can prove annoying. Fortunately, 
+C# gives you an alternative. You can prefix a string literal with the at character ( @ ) and all the characters in it will be treated at face value;
+they won’t be interpreted as escape sequences:
+
+string filepath = @"C:\ProCSharp\First.cs";
+
+This even allows you to include line breaks in your string literals:
+
+string jabberwocky = @"’Twas brillig and the slithy toves
+			Did gyre and gimble in the wabe.";

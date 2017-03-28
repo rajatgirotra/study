@@ -1,0 +1,94 @@
+Detect if two integers have opposite signs.
+int x,y;
+bool f = (x^y) < 0; //Very trivial
+----------------------------------------------
+Compute the integer absolute value (abs) without branching
+
+int v;           // we want to find the absolute value of v
+unsigned int r;  // the result goes here 
+int const mask = v >> sizeof(int) * CHAR_BIT - 1;
+
+r = (v + mask) ^ mask;
+-----------------------------------------------
+Determining if an integer is a power of 2
+
+unsigned int v; // we want to see if v is a power of 2
+bool f;         // the result goes here 
+
+f = (v & (v - 1)) == 0;
+Note that 0 is incorrectly considered a power of 2 here. To remedy this, use:
+f = v && !(v & (v - 1));
+--------------------------------------------------
+
+Conditionally set or clear bits without branching
+
+Always remember: For setting a bit, you should always OR with the mask
+                 For clearing a bit, you should always AND with the mask
+bool f; //flag
+int m; //mask
+int w; //word , we need to do if(f) w = w|m; else w = w & ~m; 
+
+Lets do it without branching.
+Later..
+------------------------------------------------------
+Counting bits set, Brian Kernighan's way
+
+unsigned int v; // count the number of bits set in v
+unsigned int c; // c accumulates the total bits set in v
+for (c = 0; v; c++)
+{
+  v &= v - 1; // clear the least significant bit set
+}
+------------------------------------------------------
+Computing parity the naive way: Ie finding if odd number of bits are set or even number of bits are set.
+parity = true, if odd number of bits are set, false if even number of bits are set
+unsigned int v;       // word value to compute the parity of
+bool parity = false;  // parity will be the parity of v
+
+while (v)
+{
+  parity = !parity;
+  v = v & (v - 1);
+}
+------------------------------------------------------
+
+Swapping values with subtraction and addition
+
+#define SWAP(a, b) ((&(a) == &(b)) || \
+                    (((a) -= (b)), ((b) += (a)), ((a) = (b) - (a))))
+
+					OR
+					
+#define SWAP(a, b) ((&(a) == &(b)) || \
+                    (((a) += (b)), ((b) -= (a)), ((a) = (a) - (b))))
+					
+					
+Swapping values with XOR
+
+#define SWAP(a, b) (((a) ^= (b)), ((b) ^= (a)), ((a) ^= (b)))
+
+------------------------------------------------------
+Reverse bits the obvious way
+
+unsigned int v; //the value whose bits are to be reversed.
+unsigned int r = v; //the reversed value.
+int size = (sizeof(v) * 8) - 1;
+for(v >>= 1; v!=0; v >>= 1)
+{
+    r << 1;
+	r |= (v&1);
+	size--;
+}
+r << size;
+------------------------------------------------------
+
+Compute modulus division by 1 << s without a division operator
+
+const unsigned int n;          // numerator
+const unsigned int s;
+const unsigned int d = 1U << s; // So d will be one of: 1, 2, 4, 8, 16, 32, ...
+unsigned int m;                // m will be n % d
+m = n & (d - 1); 
+Most programmers learn this trick early, but it was included for the sake of completeness.
+
+------------------------------------------------------

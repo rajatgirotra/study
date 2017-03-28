@@ -1,0 +1,39 @@
+Partial Classes
+The partial keyword allows the class, struct, or interface to span across multiple files. Typically, a class
+will reside entirely in a single file. However, in situations where multiple developers need access to the
+same class, or more likely in the situation where a code generator of some type is generating part of a
+class, then having the class in multiple files can be beneficial.
+The way that the partial keyword is used is to simply place partial before class, struct , or
+interface . In the following example the class TheBigClass resides in two separate source files,
+BigClassPart1.cs and BigClassPart2.cs :
+
+//BigClassPart1.cs
+partial class TheBigClass
+{
+   public void MethodOne() 
+   {
+   }
+}
+
+//BigClassPart2.cs
+partial class TheBigClass
+{
+   public void MethodTwo()
+   {
+   }
+}
+
+When the project that these two source files are part of is compiled, a single type called TheBigClass
+will be created with two methods, MethodOne() and MethodTwo() .
+If any of the following keywords are used in describing the class, the same must apply to all partials of
+the same type
+
+ public
+ private
+ protected
+ internal
+ abstract
+ sealed
+ new
+ generic constraints
+

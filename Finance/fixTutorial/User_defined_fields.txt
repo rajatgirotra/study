@@ -1,0 +1,31 @@
+You have already seen FixFields.h in quickfix where we define classes for every field in FIX.
+
+We can also extend that by creating our own user defined classes for our custom fields.
+Quickfix provides useful macros for that already
+
+eg:
+
+MyUserDefineFields.hpp
+
+namespace FIX
+{
+    USER_DEFINED_STRING(MyNewString, 9999);
+	USER_DEFINED_PRICE(MyNewPrice, 9999);
+}
+
+Now you can say:
+
+MyNewString stringField("string");
+MyNewPrice priceField(14.54);
+message.setField(stringField);
+message.setField(priceField);
+
+OR
+
+message.getField(FIX::MyNewString);
+message.getField(FIX::MyNewPrice);
+
+//Not only this.
+Infact you can create your own type in addition to what is supported by QuickFix. For that all you need to do is define
+a new class for it and defines a Convertor to convert to and from string. More on this later when we'll actually see a need to do it.
+

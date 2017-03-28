@@ -1,0 +1,33 @@
+How the disruptor works??
+
+A disruptor is a ring-buffer at its core. You have a producer thread and multiple reader/consumer threads.
+A producer will write to the ring buffer and increment a sequence number. Note that producer is the only thread writing
+to the ring buffer. Consumers dont write to ring buffer.
+Compare this to a typical queue data structure in which both producer and consumer write to the data structure.
+Manipulating head/tail pointers using some form of locking mechanism. Ring buffer obviously has advantage here that only
+the producer thread writes to the ring buffer.
+
+Each consumer has its own sequence number which indicates how far it has read from the ring buffer.
+For eg: the producer seq no could be 10, and there could be three consumers each at sequence numbers 6, 7, 8 respectively.
+
+In a very simplistic way this is how the producer and consumer code would look like.
+
+static const size_t SIZE = 32;  // usually a power of 2
+std::array<T, SIZE> buffer;  // T is some type.
+std::atomic<uint32_t> sequence(-1);
+uint32_t nextSeq = -1;
+
+void producer(const T& item) {
+    auto index = ++nextSeq;
+    buffer[index % SIZE] = item;
+    sequence.store(memory_order_release);  // memory order release it cannot be reordered with any store or load that precedes it in program order.
+}
+
+T consume(uint32_t index) {
+    if (index < sequence.load(memory_order_acquaire)) {
+        return buffer[index % SIZE];
+    }
+    return nullptr;
+}
+
+

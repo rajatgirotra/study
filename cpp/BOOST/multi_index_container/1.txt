@@ -1,0 +1,19 @@
+Sometimes you want to have more than one lookup criteria on the same set of elements.
+For example, lets say you have a list of employee ids and thier names. You might need
+
+1) To access the elements by their ID in ascending order.
+2) To access the elements by their name in descending order.
+
+To do this you can do the following:
+
+1) Whenver you need a new access order, you create a copy of all the elements and then sort it in the required criteria.
+OR
+2) Keep them separately according to their soted criterias. Whenever there is an update in one set, you update
+(synchronize) the other sets. This always a lot of headache as you have to look after sync issues.
+
+The way out is to use BOOST Multi Index Container. It allows you to have more than one indexes on the underlying set of
+elements. Each index allows you to access the list according to a specified key. So this is ideal where more than one
+sorting criteria are relevant.
+
+namespace is boost::multi_index
+

@@ -1,0 +1,21 @@
+1) Reliable
+2) Guaranteed
+3) JMS based
+4) Low latency
+5) IPC shared memory
+
+1) Reliable (also called Direct Messaging by Solace): 
+Solace provides reliable (best-effort, must be TCP based) delivery of messages at low latency.
+
+2) Guaranteed: Solace uses patented approach of queuing messages in high-speed on board memory instead of disks to offer
+   persistence messaging with order's of magnitude much higher than software based solutions. For guaranteed messaging,
+   the hardware Solace appliance must be equipped with an ADB (Assured Delivery Blade).
+   
+3) JMS based: Provides JMS broker based messaging
+
+4) Low latency: Solace provides low latency of about 20 microseconds, with consistency that software can't touch.
+
+5) IPC shared memory: 
+When you are running multiple applications on the same server, Solace's IPC shared memory based messaging offers average
+latency under 400 nanoseconds.
+

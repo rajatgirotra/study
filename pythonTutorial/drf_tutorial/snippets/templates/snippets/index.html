@@ -1,0 +1,107 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
+    <!-- bootstrap and jquery -->
+    <link rel="stylesheet" href="{% static 'snippets/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'snippets/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}" />
+
+    <script src="{% static 'snippets/jquery/3.1.1/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'snippets/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<!-- to create a bootstrap navbar, class "navbar" and "navbar-default" are the standard wrapping classes to use" -->
+<!-- use can use navbar-inverse instead of navbar-default to invert the colors -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+      <!-- navbar-header is used with div to specify a navbar-brand -->
+      <div class="navbar-header">
+          <!-- always prefer to use button for creating buttons. Buttons element is used to make images, text or any other think
+          clickable. This is the difference between button and input tag. Always specify type attribute for buttion tag -->
+          <!-- data-toggle="collapse" means you want something to be collapsable, but what?? that what is specified in the
+           data-target attribute. Most of the time what is nothing but the #id of another element -->
+          <!-- the div you want to hide/show must also have class="collapse" -->
+          <!-- data-toggle and data-target can be specified on <a> and <button> elements -->
+          <!-- navbar-toogle means that when the viewport becomes small enough, then the navbar will be replaced by a button
+          and when someone clicks on it, then hide/show whatever is specified in the data-target. If you dont specify navbar-toggle
+          the viewport will not display the button when screen size reduces. Also the button will be visible only when the
+           viewport size reduces. Otherwise, the button element will not be visible at all. -->
+          <!-- button type="button" means it is a clickable button, type="submit" means it will submit form data
+          type="reset" means it will reset form with initial values -->
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <!-- sr-only is a bootstrap class used to hide content from everyone except screen readers. There are technologies
+          for screen reading which can go wrong if they dont find a label for every input etc . But they are unnecessary for
+          pages rendered to be viewed by the naked eye. So yes we should use sr-only and not remove it.-->
+          <!-- read this in your free time: http://webaim.org/techniques/css/invisiblecontent/ or google sr-only stackoverflow -->
+        <span class="sr-only">Toggle navigation</span>
+          <!-- the span tag itself provides no visual change. It is used to provide/augment existing tags/elements with extra
+           information -->
+          <!-- The following 3 classes is what provides the 3 lines as a button when viewport size is small -->
+        <span class="icon-bar"></span> <!-- icon-bar is nothing but a very simple css class to display a line in a block Have a look in F12 developer tools -->
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+          <!-- navbar-brand is used to display a brand text or image at the top left by default -->
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+      <!-- navbar-collapse means that this div will collapse when viewport width is @grid-float-breakpoint or below -->
+      <!-- the collapseable content is hidden by default, add class="in" also to make the content visible by default -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <!-- Normally we create an ul with class="nav navbar-nav" to group all nav links, forms and other content -->
+        <!-- navbar-right is used to right align navigation links -->
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+        <!-- navbar-form is mandatory for proper vertical alignment in big viewports and collapsed behavior in narrow viewports -->
+      <form class="navbar-form navbar-left">
+          <!-- form-group just uses display: inline-block so that elements appear floating -->
+          <!-- you need to read more about display: inline-block, and css float property etc to correctly understand this.
+           Not difficult, but just read about all these in a separate tutorial.
+            Also form-group should always be used to group a label and its corresponding input element -->
+        <div class="form-group">
+            <!-- need to see what form-control is. Actually form-control is display: inline-block for wider viewports and
+             display: block for narrow viewports. Also form-control and navbar-form are same css. -->
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+              <!-- used to introduce a separator -->
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<h1>Use mark tag to <mark>mark</mark> text.</h1>
+</body>
+</html>

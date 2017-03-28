@@ -1,0 +1,3 @@
+ g++ -I /puma/prod/quickfix-1.14.4.patched/include -I /puma/prod/tbb/include -I /puma/prod/boost_1_47_0/include InitiatorApp.cpp main.cpp -L /puma/prod/quickfix-1.14.4.patched/lib -lquickfix -lboost_thread -lboost_date_time -lpthread -o initiatorApp
+ 
+  g++ -I /puma/prod/quickfix-1.14.4.patched/include -I /puma/prod/tbb/include -I /puma/prod/boost_1_47_0/include AcceptorApp.cpp main.cpp -L /puma/prod/quickfix-1.14.4.patched/lib -L /puma/prod/boost_1_47_0/lib -lquickfix  -lboost_date_time -lboost_thread -lpthread -o acceptorApp

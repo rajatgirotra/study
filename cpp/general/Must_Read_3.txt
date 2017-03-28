@@ -1,0 +1,17 @@
+According to the C++ standard, only two definitions of main() are portable:
+
+int main()
+{
+...
+}
+
+and
+
+int main (int argc, char* argv[])
+{
+...
+}
+
+where argv (the array of command-line arguments) might also be defined as char**. Note that the return type int is required because the implicit int is deprecated. You may, but are not required to, end main() with a return statement. Unlike C, C++ defines an implicit return 0;
+at the end of main(). This means that every program that leaves main() without a return statement is successful (any value other than 0 represents a kind of failure). Because of this, my examples in this book have no return statement at the end of main(). Note that some
+compilers might print a warning message regarding this or even handle it as error. Well, that's life before the standard.

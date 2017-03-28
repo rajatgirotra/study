@@ -1,0 +1,16 @@
+The MQI API Commands
+We'll discuss the parameters shortly
+
+1]  MQCONN/MQCONNX   -  Connect to a queue manager
+2]  MQDISC           -  Disconnect from queue manager
+3]  MQOPEN           -  Open a specific Queue or Topic
+4]  MQCLOSE          -  Close a queue or Topic
+5]  MQPUT            -  Put/Publish a message on the Queue
+6]  MQGET            -  Get/receive a publication from a queue.
+7]  MQPUT1           -  MQOPEN + MQPUT + MQCLOSE
+8]  MQSUB            -  Create a subscription
+9]  MQINQ            -  Inquire about the properties of an MQ Object
+10] MQSET            -  Set an attribute/property of an MQ Object
+11] MQBEGIN          -  Begin a unit of work.
+12] MQCMIT           -  Commit a unit of work
+13] MQBACK           -  Backout.

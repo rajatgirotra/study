@@ -1,0 +1,15 @@
+/*
+Different Lock Types in BOOST
+*/
+
+1] template class lock_guard - Very Simple class. The c'tor takes an object of the Lockable mutex and assumes ownership of that mutex. The c'tor also calls lock() on that mutex.
+The d'tor of this class calls unlock() on the mutex. So you dont have to explicitly call unlock().
+
+The advantage is that in the face of exception or normal function return the lock_guard() object will be destroyed automatically, calling unlock(), so your mutex will never be in an inconsistent state.
+
+See 5.cpp now. boost::mutex is an actual implementation of Lockable concept.
+
+lock_guard() has another c'tor that takes ownership of a lock which has already been taken using mutex.lock().
+lock_guard(Lockable& m, boost::adopt_lock_t);
+
+Please see 6.cpp which is a small variation of 5.cpp 

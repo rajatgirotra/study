@@ -1,0 +1,78 @@
+Given a list of exchange rates , between several currencies .
+Find out if it is possible to profit while moving through currency , exchanging , and ending up at the same currency you started with .
+Use DFS : This will give you a list of depth first trees. For each  try find out if you can make a profit.
+
+To implement a queue by using stacks . - Use 2 stacks, one for pushing and one for poping.
+To implement a stack using  queues - enqueue in q1, when u need to dequeue, dequeue all but one items and enqueue in q2, then return the
+one item in q1, and switch the queues.
+The other way is enqueue, after that if there are n elements in the queue, then deque and enqueue n -1 elements. The problem with this
+is that you will be wasting too much memory in the start of the queue.
+
+
+questions about hash tables,
+linked lists and
+also behavioral questions like "Have you ever imagined what you would do in our company?"
+
+
+Given stock prices of n days. Find when to buy and when to sell stock in order to gain maximum profit.
+
+Given an array of size greater than 'x' and a range 0 to x . Find duplicate elements in the array. Hint. You can destroy the array but the solution should use O(1) space and O(n) time where n is the size of the array. Create an array of size x and prepare it just like you do in the first step of counting sort.
+This gives the solution.
+
+In what case would you use BST over a hash table.. When you want to associate an order to your elements.
+Find 'k'th smallest element in BST. What extra information would you require here. We will need to associate with each node its size.
+ie. the number of elements in the tree where the given node is the head. After that, follow the below algo. Very trivial.
+public BSTNodeSize findKth (int k, BSTNodeSize t) {
+if (t == null)
+throw new IllegalArgumentException();
+int lsize= 0; // size of left subtree
+if (t.left != null)
+lsize= ((BSTNodeSize)(t.left)).size;
+if (k = lsize + 1)
+return t;
+if (k <= lsize)
+return findKth(k, (BSTNodeSize)t.left);
+return findKth(k – lsize – 1, (BSTNodeSize)t.right);
+}
+
+
+Given a string which has a lot of spaces beween words . Remove these extra spaces in the string
+ eg: " I love New York " --> "I love New York"
+You get an input in the form [2 lowercase characters , A number] .. eg [aa,10] , [bd, 12].. Can be done with a hash table. Use linked list
+for collisions.
+Given a two letter input, find the last 10 numbers associated with the string..
+Design a data structure to implement this without using STL. Basically I was asked to design a hash function.
+Find the first distinct element in an array
+Ok, Create another array like we do in counting sort, but also associate with each array value, the index it is found at..
+for example, for input
+0 4 3 2 2 3 1 0
+u create an array
+[2,??]  [1, 6],  [2,??],  [2, ??],   [1, 1]
+Whereever you find one, lookup the minimum index and return the array value.
+Otherwise use a hashmap which will be O(n)
+C++ does not have byte datatype. How would you create this datatype.
+Lets say I have a code currently executing on my machine. I overwrite the code with a newer version. But the older version is still executing. Why do you think this is happening
+What do I know about Bloomberg?
+My projects
+technical questions: OOD, JVM, GC, C program architecture (heap, stack), static, final, etc.
+Questions I wanted to ask
+Make a product array , such that each index has product of all the elements in the array except itself:
+Easy: For the first element, calculate the product of all other elements and store it in a new array.
+For all other elements, take the last product calculated. divide by the value of the current index and multiply by the value of the previous index.
+Design to display latest socks. Top 10 ticker
+
+
+
+Design an effective data structure for a phone book, which allows searching by name and also searching by number.
+ rotate string by k elements to the right in place.
+give a situation that can cause deadlock, how to solve this
+2.Find the longest palindrome in a string. Just keep asking me if I could give faster solution. I end up giving a O(n^2) solution.
+such as find whether two trees is subtree of each other.
+Find longest palindrome in a given string in less than O(n*n) time".
+Linked List
+Given heads of two linked lists. Find if the two linked lists intersect. Solution should not use extra memory.
+Reverse linked list. Tested concepts of double pointers, pass by value and pass by reference.
+Insertion in BST
+Find the Cycle in the graph
+Difference between tree and graph
+Final round: get the median from N arrays (can't merge them first).  

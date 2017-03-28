@@ -1,0 +1,25 @@
+FIX Protocol is an industry driven messaging standard used by financial institutions for exchange of Trading related information & market information.
+For example: An asset management company may send an order to buy 10000 shares of IBM to a brokerage firm over its network using FIX protocol.
+FIX protocol is an electonic protocol, that means information is ezxchanged over an electronic network.
+
+Industry driven means it is maintained and developed by industry players. All the major industry players (banks, broker-dealers, exchanges, financial institutions and associations, institutional investors like mutual funds, wealth management firms etc, information technology providers & ECN's) got together and formed a company FIX Protocol Ltd to maintain and develop its specification.
+
+Advantages:
+
+1] Electronic protocol – streamlines and increases the efficiency of communication among industry players
+2] Wide support and software packages availability – easy to get on board
+3] Simple and platform independent protocol
+4] Designed by users and extensible –addresses all industry needs
+
+
+How FIX protocol is being used by different market players:
+
+1] Exchanges: Exchanges are using FIX protocol mainly for trading activities including receiving orders from ots trading members, to send the execution informatoin back to them and for other related messages. So for example a brokerage firm can send orders to NYSE in FIX protocol and gets execution information back in the same form.
+
+Remember Broker-dealer firms are also known as Sell Side Firms.
+Mutual Funds, Asset Management Firms, Hedge Funds etc are known as Buy side firms. 
+
+Usually the buy side firms communicate with sell side firms for pre-trade, trade and post trade messages.
+
+Since its an electronic protocol, this means all information is converted into a stream of bytes before it is transmitted.
+Fix protocol is a collection of fields. Each field is a self-describing data item.

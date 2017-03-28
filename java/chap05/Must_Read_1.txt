@@ -1,0 +1,59 @@
+When you compile a .java file you get an output file for each class in the
+.java file. Each output file has the name of a class in the .java file, but
+with an extension of .class. Thus you can end up with quite a few .class
+files from a small number of .java files. If youve programmed with a
+compiled language, you might be used to the compiler spitting out an
+intermediate form (usually an obj file) that is then packaged together
+with others of its kind using a linker (to create an executable file) or a
+librarian (to create a library). Thats not how Java works. A working
+program is a bunch of .class files, which can be packaged and
+compressed into a JAR file (using Javas jar archiver). The Java
+interpreter is responsible for finding, loading, and interpreting1 these
+files.
+
+A library is a group of these class files. Each file has one class that is
+public (youre not forced to have a public class, but its typical), so
+theres one component for each file. If you want to say that all these
+components (each in their own separate .java and .class files) belong
+together, thats where the package keyword comes in. Feedback
+When you say:
+
+package mypackage;
+
+at the beginning of a file (if you use a package statement, it must appear
+as the first noncomment in the file), youre stating that this compilation
+unit is part of a library named mypackage. Or, put another way, youre
+saying that the public class name within this compilation unit is under
+the umbrella of the name mypackage, and if anyone wants to use the
+name they must either fully specify the name or use the import keyword
+in combination with mypackage (using the choices given previously).
+Note that the convention for Java package names is to use all lowercase
+letters, even for intermediate words.
+
+For example, suppose the name of the file is MyClass.java. This means
+there can be one and only one public class in that file, and the name of
+that class must be MyClass (including the capitalization):
+
+package mypackage;
+public class MyClass {
+// . . .
+
+Now, if someone wants to use MyClass or, for that matter, any of the
+other public classes in mypackage, they must use the import keyword
+to make the name or names in mypackage available. The alternative is
+to give the fully qualified name:
+
+mypackage.MyClass m = new mypackage.MyClass();
+
+The import keyword can make this much cleaner:
+
+import mypackage.*;
+// . . .
+
+MyClass m = new MyClass();
+
+Its worth keeping in mind that what the package and import keywords
+allow you to do, as a library designer, is to divide up the single global
+name space so you wont have clashing names, no matter how many
+people get on the Internet and start writing classes in Java.
+

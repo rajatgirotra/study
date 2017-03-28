@@ -1,0 +1,53 @@
+The chrono library is used for manipulating times.
+Read the following slowly and carefully.
+
+template <class Rep, class Period = std::ratio<1>>
+class Duration
+{};
+
+The main class is duration which is used to represents durations (seconds, millisec, nanosecs, hours, minutes etc etc).
+This class maintains a count represented by the first template parameter Rep. Can be int, uint64_t, float, double etc. Basically
+any arithmetic type. Can be even user defined.
+
+The second parameter defines the unit of the count. It tells HOW MANY NUMBER OF SECONDS ARE THEIR IN EACH PERIOD, where PERIOD is the second argument.
+by default, Period, is ratio<1> which implies 1. This means that there is one second in each period. So each period represents one second.
+So if we have
+
+duration<int> d(10); // it will represent 10 seconds.
+
+duration <int, ratio<60,1>> d(100); //will represent 100 minutes.
+
+duration <int, ratio<1, 1000>>  d(200); //will represent 200 milliseconds
+
+std::chrono library defines the following convenience typedefs
+
+    /// nanoseconds
+    typedef duration<int64_t, std::nano> 	nanoseconds;
+    /// microseconds
+    typedef duration<int64_t, std::micro> 	microseconds;
+    /// milliseconds
+    typedef duration<int64_t, std::milli> 	milliseconds;
+    /// seconds
+    typedef duration<int64_t> 		seconds;
+    /// minutes
+    typedef duration<int, ratio< 60>> 	minutes;
+    /// hours
+    typedef duration<int, ratio<3600>> 	hours;
+
+The most important function in duration class is
+
+1) count()
+
+There are other static functions:
+1) zero - duration::zero() which initializes count to zero to start with, so the duration is 0.
+2) min() - the minimum value for that arithmetic type
+3) max() - the max value for the arithmetic type represented by the first template parameter.
+
+These functions make use of the duration_values helper class. Very straight forward and trivial.
+
+template <class Rep>
+struct duration_values {
+  static constexpr Rep zero() { return Rep(0); }
+  static constexpr Rep min() { return numeric_limits<Rep>::lowest(); }
+  static constexpr Rep max() { return numeric_limits<Rep>::max(); }
+}

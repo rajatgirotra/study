@@ -1,0 +1,15 @@
+#default settings for sessions
+[DEFAULT]
+FileLogPath=logs
+ConnectionType=acceptor
+
+[SESSION]
+BeginString=FIX.4.4
+SenderCompID=rgTestAcceptor
+TargetCompID=rgTestInitiator
+DataDictionary=./FIX44.xml
+StartTime=00:00:01
+EndTime=23:59:00
+FileStorePath=filestore
+SocketAcceptPort=55555
+#ConnectionType=initiator

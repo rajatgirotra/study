@@ -1,0 +1,4 @@
+The basic definition is taking a large order and slicing it up into a series of smaller orders, utilising historical and real-time tick data,
+for the end goal of trying to minimise the transaction cost (i.e. the trade off between temporary market impact and opportunity cost) of the order. It's trying to be as stealthy as possible in the market place in order to minimise information leakage."
+
+With the use of algorithms and powerful computers, it is possible to process thousands of buy and sell orders automatically, freeing up traders to concentrate on more intricate and unpredictable market moves. A bank's models use historical data - volume profiles, bid/offer spread profiles and volatility profiles.

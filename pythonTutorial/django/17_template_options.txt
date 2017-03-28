@@ -1,0 +1,19 @@
+
+Django Template Options
+-----------------------
+
+'autoescape' : default is True. This will automatically convert characters like <, > and other to &lt; &gt; etc in generated HTML code
+               Most often no need to change unless you are rendering NON-HTML. Can also turn it off in your template like this:
+               {% autoescape off %}
+               {{ body }}
+               {% autoescape %}
+
+'context_processors' : List of context_processors which are executed when you create a RequestContext object.
+
+'debug': True - When true, errors in template rendering display a detailed page showing errors.
+
+'loaders': List of loaders classes
+
+and some others.
+
+We are not discussing Jinja2 options for now.

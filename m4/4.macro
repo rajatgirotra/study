@@ -1,0 +1,9 @@
+# the define macro can also have quoted strings, quoting can be helpful as you'll later.
+define(NEWLINE, `line
+break')dnl
+a NEWLINE here
+
+# Without a matching backtick, the quote is output as such
+define(AUTHOR, W.Shakespeare)dnl
+`AUTHOR
+' is AUTHOR.'

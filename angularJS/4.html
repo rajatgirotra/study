@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <title>Global Namespaces</title>
+    <!-- Any variables you define at the top level will belong to the global namespace.
+         So if you have multiple js files included and if they have variables with the same name
+         at the top (global) level, one will override the other which is not a good thing.
+         So you should always consider encapsulating your variables inside a namespace -->
+    <meta charset="utf-8">
+
+    <!-- Include Bootstrap and Jquery -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <scripr src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Hello World</h1>
+        </div>
+      </div>
+    </div>
+
+    <script src="4_steve.js"></script>
+    <script src="4_tony.js"></script>
+  </body>
+</html>
+

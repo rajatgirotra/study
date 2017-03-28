@@ -1,0 +1,18 @@
+/*
+Please read GenericsAndUpcasting.java first
+*/
+JAVA Containers are available in two categories
+-----------------------------------------------
+
+1] Containers:
+1.a] List - holds elements in the order in which they were inserted.
+1.b] Set  - Cannot have duplicate elements and you should not rely on the order in which elements are inserted in a Set.
+1.c] Queue - a queue produces the elements in the order specified in the queuing discipline.
+
+2] Map - These are associative containers. Just like an ArrayList() is a container in which the index is an integer
+a Map is a container in which the key is some user defined object.
+
+
+/*
+Please read SimpleCollection.java next
+*/

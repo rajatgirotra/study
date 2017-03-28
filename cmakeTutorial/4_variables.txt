@@ -1,0 +1,18 @@
+Important cmake variables
+-------------------------
+
+CMAKE_BUILD_TYPE = Possible values are 'Debug', 'Release', 'RelWithDbgInfo', 'MinSizeRel'.
+There are many per-config properties and variables. For example, CMAKE_C_FLAGS_[DEBUG|RELEASE|RELWUTHDBGINFO|MINSIZEREL]
+If build type is Debug, CMAKE_C_FLAGS_DEBUG is appended to CMAKE_C_FLAGS
+
+CMAKE_BINARY_DIR = Top level of your binary tree
+CMAKE_CURRENT_BINARY_DIR = The directory where the currently built and generated targets will go.
+
+EXECUTABLE_OUTPUT_PATH = Location where all executables should go, instead of CMAKE_CURRENT_BINARY_DIR.
+This variable is now deprecated and instead set the "RUNTIME_OUTPUT_DIRECTORY" target property.
+
+LIBRARY_OUTPUT_PATH = Same as above for libraries. However instead use ARCHIVE_OUTPUT_DIRECTORY or LIBRARY_OUTPUT_DIRECTORY target properties.
+
+CMAKE_SOURCE_DIR = the top level directory containing CMakeLists.txt
+
+CMAKE_SHARED_LINKER_FLAGS = Additional compiler flags needed to be passed when building shared libraries.

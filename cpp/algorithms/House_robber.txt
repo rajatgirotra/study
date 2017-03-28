@@ -1,0 +1,46 @@
+You are a professional robber planning to rob houses along a street.
+Each house a certain amount of money stashed, the only constraint stopping you from robbing
+each of them is that adjacent houses have security system connected and it will automatically
+contact the police if two adjacent houses were broken into on the same night.
+
+Given a list of non-negative integers representing the amount of each house, determine the maximum amount
+of money you can rob tonight without alerting the police.
+
+This can be easily solved using dynamic programming in O(n) time.
+Let say the array is call arr[]. We create an array money[] to find how much money you can rob
+for i = 0 to n.
+
+Then
+money[0] = arr[0]
+money [1] = max(arr[0], arr[1]);
+money [x] = max(money[x-1], money[x-2]+arr[x])
+
+Solution.
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int rob_money(int arr[], int size)
+{
+    int money[size];
+    if(size == 0) return 0;
+    if(size == 1) return arr[0];
+    if(size == 2) return std::max(arr[0], arr[1]);
+
+    money[0] = arr[0]; money[1] = std::max(arr[0], arr[1]);
+    for(int i = 2; i < size; ++i)
+    {
+        money[i] = std::max(money[i-1], money[i-2] + arr[i]);
+    }
+
+    return money[size-1];
+}
+
+
+int main()
+{
+    int arr[] = {10,15,0,9,21,16,75,60};
+    cout << rob_money(arr, 8) << endl;
+}
+
+

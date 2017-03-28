@@ -1,0 +1,36 @@
+/*
+Please read ClassTypeCapture.java first
+*/
+
+Creating instances of Generic Types
+----------------------------------
+
+The attempt to create a new T() in Erased.java failed partly because of erasure, and partly because the compiler could not figure
+out that there exists a default(no-arg) c'tor. But for C++ templates, this is straightforward and easy.
+
+template <class T>
+class Foo 
+{
+	T x;
+	T* y;
+	Foo()
+	{
+		y = new T();
+	}
+}
+
+main()
+{
+	Foo<Bar> hi;
+	Foo<int> bye; //works for primitives as well.
+}
+
+But the same thing does not work in JAVA as JAVA does not have generic type information inside the generic code.
+So the approach we can take is to pass the Class object for the generic type in the c'tor of the Generic class and then use
+Class.newInstance() method.
+
+InstantiateGenericType.java does exactly this.
+Please read InstantiateGenericType.java next
+
+	
+	

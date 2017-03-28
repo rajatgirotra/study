@@ -1,0 +1,36 @@
+Fig is an application for managing/configuring your work environment and manage dependencies across a team of developers.
+https://github.com/mfoemmel/fig
+
+in Fig you have a remote server where you store package files (package.fig or application.fig) along with metadata information and other depedencies
+of your project.
+
+this files are then downloaded into the local repository on the developer machine based on FIG_HOME environment variables (default
+location is ~/.fighome)
+
+Other FIG related environment variables:
+
+1) FIG_REMOTE_URL: address of remote repository: example: ftp://devnas/Builds/Fig/repos
+2) FIG_HOME: the default location where package files and dependencies are downloaded. Default is ~/.fighome
+3) FIG_USERNAME and FIG_PASSWORD : Username and password used for ftping to download packages.
+   By Default fig uses anonymous FTP. If you need authentication, use the --login option; in which you'll need the variables
+   defined above.
+4) FIG_FTP_THREADS : Number of threads to use during FTP. Default is 16
+5) SHELL : When fig runs an external command it uses the value of shell as the external shell to use
+6) FIG_SVN_EXECUTABLE or FIG_GIT_EXECUTABLE: typically not needed to be set. Only set if svn/git you want to use is not in path.
+
+Each package is identified by a "Package Descriptor". A package descriptor is just a way to identify a package and has 
+a standard  naming convention.
+
+Package Descriptor : package_name/version_number:config_name
+Only alphanumerics, underscore, hyphens, period are allowed: Following pkg descriptors are valid.
+
+package --> package with no version and "default" config
+package/version
+package:config
+package/version:config
+:config  --> used inside a package definition file to refer to other config in the same file.
+foo.bar-/v1-2_:WHOOPIE.
+-3-/.2.:_1_
+3/2:1
+
+Lines starting with "#" are comment lines in package.fig files.

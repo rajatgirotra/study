@@ -1,0 +1,50 @@
+boost bimaps.
+
+Header file is:
+
+#include <boost/bimap.hpp>
+
+Boost bimaps are used to store BILATERAL relations between two sequences. Let say you have two sequences X and Y, where X and Y are types, then bimap stores the two sequences X and Y, and allows you to access them as a map<X, Y> or as a map<Y, X>; hence the bilateral relationship.
+
+So both X and Y can act as keys to retrieve information from a bimap. Bimaps use Boost Multi index (the heart of bimaps).
+
+How to declare bimaps.
+
+//Always good to use typedef's.
+typedef boost::bimap<int, std::string> bm_type;
+bm_type myBm;
+
+Bimap actually provides three different views:
+
+1) Left view: which is an std::map<X, Y>
+2) Right view: which is an std::map<Y, X>
+3) A relation view: which is an std::set< relation<X, Y> >
+
+myBm.left gives access to left view
+myBm.right gives access to right view
+myBm gives access to relation view.
+
+the left and right views are signature compatible with std::map and the relation view is signature compatible with std::set.
+A TYPE IS SIGNATURE-COMPATIBLE WITH OTHER TYPE IF IT HAS THE SAME SIGNATURE FOR FUNCTIONS AND METADATA.
+
+This means that for example
+
+template <typename MapType>
+void print(const MapType& x)
+{
+    typedef typename MapType::const_iterator Iter;
+    for(Iter iter = x.begin(); iter != x.end(); ++iter)
+    {
+        cout << iter->first << "   " << iter>second;
+    }
+}
+
+then
+
+print(myBm.left)
+or
+print(myBm.right)
+
+will print the details of the bimap.
+
+

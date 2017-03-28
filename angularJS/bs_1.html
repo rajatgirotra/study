@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>bootstrap study</title>
+    <meta charset="utf-8" />
+
+    <!-- Links to bootstrap CDN and JQuery CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+
+    <!-- Latest jQuery -->
+    <script src="jquery-2.1.4.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <!-- Bootstrap buttons, main classes are btn, btn-primary, btn-secondary, btn-success, btn-warning, btn-danger, btn-link
+         classes for size are btn-lg, btn-md, btn-sm, btn-xs
+         Can be used with <button>, <a> or <input> tags
+         Lets see them in action
+      -->
+
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-secondary">Secondary</button>
+    <button type="button" class="btn btn-success">Success</button>
+    <button type="button" class="btn btn-warning">Warning</button>          
+    <button type="button" class="btn btn-danger">Danger</button>                           
+    <button type="button" class="btn btn-link">Link</button>
+
+    <br/></br/>
+    <!-- We also have buttons with only outline -->
+    <button type="button" class="btn btn-primary-outline">Primary Outline</button>
+    <button type="button" class="btn btn-secondary-outline">Secondary Outline</button>
+    <button type="button" class="btn btn-success-outline">Success Outline</button>
+    <button type="button" class="btn btn-warning-outline">Warning Outline</button>          
+    <button type="button" class="btn btn-danger-outline">Danger Outline</button>                           
+    <button type="button" class="btn btn-link-outline">Link Outline</button>
+
+    <br/><br/>
+    <!-- Now use with a and input tags -->
+    <a href="#" class="btn btn-danger">Danger Link</a>
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <input type="button" class="btn btn-success" value="Success Button" />
+
+    <br/><br/>
+    <!-- button sizes -->
+    <button type="button" class="btn btn-primary btn-lg">Large</button>
+    <button type="button" class="btn btn-secondary btn-md">Medium</button>
+    <button type="button" class="btn btn-primary btn-sm">Small</button>
+    <button type="button" class="btn btn-primary btn-xs">X-Small</button>
+
+    <br/><br/>
+    <!-- btn-block - Buttons which span the full width of their parent -->
+    <button type="button" class="btn btn-primary btn-block">Block Button</button>
+
+    <br/><br/>
+    <!-- button active and disable -->
+    <button type="button" class="btn btn-primary active" aria-pressed="true">Active Button</button>
+    <button type="button" class="btn btn-secondary" disabled>Disabled Button</button>
+    <!-- <a> tag does not support disabled property. So for <a> add a .disabled class instead -->
+    <a href="#" class="btn btn-link disabled">Disabled Link</a>
+   
+    <br/><br/>
+    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Primary</button>
+
+    <!-- You can also create a btn-group and use data-toggle="buttons" and add checkboxes and radio buttons to thr group to toggling in their respective styles -->
+    <!-- see bootstrap doc for more details -->
+  </body>
+</html>
+

@@ -1,0 +1,22 @@
+Please read Starting_FIX_application.txt first
+
+Very easy. Just use any of the overloaded sendToTarget functions defined in the Session class.
+These are static and public so no need to create an object of the Session class.
+
+  //Use this when the message already contains BeginString, SenderCompID, and a TargetCompID
+  static bool sendToTarget( Message& message, const std::string& qualifier = "" ) throw( SessionNotFound );
+  
+  //Send the message based on the session ID.
+  static bool sendToTarget( Message& message, const SessionID& sessionID ) throw( SessionNotFound );
+  
+  //Append the sender, target compid before sending
+  static bool sendToTarget( Message&,
+                            const SenderCompID& senderCompID,
+                            const TargetCompID& targetCompID,
+                            const std::string& qualifier = "" ) throw( SessionNotFound );
+							
+  //Specify the target and sender compid's as strings.
+  static bool sendToTarget( Message& message,
+                            const std::string& senderCompID,
+                            const std::string& targetCompID,
+                            const std::string& qualifier = "" ) throw( SessionNotFound );

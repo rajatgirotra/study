@@ -1,0 +1,11 @@
+/*
+
+Different types of mutexes available and the Concept they implement
+
+boost::mutex                  - Lockable
+boost::timed_mutex            - TimedLockable
+boost::recursive_mutex        - Lockable
+boost::recursive_timed_mutex  - TimedLockable
+boost::shared_mutex           - UpgradeLockable 
+
+*/

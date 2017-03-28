@@ -1,0 +1,247 @@
+SUNSTUDIO COMPILER VERSION
+---------------------------
+CC -V
+CC: Sun C++ 5.9 SunOS_sparc Patch 124863-01 2007/07/25
+
+
+To compile a simple program
+---------------------------
+
+CC greetings.cpp
+./a.out
+
+or 
+CC -o greetings greetings.cpp
+
+Understand what is a template cache directory ??
+Beginning with the C++ 5.1 compiler, the compiler marks a template cache directory with a string that identifies the template cache’s version.
+
+This compiler does not use the cache by default. It only uses the cache if you specify "-instances=extern".
+If the compiler makes use of the cache, it checks the cache directory’s version and issues error messages whenever it encounters cache version problems.
+Something like:
+
+"Template Database at ./SunWS_cache is incompatible with this compiler"
+
+Compiling & Linking
+------------------
+
+CC file1.cc file2.cc file3.cc -o prgrm   --> In one step
+
+or
+
+CC -c file.cc
+CC -o program file1.o file2.o file3.o  --> In two steps. 
+The -c options tells the compiler only to compile & not link.
+
+If you do compile and link in separate steps, consistent compiling and linking is critical when using the following compiler options:
+-B  -compat -fast -g -g0 -library -misalign -mt -p -xa -xarch -xcg92 and -xcg89 -xipo -xpagesize -xpg -xprofile -xtarget
+If you compile any subprogram using any of these options, be sure to link using the same option as well.
+
+The Compiler provides a -verbose=v[,v1...] option to print extra information while compiling
+For eg:
+
+-verbose=version will print the version number of all executables that the compiler invokes.
+-verbose=diags will print extra information
+-verbose=template will print template specific events.
+
+Also any arguments that are not recognised by the compiler are passed on to the linker (ld).
+1] If any of those arguments are options (i.e. preceeded by a dash or plus sign), the compiler will emit a warning message
+2] If any of those arguments are non-optons(i.e. NOT preceeded by a dash or plus sign), no warning is emitted, & the argument is passed on to the linker.
+If the linker does not recognize them, they generate linker error messages
+
+The C++ compiler package consists of a 
+
+1) front end		-- ccfe,
+2) optimizer		-- iropt,
+3) code generator	-- cg,
+4) assembler		-- fbe,
+5) template prelinker	-- CClink,
+6) link editor		-- ld.
+
+The CC command invokes each of these components or more depending on the command line options that you specify on the 
+automatically unless you use command-line options to specify otherwise.
+
+Pragmas
+--------
+A pragma is a compiler directive that allows you to provide additional information to the compiler. This information can change compilation details that are not 
+otherwise under your control. For example, the "pack" pragma affects the layout of data within a structure. Compiler pragmas are also called directives.
+The preprocessor keyword pragma is part of the C++ standard, but the form, content, and meaning of pragmas is different for every compiler.
+No pragmas are defined by the C++ standard.
+In general you should not use pragrams as they are not portable.
+
+Using CCFLAGS
+------------
+
+You can export the CCFLAGS environment variable to hold the list of compiler options & then later use
+CC $CCFLAGS filename.cpp
+to compile the file.
+Good thing is that if you use make utility to invoke the implicit rule to compile a program using the CC compiler, the CCFLAGS variable is also implied.
+
+General Guidelines for the C++ compiler options:
+------------------------------------------------
+
+1) The -lfoo option links with library libfoo.a (or libfoo.so). It is always safer to put -lfoo after the source and object files to ensure the order in which libraries 
+are searched.
+
+2) In general, processing of the compiler options is from left to right (with the exception that -U options are processed after all -D options), 
+allowing selective overriding of macro options (options that include other options). This rule does not apply to linker options.
+
+3) The -features, -I, -l, -L, -library, -pti, -R, -staticlib, -U, -verbose, and -xprefetch options accumulate, they do not override.
+
+4) The -D option accumulates, However, multiple -D options for the same name override each other.
+
+
+Some Useful Compiler options
+----------------------------
+
+-g	:	Compiles for use with the debugger.
+-KPIC	:	Produces position-independent code.
+-Kpic	:	Produces position-independent code.
+-mt	:	Compiles and links for multithreaded code.
++w	:	Identifies code that might have unintended consequences.
++w2	:	Emits all the warnings emitted by +w plus warnings about technical violations that are probably harmless, but that might reduce the
+		maximum portability of your program.
+-z arg	:	Linker option
+
+-m32	:
+-m64	:	Specifies the memory model for the compiled binary object.
+		Use -m32 to create 32-bit executables and shared libraries. Use -m64 to create 64-bit executables and shared libraries.
+		The ILP32 memory model means that int, long, pointers will all have 4 bytes each. 
+		The LP64 memory model has 8 byte long & pointer types.
++d	:	Does not expand C++ inline functions. i.e. do not actually inline functions that are declared inline.
+		This option is turned on automatically when -g option is specified.
+-dryrun	:	Shows options passed by the driver to the compiler, but do not compile.
+-E	:	Only run the preprocessor & do send the output to the screen. Do not compile.
+-g0	:	Same as -g, but does not disable inlining.
+-H	:	Print the names of the included file names.
+-keeptmp:	Do not delete the temporary files created during compilation.
+-P	:	Seems like same as -E, but writes the output to <filename.i>
+-s	:	Remove the symbol table from an executable, thereby preventing the ability to debug code.
+-temp=dir:	Use dir as the temporary directory to store intermediate files.
+-S	:	Compiles and generates only assembly code. This option causes the CC driver to compile the program and output an assembly source file, without 
+		assembling the program. The assembly source file is named with a .s suffix.
+-xM	:	Outputs a makefile like dependency. Just like the gcc -MM option
+-xM1	:	Same as above but ignores the standard libraries.
+
+Some Useful Linker options
+----------------------------
+
+-Bbinding	:	Requests symbolic, dynamic, or static library linking. This is used by the linker to decide which library (static or shared) should be used during
+			the linking phase.
+			-Bstatic - means to link with libfoo.a
+			-Bdynamic - means to link with libfoo.so. If libfoo.so is not found, then link with libfoo.a.
+			-Bsymbolic - means to look for a symbol in the shared file, even if that symbol is found elsewhere.
+			
+			By default -Bdynamic is assumed. Also many systems do not have a static version of the default libraries that are linked to an executable.
+			So the last -Bbinding should never be -Bstatic. It should always be -Bdynamic (note that no space is allowed between -B & the binding value)
+			
+			To link the C++ default libraries statically, use the "-staticlib" option instead.
+			Eg:
+			CC a.o -Bstatic -lfoo -Bdynamic - tells the linker to link libfoo.a and the shared versions of the default libraries.
+
+-d{y|n}		:	Allow or disallow use of shared libraries for the entire executable. Default is -dy.
+-G		:	To build a dynamic shared library instead of an executable file. To build a dynamic shared library you must ensure that all the object files are
+			built with the -KPIC flag (i.e. all code is position independent). Then you can use the CC -G option. As an example:
+			CC -G -o libfoo.so -h libfoo.so -Kpic lsrc1.cc lsrc2.cc
+			tells the linked to create libfoo.so shared library based on the lsrc1 & lsrc2 objects which are compiled using the -Kpic flag.
+-hname		:	Assigns a name to the shared library.
+-i		:	tells ld to ignore the value LD_LIBRARY_PATH
+-Ldir		:	Adds dir to the list of directories to be searched for libraries.
+-lfoo		:	Adds library foo (libfoo.a or libfoo.so) to the list of linkers library search list.
+-library=l[,l1..]:	To force the inclusion of specific SUNSTUDIO provided libraries into compilation and linking. The following libraries are shipped with the SUNSTUDIO
+			compiler
+	1]. libCrun - This library contains the runtime support needed by the compiler in the standard mode (-compat=5). It provides support for new/delete, 
+			              exceptions, and RTTI.
+			              
+	2]. libCstd - This is the C++ standard library. In particular, it includes iostreams. If you have existing sources that use the classic iostreams and 
+	 	      you want to make use of the standard iostreams, you have to modify your sources to conform to the new interface. This is the library which
+	 	      includes the STL headers, standard I/O classes, string, numeric, exception classes. This library is available only for the default mode 
+	 	      (-compat=5) of the compiler and is not supported with use of the -compat[=4] option.
+		 	      
+	3]. libiostream - This is the classic iostreams library built with -compat=5. If you have existing sources that use the classic iostreams and you want to 
+			  compile these sources with the standard mode (-compat=5), you can use libiostream without modifying your sources. Use -library=iostream 
+			  to get this library. Much of the standard library depends on using standard iostreams. Using classic iostreams in the same program can 
+			  cause problems.
+					  
+	4]. libC - This is the library needed in compatibility mode (-compat=4). It contains the C++ runtime support as well as the classic iostreams.
+		
+	5]. libcomplex - This library provides complex arithmetic in compatibility mode (-compat=4). In the standard mode, the complex arithmetic functionality is 
+	                 available in libCstd.
+			                 
+	6]. libstlport
+	    libstlport_dbg - This is the STLport implementation of the C++ standard library. You can use this library instead of the default libCstd by 
+		             specifying the option -library=stlport4. However, you cannot use libstlport and libCstd in the same program. You must compile
+			     and link everything, including imported libraries, using one or the other exclusively. One is the release & the other is the debug version.
+					     
+	7]. librwtool,
+	    librwtool_dbg - This is a C++ foundation class library from RogueWave. Version 7 of this library is provided with this release. This library is 
+	                    available in classic-iostreams form (-library=rwtools7) and standard-iostreams form (-library=rwtools7_std). Both release & debug versions
+	                    are available.
+	                    
+	8]. libgc - This library is used in deployment mode or garbage collection mode. Simply linking with the libgc library automatically and permanently fixes a 
+	            program’s memory leaks. When you link your program with the libgc library, you can program without calling free or delete while otherwise programming
+	            normally. The garbage collection library has a dependency on the dynamic load library so specify -lgc and -ldl when you link your program.
+			            
+	9]. libdemangle - This library is used for demangling C++ mangled names.
+	
+Some of these libraries are automatically linked:
+1] In standard mode        : -lCstd, -lCrun, -lm, -lc
+2] In compat mode (-compat): -lC, -lm, -lc
+
+The following table should be easily understandable:
+
+Library                                 Compilation Mode                      Option
+Classic iostream                           -compat=4                        None needed
+                                           -compat=5                        -library=iostream
+                                           
+complex                                    -compat=4                        -library=complex
+                                           -compat=5                        None needed
+                                           
+Tools.h++ version 7                        -compat=4                        -library=rwtools7
+                                           -compat=5                        -library=rwtools7_std
+                                                                            -library=rwtools7,iostream
+                                                                            
+Tools.h++ version 7 debug                  -compat=4                        -library=rwtools7_dbg
+                                           -compat=5                        -library=rwtools7_std_dbg
+                                                                            -library=rwtools7_dbg,iostream
+
+Garbage collection                         -compat=4                        -library=gc
+                                           -compat=5                        -library=gc
+
+STLport version 4                          -compat=5                        -library=stlport4
+STLport version 4 debug                    -compat=5                        -library=stlport4_dbg
+
+
+-mt		:	Compiles & links for multithreaded code.
+-norunpath	:	It is possible to embed the directory paths of the shared libraries inside the executable using the -R option. These paths are then searched by the
+			run-time linker at run-time. The -norunpath disables the embedding of directory paths in the executable. It is mostly used for building customer
+			releases as each customer might have placed the shared library in a different location.
+			
+-Rpathname[:pathname]	:	Builds a dynamic library search path into the executable files. If this option is used LD_LIBRARY_PATH is ignored.
+-staticlib=l[,l...]	:	Specifies which SUNSTUDIO provided C++ libraries are to be linked statically. For example:
+				The following command links the libgc library statically.
+					CC test.cc -library=gc -staticlib=gc
+				
+				The following command compiles test.cc in compatibility mode and links libC statically.
+				Because libC is linked by default in compatibility mode, you are not required to specify this library using the -library option.
+					CC test.cc -compat=4 -staticlib=libC
+				
+				The -staticlib option only works for the C++ libraries that are selected explicitly with the -xia option, the -xlang option, and 
+				the -library option, in addition to the C++ libraries that are selected implicitly by default. In compatibility mode (-compat=[4]), 
+				libC is selected by default. In standard mode (the default mode), Cstd and Crun are selected by default.
+					
+
+-xar			:	Creteas archive libraries. Just like the ar command in gcc.
+				Example:
+				CC -c foo.cpp
+				CC -xar -o libfoo.a foo.o
+				CC -o program main.cpp -L. -Bstatic -lfoo -Bdynamic
+				
+-xnolib			:	Disables linking with the default system libraries. If this option is present, the -library option is ignored. If you specify -xnolib, 
+				CC links only those libraries that are specified explicitly with the -l option on the command line.
+				
+				
+Some Useful Template Options
+----------------------------
+
+

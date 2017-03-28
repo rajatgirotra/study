@@ -1,0 +1,14 @@
+Initialization of Constant Static Members
+
+It is now possible to initialize integral constant static members inside the class structure. This is
+useful when the constant is used in the class structure after the initialization. For example:
+
+class MyClass {
+static const int num = 100;
+int elems[num];
+...
+};
+
+Note that you still have to to define space for a constant static member that is initialized within a class definition:
+
+const int MyClass::num; // no initialization here

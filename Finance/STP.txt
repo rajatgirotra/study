@@ -1,0 +1,19 @@
+﻿Definition of 'Straight Through Processing - STP'
+An initiative used by companies in the financial world to optimize the speed at which transactions are processed. This is performed by allowing information that has been electronically entered to be transfered from one party to another in the settlement process without manually re-entering the same pieces of information repeatedly over the entire sequence of events.
+
+Straight-through Processing ("STP") is a mechanism that automates the end-to-end processing of transactions of the financial instruments. It involves use of a single system to process or control all elements of the work-flow of a financial transaction, including what is commonly known as the Front, Middle, and Back office, and General Ledger. In other words, STP can be defined as electronically capturing and processing transactions in one pass, from the point of first ‘deal’ to final settlement.
+
+Straight-through processing (STP) enables the entire trade process for capital markets and payment transactions to be conducted electronically without the need for re-keying or manual intervention
+
+Currently, the entire trade lifecycle, from initiation to settlement, is a complex mix of manual processes, taking several days. For example, equity transactions are commonly referred to as T+3 processing, as it usually takes three business days from the "Trade" being executed to the trade being settled.
+
+In the traditional method, each and every transaction involves costly multiple data re-entry from paper documents and other sources which are susceptible to errors, discrepancies, delays and possible fraud. Further, the traditional means and methods of capturing and processing of information such as phone, fax, email etc. requires human intervention which slows the entire cycle, introduces errors and delayed settlement.
+
+
+Advantages:
+
+1] Usage of STP enables orders to be processed, confirmed, cleared and settled in a shorter time period, more cost effectively and with fewer errors. Financial companies view STP as at least providing 'same-day' settlement or faster, ideally minutes or even seconds. While presently only a concept that many are working toward, STP represents a major shift from present-day T+3 trading to same-day settlement.
+
+2] The goal of STP is to minimise settlement risk for the execution of a trade and its settlement and clearing to occur simultaneously. This is because a shortening of transaction-related processing time will increase the probability that a contract or an agreement is settled on time.
+
+3] Apart from compressing the clearing and settlement time, STP also provides a flexible, cost-effective infrastructure, which enables e-business expansion through real-time processing and access to enterprise data. STP also streamlines back-office activities, leading to fewer failures, lower risks and drastically reduces costs  per transaction.

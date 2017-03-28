@@ -1,0 +1,17 @@
+m4 is a macro language. This means that you can define macros like
+
+define(AUTHOR, William Shakespeare)
+and then you can specify some text or file as input to m4. m4 will then replace or substitue occurrences of "AUTHOR" with "William Shakespeare"
+
+We'll study other things as we go along
+
+define() above is really a builtin macro, also called an m4 builtin. You can define the macro along with the text that is input to m4. A macro() by itself evaulates to an empty string, so nothing is output, however a new line is ouput after the macro() definition is read.
+
+Eg: m4 1.macro
+
+will output
+<new_line>
+Hamlet was written by W.Shakespeare<new_line>
+
+To not output new line, write "dnl" after defining the macro. See 2.macro
+some_macro()dnl  --> meaning delete new line

@@ -1,0 +1,21 @@
+The aim of any messaging middleware is:
+
+1) Sharing of information (data)
+
+Typically large distributed applications can have unprecedented volumes of data. A messaging middleware
+should provide RELIABLE sharing of data between applications, devices and people located locally or globally.
+
+Today's corporations and decision makers demand complete upto the second information. For this you'll need to collect
+data from increasing number and variety of sources; and distribute to a set of applications.
+
+So basically a messaging middleware needs to provide a strong infrastructure for real time data movement; which is essentially
+the key to capitalise on the trends that you see in the market. Using this real time information decision makers can do
+real time analytics.
+
+Other aims:
+1) Obviously high throughput
+2) Low latency
+3) Failure mechanisms (Auto or manual) - This helps make your applications fault tolerant and also
+prepare your application for disaster recovery.
+
+All the above will help you achieve robust distributed applications.

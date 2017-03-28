@@ -1,0 +1,65 @@
+1] Hash "#" is used for comments in CMakeLists.txt
+
+2] A cmake command consists of the command name, followed by arguments which are whitespace separated. command(args...)
+	eg: add_library(<library-name-1>  <library-name-2>) etc.
+3] cmake is case-insensitive. So COMMAND is same as command or Command or CoMmAnd etc...
+
+Lists & Strings
+The basic data type in CMake is a string. CMake also supports lists of strings. A list can be created with semi-colons as separators.
+Eg: the set command in cmake is used to create a list of strings.
+set (VAR a;b;c) is same as set (VAR a b c)
+
+
+Variables:
+Variables are referenced using the ${VAR} syntax. eg:
+	set (VAR a b c)
+	command (${VAR}) // or command(a b c)
+
+If you want to pass a list of strings as a single argument, then use double quotes: command("${VAR}") will invoke command with a single argument ("a b c")
+To access an environment variable, use $ENV{VAR}
+
+Flow Control
+a) if statement:
+	if(var)
+		some_command()
+	endif(var)
+
+b) looping
+	set (VAR a b c)	
+	foreach(f ${VAR})
+		message (${f})
+	endforeach(f)
+
+c) Macros and functions. Functions create a local scope for variables, and macros use the global scope.
+  Creating a macro
+	macro(hello MESSAGE) ## name of the macro is hello and MESSAGE is the parameter
+		message (${MESSAGE})
+	endmacro(hello)
+
+  ## Calling a macro
+   hello ("Hello World")
+
+  Creating a function hello
+	function(hello MESSAGE)
+		message(${MESSAGE})
+	endfunction(hello)
+
+
+
+Quotes and Strings
+Create a string literal by enclosing it in double quotes. Strings can be multi-line strings and have embedded newlines in them. Eg:
+  set (MY_STRING "This is a string with a 
+	newline in
+	it")
+
+Escaping using backslash
+	set(VAR "
+		hello
+		world")
+
+	message( "\${VAR} = ${VAR}") prints
+
+	${VAR} = 
+		hello
+		world
+

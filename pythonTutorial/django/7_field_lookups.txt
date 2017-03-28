@@ -1,0 +1,33 @@
+>__exact,__iexact
+__startswith, __istartswith
+__endswith, __iendswith
+__contains, __icontains
+__in=[],
+
+>>> Entries.objects.filter(id__in=[1,2,3])  # specifying literal values
+
+inner_qs = Blogs.objects.filter(name__contains='Cheddar')
+entries = Entry.objects.filter(blog__in=inner_qs)  # you have not specified literal values, you can also provide a querySet. Djando will dynamically evalue it when "entries" is evaluated.
+
+>>> entries = Entries.objects.filter(name__contains='Ch').values('name')  # ie from the query set, extract only the "name" column
+
+__gt, __gte
+__lt, __lte
+__range=(begin, end) # specify a tuple
+
+# following field lookups work with DateField only
+__date=datetime.date(2005,1,1)  
+__year=2006 # year = 2006
+__year__gt=2006 # year greater than 2006
+__month
+__day
+__week_day
+__hour
+__minute
+__second
+
+
+__isnull=True or __isnull=False
+__regex = r'<some_regex>', __iregex for case-insensitive regex search
+
+

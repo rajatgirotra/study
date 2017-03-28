@@ -1,0 +1,23 @@
+STP brokers or Straight Through Processing brokers, is the name given to brokers that, when upon receipt of a client order, will pass on the orders directly to their liquidity provider. Liquidity providers can include a Bank, a Hedge Fund, Investment corporations or another broker and as such no intermediary in the order will be involved – in other words the STP broker will not be filtering the orders through a Dealing Desk. The absence of a Dealing Desk intervention is what makes the broker’s electronic trading platform STP.
+
+With the absence of such an intermediary process (dealing desk) the STP broker will be able to process its client’s orders without any delay and in addition the STP broker will not send re-quotes to its clients something that most investors will regard as a huge advantage, as the STP broker in effect will allow its clients to trade during the release times of financial news without any restrictions.
+
+STP brokers benefit from having several liquidity providers as an increase in the number of providers in the system means the better the fills for the client. A large number of STP brokers will use banks, which trade on the Interbank market (the top-level foreign exchange market where banks exchange different currencies) as their liquidity providers.
+
+REASONS WHY BROKERS CHOOSE TO BE STP FOREX BROKERS
+
+In addition to the fact that most traders prefer an STP broker, for the fact that a Client’s losses are not a brokers profit and as such it is in the Brokers interest for the Client to make profitable trades as opposed to losing ones, a broker with an STP process very often implies that the broker has No Dealing Desk (NDD) and subsequently has less expenses through its staff salaries.
+
+An STP Forex broker is instead compensated through a markup on the spread it obtains from its liquidity provider and/or commissions imposed for each trade. As most liquidity providers of STP brokers are banks on the Interbank market, the majority of which offer fixed spreads and are market makers, this allows the STP broker to provide both fixed and/or variable spreads to its clients.
+
+Each time a client trades through an STP platform, the STP broker will always make a profit. As STP brokers do not trade against clients orders, they add a small markup to the spread they receive from their provider when quoting a bid/ask rate. The STP broker will apply this markup by a certain amount of fractional pips to the bid and ask price it receives from its best bid/ask liquidity provider before passing the rates onto the client via its electronic platform.
+
+As the client places the order through the STP broker’s platform, the orders are sent directly at the lower/higher rate (depending if it is a bid/ask offer) to the liquidity provider and as such the STP broker executes the same orders as the client at a slightly better price subsequent to the markup.
+
+REASONS WHY TRADERS CHOOSE A STP FOREX BROKER
+
+Clients often choose to execute their trades with an STP broker as it often implies No Dealing Desk, which in turn means that the broker is more transparent with the clients Trades as the client is in fact entering trades into a true market instead of an artificial market that may be created by a market maker. Client’s trades obtain better and faster fills through an STP broker.
+
+The better and faster fills are obtained directly from the fact that there are usually many competitive market bids and offers coming via the STP broker’s liquidity provider, which provide for more liquidity within the market and in turn this implies lower and lower obtainable execution prices for the client.
+
+Client transactions with an STP broker means anonymity for the client as there is no Dealing Desk monitoring the transactions of orders coming in from each client. The orders are instead executed automatically via the market network anonymously.

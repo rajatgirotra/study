@@ -1,0 +1,21 @@
+/*
+Please read Must_Read_1.txt first
+*/
+
+Assemblies
+An assembly is the logical unit that contains compiled code targeted at the .NET Framework. Assemblies are not covered in detail here
+because they are covered thoroughly later on, but we summarize the main points here.
+
+1.
+An assembly is completely self - describing and is a logical rather than a physical unit, which means that it can be stored across more
+than one file (indeed, dynamic assemblies are stored in memory, not on file at all). If an assembly is stored in more than one file,
+there will be one main file that contains the entry point and describes the other files in the assembly.
+
+2.
+Note that the same assembly structure is used for both executable code and library code. The only real difference is that an executable
+assembly contains a main program entry point, whereas a library assembly does not.
+
+3.
+An important characteristic of assemblies is that they contain metadata that describes the types and methods defined in the corresponding code.
+An assembly, however, also contains assembly metadata that describes the assembly itself. This assembly metadata, contained in an area known as
+the manifest, allows checks to be made on the version of the assembly, and on its integrity.

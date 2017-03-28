@@ -1,0 +1,7 @@
+We'll study how to create a debian package. We'll study many commands along the way.
+
+1) dpkg -s <packagName>
+Or
+aptitute show <packageName>
+Shows details of the package specified.
+

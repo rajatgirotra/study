@@ -1,0 +1,33 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block head_title %}
+        Deployment Server Dashboard
+        {% endblock head_title %}
+    </title>
+    <!-- bootstrap and jquery -->
+    <link rel="stylesheet" href="{% static 'snippets/bootstrap-3.3.7-dist/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'snippets/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css' %}" />
+
+    <script src="{% static 'snippets/jquery/3.1.1/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'snippets/bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+{% block standard_navbar %}
+    <nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="{% static 'snippets/images/ds' %}" alt="DeploymentServer" class="img-responsive" height="35" width="35" />
+
+        </div>
+    </div>
+
+    </nav>
+{% endblock standard_navbar %}
+</body>
+</html>

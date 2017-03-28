@@ -1,0 +1,56 @@
+## Python also acts as a mini calculator
+>>> 2+2
+4
+>>> # This is a comment
+... 2+2
+4
+>>> 2+2  # and a comment on the same line as code
+4
+>>> (50-5*6)/4
+5.0
+>>> 8/5 # Fractions aren't lost when dividing integers
+1.6
+
+>>> # Integer division returns the floor:
+... 7//3 --> Note this special operand (//)
+2
+>>> 7//-3
+-3
+
+>>> width = 10  --> Assigning Variables
+>>> height = 9
+>>> width * height
+90
+
+>>> x = y = z = 0
+>>> x
+0
+>>> y
+0
+>>> z
+0
+
+>>> n
+Will result in error because you did not define it anywhere earlier
+
+In interactive mode, the last printed expression is assigned the variable "_"
+i.e.
+>>> 89
+89
+>>> _
+89
+>>>
+>>> tax = 12.5 / 100
+>>> price = 100.50
+>>> price * tax
+12.5625
+>>> price + _
+113.0625
+>>> round(_, 2) --> Note this simple function , round(x, y) will round x to y decimal places.
+113.06
+>>> int(_)  --> Note this simple function int(x) will return the integer part
+113
+>>> float(_) --> Note this simple function float(x) will convert the number to a floating point value.
+113.0
+>>> 
+

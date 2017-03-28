@@ -1,0 +1,28 @@
+You must clearly understand that Erasure is not a language feature. It is a compromise in the implementation of Java
+generics, necessary because generics were not made part of the language from the beginning.
+
+If generics had been part of Java l.o, the feature would not have been implemented using erasure—it would have used reification
+to retain the type parameters as first-class entities, so you would have been able to use type based operations inside your 
+generic code.
+
+In an erasure-based implementation, generic types are treated as secondclass types that cannot be used in some important
+contexts. The generic types are present only during static type checking, after which every generic type in the program
+is erased by replacing it with a non-generic upper bound. For example, type annotations such as List<T> are erased to 
+List, and ordinary type variables are erased to Object unless a bound is specified.
+
+The core motivation for erasure is that it allows generified clients to be used with non-generified libraries,
+and vice versa. This is often called migration compatibility. 
+
+So Java generics not only must support backwards compatibility—existing code and class files are still legal, and 
+continue to mean what they meant before—but also must support migration compatibility, so that libraries can become 
+generic at their own pace, and when a library does become generic, it doesn’t break code and applications that depend 
+upon it. After deciding that this was the goal, the Java designers and the various groups working on the problem 
+decided that erasure was the only feasible solution.
+
+So the primary justification for erasure is the transition process from nongenerified code to generified code, and to 
+incorporate generics into the language without breaking existing libraries. Erasure allows existing nongeneric client 
+code to continue to be used without change, until clients are ready to rewrite code for generics.
+
+/*
+Please read Must_Read_4.txt next
+*/

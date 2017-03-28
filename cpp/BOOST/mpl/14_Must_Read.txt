@@ -1,0 +1,89 @@
+We'll now embark upon the journey of learning boost::mpl.
+
+What we have to do here is that we have to develop a C++ type system for dimension analysis.
+We know in physics we have so many different units like,
+
+1] Time
+2] Length
+3] Charge
+4] Mass
+5] Temperature
+6] Intensity
+7] Angle.. etc etc..
+
+We need to design a type system for these. ie. create types for these quantities and not only these quantities
+Let say we multiply mass * accelaration to get Force. So we need to support complex types like these also. and also 
+provide functions for manipulating these types.
+
+One approcah is that given the above 7 fundametal types, we create an array of seven integers, where the value of each
+index is nothing but the power of a given dimension.
+
+eg:
+   typedef int dimension[7];
+   const dimension mass   = {1, 0, 0, 0, 0, 0, 0};
+   const dimension length = {0, 1, 0, 0, 0, 0, 0};
+   const dimension time   = {0, 0, 1, 0, 0, 0, 0};
+    .. so on.
+
+   so force will be
+   const dimension force  = {1, 1, -2, 0, 0, 0, 0}; //Force is (mass * length)/second squared.
+
+   But we can't use this array in the C++ type system because they are all the same type.!! (ie array).
+
+   So we start using boost::mpl
+
+   mpl provides us a collection of sequence types. For example, we can hold the sequence of built-in signed integral
+types like this: vector<t1,t2,... tn>
+
+  So we can write, 
+
+#include <boost/mpl/vector.hpp>
+
+boost::mpl::vector<signed char, short, int, long> signed_types;
+
+
+   Next mpl also provides an
+
+   template <unsigned long N>
+   int_ {
+       typedef int type;
+       typedef int value_type;
+       static const int value = N;
+       ... and more
+    };
+ 
+   class template (read meta-function) that returns its value as a nested ::value.
+
+   #include <boost/mpl/int.hpp>
+   
+   static const int five = boost::mpl::int_<5>::value;
+
+
+But the question is that vector is a collection of type sequences. So how do we use types to represent a sequence of
+numbers like {1, 0, 0, 0, 0, 0, 0}?? The thing is that the type mpl::int_<N> actually wraps an integer value.
+
+This is how and what the mpl says:
+---------------------------------
+typedef int_<8> eight;
+BOOST_MPL_ASSERT(( is_same< eight::value_type, int > ));
+BOOST_MPL_ASSERT(( is_same< eight::type, eight > ));  /// NOTE THIS ONE CAREFULLY.
+BOOST_MPL_ASSERT(( is_same< next< eight >::type, int_<9> > ));
+BOOST_MPL_ASSERT(( is_same< prior< eight >::type, int_<7> > ));
+BOOST_MPL_ASSERT_RELATION( (eight::value), ==, 8 );
+assert( eight() == 8 );
+
+So now when we say
+    boost::mpl::vector<mpl::int_<1>, mpl::int_<0>, mpl::int_<0>,
+                       mpl::int_<0>,  mpl::int_<0>, mpl::int_<0>,
+                       mpl::int_<0> > mass;
+
+   IT ACTUALLY MEANS
+
+   boost::mpl::vector<int (value = 1), int (value = 0), int (value = 0), 
+                      int (value = 0), int (value = 0), int (value = 0), 
+                      int (value = 0)> mass;
+
+
+Before we go ahead understanding how to implement this dimensional analysis, let us understand
+some more of the MPL interface.
+    

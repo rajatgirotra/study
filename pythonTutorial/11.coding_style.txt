@@ -1,0 +1,10 @@
+1) Use 4 space indentation, no tabs please
+
+2) Always provide documentation.
+
+3) Wrap lines to 79 characters
+
+4) Use spaces around operators, operands etc.
+
+5) Always try to use the vastly famous UTF-8 encoding
+

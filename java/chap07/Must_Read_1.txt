@@ -1,0 +1,28 @@
+Abstract base classes in JAVA
+
+Java provides a mechanism for doing this called the abstract method1.
+This is a method that is incomplete; it has only a declaration and no
+method body. Here is the syntax for an abstract method declaration:
+
+abstract void f();
+
+A class containing abstract methods is called an abstract class. If a class
+contains one or more abstract methods, the class itself must be qualified
+as abstract. (Otherwise, the compiler gives you an error message.) Feedback
+If an abstract class is incomplete, what is the compiler supposed to do
+when someone tries to make an object of that class? It cannot safely create
+an object of an abstract class, so you get an error message from the
+compiler. This way the compiler ensures the purity of the abstract class,
+and you dont need to worry about misusing it. 
+
+If you inherit from an abstract class and you want to make objects of the
+new type, you must provide method definitions for all the abstract
+methods in the base class. If you dont (and you may choose not to), then
+the derived class is also abstract and the compiler will force you to qualify
+that class with the abstract keyword.
+
+Its possible to create a class as abstract without including any abstract
+methods. This is useful when youve got a class in which it doesnt make
+sense to have any abstract methods, and yet you want to prevent any
+instances of that class.
+

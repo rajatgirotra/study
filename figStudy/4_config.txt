@@ -1,0 +1,21 @@
+Note the following is global fig config explanation; not config explanation in package.fig files.
+Both are very different.
+
+Fig can be figured using three config files in order:
+
+1) command line specified config file using --figrc option
+2) ~/.figrc file
+3) _meta/figrc file in the remote repository.
+
+All config files are JSON format with only one JSON dictionary specifying all JSON objects.
+
+Options in 1) override those in 2) and those in 2) override those in 3).
+
+Some config options are:
+
+"default FIG_REMOTE_URL"
+"log configuration" - Path to Log4r (Log for ruby configuration file)
+"suppress warnings" - An array of string of warning messages to be turned off.
+"url whitelist" - An array of URL to allow for asset statements.
+"environment variables to include in comments in published packages" - An array of strings of variables to include as comments at the top
+of published package files.

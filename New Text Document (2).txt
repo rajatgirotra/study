@@ -1,0 +1,119 @@
+If you could be anyone in the world, who would you want to be?
+What would demotivate you from coming to work? A boring job, colleagues or a strict boss?
+What other jobs have you applied?
+What does bloomberg do?
+Why choose this position?
+Specific qns about your cv.
+Why choose Bloomberg and not IB?
+why bloomberg, what do you aspire to be.
+What would you do if your boss asks you to work overtime but your peers get to go home early
+
+1. There are consecutive numbers from 0 to 100, one is missing, find out which one? And improve the algorithm. How about using math method?
+2. Search and sort question and improve accuracy.
+3. Given you lots of left and right bracelets, how to test if the bracelets make pairs.
+4. Delete a node in linked list.
+I was then asked for a sorting algorithm and Big O. Then how I would sort the array if I knew the range of integers.
+Didn't know data structures/algorithms for interview and it hurt my interview...didn't receive an offer and I wasn't surprised.
+If given an integer 123, how do you reverse it to 321.
+
+Given a list of integers whose range is known, find the most frequent one.   View Answer
+Why do you want to be a programmer?   Answer Question
+User enters an integer, write this number in the reverse order (e.g. 123----> 321)   View Answer
+You're in a tunnel and 30 m. away from one exit. The total length of the tunnel is 100 m. There is a train outside of the tunnel that is coming towards you from the side that you're closer to. You don't know how far is it but you know its speed is twice of your speed. You want to survive, to which way you would start to run?
+1. Use a stack to implement a queue.
+2. How to decide if a binary tree is balanced.
+3. Find the most frequently number in a linked list of ints.
+Given a matrix where all columns and rows are sorted and an integer k. How would you find k in the matrix?
+explain and use the binary search method.
+find the unique numbers in an array.   View Answer
+add up all digit in a given integer 
+How would you go about extracting individual digits from, and reversing the order of a 6 digit number in any programming language you are familiar with. Write out code on blank piece of paper.
+Given prices for stocks on 10 days, write a program that would suggest the best day to buy and best day to sell. (The not brute force way)
+Given a sorted sequence of 1 million numbers, write a program to find all pairs of numbers that add to 10.
+how to calculate angle between hour handle and minute handle
+Check if two linked list intersect, if so, find the intersection point.
+ Travelling salesman problem
+
+
+
+
+Write a program to accept a nonempty string of alphanumeric characters. Define a “run” as a 
+
+consecutive sequence of a single character. For example, “aaaa” is a run of length 4. The program will 
+
+print the longest run in the given string. If there is no single longest run, then you may print any of 
+
+those runs whose length is at least as long as all other runs in the string. 
+
+Example input: a 
+
+Example output: a 
+
+Example input: aab 
+
+Example output: aa 
+
+Example input: abbbbbcc 
+
+Example output: bbbbb 
+
+Example input: aabbccdd 
+
+Example output: aa
+
+
+
+
+Write a program to accept a nonempty string of 0's and 1's as an argument. The program will print the 
+
+offsets of runs, each run consisting of all 0's or all 1's, where the runs are longer than 1. For example, if 
+
+given "0010011" it will print "0, 3, 5" on stdout.
+
+
+For an N-ary Tree find the nearest common ancestor. 
+Given: rootid and a function which finds and returns the immediate parent of a node.
+
+Given a set of integer dots (like (1,5)), how can you find a pair that has an integer mid-point? For example, (1,1) and (3,3) have an integer mid-point of (2,2), while (1,1) and (3,2) do not. Tell the complexity of your code. What if the dots are N-dimensional?
+
+Find first unique number in an unsorted array of 32 bit numbers without using hash tables or array of counters.
+
+There is a large data file with 10 digit numbers. You are allowed to use only 20 megabytes of memory. How would you sort them ?
+
+Find the longest repeating character in a sorted string
+
+An array contains the following elements [9,6,-3,1,7] and a value is equal to 4. Find a pair of numbers in the array that equal the sum.
+
+
+What is smart pointer? How do you implement? What happens with the following: p2 = p1; 
+What happens P3(p1) (copy const)?
+
+
+Given an integer N, print numbers from 1 to N in lexicographic order. 
+
+Details: To be implemented without using character conversion (or Strings). 
+
+Example: 
+N = 25 
+
+Print: 
+1 
+10 
+11 
+.. 
+19 
+2 
+20 
+21 
+.. 
+25 
+3 
+4 
+5 
+6 
+7 
+8 
+9 
+
+A simple solution using Strings (may not be acceptable):
+

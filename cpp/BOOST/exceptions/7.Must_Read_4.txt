@@ -1,0 +1,8 @@
+boost provides a template function "diagnostic_information(const boost::exception&)" in the boost namespace. It is used
+during debugging and logging because the output is not very clean. Basically it prints the following:
+
+1] Location of the origination of the exception (function name, line and file name). This is displayed if and only of
+you throw the exception using the BOOST_THROW_EXCEPTION macro. Otherwise you get an advise to use BOOST_THROW_EXCEPTION.
+2] The string representation of each error_info object contained in this boost::exception object
+3] The string from the std::exception what() function, if applicable.
+4] Platform specific diagnostic_information.

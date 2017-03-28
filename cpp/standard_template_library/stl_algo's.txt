@@ -1,0 +1,254 @@
+for_each()
+template<class InputIterator, class Function>
+  Function for_each(InputIterator first, InputIterator last, Function f)
+  {
+    for ( ; first!=last; ++first ) f(*first);
+    return f;
+  } 
+
+Parameters
+first, last 
+Input iterators to the initial and final positions in a sequence. The range used is [first,last), which contains all the elements between first and last, including the element pointed by first but not the element pointed by last. 
+
+f 
+Unary function taking an element in the range as argument. This can either be a pointer to a function or an object whose class overloads operator().
+Its return value, if any, is ignored. 
+--------------------------------------------------------------------------------------------------------------------------------------
+
+transform function template 
+
+template < class InputIterator, class OutputIterator, class UnaryOperator >
+  OutputIterator transform ( InputIterator first1, InputIterator last1,
+                             OutputIterator result, UnaryOperator op );
+
+template < class InputIterator1, class InputIterator2,
+           class OutputIterator, class BinaryOperator >
+  OutputIterator transform ( InputIterator1 first1, InputIterator1 last1,
+                             InputIterator2 first2, OutputIterator result,
+                             BinaryOperator binary_op ); <algorithm> 
+
+Apply function to range
+
+The first version applies op to all the elements in the input range ([first1,last1)) and stores each returned value in the range beginning at result.
+
+The second version uses as argument for each call to binary_op one element from the first input range ([first1,last1)) and one element from the second input range (beginning at first2).
+
+The behavior of this function template is equivalent to:
+template < class InputIterator, class OutputIterator, class UnaryOperator >
+  OutputIterator transform ( InputIterator first1, InputIterator last1,
+                             OutputIterator result, UnaryOperator op )
+{
+  while (first1 != last1)
+    *result++ = op(*first1++);  // or: *result++=binary_op(*first1++,*first2++);
+  return result;
+} 
+
+
+The function allows for the destination range to be the same as one of the input ranges to make transformations in place.
+
+
+
+Parameters
+first1, last1 
+Input iterators to the initial and final positions of the first sequence. The range used is [first1,last1), which contains all the elements between first1 and last1, including the element pointed by first1 but not the element pointed by last1. 
+
+first2 
+Input iterator to the initial position of the second range. The range includes as many elements as [first1,last1). 
+
+result 
+Output iterator to the initial position of the range where function results are stored. The rangeincludes as many elements as [first1,last1). 
+
+op 
+Unary function taking one element as argument, and returning some result value. This can either be a pointer to a function or an object whose class overloads operator(). 
+
+binary_op 
+Binary function taking two elements as argument (one of each of the two sequences), and returning some result value. This can either be a pointer to a function or an object whose class overloads operator(). 
+
+
+
+Return value
+An iterator pointing to the element that follows the last element written in the result sequence.
+
+
+Example
+// transform algorithm example
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int op_increase (int i) { return ++i; }
+int op_sum (int i, int j) { return i+j; }
+
+int main () {
+  vector<int> first;
+  vector<int> second;
+  vector<int>::iterator it;
+
+  // set some values:
+  for (int i=1; i<6; i++) first.push_back (i*10); //  first: 10 20 30 40 50
+
+  second.resize(first.size());     // allocate space
+  transform (first.begin(), first.end(), second.begin(), op_increase);
+                                                  // second: 11 21 31 41 51
+
+  transform (first.begin(), first.end(), second.begin(), first.begin(), op_sum);
+                                                  //  first: 21 41 61 81 101
+
+  cout << "first contains:";
+  for (it=first.begin(); it!=first.end(); ++it)
+    cout << " " << *it;
+
+  cout << endl;
+  return 0;
+} 
+
+
+Output:
+first contains: 21 41 61 81 101 
+
+Complexity
+Linear: Performs as many assignments and applications of op or binary_op as the number of elements in the range [first1,last1).
+--------------------------------------------------------------------------------------------------------------------------------------
+find_if
+function template 
+template <class InputIterator, class Predicate>
+   InputIterator find_if ( InputIterator first, InputIterator last, Predicate pred ); <algorithm> 
+
+Find element in range
+
+Returns an iterator to the first element in the range [first,last) for which applying pred to it, is true.
+
+The behavior of this function template is equivalent to:
+template<class InputIterator, class Predicate>
+  InputIterator find_if ( InputIterator first, InputIterator last, Predicate pred )
+  {
+    for ( ; first!=last ; first++ ) if ( pred(*first) ) break;
+    return first;
+  } 
+
+
+
+
+
+Parameters
+first, last 
+Input iterators to the initial and final positions in a sequence. The range used is [first,last), which contains all the elements between first and last, including the element pointed by first but not the element pointed by last. 
+pred 
+Unary predicate taking an element in the range as argument, and returning a value indicating the falsehood (with false, or a zero value) or truth (true, or non-zero) of some condition applied to it. This can either be a pointer to a function or an object whose class overloads operator(). 
+
+
+
+Return value
+An iterator to the first element in the range for which the application of pred to it does not return false (zero).
+If pred is false for all elements, the function returns last.
+
+
+Example
+// find_if example
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+bool IsOdd (int i) {
+  return ((i%2)==1);
+}
+
+int main () {
+  vector<int> myvector;
+  vector<int>::iterator it;
+
+  myvector.push_back(10);
+  myvector.push_back(25);
+  myvector.push_back(40);
+  myvector.push_back(55);
+
+  it = find_if (myvector.begin(), myvector.end(), IsOdd);
+  cout << "The first odd value is " << *it << endl;
+
+  return 0;
+} 
+
+
+Output:
+The first odd value is 25 
+--------------------------------------------------------------------------------------------------------------------------------------
+
+sort function template 
+template <class RandomAccessIterator>
+  void sort ( RandomAccessIterator first, RandomAccessIterator last );
+
+template <class RandomAccessIterator, class Compare>
+  void sort ( RandomAccessIterator first, RandomAccessIterator last, Compare comp ); <algorithm> 
+
+Sort elements in range
+
+Sorts the elements in the range [first,last) into ascending order.
+
+The elements are compared using operator< for the first version, and comp for the second.
+
+Elements that would compare equal to each other are not guaranteed to keep their original relative order.
+
+
+
+Parameters
+first, last 
+Random-Access iterators to the initial and final positions of the sequence to be sorted. The range used is [first,last), which contains all the elements between first and last, including the element pointed by first but not the element pointed by last. 
+comp 
+Comparison function object that, taking two values of the same type than those contained in the range, returns true if the first argument goes before the second argument in the specific strict weak ordering it defines, and false otherwise. 
+
+
+
+Return value
+none
+
+
+Example
+// sort algorithm example
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+bool myfunction (int i,int j) { return (i<j); }
+
+struct myclass {
+  bool operator() (int i,int j) { return (i<j);}
+} myobject;
+
+int main () {
+  int myints[] = {32,71,12,45,26,80,53,33};
+  vector<int> myvector (myints, myints+8);               // 32 71 12 45 26 80 53 33
+  vector<int>::iterator it;
+
+  // using default comparison (operator <):
+  sort (myvector.begin(), myvector.begin()+4);           //(12 32 45 71)26 80 53 33
+
+  // using function as comp
+  sort (myvector.begin()+4, myvector.end(), myfunction); // 12 32 45 71(26 33 53 80)
+
+  // using object as comp
+  sort (myvector.begin(), myvector.end(), myobject);     //(12 26 32 33 45 53 71 80)
+
+  // print out content:
+  cout << "myvector contains:";
+  for (it=myvector.begin(); it!=myvector.end(); ++it)
+    cout << " " << *it;
+
+  cout << endl;
+
+  return 0;
+} 
+
+
+Output:
+myvector contains: 12 26 32 33 45 53 71 80 
+
+
+
+Complexity
+Approximately N*logN comparisons on average (where N is last-first).
+In the worst case, up to N2, depending on specific sorting algorithm used by library implementation.
+
+--------------------------------------------------------------------------------------------------------------------------------------

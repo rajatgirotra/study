@@ -1,0 +1,14 @@
+[DEFAULT]
+FileLogPath=logs
+ConnectionType=initiator
+
+[SESSION]
+BeginString=FIX.4.4
+SenderCompID=rgTestInitiator
+TargetCompID=rgTestAcceptor
+StartTime=01:00:00
+EndTime=22:00:00
+SocketConnectPort=55555
+DataDictionary=FIX44.xml
+FileStorePath=filestore
+HeartBtInt=20

@@ -1,0 +1,13 @@
+The automatic sorting of elements in associative containers does not mean that those containers
+are especially designed for sorting elements. You can also sort the elements of a sequence
+container. The key advantage of automatic sorting is better performance when you search
+elements. In particular, you can always use a binary search, which results in logarithmic
+complexity rather than linear complexity. For example, this means that for a search in a collection
+of 1,000 elements you need, on average, only 10 instead of 500 comparisons (see Section 2.3).
+Thus, automatic sorting is only a (useful) "side effect" of the implementation of an associative
+container, designed to enable better performance.
+
+Strictly speaking, the particular
+implementation of any container is not defined inside the C++ standard library. However, the
+behavior and complexity specified by the standard do not leave much room for variation. So, in
+practice, the implementations differ only in minor details.

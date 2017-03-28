@@ -1,0 +1,12 @@
+I learn
+
+1) auto and decltype
+2) __cplusplus(199711 and 201103)
+3) nullptr and std::nullptr_t
+4) enums (strongly typed and strongly scoped)
+5) new types with fixed size: <cstdint>: std::int8_t, std::int16_t etc etc..
+6) Write a program that given an integer calculates the smallest type that fits that integer.
+7) LValue RValue - What is move semantics. Overloading copy c'tor, assignment operator and normal functions for move semantics.
+8) Benefits of using move semantics. Using std::move(T) to force move semantics. std::swap also uses this.
+9)
+

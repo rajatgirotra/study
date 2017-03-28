@@ -1,0 +1,5 @@
+include_directories(${PROTOBUF_INCLUDE_DIRS})
+protobuf_generate_cpp(ADDRESSBOOK_SRC_PROTO ADDRESSBOOK_HDR_PROTO addressbook.proto)
+protobuf_generate_python(ADDRESSBOOK_PY_PROTO addressbook.proto)
+set(ADDRESSBOOK_SRC_PROTO ${ADDRESSBOOK_SRC_PROTO} PARENT_SCOPE)
+add_custom_target(generated_code DEPENDS ${ADDRESSBOOK_SRC_PROTO} ${ADDRESSBOOK_HDR_PROTO} ${ADDRESSBOOK_PY_PROTO})

@@ -1,0 +1,54 @@
+By now you already know that a view is nothing but
+1) a function that takes an HttpRequest
+2) along with some positional and keyword arguments.
+3) it must return back a HttpResponse object.
+eg:
+
+from django.http import HttpRespose
+import datetime
+
+def current_datetime(request):
+    now = datetime.datetime.now()
+    html="<html><body><h1>Current time is: %s.</body></html>" % now
+    # should return html in HttpResponse
+    return HttpResponse(html)
+
+In django, an HttpResponse object has an embedded status code (by default its 200 meaning "OK"). There are many Http Response error codes, eg
+1) 404
+2) 403
+3) 400
+5) 500 and many more
+For many of the famous error codes, django defines classes derived from HttpResponse for ease of use like
+1) HttpResponseNotFound for 404 error.
+2) HttpResponseBadRequest
+3) HttpResponseForbidden
+4) HttpResponseNotAllowed etc etc
+So you can say "return HttpResponseNotFound(your own html)"
+
+For sending other errors codes, you can send the HttpResponse with the status correctly set.
+"return HttpResponse("your own html", status=404)" will send a "Page not found" error.
+
+As a further convenience for handling the most common 404 errors. Django goes one step further.
+1) Django defines an exception called Http404 exception
+You can raise an Http404 exception ("raise Http404("some error occurred")), and django will automatically send an HttpResponseNotFound(). You dont have to define your own HTML here. Django will use the standard (or user overridden) 404 page automatically and show the error string if DEBUG=TRUE
+
+2) For specifying your own custom 404 page, create a file 404.html at the top level of your template tree.
+This template will then be used instead of the default 404 page. (Only when DEBUG=FALSE)
+
+Ofcourse you also have a variable in "django.conf.urls" called handler404 which you can set to any view you like. This is used when a url remanes unresolved, then the corresponding view is called. By default, handler404 is tied to a defauult view called page_not_found(), which should be sufficient
+
+defaults.page_not_found(request, exception, template_name='404.html') --> This view is called
+1) when you raise an Http404 error or
+2) When a url is not resolved
+the page_not_found() function will pass two variables to the template:
+1) request_path, which is the URL that resulted in the error,
+2) and exception, which is a useful representation of the exception that triggered the view (e.g. containing any message passed to a specific Http404 instance).
+
+The 404 view is passed a RequestContext and will have access to variables supplied by your template context processors (e.g. MEDIA_URL).
+If DEBUG is set to True (in your settings module), then your 404 view will never be used, and your URLconf will be displayed instead, with some debug information.
+
+Django also provides a shortcut called get_object_or_404()
+from django.shortcuts import get_object_or_404() which you can use to request objects from DB. If object is not found,
+a 404 error is raised. Eg:
+
+instance = get_object_or_404(ModelClassName, id=1) # will raise 404 if id=1 does not exist in DB

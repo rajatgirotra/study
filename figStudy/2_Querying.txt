@@ -1,0 +1,49 @@
+Common fig commands
+
+fig --list-local
+While list all installed packages in the local fig repository (~/fighome)
+
+fig --list-remote 
+List all remote fig packages
+
+fig --list-configs
+Will list all the config in the package.fig file in the current directory
+
+fig --list-configs xmlbeans/2.4.0
+Will list all configs of the package specified from the local repository. If package does not exist, 
+use the --update or --update-if-missing (-m) option to download the package from the remote repository
+Downloaded packages are stored in 
+~/.fighome/packages/
+AND resources in 
+~/.fighome/runtime
+
+fig --list-dependencies
+Will list dependencies of the package.fig in the current directory.
+
+fig --list-dependencies xmlbeans/2.4.0
+Will list all dependencies of the package specified as fetched from the local repository. If package does not exist, 
+use the --update or --update-if-missing (-m) option to download the package from the remote repository
+
+fig --list-variables : Same as above.
+Will list all environment variables specified by the package.fig in the current directory
+
+fig --list-variables xmlbeans/2.4.0
+Will list all environment variables for the package specified as fetched from the local repository. If package does not exist, 
+use the --update or --update-if-missing (-m) option to download the package from the remote repository
+
+If you've had retrieves pull files into your current directory, you can ask which package they came from with the --source-package option.
+
+fig --dump-package-definition-text
+Will print the package.fig file from the current directory
+
+fig --dump-package-definition-text xmlbeans/2.4.0
+will print the package.fig file from the local repository.
+
+fig --get VARIABLE [package-descriptor]
+Will display the value of environment variables "VARIABLE" after the package settings are applied.
+If VARIABLE is not modified, the existing value is displayed if the variables exists.
+
+fig --json (--list-dependencies|--list-variables) package-descriptor
+Will convert the output to a JSON format (an easy format for data exchange).
+
+

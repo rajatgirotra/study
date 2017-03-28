@@ -1,0 +1,12 @@
+Next you can read the Solace documentation solace\Solace_Platform_HTML_Documentation_R70\index.html
+
+For now I have just given a cursory look to:
+
+1) what Direct and Guaranteed messaging is
+2) What are topics, queues, destinations, endpoints etc etc.
+3) Message VPN, Message VPN bridge
+4) Message formats, Headers and Data, How messaging and persistence works etc.
+I'll slowly return to these topics at a later point, as i start understanding the API.
+
+So I am going to delve into the developer guide straightway. 
+You can also refer the C API here: solace/Solace_Platform_HTML_Documentation_R70/API__Developer_Online_Reference_Documentation/c/index.html

@@ -1,0 +1,1 @@
+ps : to get a snapshot of the current processes.

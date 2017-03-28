@@ -1,0 +1,51 @@
+/* First file in this folder */
+
+1]
+With C# 2008, you can now declare a variable without specifying its type. The compiler will automatically deduse the type for you.
+Eg:
+	var x = 5;
+The compiler automatically deduces that x is an integer.
+
+2]
+Before C# 2008, this is how you declared a property.
+
+private int _myItem;
+public int MyItem
+{
+	get {
+		return myItem
+	}
+	set {
+		myItem = value;
+	}
+}
+
+But now it is much easier, just say 
+
+public int MyProperty { get; set; }
+Using this syntax will produce the same results as the lengthy example
+
+
+3]
+C# 2008 now allows you to assign values to an object ’ s properties at the moment the property is initialized. For instance,
+suppose you have the following object in your code:
+
+public class MyStructure
+{
+	public int MyProperty1 { get; set; }
+	public int MyProperty2 { get; set; }
+}
+
+Using C# 2008, you can instantiate the MyStructure object as follows:
+
+MyStructure myStructure = new MyStructure() { MyProperty1 = 5, MyProperty2 = 10 };
+
+This same capability allows you to declare many items of a collection at once:
+
+List<int> myInts = new List<int>() { 5, 10, 15, 20, 25 };
+
+In this case, all the numbers are added to the myInts object as if you used the Add() method.
+
+/*
+Please read Must_Read_2.txt next
+*/

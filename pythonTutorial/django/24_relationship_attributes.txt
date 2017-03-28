@@ -1,0 +1,23 @@
+When you create a foreign Key field in your model, you should also specify a related_name arguments.
+Example:
+
+class Plan(models.Model):
+    pass
+
+
+class Targets(models.Model):
+    plan = models.ForeignKey(models.ForeignKey('Plan'), on_delete=models.CASCADE, related_name='targets')
+
+What this does is that it creates a reverse relationship. ie, Plan model will also know that it is used as a foreign key in Targets.
+If you think about it, it is a good to have relationship. In google protobuf, you would represent such a thing as:
+
+message Plan {
+    repeated Target...
+}
+
+message Target {
+}
+
+ie. a Plan can have multiple targets. If i serialize a plan to json in protobuf, it will  contain a list of targets. But if i serialize a Plan in django using rest_framework, it will only serialize plan fields by default. But if a related_name exists, then Plan knows that it is used a a foreign key in Targets, so we can specify to the PlanSerializer that when it serializes it should also serialize its Targets along with it.
+
+Inspect Plan.target.<fields> in "python manage.py shell" and see that these fields are created only when related_name is used.    

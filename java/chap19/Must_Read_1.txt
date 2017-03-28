@@ -1,0 +1,52 @@
+/*
+Please read MoreBasicThreads.java first
+*/
+
+Lets understand Executor, Executors, & ExecutorService
+
+Executor - Simple interface which has a single method execute(Runnable r);
+Any class that implements the Executor interface must implement this method. The class may decide to either run the method in its own
+task, or to create a separate thread for each task. Eg:
+
+ class DirectExecutor implements Executor {
+     public void execute(Runnable r) {
+         r.run();
+     }
+ }
+ 
+ OR
+
+ class ThreadPerTaskExecutor implements Executor {
+     public void execute(Runnable r) {
+         new Thread(r).start();
+     }
+ }
+ 
+ So the Executor interface basically provides decoupling. It allows you, in a nutshell, to decouple task execution 
+ (the Runnable instance) from how  it is executed (the Executor implementation, which might execute the Runnable in 
+ the current Thread, in a new Thread, using an existing Thread from a pool, and what not).
+ 
+ ExecutorService - This is also an interface that extends the Executor interface and adds a number of (12-13) methods() of its own.
+ These methods provide a means to manage one or more asynchronous tasks.
+ You will probably never end up implementing this interface yourself, rather you'll always use one of the static methods() of Executors class
+ which returns you objects of classes implementing the ExecutorService interface.
+ 
+ Executors - This is just a helper class with static methods() to return objects of classes implementing the ExecutorService interface, the
+ ScheduledExecutorService interface, the ThreadFactory interface etc.
+ eg:
+ 1] Executors.newCachedThreadPool() returns an object of a class implementing the ExecutorService interface. The class' execute() method
+ dynamically creates a new thread for each task or uses an existing thread which is available.
+ 
+ 2] Executors.newFixedThreadPool(int numThreads) - returns an object of a class implementing the ExecutorService interface for which the 
+ number of threads are fixed and are created upfront. Consider using this in production code as you do the expensive thread creation
+ and initialisation upfront. This saves time because you aren’t constantly paying for thread creation overhead for every single task. 
+ Also, in an event-driven system, event handlers that require threads can be serviced as quickly as you want by simply fetching threads 
+ from the pool. 
+ 
+ 3] Executors.newSingleThreadExecutor() - This created only a single thread. If you assign more than one tasks, they'll get queued internally.
+ Tasks are guaranteed to execute sequentially, and no more than one task will be active at any given time. 
+ 
+ /*
+Please read CachedThreadPool.java next
+*/ 
+ 

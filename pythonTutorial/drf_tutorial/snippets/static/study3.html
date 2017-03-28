@@ -1,0 +1,62 @@
+<!-- The all important CSS float, clear and display:inline-block properties
+the float property tells if the element should float or not
+
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img {
+            /*position: relative;
+            top: 0px;
+            left: 1000px;*/
+
+            float: right;
+            margin: 0 0 10px 10px;
+        }
+    </style>
+
+</head>
+<body>
+
+<p>In this example, the image will float to the right in the paragraph, and the text in the paragraph will wrap around the image.</p>
+<p> Without any CSS applied. The text starts right after the image ends (on the same line)</p>
+
+<p>
+    <!-- by default img element is display: inline -->
+    <img src="w3css.gif" alt="W3Schools.com" width="100" height="140">
+    <!-- With img position:relative and top and left specified, the text always starts right after the static position of the image.
+    irrespective of the position value used in the css. Also the image overlays the text as it is rendered. -->
+
+    <!-- with float: right; the element floats in the right side and also the text wraps around and is image does not overlay
+    the text -->
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac. In at libero sed nunc venenatis imperdiet sed ornare turpis. Donec vitae dui eget tellus gravida venenatis. Integer fringilla congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis diam velit.
+
+</p>
+
+<!-- Now any other element which follows a floating element will also have its text wrapped around the floating element -->
+<!-- To prevent this you can either use too many linebreaks to get past the floating element, or use the clear property
+clear: right/left/both on the following elements so that the following elements start at a new line and do not wrap text around the floating element -->
+<!-- <br/><br/><br/> --> <!-- remove one br/ and see the text wrapping again -->
+<div style="clear: right;">Hello There Hello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello ThereHello There</div>
+</body>
+</html>
+
+<!-- the other way of avoiding wrapping of elements (other than using clear property) after a floating element is to use "overflow: auto" on the parent element
+containing the floating element. If we "style: overflow: auto" to the p element above the floating image will be fully contained
+in the p element, so no wrapping of following elements will occur -->
+
+<!-- The third way of the best way to solve this is to add a pseudo element after the floating element. This pseudo element
+will have a css property of clear: both which will solve your problem
+
+so add class="clearfix" to p element above and add the following css
+.clearfix::after {
+    content: ""; /* see css content property. Is used to insert dynamic content in HTML. */
+    clear: both;
+    display: table; /* ie treat the element like a table */
+}
+-->

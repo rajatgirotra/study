@@ -1,0 +1,52 @@
+<!-- About CSS Propeties
+Every HTML element by default has a display property which is either
+1) block (display: block;) which means that the element will always begin rendering from a new line
+and will occupy the whole row. Example: h1, div, li etc
+2) inline (display: inline;) which means that the element will always begin rendering from the location
+of the previous rendered element. Example: span, a
+
+CSS Margin - Margin defines the spacing of one element based on the neighbouring element of the page margins
+if no element is available. There is
+1) margin-top: defines the white space between this element and the element on the top of this element.
+2) margin-right: same as above for right
+3) margin-bottom: same as above for bottom
+4) margin-left: same as above for
+
+The easiest way to hide elements is to use the display property
+display: none;
+Actually visibility: hidden; also hides an element, but it leaves empty spaces where elements are
+hidden and that disturbs the layout of the page.
+
+CSS padding is very similar to css margin. Padding adds space inside the border of an element; whereas margin adds
+space outside.
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            display: inline;
+            border: 1px solid black;
+            margin: 100px 150px 100px 80px;
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+<br/><br/><br/><h1>Understanding CSS Margin</h1>
+<div>
+    The div element has a top margin of 100px, a right margin of 150px, a bottom margin of 100px and a left margin of 80px.
+</div>
+
+<div style="margin-left: 0px;">
+    The div element has a top margin of 100px, a right margin of 150px, a bottom margin of 100px and a left margin of 80px.
+</div>
+
+<a href="#" style="display: block; margin-bottom: 100px;">Link</a>
+<a href="#" style="display: block; margin-bottom: 100px;">Link</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+Please read Send_FIX_Messages_out.txt first
+
+
+You already know that the fromApp() will give you an incoming fix message.
+
+fromApp(const FIX::Message msg, const SessionID& sid)
+{
+    /*
+	 Strategy one.
+	 your application class derives from MessageCracker and you class crack(msg, sid)
+	 this will call the correct onMessage()
+    */
+}
+
+void onMessage(const FIX42::NewOrderSingle& msg, const SessionID& sid)	
+{
+    //Now multiple ways possible. For all of the standard fields defined in the
+	NewOrderSingle by the spec, QuickFix engine provides a get() method. eg:
+	
+	FieldBase& get(FIELD& field) const;
+	So you can do something like this:
+	FIX::ClearingAccount clearingAccount;
+    message.get(clearingAccount); //clearingAccount object will be populated with the correct value.
+}
+	
+//For retreivig any field from any message, you should use getField() method instead.
+This will throw a FieldNotFound exception if field is not defined for that message.
+
+Just remember that QuickFix defines :
+
+FIX::ClearingAccount which is a class derived from FieldBase...
+and FIX::FIELD::ClearingAccount which is just a const int equal to the tag value
+const int ClearingAccount = 440;
+
+Now getField() is also overloaded, so you can choose from many options available.
+
+//Here the tag value of the input parameter must be populated, as it is used to fetch the tag value.
+//return object is same as input parameter, so just use the input parameter after the call to get the tag value.
+1)  FieldBase& getField( FieldBase& field ) 
+FIX::FieldBase field(44, "");
+message.getField(field);
+
+//This is  used in case there is not FIX::Field class defined, let say for user defined fields..
+2) const std::string& getField( int field );
+std::string value;
+value = message.getField(44);
+or
+// retreive value with an enumeration, a little better
+message.getField(FIX::FIELD::Price);
+
+fromApp(const FIX::Message msg, const SessionID& sid)
+{
+	FIX::ClearingAccount clearingAccount;
+	message.getField(clearingAccount); // might throw.
+	
+}

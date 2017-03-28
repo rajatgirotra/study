@@ -1,0 +1,98 @@
+Uptil now, you have only seen TMP which calculate values of constants at compile time.
+But TMP's are not always arithmetic in nature. 
+
+TMP is used heavily in type computation as you'll see now.
+
+Conside the STL algorithm function: iter_swap() which swaps the values the two iterators point to.
+
+template <typename ForwardIterator1, typename ForwardIterator2>
+void iter_swap(ForwardIterator1 i1, ForwardIterator2 i2)
+{
+    T tmp = *i1;
+    *i1 = *i2;
+    *i2 = tmp;
+}
+
+Looks very trivial.. right? But if you think where the T came from?? The answer is yes: It is the value_type associated
+with ForwardIterator1.
+
+So the implementation is actually
+
+{
+    typename ForwardIterator1::value_type tmp = *i1;
+    *i1 = *i2;
+    *i2 = tmp;
+}
+
+The C++ standard requires to use the "typename" keyword whenever we use a dependent name. Like here value_type is
+dependent on the template parameter ForwardIterator1. It does not matter if value_type is a type or non-type. You must
+the typename keyword.
+
+Ok, now think what will happen if you want to use this function to change the values of fundamental types.
+Can you say:
+
+iter_swap(int* i1, int* i2) ??
+No.. because, the integral pointers do not have a nested value_type.
+
+typename int*::value_type is ERROR...
+
+So iter_swap() cannot be used with pointer types. which could be a big limitation. So what to do..??
+
+The writers of STL thought that OK, we'll introduce a new wrapper called iterator_traits<> which will define the
+value_type for a given Iterator type.
+
+So you have
+
+class iterator_traits<ForwardIterator1>
+{
+    typename typedef ForwardIterator1::value_type value_type;
+    .... and many other typedef's like reference, const_reference, etc etc..
+}
+
+and for integral/fundamental types, you define a specialisation
+
+class iterator_traits<int*>
+{
+    typedef int value_type;
+}
+
+and then you change the definition of the iter_swap as
+
+{
+    typename iterator_traits<ForwardIterator1>::value_type tmp = *i1;
+    *i1 = *i2;
+    *i2 = tmp;
+}
+   
+The most important feature of iterator_traits<> class is that it allows you to associate information with a type
+non-intrusively. ie, without many changes. What I am trying to say is that lets say your friend gives an iterator class
+which is nothing but an iterator to string
+
+namespace Puneet
+ {
+     SuperDuperIterator iterator; //nothing but a string iterator.
+ }
+
+then you can simply define an iterator_traits like this
+
+struct iterator_traits<Puneet::SuperDuperIterator>
+{
+    typedef string value_type;
+};
+
+and BINGO, you can use iter_swap with your friends iterator.
+
+At this point, you can probably see the anology between traits classes and normal functions.
+In traits classes, the parameters are the template partameters and the return types are the typedef's they define.
+
+Now the next point is that the above definition of iter_swap() is not sufficient for all cases. It can be very slow if
+your object is really big (coz you are making copies of the object) or for some other types. For example, let say you
+have a std::list< std::vector<string> > iterator, then the function will make a copy of the vector instead of using
+an already available fatser version the swap() function in the vector class. 
+
+So this is where we need metafunctions that tell you the type information of the parameter and based on that you can
+optimize your code.
+
+This is where the boost::type_traits library (moved to boost::tti from boost version 1.53 onwards) comes into use.
+It defines a lot of metafunctions that give you information on the types being used in templates.
+

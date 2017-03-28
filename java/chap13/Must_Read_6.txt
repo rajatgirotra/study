@@ -1,0 +1,19 @@
+/*
+Please read GenericArrayWithTypeToken.java first
+*/
+
+Bounds
+------
+
+Bound in JAVA generics do two things:
+
+1] They allow you to place constraints on what types can be used with your generic class.
+2] The second, more important one, is that they allow you to call methods of the bound types. (There can be 
+multiple bound types as you'll see)
+
+You can place a bound on you generic types by resuing the JAVA "extends" keyword.
+Note that "extends" in JAVA generics has a completely different meaning than what it means ordinarily.
+
+/*
+Please read BasicBounds.java next
+*/

@@ -1,0 +1,36 @@
+/* 
+Please read Store.java first
+*/
+
+How Generics are implemented
+----------------------------
+
+In JAVA generics are implemented using erasure. To understand what this means see ErasedTypeEquivalence.java.
+The true output of that program indicates that
+
+new ArrayList<String>().getClass() == new ArrayList<Integer>().getClass() == new ArrayList.getClass() == java.util.ArrayList
+
+The reason for that is: (Cautious very important line coming up)
+There’s no information about generic parameter types available inside generic code.
+That is; a generic method does not know what the type parameter actually is.
+
+According to the JDK documentation, Class.getTypeParameters( ) 
+"returns an array of TypeVariable objects that represent the type variables declared by the generic declaration..."
+
+public TypeVariable<Class<T>>[] getTypeParameters() --> from JDK 5 documentation.
+
+This seems to suggest that you might be able to find out what the parameter types are.
+However, if you run LostInformation.java, all you find out is that the identifiers that are used as the parameter place-holders are printed,
+which is not such an interesting piece of information. :-)
+
+This fact, which is especially frustrating if you’re coming from C++, is the most fundamental issue that you must deal with
+when working with Java generics.
+
+Java generics are implemented using erasure. This means that any specific type information is erased when you use a generic.
+Inside the generic, the only thing that you know is that you’re using an object. So List<String> and List<Integer> are,
+in fact, the same type at run time. Both forms are "erased" to their raw type, List.
+Understanding erasure and how you must deal with it will be one of the biggest hurdles you will face when learning Java generics.
+
+/*
+Please read ErasedTypeEquivalence.java next
+*/

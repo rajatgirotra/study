@@ -1,0 +1,21 @@
+Packet structure is very simple. This is the structure of the UDP data inside the UDP packet.
+
+1) Packet Sequence Number: Each packet has a sequence number, The sequence number is unique per channel.
+2) Sending Time (Nanos) : This nano comes from the matching engine clock.
+
+3) Repeating Messages:
+   a) Message size
+   b) Block Length
+   c) Template ID to use to decode
+   d) Schema Id to use to decode
+   e) Version
+   f) FIX Message.
+
+A VERY IMPORTANT NOTE:
+=====================
+
+CME only sends incremental book update. This means that if some-one sends an order 
+for Buy 50@9850, then this will result in a single 35=X messages which says "Add Bid Level 1 GEU5 50@9850".
+It is our CME library which maintains its own internal book and gives you the current state of the book via the OnMktQuote()
+or onMktTrade() functions.
+

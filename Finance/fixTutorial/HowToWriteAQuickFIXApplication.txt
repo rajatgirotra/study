@@ -1,0 +1,34 @@
+Please read fix_message_types.txt first
+
+1) Very simple, just derive from the FIX::Application class and implement the necessary interfaces. We'll do things along the way.
+The functions in this class are callbacks which are called as explained below:
+
+onCreate(const SessionID&) --> Called when a new session is created. A new session is created everytime you start your application. By default
+no one is connected to your session. However, you can still send fix messages to a session which is not connected. Later when your session gets
+connected to a counter-party, all fix messages will be delivered.
+
+onLogon(const SessionID&) --> Called when both counterparties have successfully exchanged logon messages and the session is active.
+
+onLogout(const Session&) --> Called when the session is disconnected. Either normal termination, or forced termination or some network issues.
+
+toAdmin(Message&, const SessionID&) --> Called when your fix engine is about to send out an admin message to a counterparty. 
+Note the Message is non-const, so you can change the admin message as you wish. Mostly used for logging purposes on what your fix engine is sending out.
+
+toApp(Message&, const SessionID&) throw (DoNotSend) --> Called when your fix engine is about to send out a business message to a counterparty. If
+your application for some reason does not want to send out the Message, you can throw a DoNotSend exception. For eg: Lets say you send an Order message,
+which gets dropped for some reason(network issue). Then your fix engine will try to resend it. But if the market has moved, you might not want to send it.
+In that case, just throw this exception. This will cause for FIX engine to instead send out a sequence reset message to synchronize the sequence numbers 
+on the session.
+
+fromApp(const Message&, const SessionID&) 
+throw (FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType) --> Called when the counter-party sends you a business message.
+
+fromAdmin(const Message&, const SessionID&) 
+throw (FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon) --> Called when the counter-party sends your fix engine an admin message.
+
+Look at in quickfix/include/Application.h
+
+You'll see that in addition to FIX::Application, you also have FIX::SynchronizedApplication and FIX::NullApplication.
+
+1) FIX::SynchronizedApplication - Uses a mutex so that all calls are synchronized.
+2) FIX::NullApplication - By Default, all the above functions have empty implementations. Can be used for quick test development.

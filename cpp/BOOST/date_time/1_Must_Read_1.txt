@@ -1,0 +1,27 @@
+
+BOOST provides a date_time library which can be used to play with dates and time.
+The classes reside under boost::posix_time  && boost::gregorian namespace. The important classes are ptime and time_duration and date, i.e.
+
+1] boost::posix_time::ptime
+2] boost::posix_time::time_duration
+3] boost::gregorian::date
+
+The header file is boost/date_time/posix_time/posix_time.hpp for ptime and time_duration.
+The header file is boost/date_time/gregorian/gregorian.hpp for date.
+
+Class ptime is dependent on gregorian::date for the interface to the date portion of a time point. Actually the c'tor for ptime is ptime(date, time_duration); 
+so it is dependent on date and time_duration.
+
+Note that the boost date_time library is not header only. You'll need to link with the library when compiling.
+
+Eg:  g++ 5.cpp  -lboost_date_time-mt
+
+There are other classes which are also important:
+
+1] gregorian::date_duration: A simple class used to perform arithmetic operations on gregorian::date.
+This class is typedef'ed to days in gregorian::date
+typedef gregorian::date_duration days;
+
+
+2] boost::gregorian date_period is another class which holds the difference of two date objects.
+

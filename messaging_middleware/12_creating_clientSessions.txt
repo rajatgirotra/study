@@ -1,0 +1,100 @@
+Each session in a Context identifies a unique TCP connection between the Solace appliance and your application.
+What all you need to create a session.
+1) Session Properties
+2) The Context which will encapsulate the session
+3) A session event callback function - which will be called when session events occur
+4) A receive message callback function - which will be called when messages are received on that session.
+
+By default sessions are unsecured. But can be made secured using either TLS/SSL protocol. We'll see that later.
+
+Once a session is created, in C API, it must be connected using solClient_session_connect()
+
+To disconnect/destroy a session, call 
+solClient_session_disconnect(...)
+solClient_session_destroy(...)
+
+A disconnected session can be connected again by calling solClient_session_connect() if and only if it has not been destroyed already.
+
+
+Creating Session
+----------------
+
+solClient_returnCode_t solClient_session_create
+                  (solClient_propertyArray_pt properties, //name/value pairs of properties. Property name must have prefix SESSION_
+				   solClient_opaqueContext_pt, //Context to which session belongs
+				   solClient_opaqueSession_pt*, //a pointer to the session
+				   solClient_session_createFuncInfo_t* callbacks, // a structure which has to be filled with the event callback and msg callback funcs
+                   size_t size_of_structure_above);
+
+BOTH THE SESSION EVENT CALLBACKS AND MSG RECEIVE CALLBACK ARE CALLED ON THE CONTEXT THREADS.
+So choose wisely when using the Context for multiple Sessions.
+
+solClient_session_createFuncInfo_t is a structure with 3 fields
+{
+    solClient_session_createRxCallbackFuncInfo_t  rxInfo ; //DEPRECATED, DO NOT USE
+    solClient_session_createEventCallbackFuncInfo_t  eventInfo ; //Mandatory, specify the event callback
+    solClient_session_createRxMsgCallbackFuncInfo_t  rxMsgInfo ; //Mandatory, specify the msg receive callback
+};
+
+struct solClient_session_createEventCallbackFuncInfo_t
+{
+    callback_p;
+	void* user_p;
+};
+struct solClient_session_createRxMsgCallbackFuncInfo_t
+{
+    callback_p;
+	void* user_p;
+};
+
+solClient_rxMsgCallback_returnCode_t
+messageReceiveCallback ( solClient_opaqueSession_pt opaqueSession_p, solClient_opaqueMsg_pt msg_p, void *user_p );
+
+void
+ common_eventCallback ( solClient_opaqueSession_pt opaqueSession_p,
+                         solClient_session_eventCallbackInfo_pt eventInfo_p, void *user_p )
+
+solClient_session_createFuncInfo_t sessionFuncInfo = SOLCLIENT_SESSION_CREATEFUNC_INITIALIZER; //NULL initialiser
+sessionFuncInfo.rxMsgInfo.callback_p = messageReceiveCallback;
+sessionFuncInfo.rxMsgInfo.user_p = NULL;
+sessionFuncInfo.eventInfo.callback_p = common_eventCallback;
+sessionFuncInfo.eventInfo.user_p = NULL;
+
+solClient_session_eventCallbackInfo_pt is a pointer to a structure solClient_session_eventCallbackInfo
+{
+solClient_session_event_t  sessionEvent; //The actual event that occurred.
+solClient_session_responseCode_t  responseCode; //Any response code if available
+const char *  info_p; //Any character string about the event if available.
+void *  correlation_p; //Dont know about this yet.
+};
+-------------------------------------------------------------------------------------------------------------------
+
+Session Properties which are ALWAYS REQUIRED FROM USER
+1) Message VPN Name
+2) Client Name
+3) Host (Solace appliance IP address)
+4) Local Host
+5) Authentication Scheme
+
+Authentication Schemes: 
+   a) Basic: Client application will send username and passoword to solace for authentication
+   b) Kerberos based
+   c) client certificate authentication
+   
+Client Name:
+If blank, Solace will automatically generate a unique client name. Also this name is part of the message's senderId field.
+Set the client name in property "SESSION_CLIENT_NAME" (#define SOLCLIENT_SESSION_PROP_CLIENT_NAME)
+
+Host 
+Format is [Protocol:]Host[:Port] ie Protocol and Port are optional.
+Protocol can be tcp: - Also the default. Other options are tcps: (Secure TCP using a TLS/SSL channel over TCP), ws: - (web sockets), http(s):
+Host is ip address or hostname (can be comma separated list of hosts, when you are using more than one Solace appliances in your environment)
+Note that when Solace appliances are operating in high-availability (HA) redundant pairs for fault tolerance, do not list both appliances in the pair as hosts. The redundant pair use the same IP address for the connection, so they appear as one appliance to the messaging API.
+
+Local host: IP of the machine on which the client application is running. property name "SESSION_BIND_IP"
+#define SOLCLIENT_SESSION_PROP_BIND_IP   "SESSION_BIND_IP"
+
+Message VPN: VPN name:
+
+
+

@@ -1,0 +1,18 @@
+env = Environment()
+
+# The function Program is actually part of env object.
+env.Program(target='say_hello', source=Glob('*.cpp'))
+
+env.Library('hello', Split('hello.cpp'))
+
+env.SharedLibrary('hello_shared', Split('hello.cpp'))
+
+
+# You can also add a suffix and prefix to the executable nam by specifying PROGPREFIX and PROGSUFFIX in the
+# environment. By default for unix systems, these are empty.
+
+env2 = Environment(PROGPREFIX='rajat', PROGSUFFIX='.lx')
+
+env2.Program('my_hello', Split('''hello.cpp m.cpp'''))
+
+# As you have seen you can create multiple environments in the same scons config, but generally its now a good idea.

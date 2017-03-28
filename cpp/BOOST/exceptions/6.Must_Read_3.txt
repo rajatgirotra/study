@@ -1,0 +1,20 @@
+Ok, with boost::exception, what data is transported with a given exception object depends on the context in which the
+failure has occurred. So you have basically decoupled the semantics of a failure from the information that is relevant
+to each individual instance of failure.
+
+So what should now do, is create as many exception classes as you need. Also it is not costly as there are no members.
+Do this in all your code.
+
+Create a file exception_handling.hpp
+
+#include <boost/exception/all.hpp>
+
+struct exception_base : virtual boost::exception, virtual std::exception {};
+struct io_error : virtual exception_base {};
+struct file_error : virtual io_error {};
+struct read_error : virtual io_error {};
+struct file_read_error : virtual file_error, virtual read_error {};
+
+So simple,, just keep on adding as many exception classes as you want.
+Using this approach, exception types become a simple tagging system for categorizing errors and selecting failures in
+exception handlers.

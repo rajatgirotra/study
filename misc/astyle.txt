@@ -1,0 +1,1 @@
+astyle --mode=c --style=allman --indent=spaces=4 --indent-classes --indent-col1-comments --indent-namespaces --min-conditional-indent=0 --break-blocks --add-brackets --align-pointer=type --align-reference=type --lineend=linux

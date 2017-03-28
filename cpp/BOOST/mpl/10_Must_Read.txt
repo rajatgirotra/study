@@ -1,0 +1,12 @@
+A metafunction is nothing but a class or class template that represents a function, invocable at compile time.
+A meta function will always have a nested ::type typename member. All template parameters are nothing but types.
+
+All the functions in 9.cpp if you see are meta-functions.
+
+A nullary meta function is a function which is invokable without any actual template parameters required.
+
+Eg:
+
+ struct always_int {
+     typedef int type;
+ };

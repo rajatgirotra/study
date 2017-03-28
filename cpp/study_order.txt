@@ -1,0 +1,18 @@
+name_control
+inline_functions
+references_&_copy_c'tors
+inheritance_&_composition
+polymorphism_&_virtual_functions
+dynamic_object_creation
+multiple_inheritance
+opertor_overloading
+abc
+rtti
+exception handling
+templates
+strings
+general
+bitsets
+general_algorithms
+standard template library
+design_patterns

@@ -1,0 +1,11 @@
+Refer to the excellent book Linux programming interface i have downloaded
+and also to a PDF on Linux IPC mechanisms.
+
+We have two API's for shared memory on Unix. SysV and POSIX.
+SysV is old and less in use now, POSIX is much heavily used lately.
+
+We'll start with learning POSIX API first.
+Before you go ahead, you must first understand in a high level
+
+1) mmap() system call to share memory between related processes
+2) mmap() system call to share memory between unrelated processes (backed by file on traditional file system)

@@ -1,0 +1,13 @@
+After you have studied all README'x (1-5), here is what i think we should do:
+
+1) Get an external Harddisk
+2) Install Vagrant and VirtualBox on it. Install ubuntu and CentOS virtual machines on the external HD
+3) Install conda in both Virtual Box (ubuntu and CentOS).
+4) Create conda-builds for python, gcc (4.8, 5 etc), boost and other libraries).
+5) Copy these builds in a common location on the external HD. Say /media/usbflash/conda/packages/repos/
+6) Install conda locally. Create as many working environments as you want. In the local .condarc file,
+specify the path to your custom channel.
+
+For the python installation include all modules like greenlet, quickfix, ipython, django, jinja2, arrow, python dateutil etc.
+
+Thoroughly read http://conda.pydata.org/docs/building/bpp.html to understand details about building conda packages.

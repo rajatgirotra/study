@@ -1,0 +1,48 @@
+Templates are used to create HTML content dynamically. Django has TEMPLATES setting in settings.py which is a list of dictionaries. In Each dictionary, you can specify the template engine (BACKEND), and other options for that engine. Two engines are most commonly used. Django template engine and Jinja2
+
+TEMPLATES = [
+    {
+        'BACKEND' : 'django.templates.backends.django.DjangoTemplates',
+        'APPS_DIR' : True or False, # if True, django will search the folder "templates" in the root of the apps to find the template.
+        'DIRS': [],  # list of directories to search for templates.
+        'OPTIONS': { }, # Dictionary of Options specific to this engine
+        'NAME' : <some_unique_name> for this engine.
+    },
+    {
+        'BACKEND' : 'django.templates.backends.jinja2.Jinja2', # need to install Jinja2 for this
+        'APPS_DIR' : True,
+        'DIRS' : [],
+        'OPTIONS' : {}
+    }
+]
+
+Django provides a consistent API to work with templates irrespective of the underlying engine used.
+
+
+The django.template.loader class provides two functions to find templates
+from django.template.loader import get_template, select_template
+Both these return a Template class. These functions can also throw one of the two errors:
+1) TemplateSyntaxError --> If the template syntax is incorrect
+2) TemplateDoesNotExist --> If template could not be found.
+
+get_template(template_name, using=None) --> Using is optional. It is the NAME of the template engine you want to use for finding your template.
+
+select_template(template_name_list, using=None) --> Instead of one template, it is a list. select_template() will select the first template it finds.
+You can use select_template() for flexible template loading. For example, if you’ve written a news story and want some stories to have custom templates, use something like select_template(['story_%s_detail.html' % story.id, 'story_detail.html']). This way you can always fallback to the default story if your story for your id is not found.
+
+After you get a Template class instance, you can use the following functions on it:
+
+Template.render(context, request) --> context is called template context and is a dictionary used to populate the template with data. request is the HttpRequest object. 
+
+Django provides a convenience function "render_to_string()" which does both (get_template() or select_template()) and "render()" for you.
+
+render_to_string(template_name_or_list, context=None, request=None, using=None)
+
+"There is also a "render()" function in django.shortcuts (dont confuse with render() function Template class). This render() function calls "render_to_string()" and then feeds the result into an HttpResponse object suitable from returning from your view.
+
+You can also create templates on the fly using the engines directly. Example:
+
+from django.templates import engines
+django_engine = engines['django'] --> Key is the engine NAME in settings.py
+template = django_engine.from_string("Hello {{ name }}!")
+

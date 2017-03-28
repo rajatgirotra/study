@@ -1,0 +1,38 @@
+Middleware: Django defines a heirarchy of middleware which get call one after the other. The sequence of middleware matters because you might have middleware dependant on other middlewares. A middleware is nothing but a view which takes a request and returns a response. How to create a middleware:
+1) Create a function or class which takes a callable "get_response". This "get_response" callable is nothing but the next middleware to be called after your middleware own gets called. This function/class which takes the "get_response" is called a middleware factory. Within your middleware factory, you define your actual middleware function which will be called.
+
+eg:1 
+
+def simple_middleware(get_response):
+    # one time initialization code
+    def middleware(request):
+        # execute your middleware function
+        response = get_response(request) # call the next middleware
+        # execute code after all middleware execute
+        return response
+    return middleware
+
+
+eg:2
+
+class SimpleMiddleware(object):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        # execute your middleware function
+        response = get_response(request) # call the next middleware
+        # execute code after all middleware execute
+        return response
+
+Look at settings.py (MIDDLEWARE) setting to see the list of middlewares. AuthenticationMiddleware stores the session information, so it is always after SessionMiddleware for example
+
+Whenever you create a new middleware, add it to the list of MIDDLEWARES in settings.py. Also sometimes if you find at run time that a middleware needs to be disabled, just "raise MiddlewareNotUsed" exception and your middleware will not be fired. Lets try now.
+
+
+Other hooks
+-----------
+There are three more functions that are called when you write a class based middleware (eg:2 above).
+1) process_view(request, view_func, view_args, view_kwargs) - Is called after all middleware handles
+2) procee_exception(request, exception)
+3) procee_template_response(request, response)

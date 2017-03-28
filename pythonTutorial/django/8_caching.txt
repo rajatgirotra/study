@@ -1,0 +1,16 @@
+A query set only queries the database when it is evaluated. When a query set is evaluated, django always checks it cache first.
+If cache for queryset does not exist, a cache is created so that next use of query set uses the cache and avoids talking to DB.
+
+>>> print([entry.headline for entry in Entries.objects.all()])  # talks to DB
+>>> print([entry.headline for entry in Entries.objects.all()])  # this too talks to DB
+
+Instead do this
+querySet = Entries.objects.all()
+>>> print([query.headline for query in querySet]) # talks to db
+>>> print([query.headline for query in querySet]) # uses cache.
+
+However if you only query a slice of the querySet, the cache is checked but not popluated. Eg:
+querySet = Entries.objects.all()
+>>> print(querySet[5]) # talks to db, cache not populated
+>>> print(querySet[8]) # cache is checked, then talks to db too.
+

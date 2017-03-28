@@ -1,0 +1,43 @@
+/*
+
+The next Lock Type class is template class shared_lock : This is just like unique_lock except that the lock it acquires is through lock_shared() function call.
+
+shared_lock() --->  Creates an object which does not hold any mutex.
+
+shared_lock(Lockable&) ---> Creates an object that takes ownership of the lockable mutex and call lock_shared() on the mutex.
+		The mutex() function of this call will return you a Lockable* and the owns_lock() function will return true;
+			
+
+shared_lock(Lockable&, boost::adopt_lock_t); ---> Same as lock_guard(Lockable&, boost::adopt_lock_t)
+		The mutex() function of this call will return you a Lockable* and the owns_lock() function will return true;
+
+shared_lock(Lockable&, boost::defer_lock_t)  ---> Stores the Lockable object, but owns_lock() return false. mutex() will return Lockable*.
+					Ownership of the lock is deferred until the lock_shared() member function of shared_lock is explicitly called.
+
+shared_lock(Lockable&, boost::try_to_lock_t)   ---> Stores the Lockable object and call try_lock_shared() on the mutex which returns immediately. 
+						If try_lock_shared() return true, owns_lock() return true, else owns_lock() returns false.
+						mutex() will return a Lockable*.
+
+shared_lock(Lockable&, const system_time&)  ---> Stores the Lockable object and calls timed_lock_shared() on the mutex. Only possible if the underlying mutex is  SharedLockable.
+						mutex() returns Lockable* and owns_lock() returns true if lock was acquired, else return false.
+boost::shared_mutex is SharedLockable.
+
+mutex() and owns_lock() you already know.
+
+You have a release() API which also returns Lockable*, put it relenquishes control of the mutex, So mutex() will return 0, and owns_lock() will return false.
+The caller of the code should be responsible for unlocking the mutex.
+
+You also have operator bool () which returns true if owns_lock() is true
+You also have operator != () which return true if !owns_lock() is true.
+
+the d'tor ~shared_lock() will call mutex()->unlock_shared() if and only if owns_lock() is true.
+
+See 10.cpp next, where the timed_lock expires as an exclusice lock is already expired in main.
+
+
+Similarly we have upgrade_lock. I am not discussing it here. The c'tor of this class upgrade_lock(Lockable&) makes a call to lock_upgrade() and the d'tor calls unlock_upgrade(). Very trivial.
+
+There is also an upgrade_to_unique_lock class which takes a reference to upgrade_lock and tries to convert the mutex to have an exclusive lock by calling unlock_upgrade_and_lock() function
+of the UpgradeLockable concept. The d'tor calls unlock_and_lock_upgrade() to restore the upgrade ownership on the mutex.
+*/
+

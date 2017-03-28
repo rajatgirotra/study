@@ -1,0 +1,43 @@
+Each django app has a corresponding admin project to manage site content.
+You need to create a superuser to manage site content. and access this using :
+http://127.0.0.1:8000/admin
+
+Create a super user using:
+
+python manage.py creatsuperuser
+
+After you create a user, you need to create classes derived from django.contrib.admin.ModelAdmin
+You can register mutiple model classes with ModelAdmin class, and then customize the admin site using various options to see what is best for your implementation.
+
+Eg:
+class Person(models.Model):
+    pass
+
+
+class PersonAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(Person, PersonAdmin)
+
+
+OR use a decorator
+
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    pass
+
+See ModelAdmin for a list of customizations available or see the mysite/posts/admin.py to know more.
+
+Also to deal with Databases, there are normally four operations
+CREATE
+RETRIEVE
+UPDATE
+DELETE
+
+These four operations can be triggered by the django admin using for HTTP methods
+POST
+GET
+PUT/PATCH
+DELETE
+
+All the above are http methods we are going to use in our app.

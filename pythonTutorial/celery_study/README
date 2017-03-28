@@ -1,0 +1,25 @@
+Celery is a distributed message Q. ie you can Q task objects which are nothing but callables. These callables are then run asynchronously by Celery.
+Celery
+
+Pre-requisites
+--------------
+Celery needs a message broker to Q and DQ tasks. There are several options available
+1) RabbitMQ
+2) Redis
+3) Others
+
+I choose RabbitMQ
+How to install RabbitMQ - RabbitMQ depends on erlang. So we must install erlang.
+Download erlang source code from their website and do
+ cd otp_src_19.2
+ export ERL_TOP=<above directory>
+ "configure, make, make install".
+After that install the RabbitMQ generic binary package.
+
+./rabbitmq-server - simply starts the rabbitmq server on localhost
+
+Celery process can call the tasks asynchronously or synchronously. It also supports scheduling.
+Also tasks can be called in a single thread or in multiple threads using python multiprocessing,
+gevent or Eventlet etc.
+
+Read tasks.py

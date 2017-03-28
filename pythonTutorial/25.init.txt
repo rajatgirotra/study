@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+## Just like each module has its own private symbol table, so you dont have to worry about conflicting global variables in other modules,
+## similarly you can place your module files in python packages so that there is no conflicting modules with the same name.
+
+## if you have a directory structue like 
+
+sound/
+	formats/
+	effects/
+	filters/
+
+where each of the folders can contain python modules, you must place a file __init__.py (usually empty file)
+This is how python recognizes the folder as part of a python package. Otherwise, python will never traverse the directoy contents or subdirectories to find for modules.
+
+So now you given that you have __init__.py, in each of these directories, you can say
+
+import sound.effects.echo ## which loads the echo submodule.
+and then you can use it like:
+
+sounds.effects.echo.echoFilter(args)
+
+
+
+
+You can also say
+
+from sounds.effects import echo
+
+echo.echoFilter(args)
+
+
+or from sound.effects.echo import echoFilter
+
+echoFilter(args)
+

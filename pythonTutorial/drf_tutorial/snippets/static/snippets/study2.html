@@ -1,0 +1,47 @@
+<!-- CSS position property --
+position specified how the element will be visible relative to the viewport. Valid
+values are "static", "relative", "fixed" and "absolute".
+
+1)
+position: static -> is the default value. Means the element will scroll as the page scrolls.
+Standard behavior
+
+2)
+position: relative -> is the position relative to the standard "static" position. You have to
+club position: relative with other properties "top", "right", "bottom", "left" to specify
+where to position the element. Example:
+position:relative
+left: 30px
+is similar to margin-left: 30px
+
+3)
+position: fixed -> element is fixed relative to viewport. i.e as you scroll and viewport changes, the
+element will redraw itself on the viewport. This property is used to fix an element on a page even
+if you scroll. Again you have to combine it with "top, right, bottom, left"
+
+4)
+position: absolute -> absolute means RELATIVE to a parent element with a position property.
+So this element will be positioned relative to its parent position. given that the parent position
+property should not be "static". If it is "static", the child property with "absolute" will behave
+like "static" too
+
+CSS Overflow property - Very simple. Many times you create an element with a fixed width and height
+and the content in the element is too big to fit in that element. Like creating a div with some fixed
+width and height and then putting too much text content into it. In such cases, the overflow property
+can be used.
+
+overflow: visible -> Do nothing, the overflow content will spill out of the element. This isn't very neat
+overflow: hidden -> The overflow content will be clipped. ie hidden.
+overflow: scroll -> Provide scrolling capability and don't spill
+overflow: auto -> same as scroll, but works if height is above a certain value
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>

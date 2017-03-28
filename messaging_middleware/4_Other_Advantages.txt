@@ -1,0 +1,14 @@
+1) 
+Solace also has capability of streaming out data over the internet using the same API and appliance as used by the messaging system.
+
+2) Spanning WANs. : Why should an application be distributed really: Multiple reasons
+a) Performance
+b) Disaster Recovery
+c) Scalibility, etc.
+Typically there are a lot of issues when data moves out of high-speed LAN to a slower, less-predictable WAN: like, bandwidth, latency, security
+etc.
+
+Solace provides a lot of optimizations for WAN messaging.
+
+a) If you have multiple subscribers on the other end of WAN, Solace will only send one copy to the other end, which will be fanned out
+   to all subscribers on the other end; and others.

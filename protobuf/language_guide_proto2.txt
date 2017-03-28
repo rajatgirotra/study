@@ -1,0 +1,62 @@
+Lets add some details on proto2 language guide.
+
+Whenever writing a new proto file, The first line should be the syntax version for the proto. Google has two versions - proto2 and proto3
+
+syntax = "proto2";  // explicitly specify syntax to avoid warnings
+
+You already know that fields defined in a proto can be
+1) required
+2) optional
+3) repeated
+The definition of field in proto is
+
+(required|optional|repeated) PROTO_TYPE SOME_NAME = TAG_VALUE [option=option_value[ , option2=option2_value];
+
+1) Tags 1 to 15 take ONLY one byte to encode, so put frequently used fields first
+2) Tags must be between 1 to pow(2, 29) - 1. Also tags 19000-19999 are reserved for protobuf internal implementation,
+(FieldDescriptor::kSmallestReservedNumber, FieldDescriptor::kLargestReservedNumber)
+3) Comments in protobuf are C++ style. ie //
+4) If you remove an optional tag from a protobuf, it is OK. as long as the removed tag number is not reused for some other field. This can cause issues with serialization and other undefined behavior. The best thing to do is comment out the unused field, instead of removing from the proto file, and mark it explicitly as obselete. Also you can tell that that tag number which is removed as reserved, so no one can re-use it.
+ Example:
+ message AddressBook {
+     reserved 1, 2 to 3;
+     optional string OBSELETE_orkut_user_name = 1;
+     optional string OBSELETE_orkut_password = 2;
+     optional string OBSELETE_orkut_friends = 3;
+ }
+
+5) Types in Proto and their corresponding C++ types
+double maps to double
+float maps to float
+bool maps to bool
+string maps to string
+bytes maps to string
+int32 maps to int32 -- int32 and int64 use variable length encoding. Also they are inefficient for storing negative numbers.
+int64 maps to int64
+uint32 maps to uint32
+uint64 maps to uint64
+fixed32 maps to uint32
+fixed64 maps to uint64 -- fint32/64 use fixed length encoding (always 4/8 bytes). Prefer when you store numbers > pow 2(, 28).
+sint32 maps to int32
+sint64 maps to int64 -- much more efficient in storing negative numbers
+sfixed32 maps to int32 - fixed length encoding and also storing negative numbers.
+sfixed64 maps to int64
+
+6) For optional fields, if you dont provide default, protobuf will assign a default.
+For string empty string "", for bool false, for integral types 0, for floating 0.0, for Enums the first value in the Enum.
+So whenever defining an Enum, always define the first value as invalid.
+
+7) An enum can have the same numeric constant for different constants. For this you need to define a message level option called allow_alias=true
+enum Fruit {
+    option allow_alias=true;
+    BANANA=1;
+    APPLE=2;
+    KELA=1;
+    SEB=2;
+}
+
+8) Look at a1.proto, a2.proto, and a3.proto. Each define message A1, A2 and A3 respectively. A2 and A3 has a field of type A1.
+a2.proto import a1.proto and a3.proto imports a2.proto. However, proto a3.proto does not compile. I thought it should as a3.proto imports a2.proto which imports a1.proto so A1 should be available. However, proto does not work like this. You must directly import the proto whose message/enum you need to access. So a3.proto must import a1.proto
+Now lets say you have a "old/common.proto" file which is imported almost everywhere. But now you need to change the location or name of this proto file to "new/utils.proto". Instead of changing all proto files to change the location of the new proto, you can keep an "old/common.proto" file with the following import "import public new/utils.proto". This will everyone will import new/utils.proto directly. I've tried this already.
+
+9) 

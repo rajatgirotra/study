@@ -1,0 +1,130 @@
+SRCS := $(wildcard *.cpp)
+OBJS := $(SRCS:.cpp=.o)
+
+prog.out : $(OBJS) size
+	@echo "Building prog using $(OBJS)"
+	@echo "Dependencies = $^"
+	@echo "First Dependency = $<"
+	@echo "Out of data dependencies = $?"
+	@echo "Target = $@"
+	@echo "Stem = $*"
+	@echo "Default Goal = $(.DEFAULT_GOAL)"
+	@$(warning Default goal is $(.DEFAULT_GOAL))
+	g++ $(filter-out size,$^) -o $@
+
+size: $(OBJS)
+	size $^
+	touch size
+
+data.o : data.h data.cpp
+	g++ -c data.cpp -o $@
+
+io.o : io.h io.cpp
+	g++ -c io.cpp -o $@
+
+main.o : data.h io.h main.cpp
+	g++ -c main.cpp -o $@
+
+.PHONY : clean all x y
+
+clean :
+	rm -rf $(OBJS) prog.out target source2 source1 size
+
+target :: source1
+	@echo "Building target using source1"
+	touch target
+
+target :: source2
+	@echo "Building target using source2"
+	touch target
+
+source1 :
+	touch source1
+
+source2 :
+	touch source2
+
+.SUFFIXES : .foo .bar .cpp .o
+
+.foo.bar :
+	@echo "Building $@ using $^"
+	touch $@
+
+.cpp.o :
+	@echo "Making $@ from $^"
+
+all : abc.bar
+
+abc.bar : 
+
+
+x :
+	@echo "$(patsubst %.cpp,%.xxx,$(SRCS))"
+
+SRC := $(shell echo "Ouch! " 1>&2; echo *.[cy]*)
+OBJ := $(patsubst %.cpp,%.o,$(filter %.cpp,$(SRC))) \
+      $(patsubst %.y,%.o,$(filter %.y,$(SRC)))
+
+y :
+	@echo "$(OBJ)"
+
+STRING := "  a          b               c       d de  lel e32"
+FINDSTR := "lel"
+
+z:
+	@echo "Stripping $(STRING) to $(strip $(STRING))"
+
+a:
+	@echo "Finding $(FINDSTR) in $(STRING), gives $(findstring $(FINDSTR),$(STRING))"
+	@echo "$(findstring a, a b c)"
+	echo "$(STRING)"
+
+b :
+	@echo $(filter %.cpp %.y,$(SRC))
+	@echo $(filter-out %.y,$(SRC))
+
+LIST := a.c a.c b.c a.c
+
+c :
+	@echo $(sort $(LIST))
+
+FILENAME1 := /home/rajat
+FILENAME2 := /home/rajat/ff.cpp
+FILENAME3 := Makefile
+FILENAME4 := /home/rajat/
+FILENAME5 := /acd/xyz
+CC := gcc
+
+d :
+	@echo $(dir $(FILENAME1) $(FILENAME2) $(FILENAME3) $(FILENAME4) $(FILENAME5))
+
+e:
+	@echo $(notdir $(FILENAME1) $(FILENAME2) $(FILENAME3) $(FILENAME4) $(FILENAME5))
+
+DIRS := /home/rajat
+files := $(foreach dir,$(DIRS),$(wildcard $(dir)/*))
+
+f :
+	@echo $(files)
+	@echo "Files:"
+	@echo "$(notdir $(files))"
+	for i in $(files); do \
+        echo $i; \
+        done
+
+a.out : main.cpp -ltest
+	g++ $< -o $@ -L. -ltest
+
+g :
+	@echo $(MAKEFLAGS)
+
+h :
+ifeq ($(CC),gcc)
+	$(warning Error in executing target h)
+endif
+
+i :
+ifndef foo
+	$(info Build Finished)
+endif
+

@@ -1,0 +1,69 @@
+//readonly keyword
+
+The concept of a constant as a variable that contains a value that cannot be changed is something that C#
+shares with most programming languages. However, constants don  t necessarily meet all requirements.
+On occasion, you may have some variable whose value shouldn  t be changed, but where the value is
+not known until runtime. C# provides another type of variable that is useful in this scenario: the
+readonly field.
+
+The readonly keyword gives a bit more flexibility than const , allowing for situations in which you
+might want a field to be constant but also need to carry out some calculations to determine its initial
+value. The rule is that you can assign values to a readonly field inside a constructor, but not anywhere
+else. It  s also possible for a readonly field to be an instance rather than a static field, having a different
+value for each instance of a class. This means that, unlike a const field, if you want a readonly field to
+be static, you have to declare it as such.
+
+Suppose that you have an MDI program that edits documents, and, for licensing reasons, you want to
+restrict the number of documents that can be opened simultaneously. Now assume that you are selling
+different versions of the software, and it  s possible that customers can upgrade their licenses to open
+more documents simultaneously. Clearly this means you can  t hard - code the maximum number in the
+source code. You  d probably need a field to represent this maximum number. This field will have to be
+read in  perhaps from a registry key or some other file storage  each time the program is launched.
+So your code might look something like this:
+
+public class DocumentEditor
+{
+   public static readonly uint MaxDocuments;
+   static DocumentEditor()
+   {
+      MaxDocuments = DoSomethingToFindOutMaxNumber();
+   }
+}
+
+In this case, the field is static, because the maximum number of documents needs to be stored only once
+per running instance of the program. This is why it is initialized in the static constructor. If you had an
+instance readonly field, you would initialize it in the instance constructor(s). For example, presumably
+each document you edit has a creation date, which you wouldn  t want to allow the user to change
+(because that would be rewriting the past!). Note that the field is also public  you don  t normally need
+to make readonly fields private, because by definition they cannot be modified externally (the same
+principle also applies to constants).
+
+As noted earlier, date is represented by the class System.DateTime . The following code uses a System
+.DateTime constructor that takes three parameters (the year, month, and day of the month  you can
+find details of this and other DateTime constructors in the MSDN documentation):
+
+public class Document
+{
+   public readonly DateTime CreationDate;
+   public Document()
+   {
+      // Read in creation date from file. Assume result is 1 Jan 2002
+      // but in general this can be different for different instances
+      // of the class
+      CreationDate = new DateTime(2002, 1, 1);
+   }
+}
+
+CreationDate and MaxDocuments in the previous code snippet are treated like any other field, except
+that because they are read - only, they cannot be assigned outside the constructors:
+
+void SomeMethod()
+{
+   MaxDocuments = 10; // compilation error here. MaxDocuments is readonly
+}
+
+It  s also worth noting that you don  t have to assign a value to a readonly field in a constructor. If you
+don  t do so, it will be left with the default value for its particular data type or whatever value you
+initialized it to at its declaration. That applies to both static and instance readonly fields.
+
+

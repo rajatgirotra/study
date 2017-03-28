@@ -1,0 +1,47 @@
+Exception Classes for Language Support
+Exceptions for language support are used by language features. So in a way they are part of the
+core language rather than the library. These exceptions are thrown when the following operations
+fail.
+ An exception of class bad_alloc is thrown whenever the global operator new fails
+(except when the nothrow version of new is used). This is probably the most important
+exception because it might occur at any time in any nontrivial program.
+ An exception of class bad_cast is thrown by the dynamic_cast operator if a type
+conversion on a reference fails at runtime. The dynamic_cast operator is described on
+page 19.
+ An exception of class bad_typeid is thrown by the typeid operator for runtime type
+identification. If the argument to typeid is zero or the null pointer, this exception gets
+thrown.
+ An exception of class bad_exception is used to handle unexpected exceptions. It does
+this by using the function unexpected(). unexpected() is called if a function throws
+an exception that is not listed in an exception specification (exception specifications are
+introduced on page 16). For example:
+class El;
+class E2;
+void f() throw(E1) //throws only exceptions of type E1
+{
+...
+throw El(); //throws exception of type El
+The C++ Standard Library
+dyne-book 31
+...
+throw E2();//calls unexpected(), which calls terminate()
+}
+The throw of an exception of type E2 in f() violates the exception specification. In this
+case, the global function unexpected() gets called, which usually calls terminate()
+to terminate the program. However, if class bad_exception is part of the exception
+specification, then unexpected() usually rethrows an exception of this type:
+class El;
+class E2;
+void f() throw(E1, std::bad_exception)
+//throws exception of type El or
+//bad_exception for any other exception type
+{
+...
+throw El(); //throws exception of type El
+...
+throw E2(); //calls unexpected(), which throws bad_exception
+}
+Thus, if an exception specification includes the class bad_exception, then any exception
+not part of the specification may be replaced by bad_exception within the function
+unexpected().
+

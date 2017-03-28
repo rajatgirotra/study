@@ -1,0 +1,129 @@
+(setq-default tab-width 4)
+
+(global-set-key "\C-xl" 'goto-line)
+
+ 
+
+ 
+
+ 
+
+ 
+
+Emacs setting variables
+
+In emacs, many variables can have a Boolean value (true or false). In emacs, t means true value, and nil means false.
+
+Infact any non-nil value is a true value
+
+ 
+
+Values of variables can be:
+
+ 
+
+Strings : must be specified in double quotes
+
+Characters: must be specified with a preceding ? Eg: ?x or ?\C-c for x and Control-c
+
+Symbols: must be preceded with a single quote
+
+ 
+
+Variables can be of two types:
+
+1)    Ones which have a global value ONLY
+
+2)    Ones which have global and buffer-local values also.
+
+ 
+
+(setq-default tab-width 4) à will change the global value to 4. So all buffers will have value 4.
+
+(setq tab-width 4) à will change the local value to 4. So only a local buffer will have value 4.
+
+ 
+
+Read about auto-mode-alist variable.
+
+ 
+
+Emacs –no-init-file , emacs –q  à implies do not read .emacs on startup or default.el
+
+Emacs –no-site-file , emacs –q  à implies do not read site-start.el
+
+ 
+
+Many times you are working on your friends system. In those cases, you suddenly realise you do not have
+
+Any of the keybindings you have defined in your own .emacs
+
+One way is to tell emacs to load your .emacs instead of your friends.
+
+ 
+
+emacs –u <username> à will load .emacs for user UserName.
+
+ 
+
+However the above will work only in cases where the directory structure is same between u and ur friends.
+
+The best way is to store your key bindings in a separate file hosted on a web server or somewhere else where it is easily accessible.
+
+Then just load the file into emacs and run the command
+
+M-x eval-buffer (or M-x eval-current-buffer)to get all ur key bindings and settings in your friends emacs
+
+ 
+
+Then in your own .emacs you can always load ur special keybindings are variable settings \\
+
+ 
+
+Key bindings:
+
+---------------
+
+1)    There is global map of key bindings and a buffer-local map. When you want to bind a keystroke which is used only in a particular mode,
+
+Use local map. Else use global map. Also When you give a command starting with C-x or M-x, then these have their own maps. Ctl-x-map and esc-map
+
+2)    Binding is very easy. Use any of the following
+
+(define-key keymap “keystroke” ‘function-name)
+
+(global-set-key “keystroke” ‘function-name)
+
+(local-set-key “keystroke” ‘function-name)
+
+If keystroke contains a special character like Ctrl key or Meta Key, use the corresponding convention
+
+Eg: abc\C-a\ndef – means keystroke abc, C-x, newline, def à all together (also C-a and C-A are same)
+
+ 
+
+Eg: All the below three are same
+
+(global-set-key "\C-xl" 'goto-line)
+
+(define-key ctl-x-map "l" 'goto-line)
+
+(define-key global-map "\C-xl" 'goto-line)
+
+ 
+
+3)  A new key binding will also override an existing one.
+
+ 
+
+Complex example: (global-set-key [f5] 'goto-line) à binding function key F5
+
+(global-set-key [C-A-f5] 'goto-line) à Ctrl+Alt+F5
+
+ 
+
+4)  (global-unset-key [f5])
+
+(define-key ctl-x-map "l" nil)
+
+ 

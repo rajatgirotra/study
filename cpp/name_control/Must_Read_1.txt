@@ -1,0 +1,28 @@
+Controlling linkage
+
+Ordinarily, any name at file scope (that is, not nested inside a class or function) is visible throughout all translation units in a program. This is often called external linkage because at link time the name is visible to the linker everywhere, external to that translation unit. Global variables and ordinary functions have external linkage.
+
+
+There are times when youd like to limit the visibility of a name. You might like to have a variable at file scope so all the functions in that file can use it, but you dont want functions outside that file to see or access that variable, or to inadvertently cause name clashes with identifiers outside the file.
+
+
+An object or function name at file scope that is explicitly declared static is local to its translation unit (in the terms of this book, the cpp file where the declaration occurs). That name has internal linkage. This means that you can use the same name in other translation units without a name clash.
+
+
+One advantage to internal linkage is that the name can be placed in a header file without worrying that there will be a clash at link time. Names that are commonly placed in header files, such as const definitions and inline functions, default to internal linkage. (However, const defaults to internal linkage only in C++; in C it defaults to external linkage.) Note that linkage refers only to elements that have addresses at link/load time; thus, class declarations and local variables have no linkage.
+
+
+Note:
+
+When we say constants in C++ have internal linkage, this means that we can declare a const in a header file (say a.h), and then include that header in as many source files we want (a1.cpp, a2.cpp etc) and then link them all together. There will be no linker errors because the const has internal linkage.
+
+Similarly, we can create a source file a1.cpp (which has "const int i = -987;") and another source file (say a2.cpp). Then a2.cpp cannot see "i" in a1.cpp, because constants have internal linkage.
+
+Please see 2.h, 2.cpp and 3.cpp,
+then please see a1.cpp and a2.cpp
+
+To give constants external linkage, you'll have to precede them with extern keyword.
+
+From C++11:
+
+In addition, a member function, static data member, a named class or enumeration of class scope, or an unnamed class or enumeration defined in a class-scope typedef declaration such that the class or enumeration has the typedef name for linkage purposes (7.1.3), has external linkage if the name of the class has external linkage.

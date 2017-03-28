@@ -1,0 +1,12 @@
+You can specify which set of exceptions a function might throw by writing an exception
+specification:
+
+void f() throw(bad_alloc); //f() may only throw bad_alloc exceptions
+
+
+
+
+
+You can specify that a function not throw an exception by declaring an empty set of exceptions:
+
+void f() throw();

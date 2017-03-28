@@ -1,0 +1,42 @@
+Keyword explicit
+
+By using the keyword explicit, you can prohibit a single argument constructor from defining
+an automatic type conversion. A typical example of the need for this feature is in a collection
+class in which you can pass the initial size as constructor argument. For example, you could
+declare a constructor that has an argument for the initial size of a stack:
+
+class Stack {
+explicit Stack(int size); // create stack with initial size
+...
+};
+
+Here, the use of explicit is rather important. Without explicit this constructor would define
+an automatic type conversion from int to Stack. If this happens, you could assign an int to a
+
+Stack:
+Stack s;
+...
+s = 40;// Oops, creates a new Stack for 40 elements and assigns it to s
+
+The automatic type conversion would convert the 40 to a stack with 40 elements and then assign
+it to s. This is probably not what was intended. By declaring the int constructor as explicit,
+such an assignment results in an error at compile time.
+
+Note that explicit also rules out the initialization with type conversion by using the assignment
+syntax:
+
+Stack s1(40); // OK
+Stack s2 = 40; // ERROR
+
+This is because there is a minor difference between
+
+X x;
+Y y(x); // explicit conversion
+
+and
+
+X x;
+Y y = x; // implicit conversion
+
+The former creates a new object of type Y by using an explicit conversion from type X, whereas
+the latter creates a new object of type Y by using an implicit conversion.

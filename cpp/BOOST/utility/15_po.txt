@@ -1,0 +1,23 @@
+Ok, in program_options we have,
+
+typedef basic_command_line_parser<char> command_line_parser;
+typedef basic_command_line_parser<wchar_t> wcommand_line_parser;
+
+the class has the following functions:
+
+options(options_descriptions) // Sets the options_descriptions object to use.
+
+positional(positional_objects_descriptions) // Sets the positional_options_descriptions to use.
+
+style(int) - sets the style to use. You'll see this later
+
+extra_parser(ext_parser) - Used to define a custom parser for the command line. will come to this in the next example.
+
+run() - Start parsing the command line. Can throw an exception.
+
+allow_unregistered() - Instead of throwing an exception for unrecognized options, it creates an object of type
+		       basic_option<charT> and sets the unrecognized field to true. Later yo can collect these options using the
+		       collect_unrecognized() function.
+
+extra_style_parser(style_parser); - At the moment I dont know what this does.
+

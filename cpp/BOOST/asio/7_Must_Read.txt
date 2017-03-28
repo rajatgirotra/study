@@ -1,0 +1,85 @@
+Very important to understand the concepts in this file.
+READ SLOWLY and CAREFULLY.
+
+Traversing buffer sequences.
+Asio has introduced the concept of MutableBufferSequence and ConstBufferSequence
+A container of buffers which satisfy this concept can be traversed as though they were a contiguous sequence of bytes.
+For that we use buffers_iterator<> class template.
+
+Normally you would need buffers_iterator<> when you read data from a stream.
+
+Header file: boost/asio/buffers_iterator.hpp
+
+Asio provides a class boost::asio::basic_streambuf<> which derives from std::basic_streambuf and
+handles all the abstractation for reading from an asio i/o object.
+
+For example, we have read functions defined in asio like
+
+size_t read_until(SyncReadStream& s, //the stream from which data is to be read.
+                  streambuf<Allocator>& b, //the streambuf object into which the data will be read.
+                  char delimiter); //delimiter
+
+returns the number of bytes in the streambuf's get area up to and including the delimiter.
+
+To access the get area of the streambuf, use data() member function
+To access the write area of the streambuf, use the prepare() member function.
+To consume data, use consume() member function.
+
+
+Let us show you a few examples of reading and writing to asio stream buffers
+
+Example 1
+---------
+boost::asio::streambuf<> sb;
+
+size_t n = boost::asio::read_until(sock, sb, '\n'); //read until end of line
+//Data read is now in the stream buffers get area.
+boost::asio::streambuf::const_buffers_type bufs = sb.data();
+//the object const_buffers_type is a ConstBufferSequence.
+
+//Use buffers_begin() and buffers_end()
+std::string line(boost::asio::buffers_begin(bufs),
+                 boost::asio::buffers_begin(bufs) + n); //the delimiter wont be read.
+
+So think of buffers_iterator as an encapsulation of a sequence of buffers. You forget that how it maintains
+that sequence. Just remember that it is an iterator over a sequence of bytes.
+
+Example 2
+---------
+boost::asio::streambuf b;
+std::ostream os(&b);
+os << "Hello World"; //there is data in the write area.
+
+//send some data in the get area.
+size_t n = sock.send(b.data());
+
+//Consume that much amount of data from the get area
+b.consume(n);
+
+Example 3
+---------
+boost::asio::streambuf b;
+
+//make room for atleast 512 bytes in the output sequence.
+boost::asio::streambuf::mutable_buffers_type bufs = b.prepare(512);
+
+size_t n = sock.receive(bufs); //write data directly from socket to buffers.
+
+//commit this data from write area to get area.
+b.commit(n);
+
+//after commiting to write area, you can read from get area
+std::istream is(&b);
+std::string s;
+is >> s;
+
+Also for DEBUG builds, ASIO library will assert if the buffer is not valid
+at the time the completionHandler gets called for an asynhcronous operation. You should be very
+careful about buffer lifetimes when doing async operations.
+
+void dont_do_this()
+{
+   string s = "Hello World";
+   boost::asio::async_write(sock, boost::asio::buffer(s), my_handler);
+}
+//will crash because s is on stack and will be invalid by the time my_handler runs.

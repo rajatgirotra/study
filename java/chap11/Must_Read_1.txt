@@ -1,0 +1,8 @@
+/* First file in this chapter */
+
+Understanding JAVA generics
+---------------------------
+One of the problems of using pre-Java SE5 containers was that the compiler allowed you to insert an incorrect type into
+a container. That is an ArrayList() can hold both Apple objects as well as Orange Objects.
+
+/* Next: ApplesAndOrangesWithoutGenerics.java */

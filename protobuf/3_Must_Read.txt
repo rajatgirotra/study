@@ -1,0 +1,109 @@
+Options
+=======
+
+Many options are supported in protobuf, some at message level, file level, enum level, service level, field level etc. Lets explore.
+The complete list of options available is defined in google/protobuf/descriptor.proto
+
+File Level Options
+-----------------
+optimize_for : SPEED, CODE, LITE_RUNTIME
+SPEED - means highly optimized code for processing, parsing, serialization etc
+CODE - means generate less classes, use reflections API etc etc. Use when you have many proto files and not all of them need to be that fast.
+LITE_RUNTIME - Used for devices like mobile phones which have capacity problems. LITE_RUNTIME means your library needs to link with libprotobuf-lite not libprotobuf. Some features like descriptors and reflection will not be available.
+
+option cc_generic_services = false;
+option java_generic_services = false;
+option py_generic_services = false;
+//By default they are false now, and you must specify your RPC implenentation to generate the target code.
+
+cc_enable_areans = Some kind of memory pool implementation provided by protobuf to achieve memory efficiency.
+
+
+Message Level, Enum Level, Service Level Options
+------------------------------------------------
+
+
+Field Level Options
+-------------------
+packed = true/false; Used with repeated fields of primitive types for better encoding. Should use it.
+
+deprectaed = true/false; to tell that this field is deprecated and should not be used by future users. Infact prefer reserved keyword, as this may not have any effect in some languages depending on whether that language provides any syntax for deprecated API specification. Like in Java we have @Deprecated Annotation.
+
+Custom Options
+--------------
+Very easy. Just include "google/protobuf/descriptor.proto" and extend the Message type you want to extend.
+1) FileOptions
+2) MessageOptions
+3) FieldOptions
+4) EnumOptions and EnumValueOptions
+5) ServiceOptions
+6) MethodOptions
+
+extend google.protobuf.MessageOptions {
+ optional string my_option = 51234;
+ };
+
+message MyMsg {
+   option (my_option) = "Hello World"; // must be enclosed in paranthesis which indicates that it is an extended option.
+   // To get the option do
+   string value = MyMsg::descriptor()->options().GetExtension(my_option); // Just like you access a regular extension field.
+
+Google has reserved tag numbers from 50000-99999 for custom options to be used within individual organisations. However, if you want to write some public API for which you want your extension field tag to be gloabbly unqiue, send an email to google and they will reserver one extension tag number for you. Generally you only need one as you can define your own message having whatever you would like.
+
+Example of all types of custom messages:
+
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FileOptions {
+  optional string my_file_option = 50000;
+  }
+  extend google.protobuf.MessageOptions {
+    optional int32 my_message_option = 50001;
+    }
+    extend google.protobuf.FieldOptions {
+      optional float my_field_option = 50002;
+      }
+      extend google.protobuf.EnumOptions {
+        optional bool my_enum_option = 50003;
+        }
+        extend google.protobuf.EnumValueOptions {
+          optional uint32 my_enum_value_option = 50004;
+          }
+          extend google.protobuf.ServiceOptions {
+            optional MyEnum my_service_option = 50005;
+            }
+            extend google.protobuf.MethodOptions {
+              optional MyMessage my_method_option = 50006;
+              }
+
+option (my_file_option) = "Hello world!";
+
+message MyMessage {
+  option (my_message_option) = 1234;
+
+  optional int32 foo = 1 [(my_field_option) = 4.5];
+    optional string bar = 2;
+    }
+
+enum MyEnum {
+  option (my_enum_option) = true;
+
+  FOO = 1 [(my_enum_value_option) = 321];
+    BAR = 2;
+    }
+
+message RequestType {}
+message ResponseType {}
+
+service MyService {
+  option (my_service_option) = FOO;
+
+  rpc MyMethod(RequestType) returns(ResponseType) {
+      // Note:  my_method_option has type MyMessage.  We can set each field
+          //   within it using a separate "option" line.
+              option (my_method_option).foo = 567;
+                  option (my_method_option).bar = "Some string";
+                    }
+                    }
+                    
+Also, note that each option type (file-level, message-level, field-level, etc.) has its own number space, so e.g. you could declare extensions of FieldOptions and MessageOptions with the same number.

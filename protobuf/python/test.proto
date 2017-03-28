@@ -1,0 +1,19 @@
+syntax="proto2";
+
+package test;
+
+message Server {
+    required string hostname = 1;
+    required string credentials = 2;
+}
+
+message Environment {
+    enum Type {
+        UAT = 0;
+        DEV = 1;
+        PROD = 2;
+    }
+    required string  name = 1;
+    required Type type = 2;
+    repeated Server servers = 3;
+}

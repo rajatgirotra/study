@@ -1,0 +1,64 @@
+Very Simple
+==========
+
+Django had:
+1) simple function based views - Which you write yourself
+
+2) function based generic views - Consider them outdated/deprecated. These were views provided by django which you could use to carry out some common tasks. Like a list view for fetching records from DB, a template view to render templates. However, they could only be customized in a very limited way. Like specifying your own template name to the template view, specifying a query to fetch records from DB.
+
+3) generic class based views: Django then provided generic class based views which could be customized in every way possible.
+
+4) User specified class views. - Which you write yourself.
+
+How to write a UserView. Derive from django.views.generic.View class. Then define methods like
+1) def get(request, *args, **kwargs)
+2) def post(request, *args, **kwargs)
+3) def head(request, *args, **kwargs)
+3) def delete(request, *args, **kwargs) etc for each type of http request method that you want to provide.
+If django does not find the method corresponding to the http request method type and HttpResponseNotAllowed exception is raised.
+
+Please Please Please see the View class to see how it works. Django needs a callable() to be called corresponding to a URL. So how come you specify a class name in urlpatterns. It turns out, you specify the View classs' as_view() function as the callable in urlpatterns. Django will create an instance of the ur view class automatically and then call the dispatch function of the view class. the dispatch function calls the "get, post, head, delete" whichever function needs to be called. 
+
+Let's learn some more aspects of python as we learn the View class Its very interesting.
+
+
+class View(object):
+
+   # The c'tor sets attributes on the view class based on the key and values. These attributes must already exist
+   # in your view. The instance is created when the as_view() method is called.
+   def __init__(self, **kwargs):
+       for key, value in kwargs.iteritems():
+           setattr(View, key, value) # very trivial
+
+   @classonlymethod
+   def as_view(cls, **initkwargs):
+       # We specify YourView.as_view(args...) in your urlpatterns. This function creates an inner function 
+       # view(request, *args, **kwargs) where request is the http request object, args and kwargs are positional and
+       # keyword arguments passed based on regex matching of the url. This inner function is called by django, when 
+       # a URL is resolved.
+       # this function also makes sure that **initkwargs attributes already exist in your view.
+       for key, value in initkwargs.iteritems():
+           if not hasattr(cls, key):
+               raise TypeError()
+       # define inner function now
+       def view(request, *args, **kwargs):
+           # create an instance of your view class
+           instance = cls(**initkwargs)
+           # set more attributes
+           instance.request = request
+           instance.args = args
+           instance.kwargs = kwargs
+           # call dispatch on your view
+           instance.dispatch(request, *args, **kwargs)
+
+       return view
+
+    def dispatch(self, request, *args, **kwargs):
+        # inspect the request and call the appropriate function
+        if request.method.lower() in ['get', 'post', 'head'... etc]:
+            handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
+        else:
+            handler = self.http_method_not_allowed
+        handler(request, *args, **kwargs)
+
+class based views should now be trivial

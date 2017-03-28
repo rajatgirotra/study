@@ -1,0 +1,96 @@
+Apparently sometimes brokers will do this. I know it's a bad thing, but what exactly does it mean, how and why does this happen, and what implications are there for the speculators like us?
+Post# 2
+Quote
+Dec 28, 2007 6:43am
+WHTenn
+Joined Nov 2006  | 1,732 Posts | Status: Member
+1) While some forex firms advertise real-time executable prices, their dealers may manually review each order you place and requote a worse price if the market is moving in your favor. In addition, their claims of 3-pip spreads routinely widen to 10 pips or more during fast-moving markets. Worse yet, when the market becomes volatile, such as when significant economic news is released, they may even freeze their prices.
+
+2) If you trade in huge lots, they may want to confirm that you meant to make a big trading order.
+
+Hope this answers your question.
+
+Happy New Year
+Post# 3
+Quote
+Dec 28, 2007 7:53am
+melpheos
+Joined Jan 2007  | 1,597 Posts | Status: Stochastic pipster
+It means there is a difference between the price you saw when you clicked buy/sell and the price on the "market" when your order reaches the broker.
+
+You can be pretty sure that if the price goes against you, you will not get requote. If it goes in your direction, you will probably have a requote.
+Post# 4
+Quote
+Dec 28, 2007 8:04am
+de123
+Joined Sep 2006  | 2,382 Posts | Status: Member
+similar then slippage, but its done manually in favour of your broker ofcourse...
+its just money
+Post# 5
+Quote
+Dec 28, 2007 8:17am
+BurgerKing
+Joined Jul 2006  | 2,957 Posts | Status: Member
+Requote
+
+The price you clicked is not the price the broker is willing to give you.
+
+*Not willing* implies that the broker is at a disadvantage if the deal went through at the price you clicked.
+
+Remember:
+Bad for you = Good for broker.
+Good for you = Bad for broker.
+Therefore, a requote is something the broker can do to screw you.
+Post# 6
+Quote
+Dec 28, 2007 8:48am
+mohshr001
+Joined Dec 2007 | 23 Posts | Status: Pip Hunter
+Quoting Skyhr
+Apparently sometimes brokers will do this. I know it's a bad thing, but what exactly does it mean, how and why does this happen, and what implications are there for the speculators like us?
+
+Hi i am working with a global forx company but i cant say the name; i am working in IT department. and beside us is the dealing room.
+
+what you are workingon is the MT4 and its cnsist of mutible modules and you are trading through the client terminal and your orders recieved by dealer terminal; and thier he have three buttons; i will explaiin the main two:
+1- (send) button: after he check your price he will enter send button and the new price will be displayed on your terminal if he change the price.
+2- (reject) button: simply when he press this button a requote message will be displayed to you.
+Post# 7
+Quote
+Dec 28, 2007 8:51am
+philmcgrew
+Joined May 2005  | 1,287 Posts | Status: I am not your bro
+A requote doesn't have to be a blatant attempt to screw you.
+
+First, they only occur in fast markets. Your broker has every right to fill you on a market or stop market order and call it "slippage" but instead he gives you the courtesy of telling you that the market has moved away and if filled you would recieve an unfavorable price. Most requotes happen to larger traders, not the guy slapping on a couple mini lots during the NFP release.
+
+If you routinely get requotes and don't like them then switch brokers.
+Post# 8
+Quote
+Dec 28, 2007 2:46pm
+Skyhr
+Joined Oct 2006  | 213 Posts | Status: Order in Chaos
+Wait, so would I get filled at a worse price - or would I get a message saying, "I'm sorry we didn't let you get filled," forcing me to try again?
+
+So requote/slippage is a function of liquidity? When liquidity dries up during News time, spread widens etc, and there aren't many traders on the other side?
+Post# 9
+Quote
+Dec 28, 2007 4:29pm
+FXNorm
+Membership Revoked | 291 Posts | Joined Sep 2007
+An occasional requote in a fast moving market means nothing. Its perfectly normal to ask your customer if they want a slightly different price. You'd do the exact same thing for your customers if you ran a brokerage firm.
+
+Most Brokers make enough money from the high spreads.
+Post# 10
+Quote
+Last Post: Dec 28, 2007 4:54pm
+philmcgrew
+Joined May 2005  | 1,287 Posts | Status: I am not your bro
+Quoting Skyhr
+
+Wait, so would I get filled at a worse price
+
+- or would I get a message saying, "I'm sorry we didn't let you get filled," forcing me to try again?
+
+So requote/slippage is a function of liquidity? 
+
+When liquidity dries up during News time, spread widens etc, and there aren't many traders on the other side?

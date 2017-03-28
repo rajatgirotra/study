@@ -1,0 +1,73 @@
+Python is a programmin language. It provides very good high level data structures for writing python programs.
+It has an elegant syntax and it is interpreted. So it is also ideal for writing scripts and for rapid application development.
+
+The python interpreter (/usr/bin/python) and its associated "Python Standard Library" are freely available for Windows, Unix and 
+other flavors. The interpreter is also extensible. i.e you can write functions and data types in C/C++ and hook them into the interpreter.
+
+The Standard Python Libraray consists of modules. Similarly, you can also split your python program into modules
+that can be reused in other Python programs.
+
+Running Python
+
+1] Just say "python" on the command line. It starts the python interpreter and
+execute statements interactively.
+You can quit it using Ctrl+D on Unix, Ctrl+Z on windows or by typing the
+quit() command.
+
+2] You can specify a file name to python in which case it executes the script
+in the file.
+
+3] From the command line.
+python -c command [arg] ...  (Enclose command in single quotes)
+
+4] python -m module [arg] ... which executes the source file for module as if
+you have spelled out its full name on the command line.
+
+When a script file is used, it is sometimes useful to be able to run the script and enter interactive mode afterwards. 
+This can be done by passing -i before the script.
+
+Passing Arguments to python
+The script name and additional arguments are turned into a list of strings and
+assigned to the variable argv in the sys module. You can access this list by
+importing the sys module. "import sys". sys.argv has size atleast one. When no
+script or argument is present, sys.argv[0] is empty. When the script name is
+"-" (meaning standard output), sys.argv[0] is "-". When "-c command" is used,
+sys.argv[0] is "-c". When "-m module", sys.argv[0] is the full name of the
+located module.
+
+Executing scripts:
+
+1] Add the interpreter line to the script
+#!/usr/bin/env python3.3
+
+2] Make the script executable
+chmod +x myscript.py
+
+
+When starting python interactively, you may want certain startup commands to
+run always. Just like we have the .bash_profile for Unix shells. For python,
+we can do this by creating the environment variable "PYTHONSTARTUP" and
+setting it to the filename path which contains the python startup commands.
+Remember, this is only for python interactive mode and not while running
+scripts. You can also change the "sys.p1" and "sys.p2" prompts just like PS1
+and PS2 in unix. If say you want to read any additional file at startup, you
+can specify the command to read that file in the PYTHONSTARTUP file. If you
+also want your script to run the startup command, do the following explicitly
+in your script
+
+import os
+filename = os.environ.get('PYTHONSTARTUP')
+if filename and os.path.isfile(filename):
+	exec(open(filename).read())
+
+
+
+Customizing
+Python provides customizable modules. I really dont know what they are at this
+moment. But there are two such modules. One at the site level and one at the
+user level. For this first you'll need to find out the directory where you can
+place the user customization script. Follow the below commands and then place
+the "usercustomize.py" file in that folder.
+
+>>> import site
+>>> site.getusersitepackages()

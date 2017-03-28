@@ -1,0 +1,18 @@
+DRF provides Request class which derives from HttpRequest. This Request class has "data" attribute that
+can manage POST, PUT, PATCH all three.
+Also it overloads TemplateResponse object in Django and provides its own Response object. The
+good thing about this response object is that it supports content negotiation, ie it can return html, or json
+or any other content-type by inspecting the data or checking the "Accept" header in Request and return that
+particular type.
+
+To make sure that your views (class based or function based) receive the Request object instead of
+standard HttpRequest, django provides an @api_view (or class APIView) decorators as you shall see next.
+Also, because now a URL can return any content-type based on content-negotiation,  the URL is not tied
+to a particular content-type as normally the case is. Also, we can use format specifier in the URL to return
+different content-types. Example:
+
+http://localhost:8000/snippets/list.json (will return json)
+http://localhost:8000/snippets/list.html (will return html)
+http://localhost:8000/snippets/list.api (will return DRF Browsable API)
+
+We'll see next how it is done.

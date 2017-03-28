@@ -1,0 +1,12 @@
+# Please read 21.txt first
+
+All python modules have a PRIVATE GLOBAL SYMBOL TABLE. So your module can define as many global variables without being afraid that they will clash with other global variables defined in any other users
+modules. Also, the functions defined in your module can access these global variables. In your imported module, you can access the global variables just like you access functions, using moduleName.itemname syntax. 
+
+Also instead of importing the complete module, you can also import functions selectively using the "from" syntax
+
+Eg:
+
+ from fibo import fib, fib2
+
+in such a case in the imported module, the fibo module name is not known.

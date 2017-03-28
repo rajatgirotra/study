@@ -1,0 +1,215 @@
+Functional arguments for algorithms don't have to be functions. They can be objects that behave
+as functions. Such an object is called a function object, or functor. Sometimes you can use a
+function object when an ordinary function won't work. The STL often uses function objects and
+provides several function objects that are very helpful.
+
+What Are Function Objects?
+Function objects are another example of the power of generic programming and the concept of
+pure abstraction. You could say that anything that behaves like a function is a function. So, if you
+define an object that behaves as a function, it can be used as a function.
+So, what is the behavior of a function? The answer is: A functional behavior is something that you
+can call by using parentheses and passing arguments. For example:
+
+function (arg1 ,arg2); //a function call
+
+So, if you want objects to behave this way you have to make it possible to "call" them by using
+parentheses and passing arguments. Yes, that's possible (there are rarely things that are not
+possible in C++). All you have to do is define operator () with the appropriate parameter
+types:
+
+class X {
+public:
+//define "function call" operator
+return-value operator() (arguments) const;
+...
+};
+
+Now you can use objects of this class to behave as a function that you can call:
+X fo;
+...
+fo(arg1, arg2); //call operator () for function object fo
+
+The call is equivalent to:
+
+fo.operator() (arg1,arg2); //call operator () for function object fo
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+//simple function object that prints the passed argument
+class PrintInt {
+public:
+void operator() (int elem) const {
+cout << elem << ' ';
+}
+};
+
+
+int main()
+{
+vector<int> coll;
+//insert elements from 1 to 9
+for (int i=1; i<=9; ++i) {
+coll.push_back(i);
+}
+
+//print all elements
+for_each (coll.begin(), coll.end(), //range
+PrintInt()); //operation
+cout << endl;
+
+}
+
+
+The class PrintInt defines objects for which you can call operator () with an int argument.
+The expression
+   PrintInt()
+in the statement
+
+for_each (coll.begin(), coll.end(),PrintInt());
+
+creates a temporary object of this class, which is passed to the for_each() algorithm as an
+argument. The for_each() algorithm is written like this:
+
+namespace std {
+template <class Iterator, class Operation>
+Operation for_each (Iterator act, Iterator end, Operation op)
+{
+while (act != end) { //as long as not reached the end
+op (*act); // - call op() for actual element
+act++; // - move iterator to the next element
+}
+return op; }
+}
+}
+
+
+The C++ standard library contains several predefined function objects that cover fundamental
+operations. By using them, you don't have to write your own function objects in several cases. A
+typical example is a function object used as a sorting criterion. The default sorting criterion for
+operator < is the predefined sorting criterion less<>. Thus, if you declare
+
+set<int> coll;
+it is expanded to
+set<int, less<int> > coll; //sort elements with <
+
+From there, it is easy to sort elements in the opposite order:
+set<int ,greater<int> > coll; //sort elements with >
+
+Similarly, many function objects are provided to specify numeric processing. For example, the
+following statement negates all elements of a collection:
+
+transform (coll.begin() , coll.end(), //source
+coll.begin(), //destination
+negate<int>()) ; //operation
+
+The expression negate<int>() creates a function object of the predefined template class negate that simply returns the negated
+element of type int for which it is called. The transform() algorithm uses that operation to
+transform all elements of the first collection into the second collection. If source and destination
+are equal (as in this case), the returned negated elements overwrite themselves. Thus, the
+statement negates each element in the collection.
+
+Similarly, you can process the square of all elements in a collection:
+
+//process the square of all elements
+transform (coll.begin(), coll.end(), //first source
+coll.begin(), //second source
+coll.begin(), //destination
+multiplies<int>()) ; //operation
+
+Here, another form of the transform() algorithm combines elements of two collections by using
+the specified operation, and writes the resulting elements into the third collection. Again, all
+collections are the same, so each element gets multiplied by itself, and the result overwrites the
+old value.
+
+By using special function adapters you can combine predefined function objects with other values
+or use special cases. Here is a complete example:
+
+// stl/fo1.cpp
+#include <iostream>
+#include <set>
+#include <deque>
+#include <algorithm>
+#include "print.hpp"
+using namespace std;
+int main()
+{
+set<int,greater<int> > coll1;
+deque<int> coll2;
+//insert elements from 1 to 9
+for (int i=1; i<=9; ++i) {
+coll1.insert(i);
+}
+PRINT.ELEMENTS(coll1,"initialized: ");
+//transform all elements into coll2 by multiplying 10
+transform (coll1 .begin(), coll1 .end(), //source
+back_inserter(coll2), //destination
+bind2nd(multiplies<int>() ,10)); //operation
+PRINT_ELEMENTS(coll2,"transformed: ");
+//replace value equal to 70 with 42
+replace_if (coll2.begin(),coll2.end(), //range
+bind2nd(equal_to<int>() ,70) , //replace criterion
+42) ; //new value
+PRINT_ELEMENTS(coll2,"replaced: ");
+//remove all elements with values less than 50
+coll2.erase(remove_if(coll2.begin(),coll2.end(), //range
+bind2nd(less<int>() ,50)), //remove criterion
+coll2.end());
+PRINT_ELEMENTS(coll2,"removed: ");
+}
+
+With the statement
+transform (coll1.begin() ,coll1.end() //source
+back_inserter (coll2) , //destination
+bind2nd(multiplies<int>() ,10)) ; //operation
+
+all elements of coll1 are transformed into coll2 (inserting) while multiplying each element by
+10. Here, the function adapter bind2nd causes multiply<int> to be called for each element
+of the source collection as the first argument and the value 10 as the second.
+
+The way bind2nd operates is as follows: transform() is expecting as its fourth argument an
+operation that takes one argument; namely, the actual element. However, we would like to
+multiply that argument by ten. So, we have to combine an operation that takes two arguments
+and the value that always should be used as a second argument to get an operation for one
+argument. bind2nd does that job. It stores the operation and the second argument as internal
+values. When the algorithm calls bind2nd with the actual element as the argument, bind2nd
+calls its operation with the element from the algorithm as the first argument and the internal value
+as the second argument, and returns the result of the operation.
+
+Similarly, in
+replace_if (coll2.begin(),coll2.end(), //range
+bind2nd(equal_to<int>(),70), //replace criterion
+42);
+
+the expression
+bind2nd(equal_to<int>(),70)
+
+is used as a criterion to specify the elements that are replaced by 42. bind2nd calls the binary
+predicate equal_to with value 70 as the second argument, thus defining a unary predicate for
+the elements of the processed collection.
+
+The last statement is similar because the expression
+bind2nd(less<int>(),50)
+
+is used to specify the element that should be removed from the collection. It specifies that all
+elements that are less than value 50 be removed. The output of the program is as follows:
+
+initialized: 9 8 7 6 5 4 3 2 1
+transformed: 90 80 70 60 50 40 30 20 10
+replaced: 90 80 42 60 50 40 30 20 10
+removed: 90 80 60 50
+
+This kind of programming results in functional composition. What is interesting is that all these
+function objects are usually declared inline. Thus, you use a function-like notation or abstraction,
+but you get good performance.
+There are other kinds of function objects. For example, some function objects provide the ability
+to call a member function for each element of a collection:
+for_each (coll.begin(), coll.end(), //range
+mem_fun_ref (&Person: : save)); //operation
+
+The function object mem_fun_ref calls a specified member function for the element for which it
+is called. Thus, for each element of the collection coll, the member function save() of class
+Person is called. Of course, this works only if the elements have type Person or a type derived
+from Person.

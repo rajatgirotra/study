@@ -1,0 +1,23 @@
+Manipulating Algorithms and Associative Containers
+Manipulation algorithms (those that remove elements as well as those that reorder or modify
+elements) have another problem when you try to use them with associative containers:
+Associative containers can't be used as a destination. The reason for this is simple: If modifying
+algorithms would work for associative containers, they could change the value or position of
+elements so that they are not sorted anymore. This would break the general rule that elements in
+associative containers are always sorted automatically according to their sorting criterion. So, not
+to compromise the sorting, every iterator for an associative container is declared as an iterator for
+a constant value (or key). Thus, manipulating elements of or in associative containers results in a
+failure at compile time.
+
+Unfortunately, some systems provide really bad error handling. You see that something went wrong but
+have problems finding out why. Some compilers don't even print the source code that caused the trouble.
+This will change in the future, I hope.
+
+
+Note that this problem prevents you from calling removing algorithms for associative containers
+because these algorithms manipulate elements implicitly. The values of "removed" elements are
+overwritten by the following elements that are not removed.
+Now the question arises, How does one remove elements in associative containers? Well, the
+answer is simple: Call their member functions! Every associative container provides member
+functions to remove elements. For example, you can call the member function erase() to
+remove elements:

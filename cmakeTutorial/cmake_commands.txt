@@ -1,0 +1,76 @@
+option(MyOption "Help for MyOption" ON/OFF)
+if (MyOption)
+    message(MyOption if On)
+endif ()
+
+cmake -DMyOption=Off
+--------------------------------------------------------
+
+include() - command is used to load and run cmake commands from the specified file or module.
+Syntax:
+include(file|module OPTIONAL RESULT_VARIABLE SOME_VARIABLE)
+We can include a file or a module. If we give a module name, then cmake searches for module.cmake file in CMAKE_MODULE_PATH and then in cmake's own module directory. If RESULT_VARIABLE is given then the full path to the file or module is stored in SOME_VARIABLE or "NOTFOUND" is file or module could not be found.
+
+Eg:
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /your/own/module/path/
+include(CTest)
+include(CompilerCheck)
+Will search for CTest.cmake and CompilerCheck.cmake in /your/own/module/path/ folder
+
+--------------------------------------------------------
+CXX Support - CMake has few modules which help in establishing supported features by your compiler
+include (CheckIncludeFileCXX) - This module has a macro that can check for you if a certain file can be included in C++
+Eg:
+# atomic
+CHECK_INCLUDE_FILE_CXX(atomic HAS_ATOMIC)
+if (NOT HAS_ATOMIC)
+    message(FATAL_ERROR "Seasocks requires a C++ compiler with <atomic>")
+endif ()
+
+include (CheckCXXCompilerFlag) - This module has a macro that can tell if a given flag is supported.
+Eg:
+# C++0x / C++11
+CHECK_CXX_COMPILER_FLAG("-std=c++1y" COMPILER_SUPPORTS_CXX1Y)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+CHECK_CXX_COMPILER_FLAG("-std=c++0x" COMPILER_SUPPORTS_CXX0X)
+if (COMPILER_SUPPORTS_CXX1Y)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y")
+elseif (COMPILER_SUPPORTS_CXX11)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+elseif(COMPILER_SUPPORTS_CXX0X)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+else()
+    message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
+endif ()
+
+--------------------------------------------------------
+The file command is probably the command with maximum variants. Here we show how to write to a file
+file(WRITE ${TEMP_DIR}/TestOverride.cpp
+        "struct A { virtual ~A() {} virtual void a() {} };\n
+        struct B : A { void a() override {} };\n
+        int main() { return 0; }")
+--------------------------------------------------------
+try_compile() - is a command that can try to compile some sources for you and store the result in a variable Eg:
+try_compile(HAVE_OVERRIDE ${TEMP_DIR}
+        ${TEMP_DIR}/TestOverride.cpp
+        COMPILE_DEFINITIONS
+)
+
+if (NOT HAVE_OVERRIDE)
+    message(FATAL_ERROR "Seasocks requires a C++ compiler with support for 'override'")
+endif ()
+
+Similarly you can write for emplace support
+--------------------------------------------------------
+config_file(input output COPYONLY ESCAPE_QUOTES @ONLY etc etc)
+used to copy input file to output file and replace all occurrences of @VAR@ or ${VAR} with cmake variable values given the variable exists. If it does not exist, replace with empty string. Also
+#cmakedefine VAR ... is replaced with #define VAR ... or /* #undef VAR */, based on whether variable exists
+Eg:
+configure_file(${CMAKE_MODULE_PATH}/Config.h.in internal/Config.h)
+include_directories('/path/to/internal')
+--------------------------------------------------------
+add_definitions(-DFOO=BAR) - Trivial
+include_directories("src/main/c" ${CMAKE_BINARY_DIR}) - Trivial
+find_package(Threads) - You know already
+add_subdirectory("src/main/c") - trivial
+--------------------------------------------------------

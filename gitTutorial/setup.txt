@@ -1,0 +1,35 @@
+Git configs are stored at three levels
+1) System wide : /etc/gitconfig
+git config --system can be used to add/remove entries
+
+2) User specific: ~/.gitconfig or ~/.config/git/config
+git config --global can be used to add/remove entries
+
+3) repository specific: .git/config
+git config  can be used to add/remove entries
+
+Values in 2) override 1) and values in 3) override 2) and 1).
+
+When setting up git for the first time, do this:
+
+git config --global user.name "Rajat Girotra"
+git config --global user.email "rajatgirotra@yahoo.com"
+git config --global core.editor emacs
+git config --global core.autocrlf input
+git config --global push.default simple
+git config --global color.status auto
+git config --global color.branch auto
+git config --global color.diff auto
+git config --global color.grep auto
+git config --global color.interactive auto
+git config --global alias.gst status
+git config --global alias.co checkout
+git config --global merge.tool meld
+git config --global mergetool.meld.cmd meld '$BASE $LOCAL $REMOTE $MERGED'
+git config --global mergetool.meld.trustExitCode false
+git config --global diff.tool meld
+git config --global difftool.meld.cmd meld '$LOCAL $REMOTE'
+
+
+sudo apt-get install install intltool itstool gir1.2-gtksource-3.0 libxml2-utils
+

@@ -1,0 +1,68 @@
+Infact there are so many different solutions/ideas to the answer
+
+ #include <boost/static_assert.hpp>
+ #include <boost/type_traits/is_same.hpp>
+ #include <boost/type_traits/add_reference.hpp>
+ #include <boost/type_traits/add_const.hpp>
+ template<typename T>
+ struct add_const_ref
+ {
+     typedef typename boost::add_const<T>::type ct;
+     typedef typename boost::add_reference<ct>::type type;
+ };
+ template<typename T1, typename T2>
+ void same()
+ {
+     const bool v = boost::is_same<T1, T2>::value;
+     BOOST_STATIC_ASSERT(v);
+ }
+
+This one blindly adds the const ref irrespective of the template parameter type. So an int& will become const int&; so
+its slightly buggy.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+ // My metafunction is just a bit different.
+ // Above method makes better use of available tools, this one is more from scratch.
+ template<typename T, bool B = is_reference<T>::value > struct add_const_ref;
+ template<typename T> struct add_const_ref<T, true> { typedef T type; };
+ template<typename T> struct add_const_ref<T, false> { typedef T const& type; };
+
+This one is similar to 13.cpp but is more compact. Good solution.
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+ template<typename T>
+	struct add_const_ref
+	{
+		typedef T const& type ;
+	} ;
+ template<typename T>
+	struct add_const_ref<T&>
+	{
+		typedef T& type ;
+	} ;
+What if T is int const? As per this template add_const_ref<int const>::type result in "int const const &". Isn't that
+wrong?
+
+This raises the same questions as 11.cpp
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+    template<class T>
+    class add_const_ref
+    {
+    public:
+      typedef typename boost::add_reference
+      <
+        typename boost::add_const
+        <
+          typename boost::remove_reference
+          <
+            T
+          >::type
+        >::type
+      >::type type;
+    };
+
+Similar to one on the top. But an int& will come out as const int&. I guess solution 2 is best.
+

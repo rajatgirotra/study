@@ -1,0 +1,32 @@
+There are 3 types of languages to choose from:
+
+1) Interpreted - Languages like shell script, python, perl etc. These are interpreted line by line and then
+executed. In this case, the source code is distributed. So not a good choice when speed is important
+
+2) Compiled Languages - Are compiled into executable code directly. C, C++.
+Are the best choice when speed is paramount. In this case, the binary executable is distributed.
+
+3) Interpreted and Just-in-time compiled - Like Java, .NET, C#, Managed C++ etc. In this case, intermediate
+byte code is distributed.
+
+Choosing a language is really a trade off between
+
+1) Speed
+2) Protability
+3) Development Time.
+
+Obviously interpreted languages are inefficient
+Languages such as Java, etc are good in terms of portability, but they require a much larger
+framework to interpret the byte code and do just in time compilation. The framework typically uses
+much more resources than the code itself.
+Also type 3 adds an extra level of abstraction which makes detailed optimization more difficult.
+
+The fastest execution is no doubt with fully compiled code. C++ is good at that. C++ is an advanced
+high level language with a plethora of advanced features and a rich set of libraries.
+It also includes low-level C as a subset, giving access to low-level optimizations. Most compilers
+are able to generate assembly code for you, so you can see how well are the compilers optimizing.
+Although development time is a bit slow, but it should be overlooked if all you want is speed.
+
+The problem with C++ is security. It does not have Array index checking, integer overflow,
+invalid pointer checking. But the absence of it is what makes it very fast, and actually all
+these things lie in the domain of the programmer to implement. :-)

@@ -1,0 +1,16 @@
+/*
+First file in this folder
+*/
+Exception arguments:
+
+Like any object in Java, you always create exceptions on the heap using new, which allocates storage and calls a constructor.
+There are two constructors in all standard exceptions: the first is the default constructor, and the second takes a string argument so you can place pertinent
+information in the exception:
+
+throw new NullPointerException("t = null");
+
+This string can later be extracted using various methods, as you’ll see.
+
+/*
+Please read SimpleExceptionDemo.java next
+*/

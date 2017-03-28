@@ -1,0 +1,33 @@
+Static Libraries
+===============
+You already know. It is an archive of object files (*.o) files. When we link it to an executable,
+the linker will extract the *.o file needed and include the complete file in its final executable.
+Disadvantages:
+1) Multiple executables linking to the same static archive will have their own copy of the object file(s), so the final memory footprint of the running process will be larger.
+2) A bug in the static archive will force all executables to be re-built.
+
+To overcome this we have shared libraries
+Shared Libraries
+================
+In shared libraries, the object modules are not copied into the executable, rather a single copy of the executable is loaded in memory at run-time, and all executables link to it (using the dynamic linker).
+
+A word on dynamic Linking
+=========================
+Almost all executables on linux link to libc shared library. So these executables are called dynamically linked executables. Because they are dynamically linked executable, they must specify a dynamic linker (also called interpreter), which is a program that actually loads the executable in memory along with all of its shared library dependencies. The KERNEL will only load this interpreter into memory. It is this interpreter that loads the executable and other shared libraries. Most often this dynamic linker is /lib64/ld-linux-x86_64.so.2
+When compiling an executable, you can also specify the dynamic linker name to be a different one.
+gcc -Wl,-dynamic-linker,/my/special/linker.so
+
+Commonly, the term linking is used to describe the use of the linker, ld, to combine one or more compiled object files into a single executable file. Sometimes, the term static linking is used to distinguish this step from dynamic linking, the run-time loading of the shared libraries used by an executable. (Static linking is sometimes also referred to as link editing, and a static linker such as ld is sometimes referred to as a link editor.) Every program—including those that use shared libraries—goes through a static-linking phase. At run time, a program that employs shared libraries additionally undergoes dynamic linking.
+
+
+-fPIC flag
+==========
+Object files in shared libraries must be compiled with the -fPIC flag. PIC stands for Position Independent Code.
+-fPIC changes the way the compiler generates code for operations such as accessing global, static and extern variables, accessing string constants, and taking the address of functions. These changes allow the code to be placed at any virtual address at run time. This is necessary because you cannot tell at link time (static linking time), where the shared library code will be located in memory. The run-time memory location of a shared library depends on various factors, such as the amount of memory already taken up by the program that is loading the library and which other shared libraries the program has already loaded.
+
+Also Symbol relocation must be performed at run time. During symbol relocation, references to each symbol (a variable or function) in a shared library need to be modified
+to correspond to the actual run-time location at which the symbol is placed in virtual memory. Because of this relocation process, a program using a shared library may take
+a little more time to execute than its statically linked equivalent. This relocation is done by the dynamic linker.
+
+$ gcc -g -c -fPIC -Wall mod1.c mod2.c mod3.c
+$ gcc -g -shared -o libfoo.so mod1.o mod2.o mod3.o

@@ -1,0 +1,14 @@
+# Anything followed by # is a comment and is not evaluated
+# also you can specify a value on the command line instead of defining a macro
+# Run as m4 -DAUTHOR="W.Shakespeare" -DYEAR=1952
+# Note in the output that comments are not evaluated, however, they still printed in the output.
+# Also you can use `AUTHOR' to prevent an item for not displaying.
+# The word AUTHOR will not be expanded to W.Shakespeare
+# To print a literal #, quote it
+
+'#` Hash will be printed.
+To output something in quotes, use double quotes, quoted author= ``AUTHOR''
+The `AUTHOR' of the book Hamlet was AUTHOR in YEAR
+
+
+

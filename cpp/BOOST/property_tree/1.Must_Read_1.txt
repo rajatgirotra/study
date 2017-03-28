@@ -1,0 +1,44 @@
+boost property_tree is just a tree like data structure where there are multiple nodes.
+Each node holds some data and a list to other nodes (indexed by some key). The are known as its children.
+So you can say a propert_tree data structure looks like this:
+
+struct property_tree {
+    data_type data;
+    list < pair< key_type, property_tree> > children;
+}
+
+Once you build this data structure, the library also provides parsers and generators to output this data into multiple
+formats such as XML, INI and JSON.
+
+The key namespace for property_tree is boost::property_tree.
+The class is ptree.
+
+So we say
+
+boost::property_tree::ptree pt;
+
+Actually, ptree is just a typedef:
+
+
+typedef basic_tree < std::string, std::string > ptree;
+
+The actual definition of basic_tree is very important to understand. It is defined as follows:
+
+template < typename Key, typename Data, typename KeyCompare>
+class basic_ptree {
+
+typedef basic_ptree <Key, Data, KeyCompare> self_type; //Simple
+typedef Key		    key_type;
+typedef Data		data_type;
+typedef KeyCompare	key_compare;
+typedef std::pair<const Key, self_type> value_type; //Most important one. For each node, there is a key. and each node itself is a ptree;
+                                                    //Dont confuse value_type with data_type
+typedef std::size_t        size_type;
+typedef path_of<Key>::type   path_type;													
+
+
+data_type m_data;
+void* m_children;
+
+data_type &data();
+const data_type &data() const;

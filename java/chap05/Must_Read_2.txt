@@ -1,0 +1,3 @@
+The class path variable is used both with java and javac.
+It assumes that you are running the command (java or javac) from each of the paths specified in the classpath variable. and tries to compile or run the application.
+

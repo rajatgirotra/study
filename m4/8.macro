@@ -1,0 +1,4 @@
+#infinte loop macro
+define(`Bye', `Bye for now')
+Bye
+## means Bye for now --> Bye for now for now --> Bye for now for now for now.. and so on.

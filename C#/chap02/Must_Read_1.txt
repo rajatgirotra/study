@@ -1,0 +1,21 @@
+const int a = 100; // This value cannot be changed.
+
+Constants will be familiar to Visual Basic and C++ developers. C++ developers should, however, note
+that C# does not permit all the subtleties of C++ constants. In C++, not only could variables be declared
+as constant, but depending on the declaration, you could have constant pointers, variable pointers to
+constants, constant methods (that don  t change the contents of the containing object), constant
+parameters to methods, and so on. These subtleties have been discarded in C#, and all you can do is
+declare local variables and fields to be constant.
+
+Constants have the following characteristics:
+
+They must be initialized when they are declared, and once a value has been assigned, it can
+never be overwritten.
+
+The value of a constant must be computable at compile time. Therefore, you can  t initialize a
+constant with a value taken from a variable. If you need to do this, you will need to use a read -
+only field (this is explained in Chapter 3 ,  Objects and Types  ).
+
+Constants are always implicitly static. However, notice that you don  t have to (and, in fact, are
+not permitted to) include the static modifier in the constant declaration.
+

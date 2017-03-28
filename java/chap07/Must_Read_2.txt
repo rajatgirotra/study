@@ -1,0 +1,21 @@
+Since you lose the specific type information via an upcast (moving up the
+inheritance hierarchy), it makes sense that to retrieve the type
+informationthat is, to move back down the inheritance hierarchyyou
+use a downcast. However, you know an upcast is always safe; the base
+class cannot have a bigger interface than the derived class, therefore every
+message you send through the base class interface is guaranteed to be
+accepted. But with a downcast, you dont really know that a shape (for
+example) is actually a circle. It could instead be a triangle or square or
+some other type.
+
+To solve this problem there must be some way to guarantee that a
+downcast is correct, so you wont accidentally cast to the wrong type and
+then send a message that the object cant accept. This would be quite
+unsafe
+
+In some languages (like C++) you must perform a special operation in
+order to get a type-safe downcast, but in Java every cast is checked! So
+even though it looks like youre just performing an ordinary parenthesized
+cast, at run time this cast is checked to ensure that it is in fact the type you
+think it is. If it isnt, you get a ClassCastException. This act of checking
+types at run time is called run-time type identification (RTTI).

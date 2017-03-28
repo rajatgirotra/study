@@ -1,0 +1,25 @@
+Template Metaprogramming
+
+Template Metaprogramming (TMP) is a generic programming technique in which the compiler basically behaves as an
+interpreter that generates instructions that make up the final program. It allows you to calculate values of constants at
+compile time; which would otherwise be calculated at run time.
+
+It also allows you to do type & traits manipulation at compile time and write effecient code.
+
+TMP relies a lot on your compiler, so TMP programs can take longer compilation times.
+
+TMP are basically based on recusrion where the recursion is terminated by a template specialisation.
+
+Look at 2.cpp and 3.cpp
+Both calculate the number of bits set in a byte. 2.cpp does it at runtime.
+Whereas, 3.cpp does it at compile time.
+
+Look at 4.cpp which calculates the factorial of a number using generic programming at compile time
+The program will generate template class definitions for intermediate classes, like Factorial<4>,
+Factorial<3> and soon.
+
+Advantages:
+
+1] Faster programs; because a lot of computation is done at compile time
+2] Code resuse.
+3] Portabiliity.

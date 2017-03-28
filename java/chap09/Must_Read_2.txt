@@ -1,0 +1,37 @@
+/*
+Please read FullConstructors.java first
+*/
+In Java, you’re encouraged to inform the client programmer, who calls your method, of the exceptions that might be thrown from your method.
+This is civilized, because the caller can know exactly what code to write to catch all potential exceptions. Of course, if source code is available, the
+client programmer could hunt through and look for throw statements, but often a library doesn’t come with sources. To prevent this from being a problem,
+Java provides syntax (and forces you to use that syntax) to allow you to politely tell the client programmer what exceptions this method throws, so the
+client programmer can handle them. This is the exception specification, and it’s part of the method declaration, appearing after the argument list.
+
+The exception specification uses an additional keyword, throws, followed by a list of all the potential exception types. So your method definition
+might look like this:
+
+void f() throws TooBig, TooSmall, DivZero { //...
+
+If you say
+
+void f() { // ...
+
+it means that no exceptions are thrown from the method. (Except for the exceptions inherited from RuntimeException.)
+
+It is possible to create a handler that catches any type of exception. You do
+this by catching the base-class exception type Exception (there are other
+types of base exceptions, but Exception is the base that’s pertinent to
+virtually all programming activities):
+
+catch(Exception e) {
+System.err.println("Caught an exception");
+}
+
+
+This will catch any exception, so if you use it you’ll want to put it at the
+end of your list of handlers to avoid preempting any exception handlers
+that might otherwise follow it
+
+/*
+Please read Rethrowing.java next
+*/

@@ -1,0 +1,58 @@
+Rule 1: Keep the Data Moving
+To achieve low latency, a system must be able to perform message processing without having a costly storage operation in
+the critical processing path. A storage operation adds a great deal of unnecessary latency to the process (e.g., committing a database
+record requires a disk write of a log record).
+
+An additional latency problem exists with systems that are passive, as such systems wait to be told what to do by an
+application before initiating processing. Passive systems require applications to continuously poll for conditions of interest.
+Unfortunately, polling results in additional overhead on the system as well as the application, and additional latency, because
+(on average) half the polling interval is added to the processing delay. Active systems avoid this overhead by incorporating builtin
+event/data-driven processing capabilities.
+
+
+Rule 2: Query using SQL on Streams (StreamSQL)
+
+In streaming applications, some querying mechanism must be used to find output events of interest or compute real-time
+analytics. Historically, for streaming applications, general purpose languages such as C++ or Java have been used as the
+workhorse development and programming tools. Unfortunately, relying on low-level programming schemes results in long
+development cycles and high maintenance costs.
+
+In contrast, it is very much desirable to process moving real-time data using a high-level language such as SQL
+In order to address the unique requirements of stream processing, StreamSQL, a variant of the SQL language specifically designed
+to express processing on continuous streams of data, is needed. 
+
+We must also have a concept of a sliding window which represents the window of the data we are working on.
+This window must be configurable.
+
+Rule 3:
+The third requirement is to have built-in mechanisms to provide resiliency against stream “imperfections”, including missing and out-of-order data, which are commonly present in real-world data streams.
+
+One requirement here is the ability to time out individual calculations or computations. For example, consider a simple realtime
+business analytic that computes the average price of the last tick for a collection of 25 securities. One need only wait for a
+tick from each security and then output the average price. However, suppose one of the 25 stocks is thinly traded, and no
+tick for that symbol will be received for the next 10 minutes. This is an example of a computation that must block, waiting for input
+to complete its calculation. Such input may or may not arrive in a timely fashion. In fact, if the SEC orders a stop to trading in one
+of the 25 securities, then the calculation will block indefinitely.
+
+
+Rule 4: Generate Predictable Outcomes
+A stream processing system must process time-series messages in a predictable manner to ensure that the results of processing are deterministic and
+repeatable. For example, let say you have a TICKS feed
+    TICKS (exchange_symbol, volume, price, time) and you have a SPLITS feed which tells when a stock splits and the split factor
+	SPLITS(exchange_symbol, split_factor)
+A typical stream processing application would be to produce the real-time split-adjusted price for a collection of stocks. The price
+must be adjusted for the cumulative split_factor that has been seen. The correct answer to this computation can be produced
+when messages are processed by the system in ascending time order, regardless of when the messages arrive to the system. If a
+split message is processed out-of-order, then the split-adjusted price for the stock in question will be wrong for one or more
+ticks. Notice that it is insufficient to simply sort-order messages before they are input to the system―correctness can be
+guaranteed only if time-ordered, deterministic processing is maintained throughout the entire processing pipeline.
+
+
+
+Rule 5: Integrate Stored and Streaming Data
+A very popular extension of this requirement comes from firms with electronic trading applications, who want to write a trading
+algorithm and then test it on historical data to see how it would have performed on alternative scenarios. When the algorithm
+works well on historical data, the customer wants to switch it over to a live feed seamlessly; i.e., without modifying the application
+code.
+
+Stream Processing Engines (SPEs)

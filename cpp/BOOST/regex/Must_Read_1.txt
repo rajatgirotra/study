@@ -1,0 +1,36 @@
+ First file in this folder
+
+
+To use boost.regex you must link your program with the boost.regex library (libboost_regex.a or libboost_regex.so)
+
+boost::regex library provides a main template class boost_regex
+
+template<some template paramaters>
+class boost_regex {
+	//c'tor
+        boost_regex(const char* p, //pattern to be searched for
+			flag_type f = regex_constants::normal); //any flag, just as ignore case, etc etc.
+
+        //bool isEmpty(); //returns true if the pattern is an empty string.
+
+       //unsigned mark_count(); //returns the number of subexpressions in the pattern.ie. expressions within parenthesis.
+				//Remember unix sed Tagged Regular Expression feature.
+
+      flag_type flags() const; //returns a BITMASK containing the option flags that are set for this regular expression.
+}; 
+
+typedef boost_regex<char> regex;
+typedef boost_regex<wchar_t> wregex;
+
+Then you have three powerful functions.
+
+1] regex_match() - returns true only if the entire input sequence matches the pattern.
+2] regex_search() - returns true if the pattern is found anywhere in the input sequence.
+3] regex_replace() - replaces the pattern found with the user defined format string.
+
+All these are template functions and there are many overloaded versions of these functions.
+See Boost documentation online to see the exact definitions.
+
+/*
+Please read 1.cpp next
+*/

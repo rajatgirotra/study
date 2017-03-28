@@ -1,0 +1,30 @@
+The WTForms API is used to encapsulate Form Data in HTML which is used in HTTP POst methods
+and also provides facilities for server side validation.
+
+Important classes:
+
+1) Form is the main class. It just holds a collection of Field Objects. When a Form object is created, it reads input data either from
+   HTTP Post or other parameters the c'tor takes and initialized the values of the Field Objects it holds.
+   Form __init__ has params (formdata, obj, prefix, data, meta, **kwargs)
+   a) If formdata is provided, it is used.
+   b) If formdata is NOT provided or empty, then obj is checked for any attributes matching field names.
+   c) If formdata is NOT provided and obj is not provided, use any field name which matches the name of a keyword argument in kwargs
+   d) Use any default provided in the c'tor for Field object as you will see shortly
+
+2) Field is the main object which does the heavy weight lifting. THere are multiple implementations of Field objects provided for different types:
+    It provides many different types which are type aware, ie they convert the form data to the correct type. They provide many other important properties like:
+    a) id
+    b) name
+    c) label
+    d) descriptions
+    e) List of validation erros
+    f) List of validators etc.
+    g) Each field has a widget which tells how the field will be rendered.
+    Some examples are IntegerField, StringField, BooleanField, SubmitField, DateField etc etc.
+
+The way we use have to use it is:
+    Create a class inheriting from the Form class and add the Fields which are in your Form tag in the HTML.
+    Create an instance of the FOrm object.
+    Validate the form data using form.validate()
+    Implement Business Logic if validation is OK
+    Return an HTML after rendering.

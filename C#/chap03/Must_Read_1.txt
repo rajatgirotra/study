@@ -1,0 +1,109 @@
+Properties are unusual in that they represent an idea that C# has taken from Visual Basic, not from C++
+and Java. The idea of a property is that it is a method or pair of methods that are dressed to look like a
+field as far as any client code is concerned. A good example of this is the Height property of a Windows
+Form. Suppose that you have the following code:
+
+// mainForm is of type System.Windows.Forms
+mainForm.Height = 400;
+
+On executing this code, the height of the window will be set to 400, and you will see the window resize
+on the screen. Syntactically, this code looks like you  re setting a field, but in fact you are calling a
+property accessor that contains code to resize the form.
+
+To define a property in C#, you use the following syntax:
+
+public string SomeProperty
+{
+   get
+   {
+      return This is the property value.;
+   }
+ 
+   set
+   {
+      // do whatever needs to be done to set the property.
+   }
+}
+
+The get accessor takes no parameters and must return the same type as the declared property. You
+should not specify any explicit parameters for the set accessor either, but the compiler assumes it takes
+one parameter, which is of the same type again, and which is referred to as value . As an example, the
+following code contains a property called ForeName , which sets a field called foreName and applies
+a length limit:
+
+private string foreName;
+
+public string ForeName
+{
+   get
+   {
+      return foreName;
+   }
+
+   set
+   {
+      if (value.Length > 20)
+         // code here to take error recovery action
+         // (eg. throw an exception)
+      else
+         foreName = value;
+   }
+}
+
+Read - Only and Write - Only Properties
+It is possible to create a read - only property by simply omitting the set accessor from the property
+definition. Thus, to make ForeName read - only in the previous example:
+
+private string foreName;
+
+public string ForeName
+{
+   get
+   {
+      return foreName;
+   }
+}
+
+It is similarly possible to create a write - only property by omitting the get accessor. However, this is
+regarded as poor programming practice because it could be confusing to authors of client code. In
+general, it is recommended that if you are tempted to do this, you should use a method instead.
+
+C# does allow the set and get accessors to have differing access modifiers. This would allow a property
+to have a public get and a private or protected set . This can help control how or when a property can
+be set. In the following code example, notice that the set has a private access modifier and the get does
+not have any. In this case, the get takes on the access level of the property. One of the accessors must
+follow the access level of the property. A compile error will be generated if the get accessor has the
+protected access level associated with it because that would make both accessors have a different
+access level from the property.
+
+private string _name;
+
+public string Name
+{
+   get
+   {
+      return _name;
+   }
+
+   private set
+   {
+      _name = value;
+   }
+}
+
+If there isnt going to be any logic in the properties set and get, then auto - implemented properties can
+be used. Auto-implemented properties implement the backing member variable automatically. The code
+for the previous example would look like this:
+
+public string ForeName {get; set;}
+
+The declaration private string foreName; is not needed. The compiler will create this automatically.
+By using auto-implemented properties, validation of the property cannot be done at the property set.
+So in the previous example we could not have checked to see if it is less than 20 characters. Also both
+accessors must be present. So an attempt to make a property read - only would cause an error:
+
+public string ForeName {get;}
+
+However, the access level of each accessor can be different. So the following is acceptable:
+
+public string ForeName {get; private set;}

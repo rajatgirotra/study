@@ -1,0 +1,11 @@
+You have seen how to compile console applications using csc.exe , but what about other types of
+applications? What if you want to reference a class library? The full set of compilation options for the C#
+compiler is of course detailed in the MSDN documentation, but we list here the most important options.
+To answer the first question, you can specify what type of file you want to create using the /target
+switch, often abbreviated to /t . This can be one of those shown in the following table.
+Option Output
+
+/t:exe A console application (the default)
+/t:library A class library with a manifest
+/t:module A component without a manifest
+/t:winexe A Windows application (without a console window)

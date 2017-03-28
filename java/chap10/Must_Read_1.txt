@@ -1,0 +1,23 @@
+Java provides a second way to produce the reference to the Class object,
+using a class literal. In the above program this would look like:
+
+Gum.class;
+
+which is not only simpler, but also safer since it’s checked at compile time.
+Because it eliminates the method call, it’s also more efficient.
+
+Class literals work with regular classes as well as interfaces, arrays, and
+primitive types. In addition, there’s a standard field called TYPE that
+exists for each of the primitive wrapper classes. The TYPE field produces
+a reference to the Class object for the associated primitive type, such
+that:
+ 
+boolean.class	 is equivalent to	Boolean.TYPE
+char.class	 is equivalent to	Character.TYPE
+byte.class	 is equivalent to 	Byte.TYPE
+short.class	 is equivalent to 	Short.TYPE
+int.class 	 is equivalent to  	Integer.TYPE
+long.class	 is equivalent to 	Long.TYPE
+float.class	 is equivalent to 	Float.TYPE
+double.class	 is equivalent to 	Double.TYPE
+void.class	 is equivalent to 	Void.TYPE

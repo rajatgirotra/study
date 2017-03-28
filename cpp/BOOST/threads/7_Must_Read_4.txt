@@ -1,0 +1,41 @@
+/*
+The next Lock Type class is 
+
+template class unique_lock : This is more complex than a lock_guard(). It basically provides the following c'tors
+
+unique_lock() --->  Creates an object which does not hold any mutex.
+
+unique_lock(Lockable&) ---> Creates an object that takes ownership of the lockable mutex and call lock() on the mutex.
+		The mutex() function of this call will return you a Lockable* and the owns_lock() function will return true;
+			
+
+unique_lock(Lockable&, boost::adopt_lock_t); ---> Same as lock_guard(Lockable&, boost::adopt_lock_t)
+		The mutex() function of this call will return you a Lockable* and the owns_lock() function will return true;
+
+unique_lock(Lockable&, boost::defer_lock_t)  ---> Stores the Lockable object, but owns_lock() return false. mutex() will return Lockable*.
+					Ownership of the lock is deferred until the lock() member function of unique_lock is explicitly called.
+
+unique_lock(Lockable&, boost::try_to_lock_t)   ---> Stores the Lockable object and call try_lock() on the mutex which return immediately. 
+						If try_lock() return true, owns_lock() return true, else owns_lock() returns false.
+						mutex() will return a Lockable*.
+
+unique_lock(Lockable&, const system_time&)  ---> Stores the Lockable object and calls timed_lock() on the mutex. Only possible if the underlying mutex is  TimedLockable.
+						mutex() returns Lockable* and owns_lock() returns true if lock was acquired, else return false.
+If you create unique_lock<boost::timed_mutex>, then you can use this API.
+By the way, boost::timed_mutex is an implementation of the TimedLockable concept.
+
+mutex() and owns_lock() you already know.
+
+You have a release() API which also returns Lockable*, put it relenquishes control of the mutex, So mutex() will return 0, and owns_lock() will return false.
+The caller of the code should be responsible for unlocking the mutex.
+
+You also have operator bool () which returns true if owns_lock() is true
+You also have operator != () which return true if !owns_lock() is true.
+
+the d'tor ~unique_lock() will call mutex()->unlock() if and only if owns_lock() is true.
+
+Read 8.cpp next. I take the lock in main, and then try to take a timed_lock in a new thread, which fails.
+
+*/
+
+

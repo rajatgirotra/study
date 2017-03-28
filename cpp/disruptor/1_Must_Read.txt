@@ -1,0 +1,23 @@
+We'll study about the disruptor pattern
+1) What is it?
+2) Why its needed
+3) Try to write our own.
+
+First we'll try to do the following experiment and see why lock contention and atomics is slow.
+1) Write a single threaded program to increment a number half a billion times.
+2) Make the variable volatile
+3) Add lock and unlock 1.
+4) Add atomic instruction to 1.
+5) Then make 3. multithreaded (use two threads)
+6) Then make 4. multithreaded (use two threads)
+
+Time all of the above and see.
+You'll notice that the single threaded is fastest. With two threads and using locks, it was really really slow.
+using two threads and atomics was still OK. Run time 2.out, time 3.out etc and check.
+
+Why Lock contention is so SLOW??
+Its because when locks are contending, the contention has to be solved by the operating system.
+So a SYSTEM CALL is involved ie a switch into the kernel space. Once the OS gets control, it can do
+whatever it likes. It can move stop your thread completely, schedule another thread, destroy your process cache.
+move your thread to a different core. So all these things slow you down.
+

@@ -1,0 +1,86 @@
+Message formats in Solace is called SMF (Solace Message Format). You can publish a message with one API
+and read it with another. This means that message structure is independent of the Solace API used. Whether C, Java, .NET etc.
+
+The message format is pretty simple
+
+1) You have a header field, which has Solace defined header data.
+2) You can have application defined header field.
+   You can add and get from both these fields.
+3) The data field can be either in XML format or raw binary data.
+When using C API, a solace Message is defined as:
+    solClient_opaqueMsg_pt
+In Java, it is
+    com.solacesystems.jcsmp.Message
+-----------------------------------------------------------------------
+
+Factories
+
+Factories are entry points into the Solace API. Used to create various messaging system entities like, Topics, Queues, Endpoints, Contexts
+Sessions, etc etc.
+
+For C, factory class is not applicable.
+For Java, factory class is com.solacesystems.jcsmp.JCSMPFactory
+-----------------------------------------------------------------------
+
+Contexts
+
+Solace uses Contexts to manage communication between an application and Solace appliance. A Context
+1) Encapsulates Sessions and Session components
+2) Has its own internal threads for Network I/O and message delivery notificaton. 
+    In Java API, network I/O and message notificaton are handled on separate threads. In C API, a single thread manages
+	Network I/O and message delivery notificaton.
+
+In Java, Context is com.solacesystems.jcsmp.Context
+In C, Context is solClient_opaqueContext_pt. Create Context using solClient_context_create(args...);
+-----------------------------------------------------------------------
+
+Sessions
+
+The all important Session. A single Context can have multiple Sessions inside it. A single Session creates a single, client connection
+with the Solace Appliance that can be used for sending or receiving messages. A Session object provides:
+a) A single connection to the appliance.
+b) read/modify session parameters.
+c) read Session statistics
+d) add/remove subscriptions.
+e) create destinations and endpoints.
+f) publish and receive Direct messages.
+g) publish Guaranteed messages
+h) create/setup Guaranteed Messaging FLOWS to receive Guaranteed Messages
+h) create Browser (for Java and .NET only)
+i) create Cache Sessions.
+
+In Java, Session is com.solacesystems.jcsmp.JCSMPSession
+In C,  Session is solClient_opaqueSession_pt. Create Session using solClient_session_create(args...)
+-----------------------------------------------------------------------
+
+Guaranteed Message FLOWS
+
+To receive guaranteed messages, you must create FLOWS within a Session. A flow is just an API concept that allows
+an application to receive Guaranteed messages from an endpoint, like a Queue.
+For sending Guaranteed Messages also a FLOW is required. But this flow is automatically created in the Session, once your
+application starts sending GMs. 
+For receiving GMs, you need to create a FLOW explicitly.
+
+In Java API, a Flow object is com.solacesystems.jcsmp.FlowReceiver
+In C API, it is solClient_opaqueFlow_pt. Create a FLOW using solClient_session_createFlow(args...)
+
+-----------------------------------------------------------------------
+
+CacheSessions
+
+Your application can also send and receive requests for caches messages for a Topic of interest. For this you must create a CachedSession
+inside a Session.
+In Java API, CachedSession is com.solacesystems.jcsmp.CacheSession.
+In C API, it is solClient_opaqueCacheSession_pt. Create a CacheSession using solClient_session_createCacheSession(args...)
+
+-----------------------------------------------------------------------
+
+Destination (Queue or Topic)
+
+Topic: A destination string to which you can publish. Mostly used in Publish/Subscribe
+Queue: An endpoint to which GMs can be published using PTP ideology.
+-----------------------------------------------------------------------
+Topic Subscription
+A string (which may include wildcards * or >) to indicate the subscriptions they are interested in.
+Can be used for both Topic or Queue Subscription
+-----------------------------------------------------------------------

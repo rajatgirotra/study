@@ -1,0 +1,11 @@
+By default, django uses sqlite database. sqlite database is part of python installation. You can always change the database to any database of your choice in mysite/mysite/settings.py
+
+Sqllite is a file based database. It is a single file. No other separate installtion is needed as its part of python installation. The sqlite database file is specified in settings.py (see DATABASES). The databases dictionary can be provided with more details like 'USER', 'HOST', 'PASSWORD' etc if using other databases like oracle, mysql, postgresql etc.
+
+Other dictionaries in settings.py
+
+1) INSTALLED_APPS : There are a few default apps that django installs used for admin purpose, auth purposes, contenttypes, sessions, messages, staticfile management etc.
+
+2) TIME_ZONE: You must specify correctly.
+
+Most of the default django apps use the database, so need to have atleast one or more database tables, so we need to create the tables before we can use it. We can do it easily using "python manage.py migrate"
