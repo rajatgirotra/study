@@ -7,7 +7,7 @@ import string
 
 
 # How to write a class in python
-class Base:
+class Base (object):
     """
     The doc string for the class goes here
     """  # is accessible via Base.__doc__
@@ -23,7 +23,7 @@ class Base:
         self.fname = firstname
         self.lname = lastname
 
-    # an class method
+    # a member function
     def foo(self):
         print('foo() ', self.fname, self.lname)
 
