@@ -13,8 +13,11 @@ int main() {
 	auto z = y; //z will be of type double.
 	auto a = "Hello"; //a will be const char*
 	auto d = {1, 2};
+        auto x2 = x;
+        ++x2;
 
 	cout << "x = " << x << "  of type: " << typeid(x).name() << endl;
+	cout << "x2 = " << x2 << "  of type: " << typeid(x2).name() << endl;
 	cout << "y = " << y << "  of type: " << typeid(y).name()<< endl;
 	cout << "z = " << z << "  of type: " << typeid(z).name() << endl;
 	cout << "a = " << a << "  of type: " << typeid(a).name() << endl;

@@ -20,7 +20,7 @@ myAngularApp.controller('MainController', function($scope, $log, $resource) {
     //We do this using the data-ng-controller attribute
 
     //Before going further, please read function_strings.js and then return here
-    console.log($scope);    
+    //console.log($scope);
     $log.info("This is an info message");
     $log.warn("This is a warning");
     $log.error("This is an error");

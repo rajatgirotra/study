@@ -25,7 +25,7 @@ int func(int arg) {
 }
 
 //function pointer
-int(*poFunc)(int) = 0;
+int(*poFunc)(int) = nullptr;
 
 //function object
 struct X
@@ -47,7 +47,7 @@ auto l = [] (int x, int y) {
      cout << "Lambda function l called with X: " << x << "   Y: " <<  y << endl;
  };
 
-double(X::*poMemFunc)(bool) = 0;
+double(X::*poMemFunc)(bool) = nullptr;
 
 
 int main()

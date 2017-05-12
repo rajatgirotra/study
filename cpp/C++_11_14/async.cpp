@@ -11,5 +11,6 @@ void foo() {
 
 int main() {
     std::async(std::launch::async, foo);
+    cout << "Main returning" << endl;
     return 0;
 }

@@ -26,7 +26,7 @@ int main()
     vector<string> v { "Rajat", "Ahmed" };
     cout << v[0] << "  " << v[1] << endl;
 
-    int16_t i {5.3};  //WARNING, because of narrowing initialization, use -Wnarrowing
+    int16_t i {5.3};  //ERROR, because of narrowing initialization, use -Wno-narrowing to silence the error
     cout << i << endl;
     return 0;
 }

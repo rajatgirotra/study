@@ -1,12 +1,7 @@
-import logtest
 import logging
+from .lib1 import lib1
 
-logtest.setupLogging()
-logger = logging.getLogger(__name__)
-
-
-def mainFunc():
-    print('in mainFunc', __name__)
-
-
-mainFunc()
+_logger = logging.getLogger(__name__)
+_logger.info('From main.py')
+print __package__
+lib1.foo()

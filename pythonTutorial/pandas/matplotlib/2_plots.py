@@ -1,42 +1,22 @@
-#!/usr/bin/env python3
+# The first command is the plot() function This function is used to draw lines/markers on your figure.. It is very generic.
+# plot(*args, *kwargs) --> *args can be multiple combinations of x/y coordinates and line style and color. Example plot([1,2,3], [1,2,3], 'b-', 5, 6, 'rD') ie draw a line with coordinates (1,1), (2,2), (3,3) in blue color with '-' marker and draw a point (5,6) in red diamond shape marker. 
+# plot (y), plot(y, 'r+') --> When x coordinates are missing, assume that they grow from 0..N-1.
+# plot([1,2,3], [1,2,3], 5, 6) --> line style/color is optional in which case a different style/color is given by matplotlib depending on the rc setting (see axes.prop_cycle) rcParam
 
-## I have not yet set the matplotlib support setup in plain old python interactive shell.
-## So Dont run the commands here in a normal shell. Please use ipython shell.
+# plt.show() will show your plot in matplotlib.
+# plot() returns a list of matplotlib.lines.Line2D objects corresponding to each line drawn. The kwargs is used to set properties on these line objects. whatever set_* functions are available in Line2D class can be set using kwargs. Notible properties are:
+# 1. linewidth
+# 2. label
+# 3. antialiased --> What is it. By default is On. When you see a higher resolution plot on devices with lower resolution we can get distortion effects. aliasing removes these distortions. Just note that antialiased=False will produce quicker plots. Try plt.plot(range(10), antialiased=True/False) and see the difference.
+# 4. color, linestyle, marker, markersize, markerfacecolor
+# Another good example:
+# plt.plot(2, 3, color='green', linestyle='dashed', marker='D', markerfacecolor='orange', markersize=12)  --> This will draw only a single Diamond shape orange marker at (2,3)
+# plt.plot([1,2], [3,4], color='green', linestyle='dashed', marker='D', markerfacecolor='orange', markersize=12)  --> This will draw only a line with co-ordinates (1,3) (2,4) in green color dashed line with Diamond shape orange markers at both co-ordinates.
 
-import matplotlib as mpl
-#import matplotlib.pyplot as plt
-
-# the plot(*args, **kwargs) is in the matplotlib.pyplot module which is the set of matplotlib interface classes for creating plots
-
-plt.plot(5)
-# With just one argument, it assumes it is a value on y-axis and corresponding value on x-axiz is 0.
-# Also be default, plot shows plot in blue color with dashed lines ie 'b-', since here we are just plotting a point
-# instead of lines, nothing will be visible as there is no line. So instead of lines we need to use markers. You can
-# check online - matplotlib supports many different types of markers. So you can say
-plt.plot(5,'rD') # plot (0,5) in red color and Diamond shape marker
-
-
-plt.plot(5, 2, 'g^') # Here plot point (5,2) with green triangle shaped marker
-
-plt.plot(2.5,'mo', 3.5, 'rD', 4.5, 'g<', 5.5, 'b.') # plot these four points in majenta, red, green and blue colors
-# Also o means circular marker, D is diamond shaped, < is triangle_left marker, . is point marker
-
-plt.plot([1,2,3,4],[0.5,1.5,2.5,3.5],'b+-') # x values are 1,2,3,4 and y values are 0.5,1.5,2.5,3.5,
-# color is blue, style is plus marker and line, so you'll see plus markers at the 4 points.
-
-
-plt.plot([1,2,3],[1,2,3], 'go-', label='line 1', linewidth=2) # Using keyword args, you can set parameters on lines
-# like label and linewidth
-plt.plot([1,2,3],[1,4,9], 'rs', label='line 2')
-plt.axis([0,5,0,10]) # settig the minimum and max x and y axis
-plt.legend() ## Will display the legend about the two lines in the plot itself.
-## All these keywords like label, linewidth are actually properties of matplotlib.lines.Line2D
-# Have a look online on how many different types of properties are supported.
-
-
-##later you'll see how plot command works not only with scalars or simple lists, but also with numpy ndarray
-# Infact lists are internally converted to ndarray only.
-
-
+# Matplotlib is designed to work with numpy arrays. We can use that also to plot. Infact lists are internally converted to numpy arrays.
+import numpy as np
+t = np.arange(0,5,0.2) # produce an ndarray from 0 to 5 with step of 0.2
+plt.plot(t,t, t, t**2, t, t**3) # draw three lines x = x, x = x*x, x = x*x*x
+plt.show()
 
 

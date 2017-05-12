@@ -9,6 +9,7 @@ using namespace std;
 
 void print()
 {
+   cout << "I am called" << endl;
 }
 
 

@@ -1,0 +1,8 @@
+2017-04-23 11:18:10,660 INFO main.py <module> MainThread: From main.py
+2017-04-23 11:18:10,660 CRITICAL lib1.py foo MainThread: Critical log
+2017-04-23 17:30:21,370 INFO main.py <module> MainThread: From main.py
+2017-04-23 17:30:21,370 CRITICAL lib1.py foo MainThread: Critical log
+2017-04-23 17:31:44,912 INFO main.py <module> MainThread: From main.py
+2017-04-23 17:31:44,912 CRITICAL lib1.py foo MainThread: Critical log
+2017-04-23 17:32:18,294 INFO main.py <module> MainThread: From main.py
+2017-04-23 17:32:18,294 CRITICAL lib1.py foo MainThread: Critical log

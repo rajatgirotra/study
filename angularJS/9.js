@@ -15,10 +15,11 @@ myAngularApp.controller('MainController', ["$scope", "$timeout", "$filter", "$lo
     // The caveat is that if I use a pure javascript function which runs asynchronously and we change the scope inside this function, then
     // angular will never know that the scope changed. In these odd cases, we have to explicitly tell AngularJS to run the digest loop.
     //eg: setTimeout() function which runs a function asynchronously after the specified number of milliseconds.
-    /*setTimeout(function() {
-        $scope.handle = 'newTwitterHandle'; //function changed inside a javascript function
-        $log.log('scope changed');
-    }, 3000); */
+    // setTimeout(function() {
+    //     $scope.handle = 'newTwitterHandle'; //function changed inside a javascript function
+    //     $log.log('scope changed');
+    //     $log.info($scope);
+    // }, 3000);
 
     // To fix this issue we need to tell angular explicitly to run the digest loop via the apply method
     setTimeout(function() {

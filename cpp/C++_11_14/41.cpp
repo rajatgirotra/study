@@ -44,6 +44,7 @@ struct President {
     President& operator=(const President&) = default;
 };
 
+
 int main(int argc, char *argv[]) {
     std::vector<President> elections;
     std::cout << "emplace_back: "<< endl;

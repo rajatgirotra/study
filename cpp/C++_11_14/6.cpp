@@ -37,4 +37,7 @@ int main() {
 	} else {
 		cout << "a and b are unequal" << endl;
 	}
+
+        if (a == 0)
+            cout << "a is equal to 0" << endl;
 }

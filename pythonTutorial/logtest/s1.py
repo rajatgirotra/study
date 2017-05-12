@@ -1,7 +1,5 @@
+from . import main
 import logging
 
 _logger = logging.getLogger(__name__)
-
-
-def foo():
-    _logger.critical('Critical log')
+_logger.warn('Warn from s1.py')

@@ -50,7 +50,7 @@ int main()
 
     poFunc = &func;
 
-    std::async(func, 10); //bind function
+    std::async(std::launch::async, func, 10); //bind function
     std::async(poFunc, 20); //bind function pointer
     std::async(X()); //bind function object
 
@@ -77,7 +77,7 @@ int main()
  * Explanation. First see the differences from 39.cpp
  * 1) include <future> header for async.
  * 2) You dont need the round brackets like you do when calling std::bind
- * 3) The async() provides a second c'tor which take a launch policy.
+ * 3) The async() provides a second c'tor argument which take a launch policy.
  *
  * std::launch::async -  meaning run the thread now.
  * std::launch::deferred - meaning run the thread later when someone tries to get the result of the function call using future.get()

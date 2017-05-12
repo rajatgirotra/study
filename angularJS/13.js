@@ -6,7 +6,7 @@ var myAngularApp = angular.module('myApp', ['ngMessages', 'ngResource']);
 myAngularApp.controller('MainController', ["$scope", "$timeout", "$filter", "$log", "$http", function($scope, $timeout, $filter, $log, $http) {
 
     $log.debug('Doing something');
-    $http.get('http://sg1e-sudat01/research/2015-11-19/ose/day/transactions.json')
+    $http.get('http://echo.jsontest.com/key/value/one/two')
         .success(function(result) { //result will the json we get back.
             $scope.result = result;
             $log.info('HTTP Request succeeded');

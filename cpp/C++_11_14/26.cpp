@@ -15,5 +15,6 @@ int square(int x)
 int main()
 {
     float a[square(9)];
+    cout << sizeof(a) << endl;
     return 0;
 }
