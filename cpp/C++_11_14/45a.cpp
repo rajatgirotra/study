@@ -14,6 +14,7 @@ understand the API, so we'll take our time and go over each function in detail.
 #include <iostream>
 #include <string>
 #include <utility>
+#include "45.h"
 using std::cout;
 using std::endl;
 using std::string;
@@ -29,8 +30,13 @@ struct A {
     // A() = delete;
 };
 
-void unpack(tuple<string&, int&&> t) {
+template <typename... UTypes>
+//void unpack(UTypes&&... t) {
+void unpack(tuple<UTypes&...> t) {
+//void unpack(tuple<string, int> t) {
     cout << std::get<0>(t) << "   " << std::get<1>(t) << endl;
+    cout << "type of std::get<0>(t) is: " << demangle(typeid(typename std::tuple_element<0, decltype(t)>::type).name()) << endl;
+    cout << "type of std::get<1>(t) is: " << demangle(typeid(typename std::tuple_element<1, decltype(t)>::type).name()) << endl;
 }
 
 int main() {
@@ -63,8 +69,9 @@ int main() {
 
     // forward_as_tuple, exactly similar to std::forward.
     // Will forward as rvalue or lvalue based on what you pass to it.
-    string name("Rajat");
+    const string name("Rajat");
     unpack(std::forward_as_tuple(name, 42));  // unpack must expect
+    //unpack(std::forward_as_tuple(string("Rajat"), 42));  // unpack must expect
     // name by lvalue and age by rvalue reference
 
     return 0;

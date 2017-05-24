@@ -21,8 +21,8 @@ int main() {
 
     // tuple_element is used to get the type of each variable stored
     // in the tuple
-    // tuple<const int&, double&&> t2(100, 23.24);  // ---> Line A
-    auto t2 = std::make_tuple(100, 23.24);  // ---> Line B
+    tuple<const int&, double&&> t2(100, 23.24);  // ---> Line A
+    //auto t2 = std::make_tuple(100, 23.24);  // ---> Line B
     tuple_element<0, decltype(t2)>::type int_type = std::get<0>(t2);
 
     /* With Line A, the following line wont compile, because the type stored

@@ -14,6 +14,7 @@ understand the API, so we'll take our time and go over each function in detail.
 #include <iostream>
 #include <string>
 #include <utility>
+#include "45.h"
 using std::cout;
 using std::endl;
 using std::string;
@@ -25,6 +26,7 @@ using std::tuple;
    };
 */
 
+
 int main() {
     // Making a tuple.
     // default initialization with 0 for int and 0 for char
@@ -34,7 +36,14 @@ int main() {
     // cout << t2 << endl; // operator << is not supported.
 
     // Can create with any type rvalue reference or using const qualifier.
-    tuple<const int, double&&> t3(100, 23.25);
+    auto y = 100;
+    // tuple<const int&, double&&> t3(100, 23.25);
+    tuple<int&, double&&> t3(y, 23.25);
+    auto& x = std::get<0>(t3);
+    x++;
+    auto& z = std::get<0>(t3);
+    z++;
+    cout << x << "  " << y << "  " << z << endl;
 
     int a[3];
     //tuple<int[]> t4(a);  // this line will error.
@@ -46,5 +55,9 @@ int main() {
     // For example, a function type is reduced to a pointer to function
     // an array type is reduced to a pointer to array (int*) in the above case
     // const int&, const int, int&& etc are reduced to int.
+
+    cout << "type of std::get<0>(t3) is: " << demangle(typeid(std::tuple_element<0, decltype(t3)>::type).name()) << endl;
+    cout << "type of std::get<1>(t3) is: " << demangle(typeid(std::tuple_element<1, decltype(t3)>::type).name()) << endl;
+    cout << "type of std::get<0>(t5) is: " << demangle(typeid(std::tuple_element<0, decltype(t5)>::type).name()) << endl;
     return 0;
 }
