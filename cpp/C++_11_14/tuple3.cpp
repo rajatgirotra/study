@@ -9,7 +9,7 @@ int main() {
     int a = 10;
     tuple<int&> t1(a); // A tuple containing one int& with value 10. Note that the variable "a" and the variable inside tuple are SAME.
 
-    auto x = std::get<0>(t1); // std::get<> will return you a reference type. But because we have "auto x", x will be a plain int. so x++ is not a problem, as it is just an "int". Also incrementing x will not effect the value in the container.
+    auto x = std::get<0>(t1); // std::get<> will return you an lvalue reference type. But because we have "auto x", x will be a plain int. so x++ is not a problem, as it is just an "int". Also incrementing x will not effect the value in the container.
     x++;
     a--; // obviously, "a" and container item are SAME. so the value will be 9.
     cout << "x: " << x << "  a:" << a << "   in container: " << std::get<0>(t1) << endl;
