@@ -7,3 +7,4 @@ GRTAGS
 *.pyc
 build/
 static_cdn/
+a.out
