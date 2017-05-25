@@ -37,11 +37,7 @@ int main() {
     */
     tuple_element<1, decltype(t2)>::type double_type = std::get<1>(t2);
     // The following will compile with Line A.
-    // std::remove_reference<tuple_element<1, decltype(t2)>::type>::type double_type = std::get<1>(t2);
-    cout << "Tuple first element type: "
-         << demangle(typeid(int_type).name()) << endl;
-    cout << "Tuple second element type: "
-         << demangle(typeid(double_type).name()) << endl;
+    //tuple_element<1, decltype(t2)>::type>::type double_type = std::get<1>(std::move(t2));
     return 0;
 }
 

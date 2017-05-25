@@ -1,5 +1,6 @@
 // Copyright (C) 2015 by RajatGirotra
 // tuple in C++11
+// read tuple[1234...].cpp and then return here.
 /*
 Very simple concept. Just a generalization of the concept of pairs.
 A tuple is a holder of elements of different types. Similar to C-like strcutues,
@@ -19,6 +20,7 @@ using std::cout;
 using std::endl;
 using std::string;
 using std::tuple;
+
 /* tuple class is defined like this:
    template <typename... Types>
    class tuple {
@@ -39,10 +41,10 @@ int main() {
     auto y = 100;
     // tuple<const int&, double&&> t3(100, 23.25);
     tuple<int&, double&&> t3(y, 23.25);
-    auto& x = std::get<0>(t3);
-    x++;
+    auto& x = std::get<0>(t3); // x and y are same.
+    x++; // x and y are now 101
     auto& z = std::get<0>(t3);
-    z++;
+    z++; // x, y, z are now 102
     cout << x << "  " << y << "  " << z << endl;
 
     int a[3];
