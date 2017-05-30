@@ -5,8 +5,9 @@
 #include <iomanip>
 using namespace std;
 
-    typedef std::tuple<int, float> t;
-    typedef std::pair<int, float> p;
+using t = std::tuple<int, float>;
+using p = std::pair<int, float> p;
+
 struct Foo
 {
     Foo(std::tuple<int, float>);

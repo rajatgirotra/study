@@ -20,15 +20,18 @@ int main() {
     // case 2. parameter d is not constexpr, so compiler will compute  at run time
     double d;
     cin >> d;
-    cout << half_of(d) << endl;
+    //constexpr double half_again = half_of(d); // ERROR. since d is not constexpr, compiler cannot compute half_of(d) at compile time. So half_again cannot be a constexpr. So we need to take it constexpr from the expression.
+    double half_again = half_of(d);
+    cout << half_again << endl;
 
-    int arr2[twice(2)];
-    return 0;
+    //static_assert(twice(2)==4, "twice of 2 is not 4!!"); // this fails too!! Why, because the standard says that a constexpr function does not have to be defined before its first use, however the result of any call made prior to its definition is not a constant expression.
+    //constexpr auto result = twice(2); 
+    int arr2[twice(2)]; // is evaluated at run time. compile with -pedantic to see a warning. If twice(2) were a constexpr, no warning would be output.
+    return 0; 
 }
 
 // constexpr usage in function declarations does not turn off NVRO. Because there is no NVRO. its all at compile time.
 // So there is no function call at all during runtime.
-
 constexpr int twice(int x) {
-    return x* 2;
+    return x * 2;
 }

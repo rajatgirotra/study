@@ -21,6 +21,10 @@ struct A {
         cout << "A move c'tor " << endl;
     }
 
+    ~A() {
+        cout << "A d'tor" << endl;
+    }
+
     A& operator = (const A&) {
         cout << "A copy assignment" << endl;
     }
@@ -42,10 +46,12 @@ int main(int argc, char *argv[]) {
     // operator = will behave like calling std::forward<> for each type.
     // resulting in move c'tor/assignment being called if the type
     // supports move c'tor/assigments.
-    tuple<A> t3 = std::make_tuple(A());
+    {
+    tuple<A> t3 = std::make_tuple(A()); // make_tuple returns tuple<int&&>
+    }
     cout << "OR" << endl;
     A a;
-    tuple<A> t4 = std::make_tuple(a);
+    tuple<A> t4 = std::make_tuple(a); // make_tuple returns tuple<int&>
     // in case above, argument to make_tuple is lvalue,
     // so std::forward will end up calling copy c'tor.
 
