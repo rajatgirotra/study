@@ -23,6 +23,7 @@ int main() {
     cout << bin2dec<0>::value << endl;
     cout << bin2dec<1>::value << endl;
     cout << bin2dec<10>::value << endl;
+    cout << bin2dec<11>::value << endl;
     cout << bin2dec<10001>::value << endl;
     return 0;
 }

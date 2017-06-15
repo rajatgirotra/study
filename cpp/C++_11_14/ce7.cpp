@@ -19,7 +19,7 @@ int main() {
     constexpr double x = ce_pow(2, -5);
     cout << x << endl;
 
-    constexpr double y = ce_pow(1, 101);
+    //constexpr double y = ce_pow(1, 101); // exponent is > 100, so ce_pow should error at compile time
 }
               
 /* Note the throw: Because the throw is not evaluated, it is ignored
