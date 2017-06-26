@@ -34,9 +34,21 @@ int32_t lcs_brute_on2() {
     return lcs;
 }
 
+// Also called Kadane's algorithm
+int32_t lcs_linear_dp() {
+    int32_t runningSum = arr[0];
+    int32_t maxSum = arr[0];
+    for(int i = 1; i < arr.size(); ++i) {
+        runningSum = std::max(runningSum + arr[i], arr[i]);
+        maxSum = std::max(runningSum, maxSum);
+    }
+    return maxSum;
+}
+
 
 int main() {
-    cout << "lcs = " << lcs_brute_on3() << endl;
-    cout << "lcs = " << lcs_brute_on2() << endl;
+    cout << "lcs_brute_on3 = " << lcs_brute_on3() << endl;
+    cout << "lcs_brute_on2 = " << lcs_brute_on2() << endl;
+    cout << "lcs_linear_dp = " << lcs_linear_dp() << endl;
     return 0;
 }
