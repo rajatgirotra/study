@@ -6,10 +6,10 @@ constexpr size_t arraySize(T (&)[N]) noexcept {
     return N;
 }
 
-size_t arraySize(int*) {
+/*size_t arraySize(int*) {
     throw std::runtime_error("pointer types do not have sizes");
     return 0;
-}
+}*/
 
 int main() {
     int keys[] {1,2,3,4,5};

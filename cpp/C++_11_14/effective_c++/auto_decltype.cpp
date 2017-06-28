@@ -15,5 +15,8 @@ int main() {
     auto dblVec = doubleVector();
     cout << getValueAtIndex(dblVec, 0) << endl;
     cout << getValueAtIndex(doubleVector(), 1) << endl;
+
+    getValueAtIndex(dblVec, 0) = 6.6;
+    cout << getValueAtIndex(dblVec, 0) << endl;
     return 0;
 }

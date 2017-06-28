@@ -12,7 +12,7 @@ using UPtrMapSS = std::unique_ptr<std::unordered_map<std::string, std::string>>;
 
 typedef void (*FP)(int, double);
 vs
-using FP = void (*)(int, double); // FP is a function pointer.
+using FP = void (*)(int, double); // FP is a function pointer type.
 
 
 Example 2
@@ -46,7 +46,7 @@ class Widget {
 
 template <typename T>
 class Widget {
-    MyAllocList<T> list;  // cool, no typename, no ::type, infact MyAllocList is a non-depandant type
+    MyAllocList<T> list;  // cool, no typename, no ::type, infact MyAllocList is a non-dependant type
 };
 */
 
@@ -54,7 +54,7 @@ class Widget {
 C++11 has <type_traits> which offers many type manipulating template classes: Eg remove_const
 template <typename T>
 struct {
-   type some_magic<T>::type;  // This uses the old approach
+   typedef some_magic<T>::type;  // This uses the old approach
 }
 
 C++14 has added "_t" counterparts based on alias templates. Very easy
