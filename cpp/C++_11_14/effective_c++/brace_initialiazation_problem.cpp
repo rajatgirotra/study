@@ -44,9 +44,9 @@ public:
         cout << "Widget (int a, double d)" << endl;
     }
 
-    // Widget(std::initializer_list<bool> bi) {
-    //     cout << "std::initializer_list<bool>" << endl;
-    // }
+//     Widget(std::initializer_list<bool> bi) {
+ //        cout << "std::initializer_list<bool>" << endl;
+  //   }
 
     Widget(std::initializer_list<string> si) {
         cout << "std::initializer_list<string>" << endl;

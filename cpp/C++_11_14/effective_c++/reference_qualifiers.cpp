@@ -3,7 +3,7 @@
 void doWork() &; // means that this function can only be called when *this is an lvalue
 void doWork() &&; // means that this function can only be called when *this is an rvalue.
 
-Also the reference qualifier is part of the function signature.
+Also the reference qualifier is part of the function signature; so it takes part in overriding (just like const at the end of the function is part of the signature)
 */
 
 #include <iostream>
@@ -26,7 +26,7 @@ public:
 };
 
 int main() {
-    // Base().doWork(); //!! Error. "doWork() &" should be called with lvalue *this
+    //Base().doWork(); //!! Error. "doWork() &" should be called with lvalue *this
     std::unique_ptr<Base> upb = std::make_unique<Derived>(); // also see how make_unique is called. Just specify the template type with empty arguments. It will automatically construct an object of type Derived.
     upb->doWork();
     return 0;

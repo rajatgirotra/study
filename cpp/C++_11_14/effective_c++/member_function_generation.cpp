@@ -11,6 +11,8 @@ Rule 2
 ------
 If you declare either of the Copy operations, the move operators will not be generated. and vice versa. This is because the compiler again believes that since the user has manually provided the copy (or move) operation, this means there is something special about it, so the default move(copy) operation wont suffice any way.
 
+Similarly if you define either of the move operations, the CC and CA are not generated. Ie they are implicitly deleted.
+
 Rule 3
 ------
 C++98 has a rule of three. If you declare any of the CC, CA or DTOR, then you must declare all three. This is because for example, if you define your own CC, this means that there is some resource management that you are doing in your CC, so you should do that in the CA also and also the DTOR wont be trivial in that case. On the other hand, if you defined a DTOR this means that there was something special about the destruction and that the default CC and CA wont have sufficed so should not be generated in C++98. However this was overlooked and compilers were allowed to generate CC and CA. this continues to be the rule in C++11 otherwise too much legacy code would break. However this means that since we follow the rule of three in C++11 also, declaring a DTOR will require declaring CA and CC which disables generation of MC amd MA.
@@ -25,8 +27,45 @@ C++11 however has deprecated generation of Copy operations to be implicitly decl
 Widget(const Widget&) = default;
 Widget& operator=(const Widget&) = default;
 
+In a later release, sure this will become a problem. so go and fix now. Though currently if you define a d'tor ONLY, then CC and CA are still synthesized even in gcc 7.1 with -std=c++17 flag
+
+*/
+
+/*#include <iostream>
+using namespace std;
+
+class A {
+    int* poInt;
+    public:
+        A(const int& i) : poInt(new int(i)) {}
+
+        ~A() { 
+            delete poInt;
+            poInt = nullptr; 
+        }
+};
+
+int main() {
+    A a(10);
+    A b = a;
+    return 0;
+}
 */
 
 #include <iostream>
 using namespace std;
 
+class A {
+    public:
+        A() { cout << "A c'tor" << endl; }
+        //A(A&&) { cout << "Move c'tor" << endl; }
+        A& operator = (A&&) { cout << "Move assignment" << endl; }
+};
+
+int main() {
+    A a;
+    //A b = a;
+    A c;
+    a = c;
+}
+    
