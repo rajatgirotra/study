@@ -73,6 +73,10 @@ int main() {
         cout << "type_of z " << type_of<decltype(z)>::value_of() << endl;
         cout << "type_of w " << type_of<decltype(w)>::value_of() << endl;
         cout << "type_of v " << type_of<decltype(v)>::value_of() << endl;
+
+        if(!vec[0]) {
+            cout << "unique_ptr in container has lost ownership" << endl;
+        }
     }
     cout << "y and z and w dont exist here, and since they are references nothing should be destroyed here" << endl;
     return 0;
