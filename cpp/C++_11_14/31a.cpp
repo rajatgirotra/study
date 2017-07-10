@@ -74,6 +74,7 @@ int main() {
                        ++x;
                        //--y; // cannot modify
                     };
+    y = -99;
     w();
     cout << "F, x in main: " << x << endl;
     cout << "F, y in main: " << y << endl;
