@@ -57,3 +57,8 @@ print(arrNew, arrNew.dtype)
 # You can also create an ndarray of randomly distributed doubles using np.random.randn() function
 print(np.random.randn(2, 3)) # create an array with shape=(2,3)
 print(np.random.standard_normal((2,3)) # same as above but this one takes a tuple.
+
+
+# reshape - numpy provides a very handy function numpy.reshape(a, shape) which takes an ndarray as first parameter and reshapes it data according to the second shape parameter
+np.reshape(np.arange(32), (8,4)) # whill give a 8*4 ndarray, first parameter can be an ndarray of any dimension
+
