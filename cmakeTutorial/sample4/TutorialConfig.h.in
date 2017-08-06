@@ -1,7 +1,14 @@
-#ifndef _TUTORIAL_CONFIG_H_
-#define _TUTORIAL_CONFIG_H_ 1
+#pragma once
 
 #define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
 #define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
 
-#endif // _TUTORIAL_CONFIG_H_
+#define Tutorial_VERSION_PATCH "${PROJECT_VERSION_PATCH}"
+/* Still need to see how to use ESCAPE_QUOTES to prevent the next line from being evaluated. */
+#define Tutorial_VERSION_PATCH \"${PROJECT_VERSION_PATCH}"\
+
+#cmakedefine VARIABLE_THREE
+
+#cmakedefine01 VARIABLE_ONE
+#cmakedefine01 VARIABLE_TWO
+

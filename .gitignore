@@ -9,3 +9,4 @@ build/
 static_cdn/
 a.out
 *.swp
+seasocks*

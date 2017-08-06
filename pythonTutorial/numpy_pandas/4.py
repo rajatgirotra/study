@@ -22,7 +22,7 @@ print(bArr)
 #lets now create a random array of size(7,4) using numpy.random.randn() function
 ranArr = np.random.randn(7, 4)
 print (ranArr)
-print(ranArr[names=='Bob']) # boolean slicing again. shape of names=='Bob' is (1,7) and shape of data is (7,4). We are indexing axis 0 (rows 7) and cols/length of names=='Bob' is also 7. So every TRUE col value in boolean array, the corresponding row is choosen in data.
+print(ranArr[names=='Bob']) # boolean slicing again. shape of names=='Bob' is (1,7) and shape of data is (7,4). We are indexing axis 0 (rows 7) and cols/length of names=='Bob' is also 7. So for every TRUE col value in boolean array, the corresponding row is choosen in data.
 
 # Now lets say we want to splice along axis = 0, ie rows, then we can use boolean indexing
 # by passing the boolean array as the subscript operator to ranArr

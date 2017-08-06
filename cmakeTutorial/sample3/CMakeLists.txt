@@ -7,10 +7,12 @@ include_directories(include lib)
 ## Add the given directories to those the compiler uses to search 
 ## for include files.
 
-add_definitions(-g -O2 -Wall)
+add_compile_options(-g -O2 -Wall)
 
-add_subdirectory(lib obj/lib)
-add_subdirectory(client obj/client)
+#add_subdirectory(lib obj/lib)
+#add_subdirectory(client obj/client)
+add_subdirectory(lib)
+add_subdirectory(client)
 ## add_subdirectory(source_dir [binary_dir])
 ## add a subdirectory to the build. the subdirectory will be
 ## processed immediately before any command in the current

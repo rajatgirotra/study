@@ -27,9 +27,14 @@ SOLUTION
 ========
 
 Modern CPU's now provide an instruction called "rdtscp" will reads the CPUID and the TSC together. So it has this pseudo property of serializing by making
-sure that all instruction before it are executed. Therefore we have a new solution
+sure that all instruction BEFORE it are executed. Therefore we have a new solution
 
-READ_TSC_BEFORE_USING_RDTSCP
+“The RDTSCP instruction waits until all previous instructions have been executed
+before reading the counter. However, subsequent instructions may begin execution
+before the read operation is performed.”
+
+CPUID #serialize
+READ_TSC_BEFORE_USING_RDTSC # read tsc using rdtsc not rdtscp
     BENCHMARK_CODE
 READ_TSC_AFTER_USING_RDTSCP
     OTHER_CODE
@@ -45,7 +50,8 @@ the needed serialization.
 FINAL SOLUTION
 ==============
 
-READ_TSC_BEFORE_USING_RDTSCP
+CPUID #serialize
+READ_TSC_BEFORE_USING_RDTSC # read tsc using rdtsc not rdtscp
     BENCHMARK_CODE
 READ_TSC_AFTER_USING_RDTSCP
 CPUID

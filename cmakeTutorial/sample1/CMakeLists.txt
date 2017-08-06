@@ -21,6 +21,8 @@ message(${PROJECT_SOURCE_DIR})
 message(${PROJECT_BINARY_DIR})
 message(${project1_SOURCE_DIR})
 message(${project1_BINARY_DIR})
+message(${CMAKE_SOURCE_DIR})
+message(${CMAKE_BINARY_DIR})
 message(${PROJECT_VERSION})
 message(${project1_VERSION})
 message(${PROJECT_VERSION_MAJOR})
@@ -47,17 +49,21 @@ add_definitions(-DABC -DFOO=10)
 ## COMPILE_DEFINITIONS_CONFIG property ( where CONFIG can be DEBUG, RELEASE) etc and you can set the value of these
 ## properties. For setting properties, we have the set_property() command, we'll explore this later
 ## Lets try to get the property and display using message() command
+
 get_directory_property(COMPILE_DEFS DIRECTORY . COMPILE_DEFINITIONS)
 message("Compile definitions = " ${COMPILE_DEFS})
 
-add_compile_options(-g -Wall)
 # ditto like add_definitions. property name is COMPILE_OPTIONS
+add_compile_options(-std=c++14 -g -Wall)
+get_directory_property(COMPILE_OPTS DIRECTORY . COMPILE_OPTIONS)
+message("Compile options = " ${COMPILE_OPTS})
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}) # sets the RUNTIME_OUTPUT_DIRECTORY on all subsequent targets
 add_executable(simple main.cpp)
+set_property(TARGET simple PROPERTY OUTPUT_NAME rajat_simple)
 
-get_target_property(VALUE simple RUNTIME_OUTPUT_DIRECTORY)
-message("RUNTIME_OUTPUT_DIRECTORY is ${VALUE}")
+get_target_property(VALUE_ROD simple RUNTIME_OUTPUT_DIRECTORY)
+message("RUNTIME_OUTPUT_DIRECTORY is ${VALUE_ROD}")
 ## add_executable(<name> [WIN32] [MACOX_BUNDLE] [EXCLUDE_FROM_ALL]
 ##		   source1 source2 source3... sourceN)
 ## Adds an executable target called <name> to be built from the source files
@@ -66,4 +72,4 @@ message("RUNTIME_OUTPUT_DIRECTORY is ${VALUE}")
 ## You can check target properties like RUNTIME_OUTPUT_DIRECTORY and OUTPUT_NAME and EXCLUDE_FROM_ALL to understand each one.
 ## RUNTIME_OUTPUT_DIRECTORY is used to change the output directory.
 ## OUTPUT_NAME is used to change the final output name
-## EXCLUDE_FROM_ALL - means do not all targets in this subdirectory to the list of ALL targets to be built. This can be done for directories which are part of your build but do not always need to be built. For example, samples in an example folder.
+## EXCLUDE_FROM_ALL - means do not add targets in this subdirectory to the list of ALL targets to be built. This can be done for directories which are part of your build but do not always need to be built. For example, samples in an example folder.

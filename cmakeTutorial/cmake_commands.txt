@@ -1,6 +1,6 @@
-option(MyOption "Help for MyOption" ON/OFF)
+option(MyOption "Help for MyOption" ON/OFF) # default is OFF
 if (MyOption)
-    message(MyOption if On)
+    message(MyOption is On)
 endif ()
 
 cmake -DMyOption=Off
@@ -9,7 +9,7 @@ cmake -DMyOption=Off
 include() - command is used to load and run cmake commands from the specified file or module.
 Syntax:
 include(file|module OPTIONAL RESULT_VARIABLE SOME_VARIABLE)
-We can include a file or a module. If we give a module name, then cmake searches for module.cmake file in CMAKE_MODULE_PATH and then in cmake's own module directory. If RESULT_VARIABLE is given then the full path to the file or module is stored in SOME_VARIABLE or "NOTFOUND" is file or module could not be found.
+We can include a file or a module. If we give a module name, then cmake searches for module.cmake file in CMAKE_MODULE_PATH and then in cmake's own module directory. If RESULT_VARIABLE is given then the full path to the file or module is stored in SOME_VARIABLE or "NOTFOUND" if file or module could not be found.
 
 Eg:
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} /your/own/module/path/
@@ -62,7 +62,7 @@ endif ()
 
 Similarly you can write for emplace support
 --------------------------------------------------------
-config_file(input output COPYONLY ESCAPE_QUOTES @ONLY etc etc)
+configure_file(input output COPYONLY ESCAPE_QUOTES @ONLY NEWLINE_STYLE UNIX/DOS/CRLF/LF)
 used to copy input file to output file and replace all occurrences of @VAR@ or ${VAR} with cmake variable values given the variable exists. If it does not exist, replace with empty string. Also
 #cmakedefine VAR ... is replaced with #define VAR ... or /* #undef VAR */, based on whether variable exists
 Eg:
@@ -74,3 +74,25 @@ include_directories("src/main/c" ${CMAKE_BINARY_DIR}) - Trivial
 find_package(Threads) - You know already
 add_subdirectory("src/main/c") - trivial
 --------------------------------------------------------
+set(MY_VARIABLE_NAME my_variable_value CACHE <type> <doctstring> [FORCE])
+# the set command option can also be used to create an entry in the CMakeCache.txt file by the format given above.
+# the type affects how the cmake-gui will display it if you use cmake-gui.
+# type can be
+# BOOL - cmake-gui will show an option ON/OFF in gui
+# FILEPATH - gui will show a file dialog
+# PATH - gui will show a path dialog
+# INTERNAL - gui wont show this entry at all in gui.
+-------------------------------------------------------
+find_package(<package> [version][EXACT][REQUIRED][QUIET][MODULE][COMPONENTS] [components...][OPTIONAL_COMPONENTS][components...]
+Ver easy. find_package() has two signatures. Using the MODULE option disable the second signature. Also the second signature is more for library maintainers so you should not bother. Always use this flag for now. this command will look for a module called Find<package>.cmake in the CMAKE_MODULE_PATH and load it. You can optionally specify other arguments like
+1) version --> The version required. [major.minor.patch.tweak]
+2) EXACT --> whether version should be exact
+3) REQUIRED --> Whether is required or optional.
+4) QUIET --> cmake should shut up if package not found
+5) COMPONENTS --> extra components in the package like boost_thread, boost_system, boost_regex etc.
+If package is found <package>_FOUND is set to TRUE. Else <package>_FOUND is set to "NOTFOUND"
+Look in /usr/share/cmake/Modules directory, You'll find Find<package>.cmake files for anything you want.
+1) Java, C++, Pthread, Boost, Protobuf, Google Gtest, CURL, unixCommand, Valgrind, python blah blah blah
+-------------------------------------------------------
+find_program(MYVAR python2 DOC "Python Executable") - This is a reduced syntax of the find_program command. In the extended syntax, you can specify more than one names of the program (like NAMES python python2) and you can optionally specify PATHS where cmake should look for the program.) If found, MYVAR will be sent in cmake cache with the location of the program, otherwise MYVAR will be set to MYVAR-NOTFOUND in the cache.
+-------------------------------------------------------

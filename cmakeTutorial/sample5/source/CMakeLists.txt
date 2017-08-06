@@ -5,7 +5,7 @@ project (sample5 VERSION 1.0.0 LANGUAGES C CXX)
 add_compile_options(-g -Wall -std=gnu++1y)
 
 # Lets add an imported library - Google Protobuf
-add_library(protobuf SHARED IMPORTED GLOBAL)
+add_library(protobuf INTERFACE IMPORTED GLOBAL)
 
 set (CMAKE_SKIP_RPATH false)
 
@@ -15,7 +15,7 @@ add_subdirectory(hello)
 add_subdirectory(world)
 # world actually depends on hello to print hello() first and then world()
 
-# CMake and RPATH - In Cmake you have a build tree and you also have an install tree. Ie where binaries are finally installed for packaging up. From 2.6 CMAKE onwards, CMake uses -Wl,-rpath by default whn doing builds. All binaries in the build tree contain rpaths to libraries in the build tree. When you later run the install command, the rpath by default removed. However there are a number of variables using which we can tailor the use of RPATH. Lets see
+# CMake and RPATH - In Cmake you have a build tree and you also have an install tree. Ie where binaries are finally installed for packaging up. From 2.6 CMAKE onwards, CMake uses -Wl,-rpath by default whn doing builds. All binaries in the build tree contain rpaths to libraries in the build tree. When you later run the install command, the rpath is by default removed. However there are a number of variables using which we can tailor the use of RPATH. Lets see
 
 # CMAKE_INSTALL_RPATH= A semicolon separated list of rpaths to use during install phase
 # CMAKE_SKIP_RPATH=true <Do not add RPATH to targets at all.

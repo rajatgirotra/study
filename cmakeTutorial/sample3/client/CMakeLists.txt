@@ -8,7 +8,7 @@ target_link_libraries(main roof)
 ## link with libroof.so
 
 set_target_properties(main
-		PROPERTIES OUTPUT_NAME roof)
+		PROPERTIES OUTPUT_NAME roof SUFFIX mysuffix)
 ##rename target main to roof.
 ## set_target_properties: Targets can have properties that affect how they are built.
 ##  set_target_properties(target1 target2 ...

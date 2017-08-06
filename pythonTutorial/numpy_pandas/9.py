@@ -4,6 +4,11 @@ import numpy as np
 import pandas as pd
 from pandas import DataFrame
 
+# from simple ndarray (numpy array)
+data=np.random.randn(3,4)
+df=DataFrame(data, columns=list('ABCD'))
+print 'df from ndarray \n%s\n' % df
+
 # creating DataFrame from dict of Series or dict of dicts.
 # dictionary keys are column headings (so 'a' and 'b' are columns headings), the nested dictionary is converted to
 # series with data as 'a' and 'b' and index as 0 and 1. Very trivial
