@@ -1,0 +1,99 @@
+pylint is a python linter. A linter is a program that can inspect your code and give you feedback about the code style/quality etc.
+
+ 
+
+1) Run pylint without any arguments to see its documentation.
+
+2) Run "pylint car.py" to see feedback on the code in car.py Example output can be:
+
+ 
+
+No config file found, using default configuration
+
+************* Module car
+
+C:  2, 0: Exactly one space required after comma
+
+    def __init__(self,color):
+
+                     ^ (bad-whitespace)
+
+C:  8, 0: No space allowed before :
+
+def    crash(car1, car2) :
+
+                         ^ (bad-whitespace)
+
+C:  1, 0: Missing module docstring (missing-docstring)
+
+C:  1, 0: Invalid class name "car" (invalid-name)
+
+C:  1, 0: Missing class docstring (missing-docstring)
+
+C:  1, 0: Old-style class defined. (old-style-class)
+
+R:  1, 0: Too few public methods (0/2) (too-few-public-methods)
+
+C:  6, 0: Invalid constant name "my_car" (invalid-name)
+
+C:  8, 0: Missing function docstring (missing-docstring)
+
+W:  8,19: Unused argument 'car2' (unused-argument)
+
+ 
+
+The first column shows the type of feedback (C for code style, W for Warning
+
+etc). The second column shows you the line number in car.py and the 3rd column
+
+shows the issue string followed by the class of the issue (like
+
+bad-whitespace, invalid-name, old-style-class) etc.
+
+ 
+
+C stands for code convention, W for warning, E for Error, F for fatl error, R
+
+for refactor
+
+ 
+
+In the end pylint also shows a score for your code. It goes from 10 (best) to
+
+negative (dont know the negative range).
+
+ 
+
+Pylint is very opiniated ie it gives you a lot of issues/feedbacks so you make
+
+your code perfect. But it can be annoying sometimes so it is possible to create a pylintrc file and specify a
+
+few things you want to ignore, or you can even specify what you want to ignore
+
+in the python file iteself. Add "#pylint: disable=unused-argument" as a
+
+comment and pylint will ignore that error
+
+ 
+
+By default, pylint shows a report section which you might not be interested
+
+in. So disable it using "--reports=n"
+
+ 
+
+pylint --help-msg=<class> (eg pylint --help-msg=missing-docstring) will show
+
+you help on the missing docstring
+
+ 
+
+pylint -generate-rcfile > ~/.pylintrc will generate a pylintrc file with all the default
+
+ 
+
+pylint stores the results about it runs in ~/pylint.d/ folder
+
+options and comments about them.
+
+
