@@ -10,3 +10,4 @@ static_cdn/
 a.out
 *.swp
 seasocks*
+cmake-build*

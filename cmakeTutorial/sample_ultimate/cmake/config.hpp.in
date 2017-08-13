@@ -1,0 +1,6 @@
+#pragma once
+
+#define BUILD_TYPE "${CMAKE_BUILD_TYPE}"
+#define PROJECT_NAME "${PROJECT_NAME}"
+#define PROJECT_VERSION "${PROJECT_VERSION}"
+#define RELEASE_TYPE "${RELEASE_TYPE}"
