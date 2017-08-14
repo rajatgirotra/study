@@ -56,6 +56,12 @@ if(UNITTESTS)
     message(STATUS "GTest: ${GTEST_ROOT_DIR}")
 endif()
 
+# set install prefix
+set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install)
+set(CMAKE_INSTALL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib)
+set(CMAKE_INSTALL_BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
+
+
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR}/src)
 
