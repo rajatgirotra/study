@@ -9,9 +9,25 @@ import sys
 # # level logs will not be printed.
 # logging.warning('This is a warning message')
 # logging.info('This is an info message')
+# Note that these(debug(), warn(), info()) above are logging module level functions.
+# We also have same functions in the logger class.
+
+# Classes in looging API
+# Logger, Handlers, Filters and Formatters. 
+# Loggers are created using logging.getLogger(__name__)
+# Many different type of Handlers exist already. Like RotatingFileHandler, StreamHandler, FileHandler, EmailHandler, SocketHandler etc etc.
+# you can attach handlers to loggers using logger.addHandler() and removeHandler().
+# Filters can be attached to both handlers and loggers. If even one filter attached to a handler or logger returns false, the log msg will not be output.
+# Formatters are attached to handlers using addFormatter and they specify the output format.
 
 
 # # to log to a disk file, use the logging.basicConfig function
+# You can specify the following to basicConfig
+# 1) filename - to log to a file
+# 2) filemode - to create a new one or append to the existing file
+# 3) level - Default level of the root logger.
+# 4) dateformat - Format of the date to display in the logs
+# and some more arguments.
 # # read the documentation on python.org. Also all the logging functions
 # # like logger.info(), logger.debug() etc call basicConfig first.
 # # the basicConfig function ensures that there is atleast one handler attached
@@ -35,73 +51,24 @@ import sys
 # logging.info('So should this to example1')
 # logging.warning('And this, too to example1')
 
-# a good option is to get the logger level from command line as an argument
-# --logLevel=INFO etc. We use python build-in function getAttr() function.
-# For a class X with a member(read attribute) foo, getAttr() will return value
-# of x.foo
-# Similar to above, you'll need to comment all lines above to run the next set
-# of statements.
-# loglevel=sys.argv[1]
-# numeric_level = getattr(logging, loglevel.upper(), None)
-# if not isinstance(numeric_level, int):
-#     raise ValueError('Invalid log level: %s' % loglevel)
-# logging.basicConfig(filename='example2.log', level=numeric_level, filemode='w') #filemode='w' will discard old log file
-# logging.debug('This message should go to the log file example2')
-# logging.info('So should this example2')
-# logging.warning('And this, too example2')
-# logging.warning('%s C style format printing %d', 'Hello', 5)
+# Logger objects are hierarchical. So
+# logging.getLogger('foo.bar.baz') is a child of logging.getLogger('foo.bar')
+# Also by default log message are propagted to parent loggers. And we have the root logger at the top of the hierarchy.
+# there is not much to say. You have read this several times. We should always let propagate to TRUE and let the root logger
+# do all the logging. For any specific logging, you can attach handlers to individual loggers.
+
+# Logger configuration can be done in three ways.
+# 1) Using code (addHandler(), addFilter(), addFormatter() type functions)
+# 2) using fileConfig(). This is like an .ini file which contains sections on logging options, handlers to use. levels to use, filter formats etc.
+# 3) dictConfig() - This is also preferred one. So study it. Just a dict of all the logging options you want to have.
+
+# in all your python scripts/module just say
+# import logging
+# _logger = logging.getLogger(__name__) and start logging using logger.(debug()|warn()|info()) etc.
+# _ in variable means it will not be imported be default when you do "from mymodule import *"
 
 # using a particular format of message can also be configured easily in the basicConfig function
 # Look at attributes of LogRecord class. You have a no. of options
 # on what you can configure in the format.
 # logging.basicConfig(format='%(levelname)s:%(asctime)s:%(lineno)d:%(message)s', level=logging.DEBUG)
 # logging.debug('This message should appear on stdout')
-
-# The python logging tutorial is a good example of setting up logging
-# Its shows a workflow of how logging is done. Very informative. Based on that information
-# we can configure logging. Below is just a sample from there.
-# create logger
-logger = logging.getLogger('simple_example')
-logger.setLevel(logging.DEBUG)
-
-#create a Console handler and set level to debug
-ch = logging.handlers.RotatingFileHandler('example.log', mode='w', maxBytes=(5*1024*1024), backupCount=5)
-ch.setLevel(logging.INFO)
-
-#create formatter
-args = ('RajatGirotra', 5)
-print(args)
-
-formatter = logging.Formatter(fmt='%(asctime)s:%(levelname)s:%(filename)s:%(module)s:%(name)s:%(message)s',\
-                              datefmt='%H:%M:%S')
-ch.setFormatter(formatter)
-
-
-logger.addHandler(ch)
-
-def foo():
-    raise ValueError('dummy value error')
-
-
-d = {'user_defined':'someUDText'}
-
-try:
-    logger.debug    ('Debug Message')
-    logger.info     ('Info Message')
-    logger.warn     ('Warn Message')
-    logger.error    ('Error Message')
-    logger.critical ('Critical Message')
-    logger.critical ('Critical Message:%s %d', *args, extra=d)
-    #logger.debug    ('Debug Message'   ,  *args, extra=d)
-    #logger.info     ('Info Message'    ,  *args, extra=d)
-    #logger.warn     ('Warn Message'    ,  *args, extra=d)
-    #logger.error    ('Error Message'   ,  *args, extra=d)
-    #logger.critical ('Critical Message',  *args, extra=d)
-    #logger.critical ('Critical Message:%s %d', *args, extra=d)
-    foo()
-except:
-    logger.exception('exception has occurred')
-    #logger.error('exception has occurred', *args, exc_info=True, extra=d)
-    #stack_info is supported from python 3.2 onwards.
-    #logger.error('exception has occurred', *args, exc_info=True, stack_info=True, extra=d)
-

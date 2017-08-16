@@ -11,3 +11,4 @@ a.out
 *.swp
 seasocks*
 cmake-build*
+*.log

@@ -5,7 +5,7 @@ import os
 def _setupLogging():
     #print('setting up logging')
     #logging.basicConfig(filename='module.log',level=logging.DEBUG)    
-    logger = logging.getLogger()
+    logger = logging.getLogger() # will return you the root logger.
     #print ('in __init__.py, name is %s' %  __name__)
     logger.setLevel(logging.INFO)
     fileHandler = logging.handlers.RotatingFileHandler(
