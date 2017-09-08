@@ -39,14 +39,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="6_iris_flower.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="6_iris_flower.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/6_iris_flower.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
-              <caret line="52" column="15" lean-forward="false" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
+            <state relative-caret-position="567">
+              <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
               <folding>
                 <element signature="e#83#121#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="7_README.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/7_README.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="372">
+              <caret line="12" column="81" lean-forward="false" selection-start-line="12" selection-start-column="81" selection-end-line="12" selection-end-column="81" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -98,6 +108,7 @@
         <option value="$PROJECT_DIR$/5_README.txt" />
         <option value="$PROJECT_DIR$/4_fruit_apple_orange.py" />
         <option value="$PROJECT_DIR$/6_iris_flower.py" />
+        <option value="$PROJECT_DIR$/7_README.txt" />
       </list>
     </option>
   </component>
@@ -521,11 +532,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/6_iris_flower.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="52" column="15" lean-forward="false" selection-start-line="52" selection-start-column="15" selection-end-line="52" selection-end-column="15" />
+        <state relative-caret-position="567">
+          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="e#83#121#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/7_README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="12" column="81" lean-forward="false" selection-start-line="12" selection-start-column="81" selection-end-line="12" selection-end-column="81" />
+          <folding />
         </state>
       </provider>
     </entry>
