@@ -1,0 +1,56 @@
+If you see the output of the script, you'll notice that the retrain script generates a bottleneck file for every image file
+in your training data. But what is a bottleneck?
+
+The image classification models are made of several layers as you know already. "bottleneck" is informal term used to refer
+to the penultimate layer. The last layer is called "final_training_ops" which is nothing but the actual layer which
+does the classification. Its called bottleneck, because at this layer, the image representation is more compact as
+compared to image representation in the lower layers. So a bottleneck file is just a compact representation of the actual
+image file (compare the size of the bottleneck and images folder). If you to go tensorboard, under graphs, you can see
+the workflow of the last layer.
+
+What happens after the bottleneck files are generated?
+1) The cached values for each image is passed to the bottleneck layer. Also the true label (actual image) value is passed
+to a node called GroundTruth. Just this two pieces of information is sufficient for the model to report
+Classification probabilities -> ie a list of what the image is and with what probability and other performance metrics.
+During training, you can see in tensorboard a series of graphs which show
+
+a) training accuracy --> The percentage of images used in the current training batch that were labelled with the correct
+class. (training is carried out in recurring batches).
+
+b) validation accuracy --> The % of images that were correctly labelled on a randomly selected group of images from another
+set. Ie images which are not part of your training data.
+
+c) cross_entropy --> This is a loss function which tells how well is the training progressing. (smaller numbers are better)
+
+Important
+---------
+In training accuracy, predictions are done with images that are part of the training data.
+In validation accuracy, predictions are done with images that are NOT part of the training data.
+
+So if the training accuracy is high and the validation accuracy is low, it means the network is trying to memorize
+patterns in images which are not helping to classify images generally.
+
+By default, this script runs 4,000 training steps. Each step chooses 10 images at random from the training set, finds
+their bottlenecks from the cache, and feeds them into the final layer to get predictions. Those predictions are then
+compared against the actual labels to update the final layer's weights through a backpropagation process.
+
+Two more files are generated in tf_files
+1) retrained_graph.pb --> The new version of the network after the training
+2) retrained_labels.txt --> List of labels
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

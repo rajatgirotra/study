@@ -1,0 +1,21 @@
+We will follow the google code labs "tensorflow-with-poets" tutorial to train a classifier. Remember we will not be training
+our classifier from scratch. We will retrain (also called transfer learning) our classifier on top of Inception.
+
+Inception
+---------
+Inception is one of google's best image classifiers which has gone through deep learning of over 1.2 million images
+across 1000 categories. So there is already a lot of parameters that Inception is aware of. Deep learning can take time-
+upto weeks or months depending on the size of your training data. So in this tutorial, we just adjust inception by feeding
+it our training data of flowers images. So it saves us a lot of time of training our classifier from scratch and we leverage
+what Inception has already learnt. The Deep Learning Neural Network has many layers as you'll see later, so here we are
+training the final layer of the network, so it should be much quicker and will save us a lot of time.
+
+MobileNet
+--------
+Just like Inception, we have another model called MobileNet. The difference is that Inception is optimized for accuracy
+and mobilenet is optimized for space (in the form of training data images) and speed, at the cost of some accuracy.
+
+How to retrain now
+-------------------
+Assuming you have tensorflow installed and you are following the poets tutorial. You should have downloaded the image
+training data already. To retrain using Mobilenet, see 12_retrain.sh

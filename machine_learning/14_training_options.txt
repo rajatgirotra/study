@@ -1,0 +1,22 @@
+Other important options in the retrain script can be seen by running it with -h
+
+python3 -m scripts.retrain -h
+
+For example, the --learning_rate parameter controls the magnitude of the updates to the final layer during training.
+So far we have left it out, so the program has used the default learning_rate value of 0.01. If you specify a small
+learning_rate, like 0.005, the training will take longer, but the overall precision might increase. Higher values of
+learning_rate, like 1.0, could train faster, but typically reduces precision, or even makes training unstable.
+
+It's the --summaries_dir option that controls the name in tensorboard. Earlier we used 12_retrain_mobilenet.sh
+TensorBoard is monitoring the contents of the training_summaries directory, so setting --summarys_dir to training_summaries or any subdirectory of training_summaries will work.
+
+You may want to set the following two options together, so your results are clearly labeled:
+--learning_rate=0.5
+--summaries_dir=training_summaries/LR_0.5
+
+Training your own category
+--------------------------
+In this example, we trained flowers category. You can now use the same example to train any category of your choice using
+inception, mobilenet etc as base models. Download as much data(images) for your category, like Cars, Fruits etc and pass
+it as the --image-dir parameter of the script you ran in 12_retrain_mobilenet.sh, to retrain just the last layer.
+Make sure you collect as many pictures of each label you want to be predicted.

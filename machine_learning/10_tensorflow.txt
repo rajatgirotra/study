@@ -1,0 +1,38 @@
+What is TensorFLow?
+TensorFlow is a open source library for numerical computation, specializing in machine learning applications.
+This library is highly used for a branch of Machine Learning called Deep Learning.
+Deep learning has produced exceptional results in the pasts few years specially in the field of Image classification.
+
+What is the good thing about Deep Learning? Well you DON'T NEED to write features by hand. Try to remember the IRIS
+flower data set that had 4 features. Sepal width and length, and petal width and length. Someone would have built up this
+data set by measuring the length and width of several types of IRIS flowers. However, in Deep Learning, our input is only
+a directory of image files (like jpeg, png etc). These images are scanned and a 2D array of pixels in these pictures is
+what is used as the features automatically by the classifiers. Think about it this way. If I give you a picture of an orange,
+would you want to write code yourself to find the texture of the fruit from the picture. No. We rather leave it to the
+image classifier. Its very difficult to code features from images yourself.
+
+At high level, the classifier we will be using in Deep Learning is called a Neural Network. At the top its just like any
+other classifier, just that it can learn and have much complex functions.
+
+A neural network classifier has several layers which are stacked on top of an-another. You can train each layer and the
+learnings from each layer can be used to retrain (also called transfer learning) other classifiers.
+
+For image classification specifically, there are many image classifiers (ie Neural Networks) already available. These are
+actually called MODELS. It takes a lot of time and data to train every layer, so you typically don't scratch, you reuse one
+of these models and then retrain the top one, two or more layers based on your own training data.
+
+Example of image models are:
+1) Inception -> Google's best image classifier, optimized for accuracy
+2) Mobilenet --> Optimized for space and speed, at the cost of accuracy.
+3) VGG16
+4) AlexNet etc etc.
+
+These models already have pre-trained layers which are very valuable at finding and summarizing information that will help
+classify most of the images.
+
+Now, you can write the code to create a Neural Network classifier and train it by yourself from scratch (which is hard).
+However, google codelabs have a "Tensorflow for Poets" tutorial where they teach how to setup tensorflow and use it to
+train an image classifier. this doesnt mean that its difficult to write and train classifiers in Tensorflow. Try to use
+TF Learn for learning tensorflow. Its a machine learning library on top of tensorflow and the syntax is close to
+scikit-learn.
+
