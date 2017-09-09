@@ -14,12 +14,14 @@ image classifier. Its very difficult to code features from images yourself.
 At high level, the classifier we will be using in Deep Learning is called a Neural Network. At the top its just like any
 other classifier, just that it can learn and have much complex functions.
 
-A neural network classifier has several layers which are stacked on top of an-another. You can train each layer and the
-learnings from each layer can be used to retrain (also called transfer learning) other classifiers.
+A neural network classifier has several layers which are stacked on top of an-another. The input to the network are image
+pixels for example, and the output is a prediction. At each layer of the network, we are looking for certain features in
+the image. This is how each layer is getting trained. You can train each layer like this and the learning's from each
+layer can be used to retrain (also called transfer learning) other classifiers.
 
 For image classification specifically, there are many image classifiers (ie Neural Networks) already available. These are
-actually called MODELS. It takes a lot of time and data to train every layer, so you typically don't scratch, you reuse one
-of these models and then retrain the top one, two or more layers based on your own training data.
+actually called MODELS. It takes a lot of time and data to train every layer, so you typically don't create a new classifier
+from scratch, you reuse one of these models and then retrain the top one, two, or more layers based on your own training data.
 
 Example of image models are:
 1) Inception -> Google's best image classifier, optimized for accuracy
@@ -35,4 +37,3 @@ However, google codelabs have a "Tensorflow for Poets" tutorial where they teach
 train an image classifier. this doesnt mean that its difficult to write and train classifiers in Tensorflow. Try to use
 TF Learn for learning tensorflow. Its a machine learning library on top of tensorflow and the syntax is close to
 scikit-learn.
-
