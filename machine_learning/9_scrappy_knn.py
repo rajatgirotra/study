@@ -65,3 +65,9 @@ print('Accuracy score %s' % accuracy_score(y_test, predictions))
 # can randomly break the tie, or you find the distance between the second farthest training data and test data. So if
 # your training data has red and green dots and a test dot is the same distance away from a red and green dot, and K is
 # 2, then you find how far is the second green and red dot. Whichever is closer, is choosen the winner.
+
+# Pros
+# this algorithm is very simple and works well in some cases
+# Cons
+# CPU intensive, slow as you need to go through the whole training data
+# It just works on distance and cannot give more weight to one feature over the other.
