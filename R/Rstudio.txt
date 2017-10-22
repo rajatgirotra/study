@@ -5,3 +5,6 @@ It will download a deb file which you can install.
 
 sudo apt-get install libjpeg2
 sudo dpkg -i ~/Downloads/rstudio.deb
+
+Run "rstudio" from terminal to start rstudio.
+rstudio brings up an integrated environment, where you can create R scripts, run R functions, view plots, install packages, run terminal commands all from one UI. Good tool yo use.

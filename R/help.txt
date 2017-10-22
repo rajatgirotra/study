@@ -1,0 +1,21 @@
+You can get help in R at multiple levels.
+
+1) Function level help.
+Let say you know which function to use but dont know how? Use function level help for that case
+
+help("solve") --> will show help on "solve" function
+?solve is the shortform
+help.start() will bring up help in the browser. Best way to browse help
+??solve will give you more ways of searching help for a function or feature
+help("[[") --> to get help on the double bracket feature
+
+
+2) Package level help. Just click on the package name in Rstudio will bring up help on that package.
+You can search more in that help section. Some packages have very good documentation/tutorials called vignetts. These are like Gold and you must explore them.
+
+3) CRAN Task Views: If you are new to R and want to explore what R can offer you for tasks like
+NLP, machine learning, statistics, Finance, etc. Go to CRAN Task views in google. It tells you all the packages available for your tasks and you can choose whichever you want.
+
+4) Finally use StackOverflow for online community help.
+
+R is an open source, high level, modular programming language. High level means a number of modules are pre-built with functions and object classes which you can use straight out of the box.
