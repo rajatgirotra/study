@@ -30,8 +30,10 @@ TEST(FactorialTest, HandlesNegativeInput)
     ASSERT_EQ(0, factorial(-10)) << "function factorial does not handle negative nos. " << endl;
 }
 
-/*int main(int argc, char** argv)
+/*
+int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
-}*/
+}
+*/

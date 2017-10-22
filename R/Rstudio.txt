@@ -1,0 +1,7 @@
+RStudio is an open source UI which makes working with R very easy. Consider using it.
+I installed RStudio 1.1.383 which required R3.0.1 or greater.
+https://www.rstudio.com/products/rstudio/download/#download
+It will download a deb file which you can install.
+
+sudo apt-get install libjpeg2
+sudo dpkg -i ~/Downloads/rstudio.deb

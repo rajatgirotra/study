@@ -1,0 +1,45 @@
+We install R on ubuntu using apt-get.
+
+Step 1.
+Add repository location to /etc/apt/sources.list file
+like:
+deb https://<my.favorite.cran.mirror>/bin/linux/ubuntu xenial/
+
+xenial is the name of the current ubuntu distribution i have 16.04LTS.
+
+Step 2.
+sudo apt-get update
+sudo apt-get install r-base
+sudo apt-get install r-base-dev (this is needed to install R packages which are built from source).
+
+
+Step 3.
+Make this repo secure so that automatic updates work.
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+gpg --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+gpg -a --export E084DAB9 | sudo apt-key add -
+
+
+Install information
+--------------------
+The R packages part of the Ubuntu r-base and r-recommended packages are installed into the directory /usr/lib/R/library. These can be updated using apt-get with
+sudo apt-get update
+
+The other r-cran-* packages shipped with Ubuntu are installed into the directory /usr/lib/R/site-library. These are R packages which depend on the current ubuntu version.
+
+Building and Installing packages
+-------------------------------
+You can build and install R packages using the "install.packages()" command in R. This command will install packages at the location specified in the R_LIBS_SITE variable in /etc/R/Renviron file.
+
+Updating these packages can then be done using the "update" command. Example:
+> update.packages(lib.loc = "/usr/local/lib/R/site-library")
+
+User environment file
+---------------------
+~/.Renviron: You can specify R_LIBS_USER variable to define where should packages be installed. Example
+R_LIBS_USER="~/lib/R/library"
+"install.packages() and update.packages()" will work in that folder
+
+
+
