@@ -1,0 +1,22 @@
+R commands are case sensitive.
+
+R stores commands you execute in the editor in a file called .Rhistory. This file is used by R to run previously executed commands using up and down arrows
+
+If you have R commands in a text file called test.R, you can execute all commands together using
+
+> source("test.R")
+
+> sink("abc.out") --> will redirect all output from console to abc.out file
+> sink() --> will redirect all output to console once again.
+
+In R, you create and manipulate objects. Objects could be
+1) variables
+2) arrays of numbers
+3) functions
+4) character strings
+and other things
+
+> objects() or ls() command will list all objects in the current R session/workspace.
+> rm(x, y, z, ink) command is used to remove objects from the current R workspace.
+
+When exiting R, it gives an option to store the current workspace. If you choose Yes, all objects are serialized and stored in a file called .Rdata in the current working directory. These objects can be used again later in a new session.
