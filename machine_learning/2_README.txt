@@ -14,3 +14,6 @@ For supervised learning (ie learning by example), we need to do the following re
 2) Then we feed our data to the classifier (ie the function).
 3) The classifier then makes prediction based on the input data set.
 
+So a classifier is essentially made of two things:
+1) an empty box of rules.
+2) an algorithm to create rules based on patterns in the training data.

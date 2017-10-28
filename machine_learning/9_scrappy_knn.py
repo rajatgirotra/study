@@ -1,6 +1,6 @@
 # K-Nearest Neighbours (KNN) is also a classifier. Very trivial, for test data, it computes the distance between the
 # test data and training data. It then calculates which training data is closest and uses the label of the closest
-# training data is the output. Here we are going to override the KNN classifier with our own classifier. You will need
+# training data as the output. Here we are going to override the KNN classifier with our own classifier. You will need
 # to override the "fit()" and "predict()" functions.
 
 from sklearn.neighbors.classification import KNeighborsClassifier

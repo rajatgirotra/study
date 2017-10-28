@@ -11,7 +11,9 @@ print(iris.target_names)
 
 # data is contained in the data array
 print(iris.data[0])  # prints the first row of feature values
-print(type(iris.data))  # is nothing but a numpy ndarray.
+
+print('data type is %s with dimensions %s' % (type(iris.data), iris.data.shape))
+print('target type is %s with dimensions %s' % (type(iris.target), iris.target.shape))
 
 print(iris.target)  # prints the labels ndarray
 

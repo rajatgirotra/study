@@ -4,7 +4,7 @@ There are many different types of classifiers:
 2) Support Vector Machines
 3) And an endless list
 
-Next lets study the IRIS flower data set problem (Wikipedia). IRIS is a flower specifies with three different types:
+Next lets study the IRIS flower data set problem (Wikipedia). IRIS is a flower species with three different types:
 The IRIS flower data set has 4 features
 1) Sepal width and length
 2) Petal width and length

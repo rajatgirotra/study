@@ -13,3 +13,7 @@ seasocks*
 cmake-build*
 *.log
 tensorflow-for-poets-2/
+flower_photos.tgz
+tf_files/
+.~*
+.ipynb_checkpoints/
