@@ -73,6 +73,7 @@ arr_indexed = arr[np.array([0, 1, 1]), np.array([1, 2, 1]), np.array([1, 2, 3])]
 # [0,1,1] [1,2,2] [1, 1, 3]
 print('\narr[np.array([0, 1, 1]), np.array([1, 2, 1]), np.array([1, 2, 3])]\n%s' % arr_indexed)
 print('shape', arr_indexed.shape)
+print('ndim', arr_indexed.ndim)
 
 # Case 2 - When all index arrays have the same shape, BUT there is an index array MISSING for some
 # the last dimension, then the last dimension is assumed as ':'. So the result is an array of the shape
@@ -83,7 +84,15 @@ arr_indexed = arr[np.array([0, 1, 1]), np.array([1, 2, 1])]
 # [0,1,:] [1,2,:] [1, 1, :]
 print('\narr[np.array([0, 1, 1]), np.array([1, 2, 1])]\n%s' % arr_indexed)
 print('shape', arr_indexed.shape)
+print('ndim', arr_indexed.ndim)
 
+# Case 2 only - index arrays missing for last 2 dimensions
+arr_indexed = arr[np.array([0, 1, 1])]
+# will give you an array of shape (3, 3, 4) i.e. same as index array and values at indexes
+# [0,:,:] [1,:,:] [1, :, :]
+print('\narr[np.array([0, 1, 1])]\n%s' % arr_indexed)
+print('shape', arr_indexed.shape)
+print('ndim', arr_indexed.ndim)
 
 # ------------------------------------------------
 # Fourth way - Combining Index Arrays with slicing
