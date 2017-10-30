@@ -15,7 +15,7 @@ print(arr)
 #     [1,2,3]
 #     [4,5,6]
 #     [7,8,9]
-# the rows are on axis 0 (ie y axis is called axis 0) and columns are on axis 1. we see more later on what axis are
+# the rows are on axis 0 (AXIS 0 means rowwise) and columns are on axis 1(AXIS 1 MEANS COLUMN-WISE). we see more later on what axis are
 arr = np.array([[1,2,3],[4,5,6],[7,8,9]])
 print(arr.ndim)
 print(arr[1,2]) # is same ias arr[1][2] but obviously this is more typing so [i,j] is preferred.

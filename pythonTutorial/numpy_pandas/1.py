@@ -34,7 +34,7 @@ print('Ones', ones)
 
 # arange function - used to create a numpy array with range() like numbers
 arr = np.arange(5) # parameters are (start, end, step, dtype)
-print('Arange', arr)  # [0 1 2 3 4]
+print('Arange %s, np.arange(5).shape %s' % (arr, arr.shape))  # [0 1 2 3 4]
 
 arr = np.identity(3)  # create an identify matrix of size 3
 print('Identity\n', arr)
@@ -50,13 +50,13 @@ arrNew = arr.astype(np.int64) # will truncate all decimals.
 print(arrNew, arrNew.dtype)
 
 arr = np.array(['1.2', '3.45', '-2.3', '0', '100.982'])
-print arr.dtype
+print (arr.dtype)
 arrNew = arr.astype(np.float64) # will convert from string to float
 print(arrNew, arrNew.dtype)
 
 # You can also create an ndarray of randomly distributed doubles using np.random.randn() function
 print(np.random.randn(2, 3)) # create an array with shape=(2,3)
-print(np.random.standard_normal((2,3)) # same as above but this one takes a tuple.
+print(np.random.standard_normal((2,3))) # same as above but this one takes a tuple.
 
 
 # reshape - numpy provides a very handy function numpy.reshape(a, shape) which takes an ndarray as first parameter and reshapes it data according to the second shape parameter
