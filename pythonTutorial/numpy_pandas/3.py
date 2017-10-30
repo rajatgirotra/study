@@ -1,3 +1,5 @@
+# Read ndarray_indexing_and_slicing.py first
+
 # Indexing and Slicing
 
 import numpy as np
