@@ -84,6 +84,9 @@ x = frame.applymap(format)
 print('\nframe.applymap()\n%s' % x)
 
 # Sorting and ranking
-frame = DataFrame(np.random.randn(4, 3), list=['x', 'p', 'a', 'h'], columns=['Hawaii', 'Portugal', 'Manila'])
+frame = DataFrame(np.random.randn(4, 3), index=['x', 'p', 'a', 'h'], columns=['Hawaii', 'Portugal', 'Manila'])
 frame.sort_index() # will be default with axis = 0. ie rows will be sorted based on frame.index
+print('\nframe.sort_index()\n%s' % frame.sort_index())
+
+# to sort based on data in a row, use "by" keyword
 print('\nframe.sort_index()\n%s' % frame.sort_index())
