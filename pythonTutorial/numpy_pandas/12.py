@@ -14,10 +14,13 @@ print 's[dates[5]] = %s\n' % s[dates[5]] # get the 6th index. ie 6/1/2000
 df[['B', 'A']] = df[['A', 'B']] # cols B is now column A, column A is now column B
 print "df[['B', 'A']] = df[['A', 'B']] \n%s\n" % df # cols B is now column A, column A is now column B
 
-# Somehow this doesnt work. I didnt understand the reason
-# pandas aligns all AXES when setting Series and DataFrame from .loc, and .iloc.
+# Somehow this doesnt work. Why? Because whenever we use the loc/iloc, pandas first
+# aligns rows and columns according to the index labels and column names.
+# So columns 'A' and 'B' get aligned anyway, so the below statement becomes a no-op.
 # This will not modify df because the column alignment is before value assignment.
 df.loc[:, ['A', 'B']] = df[['B', 'A']]
-# but the workaround is to use .values attribute like below, .values returns an ndarray of the data.
+# Workaround is to use .values attribute like below, .values returns an ndarray of the data.
+# So the right hand side is no more a dataframe rather just a numpy array, so it has no
+# index or columns, so it works.
 df.loc[:, ['A', 'B']] = df[['B', 'A']].values
 print "df.loc[:, ['A', 'B']] = df[['B', 'A']].values \n%s\n" % df
