@@ -1,5 +1,5 @@
 # pandas Series and DataFrame
-
+# Please read ndarray_indexing_and_slicing.py and then return here.
 import numpy as np
 import pandas as pd
 

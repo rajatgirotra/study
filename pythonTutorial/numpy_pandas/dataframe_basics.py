@@ -53,3 +53,5 @@ print('\ndf with iris ratios after move \n%s' % df.head())
 
 # Lambda indexing ie indexer is a callable
 print('\nLambda indexing, iris where sepal + petal ratios > 7\n%s' % df[lambda x: x['sepal_ratio'] + x['petal_ratio'] > 7])
+
+# Next return to 8.py
