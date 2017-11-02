@@ -85,8 +85,15 @@ print('\nframe.applymap()\n%s' % x)
 
 # Sorting and ranking
 frame = DataFrame(np.random.randn(4, 3), index=['x', 'p', 'a', 'h'], columns=['Hawaii', 'Portugal', 'Manila'])
-frame.sort_index() # will be default with axis = 0. ie rows will be sorted based on frame.index
+frame.sort_index()  # will be default with axis = 0. ie rows will be sorted based on frame.index
 print('\nframe.sort_index()\n%s' % frame.sort_index())
 
-# to sort based on data in a row, use "by" keyword
-print('\nframe.sort_index()\n%s' % frame.sort_index())
+# to sort based on column names, use axis = 1
+print('\nframe.sort_index(axis=1, ascending=False)\n%s' % frame.sort_index(axis='columns', ascending=False))
+
+# to sort rows based on values in a column instead, use sort_values(by=[])
+print('\nframe.sort_values(axis=0, by=[])\n%s' % frame.sort_values(axis='index', by=['Hawaii', 'Manila']))
+
+# series is sorted using the sort_values() and sort_index() api too
+obj = pd.Series([4, np.nan, 7, np.nan, -3, 2])
+print('\nseries.order(na_position=first)\n%s' % obj.sort_values(na_position='first'))
