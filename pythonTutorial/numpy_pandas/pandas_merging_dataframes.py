@@ -92,4 +92,3 @@ print('\npd.concat([df1, s], axis=0)\n%s' % frame)
 s = pd.Series(['X0', 'X1', 'X2', 'X3'], index=list('ABCD'))
 frame = df1.append(s, ignore_index=True)  # ignore_index=True is mandatory
 print('\ndf1.append(s)\n%s' % frame)
-
