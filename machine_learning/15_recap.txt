@@ -1,0 +1,44 @@
+OK, I am going to recap a bit of what we have learnt already.
+Machine Learning is a branch of AI where we use algorithms that create rules by looking at training data. and that rules
+are used to make predictions about unseen data. We have two types of learnings here:
+
+1) Supervised learning: where the training data contains both features(ie. input) and labels(ie. output). more than one
+features is pretty common in training data and we call it multivariate data.
+
+2) Unsupervised learning: In which there are no labels or targets. In unsupervised learning the training data is used to
+find specific patterns in data, like clusters, or density estimation etc.
+
+Supervised learning problems is further classified in two types:
+a) Classification: ie. we want to classify or predict the label given the input data.
+
+b) Regression: ie. where the output is a continuous variable. There is no classification here. Just that you need to
+predict a value from the input data. Like find the weight of a salmon given its age and height. Find the age of a person
+given certain characteristics of them. Here the weight and age are continuous variables.
+
+In scikit learn, machine learning algo's are called estimators and classifiers. The way predictions are done is
+1) Feed input data, ie features to the estimator. In scikit learn lingo, this is called fitting the data to the estimator
+So the API name is also called fit(features, label). This is basically called the learning step. After the learning is
+performed, you might want to serialize the estimator or classifier instance; so that you dont have to retrain it again.
+You can later just un-serialize and use it to make predictions. This is called model persistence. and can be done using
+pickle (not recommended really due to some security issues), so you joblib (from sklearn.externals import joblib).
+
+2) predict or classify based on unseen data, this is called the predict step and the api is also called predict(features).
+
+scikit-learn estimators follow some rules to make their behavior more predictive:
+
+1) Typecasting:
+a) Input is normally type-casted to float64.
+b) You already know that we have regression targets and classification targets in supervised learning
+When predicting regression targets, data is normally converted to float64. while for classification targets, the type
+is maintained.
+
+2) Refitting: When you first create an object of an estimator, you can set certain parameters on the estimator which are
+ called hyper-parameters. You apply these parameters using the set_params() api. Let say you already called
+the fit() method and want to change some parameter of the estimator later. then remember you need to re-train i.e. call
+the fit() api again after setting new parameters. Calling fit() again will discard all learnings/rules created by the first
+fit() call.
+
+Datasets: sklearn.datasets contain some very commonly used datasets that can be used during development. Datasets are
+dictionary like objects containing data and targets (features and labels) and some meta data about the data set.
+Dataset is always a 2d array of features and labels. Each row has features and label. The actual features can have their
+own shape though.

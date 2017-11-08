@@ -41,7 +41,7 @@
 
 from pandas import DataFrame
 import pandas as pd
-
+import numpy as np
 df1 = DataFrame({'A': ['A0', 'A1', 'A2'], 'B': ['B0', 'B1', 'B2']},
                 index=['K0', 'K1', 'K2'])
 
@@ -127,3 +127,20 @@ frame.set_index(['key', 'Y'], inplace=True)
 print('\ndataframe merge on single index with multi-index, how=outer\n%s' % frame)
 
 # Amazing stuff
+# similarly merging column to columns is trivial and really i dont need to demonstrate
+# here. See online on pandas website if you need more information. We'll move on to other stuff.
+
+# combine_first and update.
+# A number of times you have two dataframes with similar indexes which you want to merge
+df1 = DataFrame([[np.nan, 3., 5.], [-4.6, np.nan, np.nan], [np.nan, 7., np.nan]])
+df2 = DataFrame([[-42.6, np.nan, -8.2], [-5, 1.6, 4]], index=[1, 2])
+print('\ndataframe df1\n%s' % df1)
+print('\ndataframe df2\n%s' % df2)
+
+df1.update(df2)  # update will blindly copy non-NA values from df2[i][j] to df1[i][j]
+print('\ndataframe df1.update(df2)\n%s' % df1)  # update() is inplace by default
+
+df1 = DataFrame([[np.nan, 3., 5.], [-4.6, np.nan, np.nan], [np.nan, 7., np.nan]])
+result = df1.combine_first(df2)  # update will copy non-NA values from df2[i][j] to df1[i][j] only if df1[i][j]
+# is a NA value. ie. value in df1 takes priority over value in df2
+print('\ndataframe df1.combine_first(df2)\n%s' % result)
