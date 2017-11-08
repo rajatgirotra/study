@@ -15,6 +15,7 @@
     <SUITE FILE_PATH="coverage/numpy_pandas$11.coverage" NAME="11 Coverage Results" MODIFIED="1509499165133" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/numpy_pandas$pandas_merging_dataframes.coverage" NAME="pandas_merging_dataframes Coverage Results" MODIFIED="1509687314512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/numpy_pandas$14.coverage" NAME="14 Coverage Results" MODIFIED="1509528139269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/numpy_pandas$python_api_examples.coverage" NAME="python_api_examples Coverage Results" MODIFIED="1510139997196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/numpy_pandas$dataframe_basics.coverage" NAME="dataframe_basics Coverage Results" MODIFIED="1509499042675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -26,21 +27,11 @@
       <file leaf-file-name="dataframe_basics.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dataframe_basics.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1643">
+            <state relative-caret-position="403">
               <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding>
                 <element signature="e#181#209#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="8.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/8.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="31">
-              <caret line="1" column="67" lean-forward="false" selection-start-line="1" selection-start-column="67" selection-end-line="1" selection-end-column="67" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -77,6 +68,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="12.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/12.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="651">
+              <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="pandas_join_dataframe.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pandas_join_dataframe.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -104,8 +105,8 @@
       <file leaf-file-name="python_api_examples.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/python_api_examples.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="502">
+              <caret line="33" column="52" lean-forward="false" selection-start-line="33" selection-start-column="52" selection-end-line="33" selection-end-column="52" />
               <folding>
                 <element signature="e#43#62#0" expanded="true" />
               </folding>
@@ -126,8 +127,8 @@
       <file leaf-file-name="ndarray_indexing_and_slicing.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ndarray_indexing_and_slicing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="124">
+              <caret line="124" column="37" lean-forward="false" selection-start-line="124" selection-start-column="37" selection-end-line="124" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -161,6 +162,7 @@
         <option value="$PROJECT_DIR$/pandas_merging_dataframes.py" />
         <option value="$PROJECT_DIR$/pandas_join_dataframe.py" />
         <option value="$PROJECT_DIR$/pandas_missing_data.py" />
+        <option value="$PROJECT_DIR$/ndarray_indexing_and_slicing.py" />
         <option value="$PROJECT_DIR$/python_api_examples.py" />
       </list>
     </option>
@@ -346,25 +348,7 @@
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/tools/miniconda2/envs/shriram/bin/node" />
   </component>
-  <component name="RunManager" selected="Python.pandas_missing_data">
-    <configuration default="false" name="11" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="numpy_pandas" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/11.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.python_api_examples">
     <configuration default="false" name="14" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -433,6 +417,24 @@
       <module name="numpy_pandas" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pandas_missing_data.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="python_api_examples" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="numpy_pandas" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_api_examples.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -663,19 +665,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.11" />
-      <item index="1" class="java.lang.String" itemvalue="Python.14" />
-      <item index="2" class="java.lang.String" itemvalue="Python.pandas_merging_dataframes" />
-      <item index="3" class="java.lang.String" itemvalue="Python.pandas_join_dataframe" />
-      <item index="4" class="java.lang.String" itemvalue="Python.pandas_missing_data" />
+      <item index="0" class="java.lang.String" itemvalue="Python.14" />
+      <item index="1" class="java.lang.String" itemvalue="Python.pandas_merging_dataframes" />
+      <item index="2" class="java.lang.String" itemvalue="Python.pandas_join_dataframe" />
+      <item index="3" class="java.lang.String" itemvalue="Python.pandas_missing_data" />
+      <item index="4" class="java.lang.String" itemvalue="Python.python_api_examples" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.pandas_missing_data" />
-        <item index="1" class="java.lang.String" itemvalue="Python.pandas_join_dataframe" />
-        <item index="2" class="java.lang.String" itemvalue="Python.pandas_merging_dataframes" />
-        <item index="3" class="java.lang.String" itemvalue="Python.14" />
-        <item index="4" class="java.lang.String" itemvalue="Python.11" />
+        <item index="0" class="java.lang.String" itemvalue="Python.python_api_examples" />
+        <item index="1" class="java.lang.String" itemvalue="Python.pandas_missing_data" />
+        <item index="2" class="java.lang.String" itemvalue="Python.pandas_join_dataframe" />
+        <item index="3" class="java.lang.String" itemvalue="Python.pandas_merging_dataframes" />
+        <item index="4" class="java.lang.String" itemvalue="Python.14" />
       </list>
     </recent_temporary>
   </component>
@@ -861,6 +863,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -897,13 +900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="643">
           <caret line="93" column="79" lean-forward="false" selection-start-line="93" selection-start-column="79" selection-end-line="93" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/12.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -944,24 +940,6 @@
         <state relative-caret-position="1085">
           <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ndarray_indexing_and_slicing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataframe_basics.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1643">
-          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <element signature="e#181#209#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1011,10 +989,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/python_api_examples.py">
+    <entry file="file://$PROJECT_DIR$/dataframe_basics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding>
+            <element signature="e#181#209#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/12.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ndarray_indexing_and_slicing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <caret line="124" column="37" lean-forward="false" selection-start-line="124" selection-start-column="37" selection-end-line="124" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_api_examples.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="33" column="52" lean-forward="false" selection-start-line="33" selection-start-column="52" selection-end-line="33" selection-end-column="52" />
           <folding>
             <element signature="e#43#62#0" expanded="true" />
           </folding>
