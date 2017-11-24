@@ -1,0 +1,22 @@
+There are a number of assumptions of linear regressions which must hold if you are trying to fit a linear regression model to your training data.
+
+Let's review these and how you can find that these conditions hold
+
+1) Linearity
+Linear regression required the relationship between the Dependant and Independant variable to be linear. You can always create a scatter plot between the DV and the IV to see if the relationship is linear. Also you should look out for outliers as linear regression if sensitive to outlier effects. Also as a rule of thumb, you must have 20 or more observations in your training data to test for Linearity.
+
+2) Multivariate Normality
+You have already read about the Central Limit theorem for the sample mean for large samples of random variables. A similar result is available in multivariate statistics that says that if you have random vector X1, X2, X3,...,Xn that are independant and identically distributed, then the sample mean vector, X-bar, is going to be approximately multivariate normally distributed for large samples. This assumption can be checked with a histogram or a Q-Q plot. We need to explore this more once we revisit the central limit theorem.
+
+3) Lack of multicollinearity: Multicollinearity occurs when the IV's are too highly correlated with each other. Again you can create a correlation matrix (Pearson's bivariate correlation) among all the independant variables and make sure that the correlation coefficients are smaller than 1.
+
+4) Independence of errors: Linear correlation assumes that there is little or no auto-correlation in the data. Auto-correlation occurs when the residuals are not independant from each other. In other words the value of y(x+1) is not independant from the value of y(x).
+
+5) Homoscedasticity - To understand this let's understand what is Heteroscedasticity
+Heteroscedasticity refers to a circumstance where the variability (ie variance) of the Dependant Variable is unequal across the range of values of a second variable (IV) that predicts it. A scatter plot of these variables will often produce a cone like shape, as the scatter (or variability) of the DV widens (or narrows) as the value of the IV increases. The inverse of this is homoscedasticity, which indicates that a DV's variability is equal acrosss values of an IV.
+For example: All teenagers will start roughly from the same salary, however, in 20 yrs time, the salary will be very waried.
+So in the teem years the variability is very less and after 20 years the variability is very high. Simple a graph of Age (X-Axis) vs Salary (y-axis) will be heteroscedastic.
+So if your regression model is consistently accurate when it predicts low values of DV, but highly inconsistent in accuracy when
+it predicts high values, then the results of that regression should not be trusted.
+
+For linear regression we dont test whether the DV and IV itself have a homoscedastic relationship. The residual error terms should be homoscedastic. Similarly for multivariate normality, the IV and DV's need not be normally distributed. It's the residual errors of the regression which should be normally distributed.
