@@ -1,0 +1,27 @@
+What is Support Vector Machine?
+
+It is a mathematical model which can be used for both regression and classification problems in Machine Learning. The aim of SVM is "To find the optimal separating hyperplane which maximizes the margin of the training data".
+
+This means that first you need some training data to build the SVM model. Let's assume you have numerous bivariate data points. Each data point is an (Height, Weight) of individuals (men and women). and you draw a scatter plot from this bivariate data.
+
+The aim of the SVM is to draw a hyperplane such that if given with some unseen data (height and wight), the model is able to correctly predict whether the individual is a man or woman.
+
+In a scatter plot, this means we need to draw a line such that all men are on one side of the line and all women are on the other side. If that is the case, then why is it called hyperplane, why not just a line. The reason is that this separation can be done in multi-dimensional space. 
+
+1) If you have a uni-dimensional plane, like a simple number line. and I ask you to draw a plane such that all positive numbers are to the right and negative numbers are to the left of the plane, then you will just draw a dot at point 0.
+So in uni-dimensional plane, the hyperplane is a dot.
+2) Similarly, in 2 dimensional plane, the hyperplane is a line
+3) Similarly, in 3-dimensional plane, the hyperplane is a plane.
+4) Similarly, in 4 or more dimensional plane, its a hyperplane.
+
+What is the optimal separating hyperplane?
+Basically, there we can draw several lines which separate the men and women on the two sides. However, which line is optimal is based on the distance of the line from the closest data point.
+
+For each line which can separate the all men and women on each side, we calculate the distance between the closest data point and the separating line. Then we double this value. This value is called margin. The margin is actually a no man's land, ie there will no data point in the margin. A line where the margin is highest is the optimal separating line as it farthest from the closest data point.
+
+Let say if a separating line is too close to the women's data point and far from the men's data point's where the womens data points are below the line. Then if we see some data point just above (ie very close to the separating line), our model might incorrectly classify it as a man. That's why the optimal line is the one which is farthest from the closest data points.
+
+Finding such a line is based on understanding of vectors (Linear Algebra). We will study vector in depth later, but for now
+lets quickly study if briefly and understand the math around support vector machines.
+
+The math will be part of your notes in your study book. Look for heading SVM (Support Vector Machines).
