@@ -1,11 +1,78 @@
 The chrono library is used for manipulating times.
-Read the following slowly and carefully.
+It provides three types of concepts
 
-template <class Rep, class Period = std::ratio<1>>
-class Duration
-{};
+1) Clocks
+2) Time Points
+3) Duration
 
-The main class is duration which is used to represents durations (seconds, millisec, nanosecs, hours, minutes etc etc).
+Clocks: A clock class defines
+a) a starting point in history. Mostly Epoch
+b) a tick rate at which it is counting (example second)
+Clocks are NON template classes which have the following important typedefs
+
+Clock::duration --> to represent the duration
+Clock::rep --> is Clock::duration::rep (an integral type to store the duration count ie ticks)
+Clock::period --> is Clock::duration::period (an ratio<> type, this actually defines the tick rate)
+Clock::time_point --> is std::chrono::time_point<Clock, duration>
+
+static time_point Clock::now() --> returns a time_point representing the current point in time.
+static bool is_steady=true/false. --> True if it is increasing monotonically, ie. not subjectt to NTP adjustments.
+
+C++11 defines three type of Clocks
+system_clock
+steady_clock
+high_resolution_clock
+
+Also system_clock is the only clock whose duration can be converted to C style time for printable purpose. It's very trivial.
+static to_time_t(const time_point& t) --> time_point Clock must be system_clock
+static from_time_t(const time_point& t)
+
+------------------------------------------------------------------------------------------------------
+
+template <typename Clock, typename Duration=Clock::duration>
+class time_point {};
+The time_point is a template class which ACTUALLY stores a duration object. A time point represents a duration from the starting of the Clock's epoch
+
+C'tors
+time_point() --> Creates an object with duration 0, i.e value of Clock's epoch.
+time_point(const duration& d) --> Creates a time_point with value = epoch + duration
+template <typename Duration2>
+time_point(const time_point<Clock, Duration2>& d) --> Only available if Duration2 is implicitly convertable to Duration. Example: ms to ns, m to cm, kg to gms, ie when converting from lower to higher precision.
+
+time_since_epoch() --> returns the duration object it holds. Call the count() member of the duration object to get the actual value.
+
+static time_point min() --> Just a proxy. Turns around and calls min() on the underlying duration object
+static time_point max() --> Just a proxy. Turns around and calls max() on the underlying duration object
+operator += (const duration& d)
+operator -= (const duration& d)
+operator + (const time_point&)
+operator - (const time_point&)
+Also relational operators are available.
+-----------------------------------------------------------------------------------------------------
+
+template <typename Rep, typename period = ratio<1>>
+class duration {};
+The duration class represents a duration like 1 sec, 3 days, 5 hrs, 6 nanoseconds etc.
+
+c'tors
+duration() = default; just default c'ted. Dont assume duration = 0
+duration(const duration& d) = default // defaulted copy ctor, just copies count
+template <typename Rep2>
+duration(const Rep2& rep); //  create a new duration with a new type for Rep. Only possible if Rep2 is implicitly convertible to Rep. Example, if Rep2 is double, Rep is int, but not the other way round.
+template <Rep2, Duration2>
+duration(const duration<Rep2, Duration2> d) --> Only possible if Rep2 is implicitly convertible to Rep and Duration2 is higher precision. Like cm to mm, millis to nanos. Ie source_period/destination_period should have denominator 1. Example, millis ratio is <1, 1000>, nanos ratio is <1, 1000000000>
+source/destination = 1000000/1 ie possible. Ie. possible where source period is exactly divisible by destination_period.
+
+Rep count() --> returns the rep count.
+
+Various arithmetic operators like ++, --, +=, -=, *=, /= etc.
+
+static duration min()
+static duration max()
+static duration zero()
+-----------------------------------------------------------------------------------------------------
+
+duration is used to represents durations (seconds, millisec, nanosecs, hours, minutes etc etc).
 This class maintains a count represented by the first template parameter Rep. Can be int, uint64_t, float, double etc. Basically
 any arithmetic type. Can be even user defined.
 
@@ -48,6 +115,22 @@ These functions make use of the duration_values helper class. Very straight forw
 template <class Rep>
 struct duration_values {
   static constexpr Rep zero() { return Rep(0); }
-  static constexpr Rep min() { return numeric_limits<Rep>::lowest(); }
+  static constexpr Rep min() { return numeric_limits<Rep>::min(); }
   static constexpr Rep max() { return numeric_limits<Rep>::max(); }
 }
+--------------------------------------------------------------------------------------------
+
+template <typename ToDuration, typename Rep, typename Duration>
+ToDuration duration_cast(const duration<Rep, Duration>& d)
+
+duration_cast is used to convert one duration to another. You could change Rep, Duration or both.
+When Rep is same ie both source and destination Rep type's are same as source type is exactly divisible by Destination type duration_cast is not needed. Example
+
+auto d1 = std::chrono::seconds(5); Rep is int64_t, Period is ratio<1, 1>
+auto d2 = duration_cast<std::chrono::milliseconds>(d1); // not needed as Rep is int64_t and Period for milliseconds is ratio<1, 1000>. Source/dest = 1*1000 = 1000/1. So not needed.
+
+When source is floating point and destination is integral type, conversion is undefined if source is NaN or infinity or too large to represent by the target type.
+
+----------------------------------------------------------------------------------------------
+
+just like we have duration_cast, we have time_point_cast which is used to cast on time_point to another on the same Clock, but to a different Duration. Also its only needed when source duration is not completely divisible by destination duration. Example, needed for Ms to Sec conversion.
