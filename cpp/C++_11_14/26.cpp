@@ -6,8 +6,8 @@
 #include <iostream>
 using namespace std;
 
-//constexpr int square(int x)
-int square(int x)
+constexpr int square(int x)
+//int square(int x)
 {
     return (x*x);
 }

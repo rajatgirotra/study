@@ -27,17 +27,17 @@ void foo(std::nullptr_t x) {
 int main() {
 	//foo(0); //which one will be called. foo(int) or foo(char*).
 	//foo(NULL); //which one will be called. foo(int) or foo(char*).
-	foo(nullptr); //which one will be called. foo(int) or foo(char*).
+	//foo(nullptr); //which one will be called. foo(int) or foo(char*).
 
 	//To eliminate the above ambiguities/confusion, use nullptr.
 	
 	char* s = nullptr;
 	cout << typeid(decltype(nullptr)).name() << endl; //nullptr is actually a new type defined as std::nullptr_t
-        foo(s);
+        //foo(s);
 
 	std::nullptr_t a;
 	//foo(nullptr);
-	foo(a);
+	//foo(a);
 
         double* d = nullptr;
         foo(d);

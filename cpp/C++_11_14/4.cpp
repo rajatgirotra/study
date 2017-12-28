@@ -7,13 +7,24 @@
  */
 
 #include <iostream>
+#include <cxxabi.h>
+#include <string>
+#include <cassert>
 using std::cout;
 using std::endl;
+using std::string;
+
+string demangle(const char* mangled_name) {
+    auto status {0};
+    auto realname = abi::__cxa_demangle(mangled_name, 0, 0, &status);
+    assert(status == 0 && realname != nullptr);
+    return realname;
+}
 
 template<typename T>
 struct A {
 	static void foo() {
-		cout << "value" << endl;
+		cout << "value type: " << demangle(typeid(T).name()) << endl;
 	}
 };
 
@@ -21,7 +32,7 @@ struct A {
 template <typename T>
 struct A <T&> {
 	static void foo() {
-		cout << "reference" << endl;
+		cout << "reference type: " << demangle(typeid(T).name()) << endl;
 	}
 };
 
@@ -50,4 +61,4 @@ int main() {
 
 	
 	
-	
+// note that cxxabi only gives you the type. It doesnt tell you if T is a value_type of reference_type. So T or T& or T&& will only give the same type.	

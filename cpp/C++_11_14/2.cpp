@@ -9,7 +9,16 @@
 #include <string>
 #include <typeinfo>
 #include <vector>
+#include <cxxabi.h>
+#include <cassert>
 using namespace std;
+
+string demangle(const char* mangled_name) {
+    auto status {0};
+    auto realname = abi::__cxa_demangle(mangled_name, 0, 0, &status);
+    assert(status == 0 && realname != nullptr);
+    return realname;
+}
 
 int main() {
     decltype(5) x = 10; //x will be of type int as 5 is an int. Also x is a value type.
@@ -53,11 +62,11 @@ int main() {
     //decltype(v[0]) g; //Error. Note that operator[] always returns a reference, so g is a reference type, so here you must tie it to some reference.
 
     
-    decltype(v[0]) ab = z; //Note this does not mean that v[0] is 1. g is only of type v[0], it does not reference v[0] in any way.
+    decltype(v[0]) ab = z; //Note this does not mean that v[0] is z. ab is only of type v[0], it does not reference v[0] in any way.
     cout << "v[0] (should be 0): "<< v[0] << endl;
     cout << "ab (should be 6): "<< ab << endl;
 
-    //decltype(v[0]) h = 1; //Error. Very trivial. v[0] returns a int& and right hand side is const int&.
+    //decltype(v[0]) h = 1; //Error. Very trivial. v[0] returns a int& and right hand side is const int&. This will work if you make your vector const as operator[] will return const int&
 
     return 0;
 }

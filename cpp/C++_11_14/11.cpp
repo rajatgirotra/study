@@ -39,7 +39,7 @@ public:
     {
         delete poNumber;
         this->poNumber = new double(*rhs.poNumber);
-        cout << "Assignment operator, this tag: " << this->tag <<" ,poNumber: " << poNumber << " ,incoming tag: " << rhs.tag << endl;
+        cout << "Copy Assignment operator, this tag: " << this->tag <<" ,poNumber: " << poNumber << " ,incoming tag: " << rhs.tag << endl;
         return *this;
     }
 

@@ -38,9 +38,10 @@ public:
 	Number(Number&& rhs) : tag(++counter)
 	{
 		poNumber = rhs.poNumber;
-		rhs.poNumber = 0;
+		rhs.poNumber = nullptr;
 		cout << "Move copy c'tor: object created with tag: " << tag <<" ,poNumber: " << poNumber << " using tag: " << rhs.tag << endl;
 	}
+
 };
 
 int Number::counter = 0;

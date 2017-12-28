@@ -80,7 +80,7 @@ Derv foo() {
 }
 #endif
 
-#if 0
+#if 1
 Derv&& foo()
 {
     static Derv d;
@@ -88,11 +88,13 @@ Derv&& foo()
 }
 #endif
 
+# if 0
 Derv foo()
 {
     static Derv d;
     return d;
 }
+#endif
 
 int main() {
         cout << "Copy Construction first" << endl;
@@ -123,13 +125,7 @@ int main() {
  *        return d;
  *    }
  *
- *    If you return a const Derv& instead, then you will be retunring a reference to a local variable which is a sure recipe for disaster.
- *    As the local object will be destroyed as you leave the function.
- *
- * 3) If you instead return an rvalue reference, Derv&&, again same thing. Since an rvalue reference is also a reference, same as point 2.
- *    The local object will be destoyed anyway when foo() finishes.
- *
- *    So the question really is, how to force the compiler to use move semantics in line A. Simple, you have seen this before.
+ * how else can u enforce move semantics in Line A. Simple, you have seen this before.
  *    Use std::move
  *    Derv d1 = std::move(foo()); // to force move semantics.
  *
