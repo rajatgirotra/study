@@ -14,6 +14,7 @@ using std::tuple_element;
 
 int main() {
     double&& d = std::get<1>(std::make_tuple(100, 23.25));
+    // is this ok?? Will d not be a dangling reference?
 
     auto t1 = std::make_tuple(100, 23.25);
     double&& d2 = std::get<1>(t1);
