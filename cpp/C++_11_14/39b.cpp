@@ -27,7 +27,7 @@ int main() {
         cout << i << " " ;
     }
 
-    // double elements in the list
+    // double elements in the vector
     for(auto& i : v) {
         i *= 2;
     }

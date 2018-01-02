@@ -21,7 +21,7 @@ constexpr T binary(const char* literal,
 
     return
         *literal == '\0' ? x :
-        (b > std::numeric_limits<T>::digits ? throw std::runtime_error("Too many bits!!") :
+        (b > std::numeric_limits<T>::digits ? throw std::runtime_error(some_unresolved_symbol) :
          *literal == ',' ? binary (literal+1, b, x) :
          *literal == '0' ? binary (literal+1, b+1, (x*2)+0) :
          *literal == '1' ? binary (literal+1, b+1, (x*2)+1) :

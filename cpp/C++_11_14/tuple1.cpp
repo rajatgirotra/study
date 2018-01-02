@@ -22,3 +22,9 @@ int main() {
 
     return 0;
 }
+
+/*
+The return type of std::get(arg) is actually either
+1) tuple_element<>& --> an lvalue reference if "arg" is lvalue
+2) tuple_element<>&& --> an rvalue reference if "arg" is rvalue
+*/

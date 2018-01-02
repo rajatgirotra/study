@@ -17,13 +17,13 @@ int main() {
 
     m.emplace(std::piecewise_construct,
               std::forward_as_tuple(10), // will return tuple<int&&> which will be passed to int c'tor
-              std::forward_as_tuple(20, 'a') // will return tuple<char&&, int&&> which will be passed to string c'tor
+              std::forward_as_tuple(20, 'a') // will return tuple<int&&, char&&> which will be passed to string c'tor
              );
 
     cout << m[10] << endl;
 
-    auto t = std::forward_as_tuple(20, 'b'); // t will be of type tuple<char&&, int&&>
-    //m.emplace(std::piecewise_construct, std::forward_as_tuple(50), t); // ERROR. t is holding dangling references.
+    auto t = std::forward_as_tuple(20, 'b'); // t will be of type tuple<int&&, char&&>
+    m.emplace(std::piecewise_construct, std::forward_as_tuple(50), t); // ERROR. t is holding dangling references.
     return 0;
 }
 

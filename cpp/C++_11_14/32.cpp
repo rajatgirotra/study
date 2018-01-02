@@ -13,8 +13,10 @@
 #include <iostream>
 using namespace std;
 
+typedef int my_fn_type(int, int);
 
-std::function<int(int, int)> returnLambda()
+//std::function<int (int, int)> returnLambda()
+std::function<my_fn_type> returnLambda()
 {
     /*auto l = [] (int x, int y) -> int
     {

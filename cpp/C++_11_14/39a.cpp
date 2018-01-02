@@ -70,6 +70,9 @@ int main()
     auto f4 = std::bind(&Foo::data, _1);
     std::cout << f4(foo) << '\n';
 
+    auto f5 = std::bind(&Foo::data, foo);
+    std::cout << f5() << '\n';
+
     bool is_bind_expr_f4 = std::is_bind_expression<decltype(f4)>::value;
     cout << "is_bind_expr_f4: " << is_bind_expr_f4 << endl;
  

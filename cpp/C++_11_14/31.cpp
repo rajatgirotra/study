@@ -106,3 +106,9 @@ int main()
    cout << "b (outside): " << b << endl;
    cout << "c (outside): " << c << endl;
 }
+
+/*
+So [=] means --> all variables in scope will be passed as READ ONLY COPIES
+   [&] means --> all variables in scope will be passed as READ WRITE ALIASES
+   [=] mutable means --> all variables in scope will be passed as READ WRITE COPIES
+*/
