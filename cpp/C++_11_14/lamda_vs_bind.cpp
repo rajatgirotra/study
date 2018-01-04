@@ -24,9 +24,12 @@ int main() {
     cout << "s: " << s << endl;
     string s1 = "Hello World"; 
     // lambda capture initializers only available with -std=c++14 or -std=gnu++14
-    auto l1 = [v = std::move(s1)] (auto iarg) {
+    // type of v will be const string, (if lambda was mutable, type of v would be string)
+    auto l1 = [v = std::move(s1), &s1] (auto iarg) {
         cout << "In lambda v before: " << v << endl;
-        foo(std::move(v), iarg);
+        cout << "In lambda s1 before: " << s1 << endl;
+        foo(std::move(v), iarg); // std::move(v) will give you const string&& which calls copy ctor not, move ctor
+        // so v is not moved.
         cout << "In lambda v after: " << v << endl;
     };
     // The lambda closure is created, so "v = std::move(s1) has executed already, so s1 is empty now"

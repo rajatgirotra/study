@@ -25,4 +25,6 @@ If you dont want to share the std::mutex object during copy ctor or assignment, 
 NOTE THAT ACCORDING TO THE STANDARD, std::mutex::try_lock() is allowed to fail spuriously even when no other thread is owning the mutex.
 
 AS A RULE OF THUMB NEVER USE raw std::mutex, always use with std::lock_guard, std::unique_lock etc for proper exception handling.
+
+Also many times you would want to make your class member functions const, but cannot because it locks and unlocks a mutex data member. So almost always, you would want to declare your mutex as mutable in your class.
 */

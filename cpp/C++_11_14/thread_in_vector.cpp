@@ -1,6 +1,7 @@
 #include <thread>
 #include <vector>
 #include <iostream>
+#include <system_error>
 using namespace std;
 
 struct nothing_thread {
@@ -19,6 +20,12 @@ int main() {
     std::thread t = std::move(v.back());
     t.join();
     v.clear();
-    // for (auto& th : v) th.join();
+    try {
+        for (auto& th : v) {
+            if(th.joinable()) th.join();
+        }
+    } catch(const std::system_error& e) {
+        cout << "Exception: " << e.what() << endl;
+    }
     return 0;
 }
