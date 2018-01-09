@@ -1,0 +1,1 @@
+to debug an issue with nginx, first make sure that nginx is built with debug. Run "nginx -V" and look for --with-debug. Then you can set the error_log directive at various contexts (main, server, http, location, etc) and set the log level. See directives file for error_log format.

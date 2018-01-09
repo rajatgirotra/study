@@ -1,0 +1,69 @@
+pid /path/to/nginx.pid --> Directive to specify the file to store the pid of the master process
+
+use <connection_processing_method>, eg:
+use epoll --> the method nginx worker processes should use for listening to new requests. Usually not needed as nginx by default uses the most effecient method available on the host.
+
+error_log /path/to/log level;  --> level is optional. By default, it is error, example
+error_log /path/to/log debug;
+
+Similarly you have access_log directive. Lookup the nginx_http_core_module to see the detailed parameters for this directive.
+
+We can optionally also log to stderr, to memory or to syslog. See the directive documentation.
+
+Basically nginx is built with a number of modules. And each module provides its own directives. The 
+important modules are:
+
+Core module
+ngx_http_core_module
+ngx_http_access_module
+ngx_http_*_modules
+mail modules
+ssl modules
+gzip modules
+uwsgi modules
+
+server directive --> everytime you specify a server directive, it basically is a virtual server configuration. Every server should have a listen directive which specifies a combination of address and port on which it is listening.
+
+listen directive --> is a bit complex, but i will give a few examples
+listen 127.0.0.1:8000;
+listen 127.0.0.1; # port is 80 by default
+listen 8000; # listen on all interfaces and port 8000
+listen *:8000; # same as above
+listen localhost:8000; # same as above
+listen unix:/var/run/nginx.sock --> to specify a unix domain socket
+listen 127.0.0.1 default_server; means this server is also the default. Example if you have 2 or more server configuration all with "listen 80;" and a server_name directive, then the default_server will be used if the "Host" header does not match any server_name in the server configurations. if no default_server is specified, the default action is to choose the first one.
+listen 127.0.0.1 default_server ssl; --> accept HTTPS connections
+listen should always be within the server context.
+
+If you want to NOT ACCEPT ANY REQUEST WITHOUT A HOST field in the HTTP request header, specify the following server config:
+server {
+    listen 80;
+    server_name "";
+    return 444; # ie close connection without a response
+}
+
+What will happen in the following case
+server {
+    listen 192.168.1.1:80;
+    server_name example.org www.example.org;
+    ...
+}
+server {
+    listen 192.168.1.1:80;
+    server_name example.net www.example.net;
+    ...
+}
+server {
+    listen 192.168.1.2:80;
+    server_name example.com www.example.com;
+    ...
+}
+nginx will first match the IP and port. And then match the server_name. Let say a request comes with IP and PORT and host as 192.168.1.1:80 and example.com, then only the first two match the ip and port. so they are selected. Then the server_name doesnt match either one, so by default the first one is used.
+
+
+server_name names; --> Very simple one of more server_names for this virtual server config. Can also contain wildcards or regular expressions to match. Lets see a few examples:
+
+server_name example.com www.example.com;
+server_name .example.com; --> same as above
+server_name ~^www\d+\.example\.com$; --> ~ means start of regex. regex is www[1-9].example.com
+server_name can also contain named captures which create variables that can be used in other directives.

@@ -1,0 +1,59 @@
+To enable ssl
+1) you must enable the ssl parameter on the listening socket in the server block.
+2) you must specify the ssl_certificate directive.
+3) you must specify the ssl_certificate_key directive.
+
+# Both http and https server
+server {
+    listen 80;
+    listen 443 ssl;
+    server_name www.example.com;
+    ssl_certificate www.example.com.crt;
+    ssl_certificate_key www.example.com.key;
+}
+
+ssl_certificate specifies a file with a certificate in PEM format for that virtual server. This is public information and is sent to the client during ssl handshake. Sometimes there are intermediate certificates in addition to the primary certificate. All these certificates should be specified in the same file in order: primary certificate followed by intermediate certificates.
+
+ssl_certificate_key is the private key file which contains the key in PEM format. This file should have restricted access. The master process should have access to it.
+
+in some cases, both the certificate and key in PEM format are in the same file. In this case, both parameters will have the same value. Dont worry, during handshake, only the certificate information is sent.
+
+In older nginx versions, the ssl parameter was not supported on the listen directive, but it was part of the main context. So the whole server had to be enabled for ssl. and it was not possible to enable ssl for individual virtual hosts. But now it is possible. So use of ssl in main context is discouraged.
+
+
+server {
+    listen 443 ssl;
+    server_name www.example.com;
+    ssl_certificate www.example.com.crt;
+    ssl_certificate_key www.example.com.key;
+}
+server {
+    listen 443 ssl;
+    server_name www.example.net;
+    ssl_certificate www.example.net.crt;
+    ssl_certificate_key www.example.net.key;
+}
+
+With the above configuration, the browser will always receive the certificate of www.example.com, this is because SSL handshake happens even before the HTTP request is sent, so nginx doesnt even know the server_name. so by default uses the first one. To solve this, always use combination of ip and port for ssl enabled listening sockets.
+
+listen 192.168.1.1:443 ssl;
+
+If you are still hell bent on using the same ip address for multiple https servers, then you can request for a common certificate. Ie a certificate in which the "SubjectAltName" field has several names, like www.example.com, www.example.net. Even wildcards are supported in "SubjectAltName" field; like *.example.org. In such cases, create the ssl_certificate and ssl_certificate_key directives at the http context and all servers will inherit that configuration.
+
+The much better approach is to use TLS Server Name Indication (TLS SNI) extension. it is a new protocol where during the handshake, the client/browser indicates the hostname and the server can then use the right certificate. For TLS SNI to work, both nginx and the openssl library it links to should have TSL SNI support.
+
+grep "nginx -V|grep TLS"
+
+
+PEM and pkcs12
+--------------
+PEM stands for Privacy Enhanced Mail and is the standard format used by many SSL applications to store SSL certificates and private keys.
+
+pkcs12 is another such format (Personal Information Exchange or PFX files). This format is used by MS outlook and other applications. To convert from pkcs12 to PEM you can use openssl utility
+Example:
+
+openssl pkcs12 --nokeys --in your_pkcs12_file --out cert.pem --> ie parse the pkcs12 file which contains both certificate and key and only output the certificate
+
+openssl pkcs12 --nocerts --in your_pkcs12_file --out key.pem --> ie parse the pkcs12 file which contains both certificate and key and only output the key
+
+These pem files can then be used as certificate and key in your https server as ssl_certificate and ssl_certificate_key
