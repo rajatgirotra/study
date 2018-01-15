@@ -12,15 +12,22 @@ void foo()
 {
     for(int i = 0; i < 10000; ++i)
     {
-    asm volatile("mfence" ::: "memory");
-    ready.load(std::memory_order_acquire);
+//    asm volatile("mfence" ::: "memory");
+    auto x = ready.load(std::memory_order_acquire);
+    if (x == 0) {
     cout << "I ";
+    std::this_thread::yield();
     cout << "am ";
+    std::this_thread::yield();
     cout << "thread ";
+    std::this_thread::yield();
     cout << "one \n";
     std::this_thread::yield();
+    }
+    std::this_thread::yield();
     ready.store(1, std::memory_order_release);
-/   asm volatile("mfence" ::: "memory");
+    std::this_thread::yield();
+ //   asm volatile("mfence" ::: "memory");
     }
 }
 
@@ -28,14 +35,22 @@ void bar()
 {
     for(int i = 0; i < 10000; ++i)
     {
-    ready.load(std::memory_order_acquire);
+   auto x = ready.load(std::memory_order_acquire);
  //   asm volatile("mfence" ::: "memory");
+   if (x==1)  {
+    std::this_thread::yield();
     cout << "We ";
+    std::this_thread::yield();
     cout << "are ";
+    std::this_thread::yield();
     cout << "thread ";
+    std::this_thread::yield();
     cout << "two \n";
     std::this_thread::yield();
-    ready.store(1, std::memory_order_release);
+   }
+    std::this_thread::yield();
+    ready.store(0, std::memory_order_release);
+    std::this_thread::yield();
    // asm volatile("mfence" ::: "memory");
     }
 }
