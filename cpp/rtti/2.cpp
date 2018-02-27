@@ -7,7 +7,7 @@ This program shall prove that dynamic_cast<>() returns NULL if it is not a safe 
 //: C08:CheckedCast2.cpp
 // Uses RTTIs dynamic_cast.
 #include <vector>
-#include "../purge.h"
+//#include "../purge.h"
 #include "Security.h"
 using namespace std;
  
@@ -32,7 +32,7 @@ int main() {
   if(cp) { cout << "  it's an Investment "<< endl;  cp->special(); }
   Metal* mp = dynamic_cast<Metal*>(sp);
   if(mp) { cout << "  it's a Metal too! "<< endl; mp->special(); }
-  purge(portfolio);
+//  purge(portfolio);
 } ///:~
 
 /* 

@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 // Set either of these to 1 to prevent CPU reordering
-#define USE_CPU_FENCE              0
+#define USE_CPU_FENCE              1
 #define USE_SINGLE_HW_THREAD       0  // Supported on Linux, but not Cygwin or PS3
 
 #if USE_SINGLE_HW_THREAD

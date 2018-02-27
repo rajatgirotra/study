@@ -33,7 +33,7 @@ int main (void) try
 }catch (E1&) { 
   std::cerr << "caught exception E1\n";
  }catch (std::bad_exception& e) { 
-    std::cerr << "caught exception "<<e.what()<<std::endl; 
+    std::cerr << "caught exception ... "<<e.what()<<std::endl; 
   }
 
 

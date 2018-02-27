@@ -13,8 +13,8 @@ using namespace std;
 class Top {
 public:
   virtual ~Top() {}
-  //virtual void f() { cout<<"Top::f()"<<endl; }
-   void f() { cout<<"Top::f()"<<endl; }
+  virtual void f() { cout<<"Top::f()"<<endl; }
+  // void f() { cout<<"Top::f()"<<endl; }
 };
  
 class Left : virtual public Top {
@@ -33,7 +33,7 @@ class Bottom : public Left, public Right {};
  
 int main() {
   Bottom b;
-//  b.Right::f(); // Calls Right::f()
+  //b.Right::f(); // Calls Right::f()
    b.f();
 } ///:~
 

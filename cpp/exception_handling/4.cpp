@@ -52,7 +52,8 @@ int main()
     foo();
     cout<<"Inside try: after the error generating instruction"<<endl;
   }
-  catch(A objA)
+  catch(A& objA)
+  //catch(A objA)
   {
     cout<<"Inside the catch block: Exception Caught ";
     objA.displayData();

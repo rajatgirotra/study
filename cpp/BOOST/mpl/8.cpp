@@ -30,7 +30,7 @@ int main()
     return 0;
 }
 
-#if 1
+#if 0
 int foo(const string&)
 {
     return 100;

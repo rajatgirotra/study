@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
+    <generated>
+      <config projectName="ctest_tutorial" targetName="ctest_tutorial" />
+      <config projectName="ctest_tutorial" targetName="Continuous" />
+      <config projectName="ctest_tutorial" targetName="NightlyCoverage" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalStart" />
+      <config projectName="ctest_tutorial" targetName="NightlySubmit" />
+      <config projectName="ctest_tutorial" targetName="NightlyMemCheck" />
+      <config projectName="ctest_tutorial" targetName="ContinuousBuild" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalConfigure" />
+      <config projectName="ctest_tutorial" targetName="NightlyConfigure" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalSubmit" />
+      <config projectName="ctest_tutorial" targetName="ContinuousStart" />
+      <config projectName="ctest_tutorial" targetName="ContinuousConfigure" />
+      <config projectName="ctest_tutorial" targetName="Nightly" />
+      <config projectName="ctest_tutorial" targetName="NightlyTest" />
+      <config projectName="ctest_tutorial" targetName="ContinuousCoverage" />
+      <config projectName="ctest_tutorial" targetName="NightlyBuild" />
+      <config projectName="ctest_tutorial" targetName="ContinuousUpdate" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalCoverage" />
+      <config projectName="ctest_tutorial" targetName="Experimental" />
+      <config projectName="ctest_tutorial" targetName="ContinuousTest" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalMemCheck" />
+      <config projectName="ctest_tutorial" targetName="NightlyMemoryCheck" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalTest" />
+      <config projectName="ctest_tutorial" targetName="NightlyUpdate" />
+      <config projectName="ctest_tutorial" targetName="ContinuousSubmit" />
+      <config projectName="ctest_tutorial" targetName="NightlyStart" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalBuild" />
+      <config projectName="ctest_tutorial" targetName="ContinuousMemCheck" />
+      <config projectName="ctest_tutorial" targetName="ExperimentalUpdate" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c8825ffa-e2d8-47c0-ba7b-cbc733cfed41" name="Default" comment="" />
+    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enableif2.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/enableif2.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="6" column="10" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#340#370#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enableif3.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/enableif3.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="502">
+              <caret line="29" column="57" lean-forward="false" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#144#180#0" expanded="true" />
+                <element signature="e#304#316#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enableif.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/enableif.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="26" />
+              <folding>
+                <element signature="e#662#681#0" expanded="true" />
+                <element signature="e#945#1026#0" expanded="true" />
+                <element signature="e#1644#1674#0" expanded="true" />
+                <element signature="e#1727#1757#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="type_traits" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/type_traits">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="49519">
+              <caret line="2153" column="11" lean-forward="false" selection-start-line="2153" selection-start-column="11" selection-end-line="2153" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/enableif.cpp" />
+        <option value="$PROJECT_DIR$/enableif2.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/enableif3.cpp" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>false</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>false</other-services-enabled>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="65" />
+    <option name="y" value="-4" />
+    <option name="width" value="1855" />
+    <option name="height" value="1084" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>C/C++</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource ProjectPane="true" />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ctest_tutorial" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="ctest_tutorial" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="last_opened_file_path" value="$USER_HOME$/tools/git/2.6.2/bin/git" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="$USER_HOME$/tools/miniconda2/envs/shriram/bin/node" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.ctest_tutorial">
+    <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial" EXPLICIT_BUILD_TARGET_NAME="all">
+      <envs />
+    </configuration>
+    <configuration name="Continuous" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="Continuous" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousBuild" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousBuild" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousConfigure" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousConfigure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousCoverage" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousCoverage" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousMemCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousMemCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousStart" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousStart" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousSubmit" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousSubmit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="ContinuousUpdate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ContinuousUpdate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <configuration name="Experimental" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="Experimental" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalBuild" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalBuild" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalBuild">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalConfigure" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalConfigure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalConfigure">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalCoverage" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalCoverage" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalCoverage">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalMemCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalMemCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalMemCheck">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalStart" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalStart" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalStart">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalSubmit" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalSubmit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalSubmit">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalTest">
+      <envs />
+    </configuration>
+    <configuration name="ExperimentalUpdate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ExperimentalUpdate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ExperimentalUpdate">
+      <envs />
+    </configuration>
+    <configuration name="Nightly" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="Nightly" CONFIG_NAME="Debug">
+      <envs />
+    </configuration>
+    <configuration name="NightlyBuild" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyBuild" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyBuild">
+      <envs />
+    </configuration>
+    <configuration name="NightlyConfigure" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyConfigure" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyConfigure">
+      <envs />
+    </configuration>
+    <configuration name="NightlyCoverage" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyCoverage" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyCoverage">
+      <envs />
+    </configuration>
+    <configuration name="NightlyMemCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyMemCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyMemCheck">
+      <envs />
+    </configuration>
+    <configuration name="NightlyMemoryCheck" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyMemoryCheck" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyMemoryCheck">
+      <envs />
+    </configuration>
+    <configuration name="NightlyStart" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyStart" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyStart">
+      <envs />
+    </configuration>
+    <configuration name="NightlySubmit" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlySubmit" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlySubmit">
+      <envs />
+    </configuration>
+    <configuration name="NightlyTest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyTest">
+      <envs />
+    </configuration>
+    <configuration name="NightlyUpdate" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="NightlyUpdate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="NightlyUpdate">
+      <envs />
+    </configuration>
+    <configuration name="ctest_tutorial" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="ctest_tutorial" TARGET_NAME="ctest_tutorial" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="ctest_tutorial" RUN_TARGET_NAME="ctest_tutorial">
+      <envs />
+    </configuration>
+    <list size="30">
+      <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Continuous" />
+      <item index="2" class="java.lang.String" itemvalue="Application.ContinuousBuild" />
+      <item index="3" class="java.lang.String" itemvalue="Application.ContinuousConfigure" />
+      <item index="4" class="java.lang.String" itemvalue="Application.ContinuousCoverage" />
+      <item index="5" class="java.lang.String" itemvalue="Application.ContinuousMemCheck" />
+      <item index="6" class="java.lang.String" itemvalue="Application.ContinuousStart" />
+      <item index="7" class="java.lang.String" itemvalue="Application.ContinuousSubmit" />
+      <item index="8" class="java.lang.String" itemvalue="Application.ContinuousTest" />
+      <item index="9" class="java.lang.String" itemvalue="Application.ContinuousUpdate" />
+      <item index="10" class="java.lang.String" itemvalue="Application.ctest_tutorial" />
+      <item index="11" class="java.lang.String" itemvalue="Application.Experimental" />
+      <item index="12" class="java.lang.String" itemvalue="Application.ExperimentalBuild" />
+      <item index="13" class="java.lang.String" itemvalue="Application.ExperimentalConfigure" />
+      <item index="14" class="java.lang.String" itemvalue="Application.ExperimentalCoverage" />
+      <item index="15" class="java.lang.String" itemvalue="Application.ExperimentalMemCheck" />
+      <item index="16" class="java.lang.String" itemvalue="Application.ExperimentalStart" />
+      <item index="17" class="java.lang.String" itemvalue="Application.ExperimentalSubmit" />
+      <item index="18" class="java.lang.String" itemvalue="Application.ExperimentalTest" />
+      <item index="19" class="java.lang.String" itemvalue="Application.ExperimentalUpdate" />
+      <item index="20" class="java.lang.String" itemvalue="Application.Nightly" />
+      <item index="21" class="java.lang.String" itemvalue="Application.NightlyBuild" />
+      <item index="22" class="java.lang.String" itemvalue="Application.NightlyConfigure" />
+      <item index="23" class="java.lang.String" itemvalue="Application.NightlyCoverage" />
+      <item index="24" class="java.lang.String" itemvalue="Application.NightlyMemCheck" />
+      <item index="25" class="java.lang.String" itemvalue="Application.NightlyMemoryCheck" />
+      <item index="26" class="java.lang.String" itemvalue="Application.NightlyStart" />
+      <item index="27" class="java.lang.String" itemvalue="Application.NightlySubmit" />
+      <item index="28" class="java.lang.String" itemvalue="Application.NightlyTest" />
+      <item index="29" class="java.lang.String" itemvalue="Application.NightlyUpdate" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>$USER_HOME$/.subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c8825ffa-e2d8-47c0-ba7b-cbc733cfed41" name="Default" comment="" />
+      <created>1517045410231</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1517045410231</updated>
+      <workItem from="1517045411568" duration="116000" />
+      <workItem from="1519196378010" duration="4082000" />
+      <workItem from="1519530339961" duration="2148000" />
+      <workItem from="1519536969891" duration="675000" />
+      <workItem from="1519654284838" duration="4828000" />
+      <workItem from="1519725565982" duration="1760000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="13609000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="-4" width="1857" height="1092" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39916405" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif2.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="10" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#340#370#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="51" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="62" selection-end-column="1" />
+          <folding>
+            <element signature="e#662#681#0" expanded="true" />
+            <element signature="e#945#1026#0" expanded="true" />
+            <element signature="e#1644#1674#0" expanded="true" />
+            <element signature="e#1727#1757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/type_traits">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49519">
+          <caret line="2153" column="11" lean-forward="false" selection-start-line="2153" selection-start-column="11" selection-end-line="2153" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif3.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#144#180#0" expanded="true" />
+            <element signature="e#304#316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="53" lean-forward="false" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="24" column="1" lean-forward="true" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+          <folding>
+            <element signature="e#662#681#0" expanded="true" />
+            <element signature="e#945#1026#0" expanded="true" />
+            <element signature="e#1644#1674#0" expanded="true" />
+            <element signature="e#1727#1757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="22" column="4" lean-forward="true" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
+          <folding>
+            <element signature="e#662#681#0" expanded="true" />
+            <element signature="e#945#1026#0" expanded="true" />
+            <element signature="e#1644#1674#0" expanded="true" />
+            <element signature="e#1727#1757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/new">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1219">
+          <caret line="53" column="30" lean-forward="false" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/bits/exception.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1794">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="53" lean-forward="false" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/new">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1219">
+          <caret line="53" column="30" lean-forward="true" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/bits/exception.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1794">
+          <caret line="78" column="0" lean-forward="true" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1472">
+          <caret line="64" column="1" lean-forward="true" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
+          <folding>
+            <element signature="e#662#681#0" expanded="true" />
+            <element signature="e#945#1026#0" expanded="true" />
+            <element signature="e#1644#1674#0" expanded="true" />
+            <element signature="e#1727#1757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#662#681#0" expanded="true" />
+            <element signature="e#945#1026#0" expanded="true" />
+            <element signature="e#1644#1674#0" expanded="true" />
+            <element signature="e#1727#1757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/new">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="53" column="30" lean-forward="false" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/bits/exception.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="78" column="0" lean-forward="false" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda2/envs/shriram/gcc/include/c++/type_traits">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49519">
+          <caret line="2153" column="11" lean-forward="false" selection-start-line="2153" selection-start-column="11" selection-end-line="2153" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="39" lean-forward="false" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="26" />
+          <folding>
+            <element signature="e#662#681#0" expanded="true" />
+            <element signature="e#945#1026#0" expanded="true" />
+            <element signature="e#1644#1674#0" expanded="true" />
+            <element signature="e#1727#1757#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif2.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="6" column="10" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#340#370#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/enableif3.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="29" column="57" lean-forward="false" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#144#180#0" expanded="true" />
+            <element signature="e#304#316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

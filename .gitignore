@@ -6,6 +6,7 @@ GTAGS
 GPATH
 GRTAGS
 *.pyc
+*.s
 build/
 static_cdn/
 a.out
@@ -18,3 +19,4 @@ flower_photos.tgz
 tf_files/
 .~*
 .ipynb_checkpoints/
+**/delete/

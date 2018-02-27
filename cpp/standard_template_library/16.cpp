@@ -38,7 +38,8 @@ int main()
       coll1.insert(i);
    
    /* transform algorithm */
-   transform(coll1.begin(), coll1.end(), front_inserter(coll2), &square);
+   //transform(coll1.begin(), coll1.end(), front_inserter(coll2), &square);
+   transform(coll1.begin(), coll1.end(), front_inserter(coll2), square);
 
    copy(coll2.begin(), coll2.end(), ostream_iterator<int>(cout, "  "));
 

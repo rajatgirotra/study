@@ -16,6 +16,7 @@ struct add_const_ref_impl;
 template <typename T>
 struct add_const_ref_impl<T, false>
 {
+ //   typedef T anothertype;
     typedef const T& type;
 };
 
@@ -29,6 +30,7 @@ template <typename T>
 struct add_const_ref
 {
     typedef typename add_const_ref_impl<T, boost::is_reference<T>::value>::type type;
+//    typedef typename add_const_ref_impl<T, boost::is_reference<T>::value>::anothertype anothertype;
 };
 
 int main()
@@ -47,6 +49,7 @@ int main()
     (*poInt)++;
     cout << *refToPointer << endl; //should be 21.
     cout << boolalpha << boost::is_same<int*, add_const_ref<int*>::type>::value << endl;
+    cout << boolalpha << boost::is_same<int* const&, add_const_ref<int*>::type>::value << endl;
 
     //Test 3.
     cout << endl;

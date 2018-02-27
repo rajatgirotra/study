@@ -4,7 +4,7 @@
 using namespace std;
 
 extern int foo();
-extern  int x;
+//extern  int x;
 
 int main() {
 	cout << foo() << endl;

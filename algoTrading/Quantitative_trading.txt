@@ -1,0 +1,10 @@
+Algorithmic trading is an umbrella term for all types of Automated trading like quantitative trading, High Frequency trading, Arbitrage trading etc.
+
+Quantitative trading focuses 100% on price and volume based (real time market data update based) trading models, so information like news, local market sentiment, political developments are not important and not used.
+
+Also quantitative trading normally means that positions are not held overnight so the portfolio is almost flat at the end of the day. However, positions can be held in HIGH SHARPE RATIO STRATEGIES typically. Sharpe Ratio is the average return earned in access of the risk free rate per unit of volatility or total risk. You dont undertake long term directional trading.
+
+Read about differences between High Frequency trading and Quantitative trading.
+Also strategies are either Liquidity providing or Liquidity taking. So read the difference between those two.
+
+Also you can always make money based on only High Frequency Trading. Latency advantage is a nice to have, but you can't always rely on it. What if one morning you come to office and realize that your competitor is a few us faster now, so all your P & L is vanished. So you cant always rely on extremely latency sensitive strategies. Also note that there is a cost of maintaining the necessary speed edge (think co-location, constantly profile your code and look for hotspots etc)

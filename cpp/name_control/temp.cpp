@@ -3,6 +3,7 @@
 using namespace std;
 
  unsigned long long* poULL;
+ double d;
 void foo()
 {
    static char* whole;
@@ -22,5 +23,7 @@ int main()
       cout<<"poULL is NOT NULL"<<endl;
    else
       cout<<"poULL is NULL"<<endl;
+
+   cout << "d: " << d << endl;
    return 0;
 } 

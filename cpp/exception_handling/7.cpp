@@ -36,15 +36,16 @@ public:
     cout << "Botch::f()" << endl;
     throw Fruit();
   }
-  ~Botch() { throw 'c'; } // Throwing an exception in a d'tor is bad design or sloppy coding
+  ~Botch() { try {throw 'c';} catch(...){} } 
+  //~Botch() { throw 'c'; } // Throwing an exception in a d'tor is bad design or sloppy coding
 };
  
 int main() {
   try {
     Botch b;
     b.f();
-  } catch(...) {
-    cout << "inside catch(...)" << endl;
+  } catch(Botch::Fruit& e) {
+    cout << "inside catch(Botch::Fruit)" << endl;
   }
 } ///:~
 

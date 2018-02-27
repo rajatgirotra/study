@@ -37,7 +37,7 @@ int main()
   cout << " q: " << q << endl;
   cout << " r: " << r << endl;
   // q = p; //ERROR at compile time
-  // r = p; //ERROR at compile time
+  //r = p; //ERROR at compile time
 }
 
 /*

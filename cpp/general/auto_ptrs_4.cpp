@@ -20,8 +20,8 @@ public:
    }
 };
 
-//void foo(const std::auto_ptr<Employee>& autoEmployee)
-void foo(std::auto_ptr<Employee> autoEmployee)
+void foo(const std::auto_ptr<Employee>& autoEmployee)
+//void foo(std::auto_ptr<Employee> autoEmployee)
 {
 }
 

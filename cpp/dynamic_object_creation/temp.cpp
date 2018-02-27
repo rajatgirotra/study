@@ -2,7 +2,7 @@
 #include <new>
 using namespace std;
 
-void* operator new(size_t sz) throw ()
+void* operator new(size_t sz) noexcept
 {
 	cout<<"Inside operator new(): size = "<<sz<<endl;
 	return 0; //--> c'tor not called if you return 0;
@@ -36,7 +36,7 @@ int main()
     try
     {
 	A* ch = new A();
-	//delete[] ch;
+	delete ch;
 	A* chArr = new A[3];
 	return 0;
     }catch(bad_alloc ex)
