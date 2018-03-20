@@ -1,0 +1,44 @@
+The ZMQ objects that you need to be concerned about are:
+1) Context
+2) Sockets
+3) Messages
+
+Always think about Sockets as opaque objects. If you are working in C, these are void* pointers, if python dont assume anything about Socket implementation. Just think that Sockets belong to ZMQ library and Messages (which are simple data structures) belong to you; or are owned by you. 
+
+Socket lifecycle
+----------------
+1) Create/Destroy
+2) Set Socket Options
+3) Bind/Connect
+4) Send/Receive messages
+
+Also ZMQ sockets are protocol based (ie sockets have types, like REP, REQ, PUSH, PULL etc) not a simple IP and port pair as you may think. Main differences are:
+1) sockets can use many of the available transports like tcp, udp, inproc, ipc etc..
+2) a socket can have multiple outgoing/incoming connections. ie socket can call bind and connect multiple times and each time the protocol may also differ.
+3) you dont need to call accept. When bind() is called, accept() is called automatically.
+4) the network connection happens automatically in the background. ZMQ will automatically reconnect if the network communication is broken (like a peer goes down and is restarted).
+5) your application CANNOT work with connections directly. So only have to use the socket interface.
+
+Also in ZMQ a client can connect to a server which is not yet up. and also send messages to the server. These messages are just queued up until a point (after which they are discarded). At some point, the server comes up and the connection is actually established by ZMQ and messages are delivered. All this complexity is hidden in ZMQ implementation. We say that ZMQ supports disconnected transports.
+
+
+
+Messages
+--------
+1) ZMQ sockets carry messages which are not a stream of bytes like TCP. ZMQ sockets carry messages which are length specified binary data. So basically ZMQ imposes a framing on top of the transport protocol it uses.
+
+2) ZMQ message sending/receving happens in a background thread asynchronously. ZMQ has local input and output queues so sending/reading (send(), recv()) only writes to these q's. It doesnt necessarily mean that send() has actually sent the data out.
+
+ZMQ supports the following unicast and multicast transports
+Unicast: tcp, inproc, ipc
+Multicas: pgm, epgm
+
+Connected or Disconnected
+------------------------
+zmq tcp transport is disconnected. It means client can connect before server does bind.
+zmq ipc transport (used to talk between processes on the same host) is disconnected too.
+zmw inproc transport (inter thread transport) is connected. server must bind before client connects.
+
+Context
+------
+when you create a ZMQ context object, you can specify the number of threads needed for I/O in the background. Default is usually one and is sufficient for handling large loads also upto 1GB input or ouput. For even larger throughput, you can increase the number of threads.

@@ -1,0 +1,36 @@
+One problem in any classic messaging infrastructure is dynamic discovery. Ie finding out when
+different services are going down and coming up. The way most messaging applications solve this
+is by using an intermediary service which is static (ie always runs at a given ip and port) and acts
+like a message broker. All other services register their presence and capabilities with this broker.
+
+However, message brokers become very complex, stateful and hard to maintain over time. So best is to keep
+the message broker as lightweight and stateless as possible.
+
+Example
+-------
+Consider you have a simple pub-sub application with one publisher and 3 subscribers. Adding more subscribers
+isnt a problem as publishers are static, and subscribers come and go. But what if you add one more publisher.
+All your subscriber config's need to be modified so they know about the new publisher. This is not scalable at all.
+The simple solution is to have an intermediary (a message broker). ZMQ provides socket types "XSUB" and "XPUB"
+exactly for this. Your message broker will bind both the XSUB and XPUB socket types at well know IP and port.
+All publishers will connect to XSUB and all subscribers will connect to XPUB. So publishers and subscribers need
+not know about the topology of the network at all.
+
+
+Similarly consider another example where we have a simple REQ-REP setup. Typically you'll have multiple
+REP applications so that they are load balanced. ZMQ automatically load balances across multiple processes
+all which bind a REP socket at the same address and port. So let say you have 100 clients and 20 services
+for load balancing load from those 100 clients. Adding more clients is easy. But what if you want to add
+3 more services. All the 100 clients need to be restarted so they are aware of the new topology, otherwise
+those 100 clients will only load balance with 20 services not 23. So again we need an intermediary.
+ZMQ provides "ROUTER" and "DEALER" socket types for this. Again they are bind to well know IP and port.
+all clients (REQ sockets, or also called frontends) will connect to the ROUTER and all (services, also called
+backends) will connect to the DEALER. ROUTER and DEALER are non blocking. This means 2 or more req can be sent to
+ROUTER sockets at the same time. Similarly 2 or more replies can be sent to DEALER sockets at the same time.
+
+Lets see REQ-ROUTER and REP-DEALER in action next. Our application which creates a ROUTER and DEALER
+will be an intermediary or message broker really.
+
+Basically a ROUTER socket can receive messages from multiple REQ clients, so let say a ROUTER socket
+has received requests from REQ sockets 1, 2, 3. the ROUTER doesnt need to send a REP immediately.
+Similarly a DEALER socket can receive multiple replies from backend services without blocking.

@@ -1,0 +1,235 @@
+Kibana is the frontend for visualizing data in Elastic search.
+
+Elastic search is the core search engine based on lucence
+
+And then beats/logstash are data injection tools for feeding data in elastic search.
+
+ 
+
+Beats has a number of lightweight agents to read data from multiple sources (files, network etc), and feed them into elastic.
+
+ 
+
+Logstash is used to enrich that data before indexing it in elasticsearch.
+
+ 
+
+Elastic is distributed.
+
+x-pack are not open source but is used for other things like
+
+1)    Security
+
+2)    Alerting
+
+3)    Machine learning
+
+4)    Monitoring
+
+5)    Reporting etc
+
+ 
+
+Setup
+
+-------
+
+Download ES and Kibana tar and untar
+
+Install x-pack using elasticsearch-plugin install x-pack
+
+Setup default users and password using x-pack
+
+./bin/x-pack/setup-passwords interactive
+
+Setup default password as elastic for all users (kibana, logstash_system, elastic)
+
+Elastic starts at default port of 9200
+
+Go to localhost:9200 to confirm if elastic is up and running
+
+ 
+
+Install x-pack for kibana. Using kibana-plugin install x-pack
+
+Update kibana config to tell it that password for kibana is now “elastic”
+
+In kibana.yml, change elasticsearch.user and elasticsearch.pwd
+
+Start kibana
+
+ 
+
+Go to dev tools in kibana ui
+
+ 
+
+You interact with elastic using RESTFUL API (POST, GET, PUT, DELETE)
+
+To do CRUD operations for indexes.
+
+ 
+
+Elastic stores documents in JSON format inside indexes
+
+ 
+
+Eg:
+
+POST /inspections/report
+
+{
+
+//json document…
+
+}
+
+will create (C) a index called inspections of type “report”. This index will have an “id”.
+
+An index can only have one type (starting from elk 6.0). Slowly the concept of type will go away.
+
+ 
+
+GET /inspections/report/_search à will search index “inspections” of type “report” and return all documents in that index. For now, we will only get one document. Look at the “_source” property of the returned json.
+
+ 
+
+PUT /inspections/report/1234 {
+
+} also creates a document in index inspections but uses the id “1234”. So “1234” is the id. With POST, the id is assigned by elastic search.
+
+ 
+
+DELETE /inspections à to delete an index
+
+ 
+
+The POST and PUT command above created indexes for us dynamically. We can turn that off in the config if we want. You can use
+
+ 
+
+PUT /inspections
+
+{
+
+    “settings”: {shards and replicas}
+
+}
+
+To create an index before hand
+
+ 
+
+BULK insert
+
+POST /inspections/report/_bulk
+
+{ “index”: {“_id”: 1}}
+
+{ json document data}
+
+{ “index”: {“_id”: 2}}
+
+{ json document data}
+
+ 
+
+Complex search queries
+
+1)    Match query
+
+GET /inspections/report/_search
+
+{
+
+“query”: {
+
+    “match”: {
+
+       “business_name”: “soup”
+
+    }
+
+}
+
+}
+
+ 
+
+2)    Match_phrase: looks for multiple words in the specified order.
+
+3)    Bool: look online for elastic search query language
+
+4)    Range: where the value of a field in document is between a range. We can use
+
+Gte, lte, lt, eq etc. You can provide “sort” field here.
+
+5)    You can also also use “highlight” property in json which highlights the fields in the search output (basically wraps it in <em> html tags) for displaying in browser.
+
+6)    You can also use “aggregations” to aggregate the search results in different categories.
+
+7)    Tons of other query fields you can read about.
+
+ 
+
+Mappings:
+
+When you insert a document in elastic, it automatically tries to infer the type of data for every field in your document. Elasticsearch has the following types
+
+1)    Date
+
+2)    Number
+
+3)    String
+
+4)    Geopoints
+
+Look at the default mapping using
+
+ 
+
+GET /inspections/_mapping/report
+
+ 
+
+Change the default mapping and define your own by using:
+
+DELETE inspections
+
+PUT /inspections
+
+PUT inspections/_mapping/report
+
+{
+
+JSON
+
+}
+
+ 
+
+Update:
+
+POST /inspections/report/5/_update {
+
+// json
+
+} à partially update document with id 5
+
+ 
+
+ 
+
+PUT /inspections/report/5/ {
+
+// json
+
+} à fully update document with id 5
+
+ 
+
+DELETE /inspections/report/5 à delete document
+
+Also documents are versioned.
+
+

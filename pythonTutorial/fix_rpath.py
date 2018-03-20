@@ -6,7 +6,7 @@ from os.path import realpath, join, dirname, abspath
 
 
 def usage():
-    print "\nUsage:"
+    print ("\nUsage:")
     print ("\tpython " + sys.argv[0] + " <PYTHON_ROOT>")
 
 if __name__ == "__main__":
@@ -49,5 +49,5 @@ if __name__ == "__main__":
                     rpath += ":" + o.strip()
                 cmd = 'patchelf --force-rpath --set-rpath ' \
                       + rpath + ' ' + abspath(sopath)
-                #print (abspath(sopath), cnt, cmd, o)
+                print (abspath(sopath), cnt, cmd, o)
                 sp.check_call(cmd, shell=True)

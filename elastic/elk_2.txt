@@ -1,0 +1,85 @@
+Text Analysis is at the heart of ES search. An Analyser for a text field is a combination of “tokenizer + filters”. You can specify an analyser at index time and search time (though they should always be the same). ES ships with a number of standard analysers. Like “standard”, “simple” etc.
+
+ 
+
+The analyser breaks up the text field into tokens and applies the filters on the tokens. The tokens are then saved with the index.
+
+During lookup like match queries, the search analyser is used to tokenize the search string. If the tokens on the search string exactly match the token stored during indexing, it is considered a match. Parameter overrides for index time and search time.
+
+ 
+
+Index time:
+
+“analyser” property of the text field when defining the mapping
+
+“default” property of the index settings
+
+Standard analyser
+
+ 
+
+Search time:
+
+The analyzer defined in a full-text query.
+
+The search_analyzer defined in the field mapping.
+
+The analyzer defined in the field mapping.
+
+An analyzer named default_search in the index settings.
+
+An analyzer named default in the index settings.
+
+The standard analyzer.
+
+ 
+
+ 
+
+API:
+
+ 
+
+GET /inspections/_analyse à use the GET api to see the behavior of the analyser specified for inspections index.
+
+{
+
+“analyser”: “standard”,
+
+“filter” : [“lowercase”,  “unique”],
+
+“text”: some text
+
+}
+
+ 
+
+POST _analyze  à Use this request to see the behavior of a default shipped analyser
+
+{
+
+  "analyzer": "whitespace",
+
+  "text":     "The quick brown fox."
+
+}
+
+ 
+
+POST _analyze
+
+{
+
+  "tokenizer": "standard",
+
+  "filter":  [ "lowercase", "asciifolding" ],
+
+  "text":      "Is this déja vu?"
+
+}
+
+ 
+
+Will return you the tokens on how ES tokenizes the input text
+
+ 

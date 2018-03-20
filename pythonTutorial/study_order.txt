@@ -1,0 +1,22 @@
+*args, **kwargs
+map
+list
+set
+What are python properties
+generators
+requests
+json
+file i/o
+decorators
+exceptions
+logger library
+itertools
+OrderedDict
+NamedTuple
+Creating classes on the fly.
+difference between python 2 and python 3 strings
+metaclasses
+modules like argparse, numpy, pandas, 
+zmq
+django
+regex

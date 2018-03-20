@@ -5,9 +5,9 @@ import numpy as np
 # Intersting stuff- Boolean Indexing
 # You know already that ndarray supports vectorization. ndarray also works with comparison functions
 # eg:
-arr = np.random.randn(2,3)
+arr = np.random.randn(2, 3)
 print(arr)
-print(arr<0) # this will return a boolean ndarray where each value will be True or False.
+print(arr < 0)  # this will return a boolean ndarray where each value will be True or False.
 # such a boolean array can also be used as an index or for slicing.
 # THE MOST IMPORTANT THING IS TO REMEMBER IS THAT THE LENGTH OF THE BOOLEAN NDARRAY SHOULD BE THE SAME AS THE AXIS YOU ARE INDEXING/SLICING.
 # which means if you are indexing/slicing around axis 0 (ie row-wise then number of rows should be same in both data and the boolean array)

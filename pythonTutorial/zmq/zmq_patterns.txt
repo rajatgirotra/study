@@ -1,0 +1,17 @@
+What is a node in ZMQ?
+A node can be a thread (if using inter thread xport), a process (if using ipc xport), or a physical host (if using tcp or udp xports)
+
+Very trivial
+-----------
+1) Request Reply - Used for RPC mostly.
+2) Publish Subscribe
+3) Pipeline - Connects nodes in a fan-out/fan-in mode. Used for parallel task distribution. Nothing but the PUSH/PULL model.
+4) Exclusive Pair - Used for a one-to-one communication b/w two threads in a proess.
+
+Message Frames
+--------------
+A ZMQ message could be made of multiple frames. Each frame is a length-specified sequence of binary data. Each frame is identified as a zmq_msg_t object in the ZMQ C API. Higher level API provide wrapper functions to send entire multipart message (message with multiple frames) together. But at the lower level API, each frame is sent separately.
+
+1) ZMQ can send message with length zero. Used mostly for signaling an event from one thread to another
+2) ZMQ guarantees to deliver either all the frames of a message or None.
+3) ZMQ doesnt send the frame out right away. Its queued and sent at some later time. So all the frames of a message must fit in memory for the entire message to be delivered properly. 

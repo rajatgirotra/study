@@ -10,4 +10,4 @@ if(BUILD_TESTING)
     enable_testing()  # Allows you to run "make test"
 endif()
 
-add_executable(ctest_tutorial enableif3.cpp)
+add_executable(ctest_tutorial templates.cpp)

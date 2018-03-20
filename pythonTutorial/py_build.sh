@@ -2,8 +2,11 @@
 
 set -e
 
-MD5SUM="88d61f82e3616a4be952828b3694109d"
-PYTHON_VERSION=2.7.12
+SCRIPTS_DIR=$(readlink -f $(dirname ${BASH_SOURCE[0]}))
+echo "SCRIPTS_DIR=${SCRIPTS_DIR}"
+
+MD5SUM="9de6494314ea199e3633211696735f65"
+PYTHON_VERSION=3.6.4
 URL="https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz"
 INSTALL_ROOT=/home/rajatgirotra/tools/python/${PYTHON_VERSION}
 
@@ -35,7 +38,8 @@ echo "Creating install"
 make install > /dev/null 2>/dev/null
 cd -
 
-PIP=${INSTALL_ROOT}/bin/pip
+PYTHON=${INSTALL_ROOT}/bin/python3
+PIP=${INSTALL_ROOT}/bin/pip3
 
 # Fix rpath for python executable
 echo "Patching RPATHS.."
@@ -54,25 +58,25 @@ cd -
 echo "Upgrading PIP and Installing additional packages.."
 ${PIP} --quiet install --upgrade pip
 ${PIP} --quiet install virtualenv
-${PIP} --quiet install -r ~/requirements.txt
-${PIP} --quiet install --egg scons==2.4.1
+${PIP} --quiet install -r ${SCRIPTS_DIR}/requirements.txt
+#${PIP} --quiet install --egg scons==2.4.1
 echo "Done."
 
 # Fix rpath for all shared objects
 echo "Patching RPATHS.."
-python fix_rpath.py ${INSTALL_ROOT}
+${PYTHON} ${SCRIPTS_DIR}/fix_rpath.py ${INSTALL_ROOT}
 echo "Done."
 
 # package all up using makeself.
-echo "Creating python package.."
-TEMP_DIR=$(mktemp -d)
-cp python_explode.sh fix_shebang.py ${TEMP_DIR}
-chmod 755 ${TEMP_DIR}/{python_explode.sh,fix_shebang.py}
-PYTHON_DIRS=$(cd ${INSTALL_ROOT} && ls)
-tar -pczf ${TEMP_DIR}/python.tar.gz --directory ${INSTALL_ROOT} ${PYTHON_DIRS}
-makeself ${TEMP_DIR} gce_python.run "Python ${PYTHON_VERSION}" ./python_explode.sh
-rm -rf ${TEMP_DIR} 2> /dev/null
-echo "Done."
+#echo "Creating python package.."
+#TEMP_DIR=$(mktemp -d)
+#cp python_explode.sh fix_shebang.py ${TEMP_DIR}
+#chmod 755 ${TEMP_DIR}/{python_explode.sh,fix_shebang.py}
+#PYTHON_DIRS=$(cd ${INSTALL_ROOT} && ls)
+#tar -pczf ${TEMP_DIR}/python.tar.gz --directory ${INSTALL_ROOT} ${PYTHON_DIRS}
+#makeself ${TEMP_DIR} gce_python.run "Python ${PYTHON_VERSION}" ./python_explode.sh
+#rm -rf ${TEMP_DIR} 2> /dev/null
+#echo "Done."
 
 
 # [[ $(ls) != "" ]] && echo "folder \"$(ls)\" is not empty. Please choose an empty folder."; 
