@@ -74,3 +74,5 @@ if __name__ == "__main__":
 # we could use ROUTER, DEALER, but ROUTER wraps your messages in an envelope. So suddenly your zero
 # sized signal messages will turn into multipart messages. Also DEALER distributes your messages just
 # like PUSH; so not worth using here.
+
+# Please read zmq_node_coordination.txt

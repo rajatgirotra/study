@@ -1,0 +1,15 @@
+Working with PAIR sockets have a limitation
+1) They dont reconnect if client/server go down and come back again. Ie. they are not disconnected
+transports like tcp is in ZMQ. They are connected transport.
+
+So now let say you want to coordinate amongst many nodes (hosts) on a network, then you cannot use
+PAIR socket types. Nodes come and go all the time. using PAIR sockets with threads in a process is ok
+as threads are static, but nodes are dynamic.
+
+Let say you are a PUB socket and you know before hand that there are going to be 10 subscribers.
+And you want to wait for all 10 SUB to be available before you start xferring data.
+In such a case, you can use say REQ-REP amongst the PUB and 10 SUB. each SUB sends a REQ to PUB process
+when it is up. the PUB increments it count and sends a reply. When all 10 have connected, the PUB will
+start sending subscription messages.
+
+Please read zmq_pub_enveloper.py
