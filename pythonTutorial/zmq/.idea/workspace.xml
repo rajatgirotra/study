@@ -27,6 +27,7 @@
     <SUITE FILE_PATH="coverage/zmq$zmq_SUB_client.coverage" NAME="zmq_SUB_client Coverage Results" MODIFIED="1493294647599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/zmq$zmq_req_router_client.coverage" NAME="zmq_req_router_client Coverage Results" MODIFIED="1521264759821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/zmq$zmq_PUSH_ventilator.coverage" NAME="zmq_PUSH_ventilator Coverage Results" MODIFIED="1521105175537" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/zmq$zmq_PAIR_signalling.coverage" NAME="zmq_PAIR_signalling Coverage Results" MODIFIED="1521777335459" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/zmq$zmq_multisocket_1.coverage" NAME="zmq_multisocket_1 Coverage Results" MODIFIED="1521104233651" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -107,9 +108,11 @@
       <file leaf-file-name="zmq_PAIR_signalling.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/zmq_PAIR_signalling.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="544">
+              <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding>
+                <element signature="e#147#170#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -268,7 +271,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.zmq_hello_world_mt">
+  <component name="RunManager" selected="Python.zmq_PAIR_signalling">
+    <configuration name="zmq_PAIR_signalling" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="zmq" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zmq_PAIR_signalling.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="zmq_PULL_sink_graceful" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -302,25 +324,6 @@
       <module name="zmq" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zmq_PULL_worker_graceful.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="zmq_PUSH_ventilator_graceful" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="zmq" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/zmq_PUSH_ventilator_graceful.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -578,19 +581,19 @@
       <envs />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.zmq_PUSH_ventilator_graceful" />
-      <item index="1" class="java.lang.String" itemvalue="Python.zmq_PULL_worker_graceful" />
-      <item index="2" class="java.lang.String" itemvalue="Python.zmq_PULL_sink_graceful" />
-      <item index="3" class="java.lang.String" itemvalue="Python.zmq_REQ_client" />
-      <item index="4" class="java.lang.String" itemvalue="Python.zmq_hello_world_mt" />
+      <item index="0" class="java.lang.String" itemvalue="Python.zmq_PULL_worker_graceful" />
+      <item index="1" class="java.lang.String" itemvalue="Python.zmq_PULL_sink_graceful" />
+      <item index="2" class="java.lang.String" itemvalue="Python.zmq_REQ_client" />
+      <item index="3" class="java.lang.String" itemvalue="Python.zmq_hello_world_mt" />
+      <item index="4" class="java.lang.String" itemvalue="Python.zmq_PAIR_signalling" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.zmq_REQ_client" />
-        <item index="1" class="java.lang.String" itemvalue="Python.zmq_hello_world_mt" />
-        <item index="2" class="java.lang.String" itemvalue="Python.zmq_PULL_sink_graceful" />
-        <item index="3" class="java.lang.String" itemvalue="Python.zmq_PULL_worker_graceful" />
-        <item index="4" class="java.lang.String" itemvalue="Python.zmq_PUSH_ventilator_graceful" />
+        <item index="0" class="java.lang.String" itemvalue="Python.zmq_PAIR_signalling" />
+        <item index="1" class="java.lang.String" itemvalue="Python.zmq_REQ_client" />
+        <item index="2" class="java.lang.String" itemvalue="Python.zmq_hello_world_mt" />
+        <item index="3" class="java.lang.String" itemvalue="Python.zmq_PULL_sink_graceful" />
+        <item index="4" class="java.lang.String" itemvalue="Python.zmq_PULL_worker_graceful" />
       </list>
     </recent_temporary>
   </component>
@@ -1067,9 +1070,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/zmq_PAIR_signalling.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="544">
+          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding>
+            <element signature="e#147#170#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
