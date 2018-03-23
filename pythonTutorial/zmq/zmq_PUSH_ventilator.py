@@ -23,7 +23,7 @@ sender.bind('tcp://*:6666')
 # open a connection to the sink, PUSH connection as you'll be sending data
 sink = context.socket(zmq.PUSH)
 sink.connect('tcp://localhost:6667')
-raw_input('--->> Enter when all worker threads are ready')
+input('--->> Enter when all worker threads are ready')
 print ('sending 100 tasks to workers')
 # Send a signal to the sink to start collecting data
 sink.send('0')

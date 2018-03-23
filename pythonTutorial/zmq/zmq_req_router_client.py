@@ -11,7 +11,7 @@ def signal_handler(signal_no, stack_frame):
     sys.exit(-1)
 
 
-client_name = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(7)])
+client_name = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(7)])
 
 context = zmq.Context()
 

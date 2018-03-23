@@ -13,7 +13,7 @@ def signal_handler(signal_no, stack_frame):
 
 context = zmq.Context()
 
-server_name = ''.join([random.choice(string.ascii_letters + string.digits) for _ in xrange(7)])
+server_name = ''.join([random.choice(string.ascii_letters + string.digits) for _ in range(7)])
 
 # Create a REQ socket and connect to the ROUTER socket
 socket = context.socket(zmq.REP)
