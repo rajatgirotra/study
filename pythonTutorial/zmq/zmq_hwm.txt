@@ -1,0 +1,25 @@
+zmq High Water Marks
+
+Imagine you have process A sending messages at high frequency to process B, which is processing them. Suddenly B gets very
+busy (garbage collection, CPU overload, whatever), and can't process the messages for a short period.
+What happens to the messages that process A is still trying to send frantically? Some will sit in B's network buffers.
+Some will sit on the Ethernet wire itself. Some will sit in A's network buffers. And the rest will accumulate in A's memory,
+as rapidly as the application behind A sends them. If you don't take some precaution, A can easily run out of memory
+and crash. What makes it hurt more is that it's B's fault, superficially, and B is typically a user-written application
+which A has no control over.
+
+What are the answers? The answer for messaging is to set limits on the size of buffers,
+and then when we reach those limits, to take some sensible action. In some cases the answer is to throw away messages.
+In others, the best strategy is to wait.
+
+ZeroMQ uses the concept of HWM (high-water mark) to define the capacity of its internal pipes.
+Each connection out of a socket or into a socket has its own pipe, and HWM for sending, and/or receiving,
+depending on the socket type. Some sockets
+
+1) (PUB, PUSH) only have send buffers.
+2) Some (SUB, PULL, REQ, REP) only have receive buffers.
+3) Some (DEALER, ROUTER, PAIR) have both send and receive buffers.
+
+ZMQ v3.x and above set HWM to 1000 by default.
+
+Read zmq_req_rep_router_dealer.txt next

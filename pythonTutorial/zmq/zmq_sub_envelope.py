@@ -22,3 +22,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# read zmq_hwm.txt.txt next
