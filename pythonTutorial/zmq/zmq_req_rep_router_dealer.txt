@@ -1,11 +1,11 @@
 How REQ-REP ROUTER-DEALER works internally.
 
 For REQ-REP
-1) ZMQ internally creates multipart messages. A multipart message has a REPLY ENVELOPE followed by the actual
+1) ZMQ internally creates creates multipart messages. A message has a REPLY ENVELOPE followed by the actual
 data that the client sends. The reply envelope and data are separated by an empty frame (which acts like a
 delimiter). There could be more than one reply address frames as we'll see.
 2) For the simplest case of REQ-REP, there is zero reply address frame, just one empty delimiter frame followed
-by the data frames. You really don't need reply address here as there is only one connection.
+by the data frames. You really dont need reply address here as there is only one address.
 
 You need one or more reply address frames in ROUTER-DEALER messaging as explained next.
 How ROUTER sockets work:
@@ -45,4 +45,3 @@ DEALER is like an asynchronous REQ socket, and ROUTER is like an asynchronous RE
 Where we use a REQ socket, we can use a DEALER; we just have to read and write the envelope
 ourselves. Where we use a REP socket, we can stick a ROUTER; we just need to manage the
 identities ourselves.
-
