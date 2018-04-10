@@ -1,0 +1,25 @@
+We'll now understand how ROUTER-REQ or ROUTER-DEALER combinations help to solve load balancing pattern.
+Note that load balancing is not always solved by simple ROUND ROBIN. Why?
+
+1) Round Robin always assumes that all units of work are same. Let's see an example.
+Let's say in a post office there are 2 counters. And people walking in either want to buy postage stamps (
+ie. small operation) or open a new account (a long operation). If people walk in get queued in a simple
+round robin fashion at the 2 counters, many people who want to buy postage stamps will get annoyed getting
+queued up behind people opening a new account. So Round Robin is not doing any load balancing here.
+
+In such cases, it is advisable to have a single queue, and people just approach the counter which is available.
+
+2) Another example is an immigration counter. At an immigration counter, it is assumed that everyone will spend roughly
+the same time at the counter, so unit of work is almost similar. So in this case, it makes sense to queue up passengers
+into individual queue's for every counter in a round robin fashion. PUSH and DEALER sockets use this simple round robin
+approach just for sheer performance
+
+The way we solve load balancing with ROUTER and (DEALER or REQ) sockets is:
+1) The broker ie the ROUTER keeps track of each DEALER or REQ socket (their identities) and sends the next task to the
+least recently used DEALER or REQ socket.
+
+So workers (DEALERS or REQ) send a "ready" message when they start, and after they finish each task. The broker reads
+these messages one-by-one. Each time it reads a message, it is from the last used worker. And because we're using a
+ROUTER socket, we get an identity that we can then use to send a task back to the worker.
+
+Let's start coding it now.

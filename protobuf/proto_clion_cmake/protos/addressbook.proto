@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package tutorial;
+
+message Person {
+    string name = 1;
+    uint32 id = 2;
+    string email = 3;
+
+    enum PhoneType {
+        option allow_alias = true;
+        UNKNOWN = 0;
+        MOBILE = 1;
+        HAND_PHONE = 1;
+        HOME = 2;
+        WORK = 3;
+    }
+
+    message PhoneNumber {
+        string number = 1;
+        //PhoneType type = 2 [default = MOBILE];
+        PhoneType type = 2;
+    }
+   
+    repeated PhoneNumber phones = 4;
+
+}
+
+message AddressBook {
+    repeated Person people = 1;
+}
+

@@ -1,0 +1,12 @@
+Please read zmq_req_rep_router_dealer.txt first
+
+ZMQ ROUTER creates random identity string to identify which peers it is connected to.
+So it maintains an internal hash table of identity to connection object.
+
+However, whenever a peer connects to a router socket, the peer can set the ZMQ_IDENTITY socket option
+in advance (before connecting to ROUTER), and give an identity of its own. In that case, the ROUTER
+will use the peer specified string as the connection identity instead of generating a random string
+of its own. Let's see this next. Also we have downloaded a zhelpers.py file from github, which has some
+helper functions for zmq.
+
+Read zmq_router_identity.py next

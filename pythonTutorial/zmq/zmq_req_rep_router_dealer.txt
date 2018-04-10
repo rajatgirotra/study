@@ -46,3 +46,5 @@ Where we use a REQ socket, we can use a DEALER; we just have to read and write t
 ourselves. Where we use a REP socket, we can stick a ROUTER; we just need to manage the
 identities ourselves.
 
+Please read zmq_router_identities.txt next
+

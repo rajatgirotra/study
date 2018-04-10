@@ -1,0 +1,8 @@
+add_executable(create_address_book create_address_book.cpp)
+add_executable(read_address_book read_address_book.cpp)
+
+target_link_libraries(create_address_book PUBLIC common_proto)
+target_include_directories(create_address_book PUBLIC ${CMAKE_BINARY_DIR}/protos)
+
+target_link_libraries(read_address_book PUBLIC common_proto)
+target_include_directories(read_address_book PUBLIC ${CMAKE_BINARY_DIR}/protos)
