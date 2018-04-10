@@ -1,0 +1,40 @@
+py2 and py3 text and bytes types.
+
+In py2 there are two types to handle text data
+1) str: simple ascii string, undefined data after the 7 bit range.
+2) unicode: to hold unicode strings.
+And there is one type to handle byte type:
+1) bytearray
+the 'str' type in py2 is also used to store byte data, so essentially we call it byte-string type.
+and python2 really didnt need another type to store byte data.
+
+In python 3, there is one type to handle text data
+1) str -> to handle unicode text (same as 'str' type in py2)
+and two types to handle byte data
+1) bytes
+2) bytearray
+
+So in python3
+1) They sacrificed str type to hold ascii data.
+2) they introduced a new byte array hashable type to store byte data. Since it is hashable, it can be used as keys in dictionaries. bytearray is mutable so cannot be used.
+
+Unicode handling
+----------------
+python2 was not originally written to handle unicode data. So applications were free to treat the data in str type as a byte string with any encoding as suited for the application. Many applicataions provided the encoding type from a side-channel, like message header or meta data or some other form. So to convert from byte data to unicode. you would call the decode('utf-8') function on the str type. The default encoding was 'ascii'. you could also change this using sys.setdefaultencoding() but now python2 disabled it.
+
+
+Later, when they introduced the unicode type, they introduced the concept of coercion. Ie when combining str + unicode types in python2, str is promoted to unicode.
+How promotion is done. the decode() function is applied with default encoding 'ascii' and then the converted unicode is combined with the unicode type.
+
+example:
+print 'Hello' + u' World' # coercion
+print 'Foo' == u'Foo'
+print 'foo'.encode('utf-8') # encode is used to convert unicode data to some encoding. Output of encode() will always by byte-string ie type 'str'. So in this case, 'foo' is coerced to unicode using 'foo'.decode('ascii') and then encoded to utf-8
+
+To prevent coercion, in python2, you could set sys.setdefaultencoding('undefined'), then it will give u a UnicodeError.
+
+Python 3
+--------
+In python 3 also you need to prevent coercion. Because str and bytes should not be allowed to join
+So byte promotion to str was disabled by removing the encode() function for byte types and removing the decode() function for str types.
+x = b'Hello' + ' World' will now give an exception.
