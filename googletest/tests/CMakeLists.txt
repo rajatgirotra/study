@@ -1,0 +1,5 @@
+add_executable(soundextests SoundexTest.cpp main.cpp)
+target_include_directories(soundextests PUBLIC ${GTEST_INCLUDE_DIRS})
+target_link_libraries(soundextests PUBLIC soundex_algo ${GTEST_LIBRARIES} pthread)
+target_compile_options(soundextests PUBLIC -pthread)
+gtest_discover_tests(soundextests TEST_LIST all_tests)
