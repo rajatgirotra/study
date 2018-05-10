@@ -6,7 +6,7 @@ are used to make predictions about unseen data. We have two types of learnings h
 features is pretty common in training data and we call it multivariate data.
 
 2) Unsupervised learning: In which there are no labels or targets. In unsupervised learning the training data is used to
-find specific patterns in data, like clusters, or density estimation etc.
+find specific patterns in data, like clusters, or density estimation etc. Mostly unsupervised learning problems are classification problems.
 
 Supervised learning problems is further classified in two types:
 a) Classification: ie. we want to classify or predict the label given the input data.

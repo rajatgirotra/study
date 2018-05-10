@@ -3,3 +3,5 @@ You actually need a data preprocessing step to make sure your data is good other
 
 Let's see how to do data preprocessing. But first lets get some data. 
 https://www.superdatascience.com/machine-learning
+
+Scikit-learn is based on decorator pattern. Just remember this. This will help you understand the api's in the next chapters.
