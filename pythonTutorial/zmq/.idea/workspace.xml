@@ -166,6 +166,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -181,7 +182,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -525,12 +525,12 @@
       <envs />
     </configuration>
     <list>
+      <item itemvalue="Jupyter Notebook.zmq" />
       <item itemvalue="Python.zmq_pub_envelope" />
       <item itemvalue="Python.zmq_router_identity" />
       <item itemvalue="Python.zmq_router_req_workers" />
       <item itemvalue="Python.zmq_router_dealer_workers" />
       <item itemvalue="Python.zmq_load_balancing_reusable" />
-      <item itemvalue="Jupyter Notebook.zmq" />
     </list>
     <recent_temporary>
       <list>
@@ -556,23 +556,23 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32822084" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32822084" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17412399" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32991913" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3989796" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3989796" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -872,13 +872,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/temp.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="1" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/temp.ipynb" />
     <entry file="file://$PROJECT_DIR$/zmq_hwm.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">

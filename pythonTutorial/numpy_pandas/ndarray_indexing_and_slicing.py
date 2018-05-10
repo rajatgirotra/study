@@ -71,6 +71,7 @@ print('\nArr\n%s' % arr)
 arr_indexed = arr[np.array([0, 1, 1]), np.array([1, 2, 1]), np.array([1, 2, 3])]
 # will give you an array of shape (3,) i.e. same as index array and values at indexes
 # [0,1,1] [1,2,2] [1, 1, 3]
+# Basically a cross product
 print('\narr[np.array([0, 1, 1]), np.array([1, 2, 1]), np.array([1, 2, 3])]\n%s' % arr_indexed)
 print('shape', arr_indexed.shape)
 print('ndim', arr_indexed.ndim)
@@ -143,9 +144,10 @@ print('ndim', arr[arr_bool].ndim)
 arr = np.arange(35).reshape(5, 7)
 print('\nArr\n%s' % arr)
 arr_indexed = arr[np.array([2, 3, 4]), 1:3]
-# numpy internally converts slice into np.array([1,2]) and uses broadcasting
-# Here the two index arrays do not have same shape [2,3,4] and [1,2]. So elements chosen are as far as
-# possible ie [2, 1] [2, 2], [3, 1], [3, 2], [4, 1] [4, 2] ie. resulting shape is (3,2)
+# When we use indexes and slicing together, first the indexing gets applied and then the slicing gets applied
+# on the resultant of the indexing. So in the case below:
+# First rows 2,3,4 are chosen based on first index, then from that columns 1 and 2 are choosen.
+# so we get a 3*2 array
 print('\narr[np.array([2, 3, 4]), 1:3]\n%s' % arr_indexed)
 print('shape', arr_indexed.shape)
 print('ndim', arr_indexed.ndim)
