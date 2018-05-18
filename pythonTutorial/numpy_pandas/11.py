@@ -18,7 +18,7 @@ s = df.loc['two']
 print('row two of df \n%s\n' % s)
 
 s = df.loc[['one', 'two']]  # similary we have the iloc function df.iloc[[0, 1, 2]]
-print('get two or more rows be specifying a list of labels \n%s\n' % s)
+print('get two or more rows be specifying a list of labels \n%s\n type of s is%s\n' % (s, type(s)))
 
 # Slice to get multiple rows. In Series and DataFrame, slicing inside [] slices rows as it is a very common operation.
 print('row slices using index numbers df[0:2] \n%s\n' % df[0:2]) # or df.iloc[0:2] as shown below

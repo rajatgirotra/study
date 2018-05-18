@@ -14,14 +14,14 @@ print('\ndf.reindex\n%s' % df.reindex(index=list('abc'), columns=['Ohio', 'Utah'
 print('\ndf.reindex\n%s' % df.reindex(index=list('abc'), columns=['Ohio', 'Utah', 'California'], fill_value='missing'))
 
 # method parameter is used to interpolate missing values. Valid options are ffill, bfill, nearest.
-# Remember that both index and columns should be sorted for interpolation to work
+# Remember that the source dataframe index or column should be sorted for interpolation to work
 states = ['Ohio', 'Utah', 'California']
 print('\ndf.reindex with method\n%s' % df.reindex(index=['a', 'b', 'c', 'd'], method='ffill',  # ffill is forward fill
-                                                  columns=states.sort()))
+                                                  ))
 
 # Dropping columns and rows is very trivial
 print('\ndf.drop(Ohio, axis=1)\n%s' % df.drop('Ohio', axis=1))  # will drop column
-print('\ndf.drop([a,c] index=1)\n%s' % df.drop(['a', 'c'], axis=0))  # will drop rows a & c
+print('\ndf.drop([a,c] axis=1)\n%s' % df.drop(['a', 'c'], axis=0))  # will drop rows a & c
 
 # Vectorized operations like adding, subtracting, multiplying, dataframes can be done either like
 # df1 + df2 or df1.add(df2, kwargs) if we want more control, like how to treat NaN, or missing data etc.
@@ -43,11 +43,11 @@ print('\ndf-df.loc[0]\n%s' % df)
 df = DataFrame(np.arange(12.).reshape(3, 4), index=list('abc'), columns=['Utah', 'Texas', 'California', 'Ohio'])
 print('\ndf\n%s' % df)
 s = pd.Series([0, 1, 2, 3], index=['Utah', 'NewYork', 'Texas', 'Ohio'])
-print('\ndf.loc[a]\n%s' % s)
-print('df.loc[a].shape', s.shape)  # (4,) ndim = 1
+print('\nseries s\n%s' % s)
+print('s.shape', s.shape)  # (4,) ndim = 1
 df = df + s  # note that as before index of series aligns with cols of data frame. So index and cols will me union together
 # and for NewYork and California, entries will be NaN.
-print('\ndf+df.loc[a]\n%s' % df)
+print('\ndf+s\n%s' % df)
 
 # Apply function can be used to apply a callable on either axis (0 or 1). The result of a callable can be a scalar or
 # a series. Let's see it in action
