@@ -39,6 +39,7 @@ BOOST_PYTHON_MODULE(cruel_ext) {
             .def("get_decision", &Cruel::get_decision).def(init<>());
 
     //Note this syntax - Since getValue() is static, we have to additionally call staticmethod() on class_.
+    //boost::python::no_init means you are deliberately not exposing any c'tors
     class_<Abstract>("abstract", boost::python::no_init).def("value", &Abstract::getValue).staticmethod("value");
 }
 

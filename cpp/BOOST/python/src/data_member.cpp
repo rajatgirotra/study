@@ -43,4 +43,4 @@ BOOST_PYTHON_MODULE(data_member_ext) {
             .add_property("value", &BetterVar::getValue, &BetterVar::setValue);
 }
 
-
+// Next lets see how derived classes work with Boost Python. See base_derived.cpp
