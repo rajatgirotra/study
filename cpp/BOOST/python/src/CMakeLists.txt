@@ -41,3 +41,8 @@ add_library(override_ext SHARED override.cpp)
 set_target_properties(override_ext PROPERTIES PREFIX "")
 target_include_directories(override_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 target_link_libraries(override_ext PUBLIC ${Boost_PYTHON27_LIBRARY})
+
+add_library(call_policy_ext SHARED call_policy.cpp)
+set_target_properties(call_policy_ext PROPERTIES PREFIX "")
+target_include_directories(call_policy_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+target_link_libraries(call_policy_ext PUBLIC ${Boost_PYTHON27_LIBRARY})

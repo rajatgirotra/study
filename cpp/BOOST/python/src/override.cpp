@@ -5,6 +5,7 @@
 #include <boost/python.hpp>
 #include <iostream>
 #include <cstdint>
+#include <numeric>
 using namespace std;
 
 class Integer {
@@ -36,6 +37,13 @@ public:
     bool operator < (const Integer& rhs) {
         return (this->m_value - rhs.get());
     }
+
+    friend ostream& operator<<(ostream& os, const Integer& rhs);
+
+    friend Integer abs(const Integer& rhs)  { return Integer(std::abs(rhs.get())); }
+    friend Integer pow(const Integer& lhs, const Integer& exp) { return Integer(std::pow(lhs.get(), exp.get())); }
+
+    operator double() const { return static_cast<double>(this->m_value); }
 };
 
 Integer operator +(const Integer& lhs, const Integer& rhs) {
@@ -50,7 +58,10 @@ Integer Integer::operator - (const Integer& rhs) {
     return Integer(this->m_value - rhs.get());
 }
 
-
+ostream& operator<<(ostream& os, const Integer& rhs) {
+    os << "Integer: " << rhs.m_value;
+    return os;
+}
 
 BOOST_PYTHON_MODULE(override_ext) {
     using namespace boost::python;
@@ -60,7 +71,11 @@ BOOST_PYTHON_MODULE(override_ext) {
             .def(self + self).def(self + int32_t())
             .def(self - self).def(self - int32_t())
             .def(self += int()).def(self -= int())
-            .def(self - self);
+            .def(self - self)
+            .def(boost::python::self_ns::str(self))
+            .def(float_(self))
+            .def(abs(self))
+            .def(pow(self, boost::python::other<Integer>()));
 }
 
 /* That works nicely. But how about Special Python functions like
@@ -68,6 +83,7 @@ BOOST_PYTHON_MODULE(override_ext) {
  * 2) abs() --> gives the absolute value
  * 3) pow() --> like std::pow
  *
- * For these you can create the corresponding C++ interfaces.
- * Let's do it next.
+ * Let's put those in too.
+ *
+ * Read 2_README.txt next
  */
