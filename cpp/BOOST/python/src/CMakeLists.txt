@@ -47,7 +47,17 @@ set_target_properties(call_policy_ext PROPERTIES PREFIX "")
 target_include_directories(call_policy_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 target_link_libraries(call_policy_ext PUBLIC ${Boost_PYTHON27_LIBRARY})
 
-add_library(my_list_ext SHARED list.cpp)
+add_library(my_list_ext SHARED mylist.cpp)
 set_target_properties(my_list_ext PROPERTIES PREFIX "")
 target_include_directories(my_list_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 target_link_libraries(my_list_ext PUBLIC ${Boost_PYTHON27_LIBRARY})
+
+add_library(scope_ext SHARED scope.cpp)
+set_target_properties(scope_ext PROPERTIES PREFIX "")
+target_include_directories(scope_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+target_link_libraries(scope_ext PUBLIC ${Boost_PYTHON27_LIBRARY})
+
+add_library(call_method_ext SHARED call_method.cpp)
+set_target_properties(call_method_ext PROPERTIES PREFIX "")
+target_include_directories(call_method_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+target_link_libraries(call_method_ext PUBLIC ${Boost_PYTHON27_LIBRARY})

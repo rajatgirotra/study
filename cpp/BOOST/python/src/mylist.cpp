@@ -36,3 +36,5 @@ BOOST_PYTHON_MODULE(my_list_ext) {
     class_<MyList>("MyList", "MyList class to test list passing from python to c++")
             .add_property("value", &MyList::getMsg, &MyList::setMsg);
 }
+
+/* Read scope.cpp and scope.py next */

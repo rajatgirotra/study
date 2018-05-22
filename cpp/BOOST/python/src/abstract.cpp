@@ -31,6 +31,10 @@ Shape* factory() {
     return new Square();
 }
 
+void call_draw(Shape* s) {
+    s->draw();
+}
+
 // Boilerplate, create an extra class which derives from Shape and boost::python::wrapper
 class ShapeWrap : public Shape, public boost::python::wrapper<Shape> {
 public:
@@ -45,6 +49,7 @@ BOOST_PYTHON_MODULE(abstract_ext) {
     using namespace boost::python;
 
     def("factory", factory, return_value_policy<manage_new_object>());
+    def("call_draw", call_draw);
 
     // instead of exposing Shape, you expose ShapeWrap now
     class_<ShapeWrap, boost::noncopyable>("Shape").def("draw", pure_virtual(&Shape::draw));

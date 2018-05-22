@@ -8,5 +8,6 @@ class Circle(abstract_ext.Shape):
 
 
 shape = Circle()
-shape.draw()
+
+abstract_ext.call_draw(shape)
 
