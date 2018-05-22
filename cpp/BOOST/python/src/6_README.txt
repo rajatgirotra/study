@@ -1,5 +1,8 @@
-CallPolicies
-------------
+You really dont need to read this unless you want to understand the internals or write your own call policy.
+Better is to move on to some hands on Boost.Python code.
+
+CallPolicies Concepts
+---------------------
 
 CallPolicies are set of boost.python classes used to specialize the behavior of the generated wrapper objects (around C++ callable objects).
 These wrapper objects are python callable.
@@ -21,7 +24,7 @@ If error, PyErr_Occurred() != 0 should hold and you should return 0.
 Very simple metafunction. Don't think about it much and we'll get to it shortly.
 
 
-
+If you see the with_custodian_and_ward<> class, you'll see a "static void precall()" method which does argument processing
 
 Dereferencable Types
 -------------------
@@ -49,6 +52,8 @@ then
 1) X::execute(a) --> should return the C++ object extracted.
 2) a.ob_type -->  Must be a PyTypeObject* type held the the PyObject "a". So a PyObject holds ob_type which is PyTypeObject*
 
+If you see the with_custodian_and_ward<> class, you'll see a "static void precall()" method which calls a static method
+"execute()" on a Extractor class to fetch the C++ object from the python object.
 
 
 HolderGenerator
@@ -75,3 +80,5 @@ G::apply<R>::type is C.
 C c; // to create an instance of ResultConvertor
 c(r); // where r is return value from some function of type R. c(r) will return a PyObject* or 0, in which case PyErr_Occurred() should return non zero
 c.get_pytype() - Returns a const PyTypeObject*
+
+/* Please read list.cpp */

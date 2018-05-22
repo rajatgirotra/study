@@ -50,3 +50,7 @@ class_<X>("X", "doc_string for X",
 1) int,double
 2) int,double,char
 3) int,double,char,bool
+
+/*
+Please read 5_README.txt next
+*/

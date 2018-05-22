@@ -46,3 +46,8 @@ add_library(call_policy_ext SHARED call_policy.cpp)
 set_target_properties(call_policy_ext PROPERTIES PREFIX "")
 target_include_directories(call_policy_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 target_link_libraries(call_policy_ext PUBLIC ${Boost_PYTHON27_LIBRARY})
+
+add_library(my_list_ext SHARED list.cpp)
+set_target_properties(my_list_ext PROPERTIES PREFIX "")
+target_include_directories(my_list_ext PUBLIC ${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+target_link_libraries(my_list_ext PUBLIC ${Boost_PYTHON27_LIBRARY})

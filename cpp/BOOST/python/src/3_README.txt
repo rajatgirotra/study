@@ -4,6 +4,15 @@ template <class F>
 void def(char const* name, F f);
 // Very trivial - name is the name to be used in python and f is a C++ callable.
 
+template <class F, A1>
+void def(char const* name, F f, const A1&);
+
+template <class F, A1, A2>
+void def(char const* name, F f, const A1&, const A2&);
+
+template <class F, A1, A2, A3>
+void def(char const* name, F f, const A1&, const A2&, const A3&);
+
 // Next to understand, what A1, A2, A3 can be, lets step back and look at some other things.
 
 1) Easy thing first:
@@ -13,14 +22,6 @@ b) a CallPolicy or
 c) keyword-expression
 and can be in any order.
 
-template <class Fn, class A1>
-void def(char const* name, Fn fn, A1 const&);
-
-template <class Fn, class A1, class A2>
-void def(char const* name, Fn fn, A1 const&, A2 const&);
-
-template <class Fn, class A1, class A2, class A3>
-void def(char const* name, Fn fn, A1 const&, A2 const&, A3 const&);
 
 2) The slightly complex thing:
 boost.python provides two macros:
@@ -47,11 +48,16 @@ BOOST_PYTHON_FUNCTION_OVERLOADS(my_overload, foo, 0, 3), then the macro will gen
 7) my_overload(docstring, keywords)[policies]
 8) my_overload(keywords, docstring)[policies]
 
+Similarly it will generate overloads 8 overloads with one, two and all three arguments x, y, z
+
 And then you can only use def(), with one template parameter A1, where A1 will be one of the 8 above.
 Eg:
 
 def("foo", foo,
     my_overloads("foo's docstring", arg("x"), arg("y"), arg("z"))[return_internal_reference<>()]
    );
+
+arg("x"), arg("y"), arg("z") --> is a keyword expression which allows you to call the function by specifying x,y,z as
+keyword arguments. so i can call foo(y=10.5, z='Hello World')
 
 // See not difficult at all :)
