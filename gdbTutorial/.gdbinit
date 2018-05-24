@@ -1,0 +1,1 @@
+printf "local gdbinit\n"
