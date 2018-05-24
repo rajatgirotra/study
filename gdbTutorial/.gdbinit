@@ -1,1 +1,0 @@
-printf "local gdbinit\n"

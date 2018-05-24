@@ -20,6 +20,12 @@ show auto-load --> will show all auto-load on/off settings
 show auto-load gdb-scripts --> if set to on, gdb will look for a file: objfile-gdb.gdb and load commands in it.
 info auto-load gdb-scripts --> will show all scripts which gdb auto-loaded.
 
+show auto-load python-scripts --> same as above but will load objfile-gdb.py
+
+show auto-load guile-scripts --> guile is some other format alternate to python.
+
+Actually you can also specify the python scripts and guile script names inside the .debug_gdb_scripts section in the binary of shared library. and they will be loaded by gdb by itself. We wont be using it for now. Or check if gcc provides some straight forward compile option to put this section in.
+
 show auto-load safe-path
 set auto-load safe-path
 info auto-load safe-path

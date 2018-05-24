@@ -1,0 +1,72 @@
+command completion
+------------------
+
+always enclose command arguments witth single quote. This helps gdb to treat special characters like <, > etc properly.
+(gdb) p 'func< TABTAB --> will give you the following completion
+func<int>, func<float>
+if you did not use single quote, it wont be able to. This is not needed when setting a breakpoint, because gdb is clever enough to know that
+
+core file location
+-----------------
+/proc/sys/kernel/core_pattern
+cat /proc/sys/kernel/core_pattern
+echo '/tmp/core_%e.%p' > /proc/sys/kernel/core_pattern
+On my system, it is set to:
+"cat /proc/sys/kernel/core_pattern
+|/usr/share/apport/apport %p %s %c"
+ie the output of the crash is directly piped the apport application. Read about apport which is an application to automate investigation about crashes and reporting to users.:w
+
+See this page for information on % specifiers: http://man7.org/linux/man-pages/man5/core.5.html
+
+disassembly
+-----------
+disas <function_name>: will show the assembler output. The line where the crash happened is shown with an arrow ==>, example:
+   0x00007f0a37aac3f7 <+279>: cmpb   $0x0,0x21(%rcx)
+   0x00007f0a37aac3fb <+283>: je     0x7f0a37aacc3b <doupdate+2395>
+   0x00007f0a37aac401 <+289>: mov    0x20cb68(%rip),%rax        # 0x7f0a37cb8f70
+   0x00007f0a37aac408 <+296>: mov    (%rax),%rsi
+   0x00007f0a37aac40b <+299>: xor    %eax,%eax
+=> 0x00007f0a37aac40d <+301>: mov    0x10(%rsi),%rdi  # means read the memory pointed to by the rsi register and offset 0x10 from there and copy the value to rdi
+   0x00007f0a37aac411 <+305>: cmpb   $0x0,0x1c(%rdi)
+   0x00007f0a37aac415 <+309>: jne    0x7f0a37aac6f7 <doupdate+1047>
+   0x00007f0a37aac41b <+315>: movswl 0x4(%rcx),%ecx
+   0x00007f0a37aac41f <+319>: movswl 0x74(%rdx),%edi
+   0x00007f0a37aac423 <+323>: mov    %rax,0x40(%rsp)
+
+Good to know about x86 and x64 bit registers:
+x86 had 8 32 bit registers:
+
+eax
+ebx
+ecx
+edx
+esi
+edi
+ebp
+esp
+
+x64 extended these 8 32 bit registers to 64 bit and renamed them to
+rax
+rbx
+rcx
+rdx
+rsi
+rdi
+rbp
+rsp, plus they added 8 new 64 bit registers. r8 - r15
+
+So on a x64 system, if you try to access eax, ebx, ecx etc, you'll get the lower 32 bits of the 64 bit register.
+Also there are mnemonics to access the 32 bit, 16 bits, 8 bits of the register but i am not listing those mnemonics here.
+the instruction pointer register eip, and flags register have been extended to 64 bits (rip and rflags, respectively) as well.
+
+registers
+---------
+i r
+gives the register information
+
+i proc m --> gives the process memory map. ie the Virtual Address start and end addresses and the objfile mapped to that address.
+
+breakpoint
+---------
+setting a breakpoint in assembler code is also possible. FOr the example above, say
+breakpoint *<function_name> + 289 --> will set breakpoint at point 289

@@ -20,3 +20,4 @@ tf_files/
 .~*
 .ipynb_checkpoints/
 **/delete/
+gdb.txt
