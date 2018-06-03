@@ -1,0 +1,7 @@
+False sharing
+open addressing
+TLB
+cache organisation (direct mapped, set associative, fully associative)
+lambda's passing in and out of functions
+libraries used in boost
+memory reordering (when can we use memory_order_relaxed).

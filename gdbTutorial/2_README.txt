@@ -39,7 +39,7 @@ set auto-load safe-path / --> also has similar effect
 the default for auto-load safe-path is $debugdir:$datadir/auto-load, which can be overriden using the 
 --with-auto-load-safe-path command line option
 
-show/set/info aut0-load scripts-directory  --> directories where gdb will search for command files at startup. Note that these directories should also be in the auto-load safe-path. Default value is: '$debugdir:$datadir/auto-load'
+show/set/info auto-load scripts-directory  --> directories where gdb will search for command files at startup. Note that these directories should also be in the auto-load safe-path. Default value is: '$debugdir:$datadir/auto-load'
 
 $datadir is 'show data-directory' --> the location where gdb reads auxiliary data files
 $debugdir --> 'show debug-file-directory' --> location where gdb searches for files with debug information

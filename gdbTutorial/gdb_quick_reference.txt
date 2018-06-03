@@ -44,6 +44,20 @@ Create a test Hello world program(say try1)  and:
    2. You stripped all the unnecessary symbols from try1 in the previous exercise. Re-run the program to make sure it works. Now run "strip --remove-section=.text try1" and look at the file length. Now try to run try1. What do you suppose is going on?
    3. Read this link about symbol tables (it's short). // This is a wiki link
    4. Optional: Read this link about the COFF object file format.// This is a wiki link
+
+GDB allows debug symbols to be stored and loaded from outside the main executable. To move debug symbols to another file, use objcopy command.
+Example below:
+           <Run "objcopy --only-keep-debug foo foo.dbg" to>
+               create a file containing the debugging info.
+
+           <Run "objcopy --strip-debug foo" to create a>
+               stripped executable.
+
+           <Run "objcopy --add-gnu-debuglink=foo.dbg foo">
+               to add a link to the debugging info into the stripped executable. this adds a .gnu_debuglink section to the executable which contains the name of the corresponding debug file. When the .gnu_debuglink section is present, gdb tries to lookup the named debug file in the directory of the execuatable. If not found it tries /path/to/executable/.debug/foo.debug
+
+So always use -ggdb3 and always use objcopy in production as a good practice.
+
    
 ------------------------------------------------------------------------------------------------------------------------------
 

@@ -1,0 +1,56 @@
+We discuss here remote debugging with gdb and gdbserver. 
+
+1) Target/remote host: this is the host on which your program/executable will be run. This must be run using gdbserver.
+2) Host os: This is the host system on which you run gdb. Then you make gdb interact with gdbserver on the target/remote host.
+
+What is gdbserver: gdbserver is a lightweight application which just interacts with gdb on the host os over a serial port or over TCP/UDP.
+
+gdb on the host os can run in two different modes:
+1) target remote 
+2) target extended-remote
+
+In the "target remote" mode, when gdb detaches itself/ends the debugging session, gdbserver on the remote/target will also exit.
+In the "target extended-remote" mode, when gdb detaches itself/ends the debugging session, gdbserver on the remote/target will also continue to run. This mode allows the gdb on the host os to re-run the application on the target and/or attach to a running pid on the target. You can also send various "monitor" commands from host os to target/remote. We'll see later what monitor commands are.
+
+Debug information
+-----------------
+Where is the debug information when doing remote debugging? Basically you need two things
+1) Debug symbol table --> normally on most machines "target remote or target extended-remote" mode also allows gdb to access the executable details over the gdbserver using the same serial or tcp/udp connection. So debug symbols present in the executable will be accessed. However, if these modes do not allow access to executable or if the executable is stripped (ie no debug info), then you need a copy of the unstripped version of the executable on the host machine.
+
+2) Source code --> This must be present on the host for gdb to show the code in the gdb session.
+
+Examples of running gdbserver:
+
+gdbserver /dev/com1 my_program <my_program_args>  --> where /dev/comm1 is some serial port
+gdbserver tcp:host:port my_program <my_program_args>  --> gdbserver will accept tcp connections at the specified port. the host part is currently no used.
+gdbserver udp:host:port my_program <my_program_args>  --> same as above but for udp
+
+gdbserver :port my_program <my_program_args>  --> default is to use tcp protocol with the given port number.
+
+gdbserver --attach :port 'pid_of_program' --> to attach gdbserver to a running process.
+gdbserver --multi --> means i just want to start gdbserver without specifying a program to run or a pid to attach to. Later you can run gdb from the host os in "target extended-gdb" mode and specify the program or pid to attach to.
+
+The basic steps to do remote debugging is:
+
+1) Run GDB on the host system.
+2) Make sure you have the necessary symbol files. Load symbol data.
+   2.1) If the program on the target/remote is unstripped, symbols will be loaded and accessed by gdb automatically. 
+   2.2) if the program is stripped or if gdb cannot access the program on the target, then you need an unstripped copy of the program on the host os. Use "file" command in gdb to load symbols.
+   2.3) Connect to your target (using remote or extended-remote mode). For TCP connections, you must start up gdbserver prior to using the target command.
+
+   2.4) If you running "gdbserver -multi", then you can use "set remote exec-file filename" and "show remote exec-file" commands in extended-remote mode to specify the program to run on the target. This should be set to a filename valid on the target system. After that just say "run" to start the program on the target. You can also use the "attach" command to attach to a running program on the target.
+
+
+Examples of running gdb for remote debugging
+--------------------------------------------
+target remote host:port
+target remote tcp:host:port
+target extended-remote host:port
+target extended-remote tcp:host:port
+
+in extended-remote mode: the "disconnect" will disconnect the connection. and the target is closed. GDB is free to connect to another target. the "detach" command will free the program on the remote from gdb control. In "remote" mode, the target will be closed, but in "extended-remote" mode, gdb can still connect to the target again.
+
+Let's do some practice now.
+
+
+

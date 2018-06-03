@@ -33,7 +33,7 @@ bash$> gdb --args program_name <program_args> --> To start a process and debug i
 -se means Symbols and Executable file is 'program_name', -c and -p stand for core_file and pid_number.
 
 -d <directory> : is an option which specifies the directory which should be looked up by GDB for searching source and script files
--cd <directory>: start gdb for the given directory, instead of from the current directory.
+-cd <directory>: start gdb from the given directory, instead of from the current directory.
 -readnow: read the entire symbol table now. startup will be slower.
 --readnever: dont read symbol table at all.
 --silent: don't print thr front material which shows the non-warranty etc.
@@ -48,7 +48,7 @@ When we start gdb, it
 1) Brings up the interpreter.
 2) Loads any system wide gdbinit file (system wide gdbinit can be specified at the time of installing. Run gdb --help and it will display all gdbinit files it will read)
 3) Loads any user specified .gdbinit file. ie one in your home directory
-4) Run any command specified using the -ix and -eix options. If you want to disable auto-loading
+4) Run any command specified using the -ix and -eix options. If you want to disable auto-loading, do it here.
 NOTE THAT -ix -iex COMMANDS RUN AFTER LOADING THE GLOBAL INIT AND YOUR HOME GDB INIT FILES BUT BEFORE LOADING THE GDBINIT IN THE CURRENT DIRECTORY.
 ALSO NOTE THAT THE SYNTAX OF THE GDBINIT FILES AND THE COMMAND FILES IS SAME.
 5) Process command line options

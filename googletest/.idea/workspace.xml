@@ -4,17 +4,16 @@
     <generated>
       <config projectName="soundex" targetName="ExperimentalUpdate" />
       <config projectName="soundex" targetName="ContinuousUpdate" />
-      <config projectName="soundex" targetName="Continuous" />
+      <config projectName="soundex" targetName="ContinuousConfigure" />
       <config projectName="soundex" targetName="ContinuousCoverage" />
       <config projectName="soundex" targetName="ContinuousTest" />
+      <config projectName="soundex" targetName="Continuous" />
       <config projectName="soundex" targetName="ExperimentalTest" />
       <config projectName="soundex" targetName="Nightly" />
       <config projectName="soundex" targetName="ExperimentalSubmit" />
-      <config projectName="soundex" targetName="ExperimentalStart" />
       <config projectName="soundex" targetName="NightlyBuild" />
       <config projectName="soundex" targetName="NightlyCoverage" />
       <config projectName="soundex" targetName="NightlyUpdate" />
-      <config projectName="soundex" targetName="ExperimentalCoverage" />
       <config projectName="soundex" targetName="ExperimentalConfigure" />
       <config projectName="soundex" targetName="ContinuousBuild" />
       <config projectName="soundex" targetName="NightlyMemoryCheck" />
@@ -25,14 +24,15 @@
       <config projectName="soundex" targetName="soundex_algo" />
       <config projectName="soundex" targetName="ContinuousMemCheck" />
       <config projectName="soundex" targetName="Experimental" />
+      <config projectName="soundex" targetName="soundex" />
       <config projectName="soundex" targetName="NightlyStart" />
       <config projectName="soundex" targetName="soundextests" />
-      <config projectName="soundex" targetName="ContinuousConfigure" />
+      <config projectName="soundex" targetName="ExperimentalStart" />
       <config projectName="soundex" targetName="NightlySubmit" />
       <config projectName="soundex" targetName="ExperimentalBuild" />
       <config projectName="soundex" targetName="NightlyConfigure" />
       <config projectName="soundex" targetName="ContinuousStart" />
-      <config projectName="soundex" targetName="soundex" />
+      <config projectName="soundex" targetName="ExperimentalCoverage" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -223,7 +223,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -250,6 +249,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -372,33 +372,34 @@
       <workItem from="1524908581877" duration="3342000" />
       <workItem from="1524975808919" duration="3485000" />
       <workItem from="1526389536437" duration="156000" />
+      <workItem from="1526653168932" duration="2000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17242000" />
+    <option name="totallyTimeSpent" value="17244000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
+    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="CMake" order="7" sideWeight="0.49945414" weight="0.37277487" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50054586" side_tool="true" weight="0.6178011" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.4973822" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49945414" weight="0.4513089" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49945414" weight="0.6178011" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49945414" weight="0.6178011" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
