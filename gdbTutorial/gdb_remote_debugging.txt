@@ -52,5 +52,19 @@ in extended-remote mode: the "disconnect" will disconnect the connection. and th
 
 Let's do some practice now.
 
+You would have notice that when remote debugging, gdb tries to read symbols from various shared libraries loaded by the arget executable, like libgcc, libpthread, ld-linux.so and others. This symbol reading can be slow as gdb on the host needs to read symbols over the serial or tcp/udp connection. To resolve this you can use "set sysroot" in gdb. Example:
+
+(gdb) set sysroot /home/testuser/libtest/sysroot
+
+Then gdb will try to look for symbols in /lib/ld-linux.so.2 in /home/testuser/libtest/sysroot/lib/ld-linux.so.2
+So usually when you start a remote debugging session, you can copy all the target libraries on the host os and set sysroot in gdb
+
+host_os> cd /home/testuser/libtest/sysroot
+host_os> scp -r remote_machine:/lib lib
+
+If you want to copy libraries lazily, do:
+(gdb) set sysroot target:/
+gdb will copy libraries as it loads it and then read symbols locally from the files copied.
+
 
 
