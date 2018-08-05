@@ -2,18 +2,18 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="boost_python_study" targetName="call_policy_ext" />
-      <config projectName="boost_python_study" targetName="hello_ext" />
-      <config projectName="boost_python_study" targetName="base_derived_ext" />
+      <config projectName="boost_python_study" targetName="virtual_ext" />
       <config projectName="boost_python_study" targetName="abstract_ext" />
       <config projectName="boost_python_study" targetName="cruel_ext" />
+      <config projectName="boost_python_study" targetName="call_policy_ext" />
       <config projectName="boost_python_study" targetName="data_member_ext" />
-      <config projectName="boost_python_study" targetName="virtual_ext" />
-      <config projectName="boost_python_study" targetName="world_ext" />
-      <config projectName="boost_python_study" targetName="override_ext" />
       <config projectName="boost_python_study" targetName="my_list_ext" />
-      <config projectName="boost_python_study" targetName="scope_ext" />
+      <config projectName="boost_python_study" targetName="override_ext" />
       <config projectName="boost_python_study" targetName="call_method_ext" />
+      <config projectName="boost_python_study" targetName="base_derived_ext" />
+      <config projectName="boost_python_study" targetName="world_ext" />
+      <config projectName="boost_python_study" targetName="scope_ext" />
+      <config projectName="boost_python_study" targetName="hello_ext" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -37,7 +37,7 @@
       <file leaf-file-name="scope.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scope.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
+            <state relative-caret-position="828">
               <caret line="36" column="57" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="57" />
               <folding>
                 <element signature="e#447#474#0" expanded="true" />
@@ -46,11 +46,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="call_method.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="call_method.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/call_method.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="459">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="9" column="17" selection-end-line="20" />
             </state>
           </provider>
         </entry>
@@ -58,7 +67,7 @@
       <file leaf-file-name="call_method.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/call_method.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
+            <state relative-caret-position="1219">
               <caret line="53" column="29" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="29" />
               <folding>
                 <element signature="e#491#518#0" expanded="true" />
@@ -70,8 +79,8 @@
       <file leaf-file-name="str.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/tools/miniconda2/envs/gcc73/include/boost/python/str.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="190" column="15" lean-forward="true" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="17" />
+            <state relative-caret-position="4370">
+              <caret line="190" column="15" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -91,7 +100,7 @@
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
+            <state relative-caret-position="1357">
               <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
             </state>
           </provider>
@@ -112,20 +121,8 @@
       <file leaf-file-name="abstract.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/abstract.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
+            <state relative-caret-position="1311">
               <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="override.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/override.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
-              <folding>
-                <element signature="e#136#163#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -133,7 +130,7 @@
       <file leaf-file-name="virtual.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/virtual.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
+            <state relative-caret-position="1173">
               <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
             </state>
           </provider>
@@ -284,6 +281,18 @@
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
               <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="boost_python_study" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="boost_python_study" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
+              <item name="include" type="462c0819:PsiDirectoryNode" />
               <item name="boost" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -392,34 +401,36 @@
       <workItem from="1526653186351" duration="2709000" />
       <workItem from="1526702692217" duration="20557000" />
       <workItem from="1526876450498" duration="27181000" />
+      <workItem from="1528715632236" duration="229000" />
+      <workItem from="1528715910696" duration="9000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50462000" />
+    <option name="totallyTimeSpent" value="50700000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
+    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49922958" visible="true" weight="0.17139737" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49922958" visible="true" weight="0.17139737" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.43246073" />
       <window_info anchor="bottom" id="CMake" order="8" weight="0.32984293" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32984293" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32984293" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
       <window_info id="Structure" order="1" sideWeight="0.5007704" side_tool="true" weight="0.17139737" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32041883" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.32041883" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.43246073" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32984293" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -434,6 +445,61 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/virtual.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/call_method.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/abstract.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/abstract.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1311">
+          <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/override.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1495">
+          <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
+          <folding>
+            <element signature="e#136#163#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/virtual.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/call_method.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/tools/miniconda2/envs/gcc73/include/boost/python/object/pointer_holder.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -441,29 +507,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/3_README.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile.old">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="98" column="16" selection-start-line="98" selection-start-column="8" selection-end-line="98" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/override.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1104">
-          <caret line="58" column="54" lean-forward="true" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="54" />
-          <folding>
-            <element signature="e#38#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/override.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile.old" />
+    <entry file="file://$PROJECT_DIR$/override.cpp" />
     <entry file="file://$PROJECT_DIR$/src/4_README.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="776">
@@ -477,9 +522,6 @@
           <caret line="44" column="2" selection-start-line="44" selection-start-column="2" selection-end-line="44" selection-end-column="2" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/6_README.txt">
       <provider selected="true" editor-type-id="text-editor">
@@ -499,9 +541,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="33" lean-forward="true" selection-start-column="33" selection-end-column="33" />
-          <folding>
-            <element signature="e#252#294#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -596,39 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/1_README.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/call_method.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/call_method_2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/call_method_3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/world.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -706,7 +712,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/override.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
+        <state relative-caret-position="1495">
           <caret line="65" column="28" selection-start-line="65" selection-start-column="28" selection-end-line="65" selection-end-column="28" />
           <folding>
             <element signature="e#136#163#0" expanded="true" />
@@ -716,14 +722,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/virtual.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
+        <state relative-caret-position="1173">
           <caret line="51" column="27" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/abstract.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
+        <state relative-caret-position="1311">
           <caret line="57" column="31" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
         </state>
       </provider>
@@ -750,7 +756,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/scope.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
+        <state relative-caret-position="828">
           <caret line="36" column="57" selection-start-line="36" selection-start-column="57" selection-end-line="36" selection-end-column="57" />
           <folding>
             <element signature="e#447#474#0" expanded="true" />
@@ -760,31 +766,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
+        <state relative-caret-position="1357">
           <caret line="59" column="46" selection-start-line="59" selection-start-column="46" selection-end-line="59" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/call_method_mine.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="61" column="28" lean-forward="true" selection-end-line="81" selection-end-column="3" />
-          <folding>
-            <element signature="e#491#518#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/call_method_mine.cpp" />
     <entry file="file://$USER_HOME$/tools/miniconda2/envs/gcc73/include/boost/python/str.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="190" column="15" lean-forward="true" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="17" />
+        <state relative-caret-position="4370">
+          <caret line="190" column="15" selection-start-line="190" selection-start-column="11" selection-end-line="190" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/call_method.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
+        <state relative-caret-position="1219">
           <caret line="53" column="29" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="29" />
           <folding>
             <element signature="e#491#518#0" expanded="true" />
@@ -794,8 +791,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/call_method.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="459">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="17" selection-end-line="20" />
         </state>
       </provider>
     </entry>
