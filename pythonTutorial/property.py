@@ -80,7 +80,7 @@ class P3(object):
             raise AttributeError('Please set value before getting')
         return self._x
 
-    @x.setter # Dont forget the naming convention
+    @x.setter # x is of type property, you here we are saying x = x.setter(x)
     def x(self, arg):
         if arg < 0:
             self._x = 0
