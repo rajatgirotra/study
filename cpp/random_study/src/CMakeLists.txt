@@ -11,3 +11,7 @@ target_compile_options(condition_variable PUBLIC -pthread)
 add_executable(dbl dbl.cpp)
 target_link_libraries(dbl PUBLIC -pthread)
 target_compile_options(dbl PUBLIC -pthread)
+
+add_executable(function function.cpp)
+target_link_libraries(function PUBLIC -pthread)
+target_compile_options(function PUBLIC -pthread)
