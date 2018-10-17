@@ -1,0 +1,5 @@
+add_executable(main main.cpp)
+target_include_directories(main PUBLIC ${Boost_INCLUDE_DIRS})
+target_link_libraries(main PUBLIC rt)
+target_link_libraries(main PUBLIC -pthread)
+target_compile_options(main PUBLIC -pthread)

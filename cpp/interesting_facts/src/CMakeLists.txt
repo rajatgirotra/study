@@ -1,0 +1,7 @@
+add_executable(functiontype_template_arguments 1_functiontype_template_arguments.cpp)
+target_link_libraries(functiontype_template_arguments PUBLIC -pthread)
+target_compile_options(functiontype_template_arguments PUBLIC -pthread)
+
+add_executable(function_magic 2_function_magic.cpp)
+target_link_libraries(function_magic PUBLIC -pthread)
+target_compile_options(function_magic PUBLIC -pthread)
