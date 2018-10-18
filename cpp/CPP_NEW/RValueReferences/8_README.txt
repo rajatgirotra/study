@@ -8,7 +8,7 @@ remove_reference<int*>::type               ------->          int*
 remove_reference<int*&>::type              ------->          int*  
 
 
-Ok now the problem of perfect forwarding arised because of introduction of move semantics.
+Ok now the problem of perfect forwarding arose because of introduction of move semantics.
 
 Let say you have the simple factory template function
 

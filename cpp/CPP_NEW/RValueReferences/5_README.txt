@@ -23,4 +23,12 @@ X x = goo(); //here rvalue reference does not have a name, so move semantics is 
 Next I want you to write a Base and Derived class which overloads move semantics and demonstrate how
 the c'tor heirarchy is called.
 
+----------------------------
+Just to make things more clearer, and rvalue reference X&& can be an lvalue or an rvalue depending on context. In a function
+parameter, it is ALWAYS AN L-VALUE
 
+void foo(X&& param) // param is an lvalue
+
+and when returned from a function, it is ALWAYS in r-value
+
+X&& foo(); // rvalue references returned from functions are rvalues.

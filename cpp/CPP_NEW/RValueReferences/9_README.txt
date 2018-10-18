@@ -7,14 +7,14 @@ According to this rule.
 4) A&& && collapses  to A&& (an rvalue reference to an rvalue  collapses to rvalue).
 
 
-Rule 2: The compiler has introduced a special template argument deduction rule for templte functions where
+Rule 2: The compiler has introduced a special template argument deduction rule for template functions where
 argument is an rvalue reference of the template parameter. ie. 
 
 template <typename T>
 void foo(T&& arg) {}
 
-1) If T is an lvalue of type A, then T is deduced to be of type A&.
-2) If T is an rvalue of type A, then T is deduced to be of type A.
+1) If an lvalue is passed to foo(), T is deduced to be a reference, ie. T&
+2) If an rvalue is passed to foo(), T is deduced to be a non-reference, ie. just T.
 
 So the perfect forwarding problem is now solved, if our factory method looks like:
 

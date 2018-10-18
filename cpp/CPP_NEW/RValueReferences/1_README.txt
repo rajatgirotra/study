@@ -44,3 +44,6 @@ Rvalue references were introduced in C++0x11 to solve two problems:
    The same applies to the copy c'tor and any other function which takes X as an argument.
    So if X is a user defined type, the X&& is called an rvalue reference to X.
 
+Note that move is not only an optimization over copy, it has a semantic meaning also - transferring ownership.
+When you move, you effectively xfer the ownership of the underlying resource. Think in your head about std::unique_ptr etc.
+and you'll understand what i am trying to say.

@@ -39,5 +39,5 @@ be destroyed. But when does that happen. Only when b goes out of scope, or when 
 in which case the resource gets transferred again. So we are actually moving into a world on non-deterministic
 destruction. But this is OK as far as the d'tor does not have any side-effects. But let say you have to release
 a lock in a d'tor. Then there is no way of predicting when the lock might get released. So remember, if your
-d'tor has any side-effects and you implement move sematics for your type, make sure you do any cleanup like 
+d'tor has any side-effects and you implement move semantics for your type, make sure you do any cleanup like
 releasing the lock or any other thing in your move functions.

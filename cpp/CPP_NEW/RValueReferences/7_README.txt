@@ -4,9 +4,9 @@ void foo(X& x);
 void foo(X&& x);
 
 X x;
-X foobar();
+X getX();
 
 foo(x); //calls foo(X&)
-foo(foobar()); //calls foo(X&&)
+foo(getX()); //calls foo(X&&)
 
 
