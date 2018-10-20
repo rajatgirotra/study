@@ -41,3 +41,8 @@ int main() {
     auto cloneP(p);
 
 }
+
+/* Clean solution. Infact this technique is used in std::vector. There are two constructors which accept two arguments
+ * std::vector(size_type, T val);
+ * std::vector(InputIterator first, InputIterator last)
+ */
