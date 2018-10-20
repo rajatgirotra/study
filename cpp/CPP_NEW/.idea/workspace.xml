@@ -2,10 +2,19 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
+      <config projectName="CPP_NEW" targetName="chrono_2" />
+      <config projectName="CPP_NEW" targetName="chrono_3" />
+      <config projectName="CPP_NEW" targetName="chrono_4" />
+      <config projectName="CPP_NEW" targetName="chrono_5" />
       <config projectName="CPP_NEW" targetName="RValueReferences_6" />
+      <config projectName="CPP_NEW" targetName="RValueReferences_21" />
+      <config projectName="CPP_NEW" targetName="RValueReferences_20" />
       <config projectName="CPP_NEW" targetName="RValueReferences_11" />
+      <config projectName="CPP_NEW" targetName="RValueReferences_15" />
+      <config projectName="CPP_NEW" targetName="RValueReferences_18" />
       <config projectName="CPP_NEW" targetName="RValueReferences_3" />
       <config projectName="CPP_NEW" targetName="RValueReferences_2" />
+      <config projectName="CPP_NEW" targetName="RValueReferences_19" />
       <config projectName="CPP_NEW" targetName="RValueReferences_1" />
     </generated>
   </component>
@@ -16,24 +25,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2225710c-b18e-4007-8faf-455c7e034697" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/RValueReferences/11.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RValueReferences/12_README.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RValueReferences/13_README.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RValueReferences/14_README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/10_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/1_README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/11.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/1.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/12.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/2.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/13.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/3.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/14_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/4_README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/15_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/5_README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/16.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/6.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/17_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/7_README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/18_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/8_README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/19_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/9_README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../C++_11_14/20_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/10_README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/15.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/16_README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/17_README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/18.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/19.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/20.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/21.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RValueReferences/22_README.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chrono/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++_11_14/chrono/1_Must_Read.txt" beforeDir="false" afterPath="$PROJECT_DIR$/chrono/1_Must_Read.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++_11_14/chrono/2_chrono.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/chrono/2_chrono.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++_11_14/chrono/3_chrono.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/chrono/3_chrono.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++_11_14/chrono/4_chrono.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/chrono/4_chrono.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../C++_11_14/chrono/5_chrono.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/chrono/5_chrono.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RValueReferences/14_README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/14_README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RValueReferences/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/RValueReferences/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RValueReferences/main.cpp" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -82,29 +91,32 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="9" />
-          <entry key="h" value="2" />
-          <entry key="txt" value="20" />
+          <entry key="RValueReferences_temp (disassembly)" value="1" />
+          <entry key="cpp" value="21" />
+          <entry key="h" value="11" />
+          <entry key="new" value="1" />
+          <entry key="txt" value="29" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CMakeLists.txt" value="2" />
-          <entry key="ObjectiveC" value="11" />
-          <entry key="PLAIN_TEXT" value="18" />
+          <entry key="CMakeLists.txt" value="4" />
+          <entry key="Disassembly" value="1" />
+          <entry key="ObjectiveC" value="33" />
+          <entry key="PLAIN_TEXT" value="25" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="1956" />
-          <entry key="txt" value="5733" />
+          <entry key="cpp" value="6873" />
+          <entry key="txt" value="11215" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CMakeLists.txt" value="46" />
-          <entry key="ObjectiveC" value="1956" />
-          <entry key="PLAIN_TEXT" value="5687" />
+          <entry key="CMakeLists.txt" value="121" />
+          <entry key="ObjectiveC" value="6873" />
+          <entry key="PLAIN_TEXT" value="11094" />
         </counts>
       </usages-collector>
     </session>
@@ -117,92 +129,111 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RValueReferences/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/4_README.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="42" column="61" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/5_README.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
-              <caret line="33" column="68" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/12_README.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
-              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/13_README.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
-              <caret line="24" column="51" selection-start-line="24" selection-start-column="51" selection-end-line="24" selection-end-column="51" />
+            <state relative-caret-position="368">
+              <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/14_README.txt">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/21.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/refwrap.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="373" column="34" selection-start-line="373" selection-start-column="28" selection-end-line="373" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/10_README.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/11.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="23" column="32" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+            <state relative-caret-position="131">
+              <caret line="17" column="53" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
               <folding>
-                <element signature="e#163#182#0" expanded="true" />
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RValueReferences/1_README.txt">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/14_README.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="48" column="46" selection-start-line="48" selection-start-column="46" selection-end-line="48" selection-end-column="46" />
+            <state relative-caret-position="483">
+              <caret line="45" column="126" selection-start-line="45" selection-start-column="126" selection-end-line="45" selection-end-column="126" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/15.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="690">
+              <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#448#557#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/17_README.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/18.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="368">
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#202#214#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/19.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="36" column="3" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#290#302#0" expanded="true" />
+                <element signature="e#632#644#0" expanded="true" />
+                <element signature="e#602#614#0" expanded="true" />
+                <element signature="e#755#767#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/20.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="177">
+              <caret line="28" selection-end-line="39" selection-end-column="1" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#173#185#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/22_README.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="593">
+              <caret line="47" column="45" selection-start-line="46" selection-end-line="47" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/RValueReferences/16_README.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="386">
+              <caret line="49" column="43" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -220,6 +251,7 @@
     <findStrings>
       <find>static_cast</find>
       <find>delete</find>
+      <find>~basic_string</find>
     </findStrings>
     <replaceStrings>
       <replace>poData</replace>
@@ -232,7 +264,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/RValueReferences/1.cpp" />
         <option value="$PROJECT_DIR$/RValueReferences/2.cpp" />
         <option value="$PROJECT_DIR$/RValueReferences/4_README.txt" />
@@ -241,13 +272,25 @@
         <option value="$PROJECT_DIR$/RValueReferences/9_README.txt" />
         <option value="$PROJECT_DIR$/RValueReferences/10_README.txt" />
         <option value="$PROJECT_DIR$/RValueReferences/11_README.txt" />
-        <option value="$PROJECT_DIR$/RValueReferences/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/RValueReferences/11.cpp" />
         <option value="$PROJECT_DIR$/RValueReferences/1_README.txt" />
         <option value="$PROJECT_DIR$/RValueReferences/5_README.txt" />
         <option value="$PROJECT_DIR$/RValueReferences/12_README.txt" />
         <option value="$PROJECT_DIR$/RValueReferences/13_README.txt" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/chrono/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/RValueReferences/temp.cpp" />
+        <option value="$PROJECT_DIR$/RValueReferences/15.cpp" />
+        <option value="$PROJECT_DIR$/RValueReferences/16_README.txt" />
+        <option value="$PROJECT_DIR$/RValueReferences/17.cpp" />
         <option value="$PROJECT_DIR$/RValueReferences/14_README.txt" />
+        <option value="$PROJECT_DIR$/RValueReferences/18_README.txt" />
+        <option value="$PROJECT_DIR$/RValueReferences/17_README.txt" />
+        <option value="$PROJECT_DIR$/RValueReferences/18.cpp" />
+        <option value="$PROJECT_DIR$/RValueReferences/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/RValueReferences/19.cpp" />
+        <option value="$PROJECT_DIR$/RValueReferences/20.cpp" />
+        <option value="$PROJECT_DIR$/RValueReferences/21.cpp" />
       </list>
     </option>
   </component>
@@ -309,32 +352,6 @@
               <item name="CPP_NEW" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
-            <path>
-              <item name="CPP_NEW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="CPP_NEW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CPP_NEW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
-              <item name="c++" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CPP_NEW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Header Search Paths" type="70bed36:NamedLibraryElementNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
-              <item name="c++" type="462c0819:PsiDirectoryNode" />
-              <item name="bits" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -349,6 +366,9 @@
     <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Python Console" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/RValueReferences" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/RValueReferences" />
     </key>
@@ -365,7 +385,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.RValueReferences_11">
+  <component name="RunManager" selected="Application.RValueReferences_21">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -381,7 +401,32 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="RValueReferences_15" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="RValueReferences_15" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="RValueReferences_15">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RValueReferences_18" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="RValueReferences_18" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="RValueReferences_18">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RValueReferences_19" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="RValueReferences_19" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="RValueReferences_19">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RValueReferences_2" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="RValueReferences_2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="RValueReferences_2">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RValueReferences_20" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="RValueReferences_20" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="RValueReferences_20">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RValueReferences_21" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="RValueReferences_21" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="RValueReferences_21">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -396,11 +441,40 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="chrono_2" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="chrono_2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="chrono_2">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="chrono_3" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="chrono_3" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="chrono_3">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="chrono_4" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="chrono_4" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="chrono_4">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="chrono_5" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="chrono_5" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="chrono_5">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Build All" />
+      <item itemvalue="Application.chrono_2" />
+      <item itemvalue="Application.chrono_3" />
+      <item itemvalue="Application.chrono_4" />
+      <item itemvalue="Application.chrono_5" />
       <item itemvalue="Application.RValueReferences_1" />
       <item itemvalue="Application.RValueReferences_11" />
+      <item itemvalue="Application.RValueReferences_15" />
+      <item itemvalue="Application.RValueReferences_18" />
+      <item itemvalue="Application.RValueReferences_19" />
       <item itemvalue="Application.RValueReferences_2" />
+      <item itemvalue="Application.RValueReferences_20" />
+      <item itemvalue="Application.RValueReferences_21" />
       <item itemvalue="Application.RValueReferences_3" />
       <item itemvalue="Application.RValueReferences_6" />
     </list>
@@ -416,12 +490,20 @@
       <option name="presentableId" value="Default" />
       <updated>1539817488116</updated>
       <workItem from="1539817489759" duration="202000" />
-      <workItem from="1539817719547" duration="16261000" />
+      <workItem from="1539817719547" duration="30479000" />
     </task>
+    <task id="LOCAL-00001" summary="random">
+      <created>1539870989570</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1539870989571</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16463000" />
+    <option name="totallyTimeSpent" value="30681000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -436,14 +518,14 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4983871" visible="true" weight="0.16657443" />
-      <window_info id="Structure" order="1" sideWeight="0.5016129" side_tool="true" weight="0.16657443" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4983871" visible="true" weight="0.16657443" />
+      <window_info id="Structure" order="1" sideWeight="0.5016129" side_tool="true" visible="true" weight="0.16657443" />
       <window_info id="Favorites" order="2" sideWeight="0.5016129" side_tool="true" weight="0.16657443" />
-      <window_info anchor="bottom" id="Messages" weight="0.32972974" />
+      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32972974" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32972974" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32972974" />
@@ -464,28 +546,43 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="random" />
+    <option name="LAST_COMMIT_MESSAGE" value="random" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/basic_string.h</url>
+          <line>509</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/basic_string.h</url>
+          <line>500</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="33" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RValueReferences/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="1" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RValueReferences/1.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-          <folding>
-            <element signature="e#80#99#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -539,24 +636,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/move.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="88" column="5" lean-forward="true" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RValueReferences/10_README.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="501">
           <caret line="34" column="33" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RValueReferences/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -601,7 +684,7 @@
     <entry file="file://$PROJECT_DIR$/RValueReferences/12_README.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="482">
-          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>
     </entry>
@@ -612,10 +695,219 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chrono/2_chrono.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chrono/3_chrono.cpp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chrono/4_chrono.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chrono/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chrono/5_chrono.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chrono/1_Must_Read.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/1.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
+          <folding>
+            <element signature="e#80#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="17" column="23" selection-start-line="17" selection-start-column="23" selection-end-line="17" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/basic_string.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="509" selection-start-line="509" selection-end-line="509" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/alloc_traits.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="474" selection-start-line="474" selection-end-line="474" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/ext/new_allocator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="135" selection-start-line="135" selection-end-line="135" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/new">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="168" selection-start-line="168" selection-end-line="168" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/ext/aligned_buffer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/stl_tree.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="574" selection-start-line="574" selection-end-line="574" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/move.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/stl_multiset.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="447" selection-start-line="447" selection-end-line="447" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/17.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#84#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RValueReferences/14_README.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="483">
+          <caret line="45" column="126" selection-start-line="45" selection-start-column="126" selection-end-line="45" selection-end-column="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/15.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="690">
+          <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#448#557#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/16_README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="49" column="43" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/17_README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/18.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#202#214#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/22_README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="593">
+          <caret line="47" column="45" selection-start-line="46" selection-end-line="47" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/19.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="36" column="3" selection-start-line="36" selection-start-column="3" selection-end-line="36" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#290#302#0" expanded="true" />
+            <element signature="e#632#644#0" expanded="true" />
+            <element signature="e#602#614#0" expanded="true" />
+            <element signature="e#755#767#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/20.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="28" selection-end-line="39" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#173#185#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RValueReferences/21.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="131">
+          <caret line="17" column="53" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -15,3 +15,4 @@ find_package(PythonLibs)
 find_package(Boost 1.67 EXACT REQUIRED COMPONENTS system)
 
 add_subdirectory(RValueReferences)
+add_subdirectory(chrono)
