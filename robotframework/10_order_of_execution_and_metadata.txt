@@ -1,0 +1,7 @@
+You can control the order of execution of test suites by prefixing then with a number and two underscores. Example,
+files 01__some_tests.robot and 02__more_tests.robot will create two test suites "Some tests" and "More tests" and the former will be executed before.
+
+Free Metadata: The settings table can have a "Metadata" entry which can be any name,value pair.
+
+| *Settings* | *Value* |
+| Metadata | Version | 2.0 |
