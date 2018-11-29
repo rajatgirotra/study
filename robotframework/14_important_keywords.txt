@@ -1,0 +1,8 @@
+Set Test Variable  --> Will set a variable only in the scope of the currently executing test case. If one keyword sets a test variable, it will be available in all subsequent keywords of the same test case.
+
+Set Suite Variable --> Will set a variable only in the scope of the current suite. Other suites (including any child suites) will not see this variable. Similar to setting a variable in the current test data file in the variables table or importing a Variable file in the current test data file.
+
+Set Global Variable --> Will set a variable which will be available everywhere. Similar to setting a variable using the -v name:value command line option. These three keywords do not return anything
+
+Return From Keyword ${arg} --> dynamically return from keyword. All next instructions in the keyword will be skipped
+Return From Keyword If ${condition} ${arg} --> dynamically return from keyword. All next instructions in the keyword will be skipped

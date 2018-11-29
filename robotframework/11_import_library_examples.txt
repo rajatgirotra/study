@@ -1,0 +1,40 @@
+Libraries can be imported using:
+1) the "Library" setting in the settings table
+2) "Import Library" keyword. 
+Let's see a few examples
+
+| *Settings* | *Value* |
+| Library | BuiltIn |  # importing an inbuilt library
+| Library | my.package.MyTestLibrary | # giving the full modulep path while importing
+| Library | my.package.MyTestLibrary | arg1 | arg2 | # used when you want to pass arguments during importing
+| Library | ${SOME_LIBRARY_VARIABLE} | # variables are also supported
+
+
+| *Test Cases* | *Action* | *Argument* | *Argument* |
+| Sample Test |
+|             | Import Library | SomeLibrary | arg1 | arg2
+|             | KWFromSomeLibrary |
+
+Libraries are searched in the python module search path.
+You can also specify absolute or relative paths to the libraries to import in which case module search path need not be configured. Relative paths are always relative to the directory containing the test case file importing the library.
+
+Aliases
+=======
+You can also specify aliases when importing libraries. Examples:
+
+*** Settings ***
+Library    com.company.TestLib    WITH NAME    TestLib  # TestLib is easy to use name instead of com.company.TestLib
+Library    ${LIBRARY}             WITH NAME    MyName
+
+Possible arguments to the library are placed into cells between the original library name and the WITH NAME text. The following example illustrates how the same library can be imported several times with different arguments:
+
+*** Settings ***
+Library    SomeLibrary    localhost        1234    WITH NAME    LocalLib  # importing the same library twice with diff args
+Library    SomeLibrary    server.domain    8080    WITH NAME    RemoteLib
+
+*** Test Cases ***
+My Test
+    LocalLib.Some Keyword     some arg       second arg
+    RemoteLib.Some Keyword    another arg    whatever
+    LocalLib.Another Keyword
+

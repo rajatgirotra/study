@@ -1,0 +1,24 @@
+*** Test Cases ***
+Assign Multiple
+    ${a}    ${b}    ${c} =    Get Three
+    ${first}    @{rest} =    Get Three
+    @{before}    ${last} =    Get Three
+    ${begin}    @{middle}    ${end} =    Get Three
+Assuming that the keyword Get Three returns a list [1, 2, 3], the following variables are created:
+
+${a}, ${b} and ${c} with values 1, 2, and 3, respectively.
+${first} with value 1, and @{rest} with value [2, 3].
+@{before} with value [1, 2] and ${last} with value 3.
+${begin} with value 1, @{middle} with value [2] and ${end} with value 3.
+
+
+Keywords can return a scalar value, a list, a dictionary or any other python object. Example:
+
+*** Test Cases ***
+Example
+    &{dict} =    Create Dictionary    first=1    second=${2}    ${3}=third
+    Length Should Be    ${dict}    3
+    Do Something    &{dict}
+    Log    ${dict.first}
+
+Create dictionary returns a dictionary here.

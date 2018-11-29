@@ -1,0 +1,1 @@
+python -m robot.tidy -f txt -p keyword_example.robot  # to tidy up files

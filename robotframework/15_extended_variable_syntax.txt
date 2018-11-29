@@ -1,0 +1,52 @@
+Some Variable File: myvariables.py
+
+class MyObject:
+
+    def __init__(self, name):
+        self.name = name
+
+    def eat(self, what):
+        return '%s eats %s' % (self.name, what)
+
+    def __str__(self):
+        return self.name
+
+OBJECT = MyObject('Robot')
+DICTIONARY = {1: 'one', 2: 'two', 3: 'three'}
+
+
+*** Settings ***
+Variables  myvariables.py
+
+*** Test Cases ***
+Example
+    KW 1    ${OBJECT.name}
+    KW 2    ${OBJECT.eat('Cucumber')}
+    KW 3    ${DICTIONARY[2]}
+
+
+When this test data is executed, the keywords get the arguments as explained below:
+
+KW 1 gets string Robot
+KW 2 gets string Robot eats Cucumber
+KW 3 gets string two
+------------------------------------------------------------------------------------------------------------------------
+In the example below, Do X gets the value ${JOHN HOME} or ${JANE HOME}, depending on if Get Name returns john or jane. If it returns something else, resolving ${${name} HOME} fails.
+
+*** Variables ***
+${JOHN HOME}    /home/john
+${JANE HOME}    /home/jane
+
+*** Test Cases ***
+Example
+    ${name} =    Get Name
+    Do X    ${${name} HOME}
+--------------------------------------------------------------------------------------------------------------------------
+Extended variable assignment
+Starting from Robot Framework 2.7, it is possible to set attributes of objects stored to scalar variables using keyword return values and a variation of the extended variable syntax. Assuming we have variable ${OBJECT} from the previous examples, attributes could be set to it like in the example below.
+
+*** Test Cases ***
+Example
+    ${OBJECT.name} =    Set Variable    New name
+    ${OBJECT.new_attr} =    Set Variable    New attribute
+--------------------------------------------------------------------------------------------------------------------------

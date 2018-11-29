@@ -1,0 +1,48 @@
+${CURDIR}	An absolute path to the directory where the test data file is located. This variable is case-sensitive.
+
+${TEMPDIR}	An absolute path to the system temporary directory. In UNIX-like systems this is typically /tmp, and in Windows c:\Documents and Settings\<user>\Local Settings\Temp.
+
+${EXECDIR}	An absolute path to the directory where test execution was started from.
+
+${/}	The system directory path separator. / in UNIX-like systems and \ in Windows.
+
+${:}	The system path element separator. : in UNIX-like systems and ; in Windows.
+
+${\n}	The system line separator. \n in UNIX-like systems and \r\n in Windows. New in version 2.7.5.
+
+${False}, ${false}, ${True}, ${true} --> represents a boolean True/False
+${None}, ${null} --> represents a Python None or null
+
+${SPACE} --> represents a space (a single backslash can also be used instead)
+${EMPTY} --> represents an empty cell.
+
+${SPACE * 3} --> means three spaces.
+
+Escaping spaces examples:
+Escaping with backslash		Escaping with ${SPACE}		Notes
+-----------------------------------------------------------------------
+\ leading space			${SPACE}leading space
+trailing space \		trailing space${SPACE}		Backslash must be after the space.
+\ \				${SPACE}			Backslash needed on both sides.
+consecutive \ \ spaces		consecutive${SPACE * 3}spaces	Using extended variable syntax.
+
+${TEST NAME} Current test case name. Available in Test Setup, Teardown, and Keywords also
+@{TEST TAGS} List of tags for the current test case. Can be modified using the "Set Tags" and "Remove Tags" option.
+${TEST DOCUMENTATION} - Trivial
+${TEST STATUS} - Pass or Fail, only available during Test Teardown
+${SUITE NAME}
+${SUITE SOURCE} --> Absolute path to the suite file or directory
+${SUITE DOCUMENTATION}
+&{SUITE METADATA}
+${SUITE STATUS}
+${SUITE MESSAGE} --> The full message of the current test suite, including statistics, available only during "Suite Teardown"
+${KEYWORD STATUS} --> PAss or Fail
+${KEYWORD MESSAGE} --> 
+${LOG LEVEL}
+${REPORT FILE}
+${LOG FILE}
+${OUTPUT FILE}
+${DEBUG FILE}
+${OUTPUT DIR}
+
+

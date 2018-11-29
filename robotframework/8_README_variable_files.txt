@@ -59,6 +59,11 @@ You can also create Python classes and all attributes defined in those classes a
 
 Let's see all these things in action.
 
+Environment variables can be accessed directly using the syntax: %{ENV_VAR}
+
+Boolean and None/Null values can be represented using
+${true}, ${false} , ${None}, ${null} 
+
 NOTE NOTE NOTE
 ==============
 One python variable file can only use one of the three approaches. Either

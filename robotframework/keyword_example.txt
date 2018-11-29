@@ -1,0 +1,91 @@
+| *** Settings *** | Value |
+| Suite Setup    | Do Suite Setup |
+| Suite Teardown | Do Suite Teardown |
+| Library        | BuiltIn |
+
+| *** Test Cases *** |
+| Does String start with hello |
+|    | [Template] | should start with hello |
+|    | hElloWorld |
+|    | Goodbye |
+
+| TC2 |
+|    | Keyword with tags and documentation |
+
+| TC3 |
+|    | Keyword with tags in documentation as suffix |
+
+| TC4 |
+|    | Two Arguments With Defaults | arg2=some_value |
+
+| TC5 |
+|    | Required, Default, Varargs | arg1 | arg2 | arg3 | arg4 | arg5 |
+
+| One Return Value |
+|    | ${ret} = | Return One Value | argument |
+|    | Log | ${ret} |
+
+| Multiple Values |
+|    | ${a} | ${b} | ${c} = | Return Three Values |
+|    | @{list} = | Return Three Values |
+|    | ${scalar} | @{rest} = | Return Three Values |
+
+| *** Keywords *** |
+| Do Suite Setup |
+|    | Log | setting up suite ${SUITE NAME} |
+
+| Do Suite Teardown |
+|    | Log | teardown suite ${SUITE NAME} |
+
+| Should Start With Hello |
+|    | [Arguments] | ${arg} |
+|    | Should start with | ${arg} | Hello | ignore_case=${true} |
+
+| Keyword with tags and documentation |
+|    | [Documentation] | Some random documentation |
+|    | ... | for keyword |
+|    | [Tags] | one | two | three |
+|    | No Operation |
+
+| Keyword with tags in documentation as suffix |
+|    | [Documentation] | Some random documentation |
+|    | ... | for keyword Tags: my, tags |
+|    | No Operation |
+
+| Two Arguments With Defaults |
+|    | [Arguments] | ${arg1}=default 1 | ${arg2}=${VARIABLE} |
+|    | [Documentation] | This keyword takes 0-2 arguments |
+|    | Log | 1st argument ${arg1} |
+|    | Log | 2nd argument ${arg2} |
+
+| Required, Default, Varargs |
+|    | [Arguments] | ${req} | ${opt}=42 | @{others} |
+|    | Log | Required: ${req} |
+|    | Log | Optional: ${opt} |
+|    | Log | Others: |
+|    | : FOR | ${item} | IN | @{others} |
+|    |    | Log | ${item} |
+
+| Return One Value |
+|    | [Arguments] | ${arg} |
+|    | Log | ${arg} |
+|    | ${value} = | Catenate | Hello | ${arg} |
+|    | [Return] | ${value} |
+
+| Return Three Values |
+|    | [Return] | foo | bar | zap |
+
+| Return One Value Using Return From Keyword |
+|    | [Arguments] | ${arg} |
+|    | Log | ${arg} |
+|    | ${value} = | Catenate | Hello | ${arg} |
+|    | Return From Keyword | ${value} |
+|    | Fail | This is not executed |
+
+| Find Index |
+|    | [Arguments] | ${element} | @{items} |
+|    | ${index} = | Set Variable | ${0} |
+|    | : FOR | ${item} | IN | @{items} |
+|    |    | Return From Keyword If | '${item}' == '${element}' | ${index} |
+|    |    | ${index} = | Set Variable | ${index + 1} |
+|    | Return From Keyword | ${-1} | # Could also use [Return] |

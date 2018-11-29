@@ -6,6 +6,9 @@
 | *Variables*    | *Value*     | *Value* |
 | ${SCALAR}      | Hello World |
 | ${INTEGER}     | ${42}       |
+| ${SCALAR_WITH_LONG_VALUE} | This value is joined | together with a space |
+| ${MULTILINE_SCALAR} | SEPARATOR=${\n} | First Line | Second Line |
+| ...                 | Third Line      |
 | @{STRING_LIST} | one         | two | three |
 | @{NUMBERS}     | 1           | 2   | 3     |
 | &{MAPPINGS}    | cat=meow    | dog=bark    |
@@ -13,6 +16,8 @@
 | *Test Cases* | *Action* | *Argument* | *Argument* |
 | Sample Test  | Log | \${SCALAR}=${SCALAR} | level=WARN
 |              | Log | \${INTEGER}=${INTEGER} |
+|              | Log | \${SCALAR_WITH_LONG_VALUE}=${SCALAR_WITH_LONG_VALUE} |
+|              | Log | \${MULTILINE_SCALAR}=${MULTILINE_SCALAR} |
 |              | Log | \${STRING_LIST}=${STRING_LIST} |
 |              | Log | \@{STRING_LIST}=@{STRING_LIST} |
 |              | Log | \${NUMBERS}=${NUMBERS} |

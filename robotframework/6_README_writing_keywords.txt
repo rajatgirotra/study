@@ -42,3 +42,8 @@ To solve the problem of wrapping keywords which take named arguments, we can use
 | *Test Cases* | *Action*    | *Arguments* |
 | Using Kwargs | Run Program | arg1        | arg2       | cwd=/some/path |
 |              | Run Program | argument    | shell=True | env=${ENVIRON} |
+
+All keyword settings with explanation
+=====================================
+
+See keyword_example.robot next

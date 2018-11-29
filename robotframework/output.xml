@@ -1,271 +1,272 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.0.4 (Python 3.7.0 on linux)" generated="20181128 14:37:35.650">
-<suite id="s1" name="Template Test" source="/home/rajatgirotra/study/robotframework/template_test.robot">
-<test id="s1-t1" name="Templated Test Case">
-<kw name="Start Test" type="setup">
+<robot generator="Robot 3.0.4 (Python 3.7.0 on linux)" generated="20181129 19:35:54.191">
+<suite id="s1" name="Keyword Example" source="/home/rajatgirotra/study/robotframework/keyword_example.txt">
+<kw name="Do Suite Setup" type="setup">
 <kw name="Log" library="BuiltIn">
 <doc>Logs the given message with the given level.</doc>
 <arguments>
-<arg>Starting test ${TEST_NAME}</arg>
+<arg>setting up suite ${SUITE NAME}</arg>
 </arguments>
-<msg timestamp="20181128 14:37:35.669" level="INFO">Starting test Templated Test Case</msg>
-<status status="PASS" starttime="20181128 14:37:35.669" endtime="20181128 14:37:35.669"></status>
+<msg timestamp="20181129 19:35:54.210" level="INFO">setting up suite Keyword Example</msg>
+<status status="PASS" starttime="20181129 19:35:54.210" endtime="20181129 19:35:54.210"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.669" endtime="20181128 14:37:35.669"></status>
+<status status="PASS" starttime="20181129 19:35:54.210" endtime="20181129 19:35:54.210"></status>
 </kw>
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
+<test id="s1-t1" name="Does String start with hello">
+<kw name="Should Start With Hello">
 <arguments>
-<arg>HelloWorld</arg>
-<arg>level=WARN</arg>
+<arg>hElloWorld</arg>
 </arguments>
-<msg timestamp="20181128 14:37:35.669" level="WARN">HelloWorld</msg>
-<status status="PASS" starttime="20181128 14:37:35.669" endtime="20181128 14:37:35.670"></status>
-</kw>
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
+<kw name="Should Start With" library="BuiltIn">
+<doc>Fails if the string ``str1`` does not start with the string ``str2``.</doc>
 <arguments>
-<arg>CruelWorld</arg>
-<arg>level=INFO</arg>
+<arg>${arg}</arg>
+<arg>Hello</arg>
+<arg>ignore_case=${true}</arg>
 </arguments>
-<msg timestamp="20181128 14:37:35.670" level="INFO">CruelWorld</msg>
-<status status="PASS" starttime="20181128 14:37:35.670" endtime="20181128 14:37:35.670"></status>
+<status status="PASS" starttime="20181129 19:35:54.211" endtime="20181129 19:35:54.211"></status>
 </kw>
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
+<status status="PASS" starttime="20181129 19:35:54.211" endtime="20181129 19:35:54.211"></status>
+</kw>
+<kw name="Should Start With Hello">
 <arguments>
 <arg>Goodbye</arg>
-<arg>level=DEBUG</arg>
 </arguments>
-<status status="PASS" starttime="20181128 14:37:35.670" endtime="20181128 14:37:35.670"></status>
-</kw>
-<kw name="Stop Test" type="teardown">
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
+<kw name="Should Start With" library="BuiltIn">
+<doc>Fails if the string ``str1`` does not start with the string ``str2``.</doc>
 <arguments>
-<arg>Stopping test ${TEST_NAME}</arg>
+<arg>${arg}</arg>
+<arg>Hello</arg>
+<arg>ignore_case=${true}</arg>
 </arguments>
-<msg timestamp="20181128 14:37:35.671" level="INFO">Stopping test Templated Test Case</msg>
-<status status="PASS" starttime="20181128 14:37:35.670" endtime="20181128 14:37:35.671"></status>
+<msg timestamp="20181129 19:35:54.212" level="FAIL">'goodbye' does not start with 'hello'</msg>
+<status status="FAIL" starttime="20181129 19:35:54.212" endtime="20181129 19:35:54.212"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.670" endtime="20181128 14:37:35.671"></status>
+<status status="FAIL" starttime="20181129 19:35:54.212" endtime="20181129 19:35:54.212"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.668" endtime="20181128 14:37:35.671" critical="yes"></status>
+<status status="FAIL" starttime="20181129 19:35:54.211" endtime="20181129 19:35:54.213" critical="yes">'goodbye' does not start with 'hello'</status>
 </test>
-<test id="s1-t2" name="Different arguments">
-<kw name="Start Test" type="setup">
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Starting test ${TEST_NAME}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.672" level="INFO">Starting test Different arguments</msg>
-<status status="PASS" starttime="20181128 14:37:35.671" endtime="20181128 14:37:35.672"></status>
+<test id="s1-t2" name="TC2">
+<kw name="Keyword with tags and documentation">
+<tags>
+<tag>one</tag>
+<tag>three</tag>
+<tag>two</tag>
+</tags>
+<doc>Some random documentation</doc>
+<kw name="No Operation" library="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" starttime="20181129 19:35:54.213" endtime="20181129 19:35:54.213"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.671" endtime="20181128 14:37:35.672"></status>
+<status status="PASS" starttime="20181129 19:35:54.213" endtime="20181129 19:35:54.214"></status>
 </kw>
-<kw name="The result of 1 + 1 should be 2">
-<kw name="Evaluate" library="BuiltIn">
-<doc>Evaluates the given expression in Python and returns the results.</doc>
-<arguments>
-<arg>${calculation}</arg>
-</arguments>
-<assign>
-<var>${result}</var>
-</assign>
-<msg timestamp="20181128 14:37:35.672" level="INFO">${result} = 2</msg>
-<status status="PASS" starttime="20181128 14:37:35.672" endtime="20181128 14:37:35.672"></status>
-</kw>
-<kw name="Should Be Equal As Integers" library="BuiltIn">
-<doc>Fails if objects are unequal after converting them to integers.</doc>
-<arguments>
-<arg>${result}</arg>
-<arg>${expected}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.673" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" starttime="20181128 14:37:35.672" endtime="20181128 14:37:35.673"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.672" endtime="20181128 14:37:35.673"></status>
-</kw>
-<kw name="The result of 4 - 1 should be 3">
-<kw name="Evaluate" library="BuiltIn">
-<doc>Evaluates the given expression in Python and returns the results.</doc>
-<arguments>
-<arg>${calculation}</arg>
-</arguments>
-<assign>
-<var>${result}</var>
-</assign>
-<msg timestamp="20181128 14:37:35.673" level="INFO">${result} = 3</msg>
-<status status="PASS" starttime="20181128 14:37:35.673" endtime="20181128 14:37:35.673"></status>
-</kw>
-<kw name="Should Be Equal As Integers" library="BuiltIn">
-<doc>Fails if objects are unequal after converting them to integers.</doc>
-<arguments>
-<arg>${result}</arg>
-<arg>${expected}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.674" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" starttime="20181128 14:37:35.673" endtime="20181128 14:37:35.674"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.673" endtime="20181128 14:37:35.674"></status>
-</kw>
-<kw name="Stop Test" type="teardown">
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Stopping test ${TEST_NAME}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.674" level="INFO">Stopping test Different arguments</msg>
-<status status="PASS" starttime="20181128 14:37:35.674" endtime="20181128 14:37:35.674"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.674" endtime="20181128 14:37:35.674"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.671" endtime="20181128 14:37:35.674" critical="yes"></status>
+<status status="PASS" starttime="20181129 19:35:54.213" endtime="20181129 19:35:54.214" critical="yes"></status>
 </test>
-<test id="s1-t3" name="Only few arguments">
-<kw name="Start Test" type="setup">
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Starting test ${TEST_NAME}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.675" level="INFO">Starting test Only few arguments</msg>
-<status status="PASS" starttime="20181128 14:37:35.675" endtime="20181128 14:37:35.675"></status>
+<test id="s1-t3" name="TC3">
+<kw name="Keyword with tags in documentation as suffix">
+<doc>Some random documentation</doc>
+<kw name="No Operation" library="BuiltIn">
+<doc>Does absolutely nothing.</doc>
+<status status="PASS" starttime="20181129 19:35:54.214" endtime="20181129 19:35:54.215"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.675" endtime="20181128 14:37:35.675"></status>
+<status status="PASS" starttime="20181129 19:35:54.214" endtime="20181129 19:35:54.215"></status>
 </kw>
-<kw name="The result of 3 * 2 should be 6">
-<kw name="Evaluate" library="BuiltIn">
-<doc>Evaluates the given expression in Python and returns the results.</doc>
-<arguments>
-<arg>${calculation}</arg>
-</arguments>
-<assign>
-<var>${result}</var>
-</assign>
-<msg timestamp="20181128 14:37:35.676" level="INFO">${result} = 6</msg>
-<status status="PASS" starttime="20181128 14:37:35.676" endtime="20181128 14:37:35.676"></status>
-</kw>
-<kw name="Should Be Equal As Integers" library="BuiltIn">
-<doc>Fails if objects are unequal after converting them to integers.</doc>
-<arguments>
-<arg>${result}</arg>
-<arg>${expected}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.676" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" starttime="20181128 14:37:35.676" endtime="20181128 14:37:35.676"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.675" endtime="20181128 14:37:35.676"></status>
-</kw>
-<kw name="The result of 5 + 1 should be 6">
-<kw name="Evaluate" library="BuiltIn">
-<doc>Evaluates the given expression in Python and returns the results.</doc>
-<arguments>
-<arg>${calculation}</arg>
-</arguments>
-<assign>
-<var>${result}</var>
-</assign>
-<msg timestamp="20181128 14:37:35.677" level="INFO">${result} = 6</msg>
-<status status="PASS" starttime="20181128 14:37:35.676" endtime="20181128 14:37:35.677"></status>
-</kw>
-<kw name="Should Be Equal As Integers" library="BuiltIn">
-<doc>Fails if objects are unequal after converting them to integers.</doc>
-<arguments>
-<arg>${result}</arg>
-<arg>${expected}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.677" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" starttime="20181128 14:37:35.677" endtime="20181128 14:37:35.677"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.676" endtime="20181128 14:37:35.677"></status>
-</kw>
-<kw name="Stop Test" type="teardown">
-<kw name="Log" library="BuiltIn">
-<doc>Logs the given message with the given level.</doc>
-<arguments>
-<arg>Stopping test ${TEST_NAME}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.678" level="INFO">Stopping test Only few arguments</msg>
-<status status="PASS" starttime="20181128 14:37:35.677" endtime="20181128 14:37:35.678"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.677" endtime="20181128 14:37:35.678"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.675" endtime="20181128 14:37:35.678" critical="yes"></status>
+<status status="PASS" starttime="20181129 19:35:54.214" endtime="20181129 19:35:54.215" critical="yes"></status>
 </test>
-<test id="s1-t4" name="New arguments">
-<kw name="Start Test" type="setup">
+<test id="s1-t4" name="TC4">
+<kw name="Two Arguments With Defaults">
+<doc>This keyword takes 0-2 arguments</doc>
+<arguments>
+<arg>arg2=some_value</arg>
+</arguments>
 <kw name="Log" library="BuiltIn">
 <doc>Logs the given message with the given level.</doc>
 <arguments>
-<arg>Starting test ${TEST_NAME}</arg>
+<arg>1st argument ${arg1}</arg>
 </arguments>
-<msg timestamp="20181128 14:37:35.679" level="INFO">Starting test New arguments</msg>
-<status status="PASS" starttime="20181128 14:37:35.679" endtime="20181128 14:37:35.679"></status>
+<msg timestamp="20181129 19:35:54.216" level="INFO">1st argument default 1</msg>
+<status status="PASS" starttime="20181129 19:35:54.215" endtime="20181129 19:35:54.216"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.679" endtime="20181128 14:37:35.679"></status>
-</kw>
-<kw name="The result of 21 * 2 should be 42">
-<kw name="Evaluate" library="BuiltIn">
-<doc>Evaluates the given expression in Python and returns the results.</doc>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
 <arguments>
-<arg>${calculation}</arg>
+<arg>2nd argument ${arg2}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.216" level="INFO">2nd argument some_value</msg>
+<status status="PASS" starttime="20181129 19:35:54.216" endtime="20181129 19:35:54.216"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.215" endtime="20181129 19:35:54.216"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.215" endtime="20181129 19:35:54.216" critical="yes"></status>
+</test>
+<test id="s1-t5" name="TC5">
+<kw name="Required, Default, Varargs">
+<arguments>
+<arg>arg1</arg>
+<arg>arg2</arg>
+<arg>arg3</arg>
+<arg>arg4</arg>
+<arg>arg5</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Required: ${req}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.217" level="INFO">Required: arg1</msg>
+<status status="PASS" starttime="20181129 19:35:54.217" endtime="20181129 19:35:54.217"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Optional: ${opt}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.218" level="INFO">Optional: arg2</msg>
+<status status="PASS" starttime="20181129 19:35:54.217" endtime="20181129 19:35:54.218"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Others:</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.218" level="INFO">Others:</msg>
+<status status="PASS" starttime="20181129 19:35:54.218" endtime="20181129 19:35:54.218"></status>
+</kw>
+<kw name="${item} IN [ @{others} ]" type="for">
+<kw name="${item} = arg3" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${item}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.218" level="INFO">arg3</msg>
+<status status="PASS" starttime="20181129 19:35:54.218" endtime="20181129 19:35:54.218"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.218" endtime="20181129 19:35:54.218"></status>
+</kw>
+<kw name="${item} = arg4" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${item}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.219" level="INFO">arg4</msg>
+<status status="PASS" starttime="20181129 19:35:54.219" endtime="20181129 19:35:54.219"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.218" endtime="20181129 19:35:54.219"></status>
+</kw>
+<kw name="${item} = arg5" type="foritem">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${item}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.219" level="INFO">arg5</msg>
+<status status="PASS" starttime="20181129 19:35:54.219" endtime="20181129 19:35:54.219"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.219" endtime="20181129 19:35:54.219"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.218" endtime="20181129 19:35:54.219"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.217" endtime="20181129 19:35:54.219"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.216" endtime="20181129 19:35:54.219" critical="yes"></status>
+</test>
+<test id="s1-t6" name="One Return Value">
+<kw name="Return One Value">
+<arguments>
+<arg>argument</arg>
 </arguments>
 <assign>
-<var>${result}</var>
+<var>${ret}</var>
 </assign>
-<msg timestamp="20181128 14:37:35.680" level="INFO">${result} = 42</msg>
-<status status="PASS" starttime="20181128 14:37:35.680" endtime="20181128 14:37:35.680"></status>
-</kw>
-<kw name="Should Be Equal As Integers" library="BuiltIn">
-<doc>Fails if objects are unequal after converting them to integers.</doc>
-<arguments>
-<arg>${result}</arg>
-<arg>${expected}</arg>
-</arguments>
-<msg timestamp="20181128 14:37:35.681" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;type 'unicode'&gt;</msg>
-<status status="PASS" starttime="20181128 14:37:35.681" endtime="20181128 14:37:35.681"></status>
-</kw>
-<status status="PASS" starttime="20181128 14:37:35.680" endtime="20181128 14:37:35.681"></status>
-</kw>
-<kw name="Stop Test" type="teardown">
 <kw name="Log" library="BuiltIn">
 <doc>Logs the given message with the given level.</doc>
 <arguments>
-<arg>Stopping test ${TEST_NAME}</arg>
+<arg>${arg}</arg>
 </arguments>
-<msg timestamp="20181128 14:37:35.681" level="INFO">Stopping test New arguments</msg>
-<status status="PASS" starttime="20181128 14:37:35.681" endtime="20181128 14:37:35.682"></status>
+<msg timestamp="20181129 19:35:54.221" level="INFO">argument</msg>
+<status status="PASS" starttime="20181129 19:35:54.220" endtime="20181129 19:35:54.221"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.681" endtime="20181128 14:37:35.682"></status>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>Hello</arg>
+<arg>${arg}</arg>
+</arguments>
+<assign>
+<var>${value}</var>
+</assign>
+<msg timestamp="20181129 19:35:54.221" level="INFO">${value} = Hello argument</msg>
+<status status="PASS" starttime="20181129 19:35:54.221" endtime="20181129 19:35:54.221"></status>
 </kw>
-<status status="PASS" starttime="20181128 14:37:35.678" endtime="20181128 14:37:35.682" critical="yes"></status>
+<msg timestamp="20181129 19:35:54.221" level="INFO">${ret} = Hello argument</msg>
+<status status="PASS" starttime="20181129 19:35:54.220" endtime="20181129 19:35:54.222"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ret}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.222" level="INFO">Hello argument</msg>
+<status status="PASS" starttime="20181129 19:35:54.222" endtime="20181129 19:35:54.222"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.220" endtime="20181129 19:35:54.222" critical="yes"></status>
 </test>
-<status status="PASS" starttime="20181128 14:37:35.651" endtime="20181128 14:37:35.682"></status>
+<test id="s1-t7" name="Multiple Values">
+<kw name="Return Three Values">
+<assign>
+<var>${a}</var>
+<var>${b}</var>
+<var>${c}</var>
+</assign>
+<msg timestamp="20181129 19:35:54.223" level="INFO">${a} = foo</msg>
+<msg timestamp="20181129 19:35:54.223" level="INFO">${b} = bar</msg>
+<msg timestamp="20181129 19:35:54.223" level="INFO">${c} = zap</msg>
+<status status="PASS" starttime="20181129 19:35:54.223" endtime="20181129 19:35:54.223"></status>
+</kw>
+<kw name="Return Three Values">
+<assign>
+<var>@{list}</var>
+</assign>
+<msg timestamp="20181129 19:35:54.224" level="INFO">@{list} = [ foo | bar | zap ]</msg>
+<status status="PASS" starttime="20181129 19:35:54.224" endtime="20181129 19:35:54.224"></status>
+</kw>
+<kw name="Return Three Values">
+<assign>
+<var>${scalar}</var>
+<var>@{rest}</var>
+</assign>
+<msg timestamp="20181129 19:35:54.224" level="INFO">${scalar} = foo</msg>
+<msg timestamp="20181129 19:35:54.224" level="INFO">@{rest} = [ bar | zap ]</msg>
+<status status="PASS" starttime="20181129 19:35:54.224" endtime="20181129 19:35:54.224"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.223" endtime="20181129 19:35:54.224" critical="yes"></status>
+</test>
+<kw name="Do Suite Teardown" type="teardown">
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>teardown suite ${SUITE NAME}</arg>
+</arguments>
+<msg timestamp="20181129 19:35:54.225" level="INFO">teardown suite Keyword Example</msg>
+<status status="PASS" starttime="20181129 19:35:54.225" endtime="20181129 19:35:54.225"></status>
+</kw>
+<status status="PASS" starttime="20181129 19:35:54.225" endtime="20181129 19:35:54.225"></status>
+</kw>
+<status status="FAIL" starttime="20181129 19:35:54.191" endtime="20181129 19:35:54.225"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="4" fail="0">Critical Tests</stat>
-<stat pass="4" fail="0">All Tests</stat>
+<stat pass="6" fail="1">Critical Tests</stat>
+<stat pass="6" fail="1">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="4" fail="0" id="s1" name="Template Test">Template Test</stat>
+<stat pass="6" fail="1" id="s1" name="Keyword Example">Keyword Example</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20181128 14:37:35.669" level="WARN">HelloWorld</msg>
 </errors>
 </robot>
