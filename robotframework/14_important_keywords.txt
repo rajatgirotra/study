@@ -6,3 +6,9 @@ Set Global Variable --> Will set a variable which will be available everywhere. 
 
 Return From Keyword ${arg} --> dynamically return from keyword. All next instructions in the keyword will be skipped
 Return From Keyword If ${condition} ${arg} --> dynamically return from keyword. All next instructions in the keyword will be skipped
+
+Set Library Search Order @LibraryOrResourceList --> robot will search the keywords in the libraries defined in this list instead of using the default priority location.
+The search order is valid only in the suite where this keywords is used; so this keyword can be used at Suite Level.
+Keywords in resources always have higher priority than keywords in libraries regardless the search order.
+The old order is returned and can be used to reset the search order later.
+Library and resource names in the search order are both case and space insensitive.

@@ -1,0 +1,37 @@
+| *** Settings *** | Value |
+| Library        | BuiltIn |
+
+| *** Test Cases *** |
+| Example 1 |
+|    | : FOR | ${animal} | IN | cat | dog |
+|    |    | Log | ${animal} |
+
+| Example 2 |
+|    | : FOR | ${animal} | IN | cat | dog | elephant | tiger |
+|    | ... | lion |
+|    |    | Log | ${animal} |
+
+| Example 3 |
+|    | Set Test Variable | @{animals} | cat | dog | sheep | pig |
+|    | : FOR | ${animal} | IN | @{animals} |
+|    |    | Log | Animal name is: ${animal} |
+|    | Log | End of for loop |
+
+| Example 4 |
+|    | : FOR | ${index} | IN RANGE | 10 |
+|    |    | Log | ${index} |
+
+| Example 5 |
+|    | : FOR | ${index} | IN RANGE | 10 | 20 | 2 |
+|    |    | Log | ${index} |
+
+| Example 6 |
+|    | Set Test Variable | @{list} | a | b | c |
+|    | : FOR | ${index} | ${item} | IN ENUMERATE | @{list} |
+|    |    | Log | ${index} - ${item} |
+|    | # For loops with multiple iterations often create lots of output and considerably increase the size of the generated output and log files. it is possible to remove unnecessary keywords from the outputs using --RemoveKeywords FOR command line option. |
+|    | # Repeating single keyword |
+|    | #For loops can be excessive in situations where there is only a need to repeat a single keyword. In these cases it is often easier to use BuiltIn keyword Repeat Keyword. This keyword takes a keyword and how many times to repeat it as arguments. The times to repeat the keyword can have an optional postfix times or x to make the syntax easier to read. |
+
+| Example 7 |
+|    | Repeat Keyword | 5 times | Log Many | arg1 | arg2 |

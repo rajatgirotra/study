@@ -1,0 +1,71 @@
+You can create your own lowest level keywords in libraries. There are three ways you can do it.
+1) Static API
+2) Dynamic API
+3) Hybrid API
+
+Static API: Very simple, create a python module or python class in which methods map directly to the keyword names. They return values by using the return statement in python, the methods can throw exceptions to report failures and can log by using the print statement.
+1) If you have a python module (MyLibrary.py), you can import it using 
+*** Settings ***
+Library    MyLibrary
+
+2) If MyLibrary.py has a class with the same name as the module name (ie class MyLibrary) you can import it the same way as in 1)
+
+3) If MyLibrary.py has a class with a different name from the module name (lets say MyLib) you can import it like this:
+*** Settings ***
+Library    MyLibrary.MyLib
+
+Arguments
+=========
+When you import a library, you can optionally pass arguments to it. RF will create an instance of your class object and pass arguments to its constructor. This only applies to libraries implemented using python classes, not modules, so it is better to create libraries as classes.
+
+The problem with implementing library as class
+==============================================
+When RF creates an instance of your class, then that class object may or may not have a state. Ideally you would want all test cases to be independent of each other and not share state. So in RF you can define a class attribute ROBOT_LIBRARY_SCOPE = 'TEST CASE or TEST SUITE or GLOBAL'
+1) if TEST CASE, a new library object is created for every test case
+2) if TEST SUITE, a new library objet is created for all test cases in the same test suite
+3) if GLOBAL, only one object exists for all test cases.
+
+When the TEST SUITE or GLOBAL scopes are used with test libraries that have a state, it is recommended that libraries have some special keyword for cleaning up the state. This keyword can then be used, for example, in a suite setup or teardown to ensure that test cases in the next test suites can start from a known state. For example, SeleniumLibrary uses the GLOBAL scope to enable using the same browser in different test cases without having to reopen it, and it also has the Close All Browsers keyword for easily closing all opened browsers.
+
+Library Version
+===============
+Just like ROBOT_LIBRARY_SCOPE provides library scope, ROBOT_LIBRARY_VERSION provides the library version. This must be a class or module attribute. if ROBOT_LIBRARY_VERSION is not defined, RF will search for a "__version__" attribute.
+
+Documentation
+=============
+Similarly you can write documentation for your library in different formats
+1) ROBOT (RF's own default formatting)
+2) HTML
+3) TEXT
+4) reST
+using the ROBOT_LIBRARY_DOC_FORMAT=ROBOT attribute at class or module level.
+
+How keywords are available
+==========================
+By default, all methods at class or module scope that do not begin with underscore become Keywords inluding any methods in possible base classes or any methods imported using the import keyword in python. Example:
+
+from threading import current_thread
+
+def example_keyword():
+    pass
+
+def second_example():
+    pass
+
+will have three keywords, "Current Thread", "Example Keyword" and "Second Example". You can always control what methods you want to make keywords by using the __all__ attribute.
+Or just say "import threading" and use threading.current_thread(), in which case "Current Thread" does not become a keyword.
+
+If you want to have a different keyword name than the python method, use the RF API decorator, example:
+
+from robot.api.deco import keyword
+
+@keyword('Login Via user Panel', tags=['tag1', 'tag2'])
+def login(username, password):
+    pass:
+
+Keyword name is now "Login via user panel" and it maps to the login() function. You can also specify tags using this decorator.
+
+Keyword PASS and FAIL
+====================
+If your function throws any exception, the KEYWORD_STATUS will be Fail, otherwise PASS. Also if you have your own user defined exception classes: you can define class attributes
+ROBOT_EXIT_ON_FAILURE=True which will stop the whole test case, or ROBOT_CONTINUE_ON_FAILURE=True to continue the test case. Also the exception message is written in the log file, the report file and also on the console.

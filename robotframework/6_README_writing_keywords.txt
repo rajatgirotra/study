@@ -47,3 +47,13 @@ All keyword settings with explanation
 =====================================
 
 See keyword_example.robot next
+
+
+Keywords Priority Order
+======================
+If several keywords with the same name are found, the order of priority is:
+1) Keywords defined in the same test suite file have the highest priority.
+2) Followed by user keywords imported from resource files
+3) Followed by user keywords imported from external libraries
+4) Followed by user keywords in Standard libraries.
+You can anyway prefix the complete keyword name (Library.Keyword) to use a specific keyword or use the "Set Library Search Order" keyword from BuiltIn library to modify the priority order above.
