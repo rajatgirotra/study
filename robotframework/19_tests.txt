@@ -1,0 +1,5 @@
+| *Settings* | *Value* |
+| Library | MyLibKWs |
+
+| *Test Cases* | *Action* | *Arguments* |
+| LoginTest | try to login with username and password | rajatgirotra | random_password |
