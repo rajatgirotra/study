@@ -40,22 +40,7 @@ int main() {
 
     auto cloneP(p);
 
-}ferences_21 -- -j 2
-Scanning dependencies of target RValueReferences_21
-[ 50%] Building CXX object RValueReferences/CMakeFiles/RValueReferences_21.dir/21.cpp.o
-[100%] Linking CXX executable RValueReferences_21
-[100%] Built target RValueReferences_21
-
-        Build finished
-        ferences_21 -- -j 2
-Scanning dependencies of target RValueReferences_21
-[ 50%] Building CXX object RValueReferences/CMakeFiles/RValueReferences_21.dir/21.cpp.o
-[100%] Linking CXX executable RValueReferences_21
-[100%] Built target RValueReferences_21
-
-        Build finished
-
-
+}
 /* Clean solution. Infact this technique is used in std::vector. There are two constructors which accept two arguments
  * std::vector(size_type, T val);
  * std::vector(InputIterator first, InputIterator last)
