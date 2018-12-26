@@ -25,16 +25,25 @@ using namespace std;
 /* Why is the following illegal. Using std::enable_if as function template parameter
  *
  */
-struct T {
-  enum struct type_t { int_type, float_type } m_type;
+struct TypeHolder {
+    enum struct type_t { int_type, float_type } m_type;
 
+    // First c'tor for integers
+    template <typename Integer, typename = std::enable_if_t<std::is_integral<Integer>::value>>
+    TypeHolder(Integer value) : m_type(type_t::int_type) {};
 
-  // First c'tor for integers
-  template <typename Integer, typename = std::enable_if_t<std::is_integral<Integer>::value>>
-      T(Integer value) : m_type(type_t::int_type) {};
-  // second c'tor for floats
-//  template <typename Floating, typename = std::enable_if_t<std::is_floating_point<Floating>::value>>
-//  T(Floating value) : m_type(type_t::float_type) {};
+    // second c'tor for floats
+    //template <typename Floating, typename = std::enable_if_t<std::is_floating_point<Floating>::value>>
+    //TypeHolder(Floating value) : m_type(type_t::float_type) {};
+
+/*
+    template <typename Integer, typename std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
+    TypeHolder(Integer value) : m_type(type_t::int_type) {};
+
+    template <typename Floating, typename std::enable_if_t<std::is_floating_point_v<Floating>>* = nullptr>
+    TypeHolder(Floating value) : m_type(type_t::float_type) {};
+*/
+
 
 };
 // The reason is that "default template arguments ARE NOT PART OF FUNCTION TEMPLATE SIGNATURE. So the two function
@@ -58,6 +67,9 @@ double construct(T* t, Args&&... args) {
 // and will lead to ambiguous overload.
 
 int main(int argc, char* argv[]) {
-    int* poT = 0;
-    construct(poT, 10);
+    int *poT = 0;
+    //construct(poT, 10);
+
+    TypeHolder objInt(10);
+    TypeHolder objFloat(3.4);
 }

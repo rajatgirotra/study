@@ -1,2 +1,5 @@
 add_executable(sfinae_1 sfinae_1.cpp)
 add_executable(sfinae_2 sfinae_2.cpp)
+add_executable(enable_if_3 enable_if_3.cpp)
+add_executable(enable_if_4 enable_if_4.cpp)
+add_executable(enable_if_5 enable_if_5.cpp)
