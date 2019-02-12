@@ -20,10 +20,11 @@ struct iterator {
 where IteratorCategory is one of the iterator categories out of the following:
 1) struct input_iterator_tag {};
 2) struct output_iterator_tag{};
-3) struct forward_iterator_tag {};
-4) struct bidirectioinal_iterator_tag{};
-5) struct random_access_iterator_tag {};
+3) struct forward_iterator_tag  : public input_iterator_tag {};
+4) struct bidirectioinal_iterator_tag : public forward_iterator_tag {};
+5) struct random_access_iterator_tag : public bidirectioinal_iterator_tag {};
 6) struct contiguous_iterator_tag {}; --> since C++20
+
 Iterator Categories are used to distinguish the type of the iterator. This is used to apply the most efficient algorithm
 for iterators of that category type, a famous technique called tag dispatch. See tag dispatch example in tag_dispatch_4.cpp
 

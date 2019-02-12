@@ -7,9 +7,11 @@
       <config projectName="CPP_NEW" targetName="chrono_2" />
       <config projectName="CPP_NEW" targetName="chrono_3" />
       <config projectName="CPP_NEW" targetName="chrono_4" />
+      <config projectName="CPP_NEW" targetName="iterator_adaptor" />
       <config projectName="CPP_NEW" targetName="chrono_5" />
       <config projectName="CPP_NEW" targetName="range_iterator" />
       <config projectName="CPP_NEW" targetName="tag_dispatch" />
+      <config projectName="CPP_NEW" targetName="reverse_iterator" />
       <config projectName="CPP_NEW" targetName="RValueReferences_6" />
       <config projectName="CPP_NEW" targetName="RValueReferences_21" />
       <config projectName="CPP_NEW" targetName="RValueReferences_20" />
@@ -18,8 +20,8 @@
       <config projectName="CPP_NEW" targetName="RValueReferences_18" />
       <config projectName="CPP_NEW" targetName="enable_if_3" />
       <config projectName="CPP_NEW" targetName="RValueReferences_3" />
-      <config projectName="CPP_NEW" targetName="RValueReferences_19" />
       <config projectName="CPP_NEW" targetName="RValueReferences_2" />
+      <config projectName="CPP_NEW" targetName="RValueReferences_19" />
       <config projectName="CPP_NEW" targetName="enable_if_5" />
       <config projectName="CPP_NEW" targetName="RValueReferences_1" />
       <config projectName="CPP_NEW" targetName="enable_if_4" />
@@ -32,14 +34,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2225710c-b18e-4007-8faf-455c7e034697" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iterators/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iterators/Iterator_Categories_3.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iterators/Must_Read_1.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iterators/range_iterator_2.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/iterators/tag_dispatch_4.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iterators/iterator_adaptors_5.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/iterators/reverse_iterator_6.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iterators/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/iterators/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iterators/Must_Read_1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/iterators/Must_Read_1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/iterators/tag_dispatch_4.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/iterators/tag_dispatch_4.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,37 +53,37 @@
     <session id="2086085087">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.12" value="1" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="cpp" value="2" />
-          <entry key="h" value="1" />
+          <entry key="cpp" value="4" />
+          <entry key="h" value="3" />
           <entry key="txt" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CMakeLists.txt" value="3" />
-          <entry key="ObjectiveC" value="3" />
+          <entry key="ObjectiveC" value="7" />
           <entry key="PLAIN_TEXT" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="2055" />
-          <entry key="txt" value="6141" />
+          <entry key="cpp" value="6875" />
+          <entry key="txt" value="6262" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CMakeLists.txt" value="65" />
-          <entry key="ObjectiveC" value="2055" />
-          <entry key="PLAIN_TEXT" value="6076" />
+          <entry key="CMakeLists.txt" value="132" />
+          <entry key="ObjectiveC" value="6875" />
+          <entry key="PLAIN_TEXT" value="6130" />
         </counts>
       </usages-collector>
     </session>
@@ -96,8 +96,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/iterators/Must_Read_1.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="27" column="123" selection-start-line="27" selection-start-column="123" selection-end-line="27" selection-end-column="123" />
+            <state relative-caret-position="547">
+              <caret line="86" selection-start-line="86" selection-end-line="86" />
             </state>
           </provider>
         </entry>
@@ -105,21 +105,43 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/iterators/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
+            <state relative-caret-position="69">
+              <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/iterators/iterator_adaptors_5.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="499">
+              <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
+              <folding>
+                <element signature="e#1092#1111#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/iterators/tag_dispatch_4.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="407">
+              <caret line="37" column="34" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/iterators/tag_dispatch_4.cpp">
+        <entry file="file://$PROJECT_DIR$/iterators/reverse_iterator_6.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+            <state relative-caret-position="522">
+              <caret line="74" column="59" selection-start-line="74" selection-start-column="59" selection-end-line="74" selection-end-column="59" />
               <folding>
-                <element signature="e#83#100#0" expanded="true" />
-                <element signature="e#271#288#0" expanded="true" />
-                <element signature="e#450#465#0" expanded="true" />
+                <element signature="e#641#660#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -224,10 +246,12 @@
         <option value="$PROJECT_DIR$/sfinae_and_enable_if/enable_if_5.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/iterators/range_iterator_2.cpp" />
-        <option value="$PROJECT_DIR$/iterators/Must_Read_1.txt" />
         <option value="$PROJECT_DIR$/iterators/Iterator_Categories_3.txt" />
-        <option value="$PROJECT_DIR$/iterators/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/iterators/Must_Read_1.txt" />
+        <option value="$PROJECT_DIR$/iterators/iterator_adaptors_5.cpp" />
         <option value="$PROJECT_DIR$/iterators/tag_dispatch_4.cpp" />
+        <option value="$PROJECT_DIR$/iterators/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/iterators/reverse_iterator_6.cpp" />
       </list>
     </option>
   </component>
@@ -328,7 +352,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.tag_dispatch">
+  <component name="RunManager" selected="Application.reverse_iterator">
     <configuration name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -419,7 +443,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="iterator_adaptor" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="iterator_adaptor" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="iterator_adaptor">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="range_iterator" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="range_iterator" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="range_iterator">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="reverse_iterator" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="CPP_NEW" TARGET_NAME="reverse_iterator" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="CPP_NEW" RUN_TARGET_NAME="reverse_iterator">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -455,7 +489,9 @@
       <item itemvalue="Application.chrono_3" />
       <item itemvalue="Application.chrono_4" />
       <item itemvalue="Application.chrono_5" />
+      <item itemvalue="Application.iterator_adaptor" />
       <item itemvalue="Application.range_iterator" />
+      <item itemvalue="Application.reverse_iterator" />
       <item itemvalue="Application.tag_dispatch" />
       <item itemvalue="Application.enable_if_3" />
       <item itemvalue="Application.enable_if_4" />
@@ -487,7 +523,8 @@
       <workItem from="1549973861100" duration="5000" />
       <workItem from="1549973974712" duration="699000" />
       <workItem from="1549974943476" duration="5310000" />
-      <workItem from="1549981979068" duration="1507000" />
+      <workItem from="1549981979068" duration="1583000" />
+      <workItem from="1550004697324" duration="4661000" />
     </task>
     <task id="LOCAL-00001" summary="random">
       <created>1539870989570</created>
@@ -517,11 +554,18 @@
       <option name="project" value="LOCAL" />
       <updated>1543935557331</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="&#10;random">
+      <created>1549983532681</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1549983532681</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50385000" />
+    <option name="totallyTimeSpent" value="55122000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -536,12 +580,12 @@
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.57096773" visible="true" weight="0.18981738" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.57096773" weight="0.192031" />
       <window_info id="Structure" order="1" sideWeight="0.42903227" side_tool="true" weight="0.18760376" />
       <window_info id="Favorites" order="2" sideWeight="0.5016129" side_tool="true" weight="0.16657443" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32972974" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32972974" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -550,7 +594,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32972974" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="CMake" order="11" visible="true" weight="0.32972974" />
+      <window_info anchor="bottom" id="CMake" order="11" weight="0.32972974" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.4" />
       <window_info anchor="bottom" id="Docker" order="13" visible="true" weight="0.32937366" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -596,27 +640,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/RValueReferences/6.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-301">
-          <caret line="101" column="45" selection-start-line="101" selection-start-column="45" selection-end-line="101" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RValueReferences/7_README.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RValueReferences/8_README.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-603">
-          <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RValueReferences/9_README.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1606">
@@ -890,7 +913,49 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/stl_iterator_base_types.h">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="203" column="29" lean-forward="true" selection-start-line="203" selection-start-column="29" selection-end-line="203" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/tools/miniconda3/envs/gcc73/gcc/include/c++/bits/stl_iterator_base_funcs.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="96" column="5" selection-start-line="96" selection-start-column="5" selection-end-line="112" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iterators/Must_Read_1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="86" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iterators/Iterator_Categories_3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="487">
+          <caret line="37" column="33" selection-start-line="37" selection-start-column="15" selection-end-line="37" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iterators/tag_dispatch_4.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="37" column="34" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iterators/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="54" selection-start-line="3" selection-start-column="54" selection-end-line="3" selection-end-column="54" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/iterators/range_iterator_2.cpp">
       <provider selected="true" editor-type-id="text-editor">
@@ -902,35 +967,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/iterators/Must_Read_1.txt">
+    <entry file="file://$PROJECT_DIR$/iterators/iterator_adaptors_5.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="27" column="123" selection-start-line="27" selection-start-column="123" selection-end-line="27" selection-end-column="123" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/iterators/Iterator_Categories_3.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="37" column="33" selection-start-line="37" selection-start-column="15" selection-end-line="37" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/iterators/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/iterators/tag_dispatch_4.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+        <state relative-caret-position="499">
+          <caret line="102" column="37" selection-start-line="102" selection-start-column="37" selection-end-line="102" selection-end-column="37" />
           <folding>
-            <element signature="e#83#100#0" expanded="true" />
-            <element signature="e#271#288#0" expanded="true" />
-            <element signature="e#450#465#0" expanded="true" />
+            <element signature="e#1092#1111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iterators/reverse_iterator_6.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="74" column="59" selection-start-line="74" selection-start-column="59" selection-end-line="74" selection-end-column="59" />
+          <folding>
+            <element signature="e#641#660#0" expanded="true" />
           </folding>
         </state>
       </provider>

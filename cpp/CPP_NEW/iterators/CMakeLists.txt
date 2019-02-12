@@ -1,2 +1,4 @@
 add_executable(range_iterator range_iterator_2.cpp)
 add_executable(tag_dispatch tag_dispatch_4.cpp)
+add_executable(iterator_adaptor iterator_adaptors_5.cpp)
+add_executable(reverse_iterator reverse_iterator_6.cpp)
