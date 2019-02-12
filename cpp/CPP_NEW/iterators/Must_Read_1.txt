@@ -1,0 +1,88 @@
+Iterators are the glue between algorithms and the containers on which the algorithms work. Iterators provide an abstraction
+on the underlying container being used and that makes std::algorithms work in a generic way.
+
+C++ provides a class called std::iterator. Although this class has been deprecated C++17, we still discuss it. It is a very trivial
+class with the following defines
+
+template <typename IteratorCategory,
+          typename T,
+          typename Distance = std::ptrdiff_t,
+          typename Pointer = T*,
+          typename Reference = T&>
+struct iterator {
+    using iterator_category = IteratorCategory;
+    using value_type = T;
+    using difference_type = Distance;
+    using pointer = Pointer;
+    using reference = Reference;
+}
+
+where IteratorCategory is one of the iterator categories out of the following:
+1) struct input_iterator_tag {};
+2) struct output_iterator_tag{};
+3) struct forward_iterator_tag {};
+4) struct bidirectioinal_iterator_tag{};
+5) struct random_access_iterator_tag {};
+6) struct contiguous_iterator_tag {}; --> since C++20
+Iterator Categories are used to distinguish the type of the iterator. This is used to apply the most efficient algorithm
+for iterators of that category type, a famous technique called tag dispatch. See tag dispatch example in tag_dispatch_4.cpp
+
+T is the type of the Container item, example, int for a vector<int>
+
+Distance is a type to hold the distance between two iterator objects
+
+Pointer is a pointer type of the iterated over type. Default is T*
+
+Reference is a reference type of the iterated over type.
+-------------------------------------------------------------------
+
+Most of the std algorithms work with iterators not container directly, so how do they know about the type of the container item.
+Its through the value_type typedef in the iterator class. However, it is not advised to use std::iterator directly, but instead use
+iterator_traits. std::iterator_traits is very trivial
+
+template <Iter>
+struct iterator_traits {
+    using iterator_categoty = typename Iter::iterator_category;
+    using value_type = typename Iter::value_type;
+    // and so on..
+};
+
+But why use iterator_traits. Its because sometime iterator are implemented as simple pointers, not really as classes. For example:
+for vector<int>, the iterator type if int*. In this case, if we use std::iterator, then value_type would be int*::value_type which is
+ill-formed. Using std::iterator_traits gives us an opportunity to provide specializations for non-standard iterator types.
+
+example:
+
+template <typename T>
+struct iterator_traits<T*> {
+    using value_type = T;
+    using pointer = T*;
+    using reference = T&;
+};
+
+So now std::algorithms can safely work for iterator types.
+-----------------------------------------------------------------------------
+
+Why is std::iterator deprecated? Lets say, you want to write your own iterator, where the iterated over type is int. You will write
+
+class MyIterator : std::iterator<forward_iterator_tag, int, int, int*, int&> {};
+// This is not very clear. Infact if you have to write an output iterator, the lack of clarity is even more visible
+
+class MyIterator : std::iterator<output_iterator_tag, void, void, void, void> {};
+
+Solution
+---------
+the better way is to explicitly define the typedef's inside your iterator, and no need to derive from std::iterator anymore
+
+struct MyIterator {
+    using iterator_category = output_iterator_tag;
+    using value_type = void;
+    using difference_type = void;
+    using pointer = void;
+    using reference_type = void;
+};
+
+Note that only use of std::iterator is deprecated. std::iterator_traits still remains and everyone should use that.
+--------------------------------------------------------------------------------------------------------------------
+
+Please read range_iterator_2.cpp next

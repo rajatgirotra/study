@@ -1,0 +1,38 @@
+Iterator Categories
+
+1) input iterators: This is a one-pass iterator; which means that you can only iterate the container elements once.
+Example: let say x == y are two input iterators, then ++x means that y is no longer required to be correct and can be invalidated.
+This is mostly the cases with stream iterators like file streams or string streams. Once you fetch something from the stream,
+you cannot go fetch it again. For input iterator, you will most likely overload the following:
+
+reference operator * ();
+iterator& operator ++();
+iterator operator ++(int); // postfix
+bool operator == (const iterator&);
+bool operator != (const iterator&);
+
+Input iterator objects will appear on the right side in an expression. Examples are:
+std::istreambuf_iterator;
+std::input_iterator;
+
+2) output iterators: Same as input iterators. These are for output to containers. They are also single-pass iterators.
+They will appear on the left hand side of an expression. They will likely overload the following:
+
+reference operator * ();
+iterator& operator ++();
+iterator operator ++(int); // postfix
+bool operator == (const iterator&);
+bool operator != (const iterator&);
+
+Examples:
+std::ostreambuf_iterator;
+std::ostream_iterator;
+std::insert_iterator; --> calls the insert() function of the underlying container. Whether associative or sequence container.
+std::front_insert_iterator; --> class push_front() of the underlying container.
+std::back_insert_iterator; --> class push_back() of the underlying container.
+
+3) Forward iterators: These are multi-pass iterators which can only be incremented.
+
+4) random access iterators: These are iterators that can be indexed. Like iterators of vector<int>.
+
+/* Please read tag_dispatch_4.cpp next */
