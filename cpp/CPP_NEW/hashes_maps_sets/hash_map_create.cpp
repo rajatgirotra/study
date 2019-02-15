@@ -60,11 +60,11 @@ int main() {
     std::unordered_map<string, string> m2 { {"One", "1"}, {"Two", "2"} };
     printMap("m2", m2);
 
-    //copy contructor
+    //copy constructor
     std::unordered_map<string, string> m3(m2);
     printMap("m3", m3);
 
-    //move contructor
+    //move constructor
     std::unordered_map<string, string> m4(std::move(m1));
     printMap("m4", m4);
 
@@ -79,7 +79,6 @@ int main() {
             {{"Vidhu", "Ahuja"}, "XI-B"},
     };
     printMap("m6", m6);
-
 
     auto hash = [](const Foo& f) { return std::hash<int>{}(f.iVal); };
     auto pred = [](const Foo& lhs, const Foo& rhs) {
