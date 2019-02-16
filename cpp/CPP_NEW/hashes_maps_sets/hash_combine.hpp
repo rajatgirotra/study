@@ -35,4 +35,4 @@ namespace hash_combiner {
     };
 }
 
-/* Lets use it next */
+/* Lets use it next in hash_map_create.cpp */

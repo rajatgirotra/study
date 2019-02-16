@@ -1,2 +1,3 @@
 add_executable(hash_map hash_map.cpp)
 add_executable(hash_map_create hash_map_create.cpp)
+add_executable(hash_map_movable_type hash_map_movable_type.cpp)

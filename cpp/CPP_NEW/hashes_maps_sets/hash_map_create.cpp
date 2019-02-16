@@ -153,3 +153,5 @@ int main() {
     m7.insert({Foo{2}, 20.2});
     printMap("m7", m7);
 }
+
+/* hash_map_movable_type.cpp next */
