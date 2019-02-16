@@ -1,0 +1,59 @@
+std::unordered_map<string, string> hashMap;
+
+First way of inserting in a  map
+================================
+auto iter = hashMap.find("Rajat", "Girotra");
+if(iter == hashMap.end()) {
+    hashMap["Rajat"] = "Girotra";
+}
+
+1) We are calculating hash twice.
+2) If the bucket to which the key belongs has many collisions, the performance will me more worse.
+
+Second way - Use insert
+=======================
+auto [it, result] = hashMap.insert(std::pair("Rajat", "Girotra"));
+1) We are calculating hash once.
+2) The move constructor of std::pair<> will be called. But ONLY if both the types in pair are movable. Otherwise the
+COPY-CONSTRUCTOR is called.
+
+Third way - Use emplace
+=======================
+auto [it, result] = hashMap.emplace("Rajat", "Girotra");
+1) Here the arguments to emplace will be sent to the constructor of std::pair
+2) The problem with emplace is when the value_type is moveable. Example:
+std::unordered_map<string, std::unique_ptr<int>>;
+auto my_personal_int = std::make_unique<int>(42);
+auto [it, result] = hashMap.emplace("Rajat", std::move(my_personal_int));
+if(!result) {
+    // ie element already exists.
+    do_something_else(*my_personal_int); // NOT SAFE. EVEN THOUGH ELEMENT IS NOT INSERTED, my_personal_int may get moved.
+}
+
+FOURTH WAY - use try_emplace()
+==============================
+std::unordered_map<string, std::unique_ptr<int>>;
+auto my_personal_int = std::make_unique<int>(42);
+auto [it, result] = hashMap.emplace("Rajat", std::move(my_personal_int));
+if(!result) {
+    // ie element already exists.
+    do_something_else(*my_personal_int); // IS SAFE
+}
+
+Another problem in inserting into a map is when the value_type is expensive to create. If your insert fails because the key
+already exists, you will still be creating an expensive object just to destroy it at the end of the call. The way out is to put a dummy
+ptr first and check if that insert is successful, only then create the expensive value_type object.
+
+Example:
+<std::string, std::unique_ptr<service>>
+// Try to emplace an empty `unique_ptr` first.
+auto [it, result] = m.try_emplace("file_locator", nullptr);
+
+struct remote_file_locator : public service {};
+
+if (result) {
+    // The insertion happened, now we can safely create our remote_file_locator without wasting any performance.
+    it->second = std::make_unique<remote_file_locator>("8.8.8.8", "/a_folder/");
+}
+
+Please read hash_map_movable_type.cpp next

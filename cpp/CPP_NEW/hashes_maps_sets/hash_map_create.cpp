@@ -154,4 +154,5 @@ int main() {
     printMap("m7", m7);
 }
 
+/* see hash_map_insert.text next */
 /* hash_map_movable_type.cpp next */
