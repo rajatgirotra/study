@@ -20,11 +20,11 @@ using namespace std;
  * using difference_type = std::size_t;
  * and others.
  *
- * In an ordered_map or unordered_set, key/values are stored in buckets.
+ * In an ordered_map or unordered_set, key/values are organized in buckets.
  * the default value of bucket_count is implementation defined.
  *
- * The Hash template parameter is a function object as you saw in Must_Read_1.txt.the hash function object takes a key
- * and return a hash value which is used to compute the bucket number into which to put the element. If different keys produce
+ * The Hash template parameter is a function object as you saw in Must_Read_1.txt.This hash function object takes a key
+ * and returns a hash value which is used to compute the bucket number into which to put the element. If different keys produce
  * the same hash, then it is a hash collision (which is not a good thing). In hash collision the Equal function object is used
  * to find the correct value for the given key.
  *
@@ -63,4 +63,4 @@ int main() {
     // erase will invalidate the iterator which is pointed to.
 }
 
-/* Lets see hash_combine.cpp next. Then we'll see how to construct and use hash maps in various ways */
+/* Lets see hash_combine.hpp next. Then we'll see how to construct and use hash maps in various ways */
