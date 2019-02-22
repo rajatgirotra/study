@@ -56,4 +56,15 @@ if (result) {
     it->second = std::make_unique<remote_file_locator>("8.8.8.8", "/a_folder/");
 }
 
+Aso as a general rule
+1) if you are using C++17, use try_emplace first
+2) else try emplace
+3) else try insert
+
+SMALL CAVEAT
+============
+try_emplace can indeed replace most uses of emplace, but if you have an unusual use case of a map with a non-copyable
+and non-movable key type, try_emplace will not work because it copies or moves the key. In that case, you must use
+emplace with std::pair's piecewise construction constructor to avoid copies and moves.
+
 Please read hash_map_movable_type.cpp next

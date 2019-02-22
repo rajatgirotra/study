@@ -13,14 +13,14 @@ class Widget {
 private:
     std::string mValue;
 public:
-#if 0
+#if 1
     template <typename T>
     void setName(T&& param) {
         mValue = std::move(param);      ///  line A
     }
 #endif
 
-#if 1
+#if 0
     void setName(std::string&& param) {
         mValue = std::move(param);
     }

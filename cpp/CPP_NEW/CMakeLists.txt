@@ -14,6 +14,7 @@ find_package(PythonInterp)
 find_package(PythonLibs)
 find_package(Boost 1.67 EXACT REQUIRED COMPONENTS system)
 
+add_executable(auto_with_brace_initialization auto_with_brace_initialization.cpp)
 add_subdirectory(RValueReferences)
 add_subdirectory(chrono)
 add_subdirectory(sfinae_and_enable_if)

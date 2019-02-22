@@ -12,6 +12,7 @@ void f(const S&);   # 2
 void f(S&&);        # 3
 void f(const S&&);  # 4
 
+S s();
 const S g();
 S x;
 const S cx;

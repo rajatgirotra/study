@@ -5,7 +5,7 @@ Let's understand first what is N(RVO). Very simple. RVO states that if a functio
 (named or un-named) of that type in your function and you also return that variable by value, then
 
 1) The compiler must do copy-elision and directly create that object into the return location of the function
-2) If the compiler cannot perform copy-elision, then it must return that variable an rvalue. ie return type should be
+2) If the compiler cannot perform copy-elision, then it must return that variable as an rvalue. ie return type should be
 implicitly: std::move(variable).
 3) Function arguments are not eligible for N(RVO).
 

@@ -42,7 +42,8 @@ public:
 	{
 		poData = rhs.poData;
 		rhs.poData = nullptr;
-		cout << "Move copy c'tor: object created with tag: " << tag <<" ,poData: " << static_cast<void*>(poData) << " using tag: " << rhs.tag << endl;
+		cout << "Move c'tor: object created with tag: " << tag <<" ,poData: " << static_cast<void*>(poData) << " using tag: " << rhs.tag << endl;
+
 	}
 
 	//Assignment Operator
@@ -67,11 +68,11 @@ int Number::counter = 0;
 
 Number foobar()
 {
-    // Number n;
-    // return std::move(n);
+     Number n;
+     return std::move(n);
     // return n;
 
-    return Number();
+    //return Number();
 }
 
 int main()

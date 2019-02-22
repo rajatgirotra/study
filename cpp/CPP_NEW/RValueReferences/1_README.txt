@@ -1,4 +1,4 @@
-RValue References - The single most difficult topic in C++0x11 to understand and apply.
+RValue References - The single most difficult topic in C++11 to understand and apply.
 Here we go:
 
 LValue - An lvalue is an expression that refers to a memory location and allows you to take the address of that memory location
