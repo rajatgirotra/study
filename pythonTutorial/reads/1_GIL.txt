@@ -1,0 +1,44 @@
+GIL stands for Python Global Interpreter Lock. It is a mutex on the Python interpreter.
+
+Why is it needed
+================
+Python uses reference counting to do memory management. When the reference count for an object reaches zero, it memory
+can be re-claimed. So to avoid multiple threads in python from accessing the critical data structures in the python interpreter
+the GIL was introduced. If there was no GIL, then there would definitely be race conditions which could cause
+
+1) Memory to be released even though there is an object that can refer to it
+2) Memory could not be released, causing a leak even though there was no object living to access that memory.
+3) Also if we introduced multiple mutexes that independently locked and unlocked the different data structures, then a deadlock
+could be possible. Also there would be lot of contention between threads for acquiring the lock.
+
+So they introduced one global lock which locks the complete interpreter.
+
+try this:
+------------
+import sys
+a = []
+b = a
+print (sys.getrefcount(a))
+-------------------------
+
+The problem with GIL
+===================
+The problem with GIL is that if you have multiple threads in your python program (using the threading library), and all those
+threads are running parallely on different cores, and all those threads are CPU-bound, they will all contend for the GIL,
+so the GIL will become a performance bottleneck.
+
+This is not a problem if the threads are I/O bound, because they will spend most of the time in doing I/O and there will be
+less contention for GIL
+
+Solution
+========
+If you are writing code that has many CPU bound tasks that can be done in parallel, strongly consider using multiprocessing
+library instead. multiprocessing library causes multiple interpreters to be spawned and each interpreter can run parallely
+without contenting for GIL.
+
+The seconds solution is to use the asyncio module (which is like co-operative multitasking).
+
+Next lets see the real problem in action. We will use threading library to show the problem and then use multiprocessing
+library to solve the performance issue.
+
+Please read single_threaded_3.py next

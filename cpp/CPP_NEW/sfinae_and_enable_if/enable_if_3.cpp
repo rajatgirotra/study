@@ -29,20 +29,19 @@ struct TypeHolder {
     enum struct type_t { int_type, float_type } m_type;
 
     // First c'tor for integers
-    template <typename Integer, typename = std::enable_if_t<std::is_integral<Integer>::value>>
-    TypeHolder(Integer value) : m_type(type_t::int_type) {};
+//    template <typename Integer, typename = std::enable_if_t<std::is_integral<Integer>::value>>
+  //  TypeHolder(Integer value) : m_type(type_t::int_type) {};
 
     // second c'tor for floats
-    //template <typename Floating, typename = std::enable_if_t<std::is_floating_point<Floating>::value>>
-    //TypeHolder(Floating value) : m_type(type_t::float_type) {};
+    // template <typename Floating, typename = std::enable_if_t<std::is_floating_point<Floating>::value>>
+    // TypeHolder(Floating value) : m_type(type_t::float_type) {};
 
-/*
+
     template <typename Integer, typename std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
     TypeHolder(Integer value) : m_type(type_t::int_type) {};
 
     template <typename Floating, typename std::enable_if_t<std::is_floating_point_v<Floating>>* = nullptr>
     TypeHolder(Floating value) : m_type(type_t::float_type) {};
-*/
 
 
 };
@@ -68,7 +67,7 @@ double construct(T* t, Args&&... args) {
 
 int main(int argc, char* argv[]) {
     int *poT = 0;
-    //construct(poT, 10);
+    // construct(poT, 10);
 
     TypeHolder objInt(10);
     TypeHolder objFloat(3.4);

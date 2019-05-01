@@ -1,0 +1,29 @@
+You can manually change any color in vim as you like using the highlight command.
+the general syntax is:
+
+:highlight Group font-key-value-pairs
+
+example:
+
+:highlight Comment cterm=underline ctermfg=Yello ctermbg=Cyan
+
+To make sure highlight commands take effect, also do ":syntax enable". Every type of file c/c++/html/java/nodejs/python etc have a corresponding syntax file in /usr/share/vim/vim80/syntax. These define the meaning of the Groups
+and colors are rendered accordingly.
+
+What are Groups in highlight command? Groups define the section of the code to which the highlight command will apply
+There are many groups in vim. just do ":highlight" and it will show you the current setting of all groups.
+
+Mostly you'll play with cterm, ctermfg, ctermbg when working on terminal vim, but you may set gui, guifg, guibg
+when dealing with gvim.
+
+Also the appearance of the colors defined using the highlight commands depends on the setting of the background option.
+do ":set background=dark" and ":set background=light" and see the difference for yourself.
+
+to view the list of all the values for cterm, do ":help highlight-cterm".
+
+Also the colors appearance depends on type of your terminal. and the number of colors supported by your terminal.
+you can set the t_Co option ":set t_Co=256" to tell vim how many colors are supported in your terminal.
+-------------------------------------------------------------------------------------------------------------
+
+Now instead of manually changing colors using highlight command, you can use a colorscheme. vim ships with some default colorschemes in /usr/share/vim/vim80/colors/*.vim. You can set these using "colorscheme <name>"
+-------------------------------------------------------------------------------------------------------------

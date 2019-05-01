@@ -1,0 +1,7 @@
+add_executable(has_unique_chars has_unique_chars.cpp)
+add_executable(reverse_string reverse_string.cpp)
+add_executable(remove_duplicates_from_sorted_string  remove_duplicates_from_sorted_string.cpp)
+add_executable(remove_duplicates_from_unsorted_string remove_duplicates_from_unsorted_string.cpp)
+add_executable(are_anagram are_anagram.cpp)
+add_executable(replace_string_by_percent_20 replace_string_by_percent_20.cpp)
+add_executable(zero_matrix zero_matrix.cpp)

@@ -31,6 +31,6 @@ int main(int argc, char *argv[])
     static_assert(half < const_3, "is 0.5 not less than 3");
 
     constexpr char hello[] = "hello";
-    static_assert(hello[5] == '\0', "index 5 should a null!");
+    //static_assert(hello[5] == '\0', "index 5 should a null!");
     return 0;
 }
