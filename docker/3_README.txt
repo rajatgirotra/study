@@ -11,3 +11,5 @@ In any distributed application, you have many components running. Each component
 All these can be thought of as docker containers. But we may want to run one or more instances of these services for various reasons like load-balancing, failover from primary to secondary etc. This is called scaling a service. With docker scaling becomes very easy by using docker-compose. We need to write a docker-compose.yml file.
 
 A docker-compose.yml file defines how docker containers should behave in production. Lets create a simple docker-compose.yml file.
+
+See files in friendlyhello_compose and then return to 4_README.txt
