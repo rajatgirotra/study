@@ -1,7 +1,7 @@
 We can create multiple services under the services heading. Here we create only one service identified by the name "web".
 1) web service: This is where we say the place where we want to download the image from (using the "web/image" key) and how many instances of the container we want to run (given by the "web/deploy/replicas" key). Each replica can only use upto 10% of the available cores and only a maximum of 50MB space, given by ("web/deploy/resources/limits/{cpu,memory}" keys. We also instruct the service to restart on a crash by using the "web/deploy/restart_policy/condition" key.
 
-We then ask docker to map port 4000 on the local host to port 80 of the web service, using the "web/ports" key/
+We then ask docker to map port 4444 on the local host to port 80 of the web service, using the "web/ports" key/
 
 The "web/networks" key tells docker to behave like a load balancer network called webnet.
 
