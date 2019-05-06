@@ -88,3 +88,5 @@ Repeat
 -------
 to repeat the experiment in future, you can start the vm's using
 docker-machine start <machine-name>
+
+Next read 5_README.txt
