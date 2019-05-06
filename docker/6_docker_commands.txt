@@ -1,0 +1,47 @@
+docker pull alpine --> will fetch the alpine image from docker repository and store it locally in the images folder
+
+docker images --> see a list of all images in your images folder. those built locally as well as those downloaded from docker repository.
+
+docker run alpine ls -l --> start a docker container for the alpine image and run "ls -l" and then exit the container.
+
+docker ps --> see all currently running containers
+
+docker ps -a --> see all containers (ones that have exited also)
+
+docker run -it alpine /bin/bash --> run a container interactively (-it) and start a new bash shell in the alpine image
+
+docker run -d dockersamples/static-site --> run container in background (as a daemon)
+
+docker stop <container_id or container_name>
+docker rm <container_id or container_name> --> used to stop and remove the container.
+
+docker rm -f <container_id or container_name> --> will stop and remove, so this is a shortcut for stop and rm
+
+docker run --name static-site -e AUTHOR="Your Name" -d -P dockersamples/static-site
+
+--name: used to give a name to your container
+-e: pass environment variable to docker container
+-d: run as a daemon (ie detached from terminal)
+-P: will publish all the EXPOSE ports in your dockerfile to random ports on the host. But how do you find which random ports on the host are getting used? Use docker port command
+
+docker port <container_id or container_name> --> will list all port mappings for your container.
+
+docker-machine ip myvm1
+docker-machine ip myvm2 : will display the ip address of the vm's. (vm's must be running and not shut down)
+
+docker login --> to login to docker hub to push your images
+
+docker push rajatgirotra/image_name:tag --> to push an image to dockerhub.
+
+Docker Images
+-------------
+
+base images: ie those who do not have any parent images, like ubuntu, debian, alpine
+
+child images: which have parent images and add more functionality on top of that.
+
+Official images: these are images which are provided by Docker sanctioned team of experts. images like python, nginx, gcc are available as official docker images.
+
+user images: images that users like me upload to docker.
+
+
