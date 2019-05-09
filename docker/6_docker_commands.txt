@@ -33,6 +33,10 @@ docker login --> to login to docker hub to push your images
 
 docker push rajatgirotra/image_name:tag --> to push an image to dockerhub.
 
+docker service scale web=15 --> to scale up the "web" service to 15 instances (ie 15 containers running "web" service)
+
+docker node update --availability drain worker1  --> to migrate all services away from a swarm node to other nodes. Must be run on a node manager.
+
 Docker Images
 -------------
 
