@@ -73,10 +73,19 @@ RUN set -ex; \
         make; \
 	make install; \
 	cd /app/devtools/thirdparty/bin; \
-       	./pip3 install --upgrade pip; \
-       	./pip3 install virtualenv pipenv
+       	./pip3 install --upgrade pip;
+
+RUN set -ex; \
+	/app/devtools/thirdparty/bin/pip3 install virtualenvwrapper;
+
 
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
+RUN /bin/bash -c 'echo "export WORKON_HOME=${HOME}/.virtualenvs" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export PROJECT_HOME=${HOME}/.projects" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export PATH=/app/devtools/thirdparty/bin:${PATH}" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export VIRTUALENVWRAPPER_PYTHON=/app/devtools/thirdparty/bin/python3" >> ~/.bashrc'
 
-CMD scl enable devtoolset-8 bash
+CMD scl enable devtoolset-8 bash; \
+       	source /app/devtools/thirdparty/bin/virtualenvwrapper.sh;
+
