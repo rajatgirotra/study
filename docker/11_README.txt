@@ -109,4 +109,22 @@ So now to setup a build environment, we would need to do the following
  4) A dockerfile which depends on all of the above, fires a build on its own and prepares a production package
 
 
- Lets try to do all this in CentOS docker image as base
+ Lets try to do all this in CentOS docker image as base. By doing some research, i have found that it is also a good idea
+ to run a single docker container across your complete team members. For exmaple, we could have one docker host which
+ runs a centos container which has all project dependencies like gcc, boost, python, doxygen, valgrind, etc etc. This image
+ also has ssh enabled and team members can connect to this container over ssh and start doing there work.
+
+ Since many people will be working on a code base and they may have intermediate changes, it is best to have the code available in 
+ their local directories and that local directory will be mapped to some path inside the container. that way the local changes
+ will not be lost when someone accidently restarts the container. 
+
+ We'll also get to Clion IDE integration soon.
+
+ So now the target image is something like
+ 
+ Create an image with centos:7 as base image
+ in dockerfile
+ add a new user devtools
+ switch to user devtools
+ install git, gcc, cmake, doxygen, python3, valgrind, gdb, gdbserver, google test, google benchmark, google protobuf, boost,
+ json parser, pip, libevent, libcurl, postgressql, libpqxx etc etc.
