@@ -16,6 +16,10 @@ RUN set -ex; \
 RUN set -ex; \
     yum -y install scl-utils;
 
+RUN set -ex; \
+    \
+    yum -y install ruby ruby-devel lua lua-devel perl perl-devel python python-devel tcl-devel;
+
 # enable ssh
 # RUN systemctl enable sshd
 
@@ -69,23 +73,50 @@ RUN set -ex; \
 	\
 	wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz; \
        	tar xvf Python-3.7.3.tar.xz && cd Python-3.7.3; \
-	./configure --prefix=/app/devtools/thirdparty --with-ensurepip=upgrade --enable-optimizations; \
+	./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade --enable-optimizations; \
         make; \
-	make install; \
-	cd /app/devtools/thirdparty/bin; \
-       	./pip3 install --upgrade pip;
+	make install;
 
 RUN set -ex; \
-	/app/devtools/thirdparty/bin/pip3 install virtualenvwrapper;
+       LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install virtualenvwrapper;
+
+USER root
+RUN set -ex; \
+	\
+	yum -y install perl-ExtUtils-ParseXS perl-ExtUtils-XSpp perl-ExtUtils-CBuilder perl-ExtUtils-Embed;
+
+USER devtools
+WORKDIR /app/devtools
+
+# install latest vim
+RUN set -ex; \
+	\
+    git clone https://github.com/vim/vim.git; \
+    cd vim; \
+    PATH=/app/devtools/thirdparty/bin:${PATH} LD_LIBRARY_PATH=/app/devtools/thirdparty/lib ./configure --with-features=huge \
+    --enable-multibyte \
+    --enable-rubyinterp=yes \
+    --enable-pythoninterp=yes \
+    --enable-python3interp=yes \
+    --with-python-command=python \
+    --with-python3-command=python3 \
+    --enable-perlinterp=yes \
+    --enable-luainterp=yes \
+    --enable-gui=no --enable-cscope --prefix=/app/devtools/thirdparty; \
+    make && make install;
 
 
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
 RUN /bin/bash -c 'echo "export WORKON_HOME=${HOME}/.virtualenvs" >> ~/.bashrc'
 RUN /bin/bash -c 'echo "export PROJECT_HOME=${HOME}/.projects" >> ~/.bashrc'
-RUN /bin/bash -c 'echo "export PATH=/app/devtools/thirdparty/bin:${PATH}" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export PATH=/app/devtools/thirdparty/bin:\${PATH}" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:\${LD_LIBRARY_PATH}" >> ~/.bashrc'
 RUN /bin/bash -c 'echo "export VIRTUALENVWRAPPER_PYTHON=/app/devtools/thirdparty/bin/python3" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "source /app/devtools/thirdparty/bin/virtualenvwrapper.sh" >> ~/.bashrc'
+RUN mkdir -p .vim/bundle/
 
-CMD scl enable devtoolset-8 bash; \
-       	source /app/devtools/thirdparty/bin/virtualenvwrapper.sh;
-
+COPY vimrc .vimrc
+COPY ctrlp.vim .vim/bundle/
+COPY nerdtree.vim .vim/bundle/
+CMD scl enable devtoolset-8 bash;

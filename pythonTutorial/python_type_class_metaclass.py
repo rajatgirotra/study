@@ -11,20 +11,20 @@ def func_foo():
 x = 1
 y = 'str'
 
-print A.__class__, type(A)
-print func_foo.__class__, type(func_foo)
-print x.__class__, type(x)
-print y.__class__, type(y)
+print (A.__class__, type(A))
+print (func_foo.__class__, type(func_foo))
+print (x.__class__, type(x))
+print (y.__class__, type(y))
 
 # We said before that class is also an object. Let's now see how to create a class at runtime.
 def make_myklass(**kwargs):
     return type('MyClass', (object,), dict(**kwargs))
 
 myklass_foo_bar = make_myklass(foo=2, bar=4)
-print myklass_foo_bar.__class__, type(myklass_foo_bar)
+print (myklass_foo_bar.__class__, type(myklass_foo_bar))
 # Create an instance of MyKlass
 myklass = myklass_foo_bar()
-print myklass.__class__, type(myklass), myklass.foo, myklass.bar
+print (myklass.__class__, type(myklass), myklass.foo, myklass.bar)
 
 # A little about type keyword in python before we move to metaclasses.
 
@@ -82,26 +82,26 @@ print(RuntimeClazz().always_false())
 
 class MyMeta(type):
     def __new__(meta, name, bases, dct):
-        print '----------------------------'
-        print 'Allocating memory for class %s' % name
-        print meta
-        print bases
-        print dct
+        print ('----------------------------')
+        print ('Allocating memory for class %s' % name)
+        print (meta)
+        print (bases)
+        print (dct)
         # delegate to super class now
         return super(MyMeta, meta).__new__(meta, name, bases, dct)
 
     def __init__(cls, name, bases, dct):
-        print '----------------------------'
-        print 'Initializing class %s' % name
-        print cls
-        print bases
-        print dct
+        print ('----------------------------')
+        print ('Initializing class %s' % name)
+        print (cls)
+        print (bases)
+        print (dct)
         # delegate to super class now
         return super(MyMeta, cls).__init__(name, bases, dct)
 
     # The __call__ method is called whenever you create an instance of MyKlass.
     def __call__(cls, *args, **kwargs):
-        print '__call__ called when creating an instance of %s' % cls.__name__
+        print ('__call__ called when creating an instance of %s' % cls.__name__)
         return super(MyMeta, cls).__call__(*args, **kwargs)
 
 # The code in the Meta class is executed when python see's this class definition.
@@ -109,12 +109,12 @@ class MyKlass(object):
     __metaclass__ = MyMeta
 
     def foo(self, param):
-        print 'MyKlass::foo() called'
+        print ('MyKlass::foo() called')
         pass
 
     barattr = 2
 
 
 myklass_1 = MyKlass()
-print myklass_1.barattr
+print (myklass_1.barattr)
 myklass_1.foo(10)
