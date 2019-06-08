@@ -69,7 +69,8 @@ class Base (object):
     # outside the class
     @classmethod
     def from_full_name(cls, fullName):
-        (fname, lname) = string.split(fullName, ' ', 1)
+        # (fname, lname) = string.split(fullName, ' ', 1)
+        (fname, lname) = fullName.split(' ', 1)
         return Base(fname, lname)
 
     @staticmethod

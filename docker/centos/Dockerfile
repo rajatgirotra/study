@@ -102,9 +102,17 @@ RUN set -ex; \
     --with-python3-command=python3 \
     --enable-perlinterp=yes \
     --enable-luainterp=yes \
+    --enable-fail-if-missing \
+    --enable-terminal \
     --enable-gui=no --enable-cscope --prefix=/app/devtools/thirdparty; \
     make && make install;
 
+
+USER root
+RUN set -ex; \
+	\
+	yum makecache; \
+	yum -y install cmake clang;
 
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
@@ -114,9 +122,26 @@ RUN /bin/bash -c 'echo "export PATH=/app/devtools/thirdparty/bin:\${PATH}" >> ~/
 RUN /bin/bash -c 'echo "export LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:\${LD_LIBRARY_PATH}" >> ~/.bashrc'
 RUN /bin/bash -c 'echo "export VIRTUALENVWRAPPER_PYTHON=/app/devtools/thirdparty/bin/python3" >> ~/.bashrc'
 RUN /bin/bash -c 'echo "source /app/devtools/thirdparty/bin/virtualenvwrapper.sh" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export TERM=xterm-256color" >> ~/.bashrc'
 RUN mkdir -p .vim/bundle/
 
-COPY vimrc .vimrc
-COPY ctrlp.vim .vim/bundle/
-COPY nerdtree.vim .vim/bundle/
+# Add vim plugins
+RUN set -ex; \
+	\
+	cd .vim; \
+	git clone https://github.com/kien/ctrlp.vim.git bundle/ctrlp.vim; \
+	git clone https://github.com/scrooloose/nerdtree.git bundle/nerdtree.vim; \
+	git clone https://github.com/w0rp/ale.git bundle/ale.git; \
+	git clone https://github.com/itchyny/lightline.vim bundle/lightline.vim; \
+	git clone https://github.com/tpope/vim-fugitive.git bundle/fugitive.vim;
+
+RUN set -ex;\
+	\
+	cd /home/rajatgirotra/.vim; \
+	git clone https://github.com/Valloric/YouCompleteMe.git bundle/YouCompleteMe.vim; \
+	cd bundle/YouCompleteMe.vim; \
+        git submodule update --init --recursive; \
+	PATH=/app/devtools/thirdparty/bin:${PATH} LD_LIBRARY_PATH=/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
+
+COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
 CMD scl enable devtoolset-8 bash;

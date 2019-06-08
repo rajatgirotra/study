@@ -1,0 +1,96 @@
+" author: Rajat Girotra
+
+set exrc               "load project specific vimrc if available
+set secure             "prevent some commands from being run from project specific vimrc
+set nocompatible       "we don't need compatibility with plain vi
+set ruler              "enable ruler. Use default ruler format
+set laststatus=2       "always enable statusbar"
+set t_Co=256           "force vim into 256 color mode.
+set encoding=utf-8     "enable unicode in vim.
+set hidden             "hide the current buffer on close. Also to allow unsaved buffer to hidden when new buffer is opened.
+set belloff=all
+
+set background=dark    "work with dark background.
+
+filetype on            "enable filetype detection using $VIMRUNTIME/filetypes.vim
+filetype plugin on     "enable filetype plugins if available
+filetype indent on     "enable auto filetype indentation if available.
+syntax enable          "enable default vim syntax highlighting for the particular file type.
+
+set ignorecase smartcase hlsearch incsearch " search preferences
+set colorcolumn=110    "for setting column 110 to a different color. Try not to write code that goes past 110 characters.
+highlight ColorColumn ctermbg=53
+
+set nonumber relativenumber numberwidth=4 " show linenumbers relative to the line the cursor is on.
+set wrap linebreak " enable line wrap and line break - only affects display and doesnt effect contents of the buffer
+
+" set auto indent width using shiftwidth and shiftround. used for cindent so need to enable cindent also
+" in normal mode, you can indent up or down using << or >>
+" in insert mode, you can indent up or down using Ctrl-T or Ctrl-D
+set shiftwidth=4 shiftround cindent
+
+set showmatch matchtime=5 " jump to the matching paranthesis when a closing paraenthesis is inserted
+
+" Show syntax highlighting groups for word under cursor
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+let mapleader="-" " mapleader
+
+" show syntax group for word under cursor
+nnoremap <leader>sI :call <SID>SynStack()<CR>
+" move current line down using one key stroke
+noremap <leader>- ddp
+" move current line up using one key stroke
+noremap <leader>_ kddpk
+
+" mapping to uppercase/lowercase the word under the cursor in insert mode
+inoremap <leader><c-u> <esc>viwU<esc>i
+inoremap <leader><c-l> <esc>viwu<esc>i
+
+" open vimrc
+nnoremap <leader>ev :split $MYVIMRC<cr>
+" source vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" my email signature
+iabbrev sign -- <cr>Rajat Girotra<cr>rajatgirotra@yahoo.com
+
+" surround word under the cursor with double quotes
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
+
+" use jk to go out of insert mode instead of <esc> as it is easy, also disable
+" <esc>
+inoremap jk <esc>
+"inoremap <esc> <nop>
+
+" disable use of arrow keys in normal mode and insert mode
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" do not set wrap for vimrc file
+augroup command_group
+    autocmd BufNewFile,BufRead *\.vimrc setlocal nowrap
+    autocmd FileType python :iabbrev <buffer> iff if :<esc>hhi
+    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+augroup END
+
+" plugins
+set rtp+=~/.vim/bundle/ctrlp.vim
+set rtp+=~/.vim/bundle/ale.vim
+"set rtp+=~/.vim/bundle/colorscheme.vim
+set rtp+=~/.vim/bundle/lightline.vim
+set rtp+=~/.vim/bundle/YouCompleteMe.vim
+set rtp+=~/.vim/bundle/fugitive.vim
+set rtp+=~/.vim/bundle/nerdtree.vim
