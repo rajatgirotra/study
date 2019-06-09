@@ -75,7 +75,10 @@ RUN set -ex; \
        	tar xvf Python-3.7.3.tar.xz && cd Python-3.7.3; \
 	./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade --enable-optimizations; \
         make; \
-	make install;
+	make install; \
+	cd /app/devtools/thirdparty/include; \
+	ln -s python3.7m python3.7;
+        
 
 RUN set -ex; \
        LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install virtualenvwrapper;
@@ -144,4 +147,75 @@ RUN set -ex;\
 	PATH=/app/devtools/thirdparty/bin:${PATH} LD_LIBRARY_PATH=/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
 
 COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
+
+# install cmake
+USER devtools
+WORKDIR /app/devtools
+RUN set -ex; \
+    \
+    wget https://github.com/Kitware/CMake/releases/download/v3.14.5/cmake-3.14.5.tar.gz; \
+    tar -xvf cmake-3.14.5.tar.gz; \
+    cd cmake-3.14.5; \
+    PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=$HOME/thirdparty/lib ./bootstrap --prefix=/app/devtools/thirdparty -- -DCMAKE_BUILD_TYPE:STRING=Release; \
+    make; \
+    make install;
+
+# build boost
+WORKDIR /app/devtools
+RUN set -ex;\
+	\
+    wget https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz; \
+    tar -xvf boost_1_68_0.tar.gz; \
+    cd boost_1_68_0; \
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64 ./bootstrap.sh --prefix=/app/devtools/thirdparty --with-python=python3.7; \
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64 g++ --version; \
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64 ./b2 -q \
+    variant=release \
+    architecture=x86 \
+    debug-symbols=off \
+    threading=multi \
+    runtime-link=shared \
+    link=shared \
+    toolset=gcc \
+    --layout=system \
+    -d+2 \
+    install;
+
+# build protobuf
+WORKDIR /app/devtools
+RUN set -ex; \
+	\
+    wget https://github.com/protocolbuffers/protobuf/releases/download/v3.8.0/protobuf-all-3.8.0.tar.gz; \
+    tar -xvf protobuf-all-3.8.0.tar.gz; \
+    cd protobuf-3.8.0; \
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64 ./configure --prefix=/app/devtools/thirdparty; \
+    make -j2; \
+    make check; \
+    make install;
+
+USER rajatgirotra
+WORKDIR /home/rajatgirotra
+COPY --chown=rajatgirotra:rajatgirotra requirements.txt requirements.txt
+
+# create virtual environments
+RUN set -ex;\
+	\
+	export PATH=/app/devtools/thirdparty/bin:$PATH; \
+        export LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:$LD_LIBRARY_PATH; \
+	which python3; \
+	which pip3; \
+	python3 -m venv $HOME/.virtualenvs/superset; \
+	source $HOME/.virtualenvs/superset/bin/activate; \
+	pip3 install superset;
+
+RUN set -ex;\
+	\
+	export PATH=/app/devtools/thirdparty/bin:$PATH; \
+        export LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:$LD_LIBRARY_PATH; \
+	which python3; \
+	which pip3; \
+	python3 -m venv $HOME/.virtualenvs/generic; \
+	source $HOME/.virtualenvs/generic/bin/activate; \
+	pip3 install -r $HOME/requirements.txt;
+
 CMD scl enable devtoolset-8 bash;
