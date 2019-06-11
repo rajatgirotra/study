@@ -134,7 +134,7 @@ RUN set -ex; \
 	cd .vim; \
 	git clone https://github.com/kien/ctrlp.vim.git bundle/ctrlp.vim; \
 	git clone https://github.com/scrooloose/nerdtree.git bundle/nerdtree.vim; \
-	git clone https://github.com/w0rp/ale.git bundle/ale.git; \
+	git clone https://github.com/w0rp/ale.git bundle/ale.git bundle/ale.vim; \
 	git clone https://github.com/itchyny/lightline.vim bundle/lightline.vim; \
 	git clone https://github.com/tpope/vim-fugitive.git bundle/fugitive.vim;
 

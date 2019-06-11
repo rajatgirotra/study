@@ -1,0 +1,18 @@
+Set an option to its default value
+Set an option off
+Toggle an option
+Find the current value of an option
+
+increase indent in a cpp file based on shiftwidth() (both in normal mode and insert mode)
+decrease indent in a cpp file based on shiftwidth() (both in normal mode and insert mode)
+
+Check if some variable is actually defined
+Check the current value of a variable
+See all mappings in visual mode
+
+Apply nowrap option only to a current buffer. open two files and check that the current buffer has nowrap only.
+Reset the local wrap value back to its global value.
+Remove the local option completely.
+View all local options
+
+

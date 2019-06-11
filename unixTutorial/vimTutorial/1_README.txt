@@ -12,11 +12,12 @@ Use ":3messages to view only last 3 messages", use ":messages clear" to clear al
 :echo "(>^.^<)"
 
 -------------------------------------------------------------------------------------------------------------------------
-3) how do you set line number, unset set, toggle it, check the current value
+3) how do you set line number, unset set, toggle it, check the current value, and set to default value
 set number
 set nonumber
 set number!
 set number?
+set number&
 
 Read also about
 set relativenumber
@@ -31,13 +32,13 @@ and set your vimrc accordingly
 4) How do you set a basic mapping
 :map <new_Key> <action>
 By default, :map will set the mapping in all vim modes - normal, insert, visual etc. To selectively set a mapping for a given mode, use
-:nmap, :vmap, :imap etc. :unmap, :unnmap, :vunmap, :iunmap etc are used to remove the mappings
+:nmap, :vmap, :imap etc. :unmap, :nunmap, :vunmap, :iunmap etc are used to remove the mappings
 
 create a mapping to move the current line up or down with one key stroke
 :map - ddp
 :map _ kddpk
 
-create a mapping for key \ to delete the current line in normal up and to Uppercase the word selected in Visual mode
+create a mapping for key \ to delete the current line in normal mode and to Uppercase the word selected in Visual mode
 :nmap \ dd
 :vmap \ U
 

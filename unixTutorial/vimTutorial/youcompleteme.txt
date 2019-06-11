@@ -1,0 +1,68 @@
+Very simple. YCM is a code completion engine for vim. It can be used with several languages. How to install it.
+cd ~/.vim/bundle/
+git clone https://github.com/Valloric/YouCompleteMe.git YouCompleteMe.git
+cd YouCompleteMe.git
+git submodule update --init --recursive; 
+python3 ./install.py --clang-completer
+
+YouCompleteMe (YCM) basically is an 
+1) identifier completer --> It searches for identifiers in your current file and other files you visit (including tag files) and shows the completions as you type.
+You just need to press type to accept a completion, or keep pressing tab to cycle through other completions. Shift+Tab will cycle backwards.
+
+2) Semantic engine --> The semantic code completion engine. This allows you to do many things like
+  a) jump to include/definition/declaraion/ of a function
+  b) view the documentation for a function
+  c) view the type of identifiers
+  d) etc etc.
+
+For different languages, you have different semantic code completion engines.
+1) For C++ we have libclang (the --clang-completer) installs libclang. There is also clangd but that is experimental.
+2) For python there is a Jedi based completer.
+
+YCM is based on client server architecture. ycm client is a thin client which talks to ycmd (server, http+json).
+ycmd is started automatically when you start vim.
+
+By default ycm will keep giving you code completions as you type. But you can invoke it explicitly by typing Ctrl+Space.
+
+Now for semantic completion for C family of languages, ycm uses libclang (the llvm compiler). For it to work properly, libclang 
+would need the compiler flags used to compile the source file. The recommended way to create this file is:
+
+1) Use CMake to build your project and add -DCMAKE_EXPORT_COMPILE_COMMANDS=ON or set(CMAKE_EXPORT_COMPILE_COMMANDS ON) in your CMakeLists.txt
+this generates a file called the compile_commands.json. You create a softlink of this file in your project root and you are done.
+
+2) The more tedious apporach is to provide a file called .ycm_extra_conf.py in your project root. This should be a simple python file which 
+provides a function called "Settings" which returns a list of flags used to compile that source file. A simple definintion would be.
+
+def Settings(**kwargs):
+    return { 'flags': [ '-x', 'c++', '-Wall', '-Wextra', '-Werror' ] }
+
+Based on filename you can choose to return different flags. the filename is part of the kwargs dictionary.
+
+Errors in libclang
+==================
+If there are any errors in libclang, the code completion will take very long and return random results. You can use
+:YcmDiags to check if there were any errors in libclang while processing your file.
+
+Semantic Completion in python
+=============================
+When you need semantic Completion in python, you need to do two things
+1) Since normally people work in different python virtual environments and every virtual environments can have its own version of python, 
+    we must tell YCM the correct python interpreter_path.
+2) Also since you may at times, directly add third party dependencies/modules in your python code. you will need to tell YCM about it, so it can
+provide Semantic Completion for those libraries.
+
+You can choose to do it in two ways.
+1) Provide a .ycm_extra_conf.py python file at the root of your python project. This should have two functions
+
+# the settings function should return a dictionary containing the python to the interpreter for your project
+def Settings(**kwargs):
+    return  { 'interpreter_path' : /home/rajatgirotra/.virtualenvs/generic/bin/python3' }
+
+# the PythonSysPath function should return a list of directories to search in your project for third party packages you have included.
+def PythonSysPath( **kwargs ):
+  sys_path = kwargs[ 'sys_path' ]
+  sys_path.insert( 1, '/path/to/third_party/package' )
+  return sys_path
+
+
+2) the second approach is to use a global .ycm_extra_conf.py but we will ignore that for now.
