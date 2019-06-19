@@ -37,6 +37,7 @@ public:
         if(auto draw = this->get_override("draw")) {
             // if draw() is overridden in derived, call the overridden function, else call the base class version
             draw();
+	    // get_override() returns a boost::python::override object which encapsulates a python callable object or None
         } else {
             Shape::draw();
         }

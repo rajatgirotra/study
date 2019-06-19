@@ -13,12 +13,24 @@ RUN set -ex; \
     yum -y install devtoolset-8; \
     yum -y install make;
 
+# for centos devtoolset
 RUN set -ex; \
     yum -y install scl-utils;
 
+# for vim installation
 RUN set -ex; \
     \
     yum -y install ruby ruby-devel lua lua-devel perl perl-devel python python-devel tcl-devel;
+
+RUN set -ex; \
+	\
+	yum -y install perl-ExtUtils-ParseXS perl-ExtUtils-XSpp perl-ExtUtils-CBuilder perl-ExtUtils-Embed;
+
+# for vim ycm completer.
+RUN set -ex; \
+	\
+	yum makecache; \
+	yum -y install cmake clang;
 
 # enable ssh
 # RUN systemctl enable sshd
@@ -63,8 +75,8 @@ RUN set -ex; \
 	wget https://github.com/NixOS/patchelf/archive/0.10.tar.gz -O patchelf.tar.gz; \
       	tar xvf patchelf.tar.gz; \
 	cd patchelf-0.10; \
-       	./bootstrap.sh; \
-      	./configure --prefix=/app/devtools/thirdparty; \
+       	PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib ./bootstrap.sh; \
+        PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty; \
         make; \
         make install
 
@@ -73,22 +85,15 @@ RUN set -ex; \
 	\
 	wget https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tar.xz; \
        	tar xvf Python-3.7.3.tar.xz && cd Python-3.7.3; \
-	./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade --enable-optimizations; \
-        make; \
-	make install; \
+        PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade --enable-optimizations; \
+        PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib make; \
+	PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib make install; \
 	cd /app/devtools/thirdparty/include; \
 	ln -s python3.7m python3.7;
-        
 
 RUN set -ex; \
        LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install virtualenvwrapper;
 
-USER root
-RUN set -ex; \
-	\
-	yum -y install perl-ExtUtils-ParseXS perl-ExtUtils-XSpp perl-ExtUtils-CBuilder perl-ExtUtils-Embed;
-
-USER devtools
 WORKDIR /app/devtools
 
 # install latest vim
@@ -96,7 +101,7 @@ RUN set -ex; \
 	\
     git clone https://github.com/vim/vim.git; \
     cd vim; \
-    PATH=/app/devtools/thirdparty/bin:${PATH} LD_LIBRARY_PATH=/app/devtools/thirdparty/lib ./configure --with-features=huge \
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --with-features=huge \
     --enable-multibyte \
     --enable-rubyinterp=yes \
     --enable-pythoninterp=yes \
@@ -108,57 +113,18 @@ RUN set -ex; \
     --enable-fail-if-missing \
     --enable-terminal \
     --enable-gui=no --enable-cscope --prefix=/app/devtools/thirdparty; \
-    make && make install;
-
-
-USER root
-RUN set -ex; \
-	\
-	yum makecache; \
-	yum -y install cmake clang;
-
-USER rajatgirotra
-WORKDIR /home/rajatgirotra
-RUN /bin/bash -c 'echo "export WORKON_HOME=${HOME}/.virtualenvs" >> ~/.bashrc'
-RUN /bin/bash -c 'echo "export PROJECT_HOME=${HOME}/.projects" >> ~/.bashrc'
-RUN /bin/bash -c 'echo "export PATH=/app/devtools/thirdparty/bin:\${PATH}" >> ~/.bashrc'
-RUN /bin/bash -c 'echo "export LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:\${LD_LIBRARY_PATH}" >> ~/.bashrc'
-RUN /bin/bash -c 'echo "export VIRTUALENVWRAPPER_PYTHON=/app/devtools/thirdparty/bin/python3" >> ~/.bashrc'
-RUN /bin/bash -c 'echo "source /app/devtools/thirdparty/bin/virtualenvwrapper.sh" >> ~/.bashrc'
-RUN /bin/bash -c 'echo "export TERM=xterm-256color" >> ~/.bashrc'
-RUN mkdir -p .vim/bundle/
-
-# Add vim plugins
-RUN set -ex; \
-	\
-	cd .vim; \
-	git clone https://github.com/kien/ctrlp.vim.git bundle/ctrlp.vim; \
-	git clone https://github.com/scrooloose/nerdtree.git bundle/nerdtree.vim; \
-	git clone https://github.com/w0rp/ale.git bundle/ale.git bundle/ale.vim; \
-	git clone https://github.com/itchyny/lightline.vim bundle/lightline.vim; \
-	git clone https://github.com/tpope/vim-fugitive.git bundle/fugitive.vim;
-
-RUN set -ex;\
-	\
-	cd /home/rajatgirotra/.vim; \
-	git clone https://github.com/Valloric/YouCompleteMe.git bundle/YouCompleteMe.vim; \
-	cd bundle/YouCompleteMe.vim; \
-        git submodule update --init --recursive; \
-	PATH=/app/devtools/thirdparty/bin:${PATH} LD_LIBRARY_PATH=/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
-
-COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib make && make install;
 
 # install cmake
-USER devtools
 WORKDIR /app/devtools
 RUN set -ex; \
     \
     wget https://github.com/Kitware/CMake/releases/download/v3.14.5/cmake-3.14.5.tar.gz; \
     tar -xvf cmake-3.14.5.tar.gz; \
     cd cmake-3.14.5; \
-    PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=$HOME/thirdparty/lib ./bootstrap --prefix=/app/devtools/thirdparty -- -DCMAKE_BUILD_TYPE:STRING=Release; \
-    make; \
-    make install;
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib ./bootstrap --prefix=/app/devtools/thirdparty -- -DCMAKE_BUILD_TYPE:STRING=Release; \
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib make; \
+    PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib make install;
 
 # build boost
 WORKDIR /app/devtools
@@ -195,6 +161,36 @@ RUN set -ex; \
 
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
+RUN /bin/bash -c 'echo "export WORKON_HOME=${HOME}/.virtualenvs" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export PROJECT_HOME=${HOME}/.projects" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export PATH=/app/devtools/thirdparty/bin:\${PATH}" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:\${LD_LIBRARY_PATH}" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export VIRTUALENVWRAPPER_PYTHON=/app/devtools/thirdparty/bin/python3" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "source /app/devtools/thirdparty/bin/virtualenvwrapper.sh" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "export TERM=xterm-256color" >> ~/.bashrc'
+RUN mkdir -p .vim/bundle/
+
+# Add vim plugins
+RUN set -ex; \
+	\
+	cd .vim; \
+	git clone https://github.com/kien/ctrlp.vim.git bundle/ctrlp.vim; \
+	git clone https://github.com/scrooloose/nerdtree.git bundle/nerdtree.vim; \
+	git clone https://github.com/w0rp/ale.git bundle/ale.vim; \
+	git clone https://github.com/itchyny/lightline.vim bundle/lightline.vim; \
+	git clone https://github.com/tpope/vim-fugitive.git bundle/fugitive.vim;
+
+RUN set -ex;\
+	\
+	cd /home/rajatgirotra/.vim; \
+	git clone https://github.com/Valloric/YouCompleteMe.git bundle/YouCompleteMe.vim; \
+	cd bundle/YouCompleteMe.vim; \
+        git submodule update --init --recursive; \
+	PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
+
+COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
+
+WORKDIR /home/rajatgirotra
 COPY --chown=rajatgirotra:rajatgirotra requirements.txt requirements.txt
 
 # create virtual environments
@@ -217,5 +213,8 @@ RUN set -ex;\
 	python3 -m venv $HOME/.virtualenvs/generic; \
 	source $HOME/.virtualenvs/generic/bin/activate; \
 	pip3 install -r $HOME/requirements.txt;
+
+WORKDIR /home/rajatgirotra
+COPY --chown=rajatgirotra:rajatgirotra ycm_extra_conf.py .vim/.ycm_extra_conf.py
 
 CMD scl enable devtoolset-8 bash;

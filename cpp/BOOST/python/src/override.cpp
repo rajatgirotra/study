@@ -71,7 +71,7 @@ BOOST_PYTHON_MODULE(override_ext) {
             .def(self + self).def(self + int32_t())
             .def(self - self).def(self - int32_t())
             .def(self += int()).def(self -= int())
-            .def(self - self)
+            .def(self < self)
             .def(boost::python::self_ns::str(self))
             .def(float_(self))
             .def(abs(self))

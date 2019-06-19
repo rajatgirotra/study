@@ -1,5 +1,6 @@
 " author: Rajat Girotra
 
+" vimscript basic settings ----------------------- {{{
 set exrc               "load project specific vimrc if available
 set secure             "prevent some commands from being run from project specific vimrc
 set nocompatible       "we don't need compatibility with plain vi
@@ -9,28 +10,28 @@ set t_Co=256           "force vim into 256 color mode.
 set encoding=utf-8     "enable unicode in vim.
 set hidden             "hide the current buffer on close. Also to allow unsaved buffer to hidden when new buffer is opened.
 set belloff=all
-
-set background=dark    "work with dark background.
-
-filetype on            "enable filetype detection using $VIMRUNTIME/filetypes.vim
-filetype plugin on     "enable filetype plugins if available
-filetype indent on     "enable auto filetype indentation if available.
-syntax enable          "enable default vim syntax highlighting for the particular file type.
-
+set noshowmode         " no need as lightline.vim plugin display vim mode in the status line anyway.
 set ignorecase smartcase hlsearch incsearch " search preferences
-set colorcolumn=110    "for setting column 110 to a different color. Try not to write code that goes past 110 characters.
-highlight ColorColumn ctermbg=53
-
 set nonumber relativenumber numberwidth=4 " show linenumbers relative to the line the cursor is on.
 set wrap linebreak " enable line wrap and line break - only affects display and doesnt effect contents of the buffer
-
 " set auto indent width using shiftwidth and shiftround. used for cindent so need to enable cindent also
 " in normal mode, you can indent up or down using << or >>
 " in insert mode, you can indent up or down using Ctrl-T or Ctrl-D
 set shiftwidth=4 shiftround cindent
-
 set showmatch matchtime=5 " jump to the matching paranthesis when a closing paraenthesis is inserted
+"}}}
 
+" vimscript filetype plugin settings --------------------------- {{{
+filetype on            "enable filetype detection using $VIMRUNTIME/filetypes.vim
+filetype plugin on     "enable filetype plugins if available
+filetype indent on     "enable auto filetype indentation if available.
+syntax enable          "enable default vim syntax highlighting for the particular file type.
+"}}}
+
+" vimscript color settings ---------------------------------- {{{
+set background=dark    "work with dark background.
+set colorcolumn=110    "for setting column 110 to a different color. Try not to write code that goes past 110 characters.
+highlight ColorColumn ctermbg=53
 " Show syntax highlighting groups for word under cursor
 function! <SID>SynStack()
   if !exists("*synstack")
@@ -38,7 +39,9 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+"}}}
 
+" vimscript mappings ------------------------------- {{{
 let mapleader="-" " mapleader
 
 " show syntax group for word under cursor
@@ -79,13 +82,27 @@ inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
 
+" enter buffer name to switch to
+nnoremap <c-e> :ls<cr>:b
+" }}}
+
+execute "set <M-1>=\e1"
+
 " do not set wrap for vimrc file
 augroup command_group
     autocmd BufNewFile,BufRead *\.vimrc setlocal nowrap
-    autocmd FileType python :iabbrev <buffer> iff if :<esc>hhi
+    autocmd FileType python :iabbrev <buffer> iff if :<esc>hi
     autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 augroup END
 
+" vimscript code folding settings ------------------------- {{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+" vimscript plugins --------------------------------------- {{{
 " plugins
 set rtp+=~/.vim/bundle/ctrlp.vim
 set rtp+=~/.vim/bundle/ale.vim
@@ -94,3 +111,22 @@ set rtp+=~/.vim/bundle/lightline.vim
 set rtp+=~/.vim/bundle/YouCompleteMe.vim
 set rtp+=~/.vim/bundle/fugitive.vim
 set rtp+=~/.vim/bundle/nerdtree.vim
+"}}}
+
+" ctrlp plugin settings --------------------------------- {{{
+let g:ctrl_cmd = 'CtrlPMixed'
+"}}}
+
+" ycm plugin settings ------------------------------- {{{
+let g:ycm_global_ycm_extra_conf = '$HOME/.vim/.ycm_extra_conf.py'
+"}}}
+
+" NERDTree plugin settings -------------------------- {{{
+nnoremap <M-1> :NERDTreeToggle<cr>
+"}}}
+
+" ALE plugin settings -------------------------------- {{{
+let g:ale_c_parse_compile_commands=1
+"}}}
+
+
