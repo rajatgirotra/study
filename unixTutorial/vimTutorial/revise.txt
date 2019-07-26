@@ -15,4 +15,11 @@ Reset the local wrap value back to its global value.
 Remove the local option completely.
 View all local options
 
+View list of all autocmd-events
 
+Create an operator pending mapping to delete all text from current cursor until end of function which has a single return statement.
+
+Open multiple windows and then close all others except the one in which you are working. 
+Do the same for multiple tabs.
+
+Add a shortcut "Ctrl+e" where you can enter the buffer you want to open.

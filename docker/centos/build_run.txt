@@ -1,0 +1,4 @@
+docker run -it -p 8888:8888 -p 8000:8000 --rm  -v ~/study:/study centos_dev
+
+docker build  -t centos_dev:latest .
+

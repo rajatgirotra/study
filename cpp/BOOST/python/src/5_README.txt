@@ -25,6 +25,7 @@ Infact what you expose using class_<> is nothing but a boost::python::object. To
 a C++ type, use boost::python::extract, example:
 
 double d = boost::python::extract<double>(o.attr("length")); // will throw if extraction is not possible.
+So you can use the check() method of the object returned by extract which returns a boolean.
 
 
 Python doesnt have enum types. But you can create enum types using C++ defined enums. Example:
@@ -37,8 +38,10 @@ BOOST_PYTHON_MODULE(module_ext) {
 }
 
 Use:
-boost::python::object o(boost::python::handle<>(pyobj)); // for o to manage a pointer to PyObject*, will not call PY_INCREF
+boost::python::object o(boost::python::handle<>(pyobj)); // for o to manage a pointer to PyObject*, will not call PY_INCREF. So when o is destroyed, the pyobj is destroyed as well.
+
 boost::python::object o(boost::python::handle<>(boost::python::borrowed(pyobj))); // will call PY_INCREF
+so when o is destroyed, pyobj is not destroyed.
 
 /*
 Please read 6_README.txt

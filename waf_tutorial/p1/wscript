@@ -1,0 +1,6 @@
+def ping(ctx):
+    print(f'ping {id(ctx)} {ctx.__class__, ctx.__class__.__name__}')
+     
+
+def pong(ctx):
+    print(f'pong {id(ctx)} {ctx.__class__, ctx.__class__.__name__}')

@@ -14,7 +14,10 @@ print('is_base(Base): %s' % is_base(Base()))
 
 
 # Only uncomment if you understand the output from the above print statement
+print()
 print('is_base(Derived): %s' % is_base(Derived()))
+print()
 print('call_f(Base): %s' % call_f(Base()))
+print()
 print('call_f(Derived): %s' % call_f(Derived()))
 

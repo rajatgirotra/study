@@ -8,7 +8,7 @@ server {
     # root directive at the server level means that whenever a location directive will not have a root parameter, the server root directive will be used.
 
     location / {
-        # not root directive, so all requests will be mapped to /data/up1 on the filesystem.
+        # no root directive, so all requests will be mapped to /data/up1 on the filesystem.
         # you can try by putting an index.html there. 
     }
 

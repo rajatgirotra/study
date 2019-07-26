@@ -80,6 +80,16 @@ RUN set -ex; \
         make; \
         make install
 
+# install sqlite3
+RUN set -ex; \
+	\
+	wget https://sqlite.org/2019/sqlite-autoconf-3280000.tar.gz; \
+      	tar xvf sqlite-autoconf-3280000.tar.gz; \
+	cd sqlite-autoconf-3280000; \
+       	PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty --enable-readline; \
+        make; \
+        make install
+
 # install python 3.7
 RUN set -ex; \
 	\
@@ -188,7 +198,6 @@ RUN set -ex;\
         git submodule update --init --recursive; \
 	PATH=/opt/rh/devtoolset-8/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-8/root/usr/lib:/opt/rh/devtoolset-8/root/usr/lib64:/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
 
-COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
 
 WORKDIR /home/rajatgirotra
 COPY --chown=rajatgirotra:rajatgirotra requirements.txt requirements.txt
@@ -216,5 +225,16 @@ RUN set -ex;\
 
 WORKDIR /home/rajatgirotra
 COPY --chown=rajatgirotra:rajatgirotra ycm_extra_conf.py .vim/.ycm_extra_conf.py
+COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
 
+RUN set -ex;\
+	\
+	cd; \
+	mkdir -p tools; \
+	cd tools; \
+        curl -o waf https://waf.io/waf-2.0.18; \
+	chmod 755 waf; \
+        echo "export PATH=/home/rajatgirotra/tools:\${PATH}" >> ~/.bashrc
+
+WORKDIR /home/rajatgirotra
 CMD scl enable devtoolset-8 bash;

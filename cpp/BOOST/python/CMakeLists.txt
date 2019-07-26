@@ -12,4 +12,5 @@ find_package(Boost 1.68 EXACT REQUIRED COMPONENTS python37)
 add_compile_options("$<$<CONFIG:Debug>:-gdwarf-4>" "$<$<CONFIG:Release>:>")
 
 add_subdirectory(src)
+add_subdirectory(practice)
 add_subdirectory(delete)

@@ -1,0 +1,3 @@
+def ping(ctx):
+    print (f"--> ping from {ctx.path.abspath()}")
+    ctx.recurse('src')  # ctx.recurse() will call the same python function in src/wscript

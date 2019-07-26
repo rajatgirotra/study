@@ -97,7 +97,7 @@ see the relevant help to find out if the option can be applied locally.
 These are commands that get run automatically when some events happen in vim. Vim defines a number of different events like
 Buffer Open, Buffer saved, File Created, etc etc. You can define your own commands to be executed when these events happen. Syntax is very simple
 
-:autocmd Event1,Event2,Event3 <some_filter_pattern> <commads_to_execute>
+:autocmd Event1,Event2,Event3 <some_filter_pattern> <commands_to_execute>
 
 example: create an autocmd not to set wrap on vimrc file
 
@@ -157,4 +157,142 @@ text below.
 
 person.get_pets(type="cat", fluffy=True)
 
+Create another operator pending mapping to delete the text from current cursor position until the last return statement in a function
+
+:onoremap b /return<cr>
+
+now go to start of function and press db. which means delete from current cursor until /return is found.
+
+What is the meaning of the following mapping
+:onoremap in( :<c-u>normal! f(vi(<cr>
+For now ignore <c-u> and also ignore the ! in the normal!, :normal! is a way switch to normal mode and execute a sequence of keystrokes.
+So f(vi(<cr> gets executed in normal mode. f( will take you forward in the same line to the next (, vi( means visual mode in next paranthesis,
+<cr> will actually execute the command. So if you are on a function prototype and want to change its signature, just used "cin(" meaning change
+in paranthesis.
+
+Similarly:
+:onoremap il( :<c-u>normal! F)vi(<cr>
+means change in last paranthesis. because F( goes backwards. vi( means visually select inside the paranthesis.
+
+Another complex operator pending mapping
+
+:onoremap ih :<c-u>execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"<cr>
+
+Note that in ":normal!" vim cant understand special characters like <cr>, <space> etc. So the way around it is to use
+the execute command. The execute command takes a string (that string can have special characters). vim will execute that vim script
+\\ is an escape sequence meaning a literal \ and \r means carriage return.
+in command mode. The ?^==\\+$ will collapse to ?^==\+$ --> ie a backwards search for a line with two or more == and nothing else
+followed by <cr>, then :nohlsearch it to switch of highlighting search, then again <cr> ie enter. then 
+kvg_ meaning go one line up and visually select from current cursor until _ (_ means till last character. Note g$ would also select end of line character so we cant use g$, so we use g_).
+ 
+		   
+-------------------------------------------------------------------------------------------------------------------------
+statusline --> very simple. just like printf format specifiers. you can use many pre-defined format specifiers to set on the status line.
+The general syntax for every format specifier is:
+
+%-0{minwidth}.{maxwidth}{format_specifier} --> - means right justify, 0 is the fill character. note that spaces need to be escaped.
+Example:
+
+set statusline=%F
+set statusline+=\ -\ 
+set statusline+=Filetype:\ 
+set statusline+=%y
+
+help statusline
+
+You should anyway install lightline.vim plugin that displays a nice statusline. Also "set noshowmode" as the lightline shows it anyway
+-------------------------------------------------------------------------------------------------------------------------
+
+Code folding
+you can add specical code folding comments in your vimrc. That way you can group common related settings togther and fold them using "za"
+You can also set all your sections to appear folded when you start vim. This technique is OK for vim but if you start clutterting other source code
+with code folding comments, it might not go down well with non vim users.
+
+" Vimscript file settings ---------------------------------- {{{
+augroup 
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+-------------------------------------------------------------------------------------------------------------------------
+
+Variables and Variable scoping
+
+You can set and get variables in vimscript using the let command. Examples
+
+:let hello = 'world
+:echo hello
+
+You can also set vim options like wrap, number etc using let. However, you need to prefix an ampersand so that vim know you are talking
+about a vim option not just a simple variable which has the same name as the option name. Example:
+
+:let &number=0  # will clear line numbers
+:let &number=1  # will enable line numbers
+:echo &number
+
+:let &textwidth=10 # will set textwidth option to 10
+:let &textwidth = &textwidth + 10  # will set to 20
+:let &textwidth = "30hello" + &textwidth # will set to 50 (basically "30hello" gets coerced to 30)
+:echo &textwidth
+
+you also know that there are vim options that set local options. To set local options using let use "l:"
+This is called scoping. 
+:let &l:wrap=1  # will set wrap for only this window.
+
+Similaryly to set a user defined variable locally using scoping "b:"
+We'll see many other kinds of scoping later.
+
+You can also set/get register values. To set/get register value, preceed the register name with @
+:let @a="Hello"
+:echo @a
+
+To copy the contents of a register, use "ap (" means you are trying to access register, a is the name of the register and p means paste)
+
+Special registers:
+1) " (just double quote, the register in which by default the yanked lines go)
+2) / (the register in which the last search pattern goes)
+3) .. add more as you go along
+
+:help registers to read more about them
+
+-------------------------------------------------------------------------------------------------------------------------
+
+conditionals
+:if "foo" == "FOO"
+: echo "case insensitive"
+:else
+: echo "case sensitive"
+:endif
+
+Note that string comparison using == depends on the value of "set ignorecase" option. So NEVER NEVER rely on it
+Always explicitly use "==?" for case insensitive and "==#" for case sensitive searches. even when comparing integers
+
+:help expr4 --> to see all comparison operators
+-------------------------------------------------------------------------------------------------------------------------
+
+Functions
+You can define functions in vim just like you define variables. Also functions can be scoped just like variables. Remember, vim requires
+that function names must begin with Upper case letter when they are unscoped. But as a general rule:
+
+ALWAYS BEGIN FUNCTION NAMES WITH UPPERCASE LETTER WHETHER SCOPED OF UNSCOPED FUNCTION.
+
+example:
+
+:function Meow()
+: echom "Meow!"  # functions without a return value expliciltly return 0
+:endfunction
+
+:function GetMeow()
+: return "Meow!"
+:endfunction
+
+You can call a function using the
+1) call statement, like :call Meow() --> in this case any return value is discarded.
+2) or in an expression like :echom GetMeow() --> in this case the return value is not discarded
+
+example:
+:echom Meow() --> will first output Meow! and then output 0
+
+::help E124  or :help :call --> to read more
+-------------------------------------------------------------------------------------------------------------------------
 
