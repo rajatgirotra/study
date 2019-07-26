@@ -1,0 +1,8 @@
+# to add your own project specific options, define the function option. think about the ctx object as the python optparse object.
+def options(ctx):
+    ctx.add_option("--foo", action='store', help='Silly option', default=False)
+
+def configure(ctx):
+    print (f"--> running configure with options {ctx.options}")  # ctx.options is dictionary like.
+    print (f" --> the value of option foo is ${ctx.options.foo}")
+    print (f"ctx.options is of type {type(ctx.options)}")  # ctx.options if of type optparse.Values

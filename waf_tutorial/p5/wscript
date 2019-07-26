@@ -1,0 +1,19 @@
+top = '.'
+out = 'build'
+
+def configure(ctx):
+    pass # nothing to configure
+
+def build(ctx):
+    print (f"--> running command {ctx.cmd}")
+    ctx(rule='touch ${TGT}', target='foo.txt')
+    ctx(rule='cp ${SRC} ${TGT}', source='foo.txt', target='bar.txt')
+# build command defines how to build. the ctx() object is called with a rule. A rule looks like a command to execute. this command can take special variables like ${SRC}, ${TGT}; the values of which are specified by source and target arguments that follow 
+
+# lets run waf configure followed by waf build
+# note that the "waf build" command runs from the build directory automatically; so needless to say but foo.txt and bar.txt will be created in the build directory.
+# waf also creates a .wafpickle file in the build directory with information on the targets. we'll see later how to use it.
+# run "waf clean" now. waf clean is a special case which used the build command only to clean all targets. it is special in the way that it is mapped to the build command
+
+# infact not just clean, commands like "waf install, uninstall, list, step, clean" they are all mapped to the build function.
+# you can very that by printing "ctx.cmd" 
