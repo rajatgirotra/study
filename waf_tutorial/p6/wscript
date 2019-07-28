@@ -1,0 +1,37 @@
+top = '.'
+out = 'build'
+
+def options(ctx):
+    print(f"--> options function context object of type {type(ctx)}")
+    # add a config option
+    ctx.add_option("--foo", default=False, action='store', help='any thing')
+
+
+def configure(ctx):
+    print(f"--> configure function context object type {type(ctx)}")
+    # store option foo in ctx.env
+    ctx.env.FOO = ctx.options.foo
+
+    # find program touch and store its path
+    ctx.find_program('touch', var='TOUCH') # find_program will automatically set ctx.env.TOUCH to the path of the touch executable
+
+    # lets also serialize the ctx.env object
+    env_copy = ctx.env.derive()  # make a shallow copy of the ctx.env
+    print(f"in configure ctx.path is of type {type(ctx.path)}")
+
+    # create a file in ctx.path
+    node = ctx.path.make_node('test.txt')
+    env_copy.store(node.abspath())  # serialization
+
+    # now deserialize
+    from waflib.ConfigSet import ConfigSet
+    env2 = ConfigSet()
+    env2.load(node.abspath())
+    print(f"--> deserialized ctx.env is:\n{env2}")
+
+
+def build(ctx):
+    print(f"--> build function context object type {type(ctx)}")
+    print(f"--> ctx.env dictionary is:\n{ctx.env}")
+    tg = ctx(rule='${TOUCH} ${TGT}', target='foo.txt')  # by default TOUCH is also looked up in ctx.env
+    print(f'tg if of type {type(tg)}')

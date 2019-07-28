@@ -1,0 +1,5 @@
+BINDIR = '/usr/local/bin'
+FOO = False
+LIBDIR = '/usr/local/lib64'
+PREFIX = '/usr/local'
+TOUCH = ['/usr/bin/touch']
