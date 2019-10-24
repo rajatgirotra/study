@@ -1,6 +1,8 @@
 # Read README.txt first. options context
 def options(options_ctx):
     # the load function takes a list of waf tools to load
+    # what does load mean? load will search for compiler_c.py and compiler_cxx.py and call the options(ctx) function
+    # in it. Similarly calling load in configure below will call configure(ctx) defined in compiler_c.py and compiler_cxx.py
     options_ctx.load(['compiler_c', 'compiler_cxx'])
 
 
@@ -17,16 +19,20 @@ def configure(conf_ctx):
     # waflib.Tools.c_config.check(self, *k, **kw)[source]
     #     Configuration Method bound to waflib.Configure.ConfigurationContext
     # you will see this very often in waf
-    conf.check(features='cxx cxxprogram', lib=['m'], cflags=['-Wall'], defines=['var=foo'], uselib_store='M') 
+    conf_ctx.check(features='cxx cxxprogram', lib=['m'], cflags=['-Wall'], defines=['var=foo'], uselib_store='M') 
     # conf.check() runs the compiler internally to check if libm is available on the OS and also if cflags -Wall is accepted and defines -Dvar=foo
     # if check is successfull, creates
     # conf.env.LIB_M = ['m']
     # conf.env.CFLAGS_M = ['-Wall']
     # conf.env.DEFINES_M = ['var=foo'] 
     # otherwise raises ConfigurationError
+ 
+    # a note on features: a TaskGen object returned by calling, let say, ctx(features='c cprogram', source='main.c', target='app')
+    # does not have a rule; it has a list of features which references methods which will call the appropriate rules. For example
+    # feature='c' is to compile a file using gcc -c
+    # feature='cprogram' is to create an executable like gcc main.o -o app.
 
-
-    	
+    # features are defined in waflib.Tools.*py files.
 
 
 

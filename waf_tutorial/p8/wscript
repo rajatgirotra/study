@@ -1,0 +1,25 @@
+top = '.'
+out = 'build'
+
+
+def options(options_ctx):
+    # load compiler_c, compiler_cxx
+    options_ctx.load(['compiler_c', 'compiler_cxx'])  # by default the tooldir to search is waflib/Tools/
+    #options_ctx.load(['gxx'])  # by default the tooldir to search is waflib/Tools/
+
+
+def configure(conf_ctx):
+    conf_ctx.load(['compiler_c', 'compiler_cxx'])
+    #conf_ctx.load(['gxx'])  # by default the tooldir to search is waflib/Tools/
+    conf_ctx.check(features='cxx cxxprogram', lib=['m'], cxxflags=['-Wall'], defines=['foo=var'], uselib_store='M')
+    print(f"out directory is {conf_ctx.path.get_bld()}")
+    conf_ctx.env.cxxshlib_PATTERN='%s_ext.so'
+
+
+def build(build_ctx):
+    print(build_ctx.env)
+    build_ctx(features='cxx cxxshlib', source='log.cpp', target='AppLog', use=['M'])
+    #link_flags = f"-Wl,-rpath,{build_ctx.path.get_bld()}"
+    #build_ctx(features='cxx cxxprogram', source='cosine.cpp', target='app', use=['AppLog'], lib=['dl'], linkflags=[link_flags])
+    rpath = f"{build_ctx.path.get_bld()}"
+    build_ctx(features='cxx cxxprogram', source='cosine.cpp', target='app', use=['AppLog'], lib=['dl'], rpath=[rpath])

@@ -12,16 +12,20 @@ waflib.Tools.c_config
 waflib.Tools.c_aliases
 and may be more.
 
-c_config:
+ccroot: provides low level functionality which other tools like c, cxx, compiler_c, compiler_cxx use.
+
+c_config: VERY VERY IMPORTANT.
 C/C++/D configuration helpers
 
 c_aliases:
-base for all c/c++ programs and libraries
+base for all c/c++ programs and libraries. You will hardly needed. Just defines some convenience wrappers which I think arent that important.
 
 cxx:
 Base for c++ programs and libraries
 
 compiler_cxx:
+Defines a dictionary of hosts to compilers. and then tries to find a compiler out of the list of compilers for that host.
+You can also define your own list of compilers to find. Its very trivial.
 Try to detect a C++ compiler from the list of supported compilers (g++, msvc, etc):
 
 

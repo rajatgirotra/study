@@ -2,40 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="534ad689-5d84-41b5-9028-99065408320b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/1_GIL.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/getrefcount_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/single_threaded_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../cpp/CPP_NEW/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../cpp/CPP_NEW/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../18.comparison_operators.py" beforeDir="false" afterPath="$PROJECT_DIR$/../18.comparison_operators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../36.classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../36.classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../37.stdlib.py" beforeDir="false" afterPath="$PROJECT_DIR$/../37.stdlib.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../9.py" beforeDir="false" afterPath="$PROJECT_DIR$/../9.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../abcd.py" beforeDir="false" afterPath="$PROJECT_DIR$/../abcd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../arg.py" beforeDir="false" afterPath="$PROJECT_DIR$/../arg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../argparse.py" beforeDir="false" afterPath="$PROJECT_DIR$/../argparse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../argparse_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../argparse_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../clazz.py" beforeDir="false" afterPath="$PROJECT_DIR$/../clazz.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/../exception.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fib.py" beforeDir="false" afterPath="$PROJECT_DIR$/../fib.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fibo.py" beforeDir="false" afterPath="$PROJECT_DIR$/../fibo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../file.py" beforeDir="false" afterPath="$PROJECT_DIR$/../file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/../generators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../log.py" beforeDir="false" afterPath="$PROJECT_DIR$/../log.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../log_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/../log_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../log_dictConfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/../log_dictConfig.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../log_study.py" beforeDir="false" afterPath="$PROJECT_DIR$/../log_study.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/../misc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/../mod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../more.py" beforeDir="false" afterPath="$PROJECT_DIR$/../more.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../name_lookup.py" beforeDir="false" afterPath="$PROJECT_DIR$/../name_lookup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../property.py" beforeDir="false" afterPath="$PROJECT_DIR$/../property.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../python_type_class_metaclass.py" beforeDir="false" afterPath="$PROJECT_DIR$/../python_type_class_metaclass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../regex.py" beforeDir="false" afterPath="$PROJECT_DIR$/../regex.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../regex2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../regex2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../x.py" beforeDir="false" afterPath="$PROJECT_DIR$/../x.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker/example-voting-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../docker/example-voting-app" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -46,46 +15,12 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/reads$getrefcount_2.coverage" NAME="getrefcount_2 Coverage Results" MODIFIED="1550120816739" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="447886588">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="py" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Python" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="Python Console" value="119" />
-          <entry key="py" value="297" />
-          <entry key="txt" value="1193" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PLAIN_TEXT" value="1193" />
-          <entry key="Python" value="416" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/1_GIL.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
+            <state relative-caret-position="1032">
               <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
             </state>
           </provider>
@@ -94,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/single_threaded_3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="186">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
               <folding>
                 <marker date="1550120836227" expanded="true" signature="63:68" ph="..." />
               </folding>
@@ -123,12 +58,6 @@
         <option value="$PROJECT_DIR$/single_threaded_3.py" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="67" />
@@ -162,7 +91,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="Docker" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -176,7 +105,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.centos_dev">
     <configuration name="getrefcount_2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="reads" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -199,8 +128,41 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="centos_dev" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="command" value="" />
+          <option name="containerName" value="" />
+          <option name="entrypoint" value="" />
+          <option name="imageTag" value="centos_dev:latest" />
+          <option name="portBindings">
+            <list>
+              <DockerPortBindingImpl>
+                <option name="containerPort" value="8888" />
+                <option name="hostPort" value="8888" />
+              </DockerPortBindingImpl>
+              <DockerPortBindingImpl>
+                <option name="containerPort" value="8000" />
+                <option name="hostPort" value="8000" />
+              </DockerPortBindingImpl>
+            </list>
+          </option>
+          <option name="commandLineOptions" value="" />
+          <option name="volumeBindings">
+            <list>
+              <DockerVolumeBindingImpl>
+                <option name="containerPath" value="/study" />
+                <option name="hostPath" value="$PROJECT_DIR$/../.." />
+              </DockerVolumeBindingImpl>
+            </list>
+          </option>
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.centos_dev" />
         <item itemvalue="Python.getrefcount_2" />
       </list>
     </recent_temporary>
@@ -215,21 +177,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1550057542386</updated>
+      <workItem from="1564196364450" duration="759000" />
+      <workItem from="1564197284300" duration="395000" />
     </task>
     <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1154000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.18705036" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.19147758" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info anchor="bottom" id="Version Control" order="2" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="4" visible="true" weight="0.32972974" />
-      <window_info anchor="bottom" id="Docker" order="5" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Python Console" order="4" weight="0.3286638" />
+      <window_info active="true" anchor="bottom" id="Docker" order="5" visible="true" weight="0.6101512" />
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="bottom" id="Find" order="7" />
       <window_info anchor="bottom" id="Run" order="8" weight="0.32972974" />
@@ -249,9 +216,6 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/getrefcount_2.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -262,15 +226,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/1_GIL.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
+        <state relative-caret-position="1032">
           <caret line="43" column="37" selection-start-line="43" selection-start-column="37" selection-end-line="43" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/single_threaded_3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="186">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
           <folding>
             <marker date="1550120836227" expanded="true" signature="63:68" ph="..." />
           </folding>
