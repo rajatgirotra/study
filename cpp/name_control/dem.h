@@ -7,9 +7,9 @@ class Dem {
 		//static int j;
 };
 
- int x = -987;
+// int x = -987;
 
-const int Dem::i ;
+//const int Dem::i ;
 //int Dem::j = 20;
 
 #endif

@@ -24,7 +24,7 @@ void f() {
   public:
     Local() { cout<<"Local c'tor"<<endl; }
     ~Local() { cout<<"Local d'tor"<<endl; }
-//! static int i;  // Error
+//! static const int i;  // Error
     // (How would you define i?)
   } x;
 } 

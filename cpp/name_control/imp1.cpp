@@ -8,5 +8,5 @@ extern int foo();
 
 int main() {
 	cout << foo() << endl;
-        cout << x << endl;
+//        cout << x << endl;
 }

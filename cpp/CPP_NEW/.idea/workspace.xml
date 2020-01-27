@@ -6,7 +6,6 @@
       <config projectName="CPP_NEW" targetName="chrono_2" />
       <config projectName="CPP_NEW" targetName="RValueReferences_2" />
       <config projectName="CPP_NEW" targetName="RValueReferences_1" />
-      <config projectName="CPP_NEW" targetName="RValueReferences_6" />
       <config projectName="CPP_NEW" targetName="RValueReferences_20" />
       <config projectName="CPP_NEW" targetName="remove_duplicates_from_unsorted_string" />
       <config projectName="CPP_NEW" targetName="remove_duplicates_from_sorted_string" />
@@ -23,6 +22,7 @@
       <config projectName="CPP_NEW" targetName="sfinae_main_10_2" />
       <config projectName="CPP_NEW" targetName="sfinae_main_10_1" />
       <config projectName="CPP_NEW" targetName="reverse_iterator" />
+      <config projectName="CPP_NEW" targetName="chrono_5" />
       <config projectName="CPP_NEW" targetName="range_iterator" />
       <config projectName="CPP_NEW" targetName="zero_matrix" />
       <config projectName="CPP_NEW" targetName="are_anagram" />
@@ -38,7 +38,7 @@
       <config projectName="CPP_NEW" targetName="enable_if_5" />
       <config projectName="CPP_NEW" targetName="iterator_adaptor" />
       <config projectName="CPP_NEW" targetName="RValueReferences_3" />
-      <config projectName="CPP_NEW" targetName="chrono_5" />
+      <config projectName="CPP_NEW" targetName="RValueReferences_6" />
       <config projectName="CPP_NEW" targetName="chrono_4" />
     </generated>
   </component>
@@ -49,50 +49,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2225710c-b18e-4007-8faf-455c7e034697" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/random/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/random/are_anagram.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/random/has_unique_chars.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/random/remove_duplicates_from_sorted_string.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/random/remove_duplicates_from_unsorted_string.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/random/replace_string_by_percent_20.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/random/reverse_string.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/random/zero_matrix.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../pythonTutorial/reads/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../pythonTutorial/reads/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../pythonTutorial/reads/1_GIL.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../pythonTutorial/reads/getrefcount_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../pythonTutorial/reads/single_threaded_3.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sfinae_and_enable_if/enable_if_3.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sfinae_and_enable_if/enable_if_3.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/18.comparison_operators.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/18.comparison_operators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/36.classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/36.classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/37.stdlib.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/37.stdlib.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/9.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/9.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/abcd.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/abcd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/arg.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/arg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/argparse.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/argparse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/argparse_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/argparse_1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/clazz.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/clazz.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/exception.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/fib.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/fib.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/fibo.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/fibo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/file.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/generators.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/generators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/log.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/log.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/log_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/log_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/log_dictConfig.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/log_dictConfig.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/log_study.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/log_study.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/misc.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/misc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/mod.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/mod.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/more.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/more.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/name_lookup.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/name_lookup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/property.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/property.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/python_type_class_metaclass.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/python_type_class_metaclass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/regex.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/regex.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/regex2.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/regex2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../pythonTutorial/x.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../pythonTutorial/x.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker/example-voting-app" beforeDir="false" afterPath="$PROJECT_DIR$/../../docker/example-voting-app" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -106,13 +63,13 @@
     <session id="2086085087">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
-          <entry key="project.open.time.12" value="3" />
+          <entry key="project.closed" value="8" />
+          <entry key="project.open.time.12" value="4" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -159,8 +116,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sfinae_and_enable_if/sfinae_main_10.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+            <state relative-caret-position="299">
+              <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -168,8 +125,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hashes_maps_sets/hash_map.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="59" column="1" lean-forward="true" selection-start-line="59" selection-start-column="1" selection-end-line="62" selection-end-column="62" />
+            <state relative-caret-position="1357">
+              <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="62" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -186,7 +143,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/hashes_maps_sets/hash_map_create.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="713">
+            <state relative-caret-position="874">
               <caret line="38" column="56" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="56" />
             </state>
           </provider>
@@ -375,6 +332,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -382,16 +340,10 @@
               <item name="CPP_NEW" type="b2602c69:ProjectViewProjectNode" />
               <item name="CPP_NEW" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="CPP_NEW" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CPP_NEW" type="462c0819:PsiDirectoryNode" />
-              <item name="hashes_maps_sets" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -690,6 +642,7 @@
       <workItem from="1552344814149" duration="1532000" />
       <workItem from="1552487650691" duration="1707000" />
       <workItem from="1552603163750" duration="1447000" />
+      <workItem from="1571926217284" duration="1276000" />
     </task>
     <task id="LOCAL-00001" summary="random">
       <created>1539870989570</created>
@@ -786,7 +739,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106512000" />
+    <option name="totallyTimeSpent" value="107788000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -800,7 +753,7 @@
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.56972975" visible="true" weight="0.1615938" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.56972975" visible="true" weight="0.16325401" />
       <window_info id="Structure" order="1" sideWeight="0.43027028" side_tool="true" weight="0.19424461" />
       <window_info id="Favorites" order="2" sideWeight="0.5016129" side_tool="true" weight="0.16657443" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -822,29 +775,6 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.57096773" visible="true" weight="0.19424461" />
-      <window_info id="Structure" order="1" sideWeight="0.42903227" side_tool="true" weight="0.18760376" />
-      <window_info id="Favorites" order="2" sideWeight="0.5016129" side_tool="true" weight="0.16657443" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32972974" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32972974" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32972974" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32972974" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="CMake" order="11" visible="true" weight="0.32972974" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.4" />
-      <window_info anchor="bottom" id="Docker" order="13" visible="true" weight="0.32937366" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -1153,9 +1083,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="943">
           <caret line="41" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="e#505#522#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1177,6 +1104,37 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="506">
           <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sfinae_and_enable_if/sfinae_main_10.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/hash_map.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1357">
+          <caret line="59" column="1" selection-start-line="59" selection-start-column="1" selection-end-line="62" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/hash_map_create.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="874">
+          <caret line="38" column="56" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/Must_Read_1.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="22" column="97" selection-start-line="22" selection-end-line="23" />
         </state>
       </provider>
     </entry>
@@ -1213,37 +1171,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="529">
           <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sfinae_and_enable_if/sfinae_main_10.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/hash_map_create.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="38" column="56" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/Must_Read_1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="22" column="97" selection-start-line="22" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/hashes_maps_sets/hash_map.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="59" column="1" lean-forward="true" selection-start-line="59" selection-start-column="1" selection-end-line="62" selection-end-column="62" />
         </state>
       </provider>
     </entry>

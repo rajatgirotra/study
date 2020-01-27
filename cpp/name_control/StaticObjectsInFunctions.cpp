@@ -10,7 +10,7 @@ public:
 };
 
 void f() {
-   static X x1(47);
+   static  X x1(47);
    //static X x2; // Default constructor required
 }
 
