@@ -17,8 +17,9 @@ def hello():
 
     html = "<h3>Hello {name}!</h3>" \
            "<b>Hostname:</b> {hostname}<br/>" \
+           "<b>Real Hostname:</b> {real_hostname}<br/>" \
            "<b>Visits:</b> {visits}"
-    return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname(), visits=visits)
+    return html.format(name=os.getenv("NAME", "world"), hostname=socket.gethostname(), visits=visits, real_hostname=os.getenv('HOSTNAME', 'unknown'))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)

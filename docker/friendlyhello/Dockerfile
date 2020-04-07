@@ -14,7 +14,7 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 EXPOSE 80
 
 # Define an environment variable
-ENV NAME world
+ENV NAME Rajat
 
 # Run app.py when the container launches
 CMD ["python", "app.py"]

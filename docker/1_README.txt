@@ -75,7 +75,7 @@ Tip:
 
 You will see many commands in docker being run as “sudo docker”. This is because when you run a docker command, it connects to the docker engine running on a local Unix socket and that socket is owned by root by default. You can prevent it by creating a separate group for docker and prevent any security threats.
 
-If you don’t want to preface the docker command with sudo, create a Unix group called docker and add users to it. When the Docker daemon starts, it creates a Unix socket accessible by members of the docker group.
+If you don’t want to prefix the docker command with sudo, create a Unix group called docker and add users to it. When the Docker daemon(dockerd) starts, it creates a Unix socket accessible by members of the docker group.
 
 create the docker group.
 -----------------------
@@ -103,7 +103,7 @@ Docker has image file. An image file is an executable package that docker can ru
 
 Difference from VM
 ================
-In a VM, you will typically have the Infrastructure (hardware) at the lowest level, followed by the host os; followed by a hypervisor (an app that allows virtualization is sharing of hardware with other guest OS’es), then you have multiple VM’s running in the guest OS. On a guest OS, you have multiple binaries/libs out of which only a subset is needed to run your application.
+In a VM, you will typically have the Infrastructure (hardware) at the lowest level, followed by the host os; followed by a hypervisor (an app that allows virtualization which is sharing of hardware with other guest OS’es), then you have multiple VM’s running in the guest OS. On a guest OS, you have multiple binaries/libs out of which only a subset is needed to run your application.
 
 On the other hand, in docker, you just have the infrastructure, followed by a docker engine running on it, followed by multiple containers containing only the binaries/libraries needed to run the application in your container. So its not a fully blown setup like a VM. Individual container are usually separated and run in isolation.
 
@@ -156,5 +156,21 @@ docker run –p 4000:80 friendlyhello   (ie run the friendlyhello image) and map
 Use “docker container ls” and “docker container stop <CONTAINER ID> to stop the container.
 
 Use docker –d to run the container in background (as a daemon).
+
+Namespaces
+==========
+
+docker uses a concept called namespaces to create a level of isolation of the containers. You can tailor the configuration of these namespaces
+to decide what level of isolation your container has compared to other containers or your host OS. The different namespaces of a container are:
+
+the pid namespace (process id namespace)
+the net namespace (the networking namespace)
+the mnt namespace (the mount namespace)
+the uts namespace (the Unix Timesharing system)
+the ipc namespace (the IPC resources namespace)
+
+ Control Groups
+ =============
+ docker engine on linux also uses the cgroup technology. cgroups allows the docker engine to share the available hardware resources with the containers also also enforce certain limits on the resources.
 
 
