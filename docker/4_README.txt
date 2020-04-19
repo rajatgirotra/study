@@ -10,11 +10,12 @@ When you ran "docker swarm init", docker goes into swarm mode and also the curre
 "docker swarm init" on the manager nodes and run "docker swarm join" to add a machine to a swarm as a worker node. We'll see that.
 
 To explore docker in swarm mode, we will create two VM's using docker-machine command, then use those machines to create a swarm.
-we need virtual box also which we already have installed.
+we need virtual box also which we already have installed. Basically docker-machine command creates a guest OS with docker installed(both client and daemon),
+runs the docker daemon on those machines. You can then issue commands to these guest OS's using docker-machine ssh <machine_name> "<commands>"
 
 to install docker-machine, do
 -----------------------------
-base=https://github.com/docker/machine/releases/download/v0.16.0 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine && sudo install /tmp/docker-machine /usr/local/bin/docker-machine
+base=https://github.com/docker/machine/releases/download/v0.16.2 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine && chmod +x /tmp/docker-machine && sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
 
 create virtual machine using
 -----------------------------
