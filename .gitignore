@@ -21,3 +21,4 @@ tf_files/
 .ipynb_checkpoints/
 **/delete/
 gdb.txt
+.lock-waf_linux_build
