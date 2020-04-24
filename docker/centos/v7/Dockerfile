@@ -33,7 +33,10 @@ RUN set -ex; \
 	yum -y install cmake clang;
 
 # enable ssh
-# RUN systemctl enable sshd
+RUN set -ex; \
+	\
+	mkdir -p /var/run/sshd; \
+	ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '';
 
 # change password for root
 RUN echo 'root:root' | chpasswd
@@ -53,8 +56,9 @@ RUN echo 'devtools:devtools' | chpasswd
 # create user rajatgirotra for development
 RUN useradd --create-home --shell /bin/bash rajatgirotra
 
-# add user devtools to wheel group. users in this group have sudo priviledge
+# add user rajatgirotra to wheel and devtools group. users in this group have sudo priviledge
 RUN usermod -aG devtools rajatgirotra
+RUN usermod -aG wheel rajatgirotra
 
 # change password for devtools
 RUN echo 'rajatgirotra:rajatgirotra' | chpasswd
@@ -69,38 +73,35 @@ RUN mkdir thirdparty
 RUN chmod 755 /app/devtools
 # RUN scl enable devtoolset-9 bash
 
-# install patchelf
+# install patchelf, just a C library
 RUN set -ex; \
 	\
 	wget https://github.com/NixOS/patchelf/archive/0.10.tar.gz -O patchelf.tar.gz; \
       	tar xvf patchelf.tar.gz; \
 	cd patchelf-0.10; \
-       	PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib ./bootstrap.sh; \
-        PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty; \
+       	./bootstrap.sh; \
+        ./configure --prefix=/app/devtools/thirdparty; \
         make; \
         make install
 
-# install sqlite3
+# install sqlite3, just a C library
 RUN set -ex; \
 	\
-#	wget https://sqlite.org/2019/sqlite-autoconf-3280000.tar.gz; \
 	wget https://www.sqlite.org/2020/sqlite-autoconf-3310100.tar.gz; \
-#      	tar xvf sqlite-autoconf-3280000.tar.gz; \
       	tar xvf sqlite-autoconf-3310100.tar.gz; \
-#	cd sqlite-autoconf-3280000; \
 	cd sqlite-autoconf-3310100; \
-       	PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty --enable-readline; \
+       	./configure --prefix=/app/devtools/thirdparty --enable-readline; \
         make; \
         make install
 
-# install python 3.8
+## install python 3.8, just a C library
 RUN set -ex; \
 	\
 	wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tar.xz; \
        	tar xvf Python-3.8.2.tar.xz && cd Python-3.8.2; \
-        PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade --enable-optimizations; \
-        PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib make; \
-	PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib make install; \
+        PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade --enable-optimizations; \
+        make; \
+	make install; \
 	cd /app/devtools/thirdparty/include; \
 	ln -s python3.8m python3.8;
 
@@ -114,7 +115,7 @@ RUN set -ex; \
 	\
     git clone https://github.com/vim/vim.git; \
     cd vim; \
-    PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib ./configure --with-features=huge \
+    PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib ./configure --with-features=huge \
     --enable-multibyte \
     --enable-rubyinterp=yes \
     --enable-pythoninterp=yes \
@@ -126,7 +127,7 @@ RUN set -ex; \
     --enable-fail-if-missing \
     --enable-terminal \
     --enable-gui=no --enable-cscope --prefix=/app/devtools/thirdparty; \
-    PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib make && make install;
+    PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib make && make install;
 
 # install cmake
 WORKDIR /app/devtools
@@ -135,9 +136,9 @@ RUN set -ex; \
     wget https://github.com/Kitware/CMake/releases/download/v3.16.6/cmake-3.16.6.tar.gz; \
     tar -xvf cmake-3.16.6.tar.gz; \
     cd cmake-3.16.6; \
-    PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib ./bootstrap --prefix=/app/devtools/thirdparty -- -DCMAKE_BUILD_TYPE:STRING=Release; \
-    PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib make; \
-    PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib make install;
+    ./bootstrap --prefix=/app/devtools/thirdparty -- -DCMAKE_BUILD_TYPE:STRING=Release; \
+    make; \
+    make install;
 
 # build boost
 WORKDIR /app/devtools
@@ -146,7 +147,7 @@ RUN set -ex;\
     wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz; \
     tar -xvf boost_1_72_0.tar.gz; \
     cd boost_1_72_0; \
-    PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64 ./bootstrap.sh --prefix=/app/devtools/thirdparty --with-python=python3.7; \
+    PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64 ./bootstrap.sh --prefix=/app/devtools/thirdparty --with-python=python3.8; \
     PATH=/opt/rh/devtoolset-9/root/usr/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64 g++ --version; \
     PATH=/opt/rh/devtoolset-9/root/usr/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64 ./b2 -q \
     variant=release \
@@ -189,7 +190,7 @@ RUN set -ex; \
 	cd .vim; \
         git clone https://github.com/kien/ctrlp.vim.git bundle/ctrlp.vim; \
 	git clone https://github.com/scrooloose/nerdtree.git bundle/nerdtree.vim; \
-	git clone https://github.com/w0rp/ale.git bundle/ale.vim; \
+        git clone https://github.com/w0rp/ale.git bundle/ale.vim; \
 	git clone https://github.com/itchyny/lightline.vim bundle/lightline.vim; \
 	git clone https://github.com/tpope/vim-fugitive.git bundle/fugitive.vim;
 
@@ -199,7 +200,7 @@ RUN set -ex;\
         git clone https://github.com/Valloric/YouCompleteMe.git bundle/YouCompleteMe.vim; \
 	cd bundle/YouCompleteMe.vim; \
         git submodule update --init --recursive; \
-	PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64:/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
+	PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
 
 
 WORKDIR /home/rajatgirotra
@@ -235,7 +236,7 @@ RUN set -ex;\
 	cd; \
 	mkdir -p tools; \
 	cd tools; \
-        curl -o waf https://waf.io/waf-2.0.20; \
+       curl -o waf https://waf.io/waf-2.0.20; \
 	chmod 755 waf; \
         echo "export PATH=/home/rajatgirotra/tools:\${PATH}" >> ~/.bashrc
 
