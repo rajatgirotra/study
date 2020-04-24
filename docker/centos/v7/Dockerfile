@@ -240,5 +240,15 @@ RUN set -ex;\
 	chmod 755 waf; \
         echo "export PATH=/home/rajatgirotra/tools:\${PATH}" >> ~/.bashrc
 
+USER root
+RUN set -ex;\
+	\
+	cp /etc/sudoers /root/sudoers.bak; \
+	echo "rajatgirotra ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers;
+
+EXPOSE 22
+
+USER rajatgirotra
 WORKDIR /home/rajatgirotra
+COPY --chown=rajatgirotra:rajatgirotra run_sshd.sh run_sshd.sh
 CMD scl enable devtoolset-9 bash;
