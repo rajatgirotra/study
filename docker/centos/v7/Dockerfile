@@ -227,6 +227,23 @@ RUN set -ex;\
 	source $HOME/.virtualenvs/generic/bin/activate; \
 	pip3 install -r $HOME/requirements.txt;
 
+# install cmake-format
+USER devtools
+WORKDIR /app/devtools
+RUN set -ex;\
+	\
+        LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install cmake-format;
+
+#install ccache
+RUN set -ex;\
+	\
+    wget https://github.com/ccache/ccache/releases/download/v3.7.9/ccache-3.7.9.tar.gz; \
+    tar -xvf ccache-3.7.9.tar.gz; \
+    cd ccache-3.7.9; \
+#PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64 ./configure --prefix=/app/devtools/thirdparty && make && make install;
+    ./configure --prefix=/app/devtools/thirdparty && make && make install;
+
+USER rajatgirotra
 WORKDIR /home/rajatgirotra
 COPY --chown=rajatgirotra:rajatgirotra ycm_extra_conf.py .vim/.ycm_extra_conf.py
 COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
