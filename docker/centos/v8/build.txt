@@ -1,0 +1,1 @@
+docker build --tag centos_8_dev:latest --build-arg centos_version=8 --build-arg devtoolset_version=9 .

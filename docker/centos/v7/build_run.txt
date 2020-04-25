@@ -1,4 +1,8 @@
 docker run -it -p 8888:8888 -p 8000:8000 --rm  -v ~/study:/study centos_dev
-
 docker build  -t centos_dev:latest .
+---------------------------------------------------------------------------------------------------
+docker run -it --cap-add sys_ptrace -p127.0.0.1:2222:22  centos_v7_dev
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "[localhost]:2222"
+docker stop centos_v7_dev
+---------------------------------------------------------------------------------------------------
 
