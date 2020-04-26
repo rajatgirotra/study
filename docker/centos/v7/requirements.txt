@@ -23,3 +23,4 @@ protobuf
 grpcio
 scikit-learn
 tensorflow
+graphviz

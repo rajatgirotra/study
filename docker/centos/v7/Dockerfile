@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:7 as centos
 
 # install man pages and other essentials
 RUN set -ex; \
@@ -11,7 +11,13 @@ RUN set -ex; \
     yum -y group install "Development Tools"; \
     yum -y install centos-release-scl; \
     yum -y install devtoolset-9; \
+    yum -y install llvm-toolset-7.0; \
+    yum -y install llvm-toolset-7.0-clang-analyzer llvm-toolset-7.0-clang-tools-extra; \
     yum -y install make;
+
+RUN set -ex;\
+     \
+     yum -y install devtoolset-9-libtsan-devel devtoolset-9-libasan-devel devtoolset-9-liblsan-devel devtoolset-9-libubsan-devel;
 
 # for centos devtoolset
 RUN set -ex; \
@@ -63,6 +69,14 @@ RUN usermod -aG wheel rajatgirotra
 # change password for devtools
 RUN echo 'rajatgirotra:rajatgirotra' | chpasswd
 
+# Add rajatgirotra and devtools to sudo without password
+RUN set -ex;\
+	\
+	cp /etc/sudoers /root/sudoers.bak; \
+	echo "rajatgirotra ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers; \
+        echo "devtools ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers;
+
+###############################################################################################################
 # change default umask
 RUN umask 022
 
@@ -71,7 +85,6 @@ USER devtools
 WORKDIR /app/devtools
 RUN mkdir thirdparty
 RUN chmod 755 /app/devtools
-# RUN scl enable devtoolset-9 bash
 
 # install patchelf, just a C library
 RUN set -ex; \
@@ -94,21 +107,20 @@ RUN set -ex; \
         make; \
         make install
 
-## install python 3.8, just a C library
+# install python 3.8, just a C library
 RUN set -ex; \
 	\
 	wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tar.xz; \
        	tar xvf Python-3.8.2.tar.xz && cd Python-3.8.2; \
-        PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade --enable-optimizations; \
-        make; \
+        PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib ./configure --prefix=/app/devtools/thirdparty --enable-shared --with-ensurepip=upgrade;\
+       	make; \
 	make install; \
 	cd /app/devtools/thirdparty/include; \
 	ln -s python3.8m python3.8;
 
 RUN set -ex; \
-       LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install virtualenvwrapper;
+       LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install --upgrade pip graphviz virtualenvwrapper cmake-format;
 
-WORKDIR /app/devtools
 
 # install latest vim
 RUN set -ex; \
@@ -130,7 +142,6 @@ RUN set -ex; \
     PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib make && make install;
 
 # install cmake
-WORKDIR /app/devtools
 RUN set -ex; \
     \
     wget https://github.com/Kitware/CMake/releases/download/v3.16.6/cmake-3.16.6.tar.gz; \
@@ -141,7 +152,6 @@ RUN set -ex; \
     make install;
 
 # build boost
-WORKDIR /app/devtools
 RUN set -ex;\
 	\
     wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.gz; \
@@ -162,7 +172,6 @@ RUN set -ex;\
     install;
 
 # build protobuf
-WORKDIR /app/devtools
 RUN set -ex; \
 	\
     wget https://github.com/protocolbuffers/protobuf/releases/download/v3.11.4/protobuf-all-3.11.4.tar.gz; \
@@ -173,6 +182,24 @@ RUN set -ex; \
     make check; \
     make install;
 
+# install cppcheck
+RUN set -ex;\
+	\
+	wget https://github.com/danmar/cppcheck/archive/1.90.tar.gz; \
+        tar -xvf 1.90.tar.gz; \
+        cd cppcheck-1.90; \
+        g++ -o /app/devtools/thirdparty/bin/cppcheck -std=c++11 -lpcre -DHAVE_RULES -Ilib -Iexternals -Iexternals/simplecpp -Iexternals/tinyxml cli/*.cpp lib/*.cpp externals/simplecpp/simplecpp.cpp externals/tinyxml/*.cpp;
+
+#install ccache
+RUN set -ex;\
+	\
+    wget https://github.com/ccache/ccache/releases/download/v3.7.9/ccache-3.7.9.tar.gz; \
+    tar -xvf ccache-3.7.9.tar.gz; \
+    cd ccache-3.7.9; \
+    ./configure --prefix=/app/devtools/thirdparty && make && make install;
+
+################################################################################################################
+
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
 RUN /bin/bash -c 'echo "export WORKON_HOME=${HOME}/.virtualenvs" >> ~/.bashrc'
@@ -182,6 +209,7 @@ RUN /bin/bash -c 'echo "export LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:\${L
 RUN /bin/bash -c 'echo "export VIRTUALENVWRAPPER_PYTHON=/app/devtools/thirdparty/bin/python3" >> ~/.bashrc'
 RUN /bin/bash -c 'echo "source /app/devtools/thirdparty/bin/virtualenvwrapper.sh" >> ~/.bashrc'
 RUN /bin/bash -c 'echo "export TERM=xterm-256color" >> ~/.bashrc'
+RUN /bin/bash -c 'echo "source scl_source enable devtoolset-9 llvm-toolset-7.0" >> ~/.bashrc'
 RUN mkdir -p .vim/bundle/
 
 # Add vim plugins
@@ -203,7 +231,6 @@ RUN set -ex;\
 	PATH=/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib python3 ./install.py --clang-completer;
 
 
-WORKDIR /home/rajatgirotra
 COPY --chown=rajatgirotra:rajatgirotra requirements.txt requirements.txt
 
 # create virtual environments
@@ -227,59 +254,21 @@ RUN set -ex;\
 	source $HOME/.virtualenvs/generic/bin/activate; \
 	pip3 install -r $HOME/requirements.txt;
 
-# install cmake-format
-USER devtools
-WORKDIR /app/devtools
-RUN set -ex;\
-	\
-        LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install cmake-format;
 
-#install ccache
-RUN set -ex;\
-	\
-    wget https://github.com/ccache/ccache/releases/download/v3.7.9/ccache-3.7.9.tar.gz; \
-    tar -xvf ccache-3.7.9.tar.gz; \
-    cd ccache-3.7.9; \
-    ./configure --prefix=/app/devtools/thirdparty && make && make install;
-
-RUN set -ex;\
-	\
-        LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install --upgrade pip  graphviz;
-
-RUN set -ex;\
-	\
-	wget https://github.com/danmar/cppcheck/archive/1.90.tar.gz; \
-        tar -xvf 1.90.tar.gz; \
-        cd cppcheck-1.90; \
-        g++ -o /app/devtools/thirdparty/bin/cppcheck -std=c++11 -lpcre -DHAVE_RULES -Ilib -Iexternals -Iexternals/simplecpp -Iexternals/tinyxml cli/*.cpp lib/*.cpp externals/simplecpp/simplecpp.cpp externals/tinyxml/*.cpp;
-
-USER rajatgirotra
-WORKDIR /home/rajatgirotra
 COPY --chown=rajatgirotra:rajatgirotra ycm_extra_conf.py .vim/.ycm_extra_conf.py
 COPY --chown=rajatgirotra:rajatgirotra vimrc .vimrc
 
+# install waf
 RUN set -ex;\
 	\
 	cd; \
 	mkdir -p tools; \
 	cd tools; \
-       curl -o waf https://waf.io/waf-2.0.20; \
+        curl -o waf https://waf.io/waf-2.0.20; \
 	chmod 755 waf; \
         echo "export PATH=/home/rajatgirotra/tools:\${PATH}" >> ~/.bashrc
 
-USER root
-RUN set -ex;\
-	\
-	cp /etc/sudoers /root/sudoers.bak; \
-	echo "rajatgirotra ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers;
-
 EXPOSE 22
-
-USER rajatgirotra
-WORKDIR /home/rajatgirotra
-RUN set -ex;\
-     \
-     sudo yum -y install devtoolset-9-libtsan-devel devtoolset-9-libasan-devel devtoolset-9-liblsan-devel devtoolset-9-libubsan-devel;
 
 COPY --chown=rajatgirotra:rajatgirotra run_sshd.sh run_sshd.sh
 CMD scl enable devtoolset-9 bash;
