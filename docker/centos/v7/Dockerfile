@@ -271,4 +271,4 @@ RUN set -ex;\
 EXPOSE 22
 
 COPY --chown=rajatgirotra:rajatgirotra run_sshd.sh run_sshd.sh
-CMD scl enable devtoolset-9 bash;
+#CMD scl enable devtoolset-9 bash;
