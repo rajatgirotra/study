@@ -246,6 +246,13 @@ RUN set -ex;\
 	\
         LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install --upgrade pip  graphviz;
 
+RUN set -ex;\
+	\
+	wget https://github.com/danmar/cppcheck/archive/1.90.tar.gz; \
+        tar -xvf 1.90.tar.gz; \
+        cd cppcheck-1.90; \
+        g++ -o /app/devtools/thirdparty/bin/cppcheck -std=c++11 -lpcre -DHAVE_RULES -Ilib -Iexternals -Iexternals/simplecpp -Iexternals/tinyxml cli/*.cpp lib/*.cpp externals/simplecpp/simplecpp.cpp externals/tinyxml/*.cpp;
+
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
 COPY --chown=rajatgirotra:rajatgirotra ycm_extra_conf.py .vim/.ycm_extra_conf.py
@@ -270,5 +277,9 @@ EXPOSE 22
 
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
+RUN set -ex;\
+     \
+     sudo yum -y install devtoolset-9-libtsan-devel devtoolset-9-libasan-devel devtoolset-9-liblsan-devel devtoolset-9-libubsan-devel;
+
 COPY --chown=rajatgirotra:rajatgirotra run_sshd.sh run_sshd.sh
 CMD scl enable devtoolset-9 bash;
