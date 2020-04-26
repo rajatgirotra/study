@@ -240,8 +240,11 @@ RUN set -ex;\
     wget https://github.com/ccache/ccache/releases/download/v3.7.9/ccache-3.7.9.tar.gz; \
     tar -xvf ccache-3.7.9.tar.gz; \
     cd ccache-3.7.9; \
-#PATH=/opt/rh/devtoolset-9/root/usr/bin:/app/devtools/thirdparty/bin:$PATH LD_LIBRARY_PATH=/app/devtools/thirdparty/lib:/opt/rh/devtoolset-9/root/usr/lib:/opt/rh/devtoolset-9/root/usr/lib64 ./configure --prefix=/app/devtools/thirdparty && make && make install;
     ./configure --prefix=/app/devtools/thirdparty && make && make install;
+
+RUN set -ex;\
+	\
+        LD_LIBRARY_PATH=/app/devtools/thirdparty/lib /app/devtools/thirdparty/bin/pip3 install --upgrade pip  graphviz;
 
 USER rajatgirotra
 WORKDIR /home/rajatgirotra
