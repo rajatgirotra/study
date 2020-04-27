@@ -1,3 +1,8 @@
 add_executable(hash_map hash_map.cpp)
+target_link_libraries(hash_map PRIVATE project_options project_warnings)
+
 add_executable(hash_map_create hash_map_create.cpp)
+target_link_libraries(hash_map_create PRIVATE project_options project_warnings)
+
 add_executable(hash_map_movable_type hash_map_movable_type.cpp)
+target_link_libraries(hash_map_movable_type PRIVATE project_options project_warnings)

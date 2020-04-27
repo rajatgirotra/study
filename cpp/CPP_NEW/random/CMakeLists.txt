@@ -1,7 +1,20 @@
 add_executable(has_unique_chars has_unique_chars.cpp)
+target_link_libraries(has_unique_chars PRIVATE project_options project_warnings)
+
 add_executable(reverse_string reverse_string.cpp)
+target_link_libraries(reverse_string PRIVATE project_options project_warnings)
+
 add_executable(remove_duplicates_from_sorted_string  remove_duplicates_from_sorted_string.cpp)
+target_link_libraries(remove_duplicates_from_sorted_string PRIVATE project_options project_warnings)
+
 add_executable(remove_duplicates_from_unsorted_string remove_duplicates_from_unsorted_string.cpp)
+target_link_libraries(remove_duplicates_from_unsorted_string PRIVATE project_options project_warnings)
+
 add_executable(are_anagram are_anagram.cpp)
+target_link_libraries(auto_with_brace_initialization PRIVATE project_options project_warnings)
+
 add_executable(replace_string_by_percent_20 replace_string_by_percent_20.cpp)
+target_link_libraries(replace_string_by_percent_20 PRIVATE project_options project_warnings)
+
 add_executable(zero_matrix zero_matrix.cpp)
+target_link_libraries(zero_matrix PRIVATE project_options project_warnings)

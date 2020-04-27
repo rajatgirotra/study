@@ -1,10 +1,29 @@
 add_executable(RValueReferences_1 1.cpp)
+target_link_libraries(RValueReferences_1 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_2 2.cpp)
+target_link_libraries(RValueReferences_2 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_3 3.cpp)
+target_link_libraries(RValueReferences_3 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_6 6.cpp)
+target_link_libraries(RValueReferences_6 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_11 11.cpp)
+target_link_libraries(RValueReferences_11 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_15 15.cpp)
+target_link_libraries(RValueReferences_1 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_18 18.cpp)
+target_link_libraries(RValueReferences_18 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_19 19.cpp)
+target_link_libraries(RValueReferences_19 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_20 20.cpp)
+target_link_libraries(RValueReferences_1 PRIVATE project_options project_warnings)
+
 add_executable(RValueReferences_21 21.cpp)
+target_link_libraries(RValueReferences_21 PRIVATE project_options project_warnings)

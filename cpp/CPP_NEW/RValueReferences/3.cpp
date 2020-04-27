@@ -19,11 +19,11 @@ public:
 
 };
 
-void foo(const X& x) {
+void foo(const X& ) {
    cout << "Classical Implementation" << endl;
 }
 
-void foo(X&& x) {
+void foo(X&& ) {
     cout << "Move semantics implementation" << endl;
 }
 

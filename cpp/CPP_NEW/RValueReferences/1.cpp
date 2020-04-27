@@ -52,6 +52,7 @@ public:
         cout << "Move Assignment operator, this tag: " << this->tag <<" ,poData: " << static_cast<void*>(poData)
              << " ,incoming tag: " << rhs.tag << " ,incoming poData: " << static_cast<void*>(rhs.poData) << endl;
         std::swap(poData, rhs.poData);
+        return *this;
     }
 };
 

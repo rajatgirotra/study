@@ -1,4 +1,11 @@
 add_executable(range_iterator range_iterator_2.cpp)
+target_link_libraries(range_iterator PRIVATE project_options project_warnings)
+
 add_executable(tag_dispatch tag_dispatch_4.cpp)
+target_link_libraries(tag_dispatch PRIVATE project_options project_warnings)
+
 add_executable(iterator_adaptor iterator_adaptors_5.cpp)
+target_link_libraries(iterator_adaptor PRIVATE project_options project_warnings)
+
 add_executable(reverse_iterator reverse_iterator_6.cpp)
+target_link_libraries(reverse_iterator PRIVATE project_options project_warnings)
