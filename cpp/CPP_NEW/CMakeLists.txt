@@ -17,6 +17,10 @@ add_library(project_options INTERFACE)
 # which can be used to turn off/on certain flags. Here we use one such feature to turn on C++17 flag
 target_compile_features(project_options INTERFACE cxx_std_17)
 
+# set compile/link options
+include(cmake/CompilerFlags.cmake)
+set_project_flags(project_options)
+
 # sanitizer options if supported by the compiler
 include(cmake/Sanitizers.cmake)
 enable_sanitizers(project_options)
@@ -43,3 +47,4 @@ add_subdirectory(iterators)
 add_subdirectory(hashes_maps_sets)
 add_subdirectory(random)
 add_subdirectory(constexpr)
+add_subdirectory(lambda_bind_and_related)
