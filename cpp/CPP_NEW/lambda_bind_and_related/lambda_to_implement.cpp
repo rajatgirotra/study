@@ -3,16 +3,31 @@
 #include <iostream>
 using namespace std;
 
-int func(const char* s) {
+void func(const char* s) {
     cout << s << endl;
-    return 5;
 }
 
+// 1st implementation
 template <typename... Args>
 auto closure = [] (Args&&... args) {
-    return func(std::forward<decltype(args)>(args)...);
+    func(std::forward<decltype(args)>(args)...);
+};
+
+// 2nd implementation
+auto variadic_lambda = [](auto&&... params) {
+    func(std::forward<decltype(params)>(params)...);
 };
 
 int main() {
-    cout << closure<const char*>("Hello World") << endl;
+    closure<const char*>("Hello World");
+    variadic_lambda("Hello World");
 }
+
+/*
+ * 2nd implementation
+ * struct SomeFunctionObject
+ * {
+ *     template <typename... Args>
+ *     auto operator() (Args&&... args) const;
+ * };
+ */
