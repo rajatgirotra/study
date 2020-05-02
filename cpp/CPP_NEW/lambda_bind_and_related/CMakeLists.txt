@@ -24,3 +24,12 @@ target_link_libraries(lambda_to_implement PRIVATE project_options project_warnin
 
 add_executable(async async.cpp)
 target_link_libraries(async PRIVATE project_options project_warnings pthread)
+
+add_executable(lambda_4_hello_world lambda_4_hello_world.cpp)
+target_link_libraries(lambda_4_hello_world PRIVATE project_options project_warnings)
+
+add_executable(lambda_5_fibonacci lambda_5_fibonacci.cpp)
+target_link_libraries(lambda_5_fibonacci PRIVATE project_options project_warnings)
+
+add_executable(lambda_6_inherit lambda_6_inherit.cpp)
+target_link_libraries(lambda_6_inherit PRIVATE project_options project_warnings)
