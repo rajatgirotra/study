@@ -48,7 +48,8 @@ int main() {
     // same problem, ClosureType default ctor is implicitly deleted.
     //auto sfo = make_combined(std::move(l1), std::move(l2));
 
-    auto sfo = make_combined(l1, l2);
+    //auto sfo = make_combined(l1, l2);
+    SomeFunctionObject<decltype(l1), decltype(l2)> sfo(l1, l2);
 
     cout << "some function object: " << sfo() << "\n";
     cout << "some function object: " << sfo(10) << "\n";
