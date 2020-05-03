@@ -6,15 +6,13 @@ endif()
 message(STATUS "Setting build type to ${CMAKE_BUILD_TYPE}")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 
-set(CMAKE_PREFIX_PATH /app/devtools/thirdparty)
-
 # ccache is a compiler cache.
 # if ccache is found, the makefile generators will call this tool and pass the compiler and its arguments
 # to this tool. setting the CMAKE_CXX_COMPILER_LAUNCHER will set the property <LANG>_COMPILER_LAUNCHER
 # TODO evaluate distcc vs ccache at some later stage.
-find_program(CCACHE ccache)
+find_program(CCACHE ccache HINTS ${DEVTOOLS_DIR})
 if(CCACHE)
-    message(NOTICE "ccache found")
+    message(STATUS "found ccache - ${CCACHE}")
     set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
 else()
     message("ccache not found, cannot use")

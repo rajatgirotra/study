@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(cpp_starter_project DESCRIPTION "cpp starter project makefile" LANGUAGES C CXX)
-set(CMAKE_PREFIX_PATH /app/devtools/thirdparty)
+project(cpp_study DESCRIPTION "cpp starter project makefile" LANGUAGES C CXX)
+
+set(DEVTOOLS_DIR /app/devtools/thirdparty CACHE STRING "location of installed thirdparty libraries" FORCE)
 
 include(cmake/StandardProjectSettings.cmake)
 
@@ -32,10 +33,37 @@ enable_doxygen()
 # allow for static analysis options
 include(cmake/StaticAnalyzers.cmake)
 
+# enable verbose build
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+# Find Python3
+set(ENV{Python3_ROOT_DIR} ${DEVTOOLS_DIR})
+set(ENV{LD_LIBRARY_PATH} "$ENV{LD_LIBRARY_PATH}:${DEVTOOLS_DIR}/lib")
+message(STATUS "LD_LIBRARY_PATH = $ENV{LD_LIBRARY_PATH}")
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+message(STATUS "using ${Python3_INTERPRETER_ID}, ${Python3_VERSION} executable: ${Python3_EXECUTABLE},"
+        " include-path: ${Python3_INCLUDE_DIRS},"
+        " libs: ${Python3_LIBRARIES}")
+
+# Find Boost
+set(ENV{BOOST_ROOT} ${DEVTOOLS_DIR})
+find_package(Boost REQUIRED QUIET COMPONENTS system date_time python)
+message(STATUS "using Boost ${Boost_VERSION_STRING}, include-path: ${Boost_INCLUDE_DIRS},"
+        " libs - ${Boost_LIBRARIES}")
+
+# Find Google-protobuf
+set(ENV{Protobuf_SRC_ROOT_FOLDER} ${DEVTOOLS_DIR})
+find_package(Protobuf REQUIRED QUIET)
+message(STATUS "using google-protobuf ${Protobuf_VERSION}, include-path: ${Protobuf_INCLUDE_DIRS},"
+        " libs - ${Protobuf_LIBRARIES}, protoc: ${Protobuf_PROTOC_EXECUTABLE}")
+
+# Find SQLite3
+#find_package(SQLite3 REQUIRED QUIET)
+#message(STATUS "using sqlite3 ${SQLite3_VERSION}, include-path: ${SQLite3_INCLUDE_DIRS},"
+#        " libs - ${SQLite3_LIBRARIES}")
+
 # enable/disable test builds.
 option(ENABLE_TESTING "Enable Test Builds" ON)
-
-set(CMAKE_VERBOSE_MAKEFILE ON)
 
 add_executable(auto_with_brace_initialization auto_with_brace_initialization.cpp)
 target_link_libraries(auto_with_brace_initialization PRIVATE project_options project_warnings)
