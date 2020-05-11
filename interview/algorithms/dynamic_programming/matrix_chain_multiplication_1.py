@@ -2,6 +2,10 @@ import os
 import sys
 from collections import defaultdict
 
+# matrix chain multiplication using dynamic programming using bottom up approach. ie.
+# we first find m[1][2], m[2][3], m[3][4], etc.. and then finally m[1,6]
+# this take O(n cube) time
+
 def parenthesization_out(s, i, j):
     if i == j:
         print (' A-{} '.format(i), end="")
