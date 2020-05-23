@@ -1,0 +1,8 @@
+add_executable(mix_1 mix_1.cpp)
+target_link_libraries(mix_1 PRIVATE project_options project_warnings)
+
+add_executable(mix_2 mix_2.cpp)
+target_link_libraries(mix_2 PRIVATE project_options project_warnings)
+
+add_executable(evaluation_order evaluation_order.cpp)
+target_link_libraries(evaluation_order PRIVATE project_options project_warnings)

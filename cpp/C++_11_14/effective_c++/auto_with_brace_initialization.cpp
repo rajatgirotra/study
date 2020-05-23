@@ -27,3 +27,14 @@ cout << typeid(decltype(x5)).name() << endl;
 
 return 0;
 }
+
+/*
+ * For the direct initialisation, C++17 introduces new rules:
+ * For a braced-init-list with a single element, auto deduction will deduce from that entry.
+ * For a braced-init-list with more than one element, auto deduction will be ill-formed.Removed or Fixed Language Features
+auto x1 = { 1, 2 };  decltype(x1) is std::initializer_list<int>
+auto x2 = { 1, 2.0 }; error: cannot deduce element type
+auto x3{ 1, 2 }; error: not a single element
+auto x4 = { 3 }; decltype(x4) is std::initializer_list<int>
+auto x5{ 3 }; decltype(x5) is int 
+*/
