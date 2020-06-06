@@ -6,21 +6,20 @@
 #include <iostream>
 using namespace std;
 
-int negative(int t) {
-    cout << "non template version\n";
-    return t * -1;
+double negative(double arg) {
+    return (-arg);
 }
 
 template <typename T>
-typename T::result_type negative(T value) {
-    cout << "template version\n";
-    T t(value);
+typename T::result_type negative(T arg) {
+    auto t(arg);
     return t.negate();
 }
 
 int main() {
-    int x = 10;
-    cout << negative(x) << endl;
+    int i = 10;
+    auto res = negative(i);
+    cout << res << endl;
 }
 
 /* since T::result_type for T=int is invalid, the compiler elides it from the overload resolution set.

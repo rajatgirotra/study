@@ -9,5 +9,6 @@ extern int foo();
 
 int main() {
   cout << foo() << endl;
+  cout << a << endl;
   return 0;
 }

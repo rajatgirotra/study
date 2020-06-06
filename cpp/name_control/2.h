@@ -1,5 +1,4 @@
-#ifndef _1_H_
-#define _1_H_
+#pragma once
 
 class ABC {
   public:
@@ -11,4 +10,3 @@ const ABC conABC;
 
 const char* const msg = "How are you?";
 
-#endif

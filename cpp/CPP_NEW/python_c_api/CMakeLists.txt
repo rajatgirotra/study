@@ -1,0 +1,5 @@
+add_library(spam SHARED spammodule.cpp)
+set_target_properties(spam PROPERTIES PREFIX "")
+target_include_directories(spam SYSTEM PRIVATE ${Python3_INCLUDE_DIRS})
+target_link_libraries(spam PRIVATE ${Python3_LIBRARIES})
+target_link_libraries(spam PRIVATE project_options project_warnings)
