@@ -1,7 +1,7 @@
 /*
 This is an abstract from Herb Shutter's Virtuality topic.
 Question: When should you virtual functions be really public, protected, or private.
-The answer is rarely if ever, sometimes, by default. Dont be surprised. There is a reason for this.
+The answer is rarely if never, sometimes, by default. Dont be surprised. There is a reason for this.
 
 Guideline #1: Prefer to make interfaces nonvirtual, using Template Method.
 

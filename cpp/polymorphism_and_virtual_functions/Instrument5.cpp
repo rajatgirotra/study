@@ -21,7 +21,7 @@ Here's Instrument4.cpp modified to use pure virtual functions. Because the class
     public:
       // Pure virtual functions:
       virtual void play(note) const = 0;
-      virtual char* what() const = 0;
+      virtual const char* what() const = 0;
       // Assume this will modify the object:
       virtual void adjust(int) = 0;
     };
@@ -32,7 +32,7 @@ Here's Instrument4.cpp modified to use pure virtual functions. Because the class
       void play(note) const {
         cout << "Wind::play" << endl;
       }
-      char* what() const { return "Wind"; }
+      const char* what() const { return "Wind"; }
       void adjust(int) {}
     };
 
@@ -41,7 +41,7 @@ Here's Instrument4.cpp modified to use pure virtual functions. Because the class
       void play(note) const {
         cout << "Percussion::play" << endl;
       }
-      char* what() const { return "Percussion"; }
+      const char* what() const { return "Percussion"; }
       void adjust(int) {}
     };
 
@@ -50,7 +50,7 @@ Here's Instrument4.cpp modified to use pure virtual functions. Because the class
       void play(note) const {
         cout << "Stringed::play" << endl;
       }
-      char* what() const { return "Stringed"; }
+      const char* what() const { return "Stringed"; }
       void adjust(int) {}
     };
 
@@ -59,7 +59,7 @@ Here's Instrument4.cpp modified to use pure virtual functions. Because the class
       void play(note) const {
         cout << "Brass::play" << endl;
       }
-      char* what() const { return "Brass"; }
+      const char* what() const { return "Brass"; }
     };
 
     class Woodwind : public Wind {
@@ -67,7 +67,7 @@ Here's Instrument4.cpp modified to use pure virtual functions. Because the class
       void play(note) const {
         cout << "Woodwind::play" << endl;
       }
-      char* what() const { return "Woodwind"; }
+      const char* what() const { return "Woodwind"; }
     };
 
     // Identical function from before:

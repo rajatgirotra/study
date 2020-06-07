@@ -9,7 +9,7 @@ public:
   virtual void play(note) const {
     cout << "Instrument::play" << endl;
   }
-  virtual char* what() const {
+  virtual const char* what() const {
     return "Instrument";
   }
   // Assume this will modify the object:
@@ -21,7 +21,7 @@ public:
   void play(note) const {
     cout << "Wind::play" << endl;
   }
-  char* what() const { return "Wind"; }
+  const char* what() const { return "Wind"; }
   void adjust(int) { cout<<"Wind::adjust()"<<endl; }
 };
 
@@ -30,7 +30,7 @@ public:
   void play(note) const {
     cout << "Percussion::play" << endl;
   }
-  char* what() const { return "Percussion"; }
+  const char* what() const { return "Percussion"; }
   void adjust(int) { cout<<"Percussion::adjust()"<<endl; }
 };
 
@@ -39,7 +39,7 @@ public:
   void play(note) const {
     cout << "Stringed::play" << endl;
   }
-  char* what() const { return "Stringed"; }
+  const char* what() const { return "Stringed"; }
   void adjust(int) { cout<<"Stringed::adjust()"<<endl; }
 };
 
@@ -48,7 +48,7 @@ public:
   void play(note) const {
     cout << "Brass::play" << endl;
   }
-  char* what() const { return "Brass"; }
+  const char* what() const { return "Brass"; }
 };
 
 class Woodwind : public Wind {
@@ -56,7 +56,7 @@ public:
   void play(note) const {
     cout << "Woodwind::play" << endl;
   }
-  char* what() const { return "Woodwind"; }
+  const char* what() const { return "Woodwind"; }
 };
 
 // Identical function from before:

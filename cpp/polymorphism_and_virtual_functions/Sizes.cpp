@@ -48,3 +48,8 @@ int main() {
   cout << offsetof(OneVirtual, a) << endl;
 } ///:~
 
+/*
+ * Short answer: offsetof is a feature that is only in the C++ standard for legacy C compatibility. Therefore it is basically restricted to the stuff than can be done in C. C++ supports only what it must for C compatibility.
+
+As offsetof is basically a hack (implemented as macro) that relies on the simple memory-model supporting C, it would take a lot of freedom away from C++ compiler implementors how to organize class instance layout.
+*/

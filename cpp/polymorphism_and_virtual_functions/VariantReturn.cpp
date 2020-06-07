@@ -92,7 +92,7 @@ int main()
 
    Cat::CatFood* cf = c.eats(); 
  
-   /* Error; Cannot downcast automatically; should do it explicitely */ 
+   /* Error; Cannot downcast automatically; should do it explicitly */ 
    //Bird::BirdFood* bf = b.eats();
 
    /* Like this */
