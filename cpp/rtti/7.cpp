@@ -23,7 +23,7 @@ int main() {
   // Error:
 //  Stimpy* s = dynamic_cast<Stimpy*>(v);
   // Error:
-//!  cout << typeid(*v).name() << endl;
+//  cout << typeid(*v).name() << endl;
 } ///:~
  
 /*

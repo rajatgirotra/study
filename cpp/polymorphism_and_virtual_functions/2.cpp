@@ -11,8 +11,8 @@ public:
    A() : data(4)
    { };
 
-// virtual const int& getData() 
-  const int& getData() 
+ virtual const int& getData() 
+//  const int& getData() 
    {
       return data;
    }

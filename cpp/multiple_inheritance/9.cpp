@@ -14,7 +14,7 @@ class Top {
 public:
   virtual ~Top() {}
   virtual void f() { cout<<"Top::f()"<<endl; }
-  // void f() { cout<<"Top::f()"<<endl; }
+  //void f() { cout<<"Top::f()"<<endl; }
 };
  
 class Left : virtual public Top {
@@ -29,7 +29,10 @@ public:
 #endif
 };
  
-class Bottom : public Left, public Right {};
+class Bottom : public Left, public Right {
+    public:
+//	using Right::f;
+};
  
 int main() {
   Bottom b;

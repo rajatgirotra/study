@@ -27,14 +27,14 @@ public:
 class Bottom : public Left, public Right {
 
 public:
-//   using Right::f;
+   //using Right::f;
 
 };
  
 int main() {
   Bottom b;
   b.Left::f(); 
-  // b.f("ABC");
+  //b.f("ABC");
 } ///:~
  
 /*

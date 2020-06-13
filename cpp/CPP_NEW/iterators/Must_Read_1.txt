@@ -49,7 +49,7 @@ struct iterator_traits {
 };
 
 But why use iterator_traits. Its because sometime iterator are implemented as simple pointers, not really as classes. For example:
-for vector<int>, the iterator type if int*. In this case, if we use std::iterator, then value_type would be int*::value_type which is
+for vector<int>, the iterator type is int*. In this case, if we use std::iterator, then value_type would be int*::value_type which is
 ill-formed. Using std::iterator_traits gives us an opportunity to provide specializations for non-standard iterator types.
 
 example:

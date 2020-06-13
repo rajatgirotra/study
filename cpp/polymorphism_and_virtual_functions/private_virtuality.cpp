@@ -13,7 +13,7 @@ public:
 };
 
 class Derv : protected Base
-//class Derv : private Base
+// class Derv : private Base
 {
 public:
     void foo()

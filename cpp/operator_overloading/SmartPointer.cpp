@@ -10,7 +10,7 @@ The operator -> is generally used when you want to make an object appear to be a
 #include <vector>
 using namespace std;
 
-class Object
+struct Object
 {
    static int i, j;
 

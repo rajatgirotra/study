@@ -28,10 +28,12 @@ Examples:
 std::ostreambuf_iterator;
 std::ostream_iterator;
 std::insert_iterator; --> calls the insert() function of the underlying container. Whether associative or sequence container.
-std::front_insert_iterator; --> class push_front() of the underlying container.
-std::back_insert_iterator; --> class push_back() of the underlying container.
+std::front_insert_iterator; --> calls push_front() of the underlying container.
+std::back_insert_iterator; --> calls push_back() of the underlying container.
 
 3) Forward iterators: These are multi-pass iterators which can only be incremented.
+You will overload the same operators as InputIterator. Just that you can dereference the iterator multiple times as opposed to only
+one time for InputIterators.
 
 4) random access iterators: These are iterators that can be indexed. Like iterators of vector<int>.
 

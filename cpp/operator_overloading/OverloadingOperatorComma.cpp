@@ -22,10 +22,22 @@ public:
   }
 };
 
+struct X 
+{
+    /*X() { cout << "X::X()"<< endl; }
+    ~X() { cout << "X::~X()" << endl; }*/
+};
+
+
 class Before {};
 
 const Before& operator,(int, Before& b) {
   cout << "Before::operator,()" << endl;
+  return b;
+}
+
+const Before& operator,(X, Before& b) {
+  cout << "Before::operator, with X()" << endl;
   return b;
 }
 
@@ -35,5 +47,7 @@ int main() {
 
   Before c;
   1, c;  // Operator comma called
+
+  X(), c;
 } ///:~
 

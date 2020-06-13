@@ -38,10 +38,10 @@ struct TypeHolder {
 
 
     template <typename Integer, typename std::enable_if_t<std::is_integral_v<Integer>>* = nullptr>
-    TypeHolder(Integer value) : m_type(type_t::int_type) {};
+    TypeHolder(Integer) : m_type(type_t::int_type) {}
 
     template <typename Floating, typename std::enable_if_t<std::is_floating_point_v<Floating>>* = nullptr>
-    TypeHolder(Floating value) : m_type(type_t::float_type) {};
+    TypeHolder(Floating) : m_type(type_t::float_type) {}
 
 
 };
@@ -56,18 +56,20 @@ struct TypeHolder {
 // 1st - using enable_if in function return types
 template <typename T, typename... Args>
 bool construct(T* t, Args&&... args) {
-};
+    return false;
+}
 
 template <typename T, typename... Args>
 double construct(T* t, Args&&... args) {
-};
+    return 5.5;
+}
 // The above two are just template functions, they are not really instantiated at the moment, so no problem
 // in declaring them. If later I call construct(int*, 10), then the compiler will be confused which one to instantiate
 // and will lead to ambiguous overload.
 
-int main(int argc, char* argv[]) {
-    int *poT = 0;
-    // construct(poT, 10);
+int main() {
+//    int *poT = 0;
+//    construct(poT, 10);
 
     TypeHolder objInt(10);
     TypeHolder objFloat(3.4);
