@@ -9,3 +9,6 @@ target_link_libraries(iterator_adaptor PRIVATE project_options project_warnings)
 
 add_executable(reverse_iterator reverse_iterator_6.cpp)
 target_link_libraries(reverse_iterator PRIVATE project_options project_warnings)
+
+add_executable(std_next_prev std_next_prev_7.cpp)
+target_link_libraries(std_next_prev PRIVATE project_options project_warnings)

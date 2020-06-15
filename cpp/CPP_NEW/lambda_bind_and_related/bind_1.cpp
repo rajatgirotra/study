@@ -77,7 +77,7 @@ int main()
     std::default_random_engine e;
     std::uniform_int_distribution<> d(0, 10);
     std::function<int()> rnd = std::bind(d, e); // a copy of e is stored in rnd
-    for(int n=0; n<10; ++n)
+    for(int x=0; x<10; ++x)
         std::cout << rnd() << ' ';
     std::cout << '\n';
  

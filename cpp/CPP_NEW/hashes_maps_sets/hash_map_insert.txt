@@ -2,7 +2,7 @@ std::unordered_map<string, string> hashMap;
 
 First way of inserting in a  map
 ================================
-auto iter = hashMap.find("Rajat", "Girotra");
+auto iter = hashMap.find("Rajat");
 if(iter == hashMap.end()) {
     hashMap["Rajat"] = "Girotra";
 }
@@ -34,7 +34,7 @@ FOURTH WAY - use try_emplace()
 ==============================
 std::unordered_map<string, std::unique_ptr<int>>;
 auto my_personal_int = std::make_unique<int>(42);
-auto [it, result] = hashMap.emplace("Rajat", std::move(my_personal_int));
+auto [it, result] = hashMap.try_emplace("Rajat", std::move(my_personal_int));
 if(!result) {
     // ie element already exists.
     do_something_else(*my_personal_int); // IS SAFE
@@ -56,7 +56,7 @@ if (result) {
     it->second = std::make_unique<remote_file_locator>("8.8.8.8", "/a_folder/");
 }
 
-Aso as a general rule
+Also as a general rule
 1) if you are using C++17, use try_emplace first
 2) else try emplace
 3) else try insert

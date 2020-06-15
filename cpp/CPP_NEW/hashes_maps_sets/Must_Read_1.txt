@@ -21,6 +21,17 @@ etc etc (it created specialization for signed and unsigned versions)
 If you want to create an unordered_map where the Key is some user defined type XYZ, then you need to create a specialization
 for std::hash for type XYZ. The specialization is created by making std::hash<XYZ> a function object, which returns std::size_t
 and takes as argument a "const XYZ&" and does not throw. If you provide a specialization, without overloading the function call
-operator, we say the std::hash<XYZ> is poisoned.
+operator, we say the std::hash<XYZ> is poisoned. ie. must provide
+
+namespace std
+{
+   template<>
+   struct hash<XYZ> {
+       std::size_t operator(const XYZ& arg) const noexcept {
+           ... your implementation
+           return some_size_t_value;
+       }
+   };
+}
 
 read hash_map.cpp next

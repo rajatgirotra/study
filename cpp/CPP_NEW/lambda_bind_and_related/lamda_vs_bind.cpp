@@ -31,7 +31,7 @@ int main() {
         cout << "In lambda v before: " << v << endl;
         cout << "In lambda s1 before: " << s1 << endl;
         foo(std::move(v), iarg); // std::move(v) will give you const string&& which calls copy ctor not, move ctor
-        // so v is not moved.
+        // so v is not moved. You can do "auto& x = const_cast<string&>(v);" and then "foo(std::move(x), iarg)" if you really want move
         cout << "In lambda v after: " << v << endl;
     };
     // The lambda closure is created, so "v = std::move(s1) has executed already, so s1 is empty now"

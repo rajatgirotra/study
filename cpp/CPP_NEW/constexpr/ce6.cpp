@@ -8,7 +8,7 @@
 #include <iomanip>
 using namespace std;
 
-int main(int argc, char *argv[])
+int main()
 {
     constexpr double pi = 3.14876351;
     cout << std::setprecision(10) << pi * 2 << endl;

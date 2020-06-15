@@ -18,11 +18,11 @@ and the most important thing: Unevaluated sub-expressions are ignored. So if the
 using namespace std;
 
 constexpr int getValue() {
-    cout << "Hello" << endl;
+    //cout << "Hello" << endl;
     /* cout << is nothing but a call to operator << in ostream, this function is not constexpr, so the compiler complains that you are calling a non-constexpr function inside a constexpr function */
     return 3;
 }
-int main(int argc, char *argv[]) {
+int main() {
     constexpr int i = getValue();
     cout << i << endl;
     return 0;

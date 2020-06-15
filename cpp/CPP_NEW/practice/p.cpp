@@ -9,6 +9,7 @@
 #include <iterator>
 #include <algorithm>
 #include <typeinfo>
+#include <unordered_map>
 using namespace std;
 
 //template <typename T>
@@ -475,25 +476,112 @@ using namespace std;
 //}
 // ------------------------------------------------------------------------------------------
 
-template <typename Iter>
-void algo(Iter, Iter, std::random_access_iterator_tag) {
-    cout << "running algo for vectors;\n";
+//template <typename Iter>
+//void algo(Iter, Iter, std::random_access_iterator_tag) {
+//    cout << "running algo for vectors;\n";
+//}
+//
+//template <typename Iter>
+//void algo(Iter , Iter , std::forward_iterator_tag) {
+//    cout << "running algo for lists;\n";
+//}
+//
+//template <typename Iter>
+//void algo(Iter begin, Iter end) {
+//    algo(begin, end, typename std::iterator_traits<Iter>::iterator_category());
+//}
+//
+//int main() {
+//    vector<int> v;
+//    list<int> l;
+//
+//    algo(v.begin(), v.end());
+//    algo(l.begin(), l.end());
+//}
+// ------------------------------------------------------------------------------------------
+
+namespace hash_combiner {
+    template <typename...>
+    struct hash;
+
+    template <typename T>
+    struct hash<T> : public std::hash<T> {};
+
+    template <typename T, typename... Rest>
+    struct hash<T, Rest...> {
+        inline std::size_t operator()(const T& arg, const Rest&... rest) const noexcept {
+            auto seed = hash<Rest...>{}(rest...);
+            seed ^= hash<T>{}(arg) + 0x9E3779B9 + (seed << 6) + (seed >> 2);
+            return seed;
+        }
+    };
 }
 
-template <typename Iter>
-void algo(Iter , Iter , std::forward_iterator_tag) {
-    cout << "running algo for lists;\n";
-}
+namespace {
+    // helper function to print a map
+    template <typename HashMap>
+    void printMap(const std::string& mapName, const HashMap& hm) {
+        cout << "---------------------- MapName: " << mapName <<" -----------------------------\n";
+        for(auto&& [key, value] : hm) {
+            cout << key << ": " << value << "\n";
+        }
+        cout << "------------------------------------------------------------------------------\n";
+    }
 
-template <typename Iter>
-void algo(Iter begin, Iter end) {
-    algo(begin, end, typename std::iterator_traits<Iter>::iterator_category());
+    struct Key {
+            string m_fname;
+            string m_lname;
+
+            friend ostream& operator << (ostream& os, const Key& rhs) {
+                return os << rhs.m_lname << ", " << rhs.m_fname;
+            }
+        };
+
+    struct KeyHash {
+        std::size_t operator() (const Key& key) const noexcept {
+            ::hash_combiner::hash<string, string> hasher{};
+            return hasher(key.m_fname, key.m_lname);
+        }
+    };
+
+    struct KeyEqual {
+        bool operator () (const Key& lhs, const Key& rhs) const noexcept {
+            return ((lhs.m_lname == rhs.m_lname) && (lhs.m_fname == rhs.m_fname));
+        }
+    };
+
 }
 
 int main() {
-    vector<int> v;
-    list<int> l;
+    // default constructed.
+    unordered_map<string, string> m1;
+    printMap("default constructed map m1", m1);
 
-    algo(v.begin(), v.end());
-    algo(l.begin(), l.end());
+    // using std::initializer list
+    unordered_map<Key, string, KeyHash, KeyEqual> m2 {
+            {{"Rajat", "Girotra"}, "XII-A"},
+            {{"Vidhu", "Ahuja"}, "XI-B"},
+    };
+    printMap("initializer_list constructed map m2", m2);
+
+
+    // using range constructor
+    std::vector<std::pair<int, string>> v{
+            {1, "Rajat"},
+            {2, "Vidhu"}
+    };
+    unordered_map<int, string> m3(v.begin(), v.end());
+    printMap("range constructed map m3", m3);
+
+    // using insert with hint and inserter
+    std::vector<std::pair<int, string>> v2{
+            {1, "Myra"},
+            {2, "Viraj"},
+            {2, "Myra"}
+    };
+    unordered_map<int, string> m4;
+    std::copy(begin(v2), end(v2), inserter(m4, m4.begin()));
+    printMap("inserter construction using insert m4", m4);
+
+
 }

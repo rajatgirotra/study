@@ -7,7 +7,7 @@ void func(const char* s) {
     cout << s << endl;
 }
 
-// 1st implementation
+// 1st implementation, this is a variable template. see Jason Turner youtube episode on variable templates
 template <typename... Args>
 auto closure = [] (Args&&... args) {
     func(std::forward<decltype(args)>(args)...);
