@@ -1,4 +1,4 @@
-/* 
+/*
 Unique_lock is a general purpose mutex wrapper for wrapping any type of mutex. It holds:
 
 1) a pointer to the underlying mutex, instead of a reference to it like lock_guard.
@@ -10,7 +10,7 @@ Ctor:
 template <typename Mutex>
 struct unique_lock {
    Mutex* mtx;
-   bool owns; 
+   bool owns;
    std::unique_lock() : mtx(nullptr), owns(false) {}
    std::unique_lock(Mutex& p_mtx) : mtx(&p_mtx), owns(false) {
        lock();
@@ -31,4 +31,4 @@ struct unique_lock {
    // swap(); swaps the state of this object with the passed argument
 };
 
-*/  
+*/

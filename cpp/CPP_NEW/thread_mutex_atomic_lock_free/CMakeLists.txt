@@ -1,0 +1,5 @@
+add_executable(async_behavior async_behavior_1.cpp)
+target_link_libraries(async_behavior PRIVATE project_options project_warnings pthread)
+
+add_executable(lock_guard lock_guard_4.cpp)
+target_link_libraries(lock_guard PRIVATE project_options project_warnings pthread)

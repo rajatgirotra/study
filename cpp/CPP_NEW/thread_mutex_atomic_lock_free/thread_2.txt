@@ -23,7 +23,7 @@ cout << t1_id << endl; // might output 0x35a7210f
 We also have a namespace std::this_thread which has functions which act on the calling thread. Example
 
 std::this_thread::get_id() --> returns the id of the calling thread.
-std::this_thread::yield() --> is just a hint to the OS to reschedule other threads. 
+std::this_thread::yield() --> is just a hint to the OS to reschedule other threads.
 std::this_thread::sleep_for(std::chrono::duration)
 std::this_thread::sleep_until(std::chrono::time_point)
 
