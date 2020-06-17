@@ -3,3 +3,9 @@ target_link_libraries(async_behavior PRIVATE project_options project_warnings pt
 
 add_executable(lock_guard lock_guard_4.cpp)
 target_link_libraries(lock_guard PRIVATE project_options project_warnings pthread)
+
+add_executable(threads_in_containers_10 threads_in_containers_10.cpp)
+target_link_libraries(threads_in_containers_10 PRIVATE project_options project_warnings pthread)
+
+add_executable(std_call_once_11 std_call_once_11.cpp)
+target_link_libraries(std_call_once_11 PRIVATE project_options project_warnings pthread)
