@@ -9,3 +9,18 @@ target_link_libraries(threads_in_containers_10 PRIVATE project_options project_w
 
 add_executable(std_call_once_11 std_call_once_11.cpp)
 target_link_libraries(std_call_once_11 PRIVATE project_options project_warnings pthread)
+
+add_executable(thread_native_handle_12 thread_native_handle_12.cpp)
+target_link_libraries(thread_native_handle_12 PRIVATE project_options project_warnings pthread)
+
+add_executable(thread_hw_concurrency_13 thread_hw_concurrency_13.cpp)
+target_link_libraries(thread_hw_concurrency_13 PRIVATE project_options project_warnings pthread)
+
+add_executable(future_16 future_16.cpp)
+target_link_libraries(future_16 PRIVATE project_options project_warnings pthread)
+
+add_executable(promise_17 promise_17.cpp)
+target_link_libraries(promise_17 PRIVATE project_options project_warnings pthread)
+
+add_executable(packaged_task_18 packaged_task_18.cpp)
+target_link_libraries(packaged_task_18 PRIVATE project_options project_warnings pthread)

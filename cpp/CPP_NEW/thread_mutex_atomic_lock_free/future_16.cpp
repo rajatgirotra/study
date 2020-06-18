@@ -42,4 +42,3 @@ int main() {
     cout << handle.get() << endl; // will return 100
     return 0;
 }
-

@@ -6,7 +6,7 @@
  *
  * Note that for now std::call_once is broken on unix due to issue with pthread_once when the init function throws an exception.
  * The issue needs a fix in glibc. So this code will hang for now.ok
- * 
+ *
  */
 #include <iostream>
 #include <string>

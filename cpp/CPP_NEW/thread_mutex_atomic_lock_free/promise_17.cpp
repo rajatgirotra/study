@@ -13,7 +13,7 @@ using std::endl;
 #if 0
 int test() {
    std::promise<int> pr;
-} // no problem, promise is created an destroyed, without accessing its std::future object 
+} // no problem, promise is created an destroyed, without accessing its std::future object
 #endif
 
 // case 2, future created and get() called

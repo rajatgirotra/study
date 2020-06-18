@@ -2,7 +2,7 @@
 Some processor take multithreading one step further by running multiple threads in a single core. This is called hyperthreading or SMT (simultaneous multithreading). Example, my Dell XPS laptop has Intel i7 which has two cores and 2 threads per core - so that 4 logical cpus.
 
 What do threads in the same core share??
-1) Execution Units - i.e. the various processor registers. 
+1) Execution Units - i.e. the various processor registers.
 2) The branch predictors
 3) The instruction fetch and decoding units
 4) system bus interfaces.
@@ -14,10 +14,9 @@ Hyperthreading is of no advantage if any of the resources above is a limiting fa
 
 1) If the memory data are so scattered that there will be so many cache misses regardless of whether one thread can use the full cache or even half of it. In such a case, one thread can use all the execution units, while the other thread will be loading data from memory into the cache.
 
-2) If the code has a long dependency chain which prevents effecient use of all execution units.
+2) If the code has a long dependency chain which prevents efficient use of all execution units.
 
-3) If there are many branch mispredictions and the number of mispredictions is not increased much by sharing the branch target buffer or thr branch history table b/w the two threads. Then one thread can make use of all execution units while the other is waiting for the branch misprediction to be resolved.
+3) If there are many branch mis-predictions and the number of mis-predictions is not increased much by sharing the branch target buffer or thr branch history table b/w the two threads. Then one thread can make use of all execution units while the other is waiting for the branch misprediction to be resolved.
 
 Next lets look at some code and see the effects of hyperthreading on it.
 */
-
