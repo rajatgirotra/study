@@ -1,16 +1,16 @@
-Before we really dwelve onto lock-free programming, lets take a step back and understand what is memory-reordering.
+Before we really delve onto lock-free programming, lets take a step back and understand what is memory-reordering.
 
 OK, from the time you write a C/C++ program, to the time it actually executes on a CPU, the memory interactions of your program can be re-ordered
 according to certain rules. This re-ordering can be done at two places:
 
 1) Compile time by the compiler, called compiler re-ordering
-2) Run time by the processor, called prccessor re-ordering
+2) Run time by the processor, called proccessor re-ordering
 
 The rule that both compiler and processor follow is:
 
 "WE SHOULD NOT CHANGE THE BEHAVIOR OF A SINGLE THREADED APPLICATION"
 
-This means that both compiler and processor can re-order memory interactions assuming a single-threaded application. i.e. they are oblivious to 
+This means that both compiler and processor can re-order memory interactions assuming a single-threaded application. i.e. they are oblivious to
 the presence of multiple threads.
 
 Let us first look at processor re-ordering.
@@ -21,28 +21,27 @@ mov [X], 1                         mov[Y], 1
 mov r1, [Y]                        mov r2, [X]
 
 Assume X=Y=0 initially. Let say these two threads are running parallely on different processor cores. Assuming the processors does no-reordering,
-a programmer would always assume that after both threads execute, 
+a programmer would always assume that after both threads execute,
 either r1 = 1 or r2 = 1, or r1 = r2 = 1
 
 However, the output can also be r1 = r2 = 0
 How????
 
-Because the processor can delay the effect of a store instruction past a load from a different location. 
-mov[X], 1 is a store instruction and
-mov r1, [Y] is a load instruction from a different location. So the processor can execute in the following order.
+Because the processor can delay the effect of a store instruction past a load from a different location.
+mov[X], 1 is a store instruction and mov r1, [Y] is a load instruction from a different location. So the processor can execute in the following order.
 Remember, the processor can do this because it will not effect the outcome of Thread 1 and that is all it cares about.
 
 Thread 1                       Thread 2
 mov r1, [Y]                    mov r1, [X]
 mov [X], 1                     mov [Y], 1
 
-Remember the important fact the processor IS NOT DOING INSTRUCTION RE-ORDERING. JUST THAT THE READS/WRITES ARE RE-ORDERED.
+Remember the important fact the processor IS NOT DOING INSTRUCTION RE-ORDERING. JUST THAT THE AFFECT OF READS/WRITES ARE RE-ORDERED.
+(mostly due to efficiency and hardware implementation reasons)
 
 We even have a sample programme where we spawn two threads similar to above, and execute them randomly at different times and repeatedly to see
 when the reads/writes are re-ordered.
 
-Look at 2_ordering.cpp next
-
+Look at ordering_21.cpp next
 
 There are two ways of preventing this re-ordering of reads and writes.
 
@@ -55,18 +54,23 @@ There are two ways of preventing this re-ordering of reads and writes.
    which not only apply this barrier, but also do other things. But we'll see that later.
    In GCC, we can use the following to apply a barrier
    asm volatile("mfence" ::: "memory");
-   
 
-The "mfence" is actually a full MEMORY BARRIER which prevents memory re-ordering of any kind (StoreStore, LoadLoad, LoadStore, StoreLoad}. The memory ordering on x86 is actually pretty strong.
+
+The "mfence" is actually a full MEMORY BARRIER which prevents memory re-ordering of any kind (StoreStore, LoadLoad, LoadStore, StoreLoad}.
+mfence performs a serializing operation on all load-from-memory and store-to-memory instructions that were issued prior the MFENCE instruction.
+This serializing operation guarantees that every load and store instruction that precedes in program order the MFENCE instruction is
+globally visible before any load or store instruction that follows the MFENCE instruction is globally visible.
+
+Anyway, the memory ordering on x86 is actually pretty strong.
 All of the other kinds like {StoreStore, LoadLoad, LoadStore} are ordered. So we have demonstrated the one case where x86 allows re-ordering i.e
-a StoreLoad.
+a StoreLoad. So we say that x86 is strongly ordered cpu.
 
-On a weakly ordered system, 
+On a weakly ordered cpu,
 
 value = ptr;
-valueAvailable = true, 
+valueAvailable = true,
 
-we will need a StoreStore Barrier, or else you can read 'valueAvailable' == true but 'value' == garbage. This is a problem on the XBox360 and other PowerPC-based systems. 
+we will need a StoreStore Barrier, or else you can read 'valueAvailable' == true but 'value' == garbage. This is a problem on the XBox360 and other PowerPC-based systems.
 
 Also, the mfence instruction is specific to x86/64. On other systems, it could be something else.
 So in order to standardize all that, C++11 brought in the atomic library, and make it possible to write lock-free code.

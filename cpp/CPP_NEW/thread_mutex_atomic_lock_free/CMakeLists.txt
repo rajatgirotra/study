@@ -24,3 +24,8 @@ target_link_libraries(promise_17 PRIVATE project_options project_warnings pthrea
 
 add_executable(packaged_task_18 packaged_task_18.cpp)
 target_link_libraries(packaged_task_18 PRIVATE project_options project_warnings pthread)
+
+add_executable(reordering_22 reordering_22.cpp)
+target_link_libraries(reordering_22 PRIVATE project_options project_warnings pthread)
+#target_compile_definitions(reordering_22 PRIVATE USE_CPU_FENCE)
+#target_compile_definitions(reordering_22 PRIVATE USE_SINGLE_HW_THREAD)
