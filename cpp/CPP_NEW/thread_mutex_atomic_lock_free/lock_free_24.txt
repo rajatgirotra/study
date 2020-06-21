@@ -11,13 +11,13 @@ void foo()
     A = B + 1;
     B = 0;
 }
-Try to generate the asm code for this when optimization is turned on and off. See 4.cpp
-g++-4.8.2 -S -masm=intel 4.cpp
-g++-4.8.2 -O2 -S -masm=intel 4.cpp, with optimization, you'll see that the compiler reorders the instruction
+Try to generate the asm code for this when optimization is turned on and off. See lock_free_25.cpp
+g++-4.8.2 -S -masm=intel lock_free_25.cpp
+g++-4.8.2 -O2 -S -masm=intel lock_free_25.cpp, with optimization, you'll see that the compiler reorders the instruction
 
 In case with optimization, it brings B in an internal register and then modified B to 0, then adds 1 to internal register and then rights to A.
 So in effect, B = 0 even before A = 1.
-This is OK, because the obeservable behavior of a single thereaded application does not change.
+This is OK, because the observable behavior of a single threaded application does not change.
 But this can cause issues, in lock-free programming, eg:
 
 void sendMessage(int x)
@@ -45,9 +45,9 @@ The CPU fence instruction which you saw in 1_Must_Read.txt is also a MEMORY BARR
 The difference between
 asm volatile ("" ::: "memory") - This is a full memory barrier which prevents compiler  re-ordering. i.e a compiler barrier too.
 AND
-asm volatile ("mfence" ::: "memory") - This is a full memory barrier which prevents CPU re-ordering.
+asm volatile ("mfence" ::: "memory") - This is a full memory barrier which prevents CPU re-ordering and also compiler re-ordering.
 
-The CPU fence instruction acts like a compiler barrier too. How.. ?? See explanation below
+The CPU fence instruction (mfence) acts like a compiler barrier too. How.. ?? See explanation below
 Lets assume the code above generates the following machine instructions
 
 mov eax, B

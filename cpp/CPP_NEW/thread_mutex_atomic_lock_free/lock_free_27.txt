@@ -1,6 +1,6 @@
 The HARD TRUTH ABOUT VOLATILE
 
-The volatile keyword in C++ is almost useless in multithreading code.
+The volatile keyword in C++ is almost useless in multi-threading code.
 You will almost never need it.
 
 Why?
@@ -11,5 +11,6 @@ Why?
 2) It does not guarantee atomicity of reads and writes.
 
 3) Ordinary reads can move in either direction across a volatile read-write.
-   Ordinary writes can NOT move in either direction across a volatile read-write.
+   Ordinary writes can also move in either direction across a volatile read-write.
+   Only reads/writes of volatile variables cannot be re-ordered.
 

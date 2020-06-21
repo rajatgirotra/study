@@ -45,8 +45,6 @@ int main()
         ++dt_sec;
     }
     #endif
-                 
-
     return 0;
 }
     
