@@ -10,7 +10,21 @@
 #include <algorithm>
 #include <typeinfo>
 #include <unordered_map>
+#include <cxxabi.h>
+#include <cassert>
+#include <memory>
 using namespace std;
+
+namespace {
+    [[maybe_unused]] string demangle(const char* mangled_name) {
+        int result {-1};
+        auto demangled_name = abi::__cxa_demangle(mangled_name, nullptr, nullptr, &result);
+        assert(result == 0);
+        string name(demangled_name);
+        free(demangled_name);
+        return name;
+    }
+}
 
 //template <typename T>
 //T max_(T&& a, T&& b) {
@@ -500,88 +514,116 @@ using namespace std;
 //}
 // ------------------------------------------------------------------------------------------
 
-namespace hash_combiner {
-    template <typename...>
-    struct hash;
+//namespace hash_combiner {
+//    template <typename...>
+//    struct hash;
+//
+//    template <typename T>
+//    struct hash<T> : public std::hash<T> {};
+//
+//    template <typename T, typename... Rest>
+//    struct hash<T, Rest...> {
+//        inline std::size_t operator()(const T& arg, const Rest&... rest) const noexcept {
+//            auto seed = hash<Rest...>{}(rest...);
+//            seed ^= hash<T>{}(arg) + 0x9E3779B9 + (seed << 6) + (seed >> 2);
+//            return seed;
+//        }
+//    };
+//}
+//
+//namespace {
+//    // helper function to print a map
+//    template <typename HashMap>
+//    void printMap(const std::string& mapName, const HashMap& hm) {
+//        cout << "---------------------- MapName: " << mapName <<" -----------------------------\n";
+//        for(auto&& [key, value] : hm) {
+//            cout << key << ": " << value << "\n";
+//        }
+//        cout << "------------------------------------------------------------------------------\n";
+//    }
+//
+//    struct Key {
+//            string m_fname;
+//            string m_lname;
+//
+//            friend ostream& operator << (ostream& os, const Key& rhs) {
+//                return os << rhs.m_lname << ", " << rhs.m_fname;
+//            }
+//        };
+//
+//    struct KeyHash {
+//        std::size_t operator() (const Key& key) const noexcept {
+//            ::hash_combiner::hash<string, string> hasher{};
+//            return hasher(key.m_fname, key.m_lname);
+//        }
+//    };
+//
+//    struct KeyEqual {
+//        bool operator () (const Key& lhs, const Key& rhs) const noexcept {
+//            return ((lhs.m_lname == rhs.m_lname) && (lhs.m_fname == rhs.m_fname));
+//        }
+//    };
+//
+//}
+//
+//int main() {
+//    // default constructed.
+//    unordered_map<string, string> m1;
+//    printMap("default constructed map m1", m1);
+//
+//    // using std::initializer list
+//    unordered_map<Key, string, KeyHash, KeyEqual> m2 {
+//            {{"Rajat", "Girotra"}, "XII-A"},
+//            {{"Vidhu", "Ahuja"}, "XI-B"},
+//    };
+//    printMap("initializer_list constructed map m2", m2);
+//
+//
+//    // using range constructor
+//    std::vector<std::pair<int, string>> v{
+//            {1, "Rajat"},
+//            {2, "Vidhu"}
+//    };
+//    unordered_map<int, string> m3(v.begin(), v.end());
+//    printMap("range constructed map m3", m3);
+//
+//    // using insert with hint and inserter
+//    std::vector<std::pair<int, string>> v2{
+//            {1, "Myra"},
+//            {2, "Viraj"},
+//            {2, "Myra"}
+//    };
+//    unordered_map<int, string> m4;
+//    std::copy(begin(v2), end(v2), inserter(m4, m4.begin()));
+//    printMap("inserter construction using insert m4", m4);
+//
+//
+//}
+// ------------------------------------------------------------------------------------------
 
-    template <typename T>
-    struct hash<T> : public std::hash<T> {};
+//double test(int, int);
+//int test(double, double);
+//char test(char, char);
+//
+//template <typename T>
+//struct A;
+//
+//template <typename... Args>
+//using TypeTest = decltype(test(declval<Args>()...)); //(Args...);
+//
+//int main() {
+//    //[[maybe_unused]] A<decltype(test)> obj;
+//    [[maybe_unused]] A<TypeTest<double, double>> obj;
+//}
+// ------------------------------------------------------------------------------------------
 
-    template <typename T, typename... Rest>
-    struct hash<T, Rest...> {
-        inline std::size_t operator()(const T& arg, const Rest&... rest) const noexcept {
-            auto seed = hash<Rest...>{}(rest...);
-            seed ^= hash<T>{}(arg) + 0x9E3779B9 + (seed << 6) + (seed >> 2);
-            return seed;
-        }
-    };
-}
-
-namespace {
-    // helper function to print a map
-    template <typename HashMap>
-    void printMap(const std::string& mapName, const HashMap& hm) {
-        cout << "---------------------- MapName: " << mapName <<" -----------------------------\n";
-        for(auto&& [key, value] : hm) {
-            cout << key << ": " << value << "\n";
-        }
-        cout << "------------------------------------------------------------------------------\n";
-    }
-
-    struct Key {
-            string m_fname;
-            string m_lname;
-
-            friend ostream& operator << (ostream& os, const Key& rhs) {
-                return os << rhs.m_lname << ", " << rhs.m_fname;
-            }
-        };
-
-    struct KeyHash {
-        std::size_t operator() (const Key& key) const noexcept {
-            ::hash_combiner::hash<string, string> hasher{};
-            return hasher(key.m_fname, key.m_lname);
-        }
-    };
-
-    struct KeyEqual {
-        bool operator () (const Key& lhs, const Key& rhs) const noexcept {
-            return ((lhs.m_lname == rhs.m_lname) && (lhs.m_fname == rhs.m_fname));
-        }
-    };
-
+std::unique_ptr<int> foo() {
+    std::unique_ptr<int> p(new int(100));
+    return p; // NVRO kicking in.
+    return {p}; // returning {p} forces the compiler to disable RVO, so it will try to call copy ctor which is deleted. So we get compilation error.
 }
 
 int main() {
-    // default constructed.
-    unordered_map<string, string> m1;
-    printMap("default constructed map m1", m1);
-
-    // using std::initializer list
-    unordered_map<Key, string, KeyHash, KeyEqual> m2 {
-            {{"Rajat", "Girotra"}, "XII-A"},
-            {{"Vidhu", "Ahuja"}, "XI-B"},
-    };
-    printMap("initializer_list constructed map m2", m2);
-
-
-    // using range constructor
-    std::vector<std::pair<int, string>> v{
-            {1, "Rajat"},
-            {2, "Vidhu"}
-    };
-    unordered_map<int, string> m3(v.begin(), v.end());
-    printMap("range constructed map m3", m3);
-
-    // using insert with hint and inserter
-    std::vector<std::pair<int, string>> v2{
-            {1, "Myra"},
-            {2, "Viraj"},
-            {2, "Myra"}
-    };
-    unordered_map<int, string> m4;
-    std::copy(begin(v2), end(v2), inserter(m4, m4.begin()));
-    printMap("inserter construction using insert m4", m4);
-
-
+    auto x = foo();
+    cout << *x << endl;
 }

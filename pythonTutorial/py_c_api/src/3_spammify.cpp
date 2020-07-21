@@ -3,6 +3,7 @@
  * you will need to provide a C function first that accepts a python callable. Then call that. Let's see.
  */
 
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 #include <iostream>
 using namespace std;

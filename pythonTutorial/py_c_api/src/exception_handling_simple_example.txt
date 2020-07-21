@@ -1,0 +1,45 @@
+simple python code and its equivalent C code
+
+def incr_item(my_dict, key):
+    try:
+        value = my_dict[key]
+    except KeyError:
+        value = 0
+    my_dict[key] = value + 1
+
+
+// note the very common use of "goto" (otherwise not encouraged) in Python API's
+int incr_item(PyObject* target, PyObject* key)
+{
+    int rv = -1; // Python API's should return NULL/-1/false for error and valid PyObject*/1/true for success
+    PyObject* value = nullptr, one = nullptr, incremented_item = nullptr;
+
+    value = PyObject_GetItem(target, key);
+    if(value == nullptr) {
+        if(!PyErr_ExceptionMatches(PyExc_KeyError)) // returns true if KeyError is currently set. otherwise false.
+            goto error; // if any error except KeyError is set, ignore the error and keep going.
+
+         // clear the exception state
+         PyErr_Clear();
+         value = PyLong_FromLong(0L);
+         if(value == nullptr) goto error; // if PyLong_FromLong() fails, go to error
+    }
+    // add one
+    one = PyLong_FromLong(1L);
+    if (one == nullptr) goto error;
+
+    incremented_item = PyNumber_Add(value, one);
+    if(incremented_item == nullptr) goto error;
+
+    // finally set the new value
+    if(PyObject_SetItem(target, key, incremented_item) < 0) goto error;
+
+    rv = 0; // success
+    error:
+        // cleanup code, called for both success and failure paths.
+        Py_XDECREF(value);
+        Py_XDECREF(one);
+        Py_XDECREF(incremented_item);
+
+    return rv;
+}

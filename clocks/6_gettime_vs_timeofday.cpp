@@ -17,10 +17,10 @@ int main()
     struct timespec ts;
     struct timeval tv;
 
-    for(auto i = 0; i < 1000000; ++i)
+    for(auto i = 0; i < 100000000; ++i)
     {
         clock_gettime(CLOCK_REALTIME, &ts);
-        //gettimeofday(&tv, 0);
+       // gettimeofday(&tv, 0);
     }
 
     return 0;

@@ -1,0 +1,146 @@
+Python C API Basics
+===================
+
+ALWAYS include the following as the first step in your source file.
+
+#define PY_SSIZE_T_CLEAN
+#include <Python.h>
+
+Python.h defines many useful macros, functions, variables. They all should have _Py or Py prefix. Names beginning with _Py are python internal implementation,
+so do not use them directly. Always look for a way to use _Py functionality via a "Py" variable/function.
+
+There are two ways of using the Python extension API
+
+1) Use it to write an extension module (ie create shared objects files like my_extension_module.so on linux or my_extension_module.pyd on windows)
+2) Use Python as a sub-component in a large application (ie. embed python in your application).
+
+We will start with 1) and move to 2) gradually.
+
+It should be noted that extending Python and embedding Python is quite the same activity, despite the different intent.
+To show this, consider what the extension code from Python to C really does:
+
+   1. Convert data values from Python to C,
+   2. Perform a function call to a C routine using the converted values, and
+   3. Convert the data values from the call from C to Python.
+
+When embedding Python, the interface code does:
+
+   1. Convert data values from C to Python,
+   2. Perform a function call to a Python interface routine using the converted values, and
+   3. Convert the data values from the call from Python to C.
+
+As you can see, the data conversion steps are simply swapped to accommodate the different direction of the cross-language transfer.
+The only difference is the routine that you call between both data conversions. When extending, you call a C routine, when embedding,
+you call a Python routine.
+
+PyObject
+========
+Everything in python is an object. So PyObject is a generic opaque type that could represent any arbitrary Python object. Also all Python objects live on the heap.
+You will never declare automatic or static python objects. So you will only see pointers (PyObject*) everywhere. The only exception is type objects; since these must
+never be de-allocated, they are static and represented by PyTypeObject, instead of PyObject.
+
+A PyObject* could represent an integer, a list, some user defined function or whatever. All these PyObject* are reference counted. When the reference drops to zero,
+the PyObject* is destroyed.
+
+Reference counting is the responsibility of the developer. The important macros to increment/decrement reference counts is:
+Py_INCREF()
+Py_XINCREF()
+Py_DECREF()
+Py_XDECREF()
+See useful macros to find out more.
+
+decrementing is more complex as it the api needs to check if reference count has dropped to zero and objects needs to be de-allocated. The deallocator is a function
+pointer stored in the PyObject structure. If the PyObject references a compound/complex type, the api makes sure to call Py_DECREF() on individual members of the type.
+
+When should increment an objects reference count? --> It depends. THE ONLY USE OF INCREMENTING A REFERENCE COUNT IS TO PREVENT THE OBJECT FROM GETTING DE-ALLOCATED AS LONG
+AS YOUR VARIABLE IS POINTING TO IT. But if you know that there is at least one other reference to the object that lives at least as long as your variable, there is no need
+to increment the reference count temporarily. For example, when a python extension module function is called from python, the python api guarantees to hold a reference to
+the arguments of that function for the duration of the call.
+
+One more example: If some python extension module takes a list and returns an item from that list, you would want to increment the reference count to that item before
+returning it. Otherwise, if some operation deletes the item, you will be holding on to a dead object. For such cases, you should consider using generic operations like
+PyObject_, PyNumber, PySequence_, PyMapping_. These operations always the increment the reference count of the object they return.
+
+How to think about reference counting in Python (very important)
+================================================================
+The actual python objects that live on the heap are shared. They are not owned. When you want to share a python object, you get a PyObject*
+It is this PyObject* that you OWN. and we say that we own a reference. It is the owner's responsibility now to call Py_DECREF() when he is done with the reference.
+Ownership can be
+1) Transferred
+2) Borrowed
+3) Stealed
+
+1) Transferred -> A function returning a PyObject* to the caller. The caller is now responsible for decref'ing the reference. The caller is said to receive a new reference.
+2) Borrowed -> When ownership is not transferred, it is borrowed. Nothing needs to be done for a borrowed reference. But remember, a borrowed reference may be de-allocated from under your nose.
+We'll say more on that later
+3) Stealed --> stealing a reference means taking on the ownership voluntarily and becoming its new owner. When a PyObject* is passed to a function. a function may steal
+the reference to the object. in which case the caller isnt responsible for decref'ing it anymore.
+
+Few functions steal references. Example: PyList_SetItem(), PyTuple_SetItem().
+
+Lets see what is stealing like
+==============================
+Say you want to create a tuple of 3 elements (1, 2, "three") in C Api. you can do
+
+PyObject* t;
+t = PyTuple_New(3);
+PyTuple_SetItem(t, 0, PyLong_FromLong(1L));
+PyTuple_SetItem(t, 1, PyLong_FromLong(2L));
+PyTuple_SetItem(t, 2, PyUnicode_FromString("three"));
+
+Here the PyLong_FromLong(), PyUnicode_FromString() functions return a new reference which is immediately stolen by the PyTuple_SetItem(), because the tuple want to make sure
+it stores a valid reference to its elements. So it must steal it. If you want to also hold on to a reference before it is stolen, you will need to call Py_INCREF() manually before
+the steal call. Similarly PyList_SetItem() also steals a reference.
+
+Exception Handling
+==================
+Lets say a Python API 1 calls Python API 2 and, API 2 fails. Then API 2 will set an exception, and return a failure indicator.
+API 1 can do two things
+1) It should either handle the exception, clear the exception state and continue.
+2) If it must fail, it should not touch the exception set. It should just do all function cleanup and return an error indicator from the function
+   (like -1, NULL, false).
+When an exception is raised, by default it is propagated to the caller, then to the caller's caller and so on. until it reaches the top-level interpreter,
+when it is sent to the stderr accompanied by a stack trace.
+Almost all Python C api's can encounter errors. To report an error. the python api
+1) sets an exception (which can be queried using PyErr_Occurred())
+2) returns an error indicator from the function (like NULL, -1, false etc).
+
+Note that exceptions in python are per thread. So every thread in python could be in one of the two states. When in exception state or not.
+PyErr_Clear() will clear the exception state of the thread. A full exception state consists of three objects.
+1) the exception type (example type could be exceptions.ZeroDivisionError)
+2) the exception value (a PyObject* of type exceptions.ZeroDivisionError)
+3) the traceback
+
+As a general principle, a function that calls another function to perform some task SHOULD check whether the called function raised an exception, and if so,
+pass the exception state on to its caller. It should discard any object references that it owns, and return an error indicator, BUT IT SHOULD NOT SET ANOTHER EXCEPTION,
+as that would overwrite the exception that was just raised, and lose important information about the exact cause of the error.
+
+Note in Python C API, when an exception is raised, it is still propagating up to its caller. So it is not yet what sys.exec_info() returns.
+Only when the exception is propagated to the top level python interpreter, the python interpreter will create a sys.exec_info() object out of it.
+see exception_handling_simple_example.txt to see a simple example:
+
+https://docs.python.org/3/c-api/exceptions.html See this page for exception API and also for Signal Handling.
+
+Embedding Python
+================
+When you are embedding python as opposed to writing an extension module, there are only two things you need to worry about
+1) Initialization of the python interpreter using Py_Initialize()
+2) Any possible finalization of the interpreter using Py_FinalizeEx()
+
+Py_Initialize() will carry out initialization activity like creating fundamental modules like builtins, __main__, sys. Also sets module search path (sys.path)
+Note that Py_Initialize() does not set sys.argv (the argument list to a python script). The developer needs to set it explicitly using:
+PySys_SetArgvEx(argc, argv, updatepath) after calling Py_Initialize()
+
+Py_Initialize() also sets the module search path sys.path which is hardly an ordinary feet. The way Py_Initialize() sets sys.path is dependent on 3 things
+1) Py_SetProgramName()
+2) PYTHONHOME
+3) PYTHONPATH
+That is why Py_SetProgramName() must be called before Py_Initialize()
+
+The default behavior of Py_Initialize() to set sys.path is:
+1) Find python executable. The location searched for python executable are
+   1.a) PYTHONHOME environment variable
+   1.b) Py_SetProgramName()
+   1.c) PATH environment variable
+2) Once the python exe is found (lets say in /usr/local/bin/python), it adds /usr/local/lib/pythonX.Y to sys.path
+   You can prepend more path to this default search path using the PYTHONPATH environment variable.

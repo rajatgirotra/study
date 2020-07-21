@@ -4,5 +4,21 @@ target_link_libraries(mix_1 PRIVATE project_options project_warnings)
 add_executable(mix_2 mix_2.cpp)
 target_link_libraries(mix_2 PRIVATE project_options project_warnings)
 
-add_executable(evaluation_order evaluation_order.cpp)
-target_link_libraries(evaluation_order PRIVATE project_options project_warnings)
+add_executable(evaluation_order_4 evaluation_order_4.cpp)
+target_link_libraries(evaluation_order_4 PRIVATE project_options project_warnings)
+
+add_executable(structured_bindings_5 structured_bindings_5.cpp)
+target_link_libraries(structured_bindings_5 PRIVATE project_options project_warnings)
+
+add_executable(variable_template_6 variable_template_6.cpp)
+target_include_directories(variable_template_6 PUBLIC SYSTEM ${Boost_INCLUDE_DIRS})
+target_link_libraries(variable_template_6 PRIVATE project_options project_warnings)
+
+add_executable(variable_template_7 variable_template_7.cpp)
+target_link_libraries(variable_template_7 PRIVATE project_options project_warnings)
+
+add_executable(std_optional_8 std_optional_8.cpp)
+target_link_libraries(std_optional_8 PRIVATE project_options project_warnings)
+
+add_executable(std_variant_9 std_variant_9.cpp)
+target_link_libraries(std_variant_9 PRIVATE project_options project_warnings)

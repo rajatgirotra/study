@@ -19,7 +19,7 @@ char *commaprint(unsigned long n)
             if(lcp->thousands_sep != NULL &&
                *lcp->thousands_sep != '\0')
                 comma = *lcp->thousands_sep;
-            elsecomma = ',';
+            else comma = ',';
         }
     }
 

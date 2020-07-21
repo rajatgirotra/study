@@ -1,0 +1,6 @@
+Python API provides a number of utilities like OS utilities and functions to get/set attributes in the sys module (like
+setting ps1 and ps2) etc and some helper function for process control.
+
+Explore them slowly as we go along.
+
+https://docs.python.org/3/c-api/utilities.html

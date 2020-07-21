@@ -1,0 +1,72 @@
+This is where we document the useful python macros to build our understanding over time.
+
+Py_RETURN_NONE
+==============
+macro to return None from a function
+
+auto foo() {
+    Py_RETURN_NONE; // note, NOT return Py_RETURN_NONE
+}
+
+Py_UNREACHABLE (version 3.7)
+==============
+Put at places in code which you dont expect to be reached. Can be used in place or assert() or abort() function.
+
+Py_ABS(x), Py_MIN(x, y), Py_MAX(x, y)
+====================================
+trivial
+
+Py_STRINGIFY
+===========
+Py_STRINGIFY(123) return "123"
+
+Py_INCREF, Py_XINCREF, Py_DECREF, Py_XDECREF
+============================================
+Py_INCREF(PyObject* o) --> increment reference count of o by 1, o MUST NOT BE NULL
+Py_XINCREF(PyObject* o) --> same as above, but argument may be NULL, in which case it's a no-op
+Py_DECREF(PyObject* o) --> decrement the reference count by 1, o MUST NOT BE NULL.
+Py_XDECREF(PyObject* o) --> same as above, but argument may be NULL, in which case it's a no-op
+
+Py_BuildValue function (Must learn by heart)
+======================
+PyObject* Py_BuildValue(const char* format, ...) --> New Reference
+Very very helpful function to creating tuple/list/and other common Python types from C values based on format string (like printf)
+Example:
+PyObject* tuple, list;
+tuple = Py_BuildValue("(iis)", 1, 2, "three");
+list = Py_BuildValue("[iis]", 1, 2, "three");
+
+PyErr_Occurred
+==============
+PyObject* PyErr_Occurred() --> Borrowed reference
+NULL if no exception, otherwise returns the exception type
+
+PyObject_GetItem
+=================
+PyObject* PyObject_GetItem(PyObject* target, PyObject* key) --> returns new reference, NULL on failure. behaves like target[key]
+
+PySys_SetArgvEx
+==============
+void PySys_SetArgvEx(argc, argv, updatepath) is used to set sys.argv (when embedding python inside your application).
+Must be called after calling Py_Initialize(). This is used when you want to run some python script from inside your application.
+argc --> is same as the argc passed to the main() function of your c/c++ application.
+argv --> generally argv[0] will be the name of the binary being executed. But we need to modify it. argv[0] should be the name of the python script
+         you want to execute. If there is no script to be executed, leave argv[0] to an empty string.
+Note that argv in main() needs to be converted from char** to wchar_t**, you can do that using Py_DecodeLocale() function.
+See https://edtheron.me/blog/embed-python-3-interpreter-c-program for a sample.
+See https://docs.python.org/3/c-api/intro.html#embedding-python for more information.
+
+PyErr_SetString
+===============
+void PyErr_SetString(PyObject* exception, const char* message)
+// the most common way to set an exception in python c api.
+
+
+PyErr_SetFromErrno & PyErr_SetObject
+====================================
+PyObject* PyErr_SetFromErrno(PyObject* exception)
+many times a C api can return an exception and set the global variable errno. The PyErr_SetFromErrno() creates PyObject* tuple where first
+element is the errno number and second element is the error string (returned by strerror()). Then it calls
+PyErr_SetObject(exception, args) --> where args is the tuple object.
+
+
