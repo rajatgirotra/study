@@ -22,3 +22,12 @@ target_link_libraries(std_optional_8 PRIVATE project_options project_warnings)
 
 add_executable(std_variant_9 std_variant_9.cpp)
 target_link_libraries(std_variant_9 PRIVATE project_options project_warnings)
+
+add_executable(std_variant_10 std_variant_10.cpp)
+target_link_libraries(std_variant_10 PRIVATE project_options project_warnings)
+
+add_executable(std_variant_11 std_variant_11.cpp)
+target_link_libraries(std_variant_11 PRIVATE project_options project_warnings)
+
+add_executable(std_variant_12 std_variant_12.cpp)
+target_link_libraries(std_variant_12 PRIVATE project_options project_warnings)

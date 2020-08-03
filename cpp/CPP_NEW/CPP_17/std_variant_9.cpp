@@ -1,5 +1,12 @@
 /*
- * std::variant is a type safe union. let's see it in action
+ * std::variant is a type safe union. an std::variant holds one of its alternatives at any given time or no value (in case of error).
+ * default constructed variants default to the first alternative, given that the first alternative is default constructable.
+ * otherwise the variant is not default constructable.
+ *
+ * variant can hold the same type more than once or even hold cv-qualified versions of the same type.
+ * variant cannot hold references, arrays or void types.
+ *
+ * just like std::optional a variant cannot do dynamic memory allocation.
  */
 
 #include <iostream>
@@ -24,7 +31,22 @@ namespace {
 struct VariantVisitor {
     void operator() ([[maybe_unused]] int i) { cout << "int: " << i << endl; }
     void operator() ([[maybe_unused]] double d) { cout << "double: " << d << endl; }
+    void operator() ([[maybe_unused]] float f) { cout << "float: " << f << endl; }
     void operator() ([[maybe_unused]] const string& s) { cout << "string: " << s << endl; }
+};
+
+struct NotSimple {
+    NotSimple(int, float) {};
+};
+
+struct FirstType {
+    FirstType() { cout << "FirstType::FirstType()\n"; }
+    ~FirstType() { cout << "FirstType::~FirstType()\n"; }
+};
+
+struct SecondType {
+    SecondType() { cout << "SecondType::SecondType()\n"; }
+    ~SecondType() { cout << "SecondType::~SecondType()\n"; }
 };
 
 int main() {
@@ -43,18 +65,18 @@ int main() {
 
     intDoubleStringVar = 5.5;
     x = intDoubleStringVar.index();
-    cout << "index when intDoubleStringVar holds an double: " << x << endl;
+    cout << "index when intDoubleStringVar holds a double: " << x << endl;
 
     intDoubleStringVar = "Hello World";
     x = intDoubleStringVar.index();
-    cout << "index when intDoubleStringVar holds an string: " << x << endl;
+    cout << "index when intDoubleStringVar holds a string: " << x << endl;
 
     /*
      * get_if<> --> Very handy, it returns a pointer (could be nullptr) to the alternative you ask for.
      * If the alternative you ask for is also the current alternative, returns a pointer to that alternative.
      * otherwise returns nullptr. This is handy as it doesnt throw.
      *
-     * The other thing to note is that it takes a pointer to a variant instead of taking a variant simple like a const l-value reference
+     * The other thing to note is that it takes a pointer to a variant instead of taking a variant simply like a const l-value reference
      * The reason is that it a const l-value reference can bind to temporary variants, and returning a pointer to an alternative inside it
      * would result in a crash. We should have done the same thing for SDict class in DB.
      */
@@ -82,5 +104,68 @@ int main() {
         std::get<double>(intDoubleStringVar);
     } catch(const std::bad_variant_access& e) {
         cout << "exception caught: " << e.what() << endl;
+    }
+
+    /* When your variant first alternative is not default constructable, use std::monostate as the first alternative, which makes your variant
+     * default constructable.
+     */
+    cout << "\nmonostate use.\n";
+    std::variant<std::monostate, NotSimple, string> monostateVar;
+    cout << "monostateVar index(): " << monostateVar.index() << endl;
+    try {
+        [[maybe_unused]] auto tmp = std::get<std::monostate>(monostateVar); // gcc defines monostate as struct monostate{};
+        // cannot do anything with monostate really, just used to make the variant default constructable.
+    } catch(const std::bad_variant_access& e) {
+        cout << "exception caught: " << e.what() << endl;
+    }
+
+    cout << "\ncreating a variant with any alternative\n";
+    std::variant<int, double, string> var1(3.5);
+    cout << "variant with double alternative, index: " << var1.index() << ", value: " << std::get<double>(var1) << endl;
+
+    /* yields an error as 3.5 is a double, so it can be narrowed to an int or float both, so compiler cannot decide.
+     * use std::in_place_index<> to tell the compiler explicitly
+     */
+    // std::variant<int, float, string> var2(3.5);
+    //std::variant<int, float, string> var2(std::in_place_index<1>, 3.5);
+    std::variant<int, float, string> var2(std::in_place_type<float>, 3.5);
+    cout << "variant with float alternative, index: " << var2.index() << ", value: " << std::get<float>(var2) << endl;
+
+    /* since initializer is const char*, the variant uses C++ rules of converting constructor to convert const char* to one of the alternatives
+     * there are two ways: convert const char* to bool or convert to std::string. since bool is a built-in type, the compiler selects it.
+     * But gcc 10.0 onwards this is fixed.
+     */
+    cout << "\nstrange variant initialization\n";
+    std::variant<string, int, bool> var3 = "Hello World";
+    cout << "var3, index: " << var3.index() << ", val: " << *std::get_if<bool>(&var3) << endl;
+
+    // variant<float, long, double> var4 = 0; // will be ambiguous till gcc 9, gcc 10 onwards this is fixed and will be long
+
+    cout << "\n changing variant type or values\n";
+    std::variant<int, float, std::string> intFloatString { "Hello" };
+    std::visit(VariantVisitor(), intFloatString);
+    intFloatString = 10; // change value using plain assignment.
+    std::visit(VariantVisitor(), intFloatString);
+    intFloatString.emplace<1>(3.6f); // or use emplace<index> function
+    std::visit(VariantVisitor(), intFloatString);
+    intFloatString.emplace<string>("Hello"); // or use emplace<type> function
+    std::visit(VariantVisitor(), intFloatString);
+    std::get<string>(intFloatString) += " World"; // std::get<> returns a reference, so we can change the value straight away.
+    std::visit(VariantVisitor(), intFloatString);
+    intFloatString = 10.5f;
+    std::visit(VariantVisitor(), intFloatString);
+    auto floatPtr = std::get_if<float>(&intFloatString);
+    assert(floatPtr != nullptr);
+    *floatPtr += 5;
+    std::visit(VariantVisitor(), intFloatString);
+
+    // note that the variant is responsible for calling the dtor of the underlying type when you change its type. so there is no memory leak.
+    // lets see a trivial example:
+    {
+        std::variant<FirstType, SecondType> var4;
+        {
+            var4 = SecondType();
+        }
+        cout << "var4 holds SecondType() which will be destroyed at the end of this scope.\n";
     }
 }
