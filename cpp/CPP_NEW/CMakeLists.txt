@@ -16,7 +16,7 @@ add_library(project_options INTERFACE)
 # cmake now has its own dataset of compilers names, versions and the features that are supported by those compiler versions
 # CMAKE_CXX_KNOWN_FEATURES is a list of all c++ features known to cmake. CMAKE_CXX_COMPILE_FEATURES is a subset of CMAKE_CXX_KNOWN_FEATURES
 # which can be used to turn off/on certain flags. Here we use one such feature to turn on C++17 flag
-target_compile_features(project_options INTERFACE cxx_std_17)
+target_compile_features(project_options INTERFACE cxx_std_20)
 
 # set compile/link options
 include(cmake/CompilerFlags.cmake)
@@ -76,7 +76,7 @@ add_subdirectory(hashes_maps_sets)
 add_subdirectory(random)
 add_subdirectory(constexpr)
 add_subdirectory(lambda_bind_and_related)
-add_subdirectory(CPP_17)
+add_subdirectory(CPP_17_20)
 add_subdirectory(python_c_api)
 add_subdirectory(thread_mutex_atomic_lock_free)
 add_subdirectory(practice)

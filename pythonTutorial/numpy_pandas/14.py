@@ -14,6 +14,7 @@ print('\ndf.reindex\n%s' % df.reindex(index=list('abc'), columns=['Ohio', 'Utah'
 print('\ndf.reindex\n%s' % df.reindex(index=list('abc'), columns=['Ohio', 'Utah', 'California'], fill_value='missing'))
 
 # method parameter is used to interpolate missing values. Valid options are ffill, bfill, nearest.
+# bfill, ffill etc only fills new indexes/columns introduced compared to the old dataframe. it doesnt fill old indexes if those were np.NaN already
 # Remember that the source dataframe index or column should be sorted for interpolation to work
 states = ['Ohio', 'Utah', 'California']
 print('\ndf.reindex with method\n%s' % df.reindex(index=['a', 'b', 'c', 'd'], method='ffill',  # ffill is forward fill
