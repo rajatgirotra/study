@@ -1,4 +1,4 @@
-You already know now that regression models are used to predict value of continuous variables (ie predict real numbers), like salary of an employee. We will next learn some regression models (both liner and non-linear) followed by some classificatio models.
+You already know now that regression models are used to predict value of continuous variables (ie predict real numbers), like salary of an employee. We will next learn some regression models (both liner and non-linear) followed by some classification models.
 
 We'll study
 1) Simple linear regression

@@ -1,6 +1,7 @@
 books/
 **/numpy_pandas/exercises/
 clion/
+R/
 fromSCB/
 GTAGS
 GPATH
@@ -18,6 +19,7 @@ tensorflow-for-poets-2/
 flower_photos.tgz
 tf_files/
 .~*
+.DS_Store
 .ipynb_checkpoints/
 **/delete/
 gdb.txt
