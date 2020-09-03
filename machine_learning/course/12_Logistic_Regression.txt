@@ -1,0 +1,14 @@
+Logistic Regression Intuition
+-----------------------------
+
+Lets say you have a 2D scatter plot of people ages (on the x axis) and whether they purchased a religious holiday trip (on the y axis). The scatter plot clearly shows that young people do not take the trip and old people take the trip. So the y-axis has just two points (0 or 1) i.e Yes/No
+
+But what if you want to answer the question from a probablistic point of view? i.e given an age, what is the likelyhood that he/she will take the trip. How do you achieve that?
+
+If we draw a trend line, ofcourse it will not be a good fit. Let's say the trend line crosses the x-axis at 35 years and again at 85 years. This means that
+
+1) below 35 yrs, ppl dont take the trip
+2) above 85 yrs, ppl always take the trip
+3) between 35 and 85 yrs, you can establish a probability of someone taking a trip.
+
+Since the y-axis has two points 0 and 1, and since probability values are also between 0 and 1, we can convert the trend line into a probablistic equation using sigmoid function. See your orange register for more details.

@@ -1,0 +1,15 @@
+To select which regression model is best, try out all and see which one is best by looking at the Adj R-Squared for every model
+
+The regression models you have studied are:
+
+1. Simple Linear Regression
+2. Multiple Linear Regression
+3. Polynomial Linear Regression
+4. Support Vector Regression
+5. Decision Tree Regression
+6. Random Forest Regression
+
+from sklearn.metrics import r2_score
+r2_score(y_test, y_pred)
+
+For all of the Regression models, we will learn about their tuning later. Tuning is modifying the hyper parameters of these models.
