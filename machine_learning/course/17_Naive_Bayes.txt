@@ -1,0 +1,38 @@
+Naive based Classification. 
+You already know naive based from Probability. Its a non linear model
+
+P(A) * P(B|A) = P(B) * P(A|B)
+
+Intuition
+=========
+
+Assume you have a dataset with two features on the x and y axis; age and salary of employees. and the label is whether they walk or drive to work.
+
+So for a given data point (age, salary), how do you predict if he/she walks or drives to work. The way we calculate this is:
+
+P(walks|X) = P(walks) * P(X|walks)
+             ---------------------
+                   P(X)
+                   
+P(walks|X) = probability that the person walks given the features X (called posterior probability)
+P(walks) = probability that a person walks (called prior probability)
+P(X|walks) = probability that a person has features X given that we walks (called likelihood)
+P(X) = probability that a person has features X (marginal likelihood) --> for this we take a data point and take a radius and then draw a circle around that data point. We assume that all other data points that lie within the circle have similar characteristics to the data point under consideration.
+
+Similarly we do:
+
+P(drives|X) = P(drives) * P(X|drives)
+             ---------------------
+                   P(X)
+
+Then compare P(walks|X) & P(drives|X) and then classify. So its actually a probabilistic type of classifier.
+
+Naive based is called "Naive" because it assumes that Independant Variables are not related. ie no correlation between them.
+But if Independant variable are related, Naive Bayes may not really apply.
+
+P(X) --> likelyhood that a randomly selected point from the dataset will exhibit features that match the datapoint we are about to add. Since you are comparing P(walks|X) & P(drives|X), algorithm implementers usually drop calculation of P(X). See the formula above and you will know.
+
+What if Naive Bayes has more than 2 labels? No problem. Just that you will need to do more calculation. Example
+P(walks|X) 
+P(drives|X) 
+P(MRT|X) 
