@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 
 project(cpp_study DESCRIPTION "cpp starter project makefile" LANGUAGES C CXX)
 
-set(DEVTOOLS_DIR /app/devtools/thirdparty CACHE STRING "location of installed thirdparty libraries" FORCE)
+# set(DEVTOOLS_DIR /app/devtools/thirdparty CACHE STRING "location of installed thirdparty libraries" FORCE)
+set(DEVTOOLS_DIR /usr CACHE STRING "location of installed thirdparty libraries" FORCE)
 
 include(cmake/StandardProjectSettings.cmake)
 
@@ -81,3 +82,4 @@ add_subdirectory(python_c_api)
 add_subdirectory(thread_mutex_atomic_lock_free)
 add_subdirectory(practice)
 add_subdirectory(helper_classes)
+add_subdirectory(boost)

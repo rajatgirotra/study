@@ -3,7 +3,7 @@ Sys V IPC can be used for three different IPC mechanisms.
 2) Semaphores
 3) Shared Memory
 
-Message Queues are similar to PIPES. However message queues are used to read and write structured data as opposed to PIPES which read and write a sequence of bytes. So in message queues, data actually has boundaries. Also with Sys V message queues, you can associate an integer "type" key with each message, and the receiver can read messages based on key instead of reading the, sequentially as they written into the queue.
+Message Queues are similar to PIPES. However message queues are used to read and write structured data as opposed to PIPES which read and write a sequence of bytes. So in message queues, data actually has boundaries. Also with Sys V message queues, you can associate an integer "type" key with each message, and the receiver can read messages based on key instead of reading them sequentially as they written into the queue.
 
 Semaphores are used for interprocess synchronization.
 SHM you already know.
@@ -20,7 +20,7 @@ Sending/receving: msgsend()/msgrcv(), semop(), None
 Underlying Data strcutures are: msgid_ds, semid_ds, and shmid_ds
 
 All Sys V IPC calls are based on an integer key, just like file operations are based on file descriptors.
-You must first Create/Open a Sys V IPC object using a key. When the call is successfull, you get back and integer identifier. This identifier must be used in all future calls to other functions.
+You must first Create/Open a Sys V IPC object using an key. When the call is successfull, you get back and integer identifier. This identifier must be used in all future calls to other functions. So basically the input argument is also an integer key and the output is an integer identifier. This identifier is what needs to be used in all future calls on that IPC object.
 
 For example:
 Opening/creating msg q object:

@@ -1,6 +1,6 @@
 /*
  * Continuing on RVO from 16_README.txt, C++17 guarantees that compiler must elide a copy (ie must do RVO).
- * NVRO is still not mandatory but most compilers do it anyway. What this means is that the compilers defer object materialization.
+ * NRVO is still not mandatory but most compilers do it anyway. What this means is that the compilers defer object materialization.
  */
 #include <iostream>
 #include <array>

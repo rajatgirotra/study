@@ -26,3 +26,4 @@ gdb.txt
 .lock-waf_linux_build
 .idea/**
 .idea
+conan/build/

@@ -1,7 +1,7 @@
 Returning by std::move() or std::forward() and N(RVO).
 ======================================================
 
-Let's understand first what is N(RVO). Very simple. RVO states that if a function returns by value and define a local variable
+Let's understand first what is N(RVO). Very simple. RVO states that if a function returns by value and defines a local variable
 (named or un-named) of that type in your function and you also return that variable by value, then
 
 1) The compiler must do copy-elision and directly create that object into the return location of the function

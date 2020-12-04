@@ -70,8 +70,8 @@ int Number::counter = 0;
 Number foobar()
 {
      Number n;
-     return std::move(n);
-    // return n;
+    // return std::move(n);
+     return n;
 
     //return Number();
 }
@@ -84,7 +84,7 @@ int main()
 	return 0;
 }
 
-// You'll notice though that the move copy c'tor is not called. This is because of Return Value Optimization. The compiler sees that the
+// You'll notice though that the move c'tor is not called. This is because of Return Value Optimization. The compiler sees that the
 // only use of the local object in foobar() is to initialise the object n in main. So it basically just creates one object using 
 // simple c'tor and assigns it to n. So no move semantics here.
 // Read this beautiful article: http://definedbehavior.blogspot.in/2011/08/value-semantics-nrvo.html

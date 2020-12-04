@@ -43,14 +43,14 @@ shared_ptr<T> factory(const Arg& arg)
     return namedT;
 }
 
-3) Again No GOOD.. the problem now is that if the argument passed to factory() is an rvalue reeference, then
-inside the factory method it will be treated as an lvalue (becuase it has a name), and we will be never be able
+3) Again No GOOD.. the problem now is that if the argument passed to factory() is an rvalue reference, then
+inside the factory method it will be treated as an lvalue (because it has a name), and we will be never be able
 to call the move c'tor for T.
 
 To solve this C++11 has introduced two new rules regarding rvalue references.
 
 So the perfect forwarding problem is to forward the object in the same way is it received by the wrapper function factory(),
-ie. to pass it as an lvalue if an lvalue is recieved or pass it as in rvalue if an rvalue is recieved.
+ie. to pass it as an lvalue if an lvalue is received or pass it as in rvalue if an rvalue is recieved.
 
 
 

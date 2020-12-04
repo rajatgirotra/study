@@ -24,7 +24,7 @@ void addNameImpl(T&& arg, std::false_type) {
 
 template <typename T>
 void addNameImpl(T&& arg, std::true_type) {
-    addName(namesArr.at(arg));
+    addName(namesArr.at(static_cast<unsigned long>(arg)));
 }
 
 // function taking universal reference to add names to the namesSet
@@ -39,7 +39,7 @@ void addName(T&& arg) {
 
 int main() {
     short s = 1;
-    addName(s); // this will try to invoke the universal reference instead of the int version.
+    addName(s);
     for(auto&& name : namesSet) {
         cout << "Name: " << name << endl;
     }

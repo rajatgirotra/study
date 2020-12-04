@@ -1,0 +1,11 @@
+Conan package and artifact naming is very trivial.
+packages have a name and version and may optionally have a user and channel. Normally package name and version combination should be unique.
+But sometimes you want to tweak a community package recipe just a little bit to suit your own requirement. In that case you can optionally append a user and channel to disambiguate from the community recipe with the same name and version.
+
+normally when you do a "conan search <packageName>", the package name is assumed to be a regular expression and many similar package names may be returned. You can append an "@" to indicate you want to do an exact search
+
+run:
+conan search poco/1.9.4@
+conan search poco/1.9.4
+
+to see the difference

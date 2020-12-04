@@ -1,4 +1,4 @@
-/* Lets see another example of a simple function which has been overloaded for move sematics. */
+/* Lets see another example of a simple function which has been overloaded for move semantics. */
 #include <iostream>
 using namespace std;
 class X {

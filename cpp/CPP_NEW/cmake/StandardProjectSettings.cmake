@@ -10,7 +10,7 @@ set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeR
 # if ccache is found, the makefile generators will call this tool and pass the compiler and its arguments
 # to this tool. setting the CMAKE_CXX_COMPILER_LAUNCHER will set the property <LANG>_COMPILER_LAUNCHER
 # TODO evaluate distcc vs ccache at some later stage.
-find_program(CCACHE ccache HINTS ${DEVTOOLS_DIR})
+find_program(CCACHE ccache HINTS ${DEVTOOLS_DIR} /snap)
 if(CCACHE)
     message(STATUS "found ccache - ${CCACHE}")
     set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})

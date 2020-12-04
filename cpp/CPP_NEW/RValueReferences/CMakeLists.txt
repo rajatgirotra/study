@@ -31,5 +31,5 @@ target_link_libraries(RValueReferences_21 PRIVATE project_options project_warnin
 add_executable(RValueReferences_23 23.cpp)
 #target_link_libraries(RValueReferences_23 PRIVATE project_options project_warnings)
 target_link_libraries(RValueReferences_23 PRIVATE project_warnings)
-target_compile_features(RValueReferences_23 PRIVATE cxx_std_14)
+target_compile_features(RValueReferences_23 PRIVATE cxx_std_17)
 get_cmake_property(DUMMY INTERFACE_COMPILE_FEATURES)

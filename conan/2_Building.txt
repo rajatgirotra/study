@@ -1,0 +1,36 @@
+to build a project with Conan you need to have a conanfile.txt at the root of your source tree. the conanfile.txt is actually in .ini format
+you need to define the dependencies of your project which will be fetched from conan repositories and also specify the generator (i.e. build system) you want to use. Example:
+
+conanfile.txt
+============
+
+[requires]
+poco/1.10.1
+
+[generators]
+cmake
+
+if you see the md5.cpp file, it depends on poco. to download the dependencies, we use "conan install".
+you can do "conan install --help" to read more. 
+
+ALWAYS create a build folder and dont dirty the source tree.
+
+mkdir build && cd build
+conan install ..
+
+if you observe the output of the command above, you see that conda install first list the profile settings it will use in case it needs to build a dependency from source. It then downloads the dependencies (including all the transient dependencies) for the required AOL combination from the remote repository. It also checks if the packages are already downloaded and available in a local cache. the local cache seems to be the $HOME/.local/.conan/data folder
+
+the install steps generates various files in your build folder
+1) conanbuildinfo.cmake --> Used to include in our project CMakeLists.txt
+2) conanbuildinfo.txt --> information on each and every dependency like the include path, lib path, bin path, and other metadata
+3) conaninfo.txt  --> the full settings for the project you are building.
+
+Next just include the conanbuildinfo.cmake in your project CMakeLists.txt and also call "conan_basic_setup()". You can write a trivial CMakeLists.txt yourself; and then just run the following two commands and you are done.
+
+cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake --build .
+
+building with other profiles and settings
+=========================================
+you can also install/fetch dependecies for other profiles using "conda install .. --profile=myProfile"
+or even override settings in the profile on the command line using "conda install .. --profile=myProfile --settings arch=x86"

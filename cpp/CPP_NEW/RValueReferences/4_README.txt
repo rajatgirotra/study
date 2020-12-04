@@ -1,4 +1,4 @@
-Forcing MOVE SEMATICS
+Forcing MOVE SEMANTICS
 
 If we have a type Y and objects of this type a and b and we say
 
@@ -8,11 +8,11 @@ But you know you can use move semantics if b is not used again or if b is used a
 So, we would like to convert b into an rvalue. The C++ standard provides a function.
 
 template <typename T>
-   std::move(const T& arg); to convert its argument to an rvalue, thereby forcing move sematics.
+   std::move(const T& arg); to convert its argument to an rvalue, thereby forcing move semantics.
 
 So if can say
 
-  a = std::move(b); // to force move sematics.
+  a = std::move(b); // to force move semantics.
 
 The standard library function swap is also implemented like this.
 
@@ -23,14 +23,14 @@ void swap(T& a, T& b) {
    b = std::move(tmp);
 }
 
-Also using move sematics gives you the following advantages:
+Also using move semantics gives you the following advantages:
 
-1] Performance boost:For those types that implement move sematics, most of thhe standard algorithms and 
-operations will use move sematics and thus experience a performance gain.
+1] Performance boost:For those types that implement move semantics, most of thhe standard algorithms and 
+operations will use move semantics and thus experience a performance gain.
 
 2] We know that standard containers require its elements to implement copy semantics. i.e. elements should be
 copyable. But it turns out that most of the times, simple movability is enough. So you can use types that are
-movable  but not copyable. eg is: unique_pointer.
+movable but not copyable. eg is: unique_pointer.
 
 But there is one important thing that you need to take care of. When you say
 

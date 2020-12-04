@@ -30,3 +30,8 @@ int main() {
     auto x = Connection("Hello World").getValue();
     cout << x << endl;
 }
+
+/*
+ * Things brings an interesting idea. If you ever want to massage a string, you can do it inside a class and then use a getter()
+ * function to get its massaged value. You can use a temporary object and define both l-value and r-value functions for it.
+ */

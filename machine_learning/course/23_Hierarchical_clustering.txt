@@ -1,0 +1,28 @@
+hierarchical clustering is of two types:
+
+1) Bottom up (Agglomerative)
+2) Top down (Divisive)
+
+We will focus on 1)
+
+Steps
+=====
+
+1. Make each data point as an individual cluster. So if you have n data points, you have N clusters.
+
+2. Take the two closest data points, and combine them to form a cluster. So you now have N-1 clusters.
+
+3. Take the two closest clusters, and make them one cluster. Now you should have N-2 clusters.
+
+Note in step 2, we are taking the two closest data points using euclidean distance or some other form of distance, but in step 3, we are talking about closest clusters. We could define cluster distance in many ways like
+a. the distance between the two closest points in the two clusters
+b. the distance between the two farthest points in the two clusters
+c. the distance between the centroids of the two clusters.
+
+4. Repeat step 3 until there is only one cluster remaining.
+
+5. You are done.
+
+But how, we just have one cluster? How do we get to the optimal clustering like 2/3/5 etc? The thing is that hierarchical clustering algorithm stores the complete sequence of clusters it creates along the way internally in something called as dendroograms and those dendrograms are used to achieve the optimal clustering.
+
+A dendogram is like a memory of the HC algorithm. It remembers every single step we perform in the HC algo.

@@ -99,7 +99,7 @@ X&& std::forward(typename remove_reference<X&&>::type& a) noexcept
 }
 
 which is exactly what we want for an rvalue. So the main purpose of std::forward<> is to preserve the context: wheather the function
-recieves an lvalue of rvalue.
+receives an lvalue of rvalue.
 
 If you really see carefully, we don't need the remove_reference<> at all. Because in both cases, the argument to std::forward
 evaluates to an lvalue. You can substitute remove_reference<> with just S& and see that still both the cases work fine.

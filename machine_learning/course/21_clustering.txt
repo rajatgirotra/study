@@ -1,0 +1,40 @@
+Clustering is similar to classification, but the basis is different. In Clustering you don’t know what you are looking for, and you are trying to identify some segments or clusters in your data. When you use clustering algorithms on your dataset, unexpected things can suddenly pop up like structures, clusters and groupings you would have never thought of otherwise. We will look at
+
+1) K means clustering
+2) Hierarchical clustering
+
+K-means clustering: You are given a scatter plot of data points and you need to cluster the data points. How would you cluster and how many cluster would you create
+
+Step 1
+------
+Come up with a value K for the number clusters. How do we come up with the initial K we will talk about later.
+
+Step 2
+------
+Select K random data points in your scatter plot. We call these data points as the Centroids. These data points do not necessarily be from your data set.
+
+Step 3
+------
+For each data point in your data set, find the closest centroid (closest could be based on euclidian distance) or some other metric to measure distance; and put that data point in that cluster. This will give you K clusters.
+
+Step 4
+------
+For every cluster, compute and place the new centroid of each cluster. The new centroid for a cluster is the actual center of mass point for that cluster.
+
+Step 5
+------
+Reassign each data point to the new closest centroid. This re-assignment (if any) will change (add/remove) data points from your cluster. If any re-assignments took place, go to Step 4. If no re-assignment, you are DONE and your model is ready.
+
+
+K means random initialization trap
+==================================
+
+Ideally choosing any random data points in your scatter plot (in step 2); should not cause any change in the final clustering.
+But sometimes it does happen that choosing different random K points can impact the final clustering. Ofcourse this is not desired as this means Step 2 causes the algorithm to be non-deterministic. To overcome this, there is an algorthm called 
+K means++. However its very involved so we dont need to go into the detailed math. Just remember that K-means by default using K-means++ underneath, so we dont need to care about the random initialization issue.
+
+How to select the value of K
+============================
+We find the correct number of clusters initially based on Within-Cluster-Sum-of-Squares (WCSS) metric. WCSS is the sum of squares of the distances of each data point in all clusters to their respective centroids. WCSS reduces as K get higher. So we choose K where WCSS reduces considerably compared to WCSS with K-1. Basically eventually WCSS will get to 0 as K approaches the number of elements in the data set. (Just think in your mind, its very trivial). If you draw a graph of K vs WCSS, it will form an elbow like shape. So its called Elbow method.
+
+For large datasets K-means is better suited than Hierarchical clustering.

@@ -1,0 +1,17 @@
+Apriori and Eclat are Associative Rule learning methods to find out how closely are two variables related.
+
+A famous example is: A supermarket store studied the purchase patterns of buyers and found out that a lot of people who purchased baby dypers also purchased beers. very wierd you would think!! and what could explain it??
+
+One way to explain is that may be husbands go buy dypers after work and also pick up beers for themselves. Based on this information, stores can may be place dypers and beers close together :) :)
+
+Another marketing tactic is that superstores sometimes also place milk and bread (usually bought together) as very far off shelves in the market. This is so that you have to walk all the way to the other shelf and you might pickup other things along the way you did not intend to buy.
+
+But all this is a different matter. The main issue is how to find out the association between different variables.
+
+A very common example is Youtube video recommendations. YouTube sees that someone who watches one video will also watch another video. Some recommendations will be very strong, some will be very weak. Our aim is to find the strong ones.
+
+Apiori algorithm has 3 things
+
+1) Support
+2) Confidence
+3) Lift
