@@ -5,9 +5,44 @@ It provides three types of concepts
 2) Time Points
 3) Duration
 
+Duration is easiest.
+template <typename Rep, typename Period = ratio<1>>
+class duration {};
+
+Rep represents the number of ticks. Since its a number, it is an IntegralType. Lets assume int64_t for now.
+Period represents the number of seconds elapsed in going from one tick to the next. So if we have
+
+using nanoseconds = std::chrono::duration<int64_t, ratio<1, 1000000000>>;
+it means if we go from one nanosecond to the next, the number of seconds elapsed is ratio<1, 1000000000> (ie 10e-9)
+
+duration.count() returns the actual tick count.
+
+We have many standard ratio defined in gcc and corresponding durations. example:
+
+ratios
+======
+  typedef ratio<1,             1000000000000> pico;
+  typedef ratio<1,                1000000000> nano;
+  typedef ratio<1,                   1000000> micro;
+  typedef ratio<1,                      1000> milli;
+  typedef ratio<1,                       100> centi;
+  typedef ratio<1,                        10> deci;
+  typedef ratio<                       10, 1> deca;
+  typedef ratio<                      100, 1> hecto;
+  typedef ratio<                     1000, 1> kilo;
+
+durations
+=========
+     typedef duration<int64_t, nano>        nanoseconds;
+     typedef duration<int64_t, micro>       microseconds;
+     typedef duration<int64_t, milli>       milliseconds;
+     typedef duration<int64_t>              seconds;
+     typedef duration<int64_t, ratio< 60>>  minutes;
+     typedef duration<int64_t, ratio<3600>> hours;
+
 Clocks: A clock class defines
 a) a starting point in history. Mostly Epoch
-b) a tick rate at which it is counting (example second)
+b) a duration i.e. whether it is counting in nanoseconds, microseconds, seconds etc.
 Clocks are NON template classes which have the following important typedefs
 
 Clock::duration --> to represent the duration
@@ -16,12 +51,14 @@ Clock::period --> is Clock::duration::period (an ratio<> type, this actually def
 Clock::time_point --> is std::chrono::time_point<Clock, duration>
 
 static time_point Clock::now() --> returns a time_point representing the current point in time.
-static bool is_steady=true/false. --> True if it is increasing monotonically, ie. not subjectt to NTP adjustments.
+static bool is_steady=true/false. --> True if it is increasing monotonically, ie. not subject to NTP adjustments.
 
 C++11 defines three type of Clocks
 system_clock
 steady_clock
 high_resolution_clock
+
+All 3 clocks in gcc count in nanoseconds.
 
 Also system_clock is the only clock whose duration can be converted to C style time for printable purpose. It's very trivial.
 static to_time_t(const time_point& t) --> time_point Clock must be system_clock
@@ -37,7 +74,7 @@ C'tors
 time_point() --> Creates an object with duration 0, i.e value of Clock's epoch.
 time_point(const duration& d) --> Creates a time_point with value = epoch + duration
 template <typename Duration2>
-time_point(const time_point<Clock, Duration2>& d) --> Only available if Duration2 is implicitly convertable to Duration. Example: ms to ns, m to cm, kg to gms, ie when converting from lower to higher precision.
+time_point(const time_point<Clock, Duration2>& d) --> Only available if Duration2 is implicitly convertible to Duration. Example: ms to ns, m to cm, kg to gms, ie when converting from lower to higher precision.
 
 time_since_epoch() --> returns the duration object it holds. Call the count() member of the duration object to get the actual value.
 
@@ -58,7 +95,7 @@ c'tors
 duration() = default; just default c'ted. Dont assume duration = 0
 duration(const duration& d) = default // defaulted copy ctor, just copies count
 template <typename Rep2>
-duration(const Rep2& rep); //  create a new duration with a new type for Rep. Only possible if Rep2 is implicitly convertible to Rep. Example, if Rep2 is double, Rep is int, but not the other way round.
+duration(const Rep2& rep); //  create a new duration with a new type for Rep. Only possible if Rep2 is implicitly convertible to Rep. Example, if Rep2 is integer, and Rep (i.e. this) is double, but not the other way round.
 template <Rep2, Duration2>
 duration(const duration<Rep2, Duration2> d) --> Only possible if Rep2 is implicitly convertible to Rep and Duration2 is higher precision. Like cm to mm, millis to nanos. Ie source_period/destination_period should have denominator 1. Example, millis ratio is <1, 1000>, nanos ratio is <1, 1000000000>
 source/destination = 1000000/1 ie possible. Ie. possible where source period is exactly divisible by destination_period.
@@ -76,30 +113,17 @@ duration is used to represents durations (seconds, millisec, nanosecs, hours, mi
 This class maintains a count represented by the first template parameter Rep. Can be int, uint64_t, float, double etc. Basically
 any arithmetic type. Can be even user defined.
 
-The second parameter defines the unit of the count. It tells HOW MANY NUMBER OF SECONDS ARE THEIR IN EACH PERIOD, where PERIOD is the second argument.
-by default, Period, is ratio<1> which implies 1. This means that there is one second in each period. So each period represents one second.
-So if we have
+The second parameter defines the unit of the count. It tells HOW MANY NUMBER OF SECONDS ELAPSE BETWEEN TWO CONSECUTIVE TICKS,
+by default, Period, is ratio<1> which implies 1. This means a duration which has period=ratio<1>, then one second elapses between 2 consecutive ticks
+in that duration object.
 
-duration<int> d(10); // it will represent 10 seconds.
+duration<int> d(10); // it will represent 10 seconds, as by default period = ratio<1> ie one second
 
-duration <int, ratio<60,1>> d(100); //will represent 100 minutes.
+duration <int, ratio<60,1>> d(100); //will represent 100 minutes, as period=ratio<60,1> means time between two ticks is 60 second ie one minute.
 
 duration <int, ratio<1, 1000>>  d(200); //will represent 200 milliseconds
 
 std::chrono library defines the following convenience typedefs
-
-    /// nanoseconds
-    typedef duration<int64_t, std::nano> 	nanoseconds;
-    /// microseconds
-    typedef duration<int64_t, std::micro> 	microseconds;
-    /// milliseconds
-    typedef duration<int64_t, std::milli> 	milliseconds;
-    /// seconds
-    typedef duration<int64_t> 		seconds;
-    /// minutes
-    typedef duration<int, ratio< 60>> 	minutes;
-    /// hours
-    typedef duration<int, ratio<3600>> 	hours;
 
 The most important function in duration class is
 
@@ -124,7 +148,7 @@ template <typename ToDuration, typename Rep, typename Duration>
 ToDuration duration_cast(const duration<Rep, Duration>& d)
 
 duration_cast is used to convert one duration to another. You could change Rep, Duration or both.
-When Rep is same ie both source and destination Rep type's are same as source type is exactly divisible by Destination type duration_cast is not needed. Example
+When Rep is same ie both source and destination Rep type's are same and source type is exactly divisible by Destination type duration_cast is not needed. Example
 
 auto d1 = std::chrono::seconds(5); Rep is int64_t, Period is ratio<1, 1>
 auto d2 = duration_cast<std::chrono::milliseconds>(d1); // not needed as Rep is int64_t and Period for milliseconds is ratio<1, 1000>. Source/dest = 1*1000 = 1000/1. So not needed.
@@ -133,4 +157,4 @@ When source is floating point and destination is integral type, conversion is un
 
 ----------------------------------------------------------------------------------------------
 
-just like we have duration_cast, we have time_point_cast which is used to cast on time_point to another on the same Clock, but to a different Duration. Also its only needed when source duration is not completely divisible by destination duration. Example, needed for Ms to Sec conversion.
+just like we have duration_cast, we have time_point_cast which is used to cast one time_point to another on the same Clock, but to a different Duration. Also its only needed when source duration is not completely divisible by destination duration. Example, needed for Ms to Sec conversion.

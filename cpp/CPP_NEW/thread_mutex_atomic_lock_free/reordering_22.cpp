@@ -82,7 +82,7 @@ void thread_one() noexcept {
         X = 1; // STORE
 #ifdef USE_CPU_FENCE
 asm volatile("mfence" ::: "memory");
-#elseif USE_SINGLE_HW_THREAD
+#elif USE_SINGLE_HW_THREAD
 asm volatile("" ::: "memory");
 #endif
         R1 = Y; // LOAD FROM A DIFFERENT LOCATION.
@@ -99,7 +99,7 @@ void thread_two() noexcept {
         Y = 1; // STORE
 #ifdef USE_CPU_FENCE
 asm volatile("mfence" ::: "memory");
-#elseif USE_SINGLE_HW_THREAD
+#elif USE_SINGLE_HW_THREAD
 asm volatile("" ::: "memory");
 #endif
         R2 = X; // LOAD FROM A DIFFERENT LOCATION.

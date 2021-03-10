@@ -1,0 +1,116 @@
+Lets look at std unorderd_map implementation in gcc.
+its defined as:
+
+template<typename _Key, typename _Tp,
+           typename _Hash = hash<_Key>,
+           typename _Pred = equal_to<_Key>,
+           typename _Alloc = allocator<std::pair<const _Key, _Tp>>>
+class unordered_map {
+
+    // it holds a member variable which implements the underlying hash table.
+    typedef __umap_hashtable<_Key, _Tp, _Hash, _Pred, _Alloc>  _Hashtable;
+    _Hashtable _M_h;
+};
+
+__umap_hashtable is defined as:
+
+using __umap_hashtable = _Hashtable<_Key, std::pair<const _Key, _Tp>,
+                                        _Alloc, __detail::_Select1st,
+                                        _Pred, _Hash,
+                                        __detail::_Mod_range_hashing,
+                                        __detail::_Default_ranged_hash,
+                                        __detail::_Prime_rehash_policy, _Tr>;
+
+where _Tr is typename _Tr = __umap_traits<__cache_default<_Key, _Hash>::value>>
+and __umap_traits is
+
+template<bool _Cache>
+using __umap_traits = __detail::_Hashtable_traits<_Cache, false, true>;
+
+and __cache_default is defined as:
+
+template<typename _Tp, typename _Hash>
+    using __cache_default
+      =  __not_<__and_<// Do not cache for fast hasher.
+                       __is_fast_hash<_Hash>,
+                       // Mandatory to have erase not throwing.
+                       __is_nothrow_invocable<const _Hash&, const _Tp&>>>;
+
+so basically __cache_default returns a compile time true or false depending on whether _Hash (i.e user specified _Hash template argument is fast or not.
+usually gcc defines all std::hash<string/int/double/short/bool/etc> as slow. so __and will be false and __not of it will return true, which means
+__cache_default = true.
+
+So _Tr = __umap_traits<true> = __detail::_Hashtable_traits<true, false, true>; for std::unordered_map
+
+_detail::_Hashtable_traits is defined as
+template<bool _Cache_hash_code, bool _Constant_iterators, bool _Unique_keys>
+    struct _Hashtable_traits
+    {
+       /* True if the value of
+       *  the hash function is stored along with the value. This is a
+       *  time-space tradeoff.  Storing it may improve lookup speed by
+       *  reducing the number of times we need to call the _Equal
+       *  function.
+       */
+      using __hash_cached = __bool_constant<_Cache_hash_code>;
+
+      /*  True if iterator and
+       *  const_iterator are both constant iterator types. This is true
+       *  for unordered_set and unordered_multiset, false for
+       *  unordered_map and unordered_multimap.
+       */
+      using __constant_iterators = __bool_constant<_Constant_iterators>;
+
+      /* True if the return value
+       *  of _Hashtable::count(k) is always at most one, false if it may
+       *  be an arbitrary number. This is true for unordered_set and
+       *  unordered_map, false for unordered_multiset and
+       *  unordered_multimap.
+       */
+      using __unique_keys = __bool_constant<_Unique_keys>;
+    };
+
+Now, _Hashtable template is defined as:
+
+template<typename _Key, typename _Value, typename _Alloc,
+           typename _ExtractKey, typename _Equal,
+           typename _H1, typename _H2, typename _Hash,
+           typename _RehashPolicy, typename _Traits>
+class _Hashtable : many many base classes
+{
+     _Key = map key as defined by user.
+     _Value = std::pair<const _Key, _Tp> // _Tp is the Value type
+     _Alloc = std::allocator<std::pair<const _Key, _Tp>>;
+     _ExtractKey = __detail::Select1st; // a policy explained below.
+     _Equal = _Pred; // the std::equal_to<Key> template parameter
+     _H1 = _Hash; // i.e the std::hash<Key> provided by the user
+     _H2 = __detail::_Mod_range_hashing; // a policy explained below.
+     _Hash = __detail::_Default_ranged_hash; // a policy explained below.
+     _RehashPolicy = __detail::_Prime_rehash_policy;
+     _Traits = ___detail::_Hashtable_traits<true, false, true>;
+};
+
+_ExtractKey = __detail::Select1st is just a function object which returns the first argument to an std::pair. Very trivial
+template <typename _Pair>
+struct Select1st
+{
+    auto operator() (_Pair&& arg) -> decltype(std::get<0>(std::forward<_Pair>(arg)))
+    {
+        return std::get<0>(std::forward<_Pair>(arg));
+    }
+};
+
+_H2 = __detail::_Mod_range_hashing;
+this is the default range hashing function: use division to fold a large number into the range [0, N).
+Normally in a hash table implementation, there can be many choices on the number of buckets that the hash table can have. One very widely
+accepted bucket count is that it should always be a prime number (I'll come to it why later, but for now assume it).
+So the bucket indexes can be from 0 to N-1 where N is the prime bucket count. This hash function is used to reduce the computed Hash of the Key down to
+an index number in the bucket using a modulus operation.
+_Mod_range_hashing function object takes two parameters 'r' and 'N' (where 'r' is the computed hash and 'N' is the bucket count and return an index in the
+range [0, N) by just returning (r % N).
+
+__detail::_Default_ranged_hash: Just a tag to tell the gcc unorderd_map implementation to compute the hash like:
+_H2(_H1(k), N) --> _H1 is user specified hash operation. and _H2 just does modulus with the bucket count.
+
+__detail::_RehashPolicy: Another policy used for Rehasing. It searches for the next smallest prime number to be used as the bucket count
+which keeps the load_factor() under the max_load_factor().

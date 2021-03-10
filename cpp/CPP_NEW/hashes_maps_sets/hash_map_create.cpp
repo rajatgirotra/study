@@ -9,7 +9,9 @@
 using namespace std;
 
 namespace {
-    void printMap(const std::string& name, auto&& m) {
+//    void printMap(const std::string& name, auto&& m) {
+      template <typename T>
+      void printMap(const std::string& name, T&& m) {
         cout << "----------------" << name << "-----------------------------\n";
         for(auto&& item : m) {
             cout << item.first << " --> " << item.second << endl;
@@ -129,8 +131,8 @@ int main() {
      *
      * try_emplace() IS VERY HELPFUL WHEN INSERTING ELEMENTS IN HASH MAP WHICH HAS MOVE ONLY TYPES.
      * Lets create a HashMap of <string, std::unique_ptr<Foo>> and try to use emplace, insert, try_emplace. Then we should know better.
-     * these functions do not move from rvalue arguments if the insertion does not happen, which makes it easy to manipulate
-     * maps whose values are move-only types.
+     * this function does not move from rvalue arguments if the insertion does not happen, which makes it easy to manipulate
+     * maps whose values are move-only types. See try_emplace.cpp in this folder
      */
 
     /* reference& operator [] (const key_type& k)

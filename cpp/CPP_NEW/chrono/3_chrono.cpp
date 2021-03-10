@@ -12,7 +12,7 @@ using namespace std::chrono;
 int main()
 {
     time_point<system_clock, seconds>  tp; //default initialisation with duration::zero
-    cout << tp.time_since_epoch().count() << endl; //time_since_opoch() returns duration object.
+    cout << tp.time_since_epoch().count() << endl; //time_since_epoch() returns duration object.
 
     time_point<system_clock, seconds>  tp2(seconds(10)); //default initialisation with duration::zero
     cout << tp2.time_since_epoch().count() << endl;

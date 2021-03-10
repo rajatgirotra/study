@@ -23,7 +23,9 @@ struct SomeFunctionObject : public L1, L2
 
 template <typename L1, typename L2>
 auto make_combined(L1&& l1, L2&& l2) {
-    //return SomeFunctionObject<L1, L2>();
+//    return SomeFunctionObject<L1, L2>();
+    // std::decay_t<> decays a reference to a non-reference
+    // and you always use std::forward<> when template is universal reference as the case here.
     return SomeFunctionObject<std::decay_t<L1>, std::decay_t<L2>>(std::forward<L1>(l1), std::forward<L2>(l2));
 }
 
@@ -37,19 +39,19 @@ int main() {
     cout << l1() << "\n" << l2(10) << endl;
 
     // this doesnt work as the default SFO ctor will call the ClosureType default ctor and ClosureType default ctor are implicitly
-    // deleted.
-    //SomeFunctionObject<decltype(l1), decltype(l2)> sfo; // try with SFO ctor commented out
+    // deleted. (Only till C++17, from C++20 onwards non-caoture lambda's can be default constructed).
+    // [[maybe_unused]] SomeFunctionObject<decltype(l1), decltype(l2)> sfo; // try with SFO ctor commented out
 
     // this doesnt work as l1 and l2 are lvalue references, so in SFO L1 and L2 are deduced to be a reference.
     // and you cannot derive from a reference. ie struct SFO: public L1, L2 is a problem.
-    //auto sfo = make_combined(l1, l2); // try with SFO ctor commented out
+    // auto sfo = make_combined(l1, l2); // try with SFO ctor commented out
 
     // try with SFO ctor commented out
     // same problem, ClosureType default ctor is implicitly deleted.
-    //auto sfo = make_combined(std::move(l1), std::move(l2));
+    // auto sfo = make_combined(std::move(l1), std::move(l2));
 
-    //auto sfo = make_combined(l1, l2);
-    SomeFunctionObject<decltype(l1), decltype(l2)> sfo(l1, l2);
+     auto sfo = make_combined(l1, l2);
+//      SomeFunctionObject<decltype(l1), decltype(l2)> sfo(l1, l2);
 
     cout << "some function object: " << sfo() << "\n";
     cout << "some function object: " << sfo(10) << "\n";

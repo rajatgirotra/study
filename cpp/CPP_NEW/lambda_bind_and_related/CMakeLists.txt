@@ -33,3 +33,6 @@ target_link_libraries(lambda_5_fibonacci PRIVATE project_options project_warning
 
 add_executable(lambda_6_inherit lambda_6_inherit.cpp)
 target_link_libraries(lambda_6_inherit PRIVATE project_options project_warnings)
+
+add_executable(lambda_sorcery_7 lambda_sorcery_7.cpp)
+target_link_libraries(lambda_sorcery_7 PRIVATE project_options project_warnings)

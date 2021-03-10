@@ -56,3 +56,5 @@ int main(int argc, char** argv) {
     }
     return 0;
 }
+
+// As a side note, remember Boost.Interprocess throws boost::interprocess_exception in many cases.

@@ -4,7 +4,7 @@ OK, from the time you write a C/C++ program, to the time it actually executes on
 according to certain rules. This re-ordering can be done at two places:
 
 1) Compile time by the compiler, called compiler re-ordering
-2) Run time by the processor, called proccessor re-ordering
+2) Run time by the processor, called processor re-ordering
 
 The rule that both compiler and processor follow is:
 

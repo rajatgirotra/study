@@ -1,8 +1,7 @@
 Iterator Categories
 
 1) input iterators: This is a one-pass iterator; which means that you can only iterate the container elements once.
-Example: let say x == y are two input iterators, then ++x means that y is no longer required to be correct and can be invalidated.
-This is mostly the cases with stream iterators like file streams or string streams. Once you fetch something from the stream,
+ This is mostly the cases with stream iterators like file streams or string streams. Once you fetch something from the stream,
 you cannot go fetch it again. For input iterator, you will most likely overload the following:
 
 reference operator * ();

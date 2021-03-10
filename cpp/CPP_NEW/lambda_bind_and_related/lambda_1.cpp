@@ -11,7 +11,7 @@ int main()
     //A lambda expression starts with square brackets [] called lambda introducer, followed by optional arguments in round brackets(),
     //followed by mutable, followed by exception specification, followed by return type.
     //followed by code in curly braces {}, followed by function call operator ().
-    // [] (arguments) mutable(optional)  exceptoinSpec(optional) -> return_type { code } ();
+    // [] (arguments) mutable(optional)  exceptionSpec(optional) -> return_type { code } ();
     //
     [] {
         cout << "Hello World" << endl;

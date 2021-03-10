@@ -14,7 +14,11 @@ double square(double x) noexcept {
     return x*x;
 }
 
-constexpr int twice(int x); // Both declaration and definition must be constexpr. Also constexpr functions are implicitly inlined. So compiler must see the definition in the same translation unit as it is getting used.
+constexpr int twice(int x);
+// Both declaration and definition must be constexpr. Also constexpr functions are implicitly inlined. Note that inline only hints the linker
+// that there may be multiple definitions of the function in multiple translation units, so sort that out.
+// Also constexpr being implicitly inlined means that constexpr member function declared in a header file cannot be defined in the source file. It must be
+// defined in the header file itself; as the compiler must see the definition at compile time to be able to compute it at compile time.
 
 int main() {
     // Case 1. parameter x is constexpr, so compiler can evaluate x/2 at compile time.
@@ -24,7 +28,7 @@ int main() {
     // case 2. parameter d is not constexpr, so compiler will compute  at run time
     double d;
     cin >> d;
-    //constexpr double half_again = half_of(d); // ERROR. since d is not constexpr, compiler cannot compute half_of(d) at compile time. So half_again cannot be a constexpr. So we need to take it constexpr from the expression.
+    //constexpr double half_again = half_of(d); // ERROR. since d is not constexpr, compiler cannot compute half_of(d) at compile time. So half_again cannot be a constexpr. So we need to take out constexpr from the expression.
     double half_again = half_of(d);
     cout << half_again << endl;
 

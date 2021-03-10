@@ -8,13 +8,13 @@ What can be constexpr
  1) objects (static data members of a class can also be constexpr, not regular members)
  2) function (declarations and definitions both, including class member functions, constructors, even setter member functions can be constexpr) as you will see in a bit.
 
-the standard says that if a function is declared constexpr, and all of its arguments are constexpr, then the function must be evaulated at compile time.
- this means to enforce this behavior, there needs to be some restriction on what can be done inside a constexpr function
+the standard says that if a function is declared constexpr, and all of its arguments are constexpr, then the function must be evaluated at compile time.
+ this means to enforce this behavior, there needs to be some restriction on what can be done inside a constexpr function.
 
  in C++11, constexpr functions were really restricted, they could only have a single return statement. But C++14 relaxed this condition
  substantially.
 
- specifically, putting an I/O operation like cout, or using logger isnt allowed in constexpr.
+ specifically, putting an I/O operation like cout, or using logger isn't allowed in constexpr.
 */
 
 #include <iostream>

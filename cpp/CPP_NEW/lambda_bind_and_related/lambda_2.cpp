@@ -33,8 +33,7 @@ int main() {
     cout << "B, x in main: " << x << endl;
     cout << "B, y in main: " << y << endl;
 
-    // passing scope as read-only but mutable, must pass empty argument list
-    // if using mutable
+    // passing scope as read-only but mutable
     // mutable gives a local copy of every thing in the scope and the lambda can
     // called again with the same values in tact. It does not affect anything outside
     auto d = [=] () mutable { cout << "x: " << x << "   y:" << y << endl;
@@ -48,8 +47,7 @@ int main() {
     x = 10;
     y= 20;
 
-    // passing scope as read-write and mutable, must pass empty argument list
-    // if using mutable
+    // passing scope as read-write and mutable
     // mutable gives a local copy of every thing in the scope and the lambda can
     // called again with the same values in tact. Because scope is also passed by
     // reference, it affects variables outside too.

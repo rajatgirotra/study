@@ -36,7 +36,6 @@ int main() {
     if(!result.second) {
         cout << "Failed to insert\n";
     }
-
 }
 
 /*
