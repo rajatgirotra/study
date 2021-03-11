@@ -103,14 +103,16 @@ struct Select1st
 _H2 = __detail::_Mod_range_hashing;
 this is the default range hashing function: use division to fold a large number into the range [0, N).
 Normally in a hash table implementation, there can be many choices on the number of buckets that the hash table can have. One very widely
-accepted bucket count is that it should always be a prime number (I'll come to it why later, but for now assume it).
+accepted bucket count is that it should always be a prime number (I'll come to it why later, but for now assume it. Infact prime number bucket count is
+the only way to support open addressing).
 So the bucket indexes can be from 0 to N-1 where N is the prime bucket count. This hash function is used to reduce the computed Hash of the Key down to
 an index number in the bucket using a modulus operation.
 _Mod_range_hashing function object takes two parameters 'r' and 'N' (where 'r' is the computed hash and 'N' is the bucket count and return an index in the
 range [0, N) by just returning (r % N).
 
-__detail::_Default_ranged_hash: Just a tag to tell the gcc unorderd_map implementation to compute the hash like:
+__detail::_Default_ranged_hash: Just a tag to tell the gcc unordered_map implementation to compute the hash like:
 _H2(_H1(k), N) --> _H1 is user specified hash operation. and _H2 just does modulus with the bucket count.
 
-__detail::_RehashPolicy: Another policy used for Rehasing. It searches for the next smallest prime number to be used as the bucket count
+__detail::_RehashPolicy: Another policy used for Rehashing. It searches for the next smallest prime number to be used as the bucket count
 which keeps the load_factor() under the max_load_factor().
+

@@ -38,3 +38,6 @@ target_link_libraries(std_variant_13 PRIVATE project_options project_warnings)
 add_executable(concepts_14 concepts_14.cpp)
 target_link_libraries(concepts_14 PRIVATE project_options project_warnings)
 target_compile_options(concepts_14 PRIVATE -fconcepts)
+
+add_executable(fold_expressions_15 fold_expressions_15.cpp)
+target_link_libraries(fold_expressions_15 PRIVATE project_options project_warnings)
