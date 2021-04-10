@@ -39,3 +39,6 @@ target_link_libraries(ce13 PRIVATE project_options project_warnings)
 
 add_executable(ce14 ce14.cpp)
 target_link_libraries(ce14 PRIVATE project_options project_warnings)
+
+add_executable(ce15 ce15.cpp)
+target_link_libraries(ce15 PRIVATE project_options project_warnings)

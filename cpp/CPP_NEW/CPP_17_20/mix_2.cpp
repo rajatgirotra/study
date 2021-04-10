@@ -2,12 +2,11 @@
 using namespace std;
 
 template <typename T>
-// void lineInfo(const T& t) {
-void lineInfo(T&& t) // think why the output changes with this simple change. Then you will remember to use std::remove_reference
-{
-    using WithoutRef_t = std::remove_reference_t<T>;
+void lineInfo(const T& t) {
+//void lineInfo(T&& t) { // think why the output changes with this simple change. Then you will remember to use std::remove_reference
+    using WithoutRef_t = T; // std::remove_reference_t<T>;
     if constexpr (std::is_integral_v<WithoutRef_t>) {
-        cout << "num: " << t << "\n";
+            cout << "num: " << t << "\n";
     }
     else if constexpr (std::is_floating_point_v<WithoutRef_t>) {
         const auto frac = t - static_cast<float>(static_cast<long>(t));

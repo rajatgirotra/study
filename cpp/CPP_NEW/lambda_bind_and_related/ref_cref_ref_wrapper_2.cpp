@@ -11,7 +11,7 @@ int main() {
     auto ref = std::ref(v); // ref will be of type std::reference_wrapper<std::vector<double>>
     std::vector<std::reference_wrapper<double>> rwd(v.begin(), v.end()); // this is different from above.
 
-    std:vector<double>& ref2 = v;
+    std::vector<double>& ref2 = v;
 
     cout << rwd[0] << endl;
     cout << ref2[0] << endl;
@@ -21,7 +21,7 @@ int main() {
     return 0;
 }
 
-/* One very good habbit is to use std::ref(), std::cref() when passing function objects. Instead of creating new function objects, just use these functions which is same as pointer passing and is fast. A lot of algorithm expect functors where you can use these helper functions
+/* One very good habit is to use std::ref(), std::cref() when passing function objects. Instead of creating new function objects, just use these functions which is same as pointer passing and is fast. A lot of algorithm expect functors where you can use these helper functions
 
 unsigned arr[10];
 std::mt19937 myEngine;

@@ -1,14 +1,14 @@
 Rule 1 regarding rvalue references is called Reference Collapsing rules.
 According to this rule.
 
-1) A& && collapses to A& (an rvalue reference to an lvalue references collapses to lvalue).
-2) A&& & collapses to A& (an reference to an rvalue reference collapses to lvalue).
-3) A& & collapses  to A& (a reference t a reference collapses to lvalue).
-4) A&& && collapses  to A&& (an rvalue reference to an rvalue  collapses to rvalue).
+1) A& && collapses to A& (an rvalue reference to an lvalue references collapses to lvalue reference).
+2) A&& & collapses to A& (an reference to an rvalue reference collapses to lvalue reference).
+3) A& & collapses  to A& (a reference to a reference collapses to lvalue reference).
+4) A&& && collapses  to A&& (an rvalue reference to an rvalue reference collapses to rvalue reference).
 
 
 Rule 2: The compiler has introduced a special template argument deduction rule for template functions where
-argument is an rvalue reference of the template parameter. ie. 
+argument is a universal reference.
 
 template <typename T>
 void foo(T&& arg) {}

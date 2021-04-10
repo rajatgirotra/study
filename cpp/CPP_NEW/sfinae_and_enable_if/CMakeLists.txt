@@ -22,7 +22,7 @@ target_link_libraries(sfinae_main_10_1 PRIVATE project_options project_warnings)
 
 add_executable(sfinae_main_10_2 sfinae_main_10.cpp)
 target_compile_definitions(sfinae_main_10_2 PUBLIC VERSION=2)
-target_link_libraries(chrono_2 PRIVATE project_options project_warnings)
+target_link_libraries(sfinae_main_10_2 PRIVATE project_options project_warnings)
 
 add_executable(sfinae_main_10_3 sfinae_main_10.cpp)
 target_compile_definitions(sfinae_main_10_3 PUBLIC VERSION=3)

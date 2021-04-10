@@ -1,0 +1,62 @@
+<!-- we are going to add a new button to our servers component which is going to remain disabled initially when the page loads
+and we will enable it via a property binding 2 seconds after the page has loaded. For this we create a property allowNewServer in our TypeScript
+, in the ctor we initialize it to false, and then we add call setTimeout javascript function in the ctor to set the allowNewServer property to true.
+Then we bind that property here to the disabled attribute of our button.
+
+What really happens. The disabled attribute of the button is actually part of the DOM. So when we change the disabled attribute to
+[disabled]="!allowNewServer", angular gets a hint that this attribute is a property binding and it accordingly updates the disabled property
+button in the associated DOM.
+
+The whole expression [disabled]="!allowNewServer" is what angular understands. the disabled attribute is no more present now.
+ -->
+
+<!-- event binding is also very trivial. instead of [] we use () -->
+
+<!-- you can bind to all properties and events of an HTML element. Just search the properties and event names on W3 schools or google
+for "button properties or button events". You should get some nice results.  -->
+
+<!-- whenever an event takes place and event handler like onClick is fired, sometimes the event data is also available which tells you metadata
+about the event fired. that metacomes in a pre-defined variable $event. we use that here to update a <p> tag with whatever the user enters in a input
+element -->
+
+<!-- a two way data binding is a combination of property data binding (which is from TS to HTML) and event binding (from HTML to TS).
+That is why we use [()]="TS expression" syntax -->
+
+<label>ServerName</label>
+
+<!--<input type="text" class="form-control" (input)="onGetServerName($event)"/>-->
+
+<input type="text" class="form-control" [(ngModel)]="serverName"/>
+
+<p>{{ serverName }}</p>
+
+<button class="btn btn-primary"
+[disabled]="!allowNewServer"
+(click)="onCreateNewServer()">Add Server</button>
+
+<!--<p>{{ serverCreateStatus }}</p>-->
+<p *ngIf="serverCreated, else noServer">{{ serverCreateStatus }}</p>
+<ng-template #noServer>
+    <p>No server was created!</p>
+</ng-template>
+<!--<p>{{ serverCreated }}</p>-->
+<app-server *ngFor="let server of servers"></app-server>
+
+<!-- ngIf (case-sensitive) is a structural directive. which means it changes the structure of the DOM by adding/removing properties
+for example. structural directives must be preceded with * for them to work.
+
+ But what if you want an ngElse?? how do you conditionally show something when else part is true. the solution is ng-template.
+ ng-template is a directive which allows you to give a name to a section of HTML. and then se that name where you write *ngIf.
+ with this change when else part is true. angular will look at the market and show the HTML within the marker -->
+
+<!-- a component is also a directive. a directive is anything that instructs angular to do something. Our component is a directive which
+instructs angular to insert our component whenever it sees an element in the index.html which matches the component selector -->
+
+<!-- there are also attribute directives. attribute directives dont change the DOM. they modify the elements in which they are placed.-->
+
+<!-- ngStyle is a directive to add some css/styling to an element. ngStyle itself is useless. We use property binding to bind to a property
+of the directive ngStyle like this.
+<p [ngStyle]="TS expression">blah blah blah.. <p>
+-->
+
+<!-- ngFor is another directive that allows you to run for loops -->

@@ -44,7 +44,7 @@ HashMap getMap() {
     return std::move(hm); // you just acted smart but you ended up being a fool. You disabled RVO.
 }
 
-// But you say.. RVO is a compiler optimization. if the compiler doesnt apply it, atleast my version will do a move and avoid
+// But you say.. RVO is a compiler optimization. if the compiler doesnt apply it, at-least my version will do a move and avoid
 a copy??
 Answer
 1) First, most compiler will apply it anyway.

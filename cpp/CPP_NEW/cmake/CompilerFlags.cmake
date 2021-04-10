@@ -14,7 +14,7 @@ function(set_project_flags compile_flags)
             # offering a reasonable level of optimization while maintaining fast compilation and a good debugging experience.
             # It is a better choice than ‘-O0’ for producing debuggable code because some compiler passes that collect debug
             # information are disabled at ‘-O0’.
-            -Og
+            -O0 -g
             )
 
     if(MSVC)

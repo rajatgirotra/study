@@ -41,3 +41,24 @@ target_compile_options(concepts_14 PRIVATE -fconcepts)
 
 add_executable(fold_expressions_15 fold_expressions_15.cpp)
 target_link_libraries(fold_expressions_15 PRIVATE project_options project_warnings)
+
+add_executable(inline_variables_16 inline_variables.cpp inline_variables_16.cpp)
+target_link_libraries(inline_variables_16 PRIVATE project_options project_warnings)
+
+add_executable(fold_expressions_17 fold_expressions_17.cpp)
+target_link_libraries(fold_expressions_17 PRIVATE project_options project_warnings)
+
+add_executable(fold_expressions_18 fold_expressions_18.cpp)
+target_link_libraries(fold_expressions_18 PRIVATE project_options project_warnings)
+
+add_executable(fold_expressions_19 fold_expressions_19.cpp)
+target_link_libraries(fold_expressions_19 PRIVATE project_options project_warnings)
+
+add_executable(if_constexpr_20 if_constexpr_20.cpp)
+target_link_libraries(if_constexpr_20 PRIVATE project_options project_warnings)
+
+add_executable(has_include_21 has_include_21.cpp)
+target_link_libraries(has_include_21 PRIVATE project_options project_warnings)
+
+add_executable(non_type_auto_template_22 non_type_auto_template_22.cpp)
+target_link_libraries(non_type_auto_template_22 PRIVATE project_options project_warnings)

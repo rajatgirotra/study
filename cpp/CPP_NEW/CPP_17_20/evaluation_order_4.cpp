@@ -4,7 +4,7 @@
  * foo(std::unique_ptr<T>(new T), otherFunction());
  *
  * the compiler could allocate memory for T, then call otherFunction(), then std::unique_ptr<T> constructor.
- * This could result in memory leak if otherFunction() call throws. That's why the around it was to use std::make_unique
+ * This could result in memory leak if otherFunction() call throws. That's why the way around it was to use std::make_unique
  *
  * However C++17 guarantees that
  * 1) the arguments/parameters of a function are still evaluated in any order

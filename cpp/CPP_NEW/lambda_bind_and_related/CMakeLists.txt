@@ -36,3 +36,6 @@ target_link_libraries(lambda_6_inherit PRIVATE project_options project_warnings)
 
 add_executable(lambda_sorcery_7 lambda_sorcery_7.cpp)
 target_link_libraries(lambda_sorcery_7 PRIVATE project_options project_warnings)
+
+add_executable(lambda_this_8 lambda_this_8.cpp)
+target_link_libraries(lambda_this_8 PRIVATE project_options project_warnings)

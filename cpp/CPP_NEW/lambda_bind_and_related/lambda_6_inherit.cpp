@@ -39,7 +39,7 @@ int main() {
     cout << l1() << "\n" << l2(10) << endl;
 
     // this doesnt work as the default SFO ctor will call the ClosureType default ctor and ClosureType default ctor are implicitly
-    // deleted. (Only till C++17, from C++20 onwards non-caoture lambda's can be default constructed).
+    // deleted. (Only till C++17, from C++20 onwards non-capture lambda's can be default constructed).
     // [[maybe_unused]] SomeFunctionObject<decltype(l1), decltype(l2)> sfo; // try with SFO ctor commented out
 
     // this doesnt work as l1 and l2 are lvalue references, so in SFO L1 and L2 are deduced to be a reference.

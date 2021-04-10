@@ -18,9 +18,15 @@ struct A {
     int b = 200;
 };
 
-A foo() {
-    return A();
+static A obj;
+
+A& foo() {
+    return obj;
 }
+
+//A foo() {
+//    return obj;
+//}
 
 auto bar() {
     return 42;
@@ -37,7 +43,7 @@ int main()
     ++x; --y;
     cout << "arr[0]: " << arr[0] <<", arr[1]: " << arr[1] << endl;
 
-    //auto& [A_a, A_b] = foo(); // foo() returns a temporary so cannot bind to NON-CONST lvalue reference
+//    auto& [A_a, A_b] = foo(); // foo() returns a temporary so cannot bind to NON-CONST lvalue reference
     auto [A_a, A_b] = foo(); // Note that number of VARIABLES UN-PACKED MUST BE SAME AS NUMBER OF MEMBERS IN THE POD TYPE.
     cout << "A::a: " << A_a << ", A::b: " << A_b << endl;
 
@@ -47,10 +53,15 @@ int main()
      * l = a_secret_variable.a and m = a_secret_variable.b
      * so in this case decltype(a_secret_variable) = const int&, and
      * decltype(l) and decltype(m) = const int ie decltype(a_secret_variable.a) and decltype(a_secret_variable.b)
+     *
+     * This is just for your information. If foo() returns by lvalue (i.e it returns a temporary, then of course l and obj.a are different.
+     * If foo() returns a reference, then of course l and obj.a are same.
      */
     const auto& [l, m] = foo();
+    ++obj.a;
+    cout << "l: " << l << ", obj.a: " << obj.a << endl;
     [[maybe_unused]] Check<decltype(l)> check_l;
 
-    const int& i = bar();
+    [[maybe_unused]] const int& i = bar();
     [[maybe_unused]] Check<decltype(i)> check_i;
 }

@@ -23,6 +23,17 @@ NoCopyMove foo(int arg) {
     return NoCopyMove(-arg);
 }
 
+//NoCopyMove foo(int arg) {
+//    if(arg > 0) {
+//        NoCopyMove x(arg); // compiler uses RVO
+//        return x;
+//    }
+//
+//    NoCopyMove y(-arg); // compiler uses RVO
+//    return y;
+//}
+
+
 int main() {
     NoCopyMove o = foo(-98);
     cout << o.m_v;

@@ -1,6 +1,6 @@
 /*
- * std::optional is a wrapper type express "nullable" types. before optional, a developer could use
- * represent a variable as unset using values like -1, false, NULL etc. std::optional is an attempt to standardize that.
+ * std::optional is a wrapper type to express "nullable" types. before optional, a developer could represent a variable
+ * as unset using values like -1, false, NULL etc. std::optional is an attempt to standardize that.
  *
  * The big thing to remember with std::optional is that it will not do any dynamic allocation for you. this means.
  * std::optional<int32_t>, will be at least 4 bytes + any information to keep track whether that int32_t is set or not.
@@ -106,16 +106,16 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     std::optional<S> optS2;
     optS2.emplace();
 
-    cout << "\nstd::optional<> supports comparisons also\n"
+    cout << "\nstd::optional<> supports comparisons also\n";
     {
         std::optional<int> oEmpty;
         std::optional<int> oTwo(2);
         std::optional<int> oTen(10);
         cout << std::boolalpha;
         cout << (oTen > oTwo) << '\n'; // expected
-        cout << (oEmpty < oTwo) << '\n'; // std::nullopt is always less than std::optional<> which has va
-        (oEmpty == std::nullopt) << '\n';
-        (oTen == 10) << '\n';lue
+        cout << (oEmpty < oTwo) << '\n'; // std::nullopt is always less than std::optional<> which has value
+        cout << (oEmpty == std::nullopt) << '\n';
+        cout << (oTen == 10) << '\n';
     }
 
     return 0;

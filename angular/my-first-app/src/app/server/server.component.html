@@ -1,0 +1,14 @@
+<!-- The only condition for string interpolation {{ }} is thet the typescript expression inside it must yield a string. -->
+<p [ngStyle]="{backgroundColor: getColor()}"
+   [ngClass]="{online: getServerStatus() === 'online'}"
+>{{ 'Server' }} with ID {{ serverId }} is {{ getServerStatus() }}</p>
+
+
+<!-- ngStyle is a directive to add some css/styling to an element. ngStyle itself is useless. We use property binding to bind to a property
+of the directive ngStyle like this.
+<p [ngStyle]="{js object}">blah blah blah.. <p>
+the ngStyle directive expects a javascript object where key is style name and value is style object
+
+similary ngClass directive allows you to dynamically attach css classes.
+[ngClass]={} again a javascript object with key = class name and value = boolean condition.
+-->

@@ -9,12 +9,20 @@ fold expressions allow to apply an operand to all the template arguments.
 #include <functional>
 using namespace std;
 
+// a very primitive way to calculate sum of all template arguments
+auto sum_primitive() { return 0; }
+
+template <typename T, typename... Rest>
+auto sum_primitive(T&& arg, Rest&&... rest) {
+    return arg + sum_primitive(rest...);
+}
+
 // a simple variadic template function to get the sum of all the arguments passed to it.
 template <typename... T>
-auto sum([[maybe_unused]] T&&... t) -> std::common_type_t<T...> {
+auto sum([[maybe_unused]] T&&... t) {
     [[maybe_unused]] std::common_type_t<T...> result = 0;
     // construct an std::initializer_list of integer. We will just put 0 in the list, but will evaluate the sum of all arguments as a side effect
-    std::initializer_list<int> { (result += t, 0)... };
+    (void)std::initializer_list<int> { (result += t, 0)... };
     return result;
 }
 
@@ -45,6 +53,7 @@ auto avg(T&&... t) {
 
 
 int main() {
+    cout << sum_primitive(1, 2, 3.0) << endl;
     cout << sum(1, 2, 3.0) << endl;
     cout << sum2(1, 2, 3.0) << endl;
 
@@ -52,5 +61,16 @@ int main() {
     cout << div2(1.0, 2.0, 3.0) << endl; // does ( ( 1 / 2) / 3 )  --> 0.5/3 = 0.166667
 
     cout << avg(1.0, 2.9, 3.0) << endl;
-
 }
+
+/*
+ * (init op ... op e) --> this is also left fold as 'e' is the variadic template argument. But this is called binary left fold as you can
+ * specify an expression as an init expression. this is equivalent to ((((init op e1) op e2) op e3) op e4)
+ *
+ * similarly.
+ * (e op ... op init) --> is binary right fold. this is equivalent to (e1 op (e2 op (e3 op (e4 op init))))
+ *
+ * op can be any of the 32 binary operators. i.e  * + - * / % ^ & | = < > << >> += -= *= /= %= ^= &= |= <<= >>= == != <= >= && || , .* ->*.
+ *
+ * Try to write a template function called FoldPrint() that takes variadic template argument and prints all of its args using binary left fold
+ */
