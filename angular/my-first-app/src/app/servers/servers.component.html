@@ -40,7 +40,7 @@ That is why we use [()]="TS expression" syntax -->
     <p>No server was created!</p>
 </ng-template>
 <!--<p>{{ serverCreated }}</p>-->
-<app-server *ngFor="let server of servers"></app-server>
+<app-server *ngFor="let server of servers; let i = index"></app-server>
 
 <!-- ngIf (case-sensitive) is a structural directive. which means it changes the structure of the DOM by adding/removing properties
 for example. structural directives must be preceded with * for them to work.
@@ -59,4 +59,10 @@ of the directive ngStyle like this.
 <p [ngStyle]="TS expression">blah blah blah.. <p>
 -->
 
-<!-- ngFor is another directive that allows you to run for loops -->
+<!-- ngFor is another directive that allows you to run for loops.
+Note that let i = index in the expression is optional and that gives the index of the current iteration starting from 0.
+example below of applying ngStyle and ngClass based on index.
+            <div *ngFor="let item of audit; let i = index"
+            [ngStyle]="{backgroundColor: i >= 4 ? 'blue' : 'transparent'} "
+            [ngClass]="{'white-text': i >= 4}"> {{ item }}</div>
+-->

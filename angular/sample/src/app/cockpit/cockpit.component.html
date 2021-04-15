@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-xs-12">
+        <p>Add new Servers or blueprints!</p>
+        <label>Server Name</label>
+        <input type="text" class="form-control" #inputElement>
+        <label>Server Content</label>
+        <input type="text" class="form-control" [(ngModel)]="newServerContent">
+        <br>
+        <button
+                class="btn btn-primary"
+                (click)="onAddServer(inputElement)">Add Server</button>
+        <button
+                class="btn btn-primary"
+                (click)="onAddBlueprint(inputElement)">Add Server Blueprint</button>
+    </div>
+</div>
+
+<!-- We are using two way binding [(ngModel)]="newServerName", however we will never change the value of newServerName in Typescript.
+So we can optimize this by using Local References. Local References CAN ONLY BE USED IN THE TEMPLATE FILES ie the html files.
+not in the TS files. A local reference is a reference to another HTML element on the same template. So here we can create a local reference for
+the <input> element by passing an attribute to <input> element which starts with #. Then we can pass that reference to the onAddServer()
+and onAddBlueprint() methods which means those methods will receive HTMLInputElement as arguments and we can extract the text of the input
+element using the .value property in the TS code.
+ -->

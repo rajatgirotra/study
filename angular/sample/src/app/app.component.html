@@ -1,0 +1,17 @@
+<div class="container">
+  <app-cockpit
+          (serverCreated)="onServerAdded($event)" (blueprintCreated)="onBlueprintAdded($event)"
+  ></app-cockpit>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-server-element *ngFor="let serverElement of serverElements"
+      [srvElement]="serverElement"></app-server-element>
+    </div>
+  </div>
+</div>
+
+<!-- just like [element] is in an input property for server-element component, we can also create an output property.
+We will create an output property in cockpit component. to create an output property we need to use the @Output() decorator.
+Also the property type should be an object of generic(template) class EventEmitter. and you can emit the event using the
+emit() function. See cockpit.component.html and cockpit.component.ts for more information -->
