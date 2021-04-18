@@ -2,16 +2,17 @@
     <div class="col-xs-12">
         <p>Add new Servers or blueprints!</p>
         <label>Server Name</label>
-        <input type="text" class="form-control" #inputElement>
+        <input type="text" class="form-control" #serverNameElement>
         <label>Server Content</label>
-        <input type="text" class="form-control" [(ngModel)]="newServerContent">
+        <input type="text" class="form-control" #serverContentElement>
+<!--        <input type="text" class="form-control" [(ngModel)]="newServerContent">-->
         <br>
         <button
                 class="btn btn-primary"
-                (click)="onAddServer(inputElement)">Add Server</button>
+                (click)="onAddServer(serverNameElement)">Add Server</button>
         <button
                 class="btn btn-primary"
-                (click)="onAddBlueprint(inputElement)">Add Server Blueprint</button>
+                (click)="onAddBlueprint(serverNameElement)">Add Server Blueprint</button>
     </div>
 </div>
 
@@ -21,4 +22,12 @@ not in the TS files. A local reference is a reference to another HTML element on
 the <input> element by passing an attribute to <input> element which starts with #. Then we can pass that reference to the onAddServer()
 and onAddBlueprint() methods which means those methods will receive HTMLInputElement as arguments and we can extract the text of the input
 element using the .value property in the TS code.
+
+Another way to access an element in template from TypeScript (apart from local reference you so above is to use the @ViewChild decorator.
+ViewChild decorator can be applied to many things like @Component, @Directive, a local reference, a template reference (you will see that later).
+Here we apply ViewChild to local reference.
+
+ViewChild is very trivial. It just allows you to access an Element in your template from your TS file.
+But when your template or content is injected into your component view from outside, we can use @ContentChild instead of ViewChild.
+Both ViewChild and ContentChild give you an ElementRef.
  -->

@@ -1,9 +1,26 @@
 <div class="panel panel-default">
-    <div class="panel-heading">{{ element.name }}</div>
+<!--    <div class="panel-heading">{{ element.name }}</div>-->
+    <div class="panel-heading">{{ name }}</div>
     <div class="panel-body">
-        <p>
-            <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
-            <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
-        </p>
+        <ng-content></ng-content>
+<!--        <p>-->
+<!--            <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>-->
+<!--            <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>-->
+<!--        </p>-->
     </div>
 </div>
+
+<!--
+ <ng-content></ng-content> : what is this. actually by default, angular will ignore all content inside the opening and closing tag
+ of your component. so everything inside <app-server-element></app-server-element> is ignore by default.
+ If you want to put any html inside it you must use <ng-content> first and then put any HTML. then angular will recognize it.
+ So it should be like
+ <app-server-element>
+    <ng-content>
+    </ng-content>
+ </app-server-element>
+
+ the way to use ngContent is that we copy everything from the server-element.component.html and paste it directly in app.component.html
+
+
+-->

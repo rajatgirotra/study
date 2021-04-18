@@ -25,6 +25,15 @@ export class AppComponent {
       content: blueprintData.serverContent
     });
   }
+
+  // tslint:disable-next-line:typedef
+  onNameChanged() {
+      this.serverElements[0].name = 'Changed!';
+  }
+
+  onDestroyComponent() {
+    this.serverElements.splice(0, 1);
+  }
 }
 
 /**

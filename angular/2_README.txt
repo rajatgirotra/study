@@ -50,3 +50,7 @@ we can do that using npm.
 npm install --save bootstrap@3
 
 once saved, you can edit angular.json file in your project (angular.json is the project wide config). in this file add the path to the bootstrap css under "styles" in the json. then verify by loading localhost:4200 again and go to developer tools->Elements->"link rel style.css" and see if bootstrap is listed there.
+
+
+class objects and javascript and TS are references. that it means, if you copy, you are copying a reference so both variables still
+point to the same underlying object.
