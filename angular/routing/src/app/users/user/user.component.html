@@ -1,0 +1,10 @@
+<p>User with ID {{user.id}} loaded.</p>
+<p>User name is {{user.name}}</p>
+
+<hr>
+<a [routerLink]="['/users', '10', 'Anna']">Load Anna(10)</a> <!-- route to /users/10/Anna -->
+
+<!--
+This wont work as Angular sees that i am inside the UserComponent and that component is loaded already.
+So it doesn't reload it again. As a result ngOnInit() isn't called again.
+-->

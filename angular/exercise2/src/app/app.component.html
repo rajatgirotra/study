@@ -1,0 +1,14 @@
+<app-game-control (gameEvent)="onGameEvent($event)"></app-game-control>
+
+<!--<div *ngFor="let event of evenEvents">-->
+<!--        <app-even [eventNumber]="event"></app-even>-->
+<!--</div>-->
+
+<!--<div *ngFor="let event of oddEvents">-->
+<!--        <app-odd [eventNumber]="event"></app-odd>-->
+<!--</div>-->
+
+<div *ngFor="let event of events">
+        <app-even [eventNumber]="event" *ngIf="event % 2 ===0"></app-even>
+        <app-odd [eventNumber]="event" *ngIf="event % 2 !==0"></app-odd>
+</div>

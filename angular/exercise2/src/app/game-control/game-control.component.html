@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sx-12">
+            <button class="btn btn-success" [disabled]="gameOn" (click)="onGameStart()">Start Game</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sx-12">
+            <button class="btn btn-danger" [disabled]="!gameOn" (click)="onGameStop()">Stop Game</button>
+        </div>
+    </div>
+</div>

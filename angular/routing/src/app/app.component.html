@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <ul class="nav nav-tabs">
+<!--        <li role="presentation" class="active"><a routerLink="/">Home</a></li>-->
+        <li role="presentation"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
+        <li role="presentation" routerLinkActive="active"><a routerLink="/servers">Servers</a></li>
+        <li role="presentation" routerLinkActive="active"><a [routerLink]="['/users']">Users</a></li>
+
+<!--        <li role="presentation" class="active"><a href="/">Home</a></li>-->
+<!--        <li role="presentation"><a href="/servers">Servers</a></li>-->
+<!--        <li role="presentation"><a href="/users">Users</a></li>-->
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+<!--      <app-home></app-home>-->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+<!--  <div class="row">-->
+<!--    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">-->
+<!--      <app-users></app-users>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="row">-->
+<!--    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">-->
+<!--      <app-servers></app-servers>-->
+<!--    </div>-->
+<!--  </div>-->
+</div>
+
+<!--
+A note on routerLink paths
+ <li role="presentation"><a routerLink="/servers">Servers</a></li>
+ when we use /servers, the / implies we are specifying an absolute path starting from the root domain localhost:4200/
+ so /servers means localhost:4200/servers
+
+ if we use just servers (without the /), it means we are giving a relative path; relative to the currently loaded page.
+ the currently loaded page in this file is the localhost:4200/; so using relative path is also ok in the file.
+
+ <li role="presentation"><a routerLink="servers">Servers</a></li> should also work in the file. but let say the currently
+ loaded page is localhost:4200/servers and we specify relative path again, then angular would look for a route
+ localhost:4200/servers/servers
+-->

@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'recipe-shopping';
+  showRecipes = true;
+  onHeaderSelect(event: boolean) {
+    this.showRecipes = event;
+  }
 }

@@ -1,8 +1,26 @@
 <div class="row">
     <div class="col-md-5">
+<!--        <app-recipe-list (recipeSelected)="onRecipeSelected($event)"></app-recipe-list>-->
         <app-recipe-list></app-recipe-list>
     </div>
     <div class="col-md-7">
-        <app-recipe-detail></app-recipe-detail>
+        <app-recipe-detail
+                *ngIf="currentRecipeSelected; else infoText"
+                [recipe]="currentRecipeSelected"></app-recipe-detail>
+        <ng-template #infoText>
+            <p>Please select a recipe!</p>
+        </ng-template>
     </div>
 </div>
+
+
+<!--
+behind the scenes *ngIf is equivalent to
+<ng-template [ngIf]="currentRecipeSelected">
+  //blah blah blah
+</ng-template>
+
+*ngIf (i.e. a star is just a convenient wrapper
+
+See the directives project where we create our own structural directive "unless" which works just opposite to *ngIf
+-->
