@@ -17,11 +17,11 @@ export class ServersService {
     }
   ];
 
-  getServers() {
+  getServers(): {id: number, name: string, status: string}[] {
     return this.servers;
   }
 
-  getServer(id: number) {
+  getServer(id: number): {id: number, name: string, status: string} {
     const server = this.servers.find(
       (s) => {
         return s.id === id;

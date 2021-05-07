@@ -1,5 +1,10 @@
 [requires]
 poco/1.10.1
+openssl/1.1.1k
+protobuf/3.15.5
 
 [generators]
-cmake
+cmake_find_package
+
+[options]
+protobuf:shared=True

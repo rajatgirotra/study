@@ -22,6 +22,10 @@ export class RecipeService {
     constructor(private shoppingListService: ShoppingListService) {
     }
 
+    getRecipe(idx: number): Recipe {
+        return this.recipes[idx];
+    }
+
     addIngredientsToShoppingCart(ingredients: Ingredient[]): void{
         this.shoppingListService.addIngredients(ingredients);
     }
