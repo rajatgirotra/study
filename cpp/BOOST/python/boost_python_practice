@@ -1,0 +1,26 @@
+Boost python practice
+
+create a simple function in C++ at module level with a docstring, some arguments, and some keyword arguments (some with default values)
+
+What happens if a c++ function called from python throws an std exception?? What if you want to throw a user defined exception instead. See register_exception_translator in python.
+Read on realpython how iterators work internally (they need to throw a Stop Iteration exception at the end). How will you mimick that in C++. 
+Basically, you want to iterate over a C++ iterator from python and have c++ throw an exception.
+
+namespace py = boost::python;
+read more about the py::object class. Its encapsulates a python object. To access attiributes , you use the .attr("id") method. 
+also py::extract<std::int64_t>(item.attr("id")) will extract the id and convert into C++ int64_t type. extract can throw an exception if conversion fails.
+
+WAP that accepts a python list of strings of words "one", "two", "three" and returns a list of integers by converting from word to number.
+You will need py::list object. read its api.
+
+You know python has a GIL which prevents you from doing CPU intensive tasks from mutiple threads at the same time. Basically, all threads will run sequentially because of GIL.
+Just read about what is
+1) PyThreadState
+2) PyEval_SaveThread()
+3) PyEval_RestoreThread(PyThreadState*);
+4) PyGILState_STATE
+5) PyGILState_Ensure();
+6) PyGILState_Release(PyGILState_STATE);
+
+See How i learnt to stop worrying and love Boost python.
+Also see towards the end a general pattern to make a blocking syscall from python to c code.
