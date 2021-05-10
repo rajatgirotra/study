@@ -1,8 +1,9 @@
 import {Ingredient} from '../shared/ingerdient.model';
-import {EventEmitter} from '@angular/core';
+// import {EventEmitter} from '@angular/core';
+import {Subject} from 'rxjs';
 
 export class ShoppingListService {
-    ingredientsChanged = new EventEmitter<Ingredient[]>();
+    ingredientsChanged = new Subject<Ingredient[]>();
     private ingredients: Ingredient[] = [
         new Ingredient('Apples', 5),
         new Ingredient('Tomatoes', 10)
@@ -14,12 +15,14 @@ export class ShoppingListService {
 
     addIngredient(i: Ingredient): void {
         this.ingredients.push(i);
-        this.ingredientsChanged.emit(this.ingredients);
+        // this.ingredientsChanged.emit(this.ingredients);
+        this.ingredientsChanged.next(this.ingredients);
     }
 
     addIngredients(ingredients: Ingredient[]): void {
         this.ingredients.push(...ingredients); // ES6 way to flatten out array to individual items, so [1, 2, 3] is passed as 1, 2, 3
-        this.ingredientsChanged.emit(this.ingredients);
+        // this.ingredientsChanged.emit(this.ingredients);
+        this.ingredientsChanged.next(this.ingredients);
     }
 
 }

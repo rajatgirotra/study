@@ -6,15 +6,9 @@ import {Component, OnInit, EventEmitter, Output} from '@angular/core';
     styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-    @Output() showRecipesComponent = new EventEmitter<boolean>();
-    constructor() {
+     constructor() {
     }
 
     ngOnInit(): void {
-        this.showRecipesComponent.emit(true);
-    }
-
-    onHeaderSelect(event: boolean) {
-        this.showRecipesComponent.emit(event);
     }
 }

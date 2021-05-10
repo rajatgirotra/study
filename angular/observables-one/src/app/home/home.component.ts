@@ -97,4 +97,13 @@ export class HomeComponent implements OnInit, OnDestroy {
  * To use operators, you have to use the pipe() method of the observable. this method takes a series of operators. each operator takes a
  * function with argument as the event published by the observable.
  * Here we use two operators, filter and map. filter will filter out the first event and map will just prefix some random string.
+ *
+ * Subjects
+ * Subjects are also Observables. However there is one difference from Observables. Subjects are active and Observables are passive.
+ * What this means is that When you create an Observable, you need an observer also on which you call next(), error(), complete() etc.
+ * However for Subject observable, you can call next() on the Subject observable itself.
+ *
+ * Normally Subject observable is always a good choice compared to EventEmitter and also the use of Subject is just like EventEmitter.
+ * The only difference is that for Subject you call next() to emit and event and for EventEmitter you call emit().
+ * Now in recipes-shopping project, find all EventEmitters and convert them to Subjects.
  */

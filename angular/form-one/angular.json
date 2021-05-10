@@ -1,12 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "cli": {
-    "analytics": "49a25fcf-1618-45fd-82f6-9bc30a270b63"
+    "analytics": false
   },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "observables-one": {
+    "form-one": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -16,7 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/observables-one",
+            "outputPath": "dist/form-one",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -65,18 +65,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "observables-one:build"
+            "browserTarget": "form-one:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "observables-one:build:production"
+              "browserTarget": "form-one:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "observables-one:build"
+            "browserTarget": "form-one:build"
           }
         },
         "test": {
@@ -113,16 +113,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "observables-one:serve"
+            "devServerTarget": "form-one:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "observables-one:serve:production"
+              "devServerTarget": "form-one:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "observables-one"
+  "defaultProject": "form-one"
 }
