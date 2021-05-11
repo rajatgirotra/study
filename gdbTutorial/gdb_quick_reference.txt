@@ -839,27 +839,27 @@ If GDB has not been configured to included core file support, such as for most e
 
 Many options have both long and short forms; both are shown in the following list. GDB also recognizes the long forms if you truncate them, so long as enough of the option is present to be unambiguous. (If you prefer, you can flag option arguments with `--' rather than `-', though we illustrate the more usual convention.)
 
--symbols <file>
+--symbols <file>
 -s <file>
     Read symbol table from file file.
 
--exec <file>
+--exec <file>
 -e <file>
     Use file file as the executable file to execute when appropriate, and for examining pure data in conjunction with a core dump.
 
--se <file>
+--se <file>
     Read symbol table from file file and use it as the executable file.
 
--core <file>
+--core <file>
 -c <file>
     Use file file as a core dump to examine.
 
 -c <number>
--pid <number>
+--pid <number>
 -p <number>
     Connect to process ID number, as with the attach command. If there is no such process, GDB will attempt to open a core file named number.
 
--command <file>
+--command <file>
 -x <file>
     Execute GDB commands from file file.
 
@@ -1059,3 +1059,152 @@ Catchpoints
 With a conditional breakpoint (see section Break conditions) that depends on the value of id, you can stop your program when a specific exception is raised. You can use multiple conditional breakpoints to stop your program when any of a number of exceptions are raised. 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
+auto-loading
+
+When GDB starts it reads a number of files which has commands and settings. You can control what to read and what to leave using auto-loading.
+
+GDB start up
+------------
+1) will always read system wide gdbinit file and your local gdb init file in your $HOME directory. You can disable this using
+gdb -nx option.
+
+2) You can run any gdb commands and command files using -iex and -ix option. These are executed before the inferior is loaded. this will be a good place to disable
+all auto-loading if you want.
+
+gdb -iex "set auto-load off" executable_name core_file
+
+3) the .gdbinit file in the current directory is loaded. but the current directory should be in the auto-load safe path.
+
+4) then the inferior is loaded
+
+5) You can run any gdb commands and command files using -ex and -x option (this is after the inferior has loaded). 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+show auto-load --> will show whether auto-loading is on or off for various scripts.
+info auto-load --> will show which all scripts/command files are loaded.
+
+show auto-load safe-path --> will show paths/folders from which it is safe to auto-load files. default is $debugdir:$datadir/auto-load
+
+$datadir is data directory which is fixed at gdb startup. you can use "show data-directory" to see its value. You can also change it at gdb startup time using --data-directory option.
+
+For my clion gdb it shows /path/to/clion/bin/gdb/linux/share/gdb
+
+debugdir: debug directory is where gdb can find symbols file to load when debugging. it is a list separated by colon. You can view it or set it using
+"set debug-file-directory /path/A:/path/B" and "show debug-file-directory"
+
+the other debug directories looked up by gdb can be different depending on which section in the executable we put the debug info. there are two choices explained here:
+
+https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html#Separate-Debug-Files
+
+first approach looks good where we add .gnu_debuglink in the executable. Do this to create a symbols file and then debug it.
+
+g++ -g -o foo foo.cpp # create debug executable
+objcopy --only-keep-debug foo foo.debug # create debug symbols file.
+strip -strip-debug foo # strip debug symbols from executable
+objcopy --add-gnu-debuglink=foo.debug foo # add .gnu-debuglink section to foo.
+
+with these changes gdb looks up the named file in the directory of the executable file, then in a subdirectory of that directory named .debug, and finally under each one of the global debug directories, in a subdirectory whose name is identical to the leading directories of the executable’s absolute file name.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+Invoking GDB
+
+Always get in the habit of invoking gdb like
+gdb --exec <executable> --symbols <symbols_file> --core <core_file>
+gdb --exec <executable> --symbols <symbols_file> --pid <pid of process to debug>
+gdb --se <executable_and_symbols_file>
+
+then at (gdb) prompt, give command "run <arguments to the process>"
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+gdb and python: gdb can be extended with python given it was built with --with-python. can work with both python 2 and 3.
+
+by default $datadir/python is where you should put your python scripts. as this location is automatically added to $PYTHONPATH env variable so python interpreter can find them.
+Also $datadir/python/gdb/command and $datadir/python/gdb/function directories may contain scripts which are automatically loaded by gdb at startup.
+
+to interact with python you have two commands:
+
+pi (or python-interactive) --> pi brings up a python shell. you can run your commands and then exit by Ctrl+DOS
+
+python --> this is used to evaluate python code. it will bring a prompt also where you can type one or more python commands in each line. then finish by typing 'end'.
+then python will evaluate all commands line by line and print the output. (using pi is different as it bring up an interactive python shell)
+
+set auto-load python-scripts  on/off -->  to set auto loading of python scripts
+
+show auto-load python-scripts  --> show whether it is on or off
+
+info auto-load python-scripts  --> show the list of python scripts that are auto loaded.
+
+Note that you do not explicitly specify any python script to load. gdb loads them on its when an object file is loaded (like when you use the file command to specify an executable/inferior) and also when the inferior loads a shared library. There are two ways:
+
+objfile-gdb.ext and the .debug_gdb_scripts section of modern file formats like ELF. We will only see objfile-gdb.ext for now.
+
+If you have a shared library libprotobuf.so.8, gdb will look for libprotobuf.so.8.0.0-gdb.py in the "auto-load scripts-directory" locations. check with
+"show auto-load scripts-directory" the paths that are searched. default is $debugdir:$datadir/auto-load
+libprotobuf.so.8.0.0-gdb.py is looked up because that's the real name of the shared library. libprotobuf.so.8 is just a soft link.
+
+gdb also ships with some python modules. These are loaded automatically from python-directory/gdb/{command,function}
+
+• gdb.printing:	  	Building and registering pretty-printers.
+• gdb.types:	  	Utilities for working with types.
+• gdb.prompt:	  	Utilities for prompt value substitution.
+
+info pretty-printer will show you all the pretty printers installed and their names. Most of the time the pretty printer can handle multiple data types and in that case, the pretty-printer has multiple subprinters. one for each type of data type. The pretty-printer name in this case is printer-name;subprinter-name.
+
+Similarly you can disable/enable pretty printers
+
+disable pretty-printer library1 bar2;bar1 # library1 is object file name and bar2;bar1 is pretty printer name (which includes the sub printer name)
+enable pretty-printer library1 bar2;bar1
+
+You have to register your pretty-printer with gdb. There are 3 places where pretty printers can be registered.
+
+1) globally. these pretty-printers are available to all inferiors
+2) progspace i.e when an executable is loaded. these pretty printers are registered with the program space as you will see later.
+3) objfile i.e when a shared library is loaded. these pretty printers are registered with the object file space as you will see later.
+
+You should use the gdb.printing module to register pretty printers. also this module defines some classes and the interface you should implement to write your own pretty printer
+
+gdb.printing.register_pretty_printer (obj, printer, replace=False)
+
+How to write a pretty-printer
+-----------------------------
+There are two ways:
+1) basically you need to call gdb.printing.register_pretty_printer(obj, printer_function), where printer_function is a callable (a normal function which is passed a gdb.Value argument. If the printer_function thinks it knows how to pretty print the data type, it should return an Object of a class which implements the pretty printing interface i.e. three functions shown below.
+That object must already have the value with itself that was passed to the printer_function. the to_string() function is used to pretty-print.
+
+def children(self):
+    pass # this is optional
+	
+def display_hint(self):
+    pass # this is optional
+	
+def to_string(self):
+    pass # this is mandatory
+	
+
+2) The other way is when you want a printer to handle multiple datatypes. In that case, you will have a pretty printer and multiple sub pretty printer classes. Basically you need to have a printer class and sub printer class like below. This is exactly what c++ pretty-printers do.
+
+class MyPrettyPrinter(object):
+
+    def __init__(self, name):
+	    super(MyPrettyPrinter, self).__init__()
+        self.name = # must have a name attribute
+		self.subprinters = [] # must have subprinters list (can be empty)
+		self.enabled = True/False # must have enabled attribute
+		
+	
+	# must define __call__
+	def __call__(self, val):
+	    # this function must return an object of a class which implements the same children, display_hint, to_string() interface.
+		# since you create the object in your printer, you are free to decide the constructor arguments of the class which implements these three functions.
+	
+
+and the subprinter class like this:
+class MySubPrettyPrinter(object):
+    def __init__(self, name):
+	    super(MySubPrettyPrinter, self).__init__()
+		self.name = # must have name attribute
+		self.enabled = True/False # must have an enabled attribute.
+		
+		
+re.complie('^([a-zA-Z0-9_:]+)(<.*>)?$')
+add_con

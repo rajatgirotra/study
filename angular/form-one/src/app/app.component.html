@@ -2,25 +2,30 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form (ngSubmit)="onSubmit()" #f="ngForm">
-        <div id="user-data">
+        <div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <input type="text" id="username"
                    class="form-control" ngModel name="username" required>
           </div>
-          <button class="btn btn-default" type="button">Suggest an Username</button>
+          <button class="btn btn-default" type="button" (click)="suggestUserName()">Suggest an Username</button>
           <div class="form-group">
             <label for="email">Mail</label>
             <input type="email" id="email" class="form-control" [ngModel]="defaultEmail" name="email" required email #email="ngModel">
           </div>
           <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
         </div>
+        <p *ngIf="!userData.valid && userData.touched">User data is invalid!</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <select id="secret" class="form-control" [ngModel]="defaultQuestion" name="secret">
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
+        </div>
+        <div class="form-group">
+          <textarea name="questionAnswer" rows="3" [(ngModel)]="answer" class="form-control"></textarea>
+          <p>Your answer is {{ answer }}</p>
         </div>
         <button class="btn btn-primary" type="submit"
         [disabled]="!f.valid">Submit</button>
@@ -55,4 +60,14 @@ Default Values of form-controls
 -------------------------------
 for default values, you can still use ngModel but as a property binding.
 lets define the default value of the secret form control to be the pet question. using [ngModel]="defaultQuestion"
+
+Grouping values
+---------------
+you can also group certain related form-controls together and give them a name. The javascript form object will also be modified in a similar way.
+You might do this when the form is too big and grouping helps reduce complexity. Also angular will assign a "valid" field for every group you create.
+
+Setting and Patching form values
+----------------------------------
+Now there is also a way to set part/whole of the javascript form using setValue and patchValue functions.
+Let say you want to Suggest a username function when a user clicks on it. you can install a click listener and set/patch values there.
 -->

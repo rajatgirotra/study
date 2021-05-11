@@ -13,10 +13,27 @@ export class AppComponent {
   @ViewChild('f') form: NgForm;
 
   defaultQuestion = 'pet';
-  defaultEmail = 'rajat.girotraGgmail.com';
+  defaultEmail = 'rajat.girotra@gmail.com';
+  answer = '';
 
   suggestUserName() {
     const suggestedName = 'Superuser';
+    // this.form.setValue({
+    //   // must set all fields of the form here
+    //   userData: {
+    //     username: suggestedName,
+    //     email: ''
+    //   },
+    //   questionAnswer: '',
+    //   secret: ''
+    // });
+
+    // the other way is patchValue
+    this.form.form.patchValue({
+      userData: {
+        username: suggestedName
+      }
+    });
   }
 
   // onSubmit(f: HTMLFormElement): void {

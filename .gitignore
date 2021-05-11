@@ -11,6 +11,7 @@ GRTAGS
 build/
 static_cdn/
 a.out
+a.exe
 *.swp
 seasocks*
 cmake-build*
