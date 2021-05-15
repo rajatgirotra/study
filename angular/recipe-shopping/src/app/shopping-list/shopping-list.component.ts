@@ -26,6 +26,10 @@ export class ShoppingListComponent implements OnInit, DoCheck {
     console.log('i', this.ingredients);
   }
 
+  onEditItem(index: number): void {
+    this.shoppingListService.startEditingMode.next(index);
+  }
+
   // tslint:disable-next-line:typedef
   // onNewIngredient(ingredient: Ingredient) {
   //   this.ingredients.push(ingredient);

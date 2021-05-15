@@ -27,9 +27,26 @@
           <textarea name="questionAnswer" rows="3" [(ngModel)]="answer" class="form-control"></textarea>
           <p>Your answer is {{ answer }}</p>
         </div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" name="gender" ngModel required [value]="gender" />
+            {{ gender }}
+          </label>
+        </div>
         <button class="btn btn-primary" type="submit"
         [disabled]="!f.valid">Submit</button>
       </form>
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <h3>Your data</h3>
+      <p>Username: {{ user.username }} </p>
+      <p>Email: {{user.email}}</p>
+      <p>Secret Question: {{user.secretQuestion}}</p>
+      <p>Answer: {{ user.answer }}</p>
+      <p>Gender: {{user.gender }}</p>
     </div>
   </div>
 </div>
@@ -70,4 +87,8 @@ Setting and Patching form values
 ----------------------------------
 Now there is also a way to set part/whole of the javascript form using setValue and patchValue functions.
 Let say you want to Suggest a username function when a user clicks on it. you can install a click listener and set/patch values there.
+
+resetting the form
+------------------
+trivial: just call reset()  in the TS on the javascript form object.
 -->

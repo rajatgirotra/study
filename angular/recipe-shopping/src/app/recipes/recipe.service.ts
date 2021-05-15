@@ -2,10 +2,15 @@ import {EventEmitter, Injectable} from '@angular/core';
 import {Recipe} from './recipe.model';
 import {Ingredient} from '../shared/ingerdient.model';
 import {ShoppingListService} from '../shopping-list/shopping-list.service';
+import {Subject} from 'rxjs';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class RecipeService {
     recipeSelected = new EventEmitter<Recipe>();
+    recipesChanged = new Subject<Recipe[]>();
+
     recipes: Recipe[] = [
         new Recipe('Tandoori Chap',
             'Mouth watering soy grilled in clay oven',
@@ -26,8 +31,22 @@ export class RecipeService {
         return this.recipes[idx];
     }
 
+    addRecipe(recipe: Recipe): void {
+        this.recipes.push(recipe);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    updateRecipe(index: number, recipe: Recipe): void {
+        this.recipes[index] = recipe;
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
     addIngredientsToShoppingCart(ingredients: Ingredient[]): void{
         this.shoppingListService.addIngredients(ingredients);
     }
 
+    deleteRecipe(index: number) {
+        this.recipes.splice(index, 1);
+        this.recipesChanged.next(this.recipes.slice());
+    }
 }
