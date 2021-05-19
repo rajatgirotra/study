@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {Post} from "./pos.model";
+import {PostsService} from "./posts.service";
 
 @Component({
   selector: 'app-root',
@@ -12,10 +13,14 @@ export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isFetching = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private postsService: PostsService) {}
 
   ngOnInit() {
-    this.fetchPosts();
+    this.isFetching = true;
+    this.postsService.fetchPosts().subscribe(posts => {
+      this.loadedPosts = posts;
+      this.isFetching = false;
+    });
   }
 
   onCreatePost(postData: { title: string; content: string }) {
@@ -25,48 +30,27 @@ export class AppComponent implements OnInit {
     // nothing happens if you dont subscribe
     // this.http.post('https://my-angular-study-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json', postData);
 
-    this.http
-        .post<{name: string}>('https://my-angular-study-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json',
-        postData).subscribe(
-        (responseData) => {
-          // resoponseData is the response body. Lets log it for now.
-          console.log(responseData);
-        }
-    );
+    this.postsService.createPost(postData);
     // console.log(postData);
   }
 
   onFetchPosts() {
+    this.isFetching = true;
     // Send Http request
-    this.fetchPosts();
+    this.postsService.fetchPosts().subscribe(posts => {
+      this.loadedPosts = posts;
+      this.isFetching = false;
+    });
   }
 
   onClearPosts() {
-    // Send Http request
-  }
-
-  private fetchPosts() {
-      this.isFetching = true;
-      this.http
-        .get<{[key: string]: Post}>('https://my-angular-study-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json')
-        .pipe(
-            map(responseData => {
-                const postsArray: Post[] = [];
-                for (const key in responseData) {
-                    if (responseData.hasOwnProperty(key)) {
-                        postsArray.push({ ...responseData[key], id: key});
-                    }
-                }
-                return postsArray;
-            })
-        )
-        .subscribe(posts => {
-            // simulate sleep to see Loading.. on front end
-            this.isFetching = false;
-            this.loadedPosts = posts;
-            // console.log(posts);
-        }
+    // Send Http request to delete all posts
+    this.postsService.deletePosts().subscribe(
+        (arg) => {
+          this.loadedPosts = [];
+    }
     );
+
   }
 }
 
