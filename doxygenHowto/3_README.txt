@@ -11,13 +11,13 @@ documentation. We'll see that later.
 There are many different ways of commenting that doxygen understands that you can easily get consfused, so just remember the below syntax. 
 
 /**
-      brief description
-
-      detailed description.
+  * brief description
+  *
+  * detailed description.
  */
 
 A line break identifies the boundry between brief and detailed description. If your brief description is also multiline
-use the \brief command
+use the \brief (or @brief) command
 
  For Brief description, remember three ways
  1) Use a brief command, as shown below. which ends at the next paragraph.
