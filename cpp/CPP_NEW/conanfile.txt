@@ -1,12 +1,13 @@
 [requires]
 boost/1.76.0
 benchmark/1.5.3
-gtest/cci.20210126
+gtest/1.10.0
 sqlite3/3.35.5
 doxygen/1.9.1
 
 [generators]
 cmake_find_package
+cmake
 
 [options]
 boost:without_python=False

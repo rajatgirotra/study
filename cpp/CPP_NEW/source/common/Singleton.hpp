@@ -1,18 +1,45 @@
-/**
- * @brief template Singleton class to help create one and only one instance of a class.
- *
- * Singleton<T> is very trivial.
+/** @file common/Singleton.hpp
+ *  include this file to create Singleton objects.
  */
-
 #pragma once
 
 #include <cstdlib>
 
 namespace cs {
     namespace common {
+        /**
+          * @brief template class to help create Singleton objects.
+          *
+          * to create Singleton class (say MySingleton), do:
+          * @code
+          * class MySingleton : public Singleton<MySingleton>
+          * {
+          *     friend class Singleton<MySingleton>;
+          * }
+          *
+          * MySingleton& ref = MySingleton::instance();
+          * @endcode
+          */
         template <typename T>
         class Singleton {
         public:
+
+            /**
+             * @brief function to create and return and instance of type T.
+             *
+             * when instance() is first called, it will create a new object of type T by calling its default constructor;
+             * subsequent calls to instance() will return the same object.\n
+             * lifetime of the object returned by instance() is managed by the class itself. Do not call delete/free() on the
+             * returned instance.\n
+             * <b>this method can be safely called from within the destructor of static objects also. @emoji :smile: </b>
+             *
+             * <b>Thread-safety</b>\n
+             * This method is thread-safe.
+             *
+             * @return an instance of a class T where T is the template argument.
+             *
+             * @sa common/Singleton.hpp
+             */
             static T& instance();
 
             // disable copy constructor and assignments

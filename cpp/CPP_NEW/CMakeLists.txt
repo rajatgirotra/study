@@ -65,6 +65,9 @@ find_package(SQLite3 3.35.5 EXACT REQUIRED QUIET)
 message(STATUS "using sqlite3 ${SQLite3_VERSION}, include-path: ${SQLite3_INCLUDE_DIRS},"
         " libs - ${SQLite3_LIBRARIES}")
 
+# find valgrind program
+find_program(VALGRIND_EXECUTABLE NAMES valgrind REQUIRED)
+message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
 
 # Find Google-protobuf
 #set(ENV{Protobuf_SRC_ROOT_FOLDER} ${DEVTOOLS_DIR})
@@ -104,11 +107,10 @@ if(BUILD_TESTS)
     message(STATUS "using GTest ${}, include-path: ${GTest_INCLUDE_DIRS},"
             " libs - ${GTest_LIBS}")
 
-    add_subdirectory(test)
     set(ENABLE_TESTING ON)
     include(CTest)
-
     include(GoogleTest)
+    add_subdirectory(test)
     if(RUN_TESTS)
         # TODO. Code to call ctest to run all the discovered tests.
         message(NOTICE "running unit tests is enabled")
