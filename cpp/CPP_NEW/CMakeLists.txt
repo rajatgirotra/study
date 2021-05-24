@@ -20,7 +20,7 @@ include(cmake/CompilerWarnings.cmake)
 set_project_warnings(project_warnings)
 
 # create an interface target. we can attach cmake properties to this library which will apply globally to our build.
-add_library(project_options INTERFACE)
+add_library(project_options INTERFACE source/common/system/Spinlock.hpp source/common/system/Spinlock.cpp)
 # cmake now has its own dataset of compilers names, versions and the features that are supported by those compiler versions
 # CMAKE_CXX_KNOWN_FEATURES is a list of all c++ features known to cmake. CMAKE_CXX_COMPILE_FEATURES is a subset of CMAKE_CXX_KNOWN_FEATURES
 # which can be used to turn off/on certain flags. Here we use one such feature to turn on C++17 flag

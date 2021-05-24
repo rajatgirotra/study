@@ -22,3 +22,10 @@ target_link_libraries(SingletonTest PRIVATE project_options project_warnings GTe
 # We will not dwelve into CDash as having your own CDash server has many pre-requisites like Apache/Nginx, MySQL/Postgres,
 # PHP, Curl etc etc.
 gtest_discover_tests(SingletonTest)
+
+
+add_executable(SpinlockTest SpinlockTest.cpp)
+target_include_directories(SpinlockTest PUBLIC ${CMAKE_SOURCE_DIR}/source/ ${GTest_INCLUDE_DIRS})
+target_link_libraries(SpinlockTest PRIVATE cscommon project_options project_warnings GTest::gtest)
+gtest_discover_tests(SpinlockTest)
+
