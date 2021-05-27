@@ -11,15 +11,17 @@ export class RecipeService {
     recipeSelected = new EventEmitter<Recipe>();
     recipesChanged = new Subject<Recipe[]>();
 
-    recipes: Recipe[] = [
-        new Recipe('Tandoori Chap',
-            'Mouth watering soy grilled in clay oven',
-            'https://img-global.cpcdn.com/recipes/d128d41b0978b2da/1200x630cq70/photo.jpg',
-            [new Ingredient('Soya',15), new Ingredient('Milk', 500)]),
-        new Recipe('Chilli Paneer', 'Cubes of paneer cooked with green pepper, green chilli, onion and garlic',
-            'https://myheartbeets.com/wp-content/uploads/2019/08/indo-chinese-chilli-paneer.jpg',
-            [new Ingredient('Paneer',500), new Ingredient('Chilli', 50)])
-    ];
+    // recipes: Recipe[] = [
+    //     new Recipe('Tandoori Chap',
+    //         'Mouth watering soy grilled in clay oven',
+    //         'https://img-global.cpcdn.com/recipes/d128d41b0978b2da/1200x630cq70/photo.jpg',
+    //         [new Ingredient('Soya',15), new Ingredient('Milk', 500)]),
+    //     new Recipe('Chilli Paneer', 'Cubes of paneer cooked with green pepper, green chilli, onion and garlic',
+    //         'https://myheartbeets.com/wp-content/uploads/2019/08/indo-chinese-chilli-paneer.jpg',
+    //         [new Ingredient('Paneer',500), new Ingredient('Chilli', 50)])
+    // ];
+
+    private recipes: Recipe[] = [];
 
     getRecipes(): Recipe[] {
         return this.recipes.slice();
@@ -47,6 +49,11 @@ export class RecipeService {
 
     deleteRecipe(index: number) {
         this.recipes.splice(index, 1);
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+    saveRecipes(recipes: Recipe[]) {
+        this.recipes = recipes;
         this.recipesChanged.next(this.recipes.slice());
     }
 }
