@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {BehaviorSubject, Subject, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
+import {User} from './user.model';
+import {Router} from '@angular/router';
 
 export interface AuthResponseData {
     idToken: string; // A Firebase Auth ID token for the newly created user.
@@ -17,7 +19,8 @@ export interface AuthResponseData {
 })
 export class AuthService {
 
-    constructor(private http: HttpClient) {
+    user = new BehaviorSubject<User>(null); // see data-storage.service.ts for more information on BehaviorSubject.
+    constructor(private http: HttpClient, private router: Router) {
     }
 
     private handleError(errorResponse: HttpErrorResponse) {
@@ -41,15 +44,35 @@ export class AuthService {
         return throwError(errorMessage);
     }
 
+    private handleAuthentication(email: string, userId: string, token: string, expiresInSeconds: number): void {
+        const expiryDate = new Date(new Date().getTime() + (expiresInSeconds * 1000));
+        const user = new User(email, userId, token, expiryDate);
+        console.log(user);
+        this.user.next(user);
+    }
+
     signUp(email: string, password: string) {
         return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBoNmDrmJI0_-yQWBaPIJOqXeq7T4repkY',
             {email, password, returnSecureToken: true})
-            .pipe(catchError(this.handleError));
+            .pipe(catchError(this.handleError),
+                tap(responseData => {
+                    this.handleAuthentication(responseData.email, responseData.localId, responseData.idToken, +responseData.expiresIn);
+                    }
+                ));
     }
 
     login(email: string, password: string) {
         return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBoNmDrmJI0_-yQWBaPIJOqXeq7T4repkY',
             {email, password, returnSecureToken: true})
-            .pipe(catchError(this.handleError));
+            .pipe(catchError(this.handleError),
+                tap(responseData => {
+                        this.handleAuthentication(responseData.email, responseData.localId, responseData.idToken, +responseData.expiresIn);
+                    }
+                ));
+    }
+
+    logout(): void {
+        this.user.next(null);
+        this.router.navigate(['/auth']);
     }
 }

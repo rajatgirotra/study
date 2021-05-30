@@ -3,14 +3,14 @@ import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/rou
 import {Observable} from 'rxjs';
 import {RecipeService} from './recipe.service';
 import {Recipe} from './recipe.model';
-import {HttpRecipeService} from '../shared/http-recipe.service';
+import {DataStorageService} from '../shared/data-storage.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RecipesResolverService implements Resolve<Recipe[]> {
 
-    constructor(private recipeService: RecipeService, private httpRecipeService: HttpRecipeService) {
+    constructor(private recipeService: RecipeService, private httpRecipeService: DataStorageService) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Recipe[]> | Promise<Recipe[]> | Recipe[] {

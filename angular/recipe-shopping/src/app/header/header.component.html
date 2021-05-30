@@ -8,13 +8,21 @@
             <ul class="nav navbar-nav">
 <!--                <li><a href="#" (click)="onHeaderSelect(true)">Recipes</a></li>-->
 <!--                <li><a href="#" (click)="onHeaderSelect(false)">Shopping List</a></li>-->
-                <li routerLinkActive="active"><a [routerLink]="['/recipes']">Recipes</a></li>
-                <li routerLinkActive="active"><a [routerLink]="['/auth']">Auth</a></li>
+                <li routerLinkActive="active" *ngIf="isAuthenticated">
+                    <a [routerLink]="['/recipes']">Recipes</a>
+                </li>
+                <li routerLinkActive="active" *ngIf="!isAuthenticated"><a [routerLink]="['/auth']">Auth</a></li>
                 <li routerLinkActive="active"><a [routerLink]="['/shopping-list']">Shopping List</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown" appDropdown>
+                <li class="dropdown" appDropdown *ngIf="isAuthenticated">
+                    <a style="cursor: pointer;" (click)="onLogout()">Logout</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" appDropdown *ngIf="isAuthenticated">
                     <a style="cursor: pointer;" class="dropdown-toggle" role="button">Manage <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a style="cursor: pointer;" (click)="onSaveData()">Save Data</a></li>
