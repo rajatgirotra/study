@@ -1,11 +1,20 @@
+
+<ng-template appAlert></ng-template> <!-- to show how to add components dynamically through typescript code -->
 <div class="row">
     <div class="col-xs-12 col-md-6 col-md-offset-3">
         <div style="align-content: center;" *ngIf="isLoading">
             <app-spinning-wheel></app-spinning-wheel>
         </div>
-        <div class="alert alert-danger" *ngIf="error && !isLoading">
-            <h3>{{error}}</h3>
-        </div>
+<!--        <div class="alert alert-danger" *ngIf="error && !isLoading">-->
+<!--            <h3>{{error}}</h3>-->
+<!--        </div>-->
+
+<!--        <app-alert [message]="error" (closeError)="doCloseAlert()" *ngIf="error && !isLoading"></app-alert> -->
+        <!--
+            We are not using *ngIf to show how we can add components dynamically, ie through typescript code.
+            For that we need viewContainerRef
+-->
+
         <div *ngIf="!isLoading">
             <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
                 <div class="form-group">

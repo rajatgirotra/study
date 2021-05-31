@@ -1,9 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthResponseData, AuthService} from './auth.service';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {User} from './user.model';
 import {Router} from '@angular/router';
+import {AlertComponent} from '../shared/alert/alert.component';
+import {AlertDirective} from '../shared/alert/alert.directive';
 
 
 /**
@@ -28,11 +30,23 @@ export class AuthComponent implements  OnInit, OnDestroy {
     error: string = null;
     userObs = new Observable<User>();
     user: User = null;
+    private closeSub: Subscription;
 
-    constructor(private authService: AuthService, private router: Router) {
+    // ViewChild will fetch the first occurrence of AlertDirective in the html.
+    @ViewChild(AlertDirective, {static: false}) alertHost: AlertDirective;
+
+    constructor(private authService: AuthService, private router: Router,
+                private componentFactoryResolver: ComponentFactoryResolver) {
     }
 
     ngOnDestroy(): void {
+        if (this.closeSub) {
+            this.closeSub.unsubscribe();
+        }
+    }
+
+    doCloseAlert(): void {
+        this.error = null;
     }
 
     ngOnInit(): void {
@@ -74,10 +88,39 @@ export class AuthComponent implements  OnInit, OnDestroy {
             errorMessage => {
                 console.log(errorMessage);
                 this.error = errorMessage;
+                this.showErrorAlert(errorMessage);
                 this.isLoading = false;
             }
         );
         authForm.reset();
+    }
+
+    showErrorAlert(errorMessage: string) {
+        /**
+         * though creating a component like below is valid TS code, its not valid Angular code. You cannot add new component just by instantiating
+         * it. its because angular does a lot of wiring when creating a new Component for you. like registering for DOM change detection etc.
+         * So what we need to do really is create a ComponentFactory for this component, and then create a component object from that component factory.
+         */
+        // const alertComp = new AlertComponent();
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+
+        /**
+         * now to inject the component, we need a place in the DOM where to add it. right now we dont have that.
+         * For that we need a ViewContainerRef.
+         * A ViewContainerRef represents a container where one or more views can be attached to a component.
+         */
+        const hostViewContainerRef = this.alertHost.viewContainerRef;
+        hostViewContainerRef.clear(); // clear all angular components that have been rendered.
+        const alertCompRef = hostViewContainerRef.createComponent(componentFactory);
+
+        // how to now pass message and listen to events from my component
+        alertCompRef.instance.message = errorMessage;
+        this.closeSub = alertCompRef.instance.closeError.subscribe(
+            () => {
+                this.closeSub.unsubscribe();
+                hostViewContainerRef.clear();
+            }
+        );
     }
 
     onSwitchMode(): void {
