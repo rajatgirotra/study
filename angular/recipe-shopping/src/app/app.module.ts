@@ -4,39 +4,37 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import {HeaderComponent} from './header/header.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {ShoppingListService} from './shopping-list/shopping-list.service';
 import {AppRoutingModule} from './app-routing.module';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AuthComponent} from './auth/auth.component';
-import {SpinningWheelComponent} from './shared/loaders/spinning-wheel.component';
-import {AuthInterceptorService} from './auth/auth-interceptor.service';
-import {AlertComponent} from './shared/alert/alert.component';
-import {AlertDirective} from './shared/alert/alert.directive';
+import {HttpClientModule} from '@angular/common/http';
 import {RecipesModule} from './recipes/recipes.module';
 import {ShoppingListModule} from './shopping-list/shopping-list.module';
+import {SharedModule} from './shared/shared.module';
+import {CoreModule} from './core.module';
+import {AuthModule} from './auth/auth.module';
 
 @NgModule({
   declarations: [
       AppComponent,
       HeaderComponent,
-      AuthComponent,
-      SpinningWheelComponent,
-      AlertComponent,
-      AlertDirective
   ],
     imports: [
         BrowserModule,
-        ReactiveFormsModule,
         AppRoutingModule,
-        FormsModule,
         HttpClientModule,
         RecipesModule,
-        ShoppingListModule
+        ShoppingListModule,
+        SharedModule,
+        CoreModule,
+        AuthModule
     ],
-  providers: [ShoppingListService, {
-      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
+  providers: [
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+/**
+ * Service classes can have @Injectable({[providedIn: 'root']}. That way you dont need to register them in providers array here.
+ * But for some reason if you dont use @Injectable like above, there is a practice to make your app-module.ts leaner by listing all your
+ * services in a separate module called CoreModule. see core-module.ts
+ */
