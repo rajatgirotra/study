@@ -63,3 +63,13 @@ environments
 you angular app has an environments folder which has an environment.ts and environment.prod.ts files. This is where you can configure the environment for your prod and dev instances. Like for prod instances.
 1) you can have different navbar color to indicate its prod
 2) you can change the name of the navbar-brand to add a "PROD" suffix etc etc.
+
+-----------------------------------------------------------
+Deployment
+you need to deploy your angular app on any static hosting website solutions. you need static hosting as you only have HTML/Javascript/CSS.
+you can consider AWS S3 which provides a solution for static hosting. We are using firebase here.
+
+sudo npm install -g firebase-tools
+firebase login
+firebase init
+firebase deploy
