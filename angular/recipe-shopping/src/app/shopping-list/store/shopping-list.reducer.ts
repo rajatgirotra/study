@@ -14,7 +14,7 @@ const initialState = {
     ]
 };
 
-export function shoppingListReducer (state = initialState, action: ShoppingListActions.AddIngredient) {
+export function shoppingListReducer (state = initialState, action: ShoppingListActions.ShoppingListActions) {
     // initialState is the initial value of the application store when the reducer will be first called by @ngrx/store.
     /**
      * remember that Action must have a type and a payload. So lets create a shopping-list.actions.ts
@@ -39,6 +39,26 @@ export function shoppingListReducer (state = initialState, action: ShoppingListA
                 ...state, ingredients: [
                     ...(state.ingredients), action.payload
                 ]
+            };
+        case ShoppingListActions.ADD_INGREDIENTS:
+            return {
+                ...state, ingredients: [
+                    ...(state.ingredients), ...(action.payload)
+                ]
+            };
+        case ShoppingListActions.UPDATE_INGREDIENT:
+            const ingredient = state.ingredients[action.payload.index];
+            const updatedIngredient = {...ingredient, ...action.payload.ingredient};
+            const updatedIngredients = [...state.ingredients];
+            updatedIngredients[action.payload.index] = updatedIngredient;
+            return {
+                ...state, ingredients: updatedIngredients
+            };
+        case ShoppingListActions.DELETE_INGREDIENT:
+            return {
+                ...state, ingredients: state.ingredients.filter((ig, index) => {
+                    return index !== action.payload;
+                })
             };
         default:
             // return the state unchanged.
