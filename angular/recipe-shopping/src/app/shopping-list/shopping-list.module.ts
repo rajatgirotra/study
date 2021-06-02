@@ -6,7 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 
 const appRoutes: Routes = [
-    {path: 'shopping-list', component: ShoppingListComponent}
+    {path: '', component: ShoppingListComponent}
 ]
 
 @NgModule({
