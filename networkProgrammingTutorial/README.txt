@@ -76,3 +76,11 @@ Socket Pair
 ----------
 socket is a IP,Port pair. Socket Pair is IP,Port pair of both the client and server.
 
+TIMED_WAIT
+---------
+the TCP peer initiating the close of connection (i.e which sends the inital FIN) has to go through the TIMED_WAIT state for a period of 2MSL (2 times Maximum Segment Lifetime). MSL is defined differently by different TCP implementations but is normally between 30 seconds to 2 mins. So 2 MSL is roughly 1 minute to 4 minutes. Why we have this?
+
+1) If the last FIN (sent by the peer doing the passive close) is lost, the peer doing the active close will need to re-transmit the ACK for it. So it must remain in TIMED_WAIT state for some time
+
+2) If another connection with the same socket pair is created, there are chances that an old packet from the last connection can make its way in the new connection. So 2 MSL time just gives the packet sufficient time to die in the network so that the new connection doesnt get any packets from an old connection
+
