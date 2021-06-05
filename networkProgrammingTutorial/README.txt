@@ -84,3 +84,72 @@ the TCP peer initiating the close of connection (i.e which sends the inital FIN)
 
 2) If another connection with the same socket pair is created, there are chances that an old packet from the last connection can make its way in the new connection. So 2 MSL time just gives the packet sufficient time to die in the network so that the new connection doesnt get any packets from an old connection
 
+connect system call
+-------------------
+connect() system call starts the 3 way TCP handshake. remember that if a connect() system call fails, you need to close the socket and open again before you call connect again. Also common errors from connect function are:
+1) ECONNREFUSED --> this means that the peer TCP has no application listening on the specified port
+2) ETIMEDOUT --> this means that SYN request never received a reply. One common reason is that the host IP is non-existant, so there is no TCP peer.
+3) EHOSTUNREACH or ENETUNREACH --> this means that the IP address is valid but there is no route to host, so an intermediate router would return "destination unreachable"
+
+bind system call
+----------------
+bind is used to bind and IP and port to a socket. Normally server processes will bind to a well known port number. and client processes will not get call bind and they will be assigned an ephemeral port by the kernel. common error returned from bind is EADDRESSINUSE. To find the ephemeral protocol address (ip and port) assigned by the kernel, use the getsockname() API.
+
+listen system call
+------------------
+int listen(int sockfd, int backlog)
+listen does two things
+1)by default every TCP socket is assumed to be an active socket, ie a client socket that will issue a connect call. so listen converts a socket from active to passive.
+2) every tcp server maintains two Q's. one Q of the number of completed connections (which have completed the 3-way handshake) and the second Q of the number of incomplete connections. i.e those for which SYN is received from client.
+
+backlog is the total of both these Q's. this means if backlog is 1 and you already have one connection. the second connection from another client will be rejected. As connections are completed, they are only removed from the completed connections Q, when the server calls accept.
+
+accept system call
+------------------
+sockaddr_in cliaddr;
+int clilen = sizeof(cliaddr);
+int connfd_or_error = accept(listen_fd, reinterpret_cast<sockaddr*>(&cliaddr), &clilen);
+accept() returns the connected socket descriptor if successful, otherwise will return an error. also the cliaddr, and clilen are value-result arguments (ie, both input and output parameters). cliaddr is filled with the protocol address (IP and port) of the TCP client peer
+
+concurrent servers
+-----------------
+for writing concurrent servers, the main server can fork a new process to handle the new client connection using the fork() and exec() system calls.
+pid_t fork(void); 
+fork() is really easy. it is called once but returns twice. It returns 0 in the child process. and it returns the pid of the child process in the parent process. it returns 0 because every process has exactly one parent and the process can all getppid() to get its parent pid. however for a parent to know of all its children, it must do its own book-keeping when the child pid id returned from the fork() call. after a call to fork both parent and child share the open descriptors. usually in concurrent systems, the parent process will close the client socket and the client will close the listening socket.
+
+also remember the 6 overloaded exec() family of calls used to create a new process. easy way to remember is execl. execl takes a list of arguments to the process as multiple char* arguments.
+
+execl(const char* pathname, const char* arg0, const char* arg1, const char* arg2,... const char* argn) --> the last const char* must be nullptr.
+
+execle (e means function also takes a const char* envp[])
+execle(const char* pathname, const char* arg0, const char* arg1, const char* arg2,... const char* argn, const char* envp[]) --> the last const char* must be nullptr.
+
+execlp (p means the function takes a filename and not a pathname). filename must be found in $PATH.
+execle(const char* filename, const char* arg0, const char* arg1, const char* arg2,... const char* argn) --> the last const char* must be nullptr.
+
+then you have execv. --> execv takes list of arguments as an array.
+execv(const char* pathname, const char* argv[]);
+execve(const char* pathname, const char* argv[], const char* envp[]);
+execvp(const char* filename, const char* argv[]);
+
+Also REMEMBER that calling close(sockfd) should start the TCP connection termination sequence. ie a FIN should be sent. however these descriptors are reference counted. so only when the reference count reaches 0, then the termination sequence will start.
+
+getsockname()/getpeername()
+---------------------------
+both have same declartion
+
+serveraddr_in serveraddr;
+int len = sizeof(serveraddr);
+getsockname(int sockfd, reinterpret_cast<sockaddr*>(&serveraddr), &len);
+getpeername(int sockfd, reinterpret_cast<sockaddr*>(&serveraddr), &len);
+
+use of getsockname/getpeername
+1) client TCP
+   a) can use getsockname() to get the local protocol address (family, ip, port) assigned by the kernel. usually client tcp doesnt call bind so kernel assign ip and port.
+   b) can use getpeername() on the connected socket to get the protocol address (ip, port) of the TCP server.
+2) server TCP
+   a) if server calls bind with port 0 (ie kernel supposed to assign a port), getsockname() will return the local protocol address
+   b) if server calls bind with INADDR_ANY, then after accept(), getsockname() can return the local protocol address
+   c) if the server forks() and execs(), we can pass the connected socket descriptor to the new program via the command line, and the new program can call getpeername() to get the protocol        address of the client which it should handle.
+
+
