@@ -2,7 +2,10 @@ import { Component, OnInit, DoCheck } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
 import {ShoppingListService} from './shopping-list.service';
 import {Store} from '@ngrx/store';
-import {shoppingListReducer} from './store/shopping-list.reducer';
+// import {shoppingListReducer} from './store/shopping-list.reducer';
+import * as fromShoppingList from './store/shopping-list.reducer';
+import * as ShoppingListActions from './store/shopping-list.actions';
+
 import {Observable} from 'rxjs';
 @Component({
   selector: 'app-shopping-list',
@@ -22,7 +25,8 @@ export class ShoppingListComponent implements OnInit, DoCheck {
    * ie. nothing but the initialState type in shopping-list.reducer.ts
    */
   constructor(private shoppingListService: ShoppingListService,
-              private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) {
+              // private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) {
+              private store: Store<fromShoppingList.AppState>) {
     console.log('ShoppingListComponent ctor called!');
   }
 
@@ -36,15 +40,16 @@ export class ShoppingListComponent implements OnInit, DoCheck {
     // );
 
     // store.select returns a slice of the application store as an Observable<> where type is the data format of your store.
-    this.ingredients = this.store.select('shoppingList')
+    this.ingredients = this.store.select('shoppingList');
   }
 
   ngDoCheck() {
-    console.log('i', this.ingredients);
+    // console.log('i', this.ingredients);
   }
 
   onEditItem(index: number): void {
-    this.shoppingListService.startEditingMode.next(index);
+    // this.shoppingListService.startEditingMode.next(index);
+    this.store.dispatch(new ShoppingListActions.StartEdit(index));
   }
 
   // tslint:disable-next-line:typedef
