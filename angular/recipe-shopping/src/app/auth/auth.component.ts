@@ -6,7 +6,9 @@ import {User} from './user.model';
 import {Router} from '@angular/router';
 import {AlertComponent} from '../shared/alert/alert.component';
 import {AlertDirective} from '../shared/alert/alert.directive';
-
+import {Store} from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import {LoginStart, SignupStart} from './store/auth.actions';
 
 /**
  * Authentication in Angular --> In a normal HTTP application, a user is authenticated by some mechanism like UserName/Password, DirectLink to login
@@ -28,7 +30,7 @@ export class AuthComponent implements  OnInit, OnDestroy {
     isLoginMode = false;
     isLoading = false;
     error: string = null;
-    userObs = new Observable<User>();
+    // userObs = new Observable<User>();
     user: User = null;
     private closeSub: Subscription;
 
@@ -36,7 +38,8 @@ export class AuthComponent implements  OnInit, OnDestroy {
     @ViewChild(AlertDirective, {static: false}) alertHost: AlertDirective;
 
     constructor(private authService: AuthService, private router: Router,
-                private componentFactoryResolver: ComponentFactoryResolver) {
+                private componentFactoryResolver: ComponentFactoryResolver,
+                private store: Store<fromApp.AppState>) {
     }
 
     ngOnDestroy(): void {
@@ -50,11 +53,18 @@ export class AuthComponent implements  OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.userObs.subscribe(
-          user => {
-              this.user = user;
-          }
-        );
+        // this.userObs.subscribe(
+        //   user => {
+        //       this.user = user;
+        //   }
+        // );
+        this.store.select('auth').subscribe(authState => {
+            this.isLoading = authState.isLoading;
+            this.error = authState.authError;
+            if (this.error) {
+               this.showErrorAlert(this.error);
+            }
+        });
     }
 
     onSubmit(authForm: NgForm) {
@@ -70,28 +80,30 @@ export class AuthComponent implements  OnInit, OnDestroy {
 
         const email = authForm.value.email;
         const password = authForm.value.password;
-        this.isLoading = true;
+        // this.isLoading = true;
         if (this.isLoginMode) {
-            authObs = this.authService.login(email, password);
+            // authObs = this.authService.login(email, password);
+            this.store.dispatch(new LoginStart({email, password}) );
         }
         else {
-            authObs = this.authService.signUp(email, password);
+            // authObs = this.authService.signUp(email, password);
+            this.store.dispatch(new SignupStart({email, password}));
         }
 
-        authObs.subscribe(
-            responseData => {
-                console.log(responseData);
-                this.error = null;
-                this.isLoading = false;
-                this.router.navigate(['/recipes']);
-            },
-            errorMessage => {
-                console.log(errorMessage);
-                this.error = errorMessage;
-                this.showErrorAlert(errorMessage);
-                this.isLoading = false;
-            }
-        );
+        // authObs.subscribe(
+        //     responseData => {
+        //         console.log(responseData);
+        //         this.error = null;
+        //         this.isLoading = false;
+        //         this.router.navigate(['/recipes']);
+        //     },
+        //     errorMessage => {
+        //         console.log(errorMessage);
+        //         this.error = errorMessage;
+        //         this.showErrorAlert(errorMessage);
+        //         this.isLoading = false;
+        //     }
+        // );
         authForm.reset();
     }
 

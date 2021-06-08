@@ -1,0 +1,33 @@
+To understand deploying djano in production using an HTTP server like nginx, let's understand some history first.
+
+cgi (Common Gateway Interface)
+------------------------------
+HTTP was always static by design which means it could only serve static content. There was no support for HTML form submission.
+So to add that support HTTP server had to fork a process (a python or perl script mostly) and that process would be passed some environment variables
+that the script could read and process the request. Whatever the script wrote to stdout would become the response from the script.
+
+but soon different HTTP servers started providing different set of environment variables so it became hard to write portable scripts that could work with any HTTP server. So this got standardized into Common Gateway Interface (CGI). So CGI is not an interface really, it is just a set of environment variables which are passed from the HTTP server to the external script.
+
+WSGI (Web service gateway interface)
+------------------------------------
+Python went ahead and created a standard interface that all allowed all HTTP servers like nginx, apache, uWSGI, etc to call python script for HTML form processing in a consistent way. The interface was really simple. HTTP server just needed to call a callable in python which took two parameters:
+
+def request(env, response):
+    # env is the set of environment variables (from CGI standard)
+    # response is a function which you must call only once only with two arguments.
+    # 1)  with the response status and the content type.
+    # 2)  a list of tuples of response header key and value (like Content-Type: application/html
+    status = '200 OK'
+    response(status, [('Content-Type', 'application/html')]
+    print('Hello World')
+
+So now back to deployment
+-------------------------
+The problem with HTTP Server calling the script is that it needs to fork a python interpreter for every HTTP request which was proving to be extremenly costly, so the way out was to use pre-forking. Pre-forking could be done 
+1) by the HTTP Server itself when it was idle (like Apache server can do it using mod_wsgi module)
+2) if HTTP server isnt capable of pre-forking, we can introduce something in the middle of HTTP server and django backend that could do pre-forking.
+and the HTTP Server could just forward the request to that middleman. that middleman is uWSGI or gnuicorn. These programs can pre-fork multiple python interpreters so there is no run time cost of forking involved. These pre-forked processes are called web service workers.
+
+nginx with uWSGI with Django setup
+----------------------------------
+    

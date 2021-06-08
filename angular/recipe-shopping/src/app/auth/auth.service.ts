@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 import * as fromApp from '../store/app.reducer'
 import {Store} from '@ngrx/store';
-import {LoginAction, LogoutAction} from './store/auth.actions';
+import {AuthenticateSuccess, Logout} from './store/auth.actions';
 
 export interface AuthResponseData {
     idToken: string; // A Firebase Auth ID token for the newly created user.
@@ -56,7 +56,7 @@ export class AuthService {
         const user = new User(email, userId, token, expiryDate);
         console.log(user);
         // this.user.next(user);
-        this.store.dispatch(new LoginAction({email, userId, token, expirationDate: expiryDate}));
+        this.store.dispatch(new AuthenticateSuccess({email, userId, token, expirationDate: expiryDate}));
         this.autoLogout(expiresInSeconds * 1000);
         // persist user information
         localStorage.setItem('userData', JSON.stringify(user));
@@ -84,7 +84,7 @@ export class AuthService {
 
     logout(): void {
         // this.user.next(null);
-        this.store.dispatch(new LogoutAction());
+        this.store.dispatch(new Logout());
         this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
         if (this.logoutExpirationTimer) {
@@ -116,7 +116,7 @@ export class AuthService {
         // console.log('loaded user token', loadedUser.token);
         if (loadedUser.token) {
             // this.user.next(loadedUser);
-            this.store.dispatch(new LoginAction(
+            this.store.dispatch(new AuthenticateSuccess(
                 {email: loadedUser.email, userId: loadedUser.userId,
                     token: loadedUser.token, expirationDate: new Date(userData._tokenExpiryDate)}));
         }
