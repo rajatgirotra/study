@@ -1,3 +1,8 @@
+/**
+ * shopping list service became redundant after we used ngrx.
+ * however i did not delete it so i can refer it again in future.
+ */
+
 import {Ingredient} from '../shared/ingredient.model';
 // import {EventEmitter} from '@angular/core';
 import {Subject} from 'rxjs';

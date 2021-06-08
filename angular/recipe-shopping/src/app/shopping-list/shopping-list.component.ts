@@ -3,7 +3,7 @@ import { Ingredient } from '../shared/ingredient.model';
 import {ShoppingListService} from './shopping-list.service';
 import {Store} from '@ngrx/store';
 // import {shoppingListReducer} from './store/shopping-list.reducer';
-import * as fromShoppingList from './store/shopping-list.reducer';
+import * as fromApp from '../store/app.reducer';
 import * as ShoppingListActions from './store/shopping-list.actions';
 
 import {Observable} from 'rxjs';
@@ -26,7 +26,7 @@ export class ShoppingListComponent implements OnInit, DoCheck {
    */
   constructor(private shoppingListService: ShoppingListService,
               // private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) {
-              private store: Store<fromShoppingList.AppState>) {
+              private store: Store<fromApp.AppState>) {
     console.log('ShoppingListComponent ctor called!');
   }
 

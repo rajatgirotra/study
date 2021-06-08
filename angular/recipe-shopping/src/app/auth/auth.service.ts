@@ -5,6 +5,9 @@ import {catchError, tap} from 'rxjs/operators';
 import {User} from './user.model';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
+import * as fromApp from '../store/app.reducer'
+import {Store} from '@ngrx/store';
+import {LoginAction, LogoutAction} from './store/auth.actions';
 
 export interface AuthResponseData {
     idToken: string; // A Firebase Auth ID token for the newly created user.
@@ -20,8 +23,9 @@ export interface AuthResponseData {
 })
 export class AuthService {
 
-    user = new BehaviorSubject<User>(null); // see data-storage.service.ts for more information on BehaviorSubject.
-    constructor(private http: HttpClient, private router: Router) {
+    // user = new BehaviorSubject<User>(null); // see data-storage.service.ts for more information on BehaviorSubject.
+    constructor(private http: HttpClient, private router: Router,
+                private store: Store<fromApp.AppState>) {
     }
 
     private logoutExpirationTimer: any;
@@ -51,7 +55,8 @@ export class AuthService {
         const expiryDate = new Date(new Date().getTime() + (expiresInSeconds * 1000));
         const user = new User(email, userId, token, expiryDate);
         console.log(user);
-        this.user.next(user);
+        // this.user.next(user);
+        this.store.dispatch(new LoginAction({email, userId, token, expirationDate: expiryDate}));
         this.autoLogout(expiresInSeconds * 1000);
         // persist user information
         localStorage.setItem('userData', JSON.stringify(user));
@@ -78,7 +83,8 @@ export class AuthService {
     }
 
     logout(): void {
-        this.user.next(null);
+        // this.user.next(null);
+        this.store.dispatch(new LogoutAction());
         this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
         if (this.logoutExpirationTimer) {
@@ -109,7 +115,10 @@ export class AuthService {
         const loadedUser = new User(userData.email, userData.userId, userData._token, new Date(userData._tokenExpiryDate));
         // console.log('loaded user token', loadedUser.token);
         if (loadedUser.token) {
-            this.user.next(loadedUser);
+            // this.user.next(loadedUser);
+            this.store.dispatch(new LoginAction(
+                {email: loadedUser.email, userId: loadedUser.userId,
+                    token: loadedUser.token, expirationDate: new Date(userData._tokenExpiryDate)}));
         }
 
         // clear any old timeout if set and start new timeout to logout after token expires.
