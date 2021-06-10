@@ -5,11 +5,11 @@ SSL/TLS provides
 2) Data Integrity --> i.e. you can be sure that your data hasnt been changed and tampered with
 3) Authentication --> i.e. you can be sure that you are communicating with the intented person/server/application.
 
-When communication with a peer, how do you make sure your data is not read by anyone else and that it is not changed.
+When communicating with a peer, how do you make sure your data is not read by anyone else and that it is not changed.
 You ensure this by ENCRYPTING IT and by SIGNING IT.  Both these require the use of keys. SSL/TLS uses asymmetric keys ie algos like RSA etc.
 
 The PUBLIC KEY is used to ENCRYPT the message. and the PRIVATE KEY is used to DECRYPT it.
-But how do you make sure the PUBLIC KEY belongs to the entity who claims it. The answer is that you need a Certificate Authority to sig n it.
+But how do you make sure the PUBLIC KEY belongs to the entity who claims it. The answer is that you need a Certificate Authority to sign it.
 That's what you call a Digital Certificate. A Digital Certificate establishes a link between the PUBLIC KEY and the entity who claims it.
 Once signed, you can distribute your signed public key freely. This is an X.509 digital certificate.
 
@@ -29,7 +29,7 @@ mail.mydomain.com
 www.mydomain.com
 ftp.mydomain.com
 
-Common file formats for Digital Certificate files are. Certificate files can be bin ASCII format or Binary.
+Common file formats for Digital Certificate files are. Certificate files can be in Base64 ASCII format or in Binary format.
 
 1) .der
 2) .pem
@@ -41,8 +41,8 @@ Common file formats for Digital Certificate files are. Certificate files can be 
 We must learn to differentiate between the file extensions above and the actual encoding used for the certificate. Encoding is different to the file extensions. The following codings are available
 
 1) DER: A binary encoding used for the X.509 certificate. These kind of files can have the extension .der, .crt, .cert, .cer
-2) PEM: An ASCII endoded X.509 certificate. Has -- BEGIN CERTIFICATE-- and -- END CERTIFICATE -- lines. file extension could be .pem, .crt, .cert, .cer
-3) KEY: Just contains the PUBLIC or PRIVATE in PKCS8/PCKS12 format.
+2) PEM: A base64 encoded ASCII X.509 certificate. Has -- BEGIN CERTIFICATE-- and -- END CERTIFICATE -- lines. file extension could be .pem, .crt, .cert, .cer
+3) KEY: Just contains the PUBLIC or PRIVATE key in binary DER or ASCII PEM format
 
 you can use openssl tools to find the encoding type or convert between encoding types.
 For example a PEM format is a simple ASCII format which has BEGIN CERTIFICATE and END CERTIFICATE delimiters.
@@ -50,6 +50,12 @@ For example a PEM format is a simple ASCII format which has BEGIN CERTIFICATE an
 the certificate authority can create subordinate certificate authorities. Each of these subordinate certificate authorities can create more subordinates forming a chain of certificate authorities. Any of the subordinate certificate authorities or the root authority can be used for signing a public key.
 
 A certificate can be stored individually in a file. or many ROOT certificates can be stored together in a file called a BUNDLE. On debian systems like ubuntu, the file /etc/ssl/certs/ca-certificates.crt contains all the root certificates on the system.
+
+
+Q- What is a trusted store?
+A- It is a list of CA certificates that you trust. All web browsers come with a list of trusted CAs.
+
+
 
 
 Some helpful commands using openssl to convert between different file formats and encodings
