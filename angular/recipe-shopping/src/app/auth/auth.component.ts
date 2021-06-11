@@ -8,7 +8,7 @@ import {AlertComponent} from '../shared/alert/alert.component';
 import {AlertDirective} from '../shared/alert/alert.directive';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
-import {LoginStart, SignupStart} from './store/auth.actions';
+import {LoginStart, SignupStart, ClearError} from './store/auth.actions';
 
 /**
  * Authentication in Angular --> In a normal HTTP application, a user is authenticated by some mechanism like UserName/Password, DirectLink to login
@@ -33,6 +33,7 @@ export class AuthComponent implements  OnInit, OnDestroy {
     // userObs = new Observable<User>();
     user: User = null;
     private closeSub: Subscription;
+    private storeSub: Subscription;
 
     // ViewChild will fetch the first occurrence of AlertDirective in the html.
     @ViewChild(AlertDirective, {static: false}) alertHost: AlertDirective;
@@ -46,10 +47,14 @@ export class AuthComponent implements  OnInit, OnDestroy {
         if (this.closeSub) {
             this.closeSub.unsubscribe();
         }
+        if (this.storeSub) {
+            this.storeSub.unsubscribe();
+        }
     }
 
     doCloseAlert(): void {
-        this.error = null;
+        // this.error = null;
+        this.store.dispatch(new ClearError());
     }
 
     ngOnInit(): void {
@@ -58,7 +63,7 @@ export class AuthComponent implements  OnInit, OnDestroy {
         //       this.user = user;
         //   }
         // );
-        this.store.select('auth').subscribe(authState => {
+        this.storeSub = this.store.select('auth').subscribe(authState => {
             this.isLoading = authState.isLoading;
             this.error = authState.authError;
             if (this.error) {
