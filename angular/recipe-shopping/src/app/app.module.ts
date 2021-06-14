@@ -8,9 +8,11 @@ import {HttpClientModule} from '@angular/common/http';
 import {SharedModule} from './shared/shared.module';
 import {CoreModule} from './core.module';
 import {StoreModule} from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import * as fromApp from './store/app.reducer';
 import {AuthEffects} from './auth/store/auth.effects';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import {AuthEffects} from './auth/store/auth.effects';
          * get only that particular slice from the massive application store object.
          */
         StoreModule.forRoot(fromApp.AppReducers),
+        StoreDevtoolsModule.instrument({logOnly: environment.production}),
         EffectsModule.forRoot([AuthEffects]),
         CoreModule
     ],
