@@ -110,7 +110,7 @@ GIT STAGING
 -----------
 For staging files for commit you use the "git add" command.
 
-svn add will move a file to the staging area. There are multiple options that "git add" can take
+git add will move a file to the staging area. There are multiple options that "git add" can take
 
 1) -A or -all : This will add files (which are changes and which git is not tracking at this moment) to the staging area,
                 except those which are in the excludes list.
@@ -148,18 +148,18 @@ You can use the following commands:
 
 prompt>  git reset HEAD -- pom.xml  : This means that you want to remove the modified file pom.xml from the staging area.
          the "--" means that you are done passing options to git and what follows is the name of the file/path.
-prompt> git rm --cached abc.txt  : This means that you want to remove the new added file abc.txt from the staging area.
+prompt> git rm --cached abc.txt  : This is used to ask git to stop tracking abc.txt and remove it from the version control. The same cmd can also be used to remove a newly added file from the staging area.
 prompt> git rm --cached \*.o  : Remove all object files accidently added to index (ie staging area). Note the "\" is required as GIT performs it owns filename expansion.
 Very Simple:
 
 If you make a local change to file "abc" but havent staged it yet, user "git checkout abc" to discard it.
 If you have staged it, use "git reset HEAD abc" to unstage it, followed by "git checkout"
-If you have commited it already, user "git revert".
+If you have commited it already, use "git revert".
 
 GIT MOVING
 ----------
 
-You can also use "git mv" command to move files and directories around. See you dont need "git add" in this case.
+You can also use "git mv" command to move files and directories around. So you dont need "git add" in this case.
 
 prompt> git mv README.md README.rst
 prompt> git commit -m "Changed README from Markdown to ReSTructured text"
@@ -207,10 +207,20 @@ There are three ways in which branches can be merged.
 1) Fast-Forward Merge - When the branch which is being merged in is merged into a branch from which it was created and there
    has been no commit on the original branch since this new branch was created. this is the simplest type. GIT has to do nothing
    here except just fast-forwarding the branch pointer to a new location.
+
+Let say master branch has two commits m1 and m2, then a feature branch is created from master (base commit m2) and feature branch as two commits f1 and f2. then if you are in master branch and you say
+ a) git merge feature --> its a fast forward merge. just master branch pointer will be changed to point to f2 and done.
+ b) git merge --squash feature --> same. just that all changes in feature branch (f1 and f2) will be squashed together into one commit and that commit will be put on master.
    
 2) Recursive merge - Used when both branches have commits that are not on the other branch.
+Let say master branch has two commits m1 and m2, then a feature branch is created from master (base commit m2) and feature branch as two commits f1 and f2 and master branch also has a new commit m2. then if you are in master branch and you say
+  a) git merge feature --> git will create a new commit called merge commit which will have two parents. One will be the m3 commit and one will be th f2 commit. The branch pointer for master will now be the new branch commit.
+
 
 3) The third way is rebasing. I'll come to it later.
+Let say master branch has two commits m1 and m2, then a feature branch is created from master (base commit m2) and feature branch as two commits f1 and f2 and master branch also has a new commit m2. then if you are in feature branch and you say
+  a) git rebase master --> git will keep all changes in feature branch (f1 and f2 temporarily aside). it will bring all changes from master into feature branch and then apply your commits one by one on top of that. basically you are re-writing your feature branch history and now your feature branch base comit will be m3 not m2 (that's why its called rebase). NOTE NEVER DO REBASE ON A PUBLIC BRANCH AS IT RE-WRITES HISTORY
+
 
 
 Creating Branches
@@ -220,7 +230,7 @@ You create a branch using "git branch <branchName>" giving the branchName as the
 in the repository as the location to create the branch from.
 
 You can also create branches starting at points in the history of the repository by provding an optional second argument which
-is the commitId, or brancg name or tag name to create a branch at that point.
+is the commitId, or branch name or tag name to create a branch at that point.
 
 Once you create a branch you also need to switch to that branch. You do this using "git checkout" command.
 Another good way is to use "git checkout -b <branchName>" which does both : branch creation and checking out.
@@ -284,9 +294,12 @@ prompt> git merge --log new
 
 This will merge and commit every changed file in new back to master given that there are no collisions. If you dont want
 to commit, use the --no-commit option. You can also merge all changes in a single merge commit. This helps you to easily
-remove a feature later on using just a single reverse commit. For this, specify the --no-ff no fast forward) option. 
+remove a feature later on using just a single reverse commit. For this, specify the --squash 
 
-prompt> git merge -m "My Single Merge Commit" --no-ff new
+prompt> git merge --squash new
+prompt> git merge -m "My Single Merge Commit" --no-ff new (Dont use fast forward even when it is possible. always create a merge commit)
+prompt> git merge --ff new (use fast-forward when possible otherwise create merge commit)
+prompt> git merge --ff-only new (use ff only. if cannot, refuse to merge and throw error and abort merge)
 
 
 Rebasing Branches
@@ -321,7 +334,7 @@ and finally applying each change in turn.
 
 
 prompt> git checkout new
-prompt> git merge master will just be a simple fast forward merge..
+prompt> git merge master will just be a simple fast forward merge.
 i.e git rebase new will bring all changes in branch new in master.
 
 Which you normally dont want to do.. instead only in the end when you want to merge everything from your feature branch back to master
@@ -445,6 +458,11 @@ branches fetches all the remote references and then automatically merges in the 
 When you clone a repository, it generally automatically creates a master branch that tracks origin/master. That’s why git push
 and git pull work out of the box with no other arguments. 
 
+To manually set an upstream branch, use the syntax:
+prompt> git branch --set-upstream-to=<upstream>
+
+git checkout --track <upstream> will automatically create a tracking branch and also check it out for you! You have seen this before.
+
 
 Bare Repositories
 -----------------
@@ -555,16 +573,40 @@ By default, log shows the commit id, the author, the committer, the date and log
 1] A one liner explaination of the feature/bug - also called the SUBJECT of the log message.
 2] A more detailed explanation (paragraph) about the commit. Be as verbose as possible including any odd preferences you have taken.
 
-prompt> git log //default log details shown.
-prompt> git log --oneline //show only first 7 characters of the commit id and the subject of the log message, you can view more commits in one page.
+By default git log shows only the commits that lead to the current state of the current branch.
+You can think of git log as performing formatting and filtering. formatting is what all information of the commit is shown and filtering is what comits are shown.
+
+formatting commands:
+
+prompt> git log
+prompt> git log --oneline
+prompt> git log --oneline --stat (also show the files changed)
+prompt> git log --oneline --graph (show a nice merge graph)
+prompt> git log --oneline --abbrev-commit 
+prompt> git log --oneline --date="<date_format>"
+prompt> git log --oneline --format=format:"PLACEHOLDERS" --> do man git-log and search PRETTY_PRINTERS
+prompt> git log --oneline --parents (show parents also)
+prompt> git log --oneline --reverse (show oldest commit first)
+prompt> git log --oneline -p //also show the actual diff between commits.
+prompt> git log --oneline --author="" //also show the actual diff between commits.
+
+filtering commands
 prompt> git log -N //show only the last N commits
-prompt> git log -p //also show the actual diff between commits.
-prompt> git log HEAD^^^^^..HEAD // Show the last five commits. Each caret sign means go back one commit.
+prompt> git log HEAD^^^^^..HEAD // Show the last five commits. Each caret sign means go back one commit. format is FROM..TO
 prompt> git log HEAD~10..HEAD //Show the last ten commits.
 prompt> git log -1 -p HEAD  //this will show the changes in the last commit on the HEAD.
 prompt> git log -stat -2  // Show an abbreviated summary of changes.
-prompt> git log --prety=[<format>] //use to format the log output. There are many predefined formats defined.
-prompt> git log --prety=format:"%h - %an, %ar : %s" //use to format the log output. There are many predefined formats defined.
+prompt> git log -- some/path/   //Will show log of files in the given path
+prompt> git log -- some_file   //will show log of the given file only.
+prompt> git log feature_branch   //show commits on the feature_branch without checking it out.
+prompt> git log --oneline --all   //show all commits on all branches.
+prompt> git log --oneline --since="6 days ago" // commits in the last 6 days
+prompt> git log --oneline --until="6 days ago"
+prompt> git log --oneline --after="" 
+prompt> git log --oneline --before=""
+prompt> git log --grep="some [Rr]eg[Ee]x" // do man git-log to see many options for regexes.
+prompt> git log --no-merges // dont show me merge commits
+prompt> git log feature..HEAD // show me change from feature branch to current HEAD
 
 Some Option Description of Output
 %H Commit hash
@@ -582,33 +624,6 @@ Some Option Description of Output
 %cd Committer date
 %cr Committer date, relative
 %s Subject
-
-Many different types of filters are also available.
-
-prompt> git log -- some/path/   //Will show log of files in the given path
-prompt> git log -- some_file   //will show log of the given file only.
-
-View the commits in the last week.
-You can use many kinds of times with --since or --after. Here are a few variations of looking at the last week of commits:
-prompt> git log --since="1 week"
-... or ...
-prompt> git log --after="7 days"
-... or ...
-prompt> git log --since="168 hours"   //View the commits prior to the last week.
-prompt> git log --before="1 week"
-... or ...
-prompt> git log --until="7 days"
-... or ...
-prompt> git log --before="168 hours" //View the log entries by a single committer.
-
-prompt> git log --author="some user" 
-
-View the log entries containing a regular expression.
-prompt> git log --grep="some [Rr]eg[Ee]x"
-... or ...
-prompt> git log --grep="some regex" --regexp-ignore-case
-... or ...
-prompt> git log --grep="some regex" -i
 
 Viewing Diffs
 --------------
@@ -709,3 +724,14 @@ Now when you omit the [localBranch], you are basically saying that take nothing 
 delete the remote branch.
 
 prompt> git push [remoteName] :[branchName]
+
+
+Miscallenous commands
+--------------------
+
+git remote prune origin --dry-run (will remove any upstream branches that are gone)
+
+git update-index --assume-unchanged <path-name>
+Tell git that <path-name> is very big location and rarely changed. so assume it is always upto date. when someone pushes something in <path-name> and you do git pull, the assume-unchanged index will be reset and new files will be fetched. So locally the git client will not attempt to check it. Used mostly for performance reasons.
+git update-index --no-assume-unchanged <path-name> will bring it back into the mix to be tracked.
+
