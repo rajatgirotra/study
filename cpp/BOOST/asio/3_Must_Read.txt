@@ -5,7 +5,7 @@ There are many ways to accomplish this.
 
 1) The application ensures that it only calls the run() method from one thread. Then all CompletionHandlers will be
 automatically sequential.
-2) Some applications like HTTP hald duplex (where only one can read and other end can write) are implicitly strands
+2) Some applications like HTTP are half duplex (where only one can read and other end can write) are implicitly strands
 3) The boost asio library provides a nested class io_service::strand to force this.
 
 How?

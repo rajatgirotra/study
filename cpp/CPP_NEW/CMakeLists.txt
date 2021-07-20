@@ -3,10 +3,10 @@ cmake_minimum_required(VERSION 3.16)
 project(cpp_study DESCRIPTION "cpp starter project makefile" LANGUAGES C CXX)
 
 # conan setup for cmake generator
-if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-    conan_basic_setup()
-endif()
+#if (EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+#    include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+#    conan_basic_setup()
+#endif()
 
 # conan setup for cmake_find_package generator
 set(CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR} ${CMAKE_MODULE_PATH})
@@ -20,7 +20,8 @@ include(cmake/CompilerWarnings.cmake)
 set_project_warnings(project_warnings)
 
 # create an interface target. we can attach cmake properties to this library which will apply globally to our build.
-add_library(project_options INTERFACE source/common/system/Spinlock.hpp source/common/system/Spinlock.cpp)
+add_library(project_options INTERFACE)
+
 # cmake now has its own dataset of compilers names, versions and the features that are supported by those compiler versions
 # CMAKE_CXX_KNOWN_FEATURES is a list of all c++ features known to cmake. CMAKE_CXX_COMPILE_FEATURES is a subset of CMAKE_CXX_KNOWN_FEATURES
 # which can be used to turn off/on certain flags. Here we use one such feature to turn on C++17 flag
@@ -96,8 +97,8 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #add_subdirectory(thread_mutex_atomic_lock_free)
 #add_subdirectory(practice)
 #add_subdirectory(helper_classes)
-#add_subdirectory(boost)
-add_subdirectory(source)
+add_subdirectory(boost)
+#add_subdirectory(source)
 
 if(BUILD_TESTS)
     message(NOTICE "building unit tests is enabled")

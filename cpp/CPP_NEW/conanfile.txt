@@ -7,7 +7,6 @@ doxygen/1.9.1
 
 [generators]
 cmake_find_package
-cmake
 
 [options]
 boost:without_python=False

@@ -41,7 +41,7 @@ Asynchronous Operation
 --------------------
 In asynchronous operation, you would call the aync API instead of the sync API.
 like
-socket.asyn_connect(connection_details, CallbackHandler)
+socket.async_connect(connection_details, CallbackHandler)
 This is an asynchronous call, the call will be handled by io_service which forward it to OS. The OS will
 store the operation completed event on a queue, which will be retrived by io_service
 For io_service to retrieve the event, the application must call io_service::run() method.

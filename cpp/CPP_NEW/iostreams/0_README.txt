@@ -1,0 +1,161 @@
+IOStreams library
+=================
+
+IOStream library is used for input and output of data from your program to an external device. the external device could be a file on the filesystem, a network socket, a communication channel such as message queue or a pipe, a screen window etc. This transfer of data can be categorized in two ways:
+
+1) stream I/O --> unstructured transfer of a sequence of bytes, or characters or some other unit of small size between your program and the external device.
+that's why it's called stream I/O as it is just a continuous sequence of data bytes/characters.
+
+2) Record or Block I/O --> structured transfer of bytes as a block or a record. i.e. larger chunks of data (records/block/messages) are transported.
+
+IOStreams library facilitate stream I/O. This does not mean that the external device cannot have a structure. It can, just that the details of the external device are hidden behind the IOStreams interface. The IOStream API itself allows for stream input and output of text. So IOStreams are streams of characters as opposed to stream of bits and bytes.  IOStreams was designed for Input and Output of text IO.
+
+The internal representation of data is in a format which is easier for the program to process. Example, ints are stored as binary values, doubles are stored in IEEE 754 format, strings are stored as contiguous characters in memory etc.
+
+Another categorization is based on the external representation supported by the device. example:
+1) If the external device is a screen window, the internal representation needs to be converted to human readable characters. Example:
+0x0000009e --> needs to be represented as 158 on the screen. So the external representation is that of human readable set of chars.
+
+2) If external device is a socket connection, external representation can be binary format.
+
+3) If external device is filesystem and compression is also needed, again external representation is binary format.
+
+IOStream support textIO by default. Binary IO is not directly supported.
+
+The stages of IOStreams TEXT I/O
+-------------------------------
+1) formatting/parsing --> deals with formatting from internal representation to external representation.
+2) Buffering --> mostly done for performance. can be disabled. you need to call the stream's flush() function to empty the buffer.
+3) Code Conversion
+4) Transport.
+
+Code conversion
+--------------
+Is only required when the character representation resulting from formatting is different from the external character representation of the external device or when the external representation differs from the representation that can be parsed by IOStreams. Example, let say you have a multibyte character file. i.e some characters are one byte, some 2 bytes, some 4 bytes, etc. This kind of representation cannot be parsed by IOStreams. So it will convert all characters to wide characters i.e. wchar_t which IOStream understands.  Similarly for output.
+
+You can think of IOStream as a layered architecture with two layers
+1) Formatting Layer --> responsible for formatting/buffering
+2) Transport Layer --> Does buffering, code conversion and actual transport
+
+The IOStreams library is an open and extensible framework. which means both the layers can be customized and extended. Formatting layer can be extended by adding new formatting/parsing options, new manipulators etc.
+
+The transport layer can be extended by adding more external devices.
+
+Also IOStream is not only an abstract framework providing abstract classes. It provides concrete implementation classes like
+1) filestreams and string streams
+2) narrow and wide character streams
+
+filestreams are used for input and output from external devices which exhibit file like behavior. i.e. provide open()/close() type functions (files, sockets, pipes etc)
+stringstreams are used for input and output from memory.
+
+narror and wide character streams differ in the type of character sequence passed between the formatting and transport layers.
+
+Also IOStreams can be extended by adding new stream classes for supporting new external devices. This is achieved by means of inheritence. Similary, you can add support for new type of characters apart from narrow and wide character streams (like Jchar for Japanese characters). This is achieved by means of templates. 
+the IOStreams class hierarchy is
+
+1) ios_base --> non template class that contains functionality common to all stream class irrespective of the type of characters handled.
+2) basic_ios<charT> --> template class containing functionality common to the type of character sequence handled.
+3) we have three classes derived fromo basic_ios. these are basic_istream<charT>, basic_ostream<charT>, and basic_iostream<charT>
+4) each of these three classes contain two concrete implementations. one for file streams and one for string streams.
+   basic_ifstream<charT>, basic_istringstream<charT> inherit from basic_istream<charT>
+   basic_ofstream<charT>, basic_ostringstream<charT> inherit from basic_ostream<charT>
+   basic_fstream<charT>, basic_stringstream<charT> inherit from basic_iostream<charT>
+
+the following using directives are provided and also 8 stream objects.
+using ifstream = basic_ifstream<char>;
+using ofstream = basic_ofstream<char>;
+using fstream = basic_fstream<char>;
+
+using wifstream = basic_ifstream<wchar_t>;
+using wofstream = basic_ofstream<wchar_t>;
+using wfstream = basic_fstream<wchar_t>;
+
+8 objects
+--------
+cout, wcout (corresponding C stream is stdout)
+cin, wcin (corresponding C stream is stdin)
+cerr, wcerr (corresponding C stream is stderr)
+clog, wclog (corresponding C stream is stderr)
+
+cerr and clog is same except that clog is buffered and cerr is not buffered by default.
+
+Also cin and cout are tied i.e. they are synchronized. If you read anything from cin, the first cout is flushed().
+
+The reason to choose shift operators for streams (<< and >>) is because it has lower precedence than other operators so it is easy to write code like cout << a+b*c, and the expression a+b*c is evaluated first, otherwise we would need to paranthesize everything.
+
+Format Parameters
+-----------------
+the formatting functions are part of either ios_base class or basic_ios class. The formatting functions are:
+streamsize width() const; --> return the stream width setting
+void width(streamsize value); --> set stream width. This is the minimum width for the field. any extra space will be padded using the fill character.
+
+basic_ios<charT>::char_type fill() const; --> get the fill character
+void fill(basic_ios<charT>::char_type fillCharacter);
+
+streamsize precision() const; --> return the decimal pts to print for floating point values
+void precision(streamsize value); --> set stream precision. 
+
+Then there is a formatting function called setf() and unsetf() and flags() to set, unset, and fetch the various formatting options defined in ios_base::fmtflags (which is a bitfield).
+example:
+
+ios_base::fmtflags original_flags = cout.flags();
+cout.setf(ios_base::fmtflags::left, ios_base::fmtflags::adjustfield); // adjustfield is a bit group.
+cout.unsetf(ios_base::fmtflags::adjustfield);
+cout.setf(ios_base::fmtflags::uppercase | ios_base::fmtflags::scientific);
+
+Strange behavior of Field Width
+-------------------------------
+stream width() can be specified for both Input and Output streams. for Output streams, the width() will reset automatically to 0 as soon as it is used. i.e.
+cout.width(10);
+cout << "812" << "|" << "813"; // will give "       812|813"  (because default adjustment is right). The pipe character and 813 will see width setting as 0.
+
+for Input streams also, only the input of strings will use the width() setting and reset it after use. inputting double, integer, bool etc dont use field width setting. i.e.
+int i; string s;
+cin.width(10);
+cin >> i >> s; // input is 12345 abcdefghijklmnopqrstuvwxyz, so i = 12345, s = "abcdefghij"
+
+Manipulators
+-----------
+You can also use manipulators instead of formatting function as they can be used in the cout/cin expression itself so it appears more natural. example:
+cout.setf(ios_base::fmtflags::left, ios_base::fmtflags::adjustfield);
+cout << 813;
+AND
+cout << left << 813; // seems so compact
+
+Also cout << setw(10); is same as cout.width(10);
+
+Some manipulators effect input streams, some output streams and some both. Generally the manipulators do not have any effect if the stream state is bad. but there are a few exceptions to that rule.
+You can also write your own manipulators. See the gcc implementation of endl, skipws, boolalpha, width, precision to see how you can write your own manipulators.
+
+Stream Locale
+-------------
+now there are a number of cultural differences in the way numbers are text and characters are represented. For example, in US the decimal point is a dot and a thousand separator is a comma.
+However in Europe it is opposite. Infact in India we use thousand separator after every two places. So 1,000,000.50 in US is 1.000.000,50 in Germany abd 10,00,000.50 in India. 
+So to make sure all formatting respects these cultural differences, every stream has a locale. the locale is an object that handles all aspect of cultural differences. A locale has a set of facets like numerical facet, money facet, etc etc which actually do the formatting. You can attach a locale to a stream using the imbue method.
+
+cout.imbue(std::locale("de_AT.utf8"));
+cout << 19.99 << '\t' << fixed << 10000000 << endl;
+
+locale also apply to input streams. If locale is  de_AT.utf8, and you set std::boolalpha on input stream, then you need to enter "falsch" as that is the german for "false".
+
+Extraction 
+----------
+extraction process is different for C/C++ strings and for other types. For example, when you are extracting an integer the extractor will stop as soon as it finds a character which is not the correct character for parsing integers. Example: "   \t+346abc", the "   \t" will be discarded as input streams by default extract leading whitespaces (use noskipws manipulator to disable this behavior), and +346 is parsed as 346 and the character "a" remains in the buffer as the next character to pe parsed. Similarly for floating pointer number, "\t\t 3.456E+2qwerty" will be parsed correctly as 345.6
+
+but for C/C++ strings the behavior is different. for string the whitespace character is the delimiter. otherwise all other characters are considered legit for strings". Also 
+
+string s;
+cin >> s; // you dont need to worry about size of input as string can dynamically grow.
+however for c style strings i.e.
+
+char buf[10];
+cin >> buf; // if input string is greater than 10 characters, it can overflow in the buf array. So always use "cin >> setw(10) >> buf", in the case for C strings, 10-1 = 9 characters are extracted and buf is null terminated.
+
+string s;
+cin >> setw(10) >> s; // this will extract 10 characters and not 9. as string can dynamically grow. this is a subtle difference between C/C++ string extraction. Also string extraction stop when
+1) a whitespace character is found
+2) a EOF string character is found ('\0')
+3) an EOF stream is encountered.
+4) a width() limit is reached.
+
+
