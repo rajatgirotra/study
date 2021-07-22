@@ -158,4 +158,53 @@ cin >> setw(10) >> s; // this will extract 10 characters and not 9. as string ca
 3) an EOF stream is encountered.
 4) a width() limit is reached.
 
+Stream State
+------------
+IOStreams defines an bitmask iostate which has the following masks/bits to describe the state of a stream.
+1) goodbit --> set to TRUE when everything is OK
+2) eofbit  --> set to TRUE when an input operation reached end-of-input sequence.
+3) failbit --> set to TRUE when an extraction operation fails to extract characters, when an inserter operation fails to produce the required results or some other stream operation fails. this error may be recovervable.
+4) badbit  --> set to TRUE when an un-recoverable error occurs on the stream. Maybe the stream has lost its integrity.
+
+the following functions are also available to test the stream state.
+bool good() --> returns true if NONE OF eofbit, failbit, badbit is set. AS A RULE OF THUMB, for input streams, use this function to test the stream state.
+bool eofbit() --> returns true if eof bit is set on the input stream. output stream operations do not set eof bit so its irrelevant for output streams
+bool fail() --> returns true if failbit  or badbit is set. AS A RULE OF THUMB, use this function to test the output stream state.
+bool operator !() const --> same as fail().
+operator void* () --> returns nullptr is fail() else returns non nullptr.
+
+normally, if stream is in a error state, stream operations do not have any effect. So for a iostream, if a input operation caused the eofbit to be set, then the subsequent output operation on the same stream will also fail. So you will need to clear the state using clear() and setstate() functions.
+
+when if EOF and fail bit set for input operations
+-------------------------------------------------
+1) Let say you are extracting character by character. You extracted the last character and good() returns true. the next extraction will cause both eofbit and failbit to be set as the end of input is reached and also because the extraction could not extract anything.
+
+2) If you are extracting an integer and the input is "234<EOF>", then eofbit is set as you reach end of input. but failbit is not set as you extracted a value 234.
+
+Stream Exceptions
+-----------------
+To find out if an stream operation has resulted in an error, you can either
+1) perform a state check after every operation. This is trivial and done using the functions, good(), eof(), fail(), etc.
+2) tell the stream to throw an exception when an state bit is set and take action. for this you need to call the exceptions() function on the stream object which takes the iostate mask on which states should throw an exception. Also the exception thrown could be either ios_base::failure or any other exception. So you should catch it using catch(...)
+
+try {
+    cout.exceptions(ios_base::failbit | ios_base::badbit); // register interest that an exception should be thrown when output stream operations fails.
+    cout << x;
+    ... // many stream operations which could thrown an exception
+} catch(...) {
+   if(cout.bad()) {
+      // error is unrecoverable. you need to throw. and may be exit with failure
+      throw;
+   }
+   if(cout.fail()) {
+      cout.clear(ios_base::goodbit);
+      // retry the failed operation.
+      return;
+   }
+}
+
+to clear all the exceptions just call "cout.exceptions(ios_base::goodbit);"
+
+clear(iostate state = ios_base::goodbit) --> clear sets the state to whatever argument you pass. default is goodbit.
+setstate(iostate addstate) --> setstate() on the other hand will just OR the current state with the argument you pass.
 

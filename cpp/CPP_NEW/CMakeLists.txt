@@ -98,6 +98,7 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #add_subdirectory(practice)
 #add_subdirectory(helper_classes)
 add_subdirectory(boost)
+add_subdirectory(iostreams)
 #add_subdirectory(source)
 
 if(BUILD_TESTS)
