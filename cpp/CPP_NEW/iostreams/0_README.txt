@@ -261,3 +261,32 @@ The copy of the underlying string returned by str is a temporary object that wil
 Unlike File Streams, stringstreams have independent read and write position, so you can switch between input and output without any restriction.
 -------------------
    
+Unformatted Input and Output
+
+If you want to do unformatted input and output, iostreams provide a separate set of functions for that. The normal extractor and inserter operators (<< and >>) always perform formatting and parsing. For input we have the following set of functions.
+Just like most insertion and extraction functions for formatted i/o return the stream reference, the unformatted versions also return the stream reference with a few exceptions.
+1) get()
+2) getline()
+3) read()
+Multiple overloaded versions are available for each of them. Example for get we have
+
+int_type get() -> extract and return a single character
+istream& get(char_type& ch) --> extract and return a single character in output parameter "ch"
+istream& get(char_type*, streamsize); --> same as get(s, count, widen('\n')) below.
+istream& get(char_type* s, streamsize count, char_type delim); --> extract at-most (count-1) characters and store in character array pointed by s. Also null terminate the character array. if delim is found, only extract characters before the delim and do not extract the delim. This means the next character you read will be the delimiter. if eof is reached before count-1 characters, also set eof bit. and if cannot extract anything, also set failbit.
+istream& get(basic_readbuf& buf); --> same as get(buf, '\n')
+istream& get(basic_readbuf& buf, char_type delim); --> read characters till delim and keep inserting in buf until '\n' is found or eof encountered or inserting into buf fails.
+
+std::streamsize gcount() --> very trivial function which returns the number of characters extracted by the last unformatted input operation.
+
+istream& getline(char_type*, streamsize); --> same as getline(s, count, widen('\n')) below.
+istream& getline(char_type* s, streamsize count, char_type delim); --> extract at-most (count-1) characters and store in character array pointed by s.
+
+get() and getline() have exact same signature. the difference is:
+1) that get() doesnt extract the delimiter, whereas getline() extracts the delimiter but it is just discarded and not stored in the array. 
+2) gcount() will count the delimiter when getline() is called but will not count when get() is called.
+3) getline() sets failbit if count-1 characters are extracted. get() doesnt set failbit on this condition.
+4) Because the terminating character('\n') is counted as an extracted character in getline(), an empty input line does not set failbit.
+5) if input is "Rajat$", and you call getline(s, 6, '$'), then count-1 ie 5 characters will be extracted. Since the next character is the delim, this is a special case when getline() does not set failbit although it extracts count-1 characters. that is because it checks first if the next character is the delimiter before it checks that count-1 is extracted. Therefore the input line that exactly fits the buffer does not trigger failbit.
+
+
