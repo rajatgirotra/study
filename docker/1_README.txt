@@ -151,7 +151,7 @@ A docker image will be built in your local docker repository. View it using “d
 Running an Image
 ===============
 
-docker run –p 4000:80 friendlyhello   (ie run the friendlyhello image) and map the host ip 4000 to docker container port 80. You can now open http://localhost:4000/
+docker run –p 4000:80 friendlyhello   (ie run the friendlyhello image) and map the host port 4000 to docker container port 80. You can now open http://localhost:4000/
 
 Use “docker container ls” and “docker container stop <CONTAINER ID> to stop the container.
 
