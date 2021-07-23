@@ -208,3 +208,56 @@ to clear all the exceptions just call "cout.exceptions(ios_base::goodbit);"
 clear(iostate state = ios_base::goodbit) --> clear sets the state to whatever argument you pass. default is goodbit.
 setstate(iostate addstate) --> setstate() on the other hand will just OR the current state with the argument you pass.
 
+File Input and Output Streams
+-----------------------------
+filestreams (i.e ifstream, ofstream, fstream) constructors take two arguments. first is the name of the file. second is the open mode.
+1) ifstream. default open mode is ios_base::in. If you specify open mode explicitly, it will be OR'ed internally. so if you say
+   ifstream f("tmp.txt", ios_base::ate) // it implies ios_base::in | ios_base::ate
+   
+2) ofstream. default open mode is ios_base::out. If you specify open mode explicitly, it will be OR'ed internally. so if you say ofstream f("tmp.txt", ios_base::ate) // it implies ios_base::out | ios_base::ate
+
+3) fstream. default open mode is ios_base::in|ios_base::out.
+
+other open modes
+----------------
+ios_base::ate --> the default file position. file streams have a file position which is by default at beginning of file. however you can specify a different file position by specifying ios_base::ate. ate means At The End. So when a file is open, reading and writing will take place at the end of the file.
+
+ios_base::app --> very similar to ate. Just that everytime you write to the stream. it will write at the end of the file. You can adjust the file position using seekg() etc, but writing will happen at end of file.
+
+ios_base::binary --> this is used to tell the operating system to stop doing any OS specific changes to file. like handling end of line using Ctrl+Linefeed(Windows) or just LineFeed(Unix). It doesnt stop IOStreams from doing its formatting/parsing and code-conversion etc.
+Just that the OS will not make any of its specific changes when writing to the file.
+
+Also remember if you have a Bidirectional stream (i.e. fstream object), whenever you switch between input and output, you should always either:
+1) flush the current stream
+2) set the file position.
+otherwise the result is UNDEFINED.
+
+is_open() returns true if stream object is connected to a file.
+
+
+Memory Input/Output
+-------------------
+stringstreams provide a way to format/parse stream where external device is a memory buffer. The open modes ios_base::trunc, ios_base::binary are irrelevant for stringstreams.
+
+stringstreams can be initialized using a string argument. also you can get the contents of the buffer using the str() function.
+str() is overloaded and can also be used to reset the memory buffer.
+
+int main()
+{
+    int n;
+ 
+    std::istringstream in;  // could also use in("1 2")
+    in.str("1 2");
+    in >> n; // n = 1
+ 
+    std::ostringstream out("1 2");
+    out << 3; // out = "3 2"
+ 
+    std::ostringstream ate("1 2", std::ios_base::ate);
+    ate << 3; // ate = "1 23"
+}
+The copy of the underlying string returned by str is a temporary object that will be destructed at the end of the expression, so directly calling c_str() on the result of str() (for example in auto *ptr = out.str().c_str();) results in a dangling pointer.
+
+Unlike File Streams, stringstreams have independent read and write position, so you can switch between input and output without any restriction.
+-------------------
+   
