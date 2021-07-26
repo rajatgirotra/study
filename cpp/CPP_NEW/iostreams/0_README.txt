@@ -268,7 +268,7 @@ Just like most insertion and extraction functions for formatted i/o return the s
 1) get()
 2) getline()
 3) read()
-Multiple overloaded versions are available for each of them. Example for get we have
+Multiple overloaded versions are available for each of them. Example for get() we have
 
 int_type get() -> extract and return a single character
 istream& get(char_type& ch) --> extract and return a single character in output parameter "ch"
@@ -288,5 +288,39 @@ get() and getline() have exact same signature. the difference is:
 3) getline() sets failbit if count-1 characters are extracted. get() doesnt set failbit on this condition.
 4) Because the terminating character('\n') is counted as an extracted character in getline(), an empty input line does not set failbit.
 5) if input is "Rajat$", and you call getline(s, 6, '$'), then count-1 ie 5 characters will be extracted. Since the next character is the delim, this is a special case when getline() does not set failbit although it extracts count-1 characters. that is because it checks first if the next character is the delimiter before it checks that count-1 is extracted. Therefore the input line that exactly fits the buffer does not trigger failbit.
+6) istringstream is("rajat"); and you call in is.get(buf, 6); or is.getline(buf, 6). Both will set eofbit. That is because although 6-1=5 characters are getting extracted. both get() and getline() do check for 6th character to see if it is a delimiter. and that will trigger eofbit to be set. However gcount() will return 5 in both cases
 
+istream& read(char_type*s, streamsize count);
+Again prototype is same as get() and getline(). But read() reads count characters (get() and getline() read count-1 and null terminate also). read() doesnt null terminate.
 
+----------------------------------------------------------------------------------------------
+
+Some other istream unformatted functions which are available are:
+
+int_type peek() --> get the next character in the stream without consuming it.
+istream& unget() --> write the last read character back to the stream, so that it can be read again using get().
+istream& putback(char_type ch) --> same as above but you can putback any character you like
+istream& ignore(streamsize count, char_type delim) --> keep ignoring the next count characters or until you find delim.
+   cin.ignore(numeric_limits<streamsize>::max(), '\n') --> is a very good way of ignoring the current line.
+
+----------------------------------------------------------------------------------------------
+
+Unformatted Output is trivial Just two functions available.
+
+ostream& put(char_type ch) --> insert single character to stream
+ostream& write(char_type* s, streamsize count) --> write count characters from buffer "s" to output stream.
+----------------------------------------------------------------------------------------------
+
+Stream positions --> streams maintain a write position and read position. istream will only have a read position. similarly ostream will only maintain a write position. Bidirectional file streams maintain a combined/join stream position for both input and output. Bidirectional string streams on the other hand maintain separate read and write positions.
+
+functions to get stream positions
+
+pos_type tellg() --> for input streams (g means get, so input)
+pos_type tellp() --> for output streams (p means put, so output)
+
+function to set stream position
+istream& seekg(pos_type); --> absolute position fetched from tellg()
+istream& seekg(off_type, seekdir); --> relative position from seekdir where seekdir can be ios_base::beg/end/cur 
+
+for bidirectional file streams, seekg/seekp change the joint stream position.
+----------------------------------------------------------------------------------------------
