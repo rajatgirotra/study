@@ -324,3 +324,36 @@ istream& seekg(off_type, seekdir); --> relative position from seekdir where seek
 
 for bidirectional file streams, seekg/seekp change the joint stream position.
 ----------------------------------------------------------------------------------------------
+
+Synchronization between streams
+
+The stream classes do no directly access the external devices to read or write character sequences. They do it via the internal buffers they implement. These buffers are managed by classes called stream buffer classes. Stream synchronization is all about synchronizing the stream buffers with the external devices. 
+
+Normally you will not need to worry about stream synchronization as it is managed automatically by the stream buffer classes when the buffers need to be emptied or filled. Output stream buffers implement a function overflow() which triggers synchronization. similarly input streams implement a function underflow(). Also you dont directly call these functions. Read on..
+
+For output streams, the stream class provides a function flush().
+For output streams, the stream class provides a function sync().
+Both these functions call a function called pubsync() of the underlying stream buffer class. the pubsync() function calls a protected virtual function sync(). When you write your own stream buffer class, you will need to override the sync() function to trigger stream synchronization.
+
+Output file stream buffer classes implement sync() and call overflow() to trigger synchronization.
+Input file stream buffer classes implement sync() and call underflow() to trigger synchronization. However note that stream synchronization is not really defined for input streams as you cant say how much you need to read from external device into the buffer.
+
+For input and output string streams, sync() is left unimplemented as there is no external device. The memory buffer itself is the external device hence there is no sync() function.
+
+Other ways of synchronization
+----------------------------
+1) call flush() or sync().
+2) use ios_base::unitbuf format flag. This enables immediate synchronization.
+3) Tie an input or output stream to an output stream. Whenever an input or output stream operation is called, the stream will check if it is tied to any output stream. If yes will call flush() on that output stream. example:
+
+  ifstream ifs{"temp.txt"};
+  ofstream ofs{"temp.txt"};
+  ofs << "Hello World\n";
+  ifs.tie(ofs);
+  string s;
+  cin >> s; // implies ofs.flush() followed by cin >> s;
+Note that cin is tied to cout. cerr stream has unitbuf flag set.
+----------------------------------
+Also remember that according to standard, cout is also synchronized with C stdout. That's the reason output is not garbled when using cout and stdout from separate threads without any explicit synchronization. However you can disable this and achieve performance gain if you promise to use only cout and not stdout.
+ios_base::sync_with_stdio(false);
+----------------------------------
