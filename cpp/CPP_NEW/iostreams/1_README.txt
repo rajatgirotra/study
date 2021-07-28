@@ -77,3 +77,53 @@ buf.open("in.txt");
 
 basic_ifstream<char> ifstr;
 ifstr.basic_ios<char>::rdbuf(&buf); //because rdbuf() setter is hidden, we have to use this syntax to be explicit.
+
+Locales
+======
+locales are objects that handle the culture-dependant aspects of formatting and parsing. a locale object is composed of one or more facets. each facet handles a particular aspect of the cultural differences. like numeric facets handle how numeric values should be formatted and parsed, ctype (character type) factes handle things like which is the space character in that locale. codecvt facets handle code conversion between internal and external character encodings etc.
+
+In IOStreams, we have two locale objects. One locale object is data member of of ios_base class. and another is data member of stream buffer class basic_streambuf<>. The locale object in stream class is used to handle numeric factes and character type facets. the locale object in stream buffer class is used to handle code conversion as stream buffer classes interact with the external devices.
+
+Both ios_base and basic_streambuf<> provide functioins that take a locale object as argument to set their locale objects. By default when a stream object is created, both locale objects are same and initialized to the global c++ locale which is set for the system. However these can be different locale objects.
+
+1) ios_base::imbue(locale("en_US.utf8"));
+2) basic_streambuf<>::pubimbue(locale("en_US.utf8"));
+
+If you want to set both the locales consistenly to the same locale object, basic_ios<> also provides an imbue() method which sets both the locales in a single call.
+Also the ios_base and basic_streambuf<> provide a function getloc() which return the std::locale object.
+
+stream classes also provide a way to register callback functions when certain events happen. One such event is an imbue_event. You can register interest in this event via the register_callback() function. Lets see how the locale and facet objects are used by the insertors and extractor operators for an intergral value.
+
+inserter
+--------
+basic_istream<charT, Traits>& operator >> (int& n)
+{
+    ios_base::iostate err = 0;
+    use_facet<num_get<charT, istreambuf_iterator<charT, Traits>>(this.getloc()).get(*this, istreambuf_iterator<charT, Traits>(), *this, err, n);
+    return *this;
+}
+
+extractor
+--------
+basic_ostream<charT, Traits>& operator << (int n)
+{
+  use_facet<num_put<charT, ostream_iterator<charT, Traits>>(this.getloc()).put(*this, *this, basic_ios<charT, Traits>::fill(), n);
+  return *this;
+}
+
+let's look at the num_get<>::get() and num_put<>::put() function declarations.
+
+iter_type put(iter_type out, ios_base& fmt, char_type fill_character, long value) const;
+iter_type get(iter_type start, iter_type end, ios_base& fmt, iostate& err, long& val) const;
+
+the put() function expects an iterator pointing to the output sequence where the characters should be written. this will be a ostreambuf_iterator<> pointing to a location in the stream buffer class.
+We pass *this to it (i.e. a stream object) because the streambuf_iterators<> has a converting ctor that takes a stream object.
+
+ostreambuf_iterator( ostream_type& stream ) noexcept;
+istreambuf_iterator( istream_type& stream ) noexcept;
+
+the fmt parameter is for accessing the fmtflags required in formatting. the fill character is also obvious and the value is the integer value to be printed out. If any error in put(), it is reported through the return iter_type.
+
+similarly for get() function, we need two iterators, the begin and end of the sequence. if any error, it is set in the err parameter.
+
+Continue on page 82 of chapter 2 of standard C++ iostreams and locales
