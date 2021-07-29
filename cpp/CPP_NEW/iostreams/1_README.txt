@@ -78,6 +78,28 @@ buf.open("in.txt");
 basic_ifstream<char> ifstr;
 ifstr.basic_ios<char>::rdbuf(&buf); //because rdbuf() setter is hidden, we have to use this syntax to be explicit.
 
+Copying streams
+===============
+The copy ctor and assignment operators for stream objects are disabled. so streams are not copyable. this is because there is no common understanding on how stream copy should behave. Should the underlying stream buffer be deep copied also or should two stream objects point to the same stream buffer. If same, how will lifetime be managed? what if one stream object gets destroyed. the other stream object will point to a dangling stream buffer. For file buffers, should we also copy the file? What should be the name of the new file? etc etc.
+To avoid all these complex issues, streams are not copyable. Still if you want to copy stream you could use the following workaround. But the above problems still persist and you have to deal with them yourself.
+
+template <typename Stream>
+void streamcpy(Stream& dest, const Stream& src)
+{
+ // clear all exceptions on the destination first. why? keep reading.
+ dest.exceptions(ios_base::goodbit); 
+ 
+ // copy the stream state
+ dest.clear(src.rdstate()); // this can set any of the iostate bits (good, bad, eof, fail). which can cause exception to be raised. So we disable all exceptions first and enable later on.
+ 
+ // copy the stream buffer object.
+ using StreamBase = basic_ios<Stream::char_type, Stream::traits_type>;
+ (static_cast<StreamBase&>(dest)).rdbuf((static_cast<const StreamBase&>(src)).rdbuf());
+ 
+ // copy all data members of ios_base
+ dest.copyfmt(src); // this also copies exceptions which are set.
+}
+
 Locales
 ======
 locales are objects that handle the culture-dependant aspects of formatting and parsing. a locale object is composed of one or more facets. each facet handles a particular aspect of the cultural differences. like numeric facets handle how numeric values should be formatted and parsed, ctype (character type) factes handle things like which is the space character in that locale. codecvt facets handle code conversion between internal and external character encodings etc.
@@ -100,6 +122,9 @@ basic_istream<charT, Traits>& operator >> (int& n)
 {
     ios_base::iostate err = 0;
     use_facet<num_get<charT, istreambuf_iterator<charT, Traits>>(this.getloc()).get(*this, istreambuf_iterator<charT, Traits>(), *this, err, n);
+	
+	if(err)
+	   this->setstate(err); // set stream state to the err
     return *this;
 }
 
@@ -107,7 +132,13 @@ extractor
 --------
 basic_ostream<charT, Traits>& operator << (int n)
 {
-  use_facet<num_put<charT, ostream_iterator<charT, Traits>>(this.getloc()).put(*this, *this, basic_ios<charT, Traits>::fill(), n);
+  if (
+    use_facet<num_put<charT, ostream_iterator<charT, Traits>>(this.getloc()).put(*this, *this, basic_ios<charT, Traits>::fill(), n)
+   .failed()
+  ) // Output stream buffer iterators have a failed() member function which tell you if the stream has failed or not.
+  {
+     this->setstate(ios_base::badbit); // always set badbit for output stream.
+  }
   return *this;
 }
 
@@ -126,4 +157,14 @@ the fmt parameter is for accessing the fmtflags required in formatting. the fill
 
 similarly for get() function, we need two iterators, the begin and end of the sequence. if any error, it is set in the err parameter.
 
-Continue on page 82 of chapter 2 of standard C++ iostreams and locales
+Stream Buffer Sequences
+=======================
+Stream Buffer classes provide an abstraction for the external device. Think of stream buffer classes as containing two character array sequences. One for input and one for output. The input subsequence is called the get area, and the output subsequence is called the put area. Both areas are defined by three pointers:
+1) begin pointer --> pointing to the first location in the array
+2) end pointer --> pointing to one past the last location in the array
+3) next pointer --> pointing to the location where the next input or output operation will take place.
+
+Also the stream buffer base classes are divided into three categories:
+1) public functions --> these functions are called by the stream classes to implement their functionality.
+2) protected non virtual --> stream buffer implementation
+3) protected virtual --> these should be implemented by stream buffer base classes like basic_filebuf<> and basic_stringbuf<>
