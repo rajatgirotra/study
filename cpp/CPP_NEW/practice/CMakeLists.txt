@@ -1,6 +1,10 @@
-add_executable(practice_cpp_17 p.cpp)
+add_executable(practice_cpp_17 practice.cpp)
 target_link_libraries(practice_cpp_17 PRIVATE project_options project_warnings)
 
-add_executable(practice_cpp_14 p.cpp)
+add_executable(practice_cpp_14 practice.cpp)
 target_link_libraries(practice_cpp_14 PRIVATE project_warnings)
 target_compile_features(practice_cpp_14 PRIVATE cxx_std_14)
+
+add_executable(practice_jul2021 practice_jul2021.cpp)
+target_link_libraries(practice_jul2021 PRIVATE project_warnings project_options)
+#target_compile_features(practice_jul2021 PRIVATE cxx_std_14)

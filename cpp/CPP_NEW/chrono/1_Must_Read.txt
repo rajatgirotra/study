@@ -41,7 +41,9 @@ durations
      typedef duration<int64_t, ratio<3600>> hours;
 
 Clocks: A clock class defines
-a) a starting point in history. Mostly Epoch
+a) a starting point in history. Mostly Epoch. the Clock::now() function returns a time_point<> which has a duration starting from the clock epoch to the current time.
+So system_clock::now() returns time_point<> with duration = duration from 1 Jan 1970 to now.
+So steady_clock::now() returns time_point<> with duration = duration from system reboot time to now.
 b) a duration i.e. whether it is counting in nanoseconds, microseconds, seconds etc.
 Clocks are NON template classes which have the following important typedefs
 

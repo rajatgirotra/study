@@ -19,6 +19,6 @@ int main() {
 }
     
 /*
-  I saw no difference when i saw the mneomonics in gcc.explorer by Matt Goltbolt. between constexpr or static const
+  I saw no difference when i saw the assembly in gcc.explorer by Matt Godbolt. between constexpr or static const
   Also you cannot have a static variable in a function declared constexpr
   */

@@ -3,7 +3,7 @@
 2) No try-catch block
 3) All base c'tor should be constexpr as well
 4) All non-static member variables should be initialized in the initializer list
-5) Params must be a literal or a refernce to a literal.
+5) Params must be a literal or a reference to a literal.
 
 C++14 relaxes a lot of this:
 in C++14 it says what you cannot do. So you dont do these things, the c'tor body can do everything else.

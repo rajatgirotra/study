@@ -15,14 +15,21 @@ double square(double x) noexcept {
 }
 
 constexpr int twice(int x);
-// Both declaration and definition must be constexpr. Also constexpr functions are implicitly inlined. Note that inline only hints the linker
-// that there may be multiple definitions of the function in multiple translation units, so sort that out.
-// Also constexpr being implicitly inlined means that constexpr member function declared in a header file cannot be defined in the source file. It must be
-// defined in the header file itself; as the compiler must see the definition at compile time to be able to compute it at compile time.
+/*
+ * Both declaration and definition must be constexpr. And must be defined in the header file itself. If a constexpr function is not defined
+ * inside the header, the compiler can not see the definition of the constexpr functions while compiling all the other source files.
+ * Obviously, if it can't see the definition of the functions, it can't perform the steps necessary to calculate them at compile-time.
+ * Thus all constexpr functions must be defined everywhere they are used.
+ *
+ * Also because constexpr functions should be defined in header files, they must be inlined so linker will know how to remove multiple definitions
+ * of the same constexpr function. that is why all constexpr functions are implicitly inline.
+ */
 
 int main() {
     // Case 1. parameter x is constexpr, so compiler can evaluate x/2 at compile time.
     constexpr double half_one = half_of(1);  // note this. This is how you tell the compiler that you need constexpr evaluation.
+    // the standard guarantees that half_one must be available at compile time because the function is constexpr as the parameters are also known at compile time.
+    // so we can use static_assert
     static_assert(half_one == 0.5, "They should be equal");
 
     // case 2. parameter d is not constexpr, so compiler will compute  at run time

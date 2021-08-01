@@ -14,7 +14,7 @@ struct mystruct {
 };
 
 constexpr int half_of(double x) noexcept {
-    return x / 2;
+    return static_cast<int>(x / 2);
 }
 
 int main() {
@@ -26,8 +26,8 @@ int main() {
      * C99 added support for VLA's. C++11 made it optional, so compilers may/may not support it. You can check the
      * __STDC_NO_VLA__ to check if VLA's are supported or not.
      */
-    int arr[i];
-    int arr1[half_of(2.0)];
+    [[maybe_unused]] int arr[i];
+    [[maybe_unused]] int arr1[half_of(2.0)];
     return 0;
 }
     

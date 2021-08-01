@@ -12,7 +12,7 @@ int main() {
     auto t2 = std::chrono::high_resolution_clock::now(); // t2 is time_point
 
     // get difference between t1 and t2, duration_cast is needed
-    // Rep is same, but source is nano, and dest is milli so its needed.
+    // Rep is same, but source is nano's, and dest is milli's, so it's needed.
     auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2-t1);
 
     // duration cast not needed here as destination Rep is double which is wider than source Rep.
