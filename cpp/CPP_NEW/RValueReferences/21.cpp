@@ -7,8 +7,8 @@ using namespace std;
  * So we need to disable it in the following cases.
  * 1) When argument is a Person, const Person, const Person&, const volatile Person etc. etc.
  * 2) When argument is a subclass of Person
- * 3) When argumen is an integral type.
- * Lets see how.
+ * 3) When argument is an integral type.
+ * Let's see how.
  */
 
 struct Person {

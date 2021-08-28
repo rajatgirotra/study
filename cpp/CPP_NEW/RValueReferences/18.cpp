@@ -15,16 +15,16 @@ template <typename T>
 void addName(T&& arg) {
      auto now = std::chrono::steady_clock::now().time_since_epoch().count();
      cout << "addName(T&& args) called at: " << now << ", adding: " << arg << " to set\n";
-     namesSet.insert(arg);
+     namesSet.insert(std::forward<T>(arg));
 }
 
-void addName(int index) {
+void addName(size_t index) {
     addName(namesArr.at(index));
 }
 
 int main() {
-    //short s = 1;
-    int s = 1;
+//    unsigned short s = 1;
+    size_t s = 1;
     addName(s); // this will try to invoke the universal reference instead of the int version as short required promotion to int.
 
     for(auto&& name : namesSet) {

@@ -41,13 +41,13 @@ NEVER NEVER NEVER DO THIS..
 
 HashMap getMap() {
     HashMap hm;
-    return std::move(hm); // you just acted smart but you ended up being a fool. You disabled RVO.
+    return std::move(hm); // you just acted smart, but you ended up being a fool. You disabled RVO.
 }
 
-// But you say.. RVO is a compiler optimization. if the compiler doesnt apply it, at-least my version will do a move and avoid
+// But you say, RVO is a compiler optimization. if the compiler doesn't apply it, at-least my version will do a move and avoid
 a copy??
 Answer
 1) First, most compiler will apply it anyway.
-2) If they dont, just because the function code is complex and has too many code paths and the compiler cannot elide a copy,
+2) If they don't, just because the function code is complex and has too many code paths and the compiler cannot elide a copy,
 the return type will automatically be an rvalue ie std::move(hm) will be implicit. You should just say "return hm";
 THAT's IT.

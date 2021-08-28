@@ -11,8 +11,8 @@ If the rvalue reference has a name, then it is an lvalue. If the rvalue referenc
 then it is an rvalue.
 
 If we allow move semantics to be applied to something that has a name, then the thing which we moved
-is still accessible in the subsequent lines of code. I.e. the resource pointed to by anotherX will still be accessible
-via x(ie. it is still in scope!!). However, in case an rvalue reference does not have a name, then it will get destroyed immediately making
+is still accessible in the subsequent lines of code. i.e. the resource pointed to by anotherX will still be accessible
+via x(i.e. it is still in scope!!). However, in case an rvalue reference does not have a name, then it will get destroyed immediately making
 sure that the resource gets deleted.
 
 Eg: in
@@ -24,7 +24,7 @@ Next I want you to write a Base and Derived class which overloads move semantics
 the c'tor hierarchy is called.
 
 ----------------------------
-Just to make things more clearer, and rvalue reference X&& can be an lvalue or an rvalue depending on context. In a function
+Just to make things clearer, and rvalue reference X&& can be an lvalue or an rvalue depending on context. In a function
 parameter, it is ALWAYS AN L-VALUE
 
 void foo(X&& param) // param is an lvalue

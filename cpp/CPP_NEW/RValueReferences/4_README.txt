@@ -10,7 +10,7 @@ So, we would like to convert b into an rvalue. The C++ standard provides a funct
 template <typename T>
    std::move(const T& arg); to convert its argument to an rvalue, thereby forcing move semantics.
 
-So if can say
+So we can say
 
   a = std::move(b); // to force move semantics.
 
@@ -25,11 +25,11 @@ void swap(T& a, T& b) {
 
 Also using move semantics gives you the following advantages:
 
-1] Performance boost:For those types that implement move semantics, most of thhe standard algorithms and 
+1] Performance boost:For those types that implement move semantics, most of the standard algorithms and
 operations will use move semantics and thus experience a performance gain.
 
 2] We know that standard containers require its elements to implement copy semantics. i.e. elements should be
-copyable. But it turns out that most of the times, simple movability is enough. So you can use types that are
+copyable. But it turns out that most of the time, simple movability is enough. So you can use types that are
 movable but not copyable. eg is: unique_pointer.
 
 But there is one important thing that you need to take care of. When you say
@@ -37,7 +37,7 @@ But there is one important thing that you need to take care of. When you say
 a = std::move(b), we know that the object pointed by b is the one formerly pointed to by a. This resource should
 be destroyed. But when does that happen. Only when b goes out of scope, or when b is used in a target expression
 in which case the resource gets transferred again. So we are actually moving into a world on non-deterministic
-destruction. But this is OK as far as the d'tor does not have any side-effects. But let say you have to release
+destruction. But this is OK as far as the d'tor does not have any side effects. But let say you have to release
 a lock in a d'tor. Then there is no way of predicting when the lock might get released. So remember, if your
-d'tor has any side-effects and you implement move semantics for your type, make sure you do any cleanup like
+d'tor has any side effects, and you implement move semantics for your type, make sure you do any cleanup like
 releasing the lock or any other thing in your move functions.

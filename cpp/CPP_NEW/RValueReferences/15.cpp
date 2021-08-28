@@ -13,7 +13,7 @@ class Widget {
 private:
     std::string mValue;
 public:
-#if 1
+#if 0
     template <typename T>
     void setName(T&& param) {
         mValue = std::move(param);      ///  line A (answer is std::string copy assignment operator which takes const char* argument).
@@ -21,7 +21,7 @@ public:
     }
 #endif
 
-#if 0
+#if 1
 // if we enable this part, then compiler will try to convert argument "RajatGirotra" which is const char(&)[13] to string using the string constructor
 // a temporary string will be constructed and then the r-value overload will be called, which will call string's move assignment operator.
     void setName(std::string&& param) {
@@ -36,6 +36,6 @@ public:
 
 int main() {
     Widget w;
-    w.setName("RajatGirotra");
+    w.setName("RajatGirotra"); // param is of type const char[13]
     return 0;
 }

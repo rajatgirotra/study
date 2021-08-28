@@ -1,5 +1,5 @@
 Whenever considering your options whether to use separate overloads for lvalue and rvalue or to have a single function taking
-an universal reference. consider the pros and cons of the 3 options shown below, and evaluate the cost in terms of copy and move
+a universal reference. consider the pros and cons of the 3 options shown below, and evaluate the cost in terms of copy and move
 operations. But most of the types you'll find that Option 2 (using universal reference is viable).
 
 Option 1: separate overloads

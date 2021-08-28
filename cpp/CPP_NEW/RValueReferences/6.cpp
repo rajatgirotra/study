@@ -1,80 +1,84 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
+
 using namespace std;
 
 struct Base {
-	public:
-                inline static int iCounter {0};
-                int tag;
-		Base() : tag (++iCounter) {
-			cout << "Base c'tor for tag: " << tag << endl;
-		}
+public:
+    inline static int iCounter{0};
+    int tag;
 
-		~Base() {
-			cout << "Base d'tor for tag: " << tag << endl;
-		}
+    Base() : tag(++iCounter) {
+        cout << "Base c'tor for tag: " << tag << endl;
+    }
+
+    ~Base() {
+        cout << "Base d'tor for tag: " << tag << endl;
+    }
 
 
-		Base(const Base& rhs) : tag (++iCounter) {
-			cout << "Base classic copy c'tor for tag: " << tag << "   using tag: " << rhs.tag << endl;
-		}
+    Base(const Base &rhs) : tag(++iCounter) {
+        cout << "Base classic copy c'tor for tag: " << tag << "   using tag: " << rhs.tag << endl;
+    }
 
-		Base(Base&& rhs) : tag (++iCounter)  {
-			cout << "Base move c'tor for tag: " << tag << "   using tag: " << rhs.tag << endl;
-                        //Exchange tag numbers to simulate movement
-                        int tmp = tag; tag = rhs.tag; rhs.tag = tmp;
-                        
-		}
+    Base(Base &&rhs) : tag(++iCounter) {
+        cout << "Base move c'tor for tag: " << tag << "   using tag: " << rhs.tag << endl;
+        //Exchange tag numbers to simulate movement
+        std::swap(tag, rhs.tag);
+    }
 
-		Base& operator = (const Base& rhs) {
-			cout << "Base classic assignment operator for tag: " << tag << "   using tag: " << rhs.tag<< endl;
-			return *this;
-		}
+    Base &operator=(const Base &rhs) {
+        cout << "Base classic assignment operator for tag: " << tag << "   using tag: " << rhs.tag << endl;
+        return *this;
+    }
 
-		Base& operator = (Base&& rhs) {
-			cout << "Base move assignment operator for tag: " << tag << "   using tag: " << rhs.tag<< endl;
-                        //Exchange tag numbers to simulate movement
-                        int tmp = tag; tag = rhs.tag; rhs.tag = tmp;
-			return *this;
-		}
-
+    Base &operator=(Base &&rhs) {
+        cout << "Base move assignment operator for tag: " << tag << "   using tag: " << rhs.tag << endl;
+        //Exchange tag numbers to simulate movement
+        std::swap(tag, rhs.tag);
+        return *this;
+    }
 };
 
 struct Derv : public Base {
-	public:
-		Derv() {
-			cout << "Derv c'tor" << endl;
-		}
+public:
+    Derv() {
+        cout << "Derv c'tor" << endl;
+    }
 
-		~Derv() {
-			cout << "Derv d'tor" << endl;
-		}
+    ~Derv() {
+        cout << "Derv d'tor" << endl;
+    }
 
 
-		Derv(const Derv& rhs) : Base(rhs) {
-			cout << "Derv classic copy c'tor" << endl;
-		}
+    Derv(const Derv &rhs) : Base(rhs) {
+        cout << "Derv classic copy c'tor" << endl;
+    }
 
-		Derv (Derv&& rhs) : Base(std::move(rhs)) {
-			cout << "Derv move c'tor" << endl;
-		}
+    Derv(Derv &&rhs) : Base(std::move(rhs)) {
+        cout << "Derv move c'tor" << endl;
+    }
 
-		Derv& operator = (const Derv& rhs) {
-			Base::operator=(rhs);
-			cout << "Derv classic assignment operator" << endl;
-			return *this;
-		}
+    Derv &operator=(const Derv &rhs) {
+        Base::operator=(rhs);
+        cout << "Derv classic assignment operator" << endl;
+        return *this;
+    }
 
-		Derv& operator = (Derv&& rhs) {
-			Base::operator=(std::move(rhs));
-			cout << "Derv move assignment operator" << endl;
-			return *this;
-		}
+    Derv &operator=(Derv &&rhs) {
+        Base::operator=(std::move(rhs));
+        cout << "Derv move assignment operator" << endl;
+        return *this;
+    }
 };
+
 #if 1
+
 Derv foo() {
     return Derv();
 }
+
 #endif
 
 #if 0
@@ -94,11 +98,11 @@ Derv foo()
 #endif
 
 int main() {
-        cout << "Copy Construction first" << endl;
-        Derv d1 = std::move(foo());  // --------->>> A
-        cout << "Assignment operation next" << endl;
-        d1 = foo(); 
-	return 0;
+    cout << "Copy Construction first" << endl;
+    Derv d1 = std::move(foo());  // --------->>> A
+    cout << "Assignment operation next" << endl;
+    d1 = foo();
+    return 0;
 }
 
 
@@ -110,7 +114,7 @@ int main() {
  *    compiler will treat them as lvalues.
  *
  * 2) In function foo(), you return a Derv object by value. So in this case the compiler is clever to use NRVO.
- *    If compiler would not have used NRVO, then because foo() returns a temporary unnamed object, move c'tor would have been used.
+ *    If compiler had not used NRVO, then because foo() returns a temporary unnamed object, move c'tor would have been used.
  *    The other way that you can force move semantics is by changing the return type of foo() from Derv to Derv&&, so it becomes an
  *    unnamed rvalue reference. But in this case since it is a reference to a local variable which will be destroyed when foo() returns, 
  *    we cannot/should not use it in the copy c'tor as it is not reliable. 

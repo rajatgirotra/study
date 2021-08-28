@@ -88,7 +88,7 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #add_subdirectory(chrono)
 #add_subdirectory(constexpr)
 add_subdirectory(hashes_maps_sets)
-#add_subdirectory(sfinae_and_enable_if)
+add_subdirectory(sfinae_and_enable_if)
 #add_subdirectory(iostreams)
 add_subdirectory(iterators)
 add_subdirectory(RValueReferences)
