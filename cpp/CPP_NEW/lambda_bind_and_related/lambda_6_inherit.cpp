@@ -1,7 +1,7 @@
 /*
  * you have two very simple lambda's.
- * 1) Doesnt capture anything, no params and returns an int
- * 2) Doesnt capture anything, one int param and returns param*10
+ * 1) Doesn't capture anything, no params and returns an int
+ * 2) Doesn't capture anything, one int param and returns param*10
  *
  * Create a Callable that if called without args, calls first lambda and if called with int arg, calls second lambda
  *

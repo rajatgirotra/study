@@ -38,7 +38,7 @@ Reference is a reference type of the iterated over type.
 -------------------------------------------------------------------
 
 Most of the std algorithms work with iterators not container directly, so how do they know about the type of the container item.
-Its through the value_type typedef in the iterator class. However, it is not advised to use std::iterator directly, but instead use
+It's through the value_type typedef in the iterator class. However, it is not advised to use std::iterator directly, but instead use
 iterator_traits. std::iterator_traits is very trivial
 
 template <Iter>
@@ -48,7 +48,7 @@ struct iterator_traits {
     // and so on..
 };
 
-But why use iterator_traits. Its because sometime iterator are implemented as simple pointers, not really as classes. For example:
+But why use iterator_traits. It's because sometime iterator are implemented as simple pointers, not really as classes. For example:
 for vector<int>, the iterator type is int*. In this case, if we use std::iterator, then value_type would be int*::value_type which is
 ill-formed. Using std::iterator_traits gives us an opportunity to provide specializations for non-standard iterator types.
 
@@ -64,10 +64,10 @@ struct iterator_traits<T*> {
 So now std::algorithms can safely work for iterator types.
 -----------------------------------------------------------------------------
 
-Why is std::iterator deprecated? Lets say, you want to write your own iterator, where the iterated over type is int. You will write
+Why is std::iterator deprecated? Let's say, you want to write your own iterator, where the iterated over type is int. You will write
 
 class MyIterator : std::iterator<forward_iterator_tag, int, int, int*, int&> {};
-// This is not very clear. Infact if you have to write an output iterator, the lack of clarity is even more visible
+// This is not very clear. In fact if you have to write an output iterator, the lack of clarity is even more visible
 
 class MyIterator : std::iterator<output_iterator_tag, void, void, void, void> {};
 

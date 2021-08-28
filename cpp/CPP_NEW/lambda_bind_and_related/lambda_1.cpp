@@ -1,7 +1,7 @@
 /* C++11 introduces lambda functions. You already know from BLL that lambda expression is nothing
- * but a unnamed function object
+ * but an unnamed function object
  *
- * Lets see how it is used in C++11.
+ * Let's see how it is used in C++11.
  */
 #include <iostream>
 using namespace std;
@@ -89,7 +89,7 @@ int main()
    cout << "c (outside): " << c << endl;
 
    //Another approach is that u still pass the outside scope by value, but pass it as mutable, so u will be able to modify it.
-   //In this case, the scope is passed in a write mode but changes wont be visible after the lambda function.
+   //In this case, the scope is passed in a write mode but changes won't be visible after the lambda function.
    a = b = c = 0;
    auto l4 = [=] () mutable { 
                      cout << "Capture scope by value but mutable: " << endl;

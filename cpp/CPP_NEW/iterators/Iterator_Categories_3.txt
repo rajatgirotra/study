@@ -15,7 +15,7 @@ std::istreambuf_iterator;
 std::input_iterator;
 
 2) output iterators: Same as input iterators. These are for output to containers. They are also single-pass iterators.
-They will appear on the left hand side of an expression. They will likely overload the following:
+They will appear on the left-hand side of an expression. They will likely overload the following:
 
 reference operator * ();
 iterator& operator ++();

@@ -28,6 +28,6 @@ int main() {
  * struct SomeFunctionObject
  * {
  *     template <typename... Args>
- *     auto operator() (Args&&... args) const;
+ *     auto operator() (Args&&... args) const noexcept;
  * };
  */

@@ -10,7 +10,7 @@ int main() {
 }
 
 /*
- * cout << "Hello " is immediately executed and that returns an ostream&. That ostream& is captured in an std::reference_wrapper<>
+ * cout << "Hello " is immediately executed and that returns an ostream&. That ostream& is captured in std::reference_wrapper<>
  * using std::ref() and then fetched inside the body of the lambda using out.get().
  *
  * Do remember that std::reference_wrapper<> can also wrap a Callable in which case the class provides a function call operator

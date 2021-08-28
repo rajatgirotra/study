@@ -1,6 +1,6 @@
 /* In C++11, there were a few things that you could do with std::bind and not with lambda. But with C++14, you can do everything with lambda which you can do with std::bind, so always prefer lambda.
 
-When using bind, functions are less likely to be inlined, so its better to use lambda. Also std::bind can silently ignore arguments. I dont know what good is that; but its definitely not intuitive.
+When using bind, functions are less likely to be inlined, so it's better to use lambda. Also std::bind can silently ignore arguments. I don't know what good is that; but it's definitely not intuitive.
 
 The only disadvantage with lambda is that it might produce more code than bind. since each lambda will give you a new type.
 */
@@ -51,7 +51,7 @@ int main() {
 
     // 3.---------------------------------------------------------------- 
     // in c++11, you could not do perfect forwarding with lambdas, string&& arg works in C++14
-    // but auto&& doesnt work. and that's what perfect forwarding is
+    // but auto&& doesn't work. and that's what perfect forwarding is
     auto l3 = [] (auto&& arg) {
         foo(std::forward<decltype(arg)>(arg), 42);
     };

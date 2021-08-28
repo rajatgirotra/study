@@ -14,7 +14,7 @@ Eg:
  a * x = 30; //ERROR. a * x is an rvalue.
 
 
-Rvalue references were introduced in C++0x11 to solve two problems:
+Rvalue references were introduced in C++11 to solve two problems:
 
 1] Move semantics
 2] Perfect forwarding
@@ -30,10 +30,10 @@ Rvalue references were introduced in C++0x11 to solve two problems:
     Now, in case the assignment operator is called like:
     X foobar();
     X x;
-    x = foobar(); //i.e in case where the right hand side is an rvalue, we can just swap the m_resource pointers between this 
-    and the temporary object returned by foobar(). Then when the temporary object goes out of scope after the assignment, the 
+    x = foobar(); //i.e in case where the right-hand side is an rvalue, we can just swap the m_resource pointers between this
+    and the temporary object returned by foobar(). Then, when the temporary object goes out of scope after the assignment, the
     m_resource originally pointed to by this gets deleted. This helps in drastic performance improvements as we are not cloning
-    the resource anymore if the right hand side is an rvalue. So we provide an overload for the assignment operator for rvalue
+    the resource anymore if the right-hand side is an rvalue. So we provide an overload for the assignment operator for rvalue
     references.
    
    X& operator = (X&& rhs) {
@@ -46,4 +46,4 @@ Rvalue references were introduced in C++0x11 to solve two problems:
 
 Note that move is not only an optimization over copy, it has a semantic meaning also - transferring ownership.
 When you move, you effectively xfer the ownership of the underlying resource. Think in your head about std::unique_ptr etc.
-and you'll understand what i am trying to say.
+and you'll understand what I am trying to say.

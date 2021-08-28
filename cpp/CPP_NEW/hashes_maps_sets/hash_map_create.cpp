@@ -99,8 +99,8 @@ int main() {
      *
      * 3) iterator insert(const iterator_hint, const value_type&);
      * 4) iterator insert(const iterator_hint, value_type&&);
-     * return iterator is same as above. This one doesnt return bool so that it can be used with the insert_iterator like
-     * other sequence and associative containers. The insert_iterator calls insert() and increments the returned iter.
+     * return iterator is same as above. This one doesn't return bool so that it can be used with the insert_iterator like
+     * other sequences and associative containers. The insert_iterator calls insert() and increments the returned iter.
      *
      * 5) void insert(InputIter first, InputIter last)
      * 6) void insert(std::initializer_list<value_type> list);
@@ -137,7 +137,7 @@ int main() {
 
     /* reference& operator [] (const key_type& k)
      * reference& operator [] (key_type&& k)
-     * returns a reference to the mapped_type for the given key. If key doesnt exist, then default constructs it; and then
+     * returns a reference to the mapped_type for the given key. If key doesn't exist, then default constructs it; and then
      * returns a reference.
      */
 

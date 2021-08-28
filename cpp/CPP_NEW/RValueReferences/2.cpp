@@ -70,16 +70,16 @@ int Number::counter = 0;
 Number foobar()
 {
      Number n;
-    // return std::move(n);
+//     return std::move(n); // -Werror=pessimizing-move nice to include warning in your projects
      return n;
 
-    //return Number();
+//    return Number();
 }
 
 int main()
 {
-	Number n(foobar());
-	//Number n(std::move(foobar()));
+//	Number n(foobar());
+	Number n(std::move(foobar()));
 	cout << "Hello World\n";
 	return 0;
 }
@@ -90,10 +90,10 @@ int main()
 // Read this beautiful article: http://definedbehavior.blogspot.in/2011/08/value-semantics-nrvo.html
 // to force move semantics, explicitly use std::move() (line 76). However this is not recommended because it disables RVO.
 
-// See line 70-72. If i create a local object and return it using std::move(). Is there any benefit i am getting???
+// See line 70-72. If I create a local object and return it using std::move(). Is there any benefit I am getting???
 /* Two things to note here.
  * The return type is Number not Number&&.
- * If return type was Number&&, it means you are returning a rvalue reference to a local object, ie. returning a dangling reference
+ * If return type was Number&&, it means you are returning a rvalue reference to a local object, i.e. returning a dangling reference
  * The second point is that return type Number is correct, so the function is anyway returning a rvalue. why do you want to move it??
  * Using move is just disabling RVO optimization again.
  */

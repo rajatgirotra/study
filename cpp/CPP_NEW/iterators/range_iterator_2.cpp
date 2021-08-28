@@ -1,6 +1,6 @@
 /*
  * Create a template class Range which takes two template parameters of integral type: FROM and TO
- * Create an iterator of this class which goes from FROM to TO, both FROM and TO are inclusive and if FROM < TO,
+ * Create an iterator of this class which goes from FROM to TO, both FROM and TO are inclusive and if FROM > TO,
  * you go iterate in reverse order.
  */
 
@@ -56,7 +56,7 @@ public:
 };
 
 int main() {
-    auto range = Range<15, 25>();
+    auto range = Range<25, 15>();
 
     // find 18 in range
     auto iter = std::find(range.begin(), range.end(), 18);

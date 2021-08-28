@@ -1,5 +1,5 @@
 /*
- * variables templates in C++ (its available in C++14 onwards)
+ * variables templates in C++ (it's available in C++14 onwards)
  */
 
 #include <iostream>
@@ -24,7 +24,7 @@ namespace {
     }
 }
 
-// its a template to return the value of pi as a particular type you require.
+// it's a template to return the value of pi as a particular type you require.
 //template <typename T>
 //constexpr T pi = T{3.1415926538979323L};
 
@@ -37,11 +37,11 @@ int main() {
     std::cout << std::setprecision(20) << pi<double> << endl; // print pi as a double
     std::cout << std::setprecision(20) << pi<long double> << endl; // print pi as a double
     cout << "decltype(pi<double>): " << std::is_same<decltype(pi<double>), double>::value << endl; // this will be false as pi<double> is const double
-    cout << "decltype(pi<double>): " << demangle(typeid(pi<double>).name()) << endl; // C++ typeinfo also reports double.
+    cout << "decltype(pi<double>): " << demangle(typeid(pi<double>).name()) << endl; // C++ typeinfo only reports double.
     cout << "decltype(pi<double>): " << type_id_with_cvr<decltype(pi<double>)>().pretty_name() << endl; // but boost typeindex is designed to succeed.
 
     // what is wrong here.
-    // pi<int32_t> means "int pi = int {3.1415926538979323L}; i.e you are using brace initialization with narrowing cast. try substituting it with parenthesized substitution.
+    // pi<int32_t> means "int pi = int {3.1415926538979323L}; i.e. you are using brace initialization with narrowing cast. try substituting it with parenthesized substitution.
     std::cout << pi<int32_t> << endl; // print pi as a signed 32 bit int
 }
 

@@ -25,7 +25,7 @@ Arguments Args... are always copied or moved into the function object, and whene
 What can be the arguments to std::bind()?
  1) normal variables
  2) std::cref(), std::ref()
- 3) a nested std::bind() expression. in this case, the nested std::bind operation is invoked greedely and its value is passed to the outer bind function.
+ 3) a nested std::bind() expression. in this case, the nested std::bind operation is invoked greedily and its value is passed to the outer bind function.
  4) std::placeholders::_1, _2 etc --> These are placeholder types and there values are substituted at the time the function object is called.
 */
 

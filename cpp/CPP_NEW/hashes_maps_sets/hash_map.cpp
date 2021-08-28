@@ -63,4 +63,4 @@ int main() {
     // erase will invalidate the iterator which is pointed to.
 }
 
-/* Lets see hash_combine.hpp next. Then we'll see how to construct and use hash maps in various ways */
+/* Let's see hash_combine.hpp next. Then we'll see how to construct and use hash maps in various ways */

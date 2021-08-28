@@ -8,7 +8,7 @@ if(iter == hashMap.end()) {
 }
 
 1) We are calculating hash twice.
-2) If the bucket to which the key belongs has many collisions, the performance will me more worse.
+2) If the bucket to which the key belongs has many collisions, the performance will be worse.
 
 Second way - Use insert
 =======================
@@ -21,7 +21,7 @@ Third way - Use emplace
 =======================
 auto [it, result] = hashMap.emplace("Rajat", "Girotra");
 1) Here the arguments to emplace will be sent to the constructor of std::pair
-2) The problem with emplace is when the value_type is moveable. Example:
+2) The problem with emplace is when the value_type is moveable ONLY. Example:
 std::unordered_map<string, std::unique_ptr<int>>;
 auto my_personal_int = std::make_unique<int>(42);
 auto [it, result] = hashMap.emplace("Rajat", std::move(my_personal_int));

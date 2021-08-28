@@ -11,7 +11,7 @@ add_executable(structured_bindings_5 structured_bindings_5.cpp)
 target_link_libraries(structured_bindings_5 PRIVATE project_options project_warnings)
 
 add_executable(variable_template_6 variable_template_6.cpp)
-target_include_directories(variable_template_6 PUBLIC SYSTEM ${Boost_INCLUDE_DIRS})
+target_include_directories(variable_template_6 SYSTEM PUBLIC ${Boost_INCLUDE_DIRS})
 target_link_libraries(variable_template_6 PRIVATE project_options project_warnings)
 
 add_executable(variable_template_7 variable_template_7.cpp)
@@ -62,3 +62,6 @@ target_link_libraries(has_include_21 PRIVATE project_options project_warnings)
 
 add_executable(non_type_auto_template_22 non_type_auto_template_22.cpp)
 target_link_libraries(non_type_auto_template_22 PRIVATE project_options project_warnings)
+
+add_executable(template_paramter_23 template_paramter_23.cpp)
+target_link_libraries(template_paramter_23 PRIVATE project_options project_warnings)

@@ -75,7 +75,7 @@ int main()
 /*
  * Explanation. First see the differences from bind_1.cpp. async is very similar to std::bind in what its arguments are.
  * 1) include <future> header for async.
- * 2) You dont need the round brackets like you do when calling std::bind
+ * 2) You don't need the round brackets like you do when calling std::bind
  * 3) The async() provides a second c'tor argument which take a launch policy.
  *
  * std::launch::async -  meaning run the thread now.
@@ -87,5 +87,5 @@ int main()
  * So unless we add std::launch::async in all calls above, the functions may or may not run by the time main ends.
  *
  * Also it is possible to get the result of async calls using std::future.get() but we will discuss it later during std multithreading.
- * Also compile it using -lpthread, otherwise you get an runtime exception.
+ * Also compile it using -lpthread, otherwise you get a runtime exception.
  */

@@ -15,5 +15,5 @@ int main() {
  * like +5 is 5
  * enum Color { ORANGE, RED}; Color c = ORANGE; +c will be ORANGE
  * and similarly for pointer types. The above works because a capture less lambda contains an implicit conversion operator to a function pointer.
- * So applying + to a capture less lambda returns a function pointer and that is immediately invoked. so its just a way fancy of doing nothing.
+ * So applying + to a capture less lambda returns a function pointer and that is immediately invoked. so it's just a way fancy of doing nothing.
  */
