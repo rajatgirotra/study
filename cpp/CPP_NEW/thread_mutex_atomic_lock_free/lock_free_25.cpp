@@ -1,5 +1,5 @@
 
-/* Dont compile this, only view the generates asm. */
+/* Don't compile this, only view the generates asm. */
 unsigned int A = 10, B = 10;
 
 void foo() {

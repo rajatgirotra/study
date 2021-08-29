@@ -8,7 +8,7 @@
  * basically just a wrapper which wraps a callable and also store the result from that callable.
  * the result can then be accessed via the future object provided by the task.
  *
- * We'll try to wrap a lambda, an std::bind expression and a simple function.
+ * We'll try to wrap a lambda, a std::bind expression and a simple function.
  */
 
 #include <iostream>
@@ -46,10 +46,10 @@ int main() {
     cout << future_2.get() << endl;
 
 
-    // packaged task wrapping an std::bind expression
-    std::packaged_task<int(int, int)> task_3(std::bind(std::ref(f), _1, _2));
+    // packaged task wrapping a std::bind expression
+    std::packaged_task<int(int, int)> task_3(std::bind(std::ref(f), _1, -10));
     auto future_3 = task_3.get_future();
-    auto t = std::thread(std::move(task_3), 10, -10);
+    auto t = std::thread(std::move(task_3), 10, -5);
     t.join();
     cout << future_3.get() << endl;
 }

@@ -8,7 +8,7 @@
  *     typedef T type;
  *  };
  *
- *  ie. partial specialization for true declares a typedef. and the "false" one doesn't have a typedef.
+ *  i.e. partial specialization for true declares a typedef. and the "false" one doesn't have a typedef.
  *
  *  How is it used. Many ways
  *  1) To conditionally remove functions from overload resolution based on type_traits.

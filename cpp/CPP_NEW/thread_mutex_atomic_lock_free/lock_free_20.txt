@@ -29,7 +29,7 @@ How????
 
 Because the processor can delay the effect of a store instruction past a load from a different location.
 mov[X], 1 is a store instruction and mov r1, [Y] is a load instruction from a different location. So the processor can execute in the following order.
-Remember, the processor can do this because it will not effect the outcome of Thread 1 and that is all it cares about.
+Remember, the processor can do this because it will not affect the outcome of Thread 1 and that is all it cares about.
 
 Thread 1                       Thread 2
 mov r1, [Y]                    mov r1, [X]
@@ -62,7 +62,7 @@ This serializing operation guarantees that every load and store instruction that
 globally visible before any load or store instruction that follows the MFENCE instruction is globally visible.
 
 Anyway, the memory ordering on x86 is actually pretty strong.
-All of the other kinds like {StoreStore, LoadLoad, LoadStore} are ordered. So we have demonstrated the one case where x86 allows re-ordering i.e
+All the other kinds like {StoreStore, LoadLoad, LoadStore} are ordered. So we have demonstrated the one case where x86 allows re-ordering i.e
 a StoreLoad. So we say that x86 is strongly ordered cpu.
 
 On a weakly ordered cpu,

@@ -1,7 +1,7 @@
 /*
  * std::call_once provides a way where only one of the many threads can run a Callable. Once one thread runs a Callable,
  * all other reads trying to run the same Callable will block. If the original thread is able to run the callable properly,
- * all all threads will be a no-op. If the Callable throws an exception, one of the waiting threads will get a chance to
+ * all threads will be a no-op. If the Callable throws an exception, one of the waiting threads will get a chance to
  * run the callable.
  *
  * Note that for now std::call_once is broken on unix due to issue with pthread_once when the init function throws an exception.

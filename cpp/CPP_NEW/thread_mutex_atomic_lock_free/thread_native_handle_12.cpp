@@ -1,5 +1,5 @@
 /*
-Because every OS/kernel has its own API and thread implementation, its not possible for c++ standard to standardize everything,
+Because every OS/kernel has its own API and thread implementation, it's not possible for c++ standard to standardize everything,
 so it provides a native_handle() api which returns the underlying handle of the threading API. Let's see
 */
 #include <thread>

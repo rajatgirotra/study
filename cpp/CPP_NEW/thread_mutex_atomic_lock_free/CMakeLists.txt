@@ -20,7 +20,8 @@ add_executable(future_16 future_16.cpp)
 target_link_libraries(future_16 PRIVATE project_options project_warnings pthread)
 
 add_executable(promise_17 promise_17.cpp)
-target_link_libraries(promise_17 PRIVATE project_options project_warnings pthread)
+target_compile_options(promise_17 PRIVATE -pthread)
+target_link_libraries(promise_17 PRIVATE project_options project_warnings)
 
 add_executable(packaged_task_18 packaged_task_18.cpp)
 target_link_libraries(packaged_task_18 PRIVATE project_options project_warnings pthread)
@@ -48,4 +49,4 @@ target_link_libraries(lock_free_30 PRIVATE project_options project_warnings)
 target_compile_options(lock_free_30 PRIVATE -masm=intel)
 
 add_executable(lock_free_31 lock_free_31.cpp)
-target_link_libraries(lock_free_31 PRIVATE project_options project_warnings)
+target_link_libraries(lock_free_31 PRIVATE project_options project_warnings pthread)

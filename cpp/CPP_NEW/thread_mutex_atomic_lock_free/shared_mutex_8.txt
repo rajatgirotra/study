@@ -4,7 +4,7 @@ API's are trivial
 
 lock()
 unlock()
-trylock() which are standard
+try_lock() which are standard
 
 lock_shared()
 unlock_shared()
@@ -19,7 +19,7 @@ API's are trivial
 
 lock()
 unlock()
-trylock() which are standard
+try_lock() which are standard
 
 try_lock_until()
 try_lock_for() as this is timed mutex too

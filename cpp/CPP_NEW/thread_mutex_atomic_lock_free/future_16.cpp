@@ -1,5 +1,6 @@
 /*
-std::future is used to fetch the result of an asynchronous operation. The asynchronous providers are std::async, std::promise or std::packaged_task. These providers may either set a value or an exception that can be retrieved by the future object. The future object reference a shared state of the asynchronous provider.
+std::future is used to fetch the result of an asynchronous operation. The asynchronous providers are std::async, std::promise or std::packaged_task.
+These providers may either set a value or an exception that can be retrieved by the future object. The future object reference a shared state of the asynchronous provider.
 
 Let's look at the std::future API.
 
@@ -8,7 +9,8 @@ Let's look at the std::future API.
 3) bool valid() --> returns if the std::future object is valid or not. A default constructed object and the moved from object are invalid. A future is valid if
 
 a) It was created from std::async, std::promise or std::packaged_task and
-b) It was valid till the first call to the get() function. after you retrieve the result of the asynchronous operation, the future becomes invalid. Most future operations API's have undefined behaviore if valid()==false before the call.
+b) It was valid till the first call to the get() function. after you retrieve the result of the asynchronous operation, the future becomes invalid.
+Most future operations API's have undefined behavior if valid()==false before the call.
 
 4) get() --> blocks till the result of asynchronous operation is available.
 5) wait() --> blocks

@@ -6,6 +6,7 @@
  * This is the first attempt
  */
 #include "serialize.hpp"
+#include <iostream>
 #include <type_traits>
 using namespace std;
 

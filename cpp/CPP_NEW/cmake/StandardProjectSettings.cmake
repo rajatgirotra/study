@@ -25,7 +25,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # check if compiler supports LTO (link time optimization)
 # Pass "-DENABLE_LTO=ON" to cmake to enable LTO. If compiler doesnt support LTO
 # log error, but continue anyway.
-option(ENABLE_LTO "Enable if compiler supports link time optimization" ON)
+option(ENABLE_LTO "Enable if compiler supports link time optimization" OFF)
 if(ENABLE_LTO)
     include(CheckIPOSupported)
     check_ipo_supported(RESULT result OUTPUT output)

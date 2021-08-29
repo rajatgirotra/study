@@ -27,7 +27,7 @@ void sendMessage(int x)
 }
 
 So what would happen, if isPublished = 1 even before value = x?? Havoc..
-To prevent this, we can use a compiler barries:
+To prevent this, we can use a compiler barriers:
 asm volatile ("" ::: "memory"); between the two instructions.
 
 int A, B;
@@ -39,7 +39,7 @@ void foo()
 }
 
 If you just have a single processor system, then compiler barrier are enough as processor re-ordering does not matter (There is only a single processor and it will never see its own reads and writes out of order).
-Only when we have multi core systems, we will need a CPU fence instruction, or any other type of instruction that acts like a MEMORY BARRIER, like you saw before.
+Only when we have multi-core systems, we will need a CPU fence instruction, or any other type of instruction that acts like a MEMORY BARRIER, like you saw before.
 The CPU fence instruction which you saw in 1_Must_Read.txt is also a MEMORY BARRIER only.
 
 The difference between
@@ -58,12 +58,12 @@ mov A, eax
 Now if we had an "asm volatile("mfence" ::: "memory"); barrier between
 A = B + 1;
 B = 0; this would mean that all stores/loads till A = B + 1 should have been completed, before B was set to 0. But with the above generated code,
-that wont be possible. So the code generated must be like:
+that won't be possible. So the code generated must be like:
 
 mov eax, B
 add eax, 1
 mov A, eax
-fence::
+mfence::
 mov B, 0
 
-Hence it becomes a compiler barrier too..
+Hence, it becomes a compiler barrier too.

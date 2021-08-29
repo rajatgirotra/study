@@ -14,7 +14,7 @@ std::cv_status condition_variable::wait_for(std::unique_lock<std::mutex>, std::c
 std::cv_status condition_variable::wait_until(std::unique_lock<std::mutex>, std::chrono::timepoint);
 // same as above, but this is a timed wait. return value can be std::cv_status::timeout or std::cv_status::no_timeout
 
-All of the above wait(), wait_for(), wait_until() also take a Boolean predicate.
+All the above wait(), wait_for(), wait_until() also take a Boolean predicate.
 void condition_variable::wait(std::unique_lock<std::mutex>, Predicate pred); // is same as
 while(!pred()) { cv.wait(lock); } // ie keep waiting until pred is true
 

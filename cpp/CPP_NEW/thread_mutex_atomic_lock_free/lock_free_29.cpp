@@ -34,7 +34,7 @@ int main() {}
  * changing every field in the data structure to volatile. NO ??
  * Really what we need is a memory barrier. To make sure that changes to ready are visible only after value is updated.
  *
- * infact in problem 2 also, there is nothing which prevents the compiler from loading value before loading ready. So we should use
+ * in-fact in problem 2 also, there is nothing which prevents the compiler from loading value before loading ready. So we should use
  * memory barrier there also, and get rid of volatile all together.
  *
  * Also ready should be made atomic.

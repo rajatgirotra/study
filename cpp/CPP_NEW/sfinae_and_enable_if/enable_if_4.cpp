@@ -11,12 +11,12 @@ using namespace std;
 struct X {};
 
 template <typename T, typename std::enable_if_t<std::is_integral_v<T>>* = nullptr>
-void do_stuff(const T& t) {
+void do_stuff([[maybe_unused]] const T& t) {
     cout << "do_stuff called for integral template parameter type\n";
 }
 
 template <typename T, typename std::enable_if_t<std::is_class_v<T>>* = nullptr>
-void do_stuff(const T& t) {
+void do_stuff([[maybe_unused]] const T& t) {
     cout << "do_stuff called for class template parameter type\n";
 }
 

@@ -18,7 +18,7 @@ EVEN PLAIN 32-BIT INTEGER ASSIGNMENT (like i = 10).
 The language standards have nothing to say about atomicity in this case. Maybe INTEGER ASSIGNMENT IS ATOMIC, MAYBE IT ISN'T.
 Since non-atomic operations don't make any guarantees, plain integer assignment in C is non-atomic by definition.
 
-In practice, we usually know more about our target platforms than that. For example, IT'S COMMON KNOWLEDGE THAT ON ALL MODERN
+In practice, we usually know more about our target platforms than that. For example, ITS COMMON KNOWLEDGE THAT ON ALL MODERN
 X86, X64, ITANIUM, sparc, arm AND pOWERpc PROCESSORS, PLAIN 32-BIT INTEGER ASSIGNMENT IS ATOMIC AS LONG AS THE TARGET VARIABLE IS NATURALLY ALIGNED.
 ie all LOADS AND STORES OF INTEGERS ARE ATOMIC AS LONG AS THEY ARE NATURALLY ALIGNED.
 
