@@ -1,7 +1,7 @@
 /*
- * std::variant is a type safe union. an std::variant holds one of its alternatives at any given time or no value (in case of error).
+ * std::variant is a type safe union. a std::variant holds one of its alternatives at any given time or no value (in case of error).
  * default constructed variants default to the first alternative, given that the first alternative is default constructable.
- * otherwise the variant is not default constructable.
+ * otherwise, the variant is not default constructable.
  *
  * variant can hold the same type more than once or even hold cv-qualified versions of the same type.
  * variant cannot hold references, arrays or void types.
@@ -47,16 +47,19 @@ struct FirstType {
 struct SecondType {
     SecondType() { cout << "SecondType::SecondType()\n"; }
     ~SecondType() { cout << "SecondType::~SecondType()\n"; }
+    SecondType(const SecondType&) { cout << "SecondType(const SecondType&)\n"; }
+    void operator=(const SecondType&) { cout << "void operator=(const SecondType&)\n"; }
+    SecondType(SecondType&&) { cout << "SecondType(SecondType&&)\n"; }
+    void operator=(SecondType&&) { cout << "void operator=(SecondType&&)\n"; }
 };
 
 int main() {
     std::variant<int, double, string> intDoubleStringVar; // default initialization will make the first alternate active (ie int)
-    // print the size of variant
+    // print the size of variant, size is the number of alternative, i.e. the number of template arguments
     cout << "size of intDoubleString variant: " << std::variant_size_v<decltype(intDoubleStringVar)> << endl;
     static_assert(variant_size_v<decltype(intDoubleStringVar)> == 3);
 
     // visiting a variant: the visit() function takes a callable and calls the appropriate callable depending on the active member
-    // if i comment out the operator() overload taking an integer, the operator() taking a double is called. Need to check the behavior here.
     std::visit(VariantVisitor(), intDoubleStringVar);
 
     // index function (returns a zero based index of the current alternative held by the variant)
@@ -74,10 +77,10 @@ int main() {
     /*
      * get_if<> --> Very handy, it returns a pointer (could be nullptr) to the alternative you ask for.
      * If the alternative you ask for is also the current alternative, returns a pointer to that alternative.
-     * otherwise returns nullptr. This is handy as it doesnt throw.
+     * otherwise, returns nullptr. This is handy as it doesn't throw.
      *
      * The other thing to note is that it takes a pointer to a variant instead of taking a variant simply like a const l-value reference
-     * The reason is that it a const l-value reference can bind to temporary variants, and returning a pointer to an alternative inside it
+     * The reason is that a const l-value reference can bind to temporary variants, and returning a pointer to an alternative inside it
      * would result in a crash. We should have done the same thing for SDict class in DB.
      */
     if (const auto isCurrentIndexInt = std::get_if<int>(&intDoubleStringVar)) {
@@ -160,7 +163,7 @@ int main() {
     std::visit(VariantVisitor(), intFloatString);
 
     // note that the variant is responsible for calling the dtor of the underlying type when you change its type. so there is no memory leak.
-    // lets see a trivial example:
+    // let's see a trivial example:
     {
         std::variant<FirstType, SecondType> var4;
         {

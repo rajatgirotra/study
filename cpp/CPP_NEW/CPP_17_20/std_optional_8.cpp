@@ -21,7 +21,7 @@ struct UserName {
 private:
     string m_user;
 public:
-    UserName(string arg = string("Rajat Girotra")) : m_user(std::move(arg)) {}
+    explicit UserName(string arg = string("Rajat Girotra")) : m_user(std::move(arg)) {}
 
     friend ostream& operator << (ostream& os, const UserName& rhs) {
         return os << rhs.m_user;
@@ -46,11 +46,11 @@ struct S {
         return *this;
     }
 
-    S(S&&) {
+    S(S&&)  noexcept {
         cout << "S::move ctor\n";
     }
 
-    S& operator = (S&&) {
+    S& operator = (S&&)  noexcept {
         cout << "S::move assignment\n";
         return *this;
     }
@@ -80,7 +80,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     // direct
     std::optional<int> iOpt(-123);
 
-    // use make::optional
+    // use make_optional()
     [[maybe_unused]] auto x = std::make_optional(-5.5); // x is std::optional<double>
 
     // in_place. (just like std::piecewise_construct, forwards the arguments to the underlying)

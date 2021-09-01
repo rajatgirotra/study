@@ -2,14 +2,14 @@
  * template <typename Callable, typename... Variants>
  * std::visit(Callable, Variants&&... vars)
  *
- * If you see visit can take multiple variants, in this case it needs to provides a visit Callable that provides a cross product
+ * If you see visit can take multiple variants, in this case it needs to provide a visit Callable that provides a cross product
  * combination of all arguments from the two lambdas. Example:
  *
  * variant<int, double> var1;
  * variant<string, X> var2;
  *
  * visit callable should provide 4 overloads for (int, string), (int, X), (double, string), (double, X)
- * We can exploit this to get an interesting pattern. Lets say we only want the combination (double, string) to be valid.
+ * We can exploit this to get an interesting pattern. Let's say we only want the combination (double, string) to be valid.
  * Then we can implement that explicitly and others using generic lambda.
  */
 

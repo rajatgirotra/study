@@ -1,6 +1,6 @@
 /*
- * Variable template can be specialized. Can you try to write a compile time variable template which returns the nth fibonacci number.
- * Then try to write a implementation of std::is_same using variable templates
+ * Variable template can be specialized. Can you try to write compile time variable template which returns the nth fibonacci number?
+ * Then try to write an implementation of std::is_same using variable templates
  */
 
 #include <iostream>

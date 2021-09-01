@@ -51,17 +51,17 @@ int main()
      * so for this expression it would do something like
      * const auto& a_secret_variable = foo(); and then
      * l = a_secret_variable.a and m = a_secret_variable.b
-     * so in this case decltype(a_secret_variable) = const int&, and
+     * so in this case decltype(a_secret_variable) = const A&, and
      * decltype(l) and decltype(m) = const int ie decltype(a_secret_variable.a) and decltype(a_secret_variable.b)
      *
-     * This is just for your information. If foo() returns by lvalue (i.e it returns a temporary, then of course l and obj.a are different.
+     * This is just for your information. If foo() returns by rvalue (i.e. it returns a temporary, then of course l and obj.a are different.
      * If foo() returns a reference, then of course l and obj.a are same.
      */
     const auto& [l, m] = foo();
     ++obj.a;
     cout << "l: " << l << ", obj.a: " << obj.a << endl;
-    [[maybe_unused]] Check<decltype(l)> check_l;
+    [[maybe_unused]] Check<decltype(l)> check_l; // decltype(l) is const int
 
-    [[maybe_unused]] const int& i = bar();
-    [[maybe_unused]] Check<decltype(i)> check_i;
+    [[maybe_unused]] const int& i = bar(); //no structured binding taking place here.
+    [[maybe_unused]] Check<decltype(i)> check_i; // so decltype(i) is const int&
 }

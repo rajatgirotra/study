@@ -6,7 +6,7 @@
  * the compiler could allocate memory for T, then call otherFunction(), then std::unique_ptr<T> constructor.
  * This could result in memory leak if otherFunction() call throws. That's why the way around it was to use std::make_unique
  *
- * However C++17 guarantees that
+ * However, C++17 guarantees that
  * 1) the arguments/parameters of a function are still evaluated in any order
  * 2) But, the complete argument and its subexpression must now be evaluated fully before another argument is evaluated
  * so f(a(x), b, c(y));

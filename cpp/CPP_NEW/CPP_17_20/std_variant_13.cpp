@@ -1,7 +1,7 @@
 /*
  * You can only compare two variants of the same type
  * 1) If they same alternative is active in both variants, its comparison operator is called.
- * 2) If one variant has an "earlier" alternative set, then its less than the other variant.
+ * 2) If one variant has an "earlier" alternative set, then it is less than the other variant.
  *
  * Variants are moveable.
  *
@@ -52,7 +52,7 @@ int main() {
     }
 
     try {
-        v.emplace<0>(ThrowingClass(10)); // the ctor doesnt throw, but the converting member function throws.
+        v.emplace<0>(ThrowingClass(10)); // the ctor doesn't throw, but the converting member function throws.
     } catch(...) {
         cout << "valueless_by_exception:  " << v.valueless_by_exception() <<", index: " << v.index() << endl;
     }
