@@ -27,4 +27,4 @@ struct X {
 
 inline int X::m_tag {100};
 
-/* lets include this header both in inline_function.cpp and inline_functions_16.cpp and see that there are no compiler and linker errors. */
+/* let's include this header both in inline_function.cpp and inline_functions_16.cpp and see that there are no compiler and linker errors. */

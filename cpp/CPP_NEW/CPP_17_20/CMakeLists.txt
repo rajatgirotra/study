@@ -65,3 +65,12 @@ target_link_libraries(non_type_auto_template_22 PRIVATE project_options project_
 
 add_executable(template_paramter_23 template_paramter_23.cpp)
 target_link_libraries(template_paramter_23 PRIVATE project_options project_warnings)
+
+add_executable(std_any_24 std_any_24.cpp)
+target_link_libraries(std_any_24 PRIVATE project_options project_warnings)
+
+add_executable(std_string_view_25 std_string_view_25.cpp)
+target_link_libraries(std_string_view_25 PRIVATE project_options project_warnings)
+
+add_executable(std_string_view_26 std_string_view_26.cpp)
+target_link_libraries(std_string_view_26 PRIVATE project_options project_warnings)

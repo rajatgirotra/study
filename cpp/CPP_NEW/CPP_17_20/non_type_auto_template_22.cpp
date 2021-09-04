@@ -24,11 +24,11 @@ template <auto N>
 void f() {
     cout << "f with N: " << N << endl;
 }
-// the above is not a great example as you could always use size_t. You dont need to use typename T anyway.
+// the above is not a great example as you could always use size_t. You don't need to use typename T anyway.
 
 // another example
 template <typename T, T value>
-constexpr T my_constant = value; // my_constant is an variable template as you saw in variable_template_6.cpp and variable_template_7.cpp
+constexpr T my_constant = value; // my_constant is a variable template as you saw in variable_template_6.cpp and variable_template_7.cpp
 constexpr auto my_int_const = my_constant<int, 100>;
 
 // new way for above using auto
@@ -36,16 +36,16 @@ template <auto N>
 constexpr auto my_constant_new_way = N;
 constexpr auto my_int_const_new_way = my_constant_new_way<100>;
 
-//creating a heterogenous list at compile time
+//creating a heterogeneous list at compile time
 template <auto... Args>
-struct HeterogenousValueList {};
+struct HeterogeneousValueList {};
 
 int main() {
     f<10>();
-    //cout << demangle(typeid(my_int_const).name()) << endl;
+    cout << demangle(typeid(my_int_const).name()) << endl;
     cout << demangle(typeid(my_int_const_new_way).name()) << endl;
 
-    //static_assert(std::is_same_v<decltype(my_int_const), int>);
+    static_assert(std::is_same_v<decltype(my_int_const), const int>);
 
-    [[maybe_unused]] constexpr HeterogenousValueList<'a', 100, true> obj;
+    [[maybe_unused]] constexpr HeterogeneousValueList<'a', 100, true> obj;
 }

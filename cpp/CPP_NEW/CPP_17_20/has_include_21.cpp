@@ -3,7 +3,7 @@
  * it can be handy sometimes. like C++17 has a new header <charconv> which provides a set of fast operations of chars/string.
  * If that header is available, you would want to use it, otherwise you need to provide some alternate implementation.
  *
- * See below. its trivial.
+ * See below. it's trivial.
  */
 
 #if defined __has_include

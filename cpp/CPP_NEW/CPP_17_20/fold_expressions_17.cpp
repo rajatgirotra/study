@@ -14,8 +14,8 @@ int main() {
     FoldPrint(10, 20., "string", string("Hello"));
 }
 
-/* if you see the result, its all combined together "1020stringHello"
- * to get more control over printing/formatting we can always fold over comma operator which is very very useful.
+/* if you see the result, it's all combined "1020stringHello"
+ * to get more control over printing/formatting we can always fold over comma operator which is very, very useful.
  * folding over comma allows to call any Callable over and over - once for every template argument.
- * lets see folding over comma now.
+ * let's see folding over comma now.
  */
