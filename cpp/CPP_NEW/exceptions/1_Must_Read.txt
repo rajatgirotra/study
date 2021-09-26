@@ -1,0 +1,137 @@
+All C++ exception classes derive from std::exception.
+The hierarchy is shown below.
+All ctor classes take a const char* argument, which can be fetched later using the what() function.
+
+std::exception
+    logic_error
+        invalid_argument
+        domain_error
+        length_error
+        out_of_range
+    future_error(C++11)
+    bad_optional_access(C++17)
+    runtime_error
+        range_error
+        overflow_error
+        underflow_error
+        regex_error(C++11)
+        system_error(C++11)
+            ios_base::failure(C++11)
+            filesystem::filesystem_error(C++17)
+         tx_exception(TM TS)
+        nonexistent_local_time(C++20)
+        ambiguous_local_time(C++20)
+        format_error(C++20)
+    bad_typeid
+    bad_cast
+        bad_any_cast(C++17)
+    bad_weak_ptr(C++11)
+    bad_function_call(C++11)
+    bad_alloc
+        bad_array_new_length(C++11)
+        bad_exception
+    ios_base::failure(until C++11)
+    bad_variant_access(C++17)
+
+There are two classes: std::system_error, std::regex_error which also hold a std::error_code. Let's first understand
+std::error_code and also a similar class std::error_condition.
+
+std::error_code --> Very simple class designed to hold errors which are platform dependant. i.e. errors originating from the
+operating system or other low level interface.
+
+std::error_condition --> Very simple class designed to hold errors which are platform in-dependant.
+
+Both std::error_code and std::error_condition hold an integer value and a pointer to a std::error_category class identifying
+a category of the error.
+
+struct error_code {
+  int m_value; // default is 0
+  std::error_category m_cat; // default is std::system_category
+};
+
+struct error_condition {
+  int m_value; // default is 0
+  std::error_category m_cat; // default is std::generic_category
+};
+
+std::error_category is a base class for other category types provided by C++ standard.
+1) std::system_category
+2) std::generic_category
+3) std::iostream_category
+4) std::future_category
+You will never need to create objects of category classes. C++ provides function which return a reference to these classes
+which you can use.
+
+const std::error_category& system_category();
+const std::error_category& generic_category();
+const std::error_category& iostream_category();
+const std::error_category& future_category();
+
+Use of categories.
+
+std::error_category {
+    virtual const char* name() = 0; // derived classes implement this and return "system", "generic", "iostream", "future".
+    virtual string message(int code) const = 0; // derived classes implement this and return a message corresponding to the error code specified in the argument.
+    virtual std::error_condition default_error_condition(int code); // similar to message() above but this returns a std::error_condition corresponding to the error code specified in the argument.
+};
+
+std::generic_category --> Is used to identify error conditions that correspond to the POSIX errno codes.
+
+std::system_category --> system_category is used to hold messages and codes corresponding to errors returned from the operating system.
+The errors returned by the operating system can be mapped to the corresponding POSIX error codes using the std::error_category::default_error_condtion().
+"virtual std::error_condition default_error_condition(int code) const noexcept"
+
+Usage of message() and default_error_condition
+==============================================
+std::error_condition econd = std::system_category().default_error_condition(EDOM);
+std::cout << "Category: " << econd.category().name() << '\n' << "Value: " << econd.value() << '\n' << "Message: " << econd.message() << '\n';
+
+econd = std::system_category().default_error_condition(10001);
+std::cout << "Category: " << econd.category().name() << '\n' << "Value: " << econd.value() << '\n' << "Message: " << econd.message() << '\n';
+
+Let's look at the std::error_code and std::error_condition interface again. The interface is  almost same
+
+std::error_code {
+  int m_value;
+  std::error_category* m_cat_ptr;
+
+  void clear(); // set m_value = 0 and m_cat_ptr = generic_category for std::error_condition and system_category for std::error_code.
+  int value(); // return m_value
+  const std::error_category& category(); // returns *m_cat_ptr;
+
+  explicit operator bool() const noexcept; // return true if m_value != 0. This is used very often.
+  std::string message() const; // calls m_cat_ptr->message(m_value);
+};
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Let's come to the integer code in std::error_code/error_condition. The code is actually be an enumeration value from one of the following three enumerations:
+
+1) enum struct errc {
+  // contains all enumerations values corresponding to POSIX error codes in errno.h file. example
+  address_family_not_supported	for EAFNOSUPPORT
+  address_in_use	for EADDRINUSE
+};
+
+2) enum struct future_errc {
+   // contains all enumerations values corresponding to errors raised by <future> and related classes.
+   broken_promise,
+   future_already_retrieved,
+   promise_already_satisfied,
+   no_state
+};
+
+3) enum struct io_errc {
+    // contains all enumerations values corresponding to IO stream errors
+    stream  = 1,
+};
+
+We even have helper functions to create std::error_code objects and std::error_condition objects
+
+std::error_code make_error_code(std::errc arg); // with category generic_category.
+std::error_code make_error_code(std::future_errc arg); // with category future_category.
+std::error_code make_error_code(std::io_errc arg); // with category iostream_category.
+
+Similarly:
+std::error_condition make_error_condition(std::errc arg); // with category generic_category.
+std::error_condition make_error_condition(std::future_errc arg); // with category future_category.
+std::error_condition make_error_condition(std::io_errc arg); // with category iostream_category.
