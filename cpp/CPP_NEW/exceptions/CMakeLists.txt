@@ -1,0 +1,2 @@
+add_executable(exceptions_3 3_exceptions.cpp)
+target_link_libraries(exceptions_3 PRIVATE pthread project_options project_warnings)

@@ -1,0 +1,7 @@
+the std::exception_ptr class.
+============================
+1. Trivial class which encapsulates any std exception like std::logic_error, std::runtime_error etc.
+2. The exception_ptr object can be copied and works on reference counting.
+3. you can catch an exception in one function and create an exception_ptr inside the catch {} block. The exception_ptr object
+can be returned from the function or even sent to another function on another thread.
+4. Make sure the encapsulated exception object outlives the exception_ptr, otherwise it will result in dangling pointer.

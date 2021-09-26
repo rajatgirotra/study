@@ -95,6 +95,7 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #add_subdirectory(lambda_bind_and_related)
 #add_subdirectory(thread_mutex_atomic_lock_free)
 add_subdirectory(CPP_17_20)
+add_subdirectory(exceptions)
 #add_subdirectory(python_c_api)
 #add_subdirectory(practice)
 #add_subdirectory(random)
