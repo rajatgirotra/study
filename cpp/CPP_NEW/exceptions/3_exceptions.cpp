@@ -25,3 +25,10 @@ int main() {
 
     t.join();
 }
+
+/*
+ * Note the important thing about std::current_exception().
+ * 1) When called outside catch{} (i.e. when there is no active exception being handled), it returns an empty exception_ptr.
+ * 2) When called inside catch{}, then the exception_ptr can contain a copy of the active exception or a reference to it (depends on compiler implementation).
+ *    However what if another exception is thrown during the copy itself? in that case the exception_ptr object may hold a reference to std::bad_exception.
+ */

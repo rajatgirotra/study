@@ -1,0 +1,40 @@
+there are another set of classes and functions which allow you to nest exceptions inside other exceptions. Let's see how those
+are used.
+
+class std::nested_exception {
+    std::exception_ptr m_ptr;
+    //ctor
+    nested_exception() : m_ptr(std::current_exception()) {}
+
+    //default copy ctor and assignment.
+    nested_exception(const nested_exception&) noexcept = default;
+    nested_exception& operator=(const nested_exception&) noexcept = default;
+
+    // rethrows the stored exception, i.e. m_pt
+    [[noreturn]] void rethrow_nested() const;
+};
+
+template <typename T>
+[[noreturn]]
+void throw_with_nested(T&& t) --> This function is usually called with argument as std::exception or one of its nested classes like
+std::logic_error, std::runtime_error etc.
+
+This function has different behavior depending on the type of argument.
+1) If the argument is a class type which is neither std::nested_exception nor a class which derives from std::nested_exception, then it throws an implementation
+defined class which derives from both std::nested_exception and from std::decay<T>::type. So example you call 'std::throw_with_nested(std::runtime_error("SomeError"))'
+then this function may throw a class like:
+
+class some_class : public std::nested_exception, public std::runtime_error {}; //ie some_class becomes a derived class of std::exception.
+// Note that the default constructor of the nested_exception base class calls std::current_exception, capturing the currently handled exception object
+// so throw_with_nested() is always called inside a catch{}.
+2) If the argument is of type std::nested_exception or a class which derives from it, just throws it.
+
+template <typename E>
+[[noreturn]] void rethrow_if_nested (const E& e)
+// called inside a try {} block. If E is not derived from std::nested_exception, then NO EFFECT.
+// otherwise downcast to std::nested_exception and call rethrow_nested(), i.e.
+if (auto p = dynamic_cast<std::nested_exception*>(std::addressof(e)) {
+    p->rethrow_nested();
+}
+
+See 6_exceptions.cpp for a trivial example.
