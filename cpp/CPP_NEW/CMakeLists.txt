@@ -102,6 +102,7 @@ add_subdirectory(exceptions)
 #add_subdirectory(helper_classes)
 #add_subdirectory(source)
 add_subdirectory(filesystem)
+add_subdirectory(parallel)
 
 if(BUILD_TESTS)
     message(NOTICE "building unit tests is enabled")

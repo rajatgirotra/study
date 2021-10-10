@@ -1,0 +1,39 @@
+There are so many other things you can do with filesystem.
+
+example:
+
+// apply some filter to all files in a directory.
+std::filesystem::recursive_directory_iterator dirpos { inPath };
+std::copy_if(begin(dirpos), end(dirpos), std::back_inserter(paths), some_predicate);
+
+// so many API's on the fs::directory_entry object.
+directory_entry::is_block_file()
+directory_entry::is_character_file()
+directory_entry::is_directory()
+directory_entry::is_fifo()
+directory_entry::is_other()
+directory_entry::is_regular_file()
+directory_entry::is_socket()
+directory_entry::is_symlink()
+directory_entry::file_size()
+and more..
+
+filesystem::absolute()
+filesystem::canonical(), weakly_canonical()
+filesystem::relativeproximate()
+filesystem::current_path()
+filesystem::equivalent()
+
+filesystem::copy()
+filesystem::copy_file()
+filesystem::copy_symlink()
+filesystem::create_directory() ,
+filesystem::create_directories()
+filesystem::create_hard_link()
+filesystem::create_symlink() ,
+filesystem::create_directory_symlink()
+
+filesystem::space()  --> to find the available free space on the filesystem
+
+filesystem::status() and --> to get/set file status and permissions
+filesystem::permissions()

@@ -1,0 +1,55 @@
+Parallel STL algorithms
+======================
+C++17 introduces parallel algorithms.
+Let say your computer has eight cores, so you can spawn 8 parallel threads using std::thread. But is there is chance to speed
+up things even more. Yes, there is!!
+
+using Vector Instructions (SIMD instructions) and GPU computing.
+
+Most of the CPU's have 128 bit wide registers or even 256 or 512 bits wide (AVX 256, AVX 512). These registers can be used
+using the SIMD instructions (SIMD = Single Instruction Multiplte Data). With SIMD instructions you can operate on multiple integers
+example: 16 integer values (i.e. 16* = 64 bytes) at the same time.
+
+Also your GPU may have hundreds of smaller cores which you can use for vectorization (ie running things in parallel) using 3rd party
+libraries like CUDA, OpenCL, Intel TBB, OpenMP and more. There is so much that C++ members are trying to bring in the standard
+to allow you to use the computing resources to a maximum in a portable way. Some of these things are:
+
+Co-routines
+Atomic Smart Pointers
+Transactional Memory
+Barriers
+Tasks blocks
+Parallelism
+Compute
+Executors
+etc.
+
+for now though, C++17 provides a new template parameter that can be passed to most of the standard algorithms. This new argument
+is called execution policy. Example:
+
+template< class ExecutionPolicy, class RandomIt, ... >
+std::algorithm_name(ExecutionPolicy&& policy, RandomIt first, RandomIt last, ...);
+
+the general idea is that you call an algorithm, and then you specify how it can be executed. Can it be parallel or just serial.
+For example:
+std::vector<int> v = genLargeVector();
+// sort a vector using a parallel policy
+std::sort(std::execution::par, v.begin(), v.end());
+
+The whole machinery is hidden from a user perspective. It’s up to the STL implementation to choose the best approach to run
+tasks in parallel. Usually, they might leverage thread pools. the execution policy parameter - is necessary because the
+compiler cannot deduce everything from the code. You, as the author of the code, only know if there are any side effects,
+possible race conditions, deadlocks, or if there’s no sense in the running in parallel (such as if you have a small collection of items).
+
+What are the available execution policies.
+
+1) std::execution::seq (sequenced_policy)
+requires that a parallel algorithm’s execution not be parallelised.
+
+2) std::execution::par (parallel_policy)
+indicates that a parallel algorithm’s execution may be parallelised.
+
+3) std::execution::par_unseq (parallel_unsequenced_policy)
+indicates that a parallel algorithm’s execution may be parallelised and vectorised.
+
+Please note that execution policies are unique types, with their corresponding global objects. They are not enumerations, nor do they share the same base type.
