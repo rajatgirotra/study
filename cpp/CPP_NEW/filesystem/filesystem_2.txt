@@ -1,0 +1,7 @@
+The Path object is really trivial. you can construct it with strings. Path object has
+
+1) root-name (example C: on windows, empty for linux)
+2) root-directory (distinguishes relative path from the absolute path)
+3) relative-path (could be a filename, directory separator or a relative-path).
+
+We will see example shortly.
