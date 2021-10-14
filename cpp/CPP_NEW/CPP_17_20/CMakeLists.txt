@@ -77,3 +77,6 @@ target_link_libraries(std_string_view_26 PRIVATE project_options project_warning
 
 add_executable(charconv_functions_27 charconv_functions_27.cpp)
 target_link_libraries(charconv_functions_27 PRIVATE project_options project_warnings)
+
+add_executable(string_search_28 string_search_28.cpp)
+target_link_libraries(string_search_28 PRIVATE project_options project_warnings)
