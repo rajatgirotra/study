@@ -29,11 +29,13 @@ public:
 
 void xfer(bank_account& from, bank_account& to, int amount) {
     //lock mutex for both accounts to avoid deadlock
-    std::lock(from.m_mutex, to.m_mutex);
-
+//    std::lock(from.m_mutex, to.m_mutex);
     // initiate xfer
-    std::lock_guard<std::mutex> lg_from(from.m_mutex, std::adopt_lock);
-    std::lock_guard<std::mutex> lg_to(to.m_mutex, std::adopt_lock);
+//    std::lock_guard<std::mutex> lg_from(from.m_mutex, std::adopt_lock);
+//    std::lock_guard<std::mutex> lg_to(to.m_mutex, std::adopt_lock);
+
+    //C++17 introduced std::scoped_lock which is a convenient class to use.
+    std::scoped_lock lck(from.m_mutex, to.m_mutex);
 
     from.add_balance(-amount);
     to.add_balance(amount);
