@@ -103,6 +103,7 @@ add_subdirectory(exceptions)
 #add_subdirectory(source)
 add_subdirectory(filesystem)
 add_subdirectory(parallel)
+add_subdirectory(smart_pointers)
 
 if(BUILD_TESTS)
     message(NOTICE "building unit tests is enabled")
