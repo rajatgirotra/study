@@ -42,7 +42,7 @@ target_compile_options(concepts_14 PRIVATE -fconcepts)
 add_executable(fold_expressions_15 fold_expressions_15.cpp)
 target_link_libraries(fold_expressions_15 PRIVATE project_options project_warnings)
 
-add_executable(inline_variables_16 inline_variables.cpp inline_variables_16.cpp std_byte_29.cpp container_extract_method_30.cpp)
+add_executable(inline_variables_16 inline_variables.cpp inline_variables_16.cpp)
 target_link_libraries(inline_variables_16 PRIVATE project_options project_warnings)
 
 add_executable(fold_expressions_17 fold_expressions_17.cpp)
@@ -86,3 +86,6 @@ target_link_libraries(std_byte_29 PRIVATE project_options project_warnings)
 
 add_executable(container_extract_method_30 container_extract_method_30.cpp)
 target_link_libraries(container_extract_method_30 PRIVATE project_options project_warnings)
+
+add_executable(integer_sequence_31 integer_sequence_31.cpp)
+target_link_libraries(integer_sequence_31 PRIVATE project_options project_warnings)
