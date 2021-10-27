@@ -64,7 +64,7 @@
  * visit all available options, and those not marked as processed. For those fill in the implicit values.
  *
  * For now, if both short and long option is give, the later option will override the first.
- * But slowly we will add a "dest" attribute to Option, which can be "sum", "accumulate", etc.
+ * But slowly we will add a "dest" attribute to Switch, which can be "sum", "accumulate", etc.
  * So
  * -x 123 -x 123 -dest sum will store args["x"] = 246
  *
@@ -74,22 +74,46 @@
  * a short option -'1' --> so all positional arguments go here in the same order as given on the command line.
  */
 
-#include <unordered_map>
-#include <string_view>
 #include <string>
+#include <unordered_map>
+using std::string;
 
-struct OptionsProcessor {
-    static void parse(int argc, char** argv);
-public:
-    static int m_opt_idx;
-    static int m_argc;
-    static char** m_argv;
-    static bool m_opt_scanning_ended;
-    using OptionsMap = std::unordered_map<std::string_view, std::string>;
-    OptionsMap m_map;
-};
+namespace rg {
+    namespace util {
+        enum struct SwitchArgument : char {
+            not_required,
+            optional,
+            required
+        };
 
-inline int OptionsProcessor::m_opt_idx {1};
-inline int OptionsProcessor::m_argc {};
-inline char** OptionsProcessor::m_argv {nullptr};
-inline bool OptionsProcessor::m_opt_scanning_ended {false};
+        class Switch {
+        public:
+            using SwitchMap = std::unordered_map<string, Switch>;
+        private:
+            string m_switchname {};
+            string m_description {};
+            SwitchArgument m_switch_arg {SwitchArgument::not_required};
+            char m_shortswitch {};
+            string m_longswitch {};
+            string m_default_value {};
+            string m_implicit_value {};
+            bool m_processed {false};
+
+            static SwitchMap m_switches;
+
+            bool validate();
+
+        public:
+            static const char NO_SHORT_SWITCH;
+            static const string NO_LONG_SWITCH;
+            Switch(string argName, string argDesc, SwitchArgument optArg, char shortOption,
+                   string longOption = Switch::NO_LONG_SWITCH, string defValue = "", string implicitVal = "" );
+        };
+
+        inline const string Switch::NO_LONG_SWITCH {"NO_LONG_SWITCH"};
+        inline const char Switch::NO_SHORT_SWITCH {'2'};
+        inline Switch::SwitchMap Switch::m_switches;
+
+        extern const Switch program_options[];
+    }
+}

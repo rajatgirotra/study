@@ -1,16 +1,19 @@
-#include "Option.hpp"
-#include <iostream>
-#include <string>
+#include "OptionProcessor.hpp"
+#include "Switch.hpp"
 #include <cstring>
 #include <cassert>
-using namespace std;
+using namespace rg::util;
+
+#include <iostream>
+using std::cout;
+using std::endl;
 
 namespace {
     bool IsShortOption() noexcept {
         using Op = OptionsProcessor;
         assert(Op::m_opt_scanning_ended == false);
         if ((strlen(Op::m_argv[Op::m_opt_idx]) >= 2) && Op::m_argv[Op::m_opt_idx][0] == '-'
-        && Op::m_argv[Op::m_opt_idx][1] != '-') {
+            && Op::m_argv[Op::m_opt_idx][1] != '-') {
             return true;
         }
         return false;
@@ -38,11 +41,11 @@ namespace {
         using Op = OptionsProcessor;
         assert(Op::m_opt_scanning_ended == false);
         if(strlen(Op::m_argv[Op::m_opt_idx]) > 2) {
-            cout << "Processing Short Option: " << Op::m_argv[Op::m_opt_idx] << endl;
+            cout << "Processing Short Switch: " << Op::m_argv[Op::m_opt_idx] << endl;
             ++Op::m_opt_idx;
         } else {
             ++Op::m_opt_idx;
-            cout << "Processing Short Option: " << Op::m_argv[Op::m_opt_idx-1] << " " << Op::m_argv[Op::m_opt_idx] << endl;
+            cout << "Processing Short Switch: " << Op::m_argv[Op::m_opt_idx-1] << " " << Op::m_argv[Op::m_opt_idx] << endl;
             ++Op::m_opt_idx;
         }
     }
@@ -51,11 +54,11 @@ namespace {
         using Op = OptionsProcessor;
         assert(Op::m_opt_scanning_ended == false);
         if(strchr(Op::m_argv[Op::m_opt_idx], '=') != nullptr) {
-            cout << "Processing Long Option: " << Op::m_argv[Op::m_opt_idx] << endl;
+            cout << "Processing Long Switch: " << Op::m_argv[Op::m_opt_idx] << endl;
             ++Op::m_opt_idx;
         } else {
             ++Op::m_opt_idx;
-            cout << "Processing Long Option: " << Op::m_argv[Op::m_opt_idx-1] << " " << Op::m_argv[Op::m_opt_idx] << endl;
+            cout << "Processing Long Switch: " << Op::m_argv[Op::m_opt_idx-1] << " " << Op::m_argv[Op::m_opt_idx] << endl;
             ++Op::m_opt_idx;
         }
     }
@@ -75,9 +78,4 @@ void OptionsProcessor::parse(int argc, char **argv) {
             }
         }
     }
-}
-
-int main(int argc, char** argv) {
-    OptionsProcessor::parse(argc, argv);
-    cout  << "OptionsProcessor done\n";
 }

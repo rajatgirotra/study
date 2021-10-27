@@ -10,7 +10,7 @@ class std::nested_exception {
     nested_exception(const nested_exception&) noexcept = default;
     nested_exception& operator=(const nested_exception&) noexcept = default;
 
-    // rethrows the stored exception, i.e. m_pt
+    // rethrows the stored exception, i.e. m_ptr
     [[noreturn]] void rethrow_nested() const;
 };
 
