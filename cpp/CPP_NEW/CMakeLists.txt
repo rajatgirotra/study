@@ -52,23 +52,23 @@ message(STATUS "using ${Python3_INTERPRETER_ID}, ${Python3_VERSION} executable: 
         " libs: ${Python3_LIBRARIES}")
 
 # Boost
-find_package(Boost 1.76.0 EXACT REQUIRED QUIET COMPONENTS system date_time python)
+find_package(Boost REQUIRED QUIET COMPONENTS system date_time)
 message(STATUS "using Boost ${Boost_VERSION_STRING}, include-path: ${Boost_INCLUDE_DIRS},"
         " libs - ${Boost_LIBRARIES}")
 
-# Google Benchmark
-find_package(benchmark 1.5.3 EXACT REQUIRED QUIET COMPONENTS)
-message(STATUS "using Google Benchmark ${}, include-path: ${benchmark_INCLUDE_DIRS},"
-        " libs - ${benchmark_LIBS}")
-
-# Find SQLite3
-find_package(SQLite3 3.35.5 EXACT REQUIRED QUIET)
-message(STATUS "using sqlite3 ${SQLite3_VERSION}, include-path: ${SQLite3_INCLUDE_DIRS},"
-        " libs - ${SQLite3_LIBRARIES}")
-
-# find valgrind program
-find_program(VALGRIND_EXECUTABLE NAMES valgrind REQUIRED)
-message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
+## Google Benchmark
+#find_package(benchmark 1.5.3 EXACT REQUIRED QUIET COMPONENTS)
+#message(STATUS "using Google Benchmark ${}, include-path: ${benchmark_INCLUDE_DIRS},"
+#        " libs - ${benchmark_LIBS}")
+#
+## Find SQLite3
+#find_package(SQLite3 3.35.5 EXACT REQUIRED QUIET)
+#message(STATUS "using sqlite3 ${SQLite3_VERSION}, include-path: ${SQLite3_INCLUDE_DIRS},"
+#        " libs - ${SQLite3_LIBRARIES}")
+#
+## find valgrind program
+#find_program(VALGRIND_EXECUTABLE NAMES valgrind REQUIRED)
+#message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
 
 # Find Google-protobuf
 #set(ENV{Protobuf_SRC_ROOT_FOLDER} ${DEVTOOLS_DIR})
@@ -78,13 +78,13 @@ message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
 
 
 # enable/disable test builds and running tests.
-option(BUILD_TESTS "Build unit tests. BUILD_TESTS=OFF implies RUN_TESTS=OFF" ON)
+option(BUILD_TESTS "Build unit tests. BUILD_TESTS=OFF implies RUN_TESTS=OFF" OFF)
 option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run unit tests if BUILD_TESTS=OFF" OFF)
 
 #add_executable(auto_with_brace_initialization auto_with_brace_initialization.cpp source/common/Singleton.hpp test/common/manual_test.cpp)
 #target_link_libraries(auto_with_brace_initialization PRIVATE project_options project_warnings)
 
-#add_subdirectory(boost)
+add_subdirectory(boost)
 #add_subdirectory(chrono)
 #add_subdirectory(constexpr)
 #add_subdirectory(hashes_maps_sets)
@@ -109,10 +109,19 @@ if(BUILD_TESTS)
     message(NOTICE "building unit tests is enabled")
 
     # Google test
-    find_package(GTest REQUIRED COMPONENTS GTest::gtest_main GTest::gmock_main GTest::gmock GTest::gtest)
-    message(STATUS "using GTest ${}, include-path: ${GTest_INCLUDE_DIRS},"
-            " libs - ${GTest_LIBS}")
+#    find_package(GTest REQUIRED COMPONENTS GTest::gtest_main GTest::gmock_main GTest::gmock GTest::gtest)
+    include(FetchContent)
+    FetchContent_Declare(
+            googletest
+            GIT_REPOSITORY https://github.com/google/googletest.git
+            GIT_TAG origin/master # master
+#            GIT_TAG e2239ee6043f73722e7aa812a459f54a28552929 # release 1.11.0
+    )
+    # For Windows: Prevent overriding the parent project's compiler/linker settings
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
 
+    message(STATUS "googletest populated: ${googletest_POPULATED}, src dir: ${googletest_SOURCE_DIR}, build dir: ${googletest_BINARY_DIR}")
     set(ENABLE_TESTING ON)
     include(CTest)
     include(GoogleTest)
