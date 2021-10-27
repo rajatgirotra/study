@@ -57,7 +57,7 @@ public:
 struct my_extractor {
 
     typedef string result_type;
-    result_type operator() (const EmployeeDetails& ed) {
+    result_type operator() (const EmployeeDetails& ed) const noexcept {
         return ed.family_name;
     }
 };
@@ -132,9 +132,9 @@ int main()
 
     //Let us first add a few entries in the table.
     //To insert an item you first must get a reference to an index, then use that index to insert your item.
-    //Insert returns you an std::pair, an iterator and a bool if the insertion was successful
+    //Insert returns you a std::pair, an iterator and a bool if the insertion was successful
     //Insertions may sometimes fail if any of the other indices fail to accept it.
-    //If successfull, iterator points to the element inserted, else it points to the elment
+    //If successful, iterator points to the element inserted, else it points to the element
     //which caused the insertion to fail.
     typedef EmployeeTable::nth_index<0>::type::iterator Iterator;
     std::pair<Iterator, bool> insertResult;
@@ -175,9 +175,9 @@ int main()
     //size_type erase(key_type); returns the no. of elements deleted.
     //iterator erase(iterator first, iterator last) // deletes the range [first, last) and returns last.
 
-    //Lets look at find function. Failrly simple, it will return you the iterator to the element or end() if element is
+    //Let's look at find function. Fairly simple, it will return you the iterator to the element or end() if element is
     //not found. Similarly, you have functions count(), lower_bound(), upper_bound() and equal_range() as defined for
-    //sets and multisets. Note that the find funcion also just like erase takes as argument the key for that index.
+    //set and multiset. Note that the find function also just like erase takes as argument the key for that index.
     //Here we are using index 0, for which the key is the entire object.
     typedef boost::multi_index::nth_index<EmployeeTable, 0>::type::iterator ITERATOR_BY_ID;
     typedef boost::multi_index::nth_index<EmployeeTable, 1>::type::iterator ITERATOR_BY_HOME_PHONE;
@@ -202,10 +202,10 @@ int main()
     else
         cout << "Employee details found " << *iter << endl;
 
-    // lets looks at the important "replace" and "modify" functions.
+    // Let's look at the important "replace" and "modify" functions.
     // Both replace and modify do the same job, but differently, You need to decide which one you want to use
     // based on your need.
-    // The replace function has constant time complexity if there the replacement does not involve any rearrangement.
+    // The replace function has constant time complexity if the replacement does not involve any rearrangement.
     // But if replace fails, it will return false and the MIC will not be affected in any way.
     // The replace function takes an iterator to the object to be changed as first parameter and the new object as the
     // second parameter. So first we'll use find to get an iterator to the element, followed by replace.
@@ -222,7 +222,7 @@ int main()
     //Modify. The modify function syntax is similar to replace. First parameter is same, but second parameter is a
     //function object which takes as parameter "a reference to the element". So no need to create copies of object like
     //in replace. In the function object, you can modify the fields of the element.
-    //Now modify is different in the following way. It a collision occurs, the entire element is removed from the
+    //Now modify is different in the following way. If a collision occurs, the entire element is removed from the
     //container. and the function returns false. Otherwise, there is another version which takes another function object
     //(as 3rd parameter) which will be used in case of failure. If this also fails, the element is erased.
     //Lets now try to modify the "Shewta Sethi" record and change the cell phone number to something unique.

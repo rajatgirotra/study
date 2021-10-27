@@ -57,25 +57,24 @@ message(STATUS "using Boost ${Boost_VERSION_STRING}, include-path: ${Boost_INCLU
         " libs - ${Boost_LIBRARIES}")
 
 ## Google Benchmark
-#find_package(benchmark 1.5.3 EXACT REQUIRED QUIET COMPONENTS)
-#message(STATUS "using Google Benchmark ${}, include-path: ${benchmark_INCLUDE_DIRS},"
-#        " libs - ${benchmark_LIBS}")
-#
-## Find SQLite3
-#find_package(SQLite3 3.35.5 EXACT REQUIRED QUIET)
-#message(STATUS "using sqlite3 ${SQLite3_VERSION}, include-path: ${SQLite3_INCLUDE_DIRS},"
-#        " libs - ${SQLite3_LIBRARIES}")
-#
-## find valgrind program
-#find_program(VALGRIND_EXECUTABLE NAMES valgrind REQUIRED)
-#message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
+find_package(benchmark 1.5.3 EXACT REQUIRED QUIET COMPONENTS)
+message(STATUS "using Google Benchmark ${}, include-path: ${benchmark_INCLUDE_DIRS},"
+        " libs - ${benchmark_LIBS}")
+
+# Find SQLite3
+find_package(SQLite3 3.35.5 EXACT REQUIRED QUIET)
+message(STATUS "using sqlite3 ${SQLite3_VERSION}, include-path: ${SQLite3_INCLUDE_DIRS},"
+        " libs - ${SQLite3_LIBRARIES}")
+
+# find valgrind program
+find_program(VALGRIND_EXECUTABLE NAMES valgrind REQUIRED)
+message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
 
 # Find Google-protobuf
 #set(ENV{Protobuf_SRC_ROOT_FOLDER} ${DEVTOOLS_DIR})
 #find_package(Protobuf REQUIRED QUIET)
 #message(STATUS "using google-protobuf ${Protobuf_VERSION}, include-path: ${Protobuf_INCLUDE_DIRS},"
 #        " libs - ${Protobuf_LIBRARIES}, protoc: ${Protobuf_PROTOC_EXECUTABLE}")
-
 
 # enable/disable test builds and running tests.
 option(BUILD_TESTS "Build unit tests. BUILD_TESTS=OFF implies RUN_TESTS=OFF" OFF)
@@ -100,7 +99,7 @@ add_subdirectory(boost)
 #add_subdirectory(practice)
 #add_subdirectory(random)
 #add_subdirectory(helper_classes)
-add_subdirectory(source)
+#add_subdirectory(source)
 #add_subdirectory(filesystem)
 #add_subdirectory(parallel)
 #add_subdirectory(smart_pointers)

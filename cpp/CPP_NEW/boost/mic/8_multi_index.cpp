@@ -11,10 +11,11 @@ using namespace boost;
 using namespace boost::multi_index;
 
 struct A {
-
+public:
     const int id;
 
-    A(const int& pId) : id(pId)
+public:
+    explicit A(const int& pId) : id(pId)
     {};
 
     friend bool operator < (const A& lhs, const A& rhs) {

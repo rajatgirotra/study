@@ -69,12 +69,12 @@ typedef boost::shared_ptr<EmployeeDetails> ITEM;
 struct my_extractor {
 
     typedef string result_type;
-    result_type operator() (const EmployeeDetails& ed) {
+    result_type operator() (const EmployeeDetails& ed) const noexcept {
         return ed.family_name;
     }
 
     //New change
-    result_type operator() (const ITEM& item) {
+    result_type operator() (const ITEM& item) const noexcept {
         return item->family_name;
     }
 };

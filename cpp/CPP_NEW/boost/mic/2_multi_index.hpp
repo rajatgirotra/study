@@ -1,5 +1,4 @@
-#ifndef _EMPLOYEE_HPP_
-#define _EMPLOYEE_HPP_ 
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -23,5 +22,3 @@ struct Employee {
             return os;
         }
 };
-
-#endif //_EMPLOYEE_HPP_

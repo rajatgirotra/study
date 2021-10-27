@@ -37,15 +37,15 @@ Other extractors.
 After "identity" and "member", you have
 
 a) const_mem_fun <Class, Type, &Class::member_function>
-    The member function of the class must be const since elements in a multi_index_container are treated as constant, much as elements of an std::set.
-    It should also not take any arguments. SO basically, MIC will call your const member function and it should return a
+    The member function of the class must be const since elements in a multi_index_container are treated as constant, much as elements of a std::set.
+    It should also not take any arguments. So basically, MIC will call your const member function, and it should return a
     key based on which sorting will be performed.
 
 b) You also have global_fun which must take as argument "const Element&", and return a key based on which sorting will
    be performed. Instead of a simple global function it could also be a static function of a class.
 
-I'll show u examples in a while. Also you have mem_fun available which does not require your class member function to be
-const but its a bit tricky to use. We'll see that also later.
+I'll show u examples in a while. Also, you have mem_fun available which does not require your class member function to be
+const, but it's a bit tricky to use. We'll see that also later.
 
 c) composite_key - This is a key extractor that can be used when you want to sort elements on more than one fields. Also,
 composite_key extractor allows you to specify the sorting order (less than or greater than). 
@@ -53,14 +53,14 @@ composite_key extractor allows you to specify the sorting order (less than or gr
 
 d) The last one is the user defined key extractor. To create a user defined key extractor, you'll have to do two things.
 One: Create a "result_type" typedef which will be the type of the key used for sorting.
-Two: Create an function call operator() with one parameter, which will be of type "const Element&", using which you
+Two: Create a function call operator() with one parameter, which will be of type "const Element&", using which you
 return the key object.
 
 
 So all in all you have the following key extractors
 
 1) identity
-2) member: ALWAYS USE BOOST_MULTI_INDEX_MEMBER macro which is portable. By default:
+2) member: ALWAYS USE BOOST_MULTI_INDEX_MEMBER macro which is portable. By default,
             BOOST_MULTI_INDEX_MEMBER(A, type, x) expands to
   member<A, type, &A::x> or member<A, type, offsetof(A, x)>. So use it always.
 
@@ -82,10 +82,10 @@ struct name_extractor
 }; 
 
 Your MIC can contain either "employee" or "employee*".
-This way whenever you define a key extractor, you must define overloads so you can use the plain object,
+This way whenever you define a key extractor, you must define overloads, so you can use the plain object,
 the object pointer or the object pointer wrapped in a smart pointer like boost::shared_ptr.
 
-Next we'll use each of these key extractor in an example, where the conatiner item will be
+Next we'll use each of these key extractor in an example, where the container item will be
 
 1] the plain object
 2] the object pointer

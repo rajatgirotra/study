@@ -2,7 +2,7 @@
 //an index) and then use the tag name to access the sequence for that index. You can specify one or more tags for an
 //index.
 
-#include "2.hpp"
+#include "2_multi_index.hpp"
 #include <iostream>
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>

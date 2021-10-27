@@ -1,4 +1,4 @@
-#include "2.hpp"
+#include "2_multi_index.hpp"
 #include <iostream>
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>
@@ -15,9 +15,9 @@ using namespace std;
 typedef boost::multi_index_container < Employee,
             //Now specify the various indexes
             indexed_by <
-                //1st index, by Id
+                //1st index, sort by employee::operator<
                 ordered_unique < identity < Employee > >,
-                //2nd index, by member name.
+                //2nd index, by less<string> on member name.
                 //Note this member variable MUST BE PUBLIC, NOT PRIVATE. So we changed Employee accordingly.
                 ordered_non_unique < member < Employee, std::string, &Employee::name > >,
                 //3rd index, same as insertion order
@@ -27,8 +27,8 @@ typedef boost::multi_index_container < Employee,
 
 void print_by_name(const EmployeeSet& employeeSet)
 {
-    //Access the MIC by index. Note Access tp the index is by reference.
-    //What yo get back behaves like an std::multiset<> object. So you can use it as such.
+    //Access the MIC by index. Note Access to the index is by reference.
+    //What you get back behaves like a std::multiset<> object. So you can use it as such.
     const EmployeeSet::nth_index<1>::type& name_index = employeeSet.get<1>();
     cout << "Size: " << name_index.size() << endl;
 
@@ -38,11 +38,12 @@ void print_by_name(const EmployeeSet& employeeSet)
 
 void print_by_id(const EmployeeSet& employeeSet) {
     //const EmployeeSet::nth_index<0>::type& id_index = employeeSet.get<0>();
-    //What yo get back behaves like an std::set<> object. So you can use it as such.
+    //What you get back behaves like a std::set<> object. So you can use it as such.
     //Output to stdout
     //std::copy(id_index.begin(), id_index.end(), std::ostream_iterator<Employee>(cout, "\n"));
 
-    //For index 0, you really dont need to use nth_index<0>... just use the MIC directly as shown below.
+    //For index 0, you really don't need to use nth_index<0>... just use the MIC directly as shown below.
+    //and by default nth_index<0> is implied.
     std::copy(employeeSet.begin(), employeeSet.end(), std::ostream_iterator<Employee>(cout, "\n"));
 }
 
