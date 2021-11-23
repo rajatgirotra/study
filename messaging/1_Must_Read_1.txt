@@ -3,7 +3,7 @@ Why we need a messaging middleware, i.e. a messaging based solution?
 Business requirements are changing constantly. You might have any of the following scenarios where messaging should be used.
 
 1) An application which is 20 yrs old needs to exchange data with an application which is just written 2 days back.
-2) Lets say twop companies are merging and their products need to exchange data.
+2) Lets say two companies are merging and their products need to exchange data.
 3) Different applications of the same company want to exchange data.
 etc etc..
 

@@ -28,7 +28,7 @@ basically in the acknowldegments, the TCP peer is sending back the next sequence
 
 also in the handshake, no data is sent. but few options are advertised.
 
-1) MSS i.e. Maximum Segment Size
+1) MSS i.e. Maximum Segment Size (i.e the maximum size of TCP payload)
 2) Maximum window size.
 
 To understand these lets understand a few other things first.
@@ -125,7 +125,7 @@ execle (e means function also takes a const char* envp[])
 execle(const char* pathname, const char* arg0, const char* arg1, const char* arg2,... const char* argn, const char* envp[]) --> the last const char* must be nullptr.
 
 execlp (p means the function takes a filename and not a pathname). filename must be found in $PATH.
-execle(const char* filename, const char* arg0, const char* arg1, const char* arg2,... const char* argn) --> the last const char* must be nullptr.
+execlp(const char* filename, const char* arg0, const char* arg1, const char* arg2,... const char* argn) --> the last const char* must be nullptr.
 
 then you have execv. --> execv takes list of arguments as an array.
 execv(const char* pathname, const char* argv[]);
@@ -138,7 +138,7 @@ getsockname()/getpeername()
 ---------------------------
 both have same declartion
 
-serveraddr_in serveraddr;
+sockaddr_in serveraddr;
 int len = sizeof(serveraddr);
 getsockname(int sockfd, reinterpret_cast<sockaddr*>(&serveraddr), &len);
 getpeername(int sockfd, reinterpret_cast<sockaddr*>(&serveraddr), &len);
