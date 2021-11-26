@@ -1,0 +1,33 @@
+Load Balancing
+---------------
+Load balancing is very simple. It's just that you want to split the load/requests equally amongst your n servers.
+But a big problem in load balancing is how to add and remove servers without causing a lot of re-mapping of server requests.
+
+Lets say we map request id's of users to a server based on some hashing algorithm. Example, we have n servers; and request id is some random string.
+So we could do something like
+
+Hash(RequestIDString) = SomeHash % n = number between 0 to n-1
+
+Now suddenly if we have n+1 servers, our modulus changes, so now RequestID will be mapped to
+Hash(RequestIDString) = SomeHash % (n+1) = number between 0 to n
+
+this means almost all (100%) of requests will be mapped to a different server now. This is what we want to avoid as we may have stored some information in the cache on the server for a particular RequestIDString.
+
+
+Consistent Hashing
+==================
+consistent hasing help so solve two problems
+1) Reduce the number of re-mappings of RequestIDString to server numbers.
+2) Prevent skewed distribution of requests where some server is heavily loaded and some are almost free.
+
+The way it works is 
+a) We assume the Hash Function has a range 0 to M
+b) create a ring buffer of size M. Indexes from 0 to M-1
+c) Hash(RequestIDString) = SomeHash (0 to M-1)
+d) The servers are also Hashed based on server name or server ip or some other server attribute using the same Hash Function
+   Hash(ServerID) = SomeHash (0 to M-1)
+e) Basically if you image in your head, you will see a ring buffer with RequestID Hashes and ServerID.
+f) Create a convention like for any request, we go clockwise or anti-clockwise and find the first index which is a server and use that server to furnish the request. This way we will have very few re-mappings if any server goes down.
+g) When a server goes down, sometimes it can cause skewness in distribution of requests. So the way out for this.
+h) Create many different names for one server and compute Hash on all those aliases. This way you will have many Hashes for the same server so the same server will be at many places in the ring. This way the requests will not be skewed if another server goes down.
+i) Creating aliases is also a way to manage load in another sense. If you have two servers in your group and one is twice as powerful as the first, you can create 0 aliases for the first and 1 alias for the second. So the first server will occupy just one index and the other server will occupy two indexes in the ring, so it will be able to service more requests according to its capacity.

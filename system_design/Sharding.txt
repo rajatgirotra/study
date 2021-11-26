@@ -1,0 +1,32 @@
+database sharding for handling massive data.
+============================================
+
+Let say you have massive data to query/modify/update. How would do it in within reasonable time limits?
+
+1) Optimizing queries.
+2) Maybe creating database indexes on tables.
+3) May be use a NoSQL database if possible.
+4) Sharding.
+
+Sharding is breaking/partitioning your data down into smaller chunks. Let's say you have a huge table with millions of rows based on a unique UserID. This table can be partitioned into smaller chunks like 0-1 million on one server, 1-2 million on a second server, 2-3 million on a third server and so on..
+
+This kind of partitioning where you take a unique key to divide the data between servers is called Horizontal Partitioning.
+Vertical Partitioning partitions data along columns not rows.
+
+Key requirements from Sharding
+==============================
+1) Consistency - which means what you write in a shard is what you should be able to read back.
+2) Availability 
+3) You could shard not only on UserId but may be on Location (like in Tinder app, which makes sense for that app).
+
+Problems in Sharding
+====================
+1) Joins across sharding is extremely expensive as it involves joining across network as shards are split.
+2) Shards are not very flexible. You can't have dynamic number of shards which can grow or shrink at run time. You can get around this problem somewhat by breaking/partitioning an existing shard into sub-shards.
+
+You can also construct indexes on each shards which could be a totally separate index/column on which you performed your sharding initially.
+
+What if a shard fails
+=====================
+In that case we can have a master slave kind of relationship. A master slave will manage all write requests. All slaves continuously poll the master to get any updates. So all read requests can be served from any slave shard.
+If master fails, a slave shard can be promoted to master.

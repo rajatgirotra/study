@@ -1,0 +1,23 @@
+Scaling is all about handling more requests from clients. i.e handling more load on you server.
+
+Two solutions
+
+1) Horizontal scaling: i.e. adding more servers/nodes
+2) Vertical scaling: i.e. using a more bigger/powerful machine.
+
+
+Horizontal Scaling
+==================
+1) You will need some form of load balancing solution.
+2) Horizontal scaling is resilient/fault tolerant; if one server goes down, the others can help share the load amongst them.
+3) Data consistency can be an issue. As there are so many servers which could be all caching copies of the same data. Updating them atomically could be a challenge. So sometimes you have to provide loose data consistency guarantees.
+4) Scales well; as you can keep adding more and more servers depending on region/location where clients requests are more.
+5) Network calls between servers is an issue. Since these servers will need to frequently talk to each other over a network using some form of RPC protocol, network calls will be required which are slow.
+
+Vertical Scaling
+================
+1) Single point of failure.
+2) No need of load balancing as you have a single massive server.
+3) No Network calls are needed, just need some form of IPC mechanism on the same host.
+4) Doesnt scale too well as there are always hardware limitations on how big a host you can get.
+5) Data consistency is not an issue as its only a single server.
