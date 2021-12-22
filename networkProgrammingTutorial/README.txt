@@ -153,3 +153,26 @@ use of getsockname/getpeername
    c) if the server forks() and execs(), we can pass the connected socket descriptor to the new program via the command line, and the new program can call getpeername() to get the protocol        address of the client which it should handle.
 
 
+epoll
+=====
+epoll is way to monitor multiple file descriptors for read and write activity. The linux kernel has an an internal data structure for file descriptor monitoring using epoll. We jsut call it an epoll instance. Think of this instance as having a 
+1) listening descriptors --> list of descriptors you are interested in for read and write.
+2) ready descriptors --> list of descriptors for which read/write can be performed.
+clearly ready descriptors are a subset of listening descriptors.
+
+commands available are:
+epoll_create() --> to create an epoll instance in the linux kernel.
+epoll_ctl() --> to add/remove descriptors you are interested in
+epoll_wait() --> to wait on the descriptors
+
+Level Triggered or Edge Triggered epoll
+=======================================
+Default is Level triggered which should also be used with blocking sockets. --> Level triggered means that as long as data is available for read/write, epoll() will return you that file descriptor whenever you call epoll_wait(). So if 100 bytes are available and you consume only 60 bytes, and call epoll_wait(), it will return immediately.
+
+Edge Triggered
+==============
+Should not be used with blocking sockets. Instead should be used with non blocking sockets. In this case, if 100 bytes are available and you consume 60 bytes and call epoll_wait(), epoll with continue to block even though there is data available. It will only unblock, when there is some other activity (i.e more data is available for reading/writing).
+
+An application that uses the EPOLLET flag should use nonblocking file descriptors to avoid having a blocking read or write starve a task that is handling multiple file descriptors. The suggested way to use epoll as an edge-triggered (EPOLLET) interface is as follows:
+a) with nonblocking file descriptors; and
+b) by waiting for an event only after read or write return EAGAIN.

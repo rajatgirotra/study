@@ -70,7 +70,7 @@ int Number::counter = 0;
 Number foobar()
 {
      Number n;
-//     return std::move(n); // -Werror=pessimizing-move nice to include warning in your projects
+//     return std::move(n); // -Werror=pessimizing-move and -Wreturn-local-addr nice to include warning in your projects
      return n;
 
 //    return Number();
