@@ -27,4 +27,6 @@ struct X {
 
 inline int X::m_tag {100};
 
-/* let's include this header both in inline_function.cpp and inline_functions_16.cpp and see that there are no compiler and linker errors. */
+/* let's include this header both in inline_function.cpp and inline_functions_16.cpp and see that there are no compiler and linker errors.
+    One more thing, in C++17, constexpr static data members are inline by default. That means we can omit out the line of definition of static constexpr variables, but not static const.
+ */

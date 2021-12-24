@@ -20,5 +20,7 @@ int main() {
     
 /*
   I saw no difference when i saw the assembly in gcc.explorer by Matt Godbolt. between constexpr or static const
-  Also you cannot have a static variable in a function declared constexpr
+  Also you cannot have a static variable in a function declared constexpr.
+  
+  Looks like compiler optimizes out static const variable if the value is known at compiler time. so whether we use static const or constexpr, it doesnt seem to make a difference.
   */
