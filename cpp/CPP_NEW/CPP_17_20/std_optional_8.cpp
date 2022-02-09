@@ -99,6 +99,13 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
         cout << endl;
         optS1 = objS; // copy ctor
         optS1 = objS; // 2nd time onwards it performs copy assignment.
+		/* How it works internally?? std::optional creates a boolean to track if optional is std::nullopt or set. Additionally it has a union of {
+			   _Empty_Byte _empty_byte; // some empty structure. i.e one byte size
+			   T m_payload;
+	    };
+		so if std::optional is unset. it uses placement new syntax to initialize m_payload; hence ctor is called.
+		and from them on, assignment operator is called.
+		*/
     }
     // but what if your type doesn't have a move or copy operation. or you want to avoid the cost of move or copy
     // for that optional provides emplace() api
