@@ -89,3 +89,12 @@ target_link_libraries(container_extract_method_30 PRIVATE project_options projec
 
 add_executable(integer_sequence_31 integer_sequence_31.cpp)
 target_link_libraries(integer_sequence_31 PRIVATE project_options project_warnings)
+
+add_executable(spaceship_operator_32 spaceship_operator_32.cpp)
+target_link_libraries(spaceship_operator_32 PRIVATE project_options project_warnings)
+
+add_executable(spaceship_operator_33 spaceship_operator_33.cpp)
+target_link_libraries(spaceship_operator_33 PRIVATE project_options project_warnings)
+
+add_executable(spaceship_operator_34 spaceship_operator_34.cpp)
+target_link_libraries(spaceship_operator_34 PRIVATE project_options project_warnings)

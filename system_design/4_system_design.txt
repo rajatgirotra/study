@@ -1,0 +1,48 @@
+The three main aspects whenever you design a system are:
+1) Reliability
+2) Scalability
+3) Maintainability
+
+In essence, all 3 above boil down to the following requirements.
+1) System should be highly available and continue to function even when some faults occur.
+2) A fault should not lead to system failure.
+3) Maybe fault can cause some reduced capacity. but overall it should function smoothly.
+4) faults could hardware faults, software faults, or human errors.
+5) It should be able to respond back in reasonable time even when under heavy load.
+6) It should be easy to maintain and update.
+7) Downtime should be near 0.
+
+In the past, we tried to mitigate hardware faults using redundancy. Like having hard disks in a RAID configuration, so that if one fails, we have a backup. We has hot-swappable CPU's, redundant RAM's etc, dual power supplies etc.
+But now we are moving towards recovering from hardware faults using software techniques like having multiple servers, multiple caches on different servers in different locations, using load balancers to route customer requests to the available hosts. This allows us to cotinue even if there is a complete server failure, and also provides a very good way to apply patches, and updates without any systemm downtime. This is called rolling updates.
+
+Load on a system
+================
+For measuring load, we need to define some load parameters. Example, 
+1) For DB's --> load could be number of active connections, or number of read/writes per second
+2) For trading application --> load could be the number of market data updates you can handle per second
+3) For a chat application --> load could be number of simultaneous users in a chat room
+4) For a computer --> load could be the hit to miss ratio on the cache.
+
+Design Problem 1
+================
+Twitter app has two main things to do
+1) Post tweet --> A user tweets something. On average twitter gets 4.6k tweets/sec and around 12k tweets/sec during peak time.
+2) Home timeline --> A user requests home timeline where we should see tweets of all the people he follows at one place. Around 30k/sec.
+
+Approach 1
+----------
+You have a users table, a tweets table, and a follows table. Every time a user requests home timeline, you creating a complex join query on the database and fetch the timeline.
+
+    SELECT tweets.msg, tweets.msg_by, tweets.msg_time FROM tweets
+    JOIN users ON users.id = tweets.sender_id
+    JOIN follows ON follows.followee_id = users.id
+    WHERE follows.follower_id = current_user
+
+So we are constructing the complete home timeline during runtime.
+
+Approach 2
+----------
+Create a cache of each users home timeline, just like a list of email received by a user according to sorted by time. Then as a user tweets, send the tweet to a global list of all tweets, then look up all his followers, and update the home timeline cache for each follower. This approach is much better and gives better performance.
+
+If you see twitters problem, its not that it can't handle 12k tweets per sec during peak hours. It's very easy. Their main problem is fan-out. i.e. how to update each users home timeline.
+Approach 1 does a lot of work during read time (i.e. when home timeline is requested), whereas approach 2 does a lot of work at write time (ie. tweet time). twitter realized that reads and much more frequent than writes. So let's do very little work at read time and do more work at tweet time (i.e. follow approach 2).

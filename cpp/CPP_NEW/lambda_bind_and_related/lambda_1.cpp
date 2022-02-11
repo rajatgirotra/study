@@ -108,7 +108,7 @@ int main()
 }
 
 /*
-So [=] means --> all variables in scope will be passed as READ ONLY COPIES
-   [&] means --> all variables in scope will be passed as READ WRITE ALIASES
-   [=] mutable means --> all variables in scope will be passed as READ WRITE COPIES
+So [=] means --> all variables in scope will be passed by value and the function object of the closure class will be const. So cannot modify any scope variables.
+   [&] means --> all variables in scope will be passed by reference.
+   [=] mutable means --> all variables in scope will be passed by value and the function object of the closure will be non-const.
 */
