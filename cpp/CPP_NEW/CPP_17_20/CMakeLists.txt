@@ -98,3 +98,6 @@ target_link_libraries(spaceship_operator_33 PRIVATE project_options project_warn
 
 add_executable(spaceship_operator_34 spaceship_operator_34.cpp)
 target_link_libraries(spaceship_operator_34 PRIVATE project_options project_warnings)
+
+add_executable(auto_parameters_35 auto_parameters_35.cpp)
+target_link_libraries(auto_parameters_35 PRIVATE project_options project_warnings)
