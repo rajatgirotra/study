@@ -104,3 +104,12 @@ target_link_libraries(auto_parameters_35 PRIVATE project_options project_warning
 
 add_executable(concepts_36 concepts_36.cpp)
 target_link_libraries(concepts_36 PRIVATE project_options project_warnings)
+
+add_executable(concepts_37 concepts_37.cpp)
+target_link_libraries(concepts_37 PRIVATE project_options project_warnings)
+
+add_executable(concepts_38 concepts_38.cpp)
+target_link_libraries(concepts_38 PRIVATE project_options project_warnings)
+
+add_executable(concepts_39 concepts_39.cpp)
+target_link_libraries(concepts_39 PRIVATE project_options project_warnings)

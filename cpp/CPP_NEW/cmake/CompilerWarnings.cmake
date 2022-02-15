@@ -55,6 +55,7 @@ function(set_project_warnings warnings)
             -Wnull-dereference # warn if a null dereference is detected
             -Wdouble-promotion # warn if float is implicit promoted to double
             -Wformat=2 # warn on security issues around functions that format output
+            -fconcepts-diagnostics-depth=2
             # (ie printf)
             )
 
