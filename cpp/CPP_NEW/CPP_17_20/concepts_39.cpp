@@ -30,7 +30,7 @@ void add(Coll& coll, const T& value) {
 
 // need to understand more how it works. Looks like std::same_as<TO[1]> expands to std::same_as<TO[0], TO[1]>
 template <typename FROM, typename TO>
-concept ConvertsWithNarrowing = std::convertible_to<FROM, TO> &&
+concept ConvertsWithNarrowing = std::convertible_to<FROM, TO> && // note the use of &&. ConvertsWithNarrowing requires std::convertible_to<> to be satified.
                                 requires (FROM&& x) {
                                     {std::type_identity_t<TO[]>{std::forward<FROM>(x)}} -> std::same_as<TO[1]>;
                                 };

@@ -1,7 +1,7 @@
 /*
  * in the previous program we used
  * auto operator <=> (const MyType& rhs) const = default.
- * But what does the spaceship operator really return. it returns an object of any of the following types:
+ * But what does the spaceship operator really return. it returns an object of one of the following types:
  * std::strong_ordering
  * std::weak_ordering
  * std::partial_ordering

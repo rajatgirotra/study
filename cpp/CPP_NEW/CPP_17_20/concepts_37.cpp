@@ -2,7 +2,7 @@
  * in concepts_36.cpp, you have seen requires CLAUSE and how to write a concept.
  * Here we will see how we can re-use the requires keyword to write a requires expression.
  *
- * let say we want the same maxValue() function for pointers. But this type we have smart pointers. not raw pointers.
+ * let say we want the same maxValue() function for pointers. But this time we have smart pointers. not raw pointers.
  * so std::is_pointer_v<T> will be false for smart pointers. Let say we also want to make sure:
  * 1) the pointer type can be compared to null pointer
  * 2) the pointer types can be compared to each other
@@ -18,7 +18,7 @@
 using namespace std;
 
 template <typename T>
-concept IsPointer = requires (T p) {  // this is a requiures EXPRESSION
+concept IsPointer = requires (T p) {  // this is a requires EXPRESSION
   // list of requirements.
   *p; // means that the parameter type T can be dereferenced.
     { p < p } -> std::convertible_to<bool>; // comparison should be able to yield bool

@@ -29,7 +29,7 @@ public:
     const string& getName() const noexcept { return m_user; }
 
     auto operator <=> (const Username& rhs) const noexcept {
-        return this->getName() < rhs.getName();
+        return this->getName() <=> rhs.getName();
     }
 };
 

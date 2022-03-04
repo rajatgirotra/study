@@ -22,9 +22,10 @@ T maxValueWithRequiresClause(T a, T b) {
     return a < b ? b : a;
 }
 
-// when you want to re-use a constraint at multiple places, you create a concept out of it. example
+// when you want to re-use a constraint at multiple places, you create a concept out of it.
+// So a concept is a named requirement, i.e. when you give a name to a requirement, it is a concept. example
 template <typename T>
-concept IsPointer = std::is_pointer_v<T>; // concept means you are just giving a name to a set of contraints.
+concept IsPointer = std::is_pointer_v<T>; // concept means you are just giving a name to a set of constraints.
 // the value again should be a COMPILE TIME boolean expression. We can now use this constraint like.
 
 template <typename NonPointerType>

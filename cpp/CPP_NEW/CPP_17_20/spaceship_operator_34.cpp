@@ -50,7 +50,7 @@ int main() {
  * Given you have a class which wraps an integer and provides a ctor which takes an int. the ctor is not marked explicit, so
  * MyType x = 42; // works.
  *
- * If this function provides a operator something like this
+ * If this function provides an operator something like this
  *
  * bool operator == (int i, const MyType& t) {
  *  return (t==i); // endless recursion.
