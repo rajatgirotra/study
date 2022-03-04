@@ -18,6 +18,7 @@ T maxValue(T a, T b) {
 template <typename T>
 requires (!std::is_pointer_v<T>) // the requires clause should be followed by a COMPILE TIME boolean expression. the compiler will now behave
 // like there was no maxValueWithRequiresClause defined for pointers
+// THIS COMPILE TIME BOOLEAN EXPRESSION IS CALLED A CONSTRAINT.
 T maxValueWithRequiresClause(T a, T b) {
     return a < b ? b : a;
 }
