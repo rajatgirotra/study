@@ -1,0 +1,3 @@
+Mining just means creating blocks of transactions, processing and validating them and adding them to the bitcoin blockchain
+Anyone can be a minor though you need specialized hardware with huge computing power. The more the minors are there, the more the blocks are verified and added to the bitcoin blockchain and the longer will be the blockchain. The longer the blockchain is, the more computational power is needed by attackers to undo and redo the transactions. So miners actually make the bitcoin blockchain secure.
+For mining, miners get rewarded with Bitcoins.

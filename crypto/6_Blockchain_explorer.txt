@@ -1,0 +1,10 @@
+There are many different blockchain explore websites like
+
+blockchain explorer
+blockchain.info
+BTC.com
+coinmarketcap.com
+blockchair.com
+
+blockchain explorer is also a wallet, and also an exchange where you can buy and sell bitcoins for dollars and other currencies.
+coinmarketcap.com may show a different price, that's because it shows the average price from multiple bitcoin exchanges.

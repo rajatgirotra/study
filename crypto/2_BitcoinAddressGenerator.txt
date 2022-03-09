@@ -1,0 +1,46 @@
+Let’s start to examine how can we generate bitcoin address;
+
+Step 1: Elliptic Curve Digital Signature Algorithm (ECDSA) is used to generate Private Key because Public Key Cryptography provides bitcoin’s signature principle.
+ecdsaPrivateKey = ecdsa.SigningKey.generate(curve=ecdsa.SECP256k1)
+print("ECDSA Private Key: ", ecdsaPrivateKey.to_string().hex())
+
+Step 2: Due to Public Key Cryptography, we need Public Key that depends on a Private Key. So we generate it with the Elliptic Curve Digital Signature Algorithm too.
+ecdsaPublicKey = '04' +  ecdsaPrivateKey.get_verifying_key().to_string().hex()
+print("ECDSA Public Key: ", ecdsaPublicKey)
+
+Step 3: We apply SHA256 to ECDSA Public Key that is created in Step 2.
+hash256FromECDSAPublicKey = hashlib.sha256(binascii.unhexlify(ecdsaPublicKey)).hexdigest()
+print("SHA256(ECDSA Public Key): ", hash256FromECDSAPublicKey)
+
+Step 4: We apply RIDEMP160 to value that is created in Step 3 and get value as 20 bytes.
+ridemp160FromHash256 = hashlib.new('ripemd160', binascii.unhexlify(hash256FromECDSAPublicKey))
+print("RIDEMP160(SHA256(ECDSA Public Key)): ", ridemp160FromHash256.hexdigest())
+
+Step 5: We prepend 00 as Network Byte to value that is created in Step 4.
+prependNetworkByte = '00' + ridemp160FromHash256.hexdigest()
+print("Prepend Network Byte to RIDEMP160(SHA256(ECDSA Public Key)): ", prependNetworkByte)
+
+Step 6: We apply double SHA256 to the value that is created in Step 5 to Checksum.
+hash = prependNetworkByte
+for x in range(1,3):
+    hash = hashlib.sha256(binascii.unhexlify(hash)).hexdigest()
+    print("\t|___>SHA256 #", x, " : ", hash)
+
+Step 7: We get 4 bytes of value that is created in Step 6 as Checksum.
+cheksum = hash[:8]
+print("Checksum(first 4 bytes): ", cheksum)
+
+Step 8: We append Checksum value that is created inStep 7 to value that is created at Step #5.
+appendChecksum = prependNetworkByte + cheksum
+print("Append Checksum to RIDEMP160(SHA256(ECDSA Public Key)): ", appendChecksum)
+
+Step 9: We applied Base58 Encoding to value that is created in Step 8. After Base58 Encoding, we get the value that is Bitcoin Address. (In Python, b58encode result should decode to utf-8 for showing)
+bitcoinAddress = base58.b58encode(binascii.unhexlify(appendChecksum))
+print("Bitcoin Address: ", bitcoinAddress.decode('utf8'))
+
+
+
+
+Alternately, can also use this pypi package:
+
+https://pypi.org/project/bitcoinaddress/#:~:text=%20Bitcoin%20Wallet%20Address%20Generator%20This%20is%20a,Bech32%20addresses%20with%20prefix%20bc1%20P2WPKH%20and%20P2WSH.

@@ -1,0 +1,49 @@
+SHA256 is just a determinitic one way hash function which always produces a random 256 bit output.
+It stands for Secure Hash Algorithm
+
+Determinitic --> means that for the same input, the output is always the same.
+One way means --> Once you get the 256 bit digest, there is no way to get to the original input
+
+It also has this butterfly effect which means even if you change 1 bit in the input, the 256 bit output will be really different.
+
+https://demoblockchain.org/hash
+
+Blocks in a Blockchain
+=======================
+blocks in a blockchain have
+1) A block number
+2) A Nonce (i.e. Number once used)
+3) The data.
+These three together as input to an SHA256 algo should give a HASH with four leading zeros.
+
+https://demoblockchain.org/block --> go here and check it out
+
+To see how blocks in a blockchain are tied together see this link.
+https://demoblockchain.org/blockchain
+
+You will notice that each block is cryptographically tied to the block before it.
+Every block has a
+1) Block number
+2) A Nonce(actually called the proof of work)
+3) Data (ie bitcoin transactions)
+4) PrevHash (Hash of the previous block)
+All these 4 combined create the next block. If you change any of 1-4), you will break the block and all the blocks infront of it. i.e. you break the whole blockchain.
+
+You will notice that each block has a Hash which has 4 leading zero's. That's called the difficulty level. The difficulty level tells you how difficult is it for you to get/compute a hash for your block given the block number, data and prev hash. you have to adjust the Nonce to get a hash with  4 leading zeros. The difficulty level is closely tied to security. As more computing power is added by the bitcoin mining community, the difficulty level is revised. The difficulty level is kept such that it takes about 10 minutes to mine a new block.
+
+How does that provide security? Lets say your block chain has 6 blocks and you tamper with block 2.
+This means all of blocks 2-6 are invalid and you need to mine it. i.e find the correct Nonce for blocks 2-6 one by one.
+If it takes 10 mins to mine one block, you need 10*5 = 50 mins to create a new modified blockchain.
+Also since there are several copies of the blockchain blocks across multiple servers, the faked blockchain top of the hash will not match to the hash of the remaining nodes. so blockchain code will reject it.
+
+go to BTC.com to see the latest bitcoin blockchain
+You can see the blocks in a blockchain and details about each block like
+1) who mined it
+2) what was the reward
+3) block number
+4) when was it mined
+5) the number of transactions in that block etc.
+
+If you see the transactions in any block, the first transaction is the "Coinbase" transaction which is the reward transaction for that miner + some extra bitcoins corresponding to all the transaction fees for all the transactions in that block. Later we will see what is transaction fees.
+
+As of March 9' 2022, the most recent block number is 726529 with block hash: 00000000000000000007b30042c927668008a0c3ff61389c3a242bf6e74ef869, ie 19 leading zeros
