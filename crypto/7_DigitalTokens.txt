@@ -1,0 +1,17 @@
+A digital token is also called a blockchain token. It is also a digital asset that can represent anything securities, loyalty points,
+real world assets. Example:
+
+Audiocoin --> used in music industry. Used as a rewards points system
+Golem --> Shared economy computing power.
+VeChain --> tracking supply chains on a blockchain
+Steemit --> rewards platform for content publishers.
+CryptoKitties --> Collect and breed digital cats
+
+Initial Coin Offerings/Initial Token Offerings --> They enable you to market and raise funds from people for an idea you have by issuing digital token for that project.
+
+Google and understand Smart Contracts
+Nick Zabble
+
+DAO/DAC
+
+Decentralized Autonomyous Organization --> Collection of smart contracts.

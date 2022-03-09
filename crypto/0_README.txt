@@ -115,6 +115,8 @@ So, when you buy bitcoins… what it is that you own, exactly?
 
 When you own bitcoins, what you have is the exclusive ability to add specific transactions to the public ledger. Your bitcoins exist as unspent outputs from previous transactions on the ledger, sent to an address that your wallet created out of thin air, waiting for you to use as inputs in a future transaction. Your wallet is the only wallet that can digitally sign those inputs, because it contains a private key that no one else has.
 
+So a cryptocurrency is a digital asset which allows you to exchange VALUE between two parties.
+
 Further Information
 ===================
 Now that you know exactly what a bitcoin is, how it’s secured, and how it’s transferred, you have a foundation for understanding further information about Bitcoin.
