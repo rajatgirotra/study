@@ -48,14 +48,14 @@ For authorization we need to guarantee two things.
 2) He has really authorized it.
 
 And there is a 3rd very important problem
-Double Spending??
-=================
+Double Spending
+===============
 i.e. how do you guarantee that the owner of a bitcoin doesnt spend a coin more than once.
 The proposed solution to the double-spending problem is to use a peer-to-peer (i.e decentralized) network.
 The network will timestamp transactions by hashing them into an ongoing chain of hash-based proof-of-work, forming a record that cannot be changed without redoing the proof-of-work. The longest chain not only serves as proof of the sequence of events witnessed, but proof that it came from the largest pool of CPU power. As long as a majority of CPU power is controlled by nodes that are not cooperating to
 attack the network, they'll generate the longest chain and outpace attackers.
 
-To see how this 1) and 2) is taken care of, take a closer look at the second transaction public-ledger.png, b6f4ec453a021ac561…. This transaction spends the bitcoins from previous output e14768c1d648b98a52…:0. When we examine that previous output, we see that those bitcoins were previously sent to the address 1NqUaJrFeStshjad1bhrEFFzWSQw6JHbqv. Which means that bitcoin address 1NqUaJrFeStshjad1bhrEFFzWSQw6JHbqv is the current owner.
+To see how 1) and 2) is taken care of, take a closer look at the second transaction public-ledger.png, b6f4ec453a021ac561…. This transaction spends the bitcoins from previous output e14768c1d648b98a52…:0. When we examine that previous output, we see that those bitcoins were previously sent to the address 1NqUaJrFeStshjad1bhrEFFzWSQw6JHbqv. Which means that bitcoin address 1NqUaJrFeStshjad1bhrEFFzWSQw6JHbqv is the current owner.
 
 Now the current owner must use his private key to generate a digital signature. By what does is he really signing?? He is signing the previous output e14768c1d648b98a52…:0. 
 
@@ -63,7 +63,7 @@ In Bitcoin, a valid digital signature serves as proof that the transaction was a
 
 So if we have a valid digital signature, it means that both points above are ticked.
 A digital signature is only valid if a specific equation (ECDSA Signature verification algorithm on Wikipedia) is satisfied by
-1) the bitcoin address,
+1) the bitcoin address of the sender,
 2) the previous output (i.e. the data that is signed)
 3) and the digital signature.
 As you’d expect, every time a Bitcoin node receives a new transaction, it checks to make sure each digital signature is valid. The node has no idea which private key was used to generate each signature, but that’s OK, because it doesn’t need to know. It only needs to verify that the equation is satisfied.

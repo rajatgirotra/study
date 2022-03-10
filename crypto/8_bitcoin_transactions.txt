@@ -1,0 +1,23 @@
+Lets understand bitcoin transactions.
+====================================
+
+Let's say you want to send 3 BTC to someone. Normally when you want to pay $3 to someone, you just take out, say 3 $1 bills from your wallet and hand over to your friend. You are really not concerned who exactly gave you those $3. However that's not the case with BTC. in bitcoin blockchain, each transaction records where the bitcoin in your wallet comes from. So lets say you have to pay 3 BTC to someone, and you have enough BTC in your bitcoin wallet. Lets say there are 3.5 BTC in your wallet which are unspent and they came from three transactions, TX0, TX1, TX2.
+
+So your wallet will create a new transaction (we will come to the transaction id in a minute). this transaction will have as
+
+1) Input --> the three transactions TX0, TX1, TX2 which total 3.5 BTC.
+3) Output --> the output transactions lets call it TX3.
+
+Now once this transaction is mined by a miner, they will realize that the total value of TX0 + TX1 + TX2 is 3.5 BTC, but the output value is only 3 BTC.
+So the difference between this (0.5 BTC) is the transaction fee. This is the fee which goes as a reward to the miner. that is why miners are really interested in mining transactions which give them a higher transaction fee.
+
+As an initiator, if you feel 0.5 BTC is a really high transaction fee, you can create another output TX4 to be paid back to your own bitcoin address. This way you can save on the transaction fee.
+
+Now when you create a transaction in your wallet, you can assign some conditions on the Output transactions. This is to ensure that the BTC are really xferred to the intended receipient. These are conditions which must be satisfied by the new owner of the BTC, otherwise the transaction will not be valid. the most general condition that the transaction initiator puts is the PUBLIC-KEY of the new owner. Only if the new owner has the corresponding PRIVATE-KEY will the new owner be allowed to take the transaction.
+
+If you really think, the input transactions would have also included this condition. And you would have proved that you really own the PRIVATE-KEY corresponding to the PUBLIC-KEY provided as a condition in TX0, TX1, TX2. This is what is called the proof-of-work.
+
+
+COINBASE transaction
+===================
+You already know that every block has a coinbase transaction as the first transaction in the block. this block does not have any input transactions and only one input which includes a reward + transactional fee for all the transactions in that block. This is for the miner.

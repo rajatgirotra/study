@@ -1,4 +1,4 @@
-SHA256 is just a determinitic one way hash function which always produces a random 256 bit output.
+SHA256 is just a deterministic one way hash function which always produces a random 256 bit output.
 It stands for Secure Hash Algorithm
 
 Determinitic --> means that for the same input, the output is always the same.
@@ -29,7 +29,7 @@ Every block has a
 4) PrevHash (Hash of the previous block)
 All these 4 combined create the next block. If you change any of 1-4), you will break the block and all the blocks infront of it. i.e. you break the whole blockchain.
 
-You will notice that each block has a Hash which has 4 leading zero's. That's called the difficulty level. The difficulty level tells you how difficult is it for you to get/compute a hash for your block given the block number, data and prev hash. you have to adjust the Nonce to get a hash with  4 leading zeros. The difficulty level is closely tied to security. As more computing power is added by the bitcoin mining community, the difficulty level is revised. The difficulty level is kept such that it takes about 10 minutes to mine a new block.
+You will notice that each block has a Hash which has 4 leading zero's. That's called the difficulty level. The difficulty level tells you how difficult is it for you to get/compute a hash for your block given the block number, data and prev hash. you have to adjust the Nonce to get a hash with 4 leading zeros. The difficulty level is closely tied to security. As more computing power is added by the bitcoin mining community, the difficulty level is revised. The difficulty level is kept such that it takes about 10 minutes to mine a new block (i.e. find the nonce).
 
 How does that provide security? Lets say your block chain has 6 blocks and you tamper with block 2.
 This means all of blocks 2-6 are invalid and you need to mine it. i.e find the correct Nonce for blocks 2-6 one by one.
