@@ -1,0 +1,17 @@
+Every miner running a Full Node has a pool of unconfirmed transactions. Miners tend to pick up tx's which give them a higher transaction fee as they are driven by economy. That is why sometimes it can take time for your tx to be confirmed in the bitcoin network.
+
+Block size limit of each block in BTC blockchain is 1MB.
+Mempool can be a real bottleneck sometimes when the no. of unconfirmed tx's are very very high. This caused an increase in tx fee making smaller transactions thru BTC impossible as you had to pay so high tx fee for such small tx's.
+
+So there were some changes like SegWit (Segeragated Witness) so that the tx size could be made smaller and more tx's could be fit in a block.
+So Seg Wit enabled wallets is one way to increase your chances of getting fast confirmations.
+
+Another option is opt-in replace (with a higher tx fee), so you are replacing your old tx with a new tx with a higher fee hoping a miner will pick it up and it will be confirmed. In that case the old tx will not be confirmed.
+
+Another option is child pays for parent. In that case, you create another tx and with a fee and bind both the old unconfirmed tx and this new one together. So hopefully some minor will see that these are bound together and must be confirmed together to claim the tx fee.
+
+In worst case, your money is never lost and the tx is reversed.
+
+Check stats of the mempool:
+https://jochen-hoenicke.de/queue/
+https://www.blockchain.com/charts/mempool-state-by-fee-level

@@ -57,14 +57,22 @@ attack the network, they'll generate the longest chain and outpace attackers.
 
 To see how 1) and 2) is taken care of, take a closer look at the second transaction public-ledger.png, b6f4ec453a021ac561…. This transaction spends the bitcoins from previous output e14768c1d648b98a52…:0. When we examine that previous output, we see that those bitcoins were previously sent to the address 1NqUaJrFeStshjad1bhrEFFzWSQw6JHbqv. Which means that bitcoin address 1NqUaJrFeStshjad1bhrEFFzWSQw6JHbqv is the current owner.
 
-Now the current owner must use his private key to generate a digital signature. By what does is he really signing?? He is signing the previous output e14768c1d648b98a52…:0. 
+Now the current owner must use his private key to generate a digital signature. But what does is he really signing?? He is signing the hash of a simplified version of the previous output e14768c1d648b98a52…:0. 
 
 In Bitcoin, a valid digital signature serves as proof that the transaction was authorized by the address’s owner. Here’s what makes it safe: Just as a private key was required to generate that address, the same private key is required, once again, to generate a valid digital signature.
 
-So if we have a valid digital signature, it means that both points above are ticked.
+So if we have a valid digital signature, it means that both points above are ticked. So basically whenever a transaction is created, the initiator will put in the Input:
+1) The txid of the previous tx.
+2) The number in the output of that previous tx that is being referenced.
+3) His own public key (part of ScriptSig)
+4) A digital signature (produced by ECDSA signature over a hash of a simplified version of the previous tx)
+
+Verification:
+To verify that inputs in a tx are authorized to collect the values of referenced outputs, Bitcoin uses a custom scripting system. The Input's scriptSig and the referenced output's scriptPubKey are evaluated (in that order), with scriptPubKey using the values left on the stack by scriptSg. The input is authorized if scriptPubKey returns true. Through the scripting system, the sender can create very complex conditions that people have to meet in order to claim the output's value. For example, it's possible to create an output that can be claimed by anyone without any authorization. It's also possible to require that an input be signed by ten different keys, or be redeemable with a password instead of a key.
+
 A digital signature is only valid if a specific equation (ECDSA Signature verification algorithm on Wikipedia) is satisfied by
-1) the bitcoin address of the sender,
-2) the previous output (i.e. the data that is signed)
+1) the bitcoin address of the sender (a BTC address is just a hash of the public key),
+2) the previous output (i.e. the data that is signed, a hash of the simplified version of the transaction)
 3) and the digital signature.
 As you’d expect, every time a Bitcoin node receives a new transaction, it checks to make sure each digital signature is valid. The node has no idea which private key was used to generate each signature, but that’s OK, because it doesn’t need to know. It only needs to verify that the equation is satisfied.
 
@@ -129,3 +137,6 @@ Bitcoin’s public ledger is also known as the blockchain. Since the blockchain 
 So What is a blockchain
 =======================
 This technology to keep all the transactions (i.e. the ledger) that ever happened in bitcoin de-centralized is called the blockchain.
+
+
+1 BTC = 100,000,000 Satoshi
