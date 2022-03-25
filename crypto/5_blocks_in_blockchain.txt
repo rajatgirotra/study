@@ -47,3 +47,36 @@ You can see the blocks in a blockchain and details about each block like
 If you see the transactions in any block, the first transaction is the "Coinbase" transaction which is the reward transaction for that miner + some extra bitcoins corresponding to all the transaction fees for all the transactions in that block. Later we will see what is transaction fees.
 
 As of March 9' 2022, the most recent block number is 726529 with block hash: 00000000000000000007b30042c927668008a0c3ff61389c3a242bf6e74ef869, ie 19 leading zeros
+
+Byzantine Generals Problem
+===========================
+How does Blockchain save itself from attackers.
+
+1) One thing you already know that if an attacker tries to modify an old block, he/she will need to recompute the nonce for all the subsequent blocks. However this takes time and since all the full nodes are connected to each other, the rest of the full nodes will ask Blockchain on the attackers full node to fix itself. So even before the attacker recomputes the blocks, the other full nodes will fix it.
+
+Lets now see what is the Byzantine Generals Problem.
+So there are 4 generals on horses who want to capture a castle. They can only succeed if they all attack or retreat at the same time. Otherwise if there is chaos, they will never win. One out of the 4 generals is a traitor. So what protocol should the generals use to arrive at a consensus to overtake the castle. One out of the 4 generals will give a command and the others must decide what to do. The general who gives the command could be a traitor too.
+
+The protocol is that each general will listen to the order and relay that same order to every other general. Each general will see how many requests for attack or retreat they get and they go with the higher of that.
+
+Case where general is not a traitor
+===================================
+1) Gen1 issues order to attack.
+2) Gen2 is traitor and relays order to retreat to Gen1, Gen3, Gen4
+Scenario
+Gen1) receives order to attack from Gen3) and Gen4) and retreat from Gen2)
+Gen2) receives order to attack from Gen1) and Gen3) and Gen4)
+Gen3) receives order to attack from Gen1) and Gen4) and retreat from Gen2)
+Gen4) receives order to attack from Gen1) and Gen3) and retreat from Gen2)
+So they all attack.
+
+Even when Gen1) is traitor and gives confusing order, i.e. Attack order to Gen2) and Retreat order to Gen3) and Gen4).
+They will still arrive at a consensus. This mathematical proof shows that if there is a rouge full node, it will still not effect the blockchain. BUT ONLY IF THE ATTACKERS ARE LESS THAN 1/3rd. If for this problem we have 2 Traitors, ie 1/2, they will never be able to arrive at a consensus.
+
+Blockchain however uses a different consensus protocol which is more fool proof and requires atleast more than 50% of attackers on the network. The case we discuss below is valid in both cases.
+
+1) An attacker tries to put fake transactions in a block and tries to put it in the blockchain.
+2) Two miners submit a successfully mined block at the same time.
+Let's say there are 6 full nodes and node 1 and node 6 mine a block (node 1 mines Orange color block and node 6 mines purple color block) at the same time. The block will be sent to other full nodes. Lets say nodes 2, 3, 4 get the orange block and node 5 gets the purple block. Both the blocks are valid. So what will happen now, is that the blockchain will now wait for another block to be mined and sent out to other nodes. Lets say node 3 mines an orange block and sends it to node 1, node 2 and node 4.
+so node 1, 2, 3, 4 all have two orange blocks and node 5 and 6 have only 1 purple block. So the 2 orange blocks are accepted (as it is a longer chain) and node 5 and node 6 have to accept it. the purple block now becomes an orphaned block.
+
