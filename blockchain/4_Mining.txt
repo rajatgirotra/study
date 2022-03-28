@@ -1,3 +1,85 @@
 Mining just means creating blocks of transactions, processing and validating them and adding them to the bitcoin blockchain
 Anyone can be a miner though you need specialized hardware with huge computing power. The more the miners are there, the more the blocks are verified and added to the bitcoin blockchain and the longer will be the blockchain. The longer the blockchain is, the more computational power is needed by attackers to undo and redo the transactions. So miners actually make the bitcoin blockchain secure.
 For mining, miners get rewarded with Bitcoins.
+
+This reward is currently halved after every 210000 blocks are mined.
+Currently it is 6.25 BTC + the fees.
+When the reward becomes too small, it is estimated that the tx fee will increase.
+
+There are very big mining facilities with huge number of mining rigs that continuously do hash computations to find the golden nonce for a block. So you might think how can someone with a small laptop ever beat such large mining facilities. Lets see some numbers to really see what is going on.
+
+Mining Difficulty
+==================
+Mining difficulty is adjusted every 2016 blocks (around 2 weeks). It is the number of leading zeros in the hash that you are trying to find. Lets get a feel of the difficulty of finding a golden nonce by choosing a random nonce.
+
+the first BTC block had a hash of 00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048 (eight leading zeros).
+the current BTC block as of March 28th 2022 has a hash of 00000000000000000007553079fadbabcd2977da65886a4a1e25a006470afa9b (19 leading zeros).
+
+now the hash is 64 characters. each character can be 0-9A-Z (16 combinations) 
+so total hashes available = 16 * 16 * .. 64 times approximately 1.15792089E77 i.e. 10^77.
+With 8 leading zeroes, the number of hashes available = 16*16*16... 56 times approx 2.69599467E67 i.e. 2 * 10^67
+With 19 leading zeroes, the number of hashes available = 16*16*16... 45  times approx 1.53249554E54 i.e. 10^54
+
+So the probability that a random nonce will be having 19 leading zeros = 10^45/10^77 = 1E-32 = 0.00000000000000000000000000000032%
+That's the probability! So now you have an idea how small it is and why we just need to brute force it.
+
+Mining Pools
+============
+Now there are companies like Slushpool, AntPool, BTC.com etc which provide mining pools. i.e. you can setup your own hardware for Bitcoin and join the mining pools provided by these companies. These companies will run the Bitcoin mining on your hardware and the hardware of other users cooperatively to mine BTC. and whenever you successfully mine a BTC, the reward is distributed among all the participants by distributing in the same ratio as the hash capacity you provide to the pool. You can see the distribution of the various mining pools at BTC.com https://btc.com/btc/insights-pools.
+For example, if 5 systems are mining a block. Then may be system will check all nonce between 0-100million, system will check all nonce between 100,000,001 and 200million and so on.
+
+Hash Rate
+==========
+Hash rate  is defined as the number of Hash Computions you can do per second.
+1 kH/s is 1,000 (one thousand) hashes per second;
+1 MH/s is 1,000,000 (one million) hashes per second;
+1 GH/s is 1,000,000,000 (one billion) hashes per second;
+1 TH/s is 1,000,000,000,000 (one trillion) hashes per second;
+1 PH/s is 1,000,000,000,000,000 (one quadrillion) hashes per second;
+1 EH/s is 1,000,000,000,000,000,000 (one quintillion) hashes per second.
+
+Mining on Laptop
+================
+An average gaming laptop will have a Hash Rate of 100MH/s (100 million hashes per second).
+
+Let say we are mining on a laptop. The nonce is a 32 but unsiged number so its range is 0 - 4,294,967,295 (approx 4 billion)
+So on a gaming laptop it will take around 40 seconds to complete the full nonce range. This means you should be able to mine a block every 40 seconds. So why we cant mine it so fast? Let's see.
+With current mining difficulty of 19 leading zeros, the hash range is 10^54.
+and the total nonce is only 4 billion. Which is much less then the hash range. So what is the guarantee that the 4 billion much smaller nonce range will give us a hash with 19 leading zeros. 
+The answer is that there is another field called timestamp (which the number of seconds since epoch) in the block. and that field ticks every second. So lets say you could only complete 200 million hashes and the second elapses, so now you have the next second and the whole 4 billion nonce range needs to be retried again. basically you need to start over.
+
+Mining with a Mining Pools
+==========================
+If you see any mining pool, example: ViaBTC, the hash rate is a whooping 21049.18 PH/s i.e. it can finish the whole nonce range withing one second. So even after the 4 billion hash checks, the golden nonce is not found. what to do?? the second has still not elapsed so will the pool just waste the remaining capacity for that second?? No.. that's when the pool starts adjusting the transactions in the pool.. it may kick out a transaction with the lowest fee and pick another transaction just so that the hashes can be different. So now it can start over the nonce compuation again for the remainder of that second. If the second elapses, it will just start over. i.e pick again the tx's with higher fees.
+
+CPUs vs GPUs vs ASIC
+====================
+CPU = Central Processing Unit  (General, not specialized, limited to 10MH/s)
+GPU = Graphics Processing Unit  (The graphics/video card, specialized for graphics i.e. matrix operations, limited to 1GH/s)
+ASIC = Application Specific Integrated Circuit (introduced in 2014, totally specialized for SHA256 calculation, > 1000 GH/s)
+Can only be used for BTC/other coins which use SHA256.
+Cannot use for Ethereum. as it uses EthHash, which is different. Ethereum is memory heavy, so we can still use Ethereum.
+Google for Ethereum article by Vijay Praddep. Etheruem's Memory Hardness Explained.
+
+Cloud Mining
+============
+You can take ASIC in cloud and add it to the mining pool.
+
+Block Data
+==========
+Bits --> What is Bits in BlockData?
+Since the current target can be any number of leading zeros' (started with 8 and now it's in 19), this information is stored in the block in a variable called Bits.
+Take Bits --> Hex --> 
+
+Example: Block
+Block: 0000000000000000000959794178333e2e2f4474d84d9528e5e31d49652f5d58
+Bits = 386,547,904
+Hex = 170A40C0
+Convert the first two chars 17 to Decimal so 17 in hexadecimal is 16+7 = 23 in decimal
+23 represents the length of the resulting number is 23 bytes long
+Now we draw 23 * 2 = 46 hex digits. why because hexadecimal takes 4 bits. so 1 byte will have 2 hex digits. So 23 bytes will have 46 hex digits. Then you write 46 0's representing 46 hex digits. and replace the rest of the part ie "0A40C0" in the beginning i.e.
+0000000000000000000000000000000000000000000000
+0A40C00000000000000000000000000000000000000000
+Then prepend 0's to make it 64.
+0000000000000000000A40C00000000000000000000000000000000000000000
+So remeber the target is stored inside the block as Bits

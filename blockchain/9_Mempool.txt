@@ -12,6 +12,38 @@ Another option is child pays for parent. In that case, you create another tx and
 
 In worst case, your money is never lost and the tx is reversed.
 
+Also look at BTC.com transaction accelerator.
+
 Check stats of the mempool:
 https://jochen-hoenicke.de/queue/
 https://www.blockchain.com/charts/mempool-state-by-fee-level
+
+How Mempool works
+=================
+Every full node will have its own Mempool.
+Lets say Susan want to send some BTC to someone so she initiates a transaction. That tx gets added to her mempool and relayed across the entire network so all the participant nodes will see this tx in their mempools. This is how tx's get added to mempools. Now over time miner will mine lets say 2000 tx's from the list of tx's in the mempool (lets say mempool has 8000 unconfirmed tx's). So the new block will get relayed to every participant. Each participant will validate that tx's in the block and then the corresponding tx's will be removed from there mempool.
+google medium for "An in depth guide into how the mempool works"
+
+Go to blockchain.info and see stats of unconfirmed transactions. Very mesmerizing.
+
+Orphaned Blocks
+===============
+Ok the best way to understand orphaned blocks is to go to blockchain.info --> Stats --> Orphaned Blocks.
+There you can see when and which transactions/blocks were orphaned. What happens to orphaned blocks. Basically the tx's in orphaned blocks are released back into the mempool of the nodes which accepted it first and then later when these nodes accept the longest chain in the network, some of those tx's which were duplicated in both blocks will be immediately removed from the mempool. That's is why it is always advised to wait for atleast 6 confirmations (atleast wait for 2-3 more blocks) to be added to the chain after the block which has your transaction. Otherwise let's say you sell a bicycle. and the other person pays you BTC and you give the bicycle away. sometime later your tx is reversed as it was in an orphaned block. Now the bicycle is gone and you dont even have the money.
+BTC exchanges also wait for 5-6 confirmations before they confirm an order.
+
+51% attack
+==========
+51% refers to the HashRate. If there combined hash rate of the miners is more than 51% of regular miners, this attack is possible.
+How can this attack happen??
+
+Lets say you have 7 regular miners and the current block number is 100 which is a regular block. at that time a group of 10 attackers come in.
+1) They just join as regular miners and create a copy of the block chain (block 0 to block 100)
+2) They just disappear from the network and they just run a full node to see what blocks/txs are getting added.
+3) For all the tx's (101, 102, 103 etc), they will use all those cryptocurrency to spend where ever they feel like.
+4) Since they have 51% or more hash rate, they will keep adding attack blocks to their block chain they are developing independently.
+5) After a while the length of their blockchain will be much longer than the regular blockchain.
+6) At this time, these miners will join the network again and since their chain is longer, it will be accepted and all the blocks from 101 onwards of the regular chain will be orphaned and the tx's will be reversed and sent to the mempool of the regular miners. The attack miners will make sure these tx's from the orphanded blocks never make it to the chain again as they have more than 50% hash rate.
+7) plus they are not doing anything illegal. 
+8) Also this might not happen to BTC as the miners community is too large. But may happen to smaller coins.
+Read Choosing ASIC's for Sia (like a blockchain version of file hosting), plus read the comments.
