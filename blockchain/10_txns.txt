@@ -1,0 +1,39 @@
+Transactions and UTXO's
+=======================
+UTXO's --> Unspent Transaction Outputs
+Mark	-> Me	0.1 BTC
+Hadelin -> Me	0.3 BTC
+Helen	-> Me	0.6 BTC
+Susan	-> Me	0.7 BTC
+
+These 4 txns above are called UTXO
+
+Now I want to buy a bicycle for 0.5 BTC.
+Now i must choose the txn's from above and choose 
+We choose
+
+Transaction
+Input: 
+  0.6 BTC from Helen 
+Output:
+  0.5 BTC to bike shop
+  0.1 BTC back to myself (this is the change)
+  
+  
+Mark	-> Me	0.1 BTC
+Hadelin -> Me	0.3 BTC
+Susan	-> Me	0.7 BTC
+Me		-> Me	0.1 BTC
+
+Now i want to buy a 2nd bicycle for 1.1 BTC
+
+Transaction
+Input:
+0.3 BTC from Hadelin
+0.7 BTC from Susan
+0.1 BTC from Me.
+Output:
+1.1 BTC to bike shop
+
+Left:
+Mark	-> Me	0.1 BTC
