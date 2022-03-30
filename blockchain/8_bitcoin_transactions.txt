@@ -15,8 +15,6 @@ As an initiator, if you feel 0.5 BTC is a really high transaction fee, you can c
 
 Now when you create a transaction in your wallet, you can assign some conditions on the Output transactions. This is to ensure that the BTC are really xferred to the intended receipient. These are conditions which must be satisfied by the new owner of the BTC, otherwise the transaction will not be valid. the most general condition that the transaction initiator puts is the PUBLIC-KEY of the new owner. Only if the new owner has the corresponding PRIVATE-KEY will the new owner be allowed to take the transaction.
 
-If you really think, the input transactions would have also included this condition. And you would have proved that you really own the PRIVATE-KEY corresponding to the PUBLIC-KEY provided as a condition in TX0, TX1, TX2. This is what is called the proof-of-work.
-
 
 COINBASE transaction
 ===================
@@ -33,12 +31,21 @@ size --> size in bytes of this tx.
 vin.txid --> txid of the previous tx that passed the rights to us.
 vin.vout --> means we are referring to that output in the previous tx.
 vin.scriptSig --> means we are providing proof here that indeed we have rights to use the previous output. This is the that proof.
-vin.scriptSig consists of two components, the digital signature which signs the hash of the previous output, and the public key of the recipient.
+vin.scriptSig consists of two components, the digital signature which signs the hash of the previous output, and the public key of the initiator.
 
 
 vout[0].value --> the value of the transaction.
 vout[0].n --> the number of this output. Each tx can have multiple outputs.
 vout[0].scriptPubKey.asm --> conditions on who can use this output. This is where all the crux of tx is. Let's understand it.
+
+scriptPubKey is a locking script placed on the output of a Bitcoin transaction that requires certain conditions to be met in order for a recipient to spend his/her bitcoins; scriptPubKey is also known as PubKey Script outside of the Bitcoin code. Conversely, scriptSig is the unlocking script that satisfies the conditions placed on the output by the scriptPubKey, and  is what allows it to be spent; outside of code, scriptSig is also known as Signature scripts.
+
+Both scriptPubKey and scriptSig are written in Script, the programming language used for constructing Bitcoin transactions. Script lacks many of the functionalities of present day programming languages, however, this also makes it inherently more secure due to the limited number of operations that it can perform.
+
+So the unlocking script, scriptSig, contains a digital signature and public key, which must be provided in order for the locking script to be satisfied. Conversely, the locking script, scriptPubKey, contains a PubKHash, also known as a public key hash, or more simply, a Bitcoin address.
+
+The process works such that, the scriptSig and scriptPubKey are combined and executed in sequence, with the unlocking script being executed first. For example, when Bob decides to spend the 1 bitcoin that he received from Alice, he must first unlock the outputs, which then become locked when the recipient receives the 1 bitcoin.
+So the scriptPubKey in the output of a tx combined with the scriptSig of the input of the next tx and run together.
 
 "OP_DUP OP_HASH160 c4eb18c2ffb9b5943073b6a7e04c01363a377b00 OP_EQUALVERIFY OP_CHECKSIG"
 This words specify operations that the new owner must perform. You should look at this conditions like a stack.
@@ -71,3 +78,44 @@ scriptPubKey: OP_HASH160 <scriptHash> OP_EQUAL
 scriptSig: ..signatures... <serialized script>
 
 We will understand PS2H some other day.
+
+
+OP_HASH160 = ripemd160(sha256(x)) # you already know that sha256 and ripemd160 are SHA algos alsi used to generate bitcoin addresses.
+
+
+Lets further understand this
+============================
+Alice Sends Bob 0.25 BTC.
+
+1) Bob will provide Alice its Bitcoin address.
+2) Alice will create a transaction.
+3) The output of the transaction will have a locking script. scriptPubKey
+   scriptPubKey = "OP_DUP OP_HASH160 <PubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
+4) Alice has to compute the PubKeyHash above like shown below.
+   Bob Bitcoin address = Version Byte + Hash160(BobPublicKey) + 4 byte checksum
+   So alice decodes this (i.e removes the version byte and the checksum and puts the Hash160 into as the PubKeyHash in scriptPubKey
+5) Bob now wants to further spend this UTXO he received from Alice.
+6) Bob must first unlock the outputs. i.e. evaluate the condition/scriptPubKey to true. For that he prepares scriptSig containing a digital sig and his pub Key.
+7) He then runs the scriptPubKey in the tx from Alice to Bob which evaluates to True.
+
+So why can't John just use the Digital Sign and Public Key of Bob and create a fake tx
+=====================================================================================
+John creates a fake tx.
+
+{
+  Input: 
+  {
+   scriptSg {
+        Bob's Digi Sign
+		Bob's public Key
+    }
+     #references the same output as Bob
+  },
+  Output
+  {
+     John's BitCoin Id.
+  }
+}
+
+The reason is that the digi signature records the transaction of the tx it is in. So this digi sign actually has the tx data recorded for tx between Alice and Bob.
+So Blockchain will not approve this tx.

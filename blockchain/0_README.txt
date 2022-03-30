@@ -19,8 +19,9 @@ Now to use bitcoins you need some kind of a device which functions like a wallet
 
 What is a transaction
 ---------------------
-When you initiate a transaction, you are really not sending anything to the other party. Instead all that is happening, is that the wallet re-assigns those bitcoins, from one owner to another, by adding a transaction to the public ledger. See the image public-ledge.png. it shows you three transactions.
-Every transaction has a set of Inputs and Outputs. Input identies which Bitcoin is being spent. and the Output identifies the new owners of the bitcoin.
+When you initiate a transaction, you are really not sending anything to the other party. Instead all that is happening, is that the wallet re-assigns those bitcoins (called UTXO i.e. Unspent transaction outputs), from one owner to another, by adding a transaction to the public ledger. See the image public-ledge.png. it shows you three transactions.
+Every transaction has a set of Inputs and Outputs. Input identies which Bitcoin(i.e. the transaction from which you received the bitcoin) is being spent. and the Output identifies the new owners of the bitcoin.
+
 "Each Input is just a digitally signed reference to some output from a previous transaction." This is the most important statement. We will come back to it again later after reading and understanding a few more things. Once an output is spent by a subsequent input, no other transaction can spend that output again. That's what makes bitcoins impossible to copy.
 
 Each unspent output represents some amount of bitcoin that is currently in someone’s possession. If you add up all unspent outputs on the public ledger, you’ll get the same total amount as there are bitcoins in existence. You could even go so far as to say that the unspent outputs are the bitcoins.
@@ -65,7 +66,7 @@ So if we have a valid digital signature, it means that both points above are tic
 1) The txid of the previous tx.
 2) The number in the output of that previous tx that is being referenced.
 3) His own public key (part of ScriptSig)
-4) A digital signature (produced by ECDSA signature over a hash of a simplified version of the previous tx)
+4) A digital signature (part of scriptSig, produced by ECDSA signature over a hash of a simplified version of the previous tx)
 
 Verification:
 To verify that inputs in a tx are authorized to collect the values of referenced outputs, Bitcoin uses a custom scripting system. The Input's scriptSig and the referenced output's scriptPubKey are evaluated (in that order), with scriptPubKey using the values left on the stack by scriptSg. The input is authorized if scriptPubKey returns true. Through the scripting system, the sender can create very complex conditions that people have to meet in order to claim the output's value. For example, it's possible to create an output that can be claimed by anyone without any authorization. It's also possible to require that an input be signed by ten different keys, or be redeemable with a password instead of a key.
@@ -140,3 +141,8 @@ This technology to keep all the transactions (i.e. the ledger) that ever happene
 
 
 1 BTC = 100,000,000 Satoshi
+
+HD Wallets (Hierarchically Deterministic Wallets).
+=================================================
+These are wallets that have a master private key. and from that master private key they generate many combinations of Private and Public Key pairs.
+This way they can remain totally anonymous on the bitcoin network. HD Wallets can also be used by organisations to give different private/public key pairs to different departments.
