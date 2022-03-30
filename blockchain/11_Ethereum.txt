@@ -120,3 +120,51 @@ But Ethereum supports it.. How?? and Since Ethereum has smart contracts or code 
 2) Loops --> Ethereum blockchain requires that anyone who wants to execute code in a smart contract must pay. This payment must be done in Ether. So if anyone writes ineffecient code or write long computational/infinite loops, it will cost them a lot of Ether, so they will not do that, as soon they will run out of Ether.
 However the price of Ether can fluctaute everyday based on market, so they introduced something calles as Gas. They created a spreadsheet and provided the number of "Gas" units you need all primitive operations (like ADD, MULTIPLY, DIVIDE, BITWISE OPS etc etc) and their corresponding Gas units required. This Gas units are mostly constent. And to convert between Ether and Gas, they have their own Exchange Rate. This Exchange Rate is modified based on Consensus, so that the Gas prices remain largely unchanged.
 You can go to ethergasstation.info/ for more information.
+
+Decentralized Autonomous Organizations (DAO's)
+==============================================
+What are organizations in general.?? Just people at different levels doing work and following some procedures/rules to finish work.
+Their contract specifies what is their work and what procedure/rules to follow. 
+So now we can code all these protocol/rules in a smart contract. Example
+1) Ride Hailing..
+2) A company which provides a computational service to its customers.
+Read article DAO, DACs' DA's and More by Vitalik
+
+The DAO attack 
+==============
+Vitalik created the first DAO (really called "THE DAO") to start a crowd funded venture capital fund where people could invest their money. It was Stateless
+and by the time the fund raising was over, they accumulated 150mio. However due to a bug in how the SmartContract was written, a hacker came along and exploited the bug and moved 50mio to his own account. However due to a fail safe mechanism, the money could not be transferred directly to a bank account and the community got some 30 days to think what to do.
+So at that time, the Ethereum block chain itself was hard forked into 2. One was called Ethereum (ETH) and the other Ethereum classic (ETC). on ETH, the transaction was reversed and the money returned to the owners, but on ETC the hacker walked away with $67mio dollars. 
+google and read "The Ether Theif" on bloomberg.
+
+Soft and Hard Forks
+===================
+Forks means forking of the blockchain software (like in github).
+
+Forks are of two kinds:
+Hard Fork --> Generally loosen up some rules
+Soft Fork --> Generally tightens rules
+
+Hard forks means that after the fork, the blockchains will grow independently. They will still share the chain before the fork. A fork could happen due to various reasons.
+
+Bitcoin fork
+============
+First fork was a soft fork in July 2017 when SegWit txs were introduced. That was a soft fork so the blockchain was not forked (i.e a software upgrade was made and eventually everyone has to update their softwares in time).
+
+But some people were unhappy with this SeqWit introduction; they wanted the block size to be increased instead. so at block 478558 in Aug 2017, the hard fork happened and BitcoinCash was introduced. The block size of BitcoinCash is 8MB.
+
+The next hard fork in Bitcoin happened in Oct 2017 when ASIC's were introduced. Some people were unhappy and wanted to continue with GPU mining so a hard forked happened at block 491407 and Bitcoin Gold was formed.
+
+Ethereum Fork
+=============
+Ethereum also forked into Ethereum Classic due to the DAO attack in July 2016 on block number 1919999.
+
+The MOST INTERESTING PART OF FORKING
+====================================
+Let say you owned 1 BTC in 2016. BTC got forked in Aug 2017 to BitCoin Cash. So now you have two different Blockchains. Fork here means the github code was forked. and in case of Bitcoin Cash the block size was changed to 8MB. So now what?? Can i transact on BitCoin Cash network?? Yes I can because that network also has the same blockchain before the fork. So my 1 BTC should be valid there also. So basically you now hold both 1 BTC and 1 BITCOIN CASH. Similarly when another fork happened in 2017 due to ASIC, i would have 1 BTC, 1 BitcoinCash and 1 Bitcoin Gold.
+
+Initial Coin Offerings (ICO's)
+===============================
+ICO's can happen at two layers
+1) Token Layer
+2) Protocol/Coin layer
