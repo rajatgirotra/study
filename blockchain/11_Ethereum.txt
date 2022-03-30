@@ -1,0 +1,122 @@
+What is Ethereum?
+
+You already know that the whole Blockchain can be divided into 3 layers
+1) Technology (how the blocks in the blockchain are tied cryptographically)
+2) The coin (the BTC transactions, scriptSig and scriptPubKeyScript)
+3) The tokens.
+
+Now Bitcoin was always designed as a replacement for a central physical currency. It was never designed to be a framework to support digital tokens.
+Ethereum on the otherhand wants to create the largest distributed computer in the world. But how does it do that?
+You already know that Bitcoin has a scripting language. However it is not turing complete. What that means is that it doesnt support loops and other features to be called a full programming language. Ethereum on the other hand uses Solidity which is turing complete programming language. 
+So now in Bitcoin, you have transactions which is just data, but in Ethereum you have transactions + code. this code is written in solidity and its called a smart contract.
+and this code can be run on all the nodes connected in the Ethereum blockchain. The results/state after the code is run can be recorded immutably on the Ethereum blockchain.
+and that's what makes Ethereum so special.
+
+Example 1
+==========
+Lets take the example of a Mona Lisa painting. What can you do with it?
+1) Take pictures of it
+2) Be around it
+3) Talk about it?
+All these things are called interactions. These become the functions in a smart contract which can act on the data in the contract.
+
+Example 2
+==========
+A second example:
+- Mom is going to London for a few works for office work
+- She wans to send yoy 50$ weekly
+- you dont have a bank account
+- She sends 50$ to your older sister instead
+- Your sister is not trustworthy.
+
+In this case, we can create a Smart Contract with:
+- data
+   Amount
+   Date
+- functions (interactions)
+     change_amount_date()
+	 check_amount_data()
+
+Let's try to go to remix.ethereum.org and try to create a smart contract NotifyMySon
+/ SPDX-License-Identifier: GPL-3.0
+
+pragma solidity >=0.7.0 <0.9.0;
+
+/**
+ * @title Storage
+ * @dev Store & retrieve value in a variable
+ */
+contract NotifyMySon {
+
+    uint amount;
+    string date;
+
+    function changeAmountAndDate(uint newAmount, string memory newDate) public  {
+        amount = newAmount;
+        date = newDate;
+    }
+
+    function checkAmountAndDate() public view returns (uint, string memory) {
+        return (amount, date);
+    }
+}
+
+Example 3
+=========
+- Jane is Sarah's mother and setsup a piggy bank for Sarah.
+- Anyone can deposit
+- Only Sarah can withdraw.
+
+To withdraw/deposit, we will need Ether. To represent values less than 1 Ether, we have another denominations.
+1 Ether = 10^18 Wei (Wei is the smallest unit of Ether)
+1 Shannon = 10^9 Wei
+1 Finney = 10^15 Wei
+
+SmartContract
+- data
+    Balance
+	Sarah's ID (as only Sarah can withdraw)
+	Janes' ID (as she initially setup everything for Sarah)
+- function
+     balance()
+	 withdraw()
+	 deposit()
+
+pragma solidity >=0.7.0 <0.9.0;
+
+/**
+ * @title Storage
+ * @dev Store & retrieve value in a variable
+ */
+contract PiggyBank {
+    function getBalance() public view returns(uint) {
+       return address(this).balance;
+    }
+	
+	function deposit(uint amount) payable {
+	   require(amount == msg.value);
+	}
+}
+
+// So when you compile a smart contract, you get a unique address. This address will be unique and different everytime you compile a smart contract.
+// and solidity provides a cleaner way to get the address of the smart contract using "address(this)" and .balance returns the balance in the smart contract.
+// a function that takes some Ether/wei must be declared payable. and we validate that the function must specify the same argument to deposit() function as much ether/wei he/she is paying through the UI.
+// If anything fails in a smart contract, it is reverted to its original state.
+
+Decentralized App
+=================
+A Dapp is just an API (frontend) to interact with Smart Contracts on the blockchain. Google Steemit.
+Steemit is a social media platform where everyone gets paid for creating and curating content. It leverages a robust digital points system (Steem) for digital rewards.
+It is a decentralized blogging platform built on the Steem blockchain.
+
+Ethereum Virtual Machine (EVM) & Gas
+====================================
+Ethereum is really a blockchain which has its own Cryptocurrency called Ether and it consists of smart contracts. These smart contracts are nothing but code that is distributed to all the nodes on the network. EVM and Gas concepts were introduced as a measure of security.
+You know already why Bitcoin doesnt support loops. It's because anyone can put a malicious loop (a long computational loop, an infinite loop etc) and make the blockchain slow.
+But Ethereum supports it.. How?? and Since Ethereum has smart contracts or code distributed to all nodes on the network, how convenient is it for a virus to spread. To help with this EVM and Gas were introduced.
+
+1) EVM --> The solidity language always runs inside a Ethereum Virtual Machine. That means it doesnt know anything about the host system, environment etc. There is 100% gaurantee that whatever you do inside an EVM stays there. So your system and its file are completely safe.
+
+2) Loops --> Ethereum blockchain requires that anyone who wants to execute code in a smart contract must pay. This payment must be done in Ether. So if anyone writes ineffecient code or write long computational/infinite loops, it will cost them a lot of Ether, so they will not do that, as soon they will run out of Ether.
+However the price of Ether can fluctaute everyday based on market, so they introduced something calles as Gas. They created a spreadsheet and provided the number of "Gas" units you need all primitive operations (like ADD, MULTIPLY, DIVIDE, BITWISE OPS etc etc) and their corresponding Gas units required. This Gas units are mostly constent. And to convert between Ether and Gas, they have their own Exchange Rate. This Exchange Rate is modified based on Consensus, so that the Gas prices remain largely unchanged.
+You can go to ethergasstation.info/ for more information.
