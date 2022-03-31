@@ -1,0 +1,59 @@
+A digital token is also called a blockchain token. It is also a digital asset that can represent anything securities, loyalty points,
+real world assets. Example:
+
+Audiocoin --> used in music industry. Used as a rewards points system
+Golem --> Shared economy computing power.
+VeChain --> tracking supply chains on a blockchain
+Steemit --> rewards platform for content publishers.
+CryptoKitties --> Collect and breed digital cats
+
+Initial Coin Offerings/Initial Token Offerings --> They enable you to market and raise funds from people for an idea you have by issuing digital token for that project.
+So basically ICO's are a way of crowdfunding a project.
+
+Another example of Digital Token
+================================
+Let say you are a successful organization, say ABC and already are making profits. 
+Now you introduce a new Digital Token ABCToken and ask everyone to get the ABCToken if they want to buy their products and services, as it will be way cheaper than buying in USD. So people start buying your ABCToken in Ether or Bitcoin and then they pay for your services/products in the Tokens they buy.
+
+Case Study
+==========
+Let say you want to create a theme park for kids. You need to raise funds. What you could do is create Tokens for it.
+Let say u create 1million tokens, called S tokens and you keep 500,000 with you and the other you raise an ICO at $2 per token. So you raise 1million dollars for the theme park. But what will the owners of the token do?? 
+
+Well tokens are always used for something. In your case, the want everyone to spend in the theme park in tokens. So that's what the S tokens are used for. Basically people were interested in your idea, so they invested in the tokens at $2 initially. Now as the theme park gets popular, more and more people want to purchase tokens. but the tokens are only limited in number i.e 500,000. So now the token price goes up to $6. and guess what few people had purchased token at $2 and never spent it, as they had purchased only for speculation.
+
+So basically a small economy is created around the token.
+
+And what does the theme park do with these tokens. They too want to convert it to cash to operate the theme park. So they too will sell it back to the people who want to come to the theme park.
+
+So all in all
+1) ICO/ITO's are a way of crowdfunding an idea.
+2) These tokens have a purpose (like spending in a theme park)
+3) But many ppl buy it only for speculation
+4) Be very careful when you purchase tokens.
+5) For Tokens there is no mining involved. Mining is only at second layer i.e. at the coin layer like Bitcoin, ethereum etc.
+
+Blockchain Startups: White Papers
+=================================
+Extremely important to understand. There are so many cryptocurrencies and tokens around. How do you know which ones are worth investing even?
+The answer is to read their white papers. go to coinmarketcap.com/coins to see the top 100 coins and tokens.
+Look at the tokens and choose a token and see its white paper to understand what the token is used for and what is its
+usability and future like.
+
+Example:
+Sia (Simple Decentralized Storage) --> Distributed cloud service like dropbox.
+Power Ledger (Sell Excess Power i.e. solar power, i.e. renewable energy)
+Provenance (track products, like where the fish/meat/wool/veggies you use/consume are coming from).
+
+Always think what is the token de-centralizing
+
+definitely see uetoken.com
+===================================================================================================
+Google and understand Smart Contracts
+Nick Zabble
+
+DAO/DAC
+Decentralized Autonomyous Organization --> Collection of smart contracts.
+
+WHat the heck is in ICO by Praveen Krishnan
+google Andrew Finn (2018) also.

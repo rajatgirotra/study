@@ -1,0 +1,51 @@
+Ripple
+======
+Google the benefits and differences between Bitcoin
+A company that created the XRP coin
+Ripple claims
+1) Speed of Ripple (XRP) is 1000x fater than bitcoin in terms of confirmation time
+2) Transaction cost is lower
+3) Opensource. anyone can run it.
+4) Decentralized. Ripple holds currently about 60 billion XRP.
+5) It does work on Blockchain. The Ripple's payment network is called RippleNet.
+6) Unlike Bitcoin, Ripple isn't mined by users. The company has control.
+7) Ripple has locked 55 bio XRP (in custody) and will release them slowly.
+
+
+Neo
+===
+Released in 2014
+Known as the Chinese Ethereum
+Designed to build a scalable network of decentralized applications
+Rebranded from AntShares to NEO in June 2017
+The base asset of the NEO blockchain is the non divisible NEO token and GAS tokens.
+NEO supports a wide variety of commonly used programming languages like C++, JS (not just Solidity) by using a customized version of Docker called neoVM.
+A total of 100 million NEO were created in the Genesis Block.
+50 million NEW were sold to early investors, with the remaining 50 million NEW locked into a smart contract.
+Each year 15 million NEO tokens are unlocked for the NEO deve team to fund long term dev goals.
+
+
+Litecoin
+=========
+Almost similar to Bitcoin
+seen as a copper or silver of BitcoinGold (means works on GPU mining not ASIC mining)
+release in 2011
+a fork of bitcoin core client
+Adopted SegWitness
+Decreased block generation time (2.5 minutes) 
+Only ever by 84 millon Litecoins
+Would enable Blocknet. 
+Blocknet is a network to exchange one cryptocurrency for another.
+
+
+Cardano
+=======
+Released in 2017.
+Cryptocurrency is ADA.
+Building a Smart Contract Platform.
+Built in layers.
+Uses Proof of Stake, so stop waste energy.
+
+
+Stellar
+=======
