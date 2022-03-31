@@ -115,7 +115,7 @@ Ethereum is really a blockchain which has its own Cryptocurrency called Ether an
 You know already why Bitcoin doesnt support loops. It's because anyone can put a malicious loop (a long computational loop, an infinite loop etc) and make the blockchain slow.
 But Ethereum supports it.. How?? and Since Ethereum has smart contracts or code distributed to all nodes on the network, how convenient is it for a virus to spread. To help with this EVM and Gas were introduced.
 
-1) EVM --> The solidity language always runs inside a Ethereum Virtual Machine. That means it doesnt know anything about the host system, environment etc. There is 100% gaurantee that whatever you do inside an EVM stays there. So your system and its file are completely safe.
+1) EVM --> The solidity language always runs inside a Ethereum Virtual Machine. That means it doesnt know anything about the host system, environment etc. There is 100% gaurantee that whatever you do inside an EVM stays there. So your system and its file are completely safe. EVM has its own microkernel, memory, storage, stack space etc.
 
 2) Loops --> Ethereum blockchain requires that anyone who wants to execute code in a smart contract must pay. This payment must be done in Ether. So if anyone writes ineffecient code or write long computational/infinite loops, it will cost them a lot of Ether, so they will not do that, as soon they will run out of Ether.
 However the price of Ether can fluctaute everyday based on market, so they introduced something calles as Gas. They created a spreadsheet and provided the number of "Gas" units you need all primitive operations (like ADD, MULTIPLY, DIVIDE, BITWISE OPS etc etc) and their corresponding Gas units required. This Gas units are mostly constent. And to convert between Ether and Gas, they have their own Exchange Rate. This Exchange Rate is modified based on Consensus, so that the Gas prices remain largely unchanged.
@@ -168,3 +168,83 @@ Initial Coin Offerings (ICO's)
 ICO's can happen at two layers
 1) Token Layer
 2) Protocol/Coin layer
+
+Ether nodes
+===========
+Just like full nodes in Bitcoin, you have Ether nodes in ethereum. anyone can run an ethereum node. Every ethereum node runs an ethereum client such as geth (go-eth) See ethernodes.org/ for a distribution of running ether nodes by country, operating system and the eth client. (goeth, openethereum etc). There are other ways of interacting with a eth nodes.
+
+web3.js
+-------
+collection of libraries used to interact with eth network using Http, IPC, websockets. Written in JS developed by ethereum team.
+
+Wallet
+------
+Eg. MetaMask
+
+types of Nodes
+--------------
+Full nodes: Which have a copy of the blockchain and run validations on the blocks.
+
+Light Nodes: 
+-----------
+Suitable when devices cannot store GB's of blockchain. They only contain header information of the blocks and can request and validate that the header is all correct.
+
+archive node:
+-------------
+
+
+There are also new Eth clients for ETH2.0 that run the Beacon and the Shard Chains and support the new Proof-of-Stake consensus mechanism.
+There are many different Ethereum Networks: Mainnet, Testnets(Rinkeby, Kovan), Private Ethereum Blockchains.
+
+Ethereum Accounts
+-----------------
+in ethereum you can have two kinds of accounts.
+1) EOA (Externally Owned Accounts)
+   a) These are accounts owned by human.
+   b) Backed by private/public keys
+   c) Can be used to send, receive, and hold Ether and to interact with smart contracts.
+   d) This type of account has no associated code.
+   e) Have a unique addeess
+
+2) Contract Accounts (CA)
+   a) These are created by contract code
+   b) No associated public/private keys
+   c) Have a unique address
+   d) It has associated code and creating a Contract Account will cost you Gas. The code is the immutable EVM bytecode.
+   e) It can also send, receive and hold Ether
+   f) the code execution is triggered by receiving a transaction from another CA or EOA.
+
+Components of an Ethereum Account
+=================================
+Nonce --> counter that indicates the number of transactions sent from the account(it ensures that the same transaction isnt submitted twice)
+Balance (in wei)
+Account Address
+Account Keys (for EOA)
+Code (for CA): The immutable EVM bytecode
+Storage (for CA)
+
+Address Generation in Ethereum
+===============================
+EOA 
+1) Generate a private key (256 bits)
+2) Take the last 20 bytes (160 bits) of the corresponding public key
+3) Apply Keccak-256 hash.
+
+CA
+1) Calculated deterministically from the address of the creater(sender) and how many transactions the creatore has sent(nonce)
+
+MetaMask
+========
+Is a CryptoWallet which is a browser extension. For ethereum, it actually talks to another eth client which talks to the full node. You can setup a new account in eth mainnet or test nets and also import accounts if you have private keys. It supports recovery based on Seeds (BIP39, BIP44).
+You can buy,sell and hold ETH. you can also exchange tokens. MetaMask also acts as crypto exchange aggregator to get us the best price
+
+MEW
+===
+
+
+Rinkeby Authenticated Faucet
+=============================
+Now most of the time, developers will test the smart contracts on ethereum's test nets. But you might want some balance in your account in the test nets. You can get that from these web apps like faucet.rinkeby.io. Just authenticate yourself and send yourself some fake ETH's. That's it. too simple. 
+
+For authentication, just create a new tweet with your Eth address and copy the tweet URL and paste in the web app below.
+
