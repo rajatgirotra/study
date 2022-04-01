@@ -205,6 +205,7 @@ in ethereum you can have two kinds of accounts.
    c) Can be used to send, receive, and hold Ether and to interact with smart contracts.
    d) This type of account has no associated code.
    e) Have a unique addeess
+   f) They can initiate transactions.
 
 2) Contract Accounts (CA)
    a) These are created by contract code
@@ -213,6 +214,7 @@ in ethereum you can have two kinds of accounts.
    d) It has associated code and creating a Contract Account will cost you Gas. The code is the immutable EVM bytecode.
    e) It can also send, receive and hold Ether
    f) the code execution is triggered by receiving a transaction from another CA or EOA.
+   g) CA cannot initiate transaction. They can only send messages to other contracts.
 
 Components of an Ethereum Account
 =================================
@@ -248,3 +250,80 @@ Now most of the time, developers will test the smart contracts on ethereum's tes
 
 For authentication, just create a new tweet with your Eth address and copy the tweet URL and paste in the web app below.
 
+Gas
+===
+Gas measure the amount of computational effort required to execute a transaction on the blockchain. The sender/initiator of the transaction must pay for the Gas.
+Each operation like Addition/Subtraction/etc has an associated OPCODE and a Gas Unit needed to run the OPCODE operation.
+When you send ETH to someone for example, some wallets do an estimation of the gas fees that should be paid based on the network traffic and transaction complexity.
+However you can also manually change the gas fees payable. The following gas options are available in MetaMask
+
+GasLimit: This represents the maximum Gas Units you are willing to spend for your transaction.
+Max Priority Fee: An amount in gwei that you want to pay to the miner for prioritizing your transaction. this fee goes directly to the miner
+Max Fee: This is the max you will pay (some of base fee + priority fee)
+the base fee get burnt.
+
+etherscan.io/ or rinkeby.etherscan.io/
+
+ETH requires atleast 12 confirmations as opposed to Bitcoin which requires 6 confirmations.
+ETH can process 15 txns per sec, but ETH 2.0 can process 100,000 txns/sec.
+ETH block is mined every 20 seconds.
+
+ETH Transaction Fields
+=======================
+from address
+signature of sender 
+to address
+value --> can be zero
+gasLimit --> Max amt of gas units that can be consumed. For xfer txns, it is 21000, if a txn consumes less than gasLimit, the remaining gas units is refunded to the sender.
+gasPrice --> in gwei
+nonce: txn nonce, the count of the number of txnx initiated by the sending address. Different from Block nonce.
+data: --> Required when a CA is deployed. Will contain EVM bytecode, or arguments of function that is called.
+hash: The hash of the transaction
+
+Difference between Txn and Call on Ethereum
+===========================================
+1) Txn will mofify the blockchain, a Call like getBalance() will not modify the blockchain
+2) Txn Will cost gas, call's are free
+3) Txns must be mined (which takes time), Call's dont have to mined, they execute instantly
+4) Txns returns a txn id hash, Calls will return a value
+ 
+ 
+ETH2 is also called Serenity
+Major upgrades:
+1) POS vs POW
+2) Sharding
+
+How POS works
+==============
+Miners are called Validators.
+To become a validator, you have to stake or lock an amount of ETH in a smart contract. Right now the validator software is activated if you stake 32 ETH.
+High perforamce hardware is not required to become a validator
+Rewards are given to validators because that's what keeps the chain running securely. The more ETH you stake, the more blocks you can validate.
+A validator can loose ETH if he does bad things (going offline, faking txns, failing to validate etc)
+To conduct a 51% attack, a validator need to stake 51% of the staked ETH.
+
+So instead of joining a Mining pool, lets join a staking pool.
+
+ETH2 Sharding and Beacon Chain
+------------------------------
+in ETH2, the plan is to have separate chains called shards. initially there will be 64 of them. This is done for scalability; as this allows to spread the networks load.
+Each node will only need to run a single shard. so the node doesnt need to have expensive hardware. So having inexpensive nodes means having more network participants and that means more security.
+Initially shared chains will only have "Extra Data" (i.e the contracts EVM byte code, the function arguments etc). It wont be able to handle
+transactions or smart contracts. But then how can you improve Scalibility if Shards cannot handle transactions and smart contracts.
+That is because of Layer 2 scaling in particluar rollups. Rollups means bundling up transactions of chains generating a cryptographic proof and submitting to the chain which requires only data shards to be available.
+Also in the data sharding model, the current Ethereum block chain becomes one of the shards; and thus will be the only shard to handle transactions and smart contracts.
+
+The Beacon chain is used for co-ordinating a POS based system by randomly assigning validators to validate different shards.
+Once live, the validators will be validating the current Beacon chain and not the Ethereum mainnet. The mainnet blockchain can be validated once the mainnet becomes one of the ETH2 shards.
+When the current Ethereum mainnet becomes one of the ETH2 shards, it is called Docking and it will mark the end of the current POW and the full transition to ETH2 will be complete.
+
+time lines
+Phase 0 --> Starting the beacon chain. Already launched on 1st Dec 2020
+Phase 1 --> Data Sharding
+Phase 1.5 --> Docking
+Phase 2 --> 
+
+Remix IDE
+=========
+Remix IDE is written in Javascript. The solidity code is also compiled using Javascript. You can use the online version of the IDE 
+as it is available straight out of the box.
