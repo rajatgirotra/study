@@ -248,3 +248,12 @@ Now most of the time, developers will test the smart contracts on ethereum's tes
 
 For authentication, just create a new tweet with your Eth address and copy the tweet URL and paste in the web app below.
 
+
+Remix IDE
+=========
+It is a javascript based IDE for creating/deploying/running smart contracts. The IDE has a solidity compiler (written iin javascript). There are other compilers also available for solidity like solc (written in c++) and others. When solidity code is compiled, the output is an EVM bytecode and an ABI. the EVM bytecode is what actually gets deployed on the blockchain as a smart contract, and the ABI tells the variables, functions, function arguments and its types that the smart contract supports.
+
+Remix IDE also supports smart contract deployment. There are 3 possible ways.
+1) Javascript VM --> to deploy to an internal dummy blockchain inside the IDE itself.
+2) Injected Web3 --> Remix will connect to an external Web3 provider such as MetaMask which will internally connect to an Ethereum node on the mainnet or testnet.
+3) Web3 provider --> Remix will connect to a return node using a URL and an ethereum client such as geth.
