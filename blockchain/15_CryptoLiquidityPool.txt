@@ -1,0 +1,52 @@
+What Are Liquidity Pools?
+
+Liquidity refers to how easily one asset can be converted into another asset, often a fiat currency, without affecting its market price. 
+
+Liquidity pools enable users to buy and sell crypto on decentralized exchanges and other DeFi platforms without the need for centralized market makers.
+
+A liquidity pool is a crowdsourced pool of cryptocurrencies or tokens locked in a smart contract that is used to facilitate trades between the assets on a decentralized exchange (DEX). Instead of traditional markets of buyers and sellers, many decentralized finance (DeFi) platforms use automated market makers (AMMs), which allow digital assets to be traded in an automatic and permissionless manner through the use of liquidity pools.
+
+Automated market makers (AMMs) are part of the decentralized finance (DeFi) ecosystem. They allow digital assets to be traded in a permissionless and automatic way by using liquidity pools rather than a traditional market of buyers and sellers. AMM users supply liquidity pools with crypto tokens, whose prices are determined by a constant mathematical formula. Liquidity pools can be optimized for different purposes, and are proving to be an important instrument in the DeFi ecosystem.
+
+On AMM platforms, instead of trading between buyers and sellers, users trade against a pool of tokens — a liquidity pool. At its core, a liquidity pool is a shared pot of tokens. Users supply liquidity pools with tokens and the price of the tokens in the pool is determined by a mathematical formula. By tweaking the formula, liquidity pools can be optimized for different purposes.
+
+Anyone with an internet connection and in possession of any type of ERC-20 tokens can become a liquidity provider by supplying tokens to an AMM’s liquidity pool. Liquidity providers normally earn a fee for providing tokens to the pool. This fee is paid by traders who interact with the liquidity pool. Recently, liquidity providers have also been able to earn yield in the form of project tokens through what is known as “yield farming.”
+
+AMMs have become a primary way to trade assets in the DeFi ecosystem, and it all began with a blog post about “on-chain market makers” by Ethereum founder Vitalik Buterin. The secret ingredient of AMMs is a simple mathematical formula that can take many forms. The most common one was proposed by Vitalik as:
+
+tokenA_balance(p) * tokenB_balance(p) = k
+
+and popularized by Uniswap as:
+
+x * y = k
+
+The constant, represented by “k” means there is a constant balance of assets that determines the price of tokens in a liquidity pool. For example, if an AMM has ether (ETH) and bitcoin (BTC), two volatile assets, every time ETH is bought, the price of ETH goes up as there is less ETH in the pool than before the purchase. Conversely, the price of BTC goes down as there is more BTC in the pool. The pool stays in constant balance, where the total value of ETH in the pool will always equal the total value of BTC in the pool. Only when new liquidity providers join in will the pool expand in size. Visually, the prices of tokens in an AMM pool follow a curve determined by the formula.
+The constant formula is a unique component of AMMs — it determines how the different AMMs function.
+
+The DeFi ecosystem evolves quickly, but three dominant AMM models have emerged: Uniswap, Curve, and Balancer.
+
+Crypto liquidity pools play an essential role in the decentralized finance (DeFi) ecosystem — in particular when it comes to decentralized exchanges (DEXs). Liquidity pools are a mechanism by which users can pool their assets in a DEX’s smart contracts to provide asset liquidity for traders to swap between currencies. Liquidity pools provide much-needed liquidity, speed, and convenience to the DeFi ecosystem.
+Need to find out some DEX platforms
+
+An operational crypto liquidity pool must be designed in a way that incentivizes crypto liquidity providers to stake their assets in a pool. That’s why most liquidity providers earn trading fees and crypto rewards from the exchanges upon which they pool tokens. When a user supplies a pool with liquidity, the provider is often rewarded with liquidity provider (LP) tokens. LP tokens can be valuable assets in their own right, and can be used throughout the DeFi ecosystem in various capacities.
+
+The potential downside of providing your coins/tokens to a liquidity pool is that you forego any upsides in the price of the coin
+as there are being used by the liquidity pool.
+
+Providing Liquidity of Stablecoins
+===================================
+You can provide multiple stable coins like USDT, TUSD, USDCoin. All of these should stay at $1 normally. and by providing them to a liquidity pool, you can earn trading fees when traders trade one against the other.
+
+Providing Liquidity of Strong Pairs
+===================================
+You can provide 33% ETH, 33% Bitcoin and 33% USDT to a liquidity pool like curve tricrypto. See curve.fi
+
+Providing Liquidity of Riskier Tokens
+======================================
+Earn some insane fees by providing liquidity for non-liquid tokens.
+
+
+
+A number of new blockchains give token rewards to ppl who use their blockchain early. So you can make some money there also.
+
+See whiteboard crypto on youtube to understand "Impermanent Loss" and "AMM"

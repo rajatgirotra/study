@@ -1,0 +1,108 @@
+Stablecoins
+===========
+What Is a Stablecoin?
+A stablecoin is a class of cryptocurrencies that attempt to offer price stability and are backed by a reserve asset. Stablecoins have gained traction as they attempt to offer the best of both worlds—the instant processing and security or privacy of payments of cryptocurrencies, and the volatility-free stable valuations of fiat currencies.
+
+--> Stablecoins are cryptocurrencies that attempt to peg their market value to some external reference.
+--> Stablecoins may be pegged to a currency like the U.S. dollar or to a commodity's price such as gold.
+--> Stablecoins achieve their price stability via collateralization (backing) or through algorithmic mechanisms of buying and
+    selling the reference asset or its derivatives.
+	
+Though Bitcoin (BTCUSD) remains the most popular cryptocurrency, it tends to suffer from high volatility in its valuations.
+This kind of short-term volatility makes Bitcoin and other popular cryptocurrencies unsuitable for everyday use by the public. Essentially, a currency should act as a medium of monetary exchange and a mode of storage of monetary value, and its value should remain relatively stable over longer time horizons. Users will refrain from adopting it if they are not sure of its purchasing power tomorrow.
+
+Ideally, a crypto coin should maintain its purchasing power and have the lowest possible inflation, sufficient enough to encourage spending the tokens instead of saving them. Stablecoins provide a solution for achieving this ideal behavior.
+
+There are three categories of stablecoins, all based on their working mechanisms.
+1) Fiat-Collateralized Stablecoins
+Fiat-collateralized stablecoins maintain a fiat currency reserve, like the U.S. dollar, as collateral to issue a suitable number of crypto coins. Other forms of collateral can include precious metals like gold or silver, as well as commodities like oil, but most of the present-day fiat-collateralized stablecoins use dollar reserves.
+Such reserves are maintained by independent custodians and are regularly audited for adherence to the necessary compliance. Tether (USDTUSD) and TrueUSD (TUSDUSD) are popular crypto coins that have a value equivalent to that of a single U.S. dollar and are backed by dollar deposits.
+
+2)Crypto-Collateralized Stablecoins
+Crypto-collateralized stablecoins are backed by other cryptocurrencies. Because the reserve cryptocurrency may also be prone to high volatility, such stablecoins are over-collateralized—that is, a larger number of cryptocurrency tokens is maintained as a reserve for issuing a lower number of stablecoins.
+For example, $2,000 worth of ether may be held as reserves for issuing $1,000 worth of crypto-backed stablecoins, which accommodates up to 50% of swings in reserve currency (ether). More frequent audits and monitoring add to price stability. Backed by Ethereum (ETHUSD), MakerDAO's DAI (DAIUSD) is pegged against the U.S. dollar and allows for using a basket of crypto assets as a reserve.
+
+3) Non-Collateralized (Algorithmic) Stablecoins
+Non-collateralized stablecoins don't use any reserve but include a working mechanism, like that of a central bank, to retain a stable price. For instance, the dollar-pegged basecoin uses a consensus mechanism to increase or decrease the supply of tokens on a need basis.
+
+Such actions are similar to a central bank printing banknotes to maintain valuations of the fiat currency. It can be achieved by implementing a smart contract on a decentralized platform that can run in an autonomous manner.
+
+Example:
+-------
+USDT/USD: Tether (Runs on Bitcoin blockchain) 
+TUSD/USD: TrueUSD (Runs on Ethereum blockchain)
+USDC: USD Coin (Runs on Ethereum Blockchain)
+BitCNY: (pegged to Chinese Yuan and runs on the BTS blockchain)
+DAI/USD: Runs on Ethereum
+Binance USD (BUSD): 
+Gemini USD (GUSD): stablecoin pegged to USD held in reserve at State Street Bank and Trust Company. The Gemini Dollar is built on Ethereum, meaning that token creation is the result of executable smart contracts.  
+Binance GBP:
+EURS
+
+
+DeFi stands for decentralized finance. It is a peer to peer lending/borrowing platform without any central bank or ruler.
+
+Lending Apps around: AAVE & Compound.
+
+What is Crypto Lending?
+=======================
+Most of the time, people who are into crypto are told to hold their assets until price appreciation applies to the currency they chose. But while this is the case, you may not be on terms with leaving your currency in your wallet, especially when the interest rates are low. This is when you start thinking of ways to help grow your digital currency, and one of the ways you can do that is through crypto lending. But what exactly is crypto lending and what does it involve, though? Let’s find out!
+
+Crypto lending refers to a type of Decentralized Finance that allows investors to lend their cryptocurrencies to different borrowers. This way, they will get interest payments in exchange, also called “crypto dividends”. Many platforms that specialize in lending crypto also accept stablecoins, on top of cryptos.
+
+It is already known that cryptocurrency is becoming more and more popular as a payment method. That’s not all there is to it, as it can be a great investment opportunity too. The assets can get more value while you hold them without plans of selling them, and that is what crypto lending allows you to do.
+
+How lending works
+==================
+Let’s give an example of how this works. You may have 20 bitcoins. You plan to get a steady passive income with them, so you have the chance to deposit them into a crypto lending platform wallet. As such, every month or week, you will receive interest. The interest rates can differ. They can either go from 3% to 7%, or they can go quite higher, up to 17% in some cases.
+
+When it comes to crypto lending, borrowers also have the chance to stake their cryptocurrency as guarantees/collateral of loan repayment or as security. Thus, the investors will be able to sell the crypto assets in case the borrower doesn’t pay off the loan anymore, meaning that they can recover the losses.
+
+Platforms do have the chance to recover their losses most times though because they ask borrowers to stake 25-50% of the loan in crypto. This can truly come in handy since borrowers might not pay off the loans anymore.
+
+Crypto lending happens through a third party that connects the lenders and borrowers. The lenders represent the first party involved in crypto lending. They might be crypto aficionados who want to grow the output of the assets or people who hold onto cryptocurrencies waiting for a value boost.
+
+The 2nd party is the crypto lending platform, where the lending and borrowing transaction unfolds. Lastly, the borrowers represent the 3rd party of the process, and they are the ones who will get the funds. They could either be businesses that need funding or people who look for funding.
+
+The crypto lending process happens in a few steps:
+
+The borrower goes to a platform and requests a crypto loan
+The borrower stakes the crypto collateral as soon as the loan request is accepted by the platform. Until he is able to fund back the entire loan, the borrower will not have the opportunity to get back the stakes.
+Using the platform, the lenders will automatically fund the loan, which is a process that investors cannot see.
+Investors will receive regular interests as payments
+When the borrower manages to pay off the whole loan, he will get back the crypto collateral he wanted.
+
+Returns (ROI)
+=============
+Each platform has different rates for crypto lending. So, how much you get in return for your investment will automatically depend on the platform you settled for. There is a specific ROI for every crypto lending platform, and there are also different risks depending on the platform. So, it is important to consider different platforms in order to spread the risks. This will also help you have some diversity in your investments.
+
+When it comes to crypto lending, there is a usual yearly yield that can be expected. For crypto coins, it is from 3% to 8%, whereas for stablecoins, it varies from 10% to 18%. There are different rates per coin for every investment platform. You’ll have to select a platform depending on the coins you are holding if you want your returns to be optimized.
+
+Borrowing
+=========
+To borrow cryptocurrency, you have to make sure you choose the right platform. There are many platforms out there that are letting you borrow crypto, but you need to go around a lot until you find a trustworthy one. So, you need to first make sure a platform is safe and legit, and only then proceed to borrow a loan.
+
+Once you find a reliable platform, you need to look at whether you can borrow the type of crypto you want to lend. Not every platform will have all cryptos available. Also, you need to find out the yearly returns on the crypto you want to lend.
+
+Taking out a crypto loan is very easy compared to traditional loans. You will get a loan amount depending on how much collateral you can use. The loan-to-value ratio refers to the amount of the loan and then the collateral’s value. That being said, if you put up, for instance, $10,000 in crypto as collateral and the loan you receive is $5,000, the LTV ratio is 50%. Crypto loans usually come with very low LTV ratios due to the volatility of the crypto markets.
+
+Lending
+=======
+You can lend your cryptocurrency and earn some interest in return, which is what makes this practice so appreciated. Think of it as using a savings account. With a savings account, you stash the money while the credit union or bank pays certain interest on the balance. This way, it can use the money to issue loans to other people in return.
+
+To lend your cryptocurrency, you have to find a good and trustworthy platform for this. Then, you need to think of the exchange you want, respectively fixed or flexible exchange. Next, you have to determine the coins you want to lend. This depends on the conditions of the market, as well as the returns you desire and how well you tolerate risk.
+
+Once you give a crypto loan, you will stake your crypto collateral and then wait for investors to fund the loan. The investors will receive interest, and once the loan is paid back by the borrower, the crypto collateral is returned.
+
+Providing Liquidity
+===================
+Here you put your crypto/token in a pool called a Money Pool. Anyone who takes/uses your tokens from the pool will pay a fee to you.
+
+Least riskiest --> provide liquidity to stablecoins
+--------------
+
+Provide Liquidity to Strong Pairs
+--------------------------------
+
+Provide Liquidity to Risky Pairs
+-------------------------------
