@@ -33,7 +33,7 @@ USDT/USD: Tether (Runs on Bitcoin blockchain)
 TUSD/USD: TrueUSD (Runs on Ethereum blockchain)
 USDC: USD Coin (Runs on Ethereum Blockchain)
 BitCNY: (pegged to Chinese Yuan and runs on the BTS blockchain)
-DAI/USD: Runs on Ethereum
+DAI/USD: Runs on Ethereum (One of the best stablecoins pegged to USD)
 Binance USD (BUSD): 
 Gemini USD (GUSD): stablecoin pegged to USD held in reserve at State Street Bank and Trust Company. The Gemini Dollar is built on Ethereum, meaning that token creation is the result of executable smart contracts.  
 Binance GBP:
@@ -93,6 +93,10 @@ You can lend your cryptocurrency and earn some interest in return, which is what
 To lend your cryptocurrency, you have to find a good and trustworthy platform for this. Then, you need to think of the exchange you want, respectively fixed or flexible exchange. Next, you have to determine the coins you want to lend. This depends on the conditions of the market, as well as the returns you desire and how well you tolerate risk.
 
 Once you give a crypto loan, you will stake your crypto collateral and then wait for investors to fund the loan. The investors will receive interest, and once the loan is paid back by the borrower, the crypto collateral is returned.
+
+Interest Rates
+==============
+see loanscan.io to see lending/borrowing rates offered by different crypto lending platforms.
 
 Providing Liquidity
 ===================

@@ -18,7 +18,7 @@ tokenA_balance(p) * tokenB_balance(p) = k
 
 and popularized by Uniswap as:
 
-x * y = k
+x * y = k (called Constant Product Automated Market Maker Formula)
 
 The constant, represented by “k” means there is a constant balance of assets that determines the price of tokens in a liquidity pool. For example, if an AMM has ether (ETH) and bitcoin (BTC), two volatile assets, every time ETH is bought, the price of ETH goes up as there is less ETH in the pool than before the purchase. Conversely, the price of BTC goes down as there is more BTC in the pool. The pool stays in constant balance, where the total value of ETH in the pool will always equal the total value of BTC in the pool. Only when new liquidity providers join in will the pool expand in size. Visually, the prices of tokens in an AMM pool follow a curve determined by the formula.
 The constant formula is a unique component of AMMs — it determines how the different AMMs function.

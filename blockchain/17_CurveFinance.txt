@@ -1,0 +1,11 @@
+Curve Finance is a Dapp which you can interact with using Metamask.
+Curve Finance is an AMM (Automated Market Maker) which allows traders to trade against a pool of money rather than matching buyers and sellers.
+You have already read about Constant Product AMM formula. 
+
+Curve finance started initially as a Stablecoin exchange only. They called themselves Stableswap. i.e you could swap USDT, USDC, TUSD without much slippage
+
+Yield Farming
+=============
+Very trivial. Just mean investing crypto to earn an interest.
+
+Curve Finance is actually a DAO DEX. So there is no CEO/Board of Directors. You can get Curve Tokens in Curve Finance which are kind of governance tokens just like cTokens in Compound.

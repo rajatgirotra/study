@@ -1,0 +1,55 @@
+AAVE
+====
+One of a number of emerging DeFi cryptocurrencies, Aave is a decentralized lending system that allows users to lend, borrow and earn interest on crypto assets, all without middlemen. 
+
+Running on the Ethereum blockchain, Aave instead is a system of smart contracts that enables these assets to be managed by a distributed network of computers running its software. 
+
+This means Aave users do not need to trust a particular institution or person to manage their funds. They need only trust that its code will execute as written.
+
+At its core, the Aave software enables the creation of lending pools that enable users to lend or borrow 17 different cryptocurrencies including ETH, BAT and MANA. 
+
+Like other decentralized lending systems on Ethereum, Aave borrowers must post collateral before they can borrow. Further, they can only borrow up to the value of the collateral they post. 
+
+Borrowers receive funds in the form of a special token known as an aToken, which is pegged to the value of another asset. This token is then encoded so lenders receive interest on deposits
+
+A borrower may post collateral in DAI, for example, and borrow in ETH. This allows a borrower to gain exposure to different cryptocurrencies without owning them outright.
+
+Aave can also introduce additional features, such as instant loans, and other forms of issuing debt and credit that take advantage of the unique design properties of blockchains.
+
+Participants deposit funds they wish to lend, which are then collected into a liquidity pool. Borrowers may then draw from those pools when they take out a loan. These tokens can be traded or transferred as a lender wishes.
+
+To facilitate this activity, Aave issues two types of tokens: aTokens, issued to lenders so they can collect interest on deposits, and AAVE tokens, which are the native token of Aave. The AAVE cryptocurrency offers holders several advantages. For instance, AAVE borrowers don’t get charged a fee if they take out loans denominated in the token. Also, borrowers who use AAVE as collateral get a discount on fees. AAVE owners can further look at loans before they are released to the general public if they pay a fee in AAVE. Borrowers who post AAVE as collateral can also borrow slightly more. 
+
+Compound
+========
+Just like AAVE, Compound is a decentralized, blockchain-based protocol that allows you to lend and borrow crypto — and have a say in its governance with its native COMP token.
+
+The main backbone of today’s DeFi movement is Ethereum, a decentralized blockchain that enables smart contracts upon which other decentralized blockchain-based applications (dApps) with native cryptocurrencies can be built. Compound is one such protocol, primarily concerned with the financial services of borrowing and lending your crypto.
+
+Compound supports the borrowing and lending of a specific set of cryptocurrencies. As of this writing, they are: Dai (DAI), Ether (ETH), USD Coin (USDC), Ox (ZRX), Tether (USDT), Wrapped BTC (WBTC), Basic Attention Token (BAT), Augur (REP), and Sai (SAI). Now anyone with crypto can lend and borrow crypto immediately, without having to spend the time, effort, and cost of dealing with a traditional financial intermediary.
+
+Lending
+--------
+If you own any of the cryptocurrencies mentioned above, you can send, lock, deposit, lend – they all mean the same thing – any amount you wish to the Compound protocol. Locking your crypto in with Compound is just like putting your money in a savings account, but with a decentralized, blockchain-based protocol. Instead of depositing your money into the bank, you are sending your crypto to the Compound wallet. And, just like lending to a bank, you immediately begin to earn interest on your crypto. The interest you earn is denominated in the same token that you lent – meaning, if you sent BAT you earn interest in BAT, if you sent DAI you earn DAI etc. The crypto you send is added into a giant pool of that same token in a smart contract in the Compound protocol, sent by thousands of other people all over the world.
+
+Borrowing
+----------
+On the other side of the equation is borrowing. Once you’ve locked your crypto to Compound, you are able to borrow against it. Compound does not require a credit check so anybody anywhere in the world with crypto has the ability to borrow. Compound determines how much you are allowed to borrow based on the quality of the asset. So, for example, if you sent 1000 BAT worth $500 and Compound has set the borrowing limit (aka collateral factor) for BAT at 50%, you can borrow $250 worth of any other crypto that the Compound protocol supports (see list above). And, just like borrowing money from a bank, you need to pay interest on the money you borrow.
+
+So, we have lending and we have borrowing, both of which concern themselves with interest rates. For lending, you earn interest. For borrowing you pay interest. Let’s take a minute to talk about how those interest rates are calculated and automatically implemented by the Compound protocol.
+
+Borrowing and Lending Interest Rates
+=====================================
+Remember that regardless of whether you are lending or borrowing, you first have to lock in crypto with Compound. When you do, you get Compound tokens (cTokens), which represent the balance of your crypto, in return. CTokens are created from Ethereum as ERC-20 tokens and are one of the great benefits and innovations of a blockchain-based crypto money market; they can be transferred, traded, or programmed into other Dapps in the DeFi ecosystem similar to other Ethereum tokens, all while earning (or paying) interest. You control these cTokens just like you would control any digital asset on the Ethereum blockchain, with your public and private keys.
+
+Interest rates are a function of the amount of crypto available (aka liquidity) in each market and fluctuate in real-time based on supply and demand to always reflect current market conditions. The interest rates you see are quoted as annual interest rates and accrue each time an Ethereum block is mined. Every 15 seconds the value of your cTokens will increase by 1/2102400 (which is the number of 15 second blocks in a year) of the quoted annual interest rate at that time.
+
+When there is a large pool of crypto locked in Compound, interest rates are low because there’s plenty there to be borrowed so you’re not getting paid a lot to add to that large pool. If the pool is small, interest rates are higher and you earn more. Fluctuating (aka floating) interest rates incentivizes lending new crypto to small pools (to earn higher interest), and repaying borrowed crypto into small pools and borrowing from large pools (to pay less interest).
+
+As we’ve mentioned above, every time you borrow from Compound you have to lock in crypto that’s worth more than what you borrow as collateral so that the loan you take is over collateralized. Since the crypto you deposit as collateral is also volatile, it could drop in value. As it approaches the value of the crypto you’ve borrowed the cToken smart contract automatically closes the position. This is called liquidation (or, margin call). In that case, you get to keep what you borrowed but you lose your collateral.
+
+COMP is the governance token of the Compound protocol and a predetermined amount is distributed to all lenders and borrowers on the Compound protocol every day. COMP distributions happen every time an Ethereum block is mined (every 15 seconds) in an amount proportional to the interest accrued by each asset. COMP token-holders propose and vote on changes to the protocol, and oversee the protocol’s reserves and treasury; every COMP token represents one vote, which can even be delegated to another party on your behalf.
+
+Compound governance proposals are executable code which is subject to a three-day voting period. If a governance change to the protocol is passed by the community it will take effect two days later giving anyone a chance to close any open positions before the changes go into effect. In this way, Compound is an entirely self-governed ecosystem.
+
+Compound and its native COMP governance token are bringing the benefits of blockchain to lending and borrowing crypto in a rapidly expanding DeFi ecosystem.
