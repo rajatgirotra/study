@@ -45,6 +45,13 @@ Providing Liquidity of Riskier Tokens
 ======================================
 Earn some insane fees by providing liquidity for non-liquid tokens.
 
+Some Liquidity Pools
+====================
+uniswap: info.uniswap.org
+curve finance: curve.fi
+pancake swaps: runs on the binance smart chain
+quick swap:
+
 
 
 A number of new blockchains give token rewards to ppl who use their blockchain early. So you can make some money there also.
