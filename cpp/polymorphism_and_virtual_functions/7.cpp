@@ -40,6 +40,10 @@ cout<<"Sizeof(A) = "<<sizeof(A)<<" ... Sizeof(B) = "<<sizeof(B)<<endl;
 
 A* poA = new B;
 cout<<"poA->getData() = "<<poA->getData()<<endl;
+cout << "Address of poA: " << static_cast<void*>(poA) << endl;
+auto* poB = static_cast<B*>(poA);
+cout << "Address of poB: " << static_cast<void*>(poB) << endl;
+
 
 delete poA;
 

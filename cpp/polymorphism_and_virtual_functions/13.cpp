@@ -2,7 +2,9 @@
 using namespace std;
 
 class A 
-{ 
+{
+	public:
+	void foo() {}	
 public:
   virtual void test()
   {
@@ -22,12 +24,15 @@ private:
    void test()
    {
       cout<<"B::test()"<<endl;
+      A::foo();
    };
 
 public:
    void use()
    {
-      consumer(this); 
+      consumer(this);
+      A* x = new B; // allowed here
+      x->test(); // allowed here
    } // that's what you can do!
 
    B() 
@@ -37,16 +42,17 @@ public:
 int main()
 {
    B b;
-   b.use(); 
+   b.use();
 
-//   consumer(new B());
+   //consumer(new B()); //error
+   // A* po = new B; //error
 
    return 0;
 }
 
 /*
 
-No, breaking would mean that you've closed something already. That's not
+No, breaking would mean that you have closed something already. That's not
 the case -- you cannot protect B::test() if there is already a public
 alias to it (A::test()). There are situations however where protecting
 B::test() would make sense:

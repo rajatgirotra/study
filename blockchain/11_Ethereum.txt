@@ -332,3 +332,59 @@ Remix IDE also supports smart contract deployment. There are 3 possible ways.
 1) Javascript VM --> to deploy to an internal dummy blockchain inside the IDE itself.
 2) Injected Web3 --> Remix will connect to an external Web3 provider such as MetaMask which will internally connect to an Ethereum node on the mainnet or testnet.
 3) Web3 provider --> Remix will connect to a return node using a URL and an ethereum client such as geth.
+
+Solidity
+========
+Must start with the SPDX license identifier string, followed by pragma for which solidity compiler version to use. Example:
+
+//SPDX-License-Identifier: GPL-3.0
+ 
+pragma solidity >=0.5.0 <0.9.0;  // compiler version should be greater than 0.5.0 and less than 0.9.0
+ 
+contract Property {
+    // declaring state variables saved in contract's storage
+    uint price; // by default is private
+    string public location;  // both location and price state variables will be stored in the smart contract on the blockchain
+    
+    // can be initialized at declaration or in the constructor only
+    address immutable public owner;  // immutable means value must be assigned in constructor and will not change after that
+    
+    // declaring a constant
+    int constant area = 100; // must initialize with declaration and cannot change.
+    
+    // declaring the constructor
+    // is executed only once at contract's deployment
+    constructor(uint _price, string memory _location){
+        price = _price;
+        location = _location;
+        owner = msg.sender;  // initializing owner to the account's address that deploys the contract
+        /*
+          each transaction get a special global variable "msg" which has many members. msg.sender is the initiator of the transaction. 
+        */
+    }
+    
+    
+    // getter function, returns a state variable
+    // a function declared `view` does not alter the blockchain 
+    function getPrice() public view returns(uint){ // view means the function reads the blockchain, but does not alter it.
+        return price;  // since this function doesnt alter the blockchain, it does not consume any gas.
+    }
+    
+    // setter function, sets a state variable
+    function setPrice(uint _price) public{ // this function will consume gas.
+        int a; // local variable saved on stack
+        a = 10;
+        price = _price;
+    }
+   
+    // string, array, member and reference types are by default stored in the smart contract. So we use "memory" to specify that we dont want to store them in the contract, rather on the heap. 
+    function setLocation(string memory _location) public{ //string types must be declared memory or storage
+        location = _location;
+    }
+    
+}
+=====================================================================================================================
+before solidity compiler 0.4.0, arithmetic operations could lead to underflow and overflows. To prevent this, developers used a SafeMath library. But beginning with solidity 0.8.0, all arithmetic operations and checked with overflow/underflow at runtime and any overflows/underflows will result in a failed transaction. However, if you want old behavior (you really shouldnt do it), you can wrap the arithmetic operation in an unchecked block.
+
+unchecked { x += 1; }
+=====================================================================================================================

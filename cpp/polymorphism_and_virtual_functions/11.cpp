@@ -3,7 +3,7 @@ using namespace std;
 
 class A
 {
-private:
+public:
    int data;
 
 public:
