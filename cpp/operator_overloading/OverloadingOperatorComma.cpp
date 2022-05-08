@@ -16,8 +16,8 @@ public:
 
   After(int p_data) : data(p_data) {};
 
-  const After& operator,(const After&) const {
-    cout << "After::operator,()" << data<<endl;
+  const After& operator,(const After& arg) const {
+    cout << "After::operator(), " << data<< "   argument:  " << arg.data << endl;
     return *this;
   }
 };
@@ -32,12 +32,12 @@ struct X
 class Before {};
 
 const Before& operator,(int, Before& b) {
-  cout << "Before::operator,()" << endl;
+  cout << "Before::operator()," << endl;
   return b;
 }
 
 const Before& operator,(X, Before& b) {
-  cout << "Before::operator, with X()" << endl;
+  cout << "Before::operator with X()," << endl;
   return b;
 }
 
@@ -49,5 +49,6 @@ int main() {
   1, c;  // Operator comma called
 
   X(), c;
+  c, X();
 } ///:~
 

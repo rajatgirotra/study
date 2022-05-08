@@ -40,7 +40,7 @@ Similarly MSVS has its own way, example
  ========================================================================================================================
  [[deprecated]] or [[deprecated("some msg")]] --> will tell the compiler to emit a warning if a deprecated class or function or namespace is used
 
- namespace [[deprcated("use Awesomenamepace instead"]] GoodNamspace {}
+ namespace [[deprecated("use Awesomenamespace instead"]] GoodNamspace {}
  ========================================================================================================================
 
  [[fallthrough]] --> used in switch case to tell a fallthrough is intentional

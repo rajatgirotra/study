@@ -1,6 +1,11 @@
 #include "practice_jul2021.hpp"
 #include <type_traits>
 #include <iostream>
+#include <vector>
+#include <list>
+#include <algorithm>
+#include <memory>
+#include <map>
 using namespace std;
 
 [[maybe_unused]] const int* p = &mystruct::m_value;
@@ -10,6 +15,53 @@ const char* pi_function(int index) {
     static constexpr char name[] {"Rajat"};
     return (name + index);
 }
+
+template <typename BDIter>
+void alg(BDIter,  BDIter , std::bidirectional_iterator_tag) {
+    cout << "alg for list\n";
+}
+
+template <typename RAIter>
+void alg(RAIter, RAIter, std::random_access_iterator_tag) {
+    cout << "alg for vector\n";
+}
+
+template <typename Iter>
+void alg(Iter begin, Iter end) {
+    alg(begin, end, typename Iter::iterator_category{});
+}
+
+
+void trim([[maybe_unused]] string& s) {
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [] (const char& ch){
+        return !std::isspace(ch);}
+        ));
+
+    s.erase(std::find_if(s.rbegin(), s.rend(), [] (const char& ch){
+        return !std::isspace(ch);}).base(), s.end());
+}
+
+void func(const char* s) {
+    cout << "func(s) with s: " << s << endl;
+}
+
+template <typename... Args>
+auto generic_lambda = [] (Args&&... args) {
+    func(std::forward<Args>(args)...);
+};
+
+auto variadic_lambda = [] (auto&&... args) {
+    func(std::forward<decltype(args)>(args)...);
+};
+
+struct X {
+    int m_x;
+};
+
+static constexpr auto getValue = [](const X& x) {
+    return x.m_x;
+};
+
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     constexpr int constexpr_3 = 3;
@@ -26,4 +78,21 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     static_assert(name[2] == 'j', "index 2 must be j!");
 
     cout << *(pi_function(2));
+
+    vector<string> vs;
+    list<double> ld;
+    alg(vs.begin(), vs.end());
+    alg(ld.begin(), ld.end());
+
+    string s = "               Hello             ";
+    trim(s);
+    cout << "trimmed string: " << s << " another string\n";
+
+    variadic_lambda("Hello World with variadic lambda");
+    generic_lambda<const char *>("Hello World with generic lambda");
+
+    std::map<string, X> mymap{ {"Rajat", {38}}, {string("Vidhu"), {37}}};
+
+    cout << getValue(mymap["Rajat"]) << endl;
+
 }

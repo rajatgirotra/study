@@ -18,7 +18,7 @@ std::exception
         system_error(C++11)
             ios_base::failure(C++11)
             filesystem::filesystem_error(C++17)
-         tx_exception(TM TS)
+        tx_exception(TM TS)
         nonexistent_local_time(C++20)
         ambiguous_local_time(C++20)
         format_error(C++20)
@@ -78,7 +78,7 @@ std::error_category {
 std::generic_category --> Is used to identify error conditions that correspond to the POSIX errno codes.
 
 std::system_category --> system_category is used to hold messages and codes corresponding to errors returned from the operating system.
-The errors returned by the operating system can be mapped to the corresponding POSIX error codes using the std::error_category::default_error_condtion().
+The errors returned by the operating system can be mapped to the corresponding POSIX error codes using the std::error_category::default_error_condition().
 "virtual std::error_condition default_error_condition(int code) const noexcept"
 
 Usage of message() and default_error_condition

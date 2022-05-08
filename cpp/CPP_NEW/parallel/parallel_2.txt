@@ -6,8 +6,8 @@ std::execution::seq just means that all elements of the container will be proces
 std::execution::par means that the STL implementation will use separate threads to process every element. If you have 8 cores
 and 100 elements, the STL implementation might use a thread pool will 8 worker threads to process 8 elements in 8 threads at one time.
 
-std::execution::par_unseq means that more than elements may be processed in the same thread at the same time using vectorization.
-i.e. SIMD instructions.
+std::execution::par_unseq means that more than elements may be processed in one or more threads at the same time and may also
+use vectorization i.e. SIMD instructions.
 
 
 limitations with using std::execution::par

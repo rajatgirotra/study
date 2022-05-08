@@ -73,7 +73,7 @@ class time_point {};
 The time_point is a template class which ACTUALLY stores a duration object. A time point represents a duration from the starting of the Clock's epoch
 
 C'tors
-time_point() --> Creates an object with duration 0, i.e value of Clock's epoch.
+time_point() --> Creates an object with duration 0, i.e. value of Clock's epoch.
 time_point(const duration& d) --> Creates a time_point with value = epoch + duration
 template <typename Duration2>
 time_point(const time_point<Clock, Duration2>& d) --> Only available if Duration2 is implicitly convertible to Duration. Example: ms to ns, m to cm, kg to gms, ie when converting from lower to higher precision.
@@ -111,7 +111,7 @@ static duration max()
 static duration zero()
 -----------------------------------------------------------------------------------------------------
 
-duration is used to represents durations (seconds, millisec, nanosecs, hours, minutes etc etc).
+duration is used to represent durations (seconds, millisec, nanosecs, hours, minutes etc etc).
 This class maintains a count represented by the first template parameter Rep. Can be int, uint64_t, float, double etc. Basically
 any arithmetic type. Can be even user defined.
 

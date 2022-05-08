@@ -19,7 +19,7 @@ int main()
     sec += seconds(15);
     cout << sec.count() << endl;
 
-    //Assign 115 seconds to hrs
+    //Assign seconds to hrs
     //hrs = sec; //will not compile because the target type has less precision than the source.
                // will need to use duration_cast<> explicitly
     hrs = duration_cast<hours_type>(sec);

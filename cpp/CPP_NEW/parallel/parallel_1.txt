@@ -7,7 +7,7 @@ up things even more. Yes, there is!!
 using Vector Instructions (SIMD instructions) and GPU computing.
 
 Most of the CPU's have 128 bit wide registers or even 256 or 512 bits wide (AVX 256, AVX 512). These registers can be used
-using the SIMD instructions (SIMD = Single Instruction Multiplte Data). With SIMD instructions you can operate on multiple integers
+using the SIMD instructions (SIMD = Single Instruction Multiple Data). With SIMD instructions you can operate on multiple integers
 example: 16 integer values (i.e. 16* = 64 bytes) at the same time.
 
 Also your GPU may have hundreds of smaller cores which you can use for vectorization (ie running things in parallel) using 3rd party
@@ -44,12 +44,16 @@ possible race conditions, deadlocks, or if there’s no sense in the running in 
 What are the available execution policies.
 
 1) std::execution::seq (sequenced_policy)
-requires that a parallel algorithm’s execution not be parallelised.
+requires that a parallel algorithm’s execution not be parallelized.
 
 2) std::execution::par (parallel_policy)
-indicates that a parallel algorithm’s execution may be parallelised.
+indicates that a parallel algorithm’s execution may be parallelized.
 
 3) std::execution::par_unseq (parallel_unsequenced_policy)
-indicates that a parallel algorithm’s execution may be parallelised and vectorised.
+indicates that a parallel algorithm’s execution may be parallelized and vectorised.
+
+4) std::execution::unseq (unsequenced_policy)
+indicates that the parallel algorithm's execution may be vectorized, eg: executed on a single thread using instructions
+that operate on multiple data items.
 
 Please note that execution policies are unique types, with their corresponding global objects. They are not enumerations, nor do they share the same base type.

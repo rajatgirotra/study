@@ -3,6 +3,8 @@
  * which meant you essentially were working with the same object inside the lambda. This could be a problem in cases where the lambda lifetime
  * exceeded the object lifetime. capturing [*this] will create a copy of the object, and you can safely work with it.
  * in c++14 you can also capture *this using generic lambda but its extra typing. [objCopy=*self]
+ *
+ * Anyway in C++20, capture of "this" via [=] is deprecated. So must use flag -Werror=deprecated
  */
 
 #include <iostream>
