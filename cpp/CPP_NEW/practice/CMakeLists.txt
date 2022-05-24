@@ -8,3 +8,6 @@ target_compile_features(practice_cpp_14 PRIVATE cxx_std_14)
 add_executable(practice_jul2021 practice_jul2021.cpp)
 target_link_libraries(practice_jul2021 PRIVATE project_warnings project_options)
 #target_compile_features(practice_jul2021 PRIVATE cxx_std_14)
+
+add_executable(lock_free_array lock_free_array.cpp)
+target_link_libraries(lock_free_array PRIVATE pthread project_options project_warnings)

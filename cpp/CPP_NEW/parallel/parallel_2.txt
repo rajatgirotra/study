@@ -13,6 +13,7 @@ use vectorization i.e. SIMD instructions.
 limitations with using std::execution::par
 =========================================
 with std::par if you want to modify a shared resource you need to use some synchronisation mechanism to prevent data races and deadlocks:
+When using parallel execution policy, it is the programmer's responsibility to avoid data races and deadlocks:
 
 std::vector<int> vec(1000);
 std::iota(vec.begin(), vec.end(), 0); // fills vector with 0, 1, 2, 3, 4, ... , 999

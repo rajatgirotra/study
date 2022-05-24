@@ -24,11 +24,12 @@ class CPPStudyConan(ConanFile):
             'benchmark/1.5.3'
              )
 
-    exports_sources = [ 'CMakeLists.txt', 'cmake*', 'src*']
+    exports_sources = ['CMakeLists.txt', 'cmake*', 'src*']
 
     def set_version(self):
         content = tools.load(os.path.join(self.recipe_folder, 'CMakeLists.txt'))
-        version = re.search(r'project\([^\)]+VERSION (\d+\.\d+\.\d+)[^\]*\)', content).group(1)
+        #version = re.search(r'project\([^\)]+VERSION (\d+\.\d+\.\d+)[^\]*\)', content).group(1)
+        version = '1.0.0'
         self.version = version.strip()
 
     def build_requirements(self):

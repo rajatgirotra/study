@@ -69,17 +69,18 @@ int Number::counter = 0;
 
 Number foobar()
 {
-     Number n;
-//     return std::move(n); // -Werror=pessimizing-move and -Wreturn-local-addr nice to include warning in your projects
-     return n;
+//     Number n;
+    static Number n;
+     return std::move(n); // -Werror=pessimizing-move and -Wreturn-local-addr nice to include warning in your projects
+//     return n;
 
 //    return Number();
 }
 
 int main()
 {
-//	Number n(foobar());
-	Number n(std::move(foobar()));
+	Number n(foobar());
+//	Number n(std::move(foobar()));
 	cout << "Hello World\n";
 	return 0;
 }
