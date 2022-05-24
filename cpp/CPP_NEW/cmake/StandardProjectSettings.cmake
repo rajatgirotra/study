@@ -1,26 +1,15 @@
-# set or default build type in CMake cache
-if (NOT CMAKE_BUILD_TYPE AND CMAKE_CONFIGURATION_TYPES)
-    set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Choose the type of build." FORCE)
-endif()
+message(STATUS "Building with cmake version ${CMAKE_VERSION}")
 
-message(STATUS "Setting build type to ${CMAKE_BUILD_TYPE}")
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+# enable ccache if available
+include(${CMAKE_CURRENT_LIST_DIR}/ccache.cmake)
+enable_ccache(PROGRAM ccache QUIET BASE_DIR ${CMAKE_SOURCE_DIR})
 
-# ccache is a compiler cache.
-# if ccache is found, the makefile generators will call this tool and pass the compiler and its arguments
-# to this tool. setting the CMAKE_CXX_COMPILER_LAUNCHER will set the property <LANG>_COMPILER_LAUNCHER
-# TODO evaluate distcc vs ccache at some later stage.
-find_program(CCACHE ccache)
-if(CCACHE)
-    message(STATUS "found ccache - ${CCACHE}")
-    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE})
-else()
-    message("ccache not found, cannot use")
-endif()
-
-# generate compile_commands.json during build time. this file is useful when working with certain
-# clang based compilers. example, vim YCM (YouCompleteMe) can leverage compiler_commands.json
+# generate compile_commands.json during build time. this is useful when working with certain clang based compilers.
+# also vim YCM (YouCompleteMe) can leverage compiler_commands.json
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+# Set CMAKE_INSTALL_RPATH
+set(CMAKE_INSTALL_RPATH "$ORIGIN/../hotfix:$ORIGIN/../lib")
 
 # check if compiler supports LTO (link time optimization)
 # Pass "-DENABLE_LTO=ON" to cmake to enable LTO. If compiler doesnt support LTO
@@ -32,9 +21,15 @@ if(ENABLE_LTO)
     if(result)
         set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
         message(NOTICE "LTO (link time optimization) is enabled.")
+        add_compile_options(-flto)
     else()
         message(SEND_ERROR "LTO (link time optimization) is not supported: ${output}.")
+        add_compile_options(-fno-lto)
     endif()
 else()
     message(NOTICE "LTO (link time optimization) is disabled.")
+    add_compile_options(-fno-lto)
 endif()
+
+message(STATUS "CMAKE_INSTALL_PREFIX is ${CMAKE_INSTALL_PREFIX}")
+include(GNUInstallDirs)
