@@ -1,0 +1,23 @@
+One of the key considerations is that you must separate the trading models (i.e. strategies) - the mathemetical or algo logic that analyzes data and decides how to trade from the trading infrastructure - the general framework and interfaces for receiving data (like market data and instrument data) and order executions (sending orders and receiving executions). The nature of high frequency trading is such that it is critical to be able to rapidly iterate i.e. adapt your trading model to the changing market conditions. No strategy is guaranteed to work all the time. The model needs to be continuously evolved.
+
+You might think that this is obvious. But sometimes it becomes hard to decide what should belong to the model and what should belong to the trading system.
+Example: Lets say a model that takes one tick of market data (i.e. an execution or another message altering the limit order book), does some calculation and then decides whether or not to place an order. Prima facie, this looks like a reasonable general model, but it is not: in some cases it will leave us making trading decisions based on a false view of the market.  The reason for this is that while a stream of market data is serial, the events the data represents are not: some of the events are truly simultaneous.  For example, a large market order that sweeps the book will generate a set of executions at the range of limits the order filled at, all of which happened at the time the market order was placed.  A model that trades off of the first of these ticks will have an incorrect belief about the current price.  A correct implementation would allow a model to detect simultaneous events and delay a trading decision until they have all been processed.
+
+A trading system, on the other hand, should be everything that is static, primarily it will have
+1) the connectivity with markets,
+2) databases,
+3) an Order Management System (OMS) for maintaining orders and order states.
+4) and interfaces for the models to access these resources.
+
+Out of these the OMS is one system that can give you a lot of headache. The biggest issues with OMS is desigining it in a way that it remains scalable without getting slower. There can be different designs for an OMS.
+
+1) Trading model with create Order objects and place them in the OMS queue for sending to market. OMS connects to market and submits orders and stores the executions back in the OMS system. This way it maintains a state of the order and the model can simply subscribe to the OMS execution service.
+
+2) The trading model directly connects and talks to exchanges for sending orders and receiving executions. this may be done when there is no OMS, or the OMS is very slow so the model talks to the exchange directly and backfills the order execution state in the OMS. this isn't the best way because we dont want the model to wait at all for acks/executions from the exchange; otherwise a lot of market data events will be filled up while the model is waiting.
+
+3) You have a very intelligent OMS that is central to your organization. The trading model only tells the OMS about its intention to trade. example: 
+   a) place limit orders at $10.15 and $10.10" 
+   b) buy 300 shares of INTEL immediately etc
+   With this design, a trading model can be asynchronous from actual trading, update its intentions and the OMS can intelligently work to implement them, notifying the model when they are fulfilled.  This leaves the model free to continuously process data and potentially change intentions before they are fulfilled.
+
+Probably the single most important component of a trading system is how to build a limit order book. Because the data structure chosen to represent the limit order book will be the primary source of market information for trading models, it is important to make it both absolutely correct and extremely fast. 
