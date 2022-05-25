@@ -22,7 +22,7 @@ class CPPStudyConan(ConanFile):
     default_options = {'shared': False, 'fPIC': True, 'lto': False }
 
     requires = (
-            # 'boost/1.76.0',
+            'boost/1.76.0',
             # 'benchmark/1.5.3'
              )
 
@@ -50,7 +50,7 @@ class CPPStudyConan(ConanFile):
         deps.generate()
 
     def build(self):
-        self.run('ls', win_bash=True)
+        # self.run('ls', win_bash=True)
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
@@ -72,17 +72,3 @@ class CPPStudyConan(ConanFile):
         self.cpp_info.includedirs = ['include']
         self.cpp_info.libdirs = ['lib', 'lib64']
 
-# [requires]
-# boost/1.76.0
-# benchmark/1.5.3
-# gtest/1.10.0
-# sqlite3/3.35.5
-# doxygen/1.9.1
-#
-# [generators]
-# cmake_find_package
-#
-# [options]
-# boost:without_python=False
-# boost:python_executable=/home/rajatgirotra/tools/dev_env/bin/python
-# sqlite3:enable_json1=True
