@@ -17,7 +17,7 @@ if(ENABLE_CLANG_TIDY)
     find_program(CLANGTIDY clang-tidy) # no hint needed as llvm tools are already in environment
     if(CLANGTIDY)
         # setting CMAKE_CXX_CLANG_TIDY will enable CXX_CLANG_TIDY target property on all targets.
-        # this will make cmake run cppcheck on all targets during compilation and report any problems.
+        # this will make cmake run clang-tidy on all targets during compilation and report any problems.
         message(STATUS "found clang-tidy - ${CLANGTIDY}")
         set(CMAKE_CXX_CLANG_TIDY ${CLANGTIDY} -extra-arg=-Wno-unknown-warning-option)
     else()

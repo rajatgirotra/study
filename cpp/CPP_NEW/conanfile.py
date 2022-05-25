@@ -23,7 +23,9 @@ class CPPStudyConan(ConanFile):
 
     requires = (
             'boost/1.76.0',
-            # 'benchmark/1.5.3'
+            'benchmark/1.5.3',
+            'sqlite3/3.38.5',
+            'protobuf/3.20.0'
              )
 
     exports_sources = ['CMakeLists.txt', 'cmake*', 'src*']
