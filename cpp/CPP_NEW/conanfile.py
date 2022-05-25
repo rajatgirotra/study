@@ -13,6 +13,8 @@ class CPPStudyConan(ConanFile):
 
     settings = 'os', 'compiler', 'build_type', 'arch'
 
+    # win_bash = True
+
     options = { 'shared': [False, True],
                 'fPIC': [False, True],
                 'lto': [False, True]
@@ -20,8 +22,8 @@ class CPPStudyConan(ConanFile):
     default_options = {'shared': False, 'fPIC': True, 'lto': False }
 
     requires = (
-            'boost/1.76.0',
-            'benchmark/1.5.3'
+            # 'boost/1.76.0',
+            # 'benchmark/1.5.3'
              )
 
     exports_sources = ['CMakeLists.txt', 'cmake*', 'src*']
@@ -32,7 +34,8 @@ class CPPStudyConan(ConanFile):
         self.version = version.strip()
 
     def build_requirements(self):
-        self.build_requires('gtest/1.10.0@tetapac/stable', force_host_context=True)
+        pass
+        # self.build_requires('gtest/1.10.0', force_host_context=True)
 
     def validate(self):
         check_min_cppstd(self, "17")
@@ -41,12 +44,13 @@ class CPPStudyConan(ConanFile):
         tc = CMakeToolchain(self)
         tc.variables['BITS'] = 64 if self.settings.arch == 'x86_64' else "32"
         tc.variables['ENABLE_LTO'] = bool(self.options.lto)
-        tc.variables['CMAKE_VERBOSE_MAKEFILE'] = ON
+        tc.variables['CMAKE_VERBOSE_MAKEFILE'] = True
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()
 
     def build(self):
+        self.run('ls', win_bash=True)
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
