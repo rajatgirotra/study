@@ -77,6 +77,7 @@ Blockchain however uses a different consensus protocol which is more fool proof 
 
 1) An attacker tries to put fake transactions in a block and tries to put it in the blockchain.
 2) Two miners submit a successfully mined block at the same time.
+
 Let's say there are 6 full nodes and node 1 and node 6 mine a block (node 1 mines Orange color block and node 6 mines purple color block) at the same time. The block will be sent to other full nodes. Lets say nodes 2, 3, 4 get the orange block and node 5 gets the purple block. Both the blocks are valid. So what will happen now, is that the blockchain will now wait for another block to be mined and sent out to other nodes. Lets say node 3 mines an orange block and sends it to node 1, node 2 and node 4.
 so node 1, 2, 3, 4 all have two orange blocks and node 5 and 6 have only 1 purple block. So the 2 orange blocks are accepted (as it is a longer chain) and node 5 and node 6 have to accept it. the purple block now becomes an orphaned block.
 

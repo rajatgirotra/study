@@ -7,6 +7,8 @@ print("ECDSA Private Key: ", ecdsaPrivateKey.to_string().hex())
 Step 2: Due to Public Key Cryptography, we need Public Key that depends on a Private Key. So we generate it with the Elliptic Curve Digital Signature Algorithm too.
 ecdsaPublicKey = '04' +  ecdsaPrivateKey.get_verifying_key().to_string().hex()
 print("ECDSA Public Key: ", ecdsaPublicKey)
+# Bitcoin uses the standard encoding for public keys, as described in http://www.secg.org/index.php?action=secg,docs_secg. The prefix byte is there to distinguish between several encodings - with 0x04 denoting uncompressed coordinates. The prefix byte will be same for all BTC networks, main or testnet.
+# Correct. The public key format is managed by OpenSSL, bitcoin treats it as a black box. SEC defines three types: 0x00 = point at infinity, 0x02 and 0x03 = compressed, 0x04 = uncompressed
 
 Step 3: We apply SHA256 to ECDSA Public Key that is created in Step 2.
 hash256FromECDSAPublicKey = hashlib.sha256(binascii.unhexlify(ecdsaPublicKey)).hexdigest()
