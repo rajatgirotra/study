@@ -78,13 +78,13 @@ void smallest_missing_positive_integer(std::array<int, N>& arr) {
     // finally iterate one last time
     size_t idx {};
     for(idx = 1; idx <= N; ++idx) {
-        if(arr[idx - 1] > 0) {
+        if(arr[idx - 1] >= 0) {
             cout << "smallest missing positive integer: " << idx << endl;
             return;
         }
     }
     
-    cout << "smallest missing positive integer: " << idx - 1 << endl;
+    cout << "smallest missing positive integer: " << idx << endl;
 }
 
 int main() {
