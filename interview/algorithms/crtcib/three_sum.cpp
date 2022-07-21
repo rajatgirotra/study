@@ -72,7 +72,7 @@ std::vector<indices> three_sum_optimized(std::array<int, N> arr) {
             } else {
                 v.emplace_back(arr[i], arr[left], arr[right]);
                 do {
-                    ++left; // [-2, 0, 0, 2, 2]
+                    ++left; // [-2, -2, 0, 0, 2, 2], [-3, -3, 1, 2, 3, 4], [-3, -3, -1, 0, 1, 2, 4]
                 } while(left < right && arr[left-1] == arr[left]);
                 
             }
@@ -83,14 +83,7 @@ std::vector<indices> three_sum_optimized(std::array<int, N> arr) {
 
 
 int main() {
-    std::array<int, 10> arr{};
-    std::random_device r;
-    std::default_random_engine engine(r());
-    std::uniform_int_distribution<int> dist(-30, 30);
-    auto gen = [dist = dist, engine = engine] () mutable {
-        return dist(engine);
-    };
-    std::generate(begin(arr), end(arr), gen);
+    std::array<int, 7> arr{3, -3, -1, 0, 1, 2, 4};
 
     // std::sort(arr.begin(), arr.end());
     cout << "Elements: ";
