@@ -23,9 +23,10 @@ int solution(std::vector<int>& A) {
 }
 
 int main() {
-    std::vector<int> arr {4, 0, 3, 0};
+   // std::vector<int> arr {4, 0, 3, 0};
     //std::vector<int> arr {1, 0, 4, 1};
    // std::vector<int> arr {2, 3};
+   std::vector<int> arr {3, 1};
     cout << solution(arr) << endl;
     return 0;
 }
