@@ -56,32 +56,35 @@ class Solution {
                 // set exception on stringstream if parsing fails
                 ss.exceptions(ios_base::failbit | ios_base::badbit);
                 while(m_is.get().good()) {
-                   // extract a line and put it in istringstream
-                   m_is.get().getline(buffer, 11);
-                   ss.str("");
-                   ss.str(buffer);
-                   try {
-                      // try to extract integer
-                      ss >> m_val;
-                      // integer extracted but eof may be set. clear eof bit
-                      ss.clear();
-                   } catch(...) {
-                      // failed to extract. handle error cases
-                      if(ss.bad()) {
-                          cerr << "Unrecoverable error on stream\n";
-                          m_val = -1;
-                      } else if (ss.fail()) {
-                         // not an integer, clear fail bit and try again
-                         ss.clear();
-                      } else {
-                          // some other unknown error
-                          cerr << "Unknown error\n";
-                          m_val = -1;
-                      }
-                   }
+                    // extract a line and put it in istringstream
+                    m_is.get().getline(buffer, 11);
+                    if(m_is.get()) {
+                        ss.str(buffer);
+                        try {
+                            // try to extract integer
+                            ss >> m_val;
+                            // integer extracted but eof may be set. if eof gets set, this is a valid integer, otherwise not
+                            if(ss.eof()) {
+                               // a valid integer
+                               ss.clear();
+                               break;
+                            }
+                        } catch(...) {
+                            // failed to extract. handle error cases
+                            if(ss.bad()) {
+                                cerr << "Unrecoverable error on stream\n";
+                                m_val = -1;
+                            } else if (ss.fail()) {
+                                // not an integer, clear fail bit and try again
+                                ss.clear();
+                            } else {
+                                // some other unknown error
+                                cerr << "Unknown error\n";
+                                m_val = -1;
+                            }
+                        }
+                    }
                 }
-                //m_is.get() >> m_val;
-                //if(!m_is.get().good()) m_val = -1;
                 return *this;
             }
 
@@ -91,7 +94,7 @@ class Solution {
 
             bool operator == (const iterator& rhs) const noexcept {
                 if((rhs.m_is_end && this->m_is_end) ||
-                   (!rhs.m_is_end && !this->m_is_end)) {
+                        (!rhs.m_is_end && !this->m_is_end)) {
                     return true;
                 } else {
                     return m_is.get().eof();
