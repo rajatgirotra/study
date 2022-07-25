@@ -16,7 +16,7 @@ int solution(const vector<int>& nums, int l, int r) {
     int res{nums[0]}; // some default
     while(l <= r) {
         if(nums[l] < nums[r]) {
-           return std::min(res, nums[l]);
+           res = std::min(res, nums[l]);
            break;
         }
         auto mp = (l+r) / 2;
