@@ -39,16 +39,7 @@ class Solution {
             }
         }
 
-        //std::vector<std::vector<string>> solution(int n) {
         auto solution() {
-            /*
-               for(int i = 0; i < n; ++i) {
-               for(int j = 0; j < n; ++j) {
-               cout << board[i][j] << " ";
-               }
-               cout << endl;
-               }
-             */
             backtrack(0);
             return res;
         }
