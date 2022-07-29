@@ -62,3 +62,11 @@ int main() {
     std::visit(mul, var);
     std::visit(print_visitor, var);
 }
+
+/* So now you have seen there are so many ways to modify variant's alternatives
+ * 1. plain assignment
+ * 2. emplace<type of index>
+ * 3. std::get<> (returns a reference)
+ * 4. std::get_if<> (returns a pointer)
+ * 5. std::visit() where the function call operator accept parameters by reference
+ */
