@@ -49,8 +49,8 @@ struct SecondType {
     ~SecondType() { cout << "SecondType::~SecondType()\n"; }
     SecondType(const SecondType&) { cout << "SecondType(const SecondType&)\n"; }
     void operator=(const SecondType&) { cout << "void operator=(const SecondType&)\n"; }
-    SecondType(SecondType&&) { cout << "SecondType(SecondType&&)\n"; }
-    void operator=(SecondType&&) { cout << "void operator=(SecondType&&)\n"; }
+    SecondType(SecondType&&)  noexcept { cout << "SecondType(SecondType&&)\n"; }
+    void operator=(SecondType&&)  noexcept { cout << "void operator=(SecondType&&)\n"; }
 };
 
 int main() {
@@ -140,9 +140,14 @@ int main() {
      */
     cout << "\nstrange variant initialization\n";
     std::variant<string, int, bool> var3 = "Hello World";
-    cout << "var3, index: " << var3.index() << ", val: " << *std::get_if<bool>(&var3) << endl;
+    if(std::holds_alternative<bool>(var3)) {
+        cout << "var3, index: " << var3.index() << ", val: " << *std::get_if<bool>(&var3) << endl;
+    } else {
+        cout << "var3, index: " << var3.index() << ", val: " << *std::get_if<string>(&var3) << endl;
+    }
 
-    // variant<float, long, double> var4 = 0; // will be ambiguous till gcc 9, gcc 10 onwards this is fixed and will be long
+    variant<float, long, double> var4 = 0; // will be ambiguous till gcc 9, gcc 10 onwards this is fixed and will be long
+    cout << "Variant<float, long, double> var4 = 0; active index: " << var4.index() << endl;
 
     cout << "\n changing variant type or values\n";
     std::variant<int, float, std::string> intFloatString { "Hello" };
@@ -165,10 +170,11 @@ int main() {
     // note that the variant is responsible for calling the dtor of the underlying type when you change its type. so there is no memory leak.
     // let's see a trivial example:
     {
-        std::variant<FirstType, SecondType> var4;
+        std::variant<FirstType, SecondType> var5;
         {
-            var4 = SecondType();
+//            var5 = SecondType();
+              var5.emplace<SecondType>(SecondType()); // both this and the line above give same outputs.
         }
-        cout << "var4 holds SecondType() which will be destroyed at the end of this scope.\n";
+        cout << "var5 holds SecondType() which will be destroyed at the end of this scope.\n";
     }
 }
