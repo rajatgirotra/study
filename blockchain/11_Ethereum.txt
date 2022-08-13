@@ -262,6 +262,8 @@ Max Priority Fee: An amount in gwei that you want to pay to the miner for priori
 Max Fee: This is the max you will pay (some of base fee + priority fee)
 the base fee get burnt.
 
+Read this excellent article on Old vs New Gas: https://ethereum.org/en/developers/docs/gas/.The new gas model came on Aug 2021 as part of EIP-1559 (Ethereum Improvement Programme - 1559).
+
 etherscan.io/ or rinkeby.etherscan.io/
 
 ETH requires atleast 12 confirmations as opposed to Bitcoin which requires 6 confirmations.
