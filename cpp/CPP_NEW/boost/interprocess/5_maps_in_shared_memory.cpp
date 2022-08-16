@@ -16,6 +16,7 @@
 #include <utility>
 #include <iterator>
 #include <algorithm>
+#include <map>
 
 using namespace std;
 namespace ip = boost::interprocess;
@@ -28,6 +29,7 @@ template <typename Key,
           typename Compare = std::less<Key>,
           typename Allocator = ShmMemAllocator<Key, MappedValue>>
 using ShmMap = ip::map<Key, MappedValue, Compare, Allocator>;
+//using ShmMap = std::map<Key, MappedValue, Compare, Allocator>; // both work.
 
 using MySquareMap = ShmMap<int, int>;
 
@@ -52,7 +54,7 @@ int main(int argc, char** argv) {
         stringstream s;
         s << argv[0]; s << " dummy_arg" << ends;
         assert(std::system(s.str().data()) == 0);
-        assert(free_memory = segment.get_free_memory());
+        assert(free_memory == segment.get_free_memory());
         assert(segment.find<MySquareMap>("MySquareMap").first == nullptr);
     }
     else {

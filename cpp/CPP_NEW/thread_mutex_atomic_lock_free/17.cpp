@@ -138,5 +138,5 @@ int main()
 
 /*
  * Stack Empty will be printed as many times as the number of entries remaining in the stack.
- * ie. same as what getCount returns
+ * i.e. same as what getCount returns
  */

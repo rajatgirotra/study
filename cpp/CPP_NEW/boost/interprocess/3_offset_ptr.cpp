@@ -1,9 +1,9 @@
 /*
- * boost interprocess provides a offset_ptr<> class which holds the offset(distance) between the offset_ptr<> object and the pointed to object.
+ * boost interprocess provides an offset_ptr<> class which holds the offset(distance) between the offset_ptr<> object and the pointed to object.
  * offset_ptr<> allows you to store pointers on shared memory, otherwise it would not be possible for different process to share object pointers as they will be mapped to
  * different virtual addresses in their processes virtual tables.
  *
- * Lets use offset_ptr<> to store a linked list in ip::managed_shared_memory.
+ * Let's use offset_ptr<> to store a linked list in ip::managed_shared_memory.
  * Read 7_shared_memory_object.cpp for storing raw pointers (given that all processes map the shared memory starting from the same virtual address).
  */
 #include <boost/interprocess/managed_shared_memory.hpp>
@@ -25,7 +25,7 @@ struct Node {
 
 int main(int argc, char** argv) {
     if(argc==1) {
-        //i.e if no argument given, assume this is parent. create managed_shared_memory and create a linked list of 10 nodes with values 1 to 10
+        //i.e. if no argument given, assume this is parent. create managed_shared_memory and create a linked list of 10 nodes with values 1 to 10
         struct shm_remove {
             shm_remove() { ip::shared_memory_object().remove("MySharedMemory"); } // will ensure any stray shared memory object is destroyed.
             ~shm_remove() { ip::shared_memory_object().remove("MySharedMemory"); } // will ensure no stray shared memory object gets left behind.
@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
  * between its own address (i.e. this) and the pointed to address in the shared memory. Now if nullptr is address 0, then the distance between this and 0
  * will be different in each process.
  *
- * One way around this is to introduce a boolean variablein offset_ptr<> which tells if the offset_ptr<> is NULL or not. However this will hurt performance.
+ * One way around this is to introduce a boolean variable in offset_ptr<> which tells if the offset_ptr<> is NULL or not. However this will hurt performance.
  * So the writers came up with something else. They said if offset_ptr<> distance is +1, it is assumed to be nullptr. this means offset_ptr<>
  * can never point to the address immediately after its this pointer. But this is not a big limitation.
  *

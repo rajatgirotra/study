@@ -71,13 +71,13 @@ int main() {
         cerr << "failure, ptr: " << *res.ptr << ", ec: " << make_error_code(res.ec).message() << endl;
     }
 
-    // enable this when your compiler supports it.
-//    const string str2("16.78");
-//    double value2{};
-//    res = std::from_chars(str2.data(), str2.data() + str2.size(), value2, std::chars_format::general);
-//    if(res.ec == std::errc{}) {
-//        cout << "success, value: " << value << endl;
-//    } else {
-//        cerr << "failure, ptr: " << *res.ptr << ", ec: " << make_error_code(res.ec).message() << endl;
-//    }
+//     enable this when your compiler supports it.
+    const string str2("16.78");
+    double value2{};
+    res = std::from_chars(str2.data(), str2.data() + str2.size(), value2, std::chars_format::general);
+    if(res.ec == std::errc{}) {
+        cout << "success, value: " << value2 << endl;
+    } else {
+        cerr << "failure, ptr: " << *res.ptr << ", ec: " << make_error_code(res.ec).message() << endl;
+    }
 }

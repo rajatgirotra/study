@@ -19,6 +19,7 @@
 #include <utility>
 #include <iterator>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 namespace ip = boost::interprocess;
@@ -27,7 +28,8 @@ template <typename Key>
 using ShmMemAllocator = ip::allocator<Key, ip::managed_shared_memory::segment_manager>;
 
 template <typename Key>
-using ShmVector = ip::vector<Key, ShmMemAllocator<Key>>;
+//using ShmVector = ip::vector<Key, ShmMemAllocator<Key>>;
+using ShmVector = std::vector<Key, ShmMemAllocator<Key>>; // both work.
 
 using MyIntVector = ShmVector<int>;
 
@@ -42,8 +44,12 @@ int main(int argc, char** argv) {
         auto segment = ip::managed_shared_memory(ip::create_only, "MySharedMemory", 65536); // 64KB should be enough
         auto free_memory = segment.get_free_memory();
 
-        ShmMemAllocator<int> allocator (segment.get_segment_manager());
-        MyIntVector* vec = static_cast<MyIntVector*>(segment.construct<MyIntVector>("MyIntVector")(allocator));
+        MyIntVector* vec{};
+        {
+            ShmMemAllocator<int> allocator (segment.get_segment_manager()); // segment_manager is copyable.
+            vec = segment.construct<MyIntVector>("MyIntVector")(allocator);
+        }
+
         // push back 1 to 10
         for(int i = 1; i <= 10; ++i) {
             vec->emplace_back(i);
@@ -52,7 +58,7 @@ int main(int argc, char** argv) {
         stringstream s;
         s << argv[0]; s << " dummy_arg" << ends;
         assert(std::system(s.str().data()) == 0);
-        assert(free_memory = segment.get_free_memory());
+        assert(free_memory == segment.get_free_memory());
         assert(segment.find<MyIntVector>("MyIntVector").first == nullptr);
     }
     else {

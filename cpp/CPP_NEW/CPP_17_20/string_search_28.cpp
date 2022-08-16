@@ -6,7 +6,7 @@
  *
  * before c++17, std::search() just performed the naive string matching algorithm which has time complexity of O(mn).
  * But with C++17, there are two other ways.
- * 1) use a execution policy to speed up: like std::execution::par,
+ * 1) use an execution policy to speed up: like std::execution::par,
  * 2) Provide a searcher object. Like KMP searcher, Boyer Moore Searcher etc.
  *
  * Searcher and Execution Policy cannot be mixed.
