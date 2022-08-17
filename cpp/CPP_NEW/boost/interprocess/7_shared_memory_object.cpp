@@ -31,7 +31,8 @@
  *  Limitations of C++ classes if you want them to store them on shared memory.
  *  1) Cannot have raw pointers. Use offset_ptr<> instead.
  *  2) Cannot use references as members of class
- *  3) Class cannot be virtual. as virtual table will be different in every process.
+ *  3) Class cannot be virtual. as virtual table will be different in every process. So the VPTR will be different in each process.
  *  4) static data members will also be in different global address space in all processes. So modifying in one process will
- *     not change the value in the other process.
+ *     not change the value in the other process. Static members are not dangerous if they are just constant variables initialized when the process starts,
+ *     and they don't change at all (for example, when used like enums) and their value is the same for all processes.
  */

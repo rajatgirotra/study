@@ -17,14 +17,14 @@
  *  most of the mechanisms are in boost/interprocess/sync/... folder
  *  Mutex classes:
  *  =============
- *  interprocess_mutex : Anonymous mutex, can be persisted on shared memory or memmory mapped file.
+ *  interprocess_mutex : Anonymous mutex, can be persisted on shared memory or memory mapped file.
  *  interprocess_recursive_mutex: same as above but recursive.
  *  named_mutex: a named mutex
  *  recursive_named_mutex: same as above, but recursive
  *  shareable_mutex: kind of read write lock. provides interface for taking shared_lock() or exclusive_lock()
  *  upgradeable_mutex: same as sharable_mutex. But a shared_lock() can be upgraded to exclusive_lock()
  *  scoped_lock<>: helper class which provides RAII wrapper for mutex classes.
- *  sharable_lock<>: helper class which provides RAII wrapper for sharable mutex classes (ie shareable_mutex and upgradeable_mutex)
+ *  sharable_lock<>: helper class which provides RAII wrapper for shareable mutex classes (ie shareable_mutex and upgradeable_mutex)
  *
  *
  *  Condition Variables classes
@@ -48,18 +48,18 @@
  *  A file lock is used to provide a synchronization mechanism for reading and writing to files in a consistent manner.
  *  When you create an instance of boost::interprocess:file_lock you must specify the file name you want to read/write and
  *  a mutex for that file access is automatically created. The mutex provides a sharable_mutex type of interface.
- *  Also this lock has process persistence; if the process crashes, the lock is automatically released.
+ *  Also, this lock has process persistence; if the process crashes, the lock is automatically released.
  *  Caution:
  *  It's unspecified if a file_lock synchronizes two threads from the same process. (so only use for inter process locking, not intra-process locking).
  *  It's unspecified if a process can use two file_lock objects pointing to the same file.
  *
- *  Also with iostreams, always use flush() function to send all data to files before releasing the lock.
+ *  Also, with iostreams, always use flush() function to send all data to files before releasing the lock.
  *
  *  Message Queues
  *  ==============
  *  A named queue object that can be used to send data from one side and read from the other side. data is sent as a stream of bytes.
  *  so it must be serializable. Boost message queue is unlike Unix message queues, as Unix MQ's have structure to the data that is sent.
  *  in case of Boost MQ's we send as series of bytes. So looks like Boost MQ are like Unix pipes.
- *  messages can also have a priority and receiver can read out of order based on priority. receiver can do blocking receive or try receive
- *  or timed receive.
+ *  messages can also have a priority and receiver can read out of order based on priority. receiver can do blocking receive or try_receive
+ *  or timed_receive.
  */
