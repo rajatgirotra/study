@@ -79,7 +79,7 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #add_executable(auto_with_brace_initialization auto_with_brace_initialization.cpp source/common/Singleton.hpp test/common/manual_test.cpp)
 #target_link_libraries(auto_with_brace_initialization PRIVATE project_options project_warnings)
 
-add_subdirectory(boost)
+#add_subdirectory(boost)
 #add_subdirectory(chrono)
 #add_subdirectory(constexpr)
 #add_subdirectory(hashes_maps_sets)
@@ -99,6 +99,7 @@ add_subdirectory(boost)
 #add_subdirectory(filesystem)
 #add_subdirectory(parallel)
 #add_subdirectory(smart_pointers)
+add_subdirectory(orderbook)
 
 #if(BUILD_TESTS)
 #    message(NOTICE "building unit tests is enabled")
