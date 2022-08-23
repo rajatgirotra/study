@@ -146,3 +146,6 @@ HD Wallets (Hierarchically Deterministic Wallets).
 =================================================
 These are wallets that have a master private key. and from that master private key they generate many combinations of Private and Public Key pairs.
 This way they can remain totally anonymous on the bitcoin network. HD Wallets can also be used by organisations to give different private/public key pairs to different departments.
+
+
+

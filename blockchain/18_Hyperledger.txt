@@ -1,0 +1,74 @@
+In general terms, a blockchain is an immutable transaction ledger, maintained within a distributed network of peer nodes. These nodes each maintain a copy of the ledger by applying transactions that have been validated by a consensus protocol, grouped into blocks that include a hash that bind each block to the preceding block.
+
+The first and most widely recognized application of blockchain is the Bitcoin cryptocurrency, though others have followed in its footsteps. Ethereum, an alternative cryptocurrency, took a different approach, integrating many of the same characteristics as Bitcoin but adding smart contracts to create a platform for distributed applications. Bitcoin and Ethereum fall into a class of blockchain that we would classify as public permissionless blockchain technology. Basically, these are public networks, open to anyone, where participants interact anonymously.
+
+interest in applying the underlying technology of the blockchain, distributed ledger and distributed application platform to more innovative enterprise use cases also grew. However, many enterprise use cases require performance characteristics that the permissionless blockchain technologies are unable (presently) to deliver. In addition, in many use cases, the identity of the participants is a hard requirement, such as in the case of financial transactions where Know-Your-Customer (KYC) and Anti-Money Laundering (AML) regulations must be followed.
+
+For enterprise use, we need to consider the following requirements:
+
+Participants must be identified/identifiable
+Networks need to be permissioned
+High transaction throughput performance
+Low latency of transaction confirmation
+Privacy and confidentiality of transactions and data pertaining to business transactions
+
+Hyperledger foundation is an organization which builds modular projects to build enterprise level blockchains. Hyperledger hosts enterprise grade blockchain software projects. These projects are built and conceived by the developers; for vendors, end-user organizations, service providers, start-ups, academics.
+
+What problem does Hyperledger solve?
+Blockchain solves a core problem: many organizations want to share data in a distributed database, but no single owner will be trusted by every user. Blockchain technologies enable direct transactions in a secure, transparent way, baking trust into systems that operate with the efficiency of a peer-to-peer network. 
+
+For enterprises, adopting this technology is making a foundational change in how they conduct business. When used as an enterprise software solution, it enables trust where it didn’t exist before and removes layers and layers of inefficiency. The technologies are building blocks for core, cross industry systems that will only scale in size and complexity as well as in effectiveness and value. Because Hyperledger technologies are open source code bases built with collaborative design and governance, enterprises have embraced them as trusted infrastructure for building blockchain solutions.
+
+Fabric
+Indy
+Iroha
+Sawtooth
+Besu
+Aries etc
+
+Lets read about Fabric which is very popular.
+Hyperledger Fabric is intended as a foundation for developing applications or solutions with a modular architecture. Hyperledger Fabric allows components, such as consensus and membership services, to be plug-and-play. Its modular and versatile design satisfies a broad range of industry use cases. It offers a unique approach to consensus that enables performance at scale while preserving privacy.
+
+It is marketed as Open, Proven, Enterprise-grade DLT (Distributed Ledger Technology).
+See this datasheet. https://www.hyperledger.org/wp-content/uploads/2020/03/hyperledger_fabric_whitepaper.pdf
+One of the many compelling Fabric features is the enablement of a network of networks. Members of a network work together, but because businesses need some of their data to remain private, they often maintain separate relationships within their networks. For example, a purchaser may work with different sellers, selling the same product. The transactional relationship between the purchaser and each of the sellers should remain private and not visible across all sellers. This is made possible via the “channels” feature in Hyperledger Fabric if you need total transaction isolation, and the “private data” feature if you’d like to keep data private while sharing hashes as transaction evidence on the ledger (private data can be shared among “collection” members, or with a specific organization on a need-to-know basis.
+
+So instead of being an open, permission less system like BTC or ETH blockchains, Fabric offers a scalable and secure support for private transactions and confidential contracts.
+
+Below are some of the key features of Hyperledger Fabric and what differentiates it from other distributed ledger technologies.
+• Permissioned architecture
+• Highly modular
+• Pluggable consensus
+• Open smart contract model — flexibility to implement any desired solution model (account model, UTXO model, structured data, 
+unstructured data, etc)
+• Low latency of finality/confirmation
+• Flexible approach to data privacy : data isolation using ‘channels’, or share private data on a need to-know basis using private data ‘collections’
+• Multi-language smart contract support: Go, Java, Javascript
+• Support for EVM and Solidity
+• Designed for continuous operations, including rolling upgrades and asymmetric version sup-port
+• Governance and versioning of smart contracts
+• Flexible endorsement model for achieving consensus across required organizations
+• Queryable data (key-based queries and JSON queries)
+
+
+abric has a highly modular and configurable architecture, enabling innovation, versatility and optimization for a broad range of industry use cases including banking, finance, insurance, healthcare, human resources, supply chain and even digital music delivery.
+
+Fabric is the first distributed ledger platform to support smart contracts authored in general-purpose programming languages such as Java, Go and Node.js, rather than constrained domain-specific languages (DSL). This means that most enterprises already have the skill set needed to develop smart contracts, and no additional training to learn a new language or DSL is needed.
+
+The Fabric platform is also permissioned, meaning that, unlike with a public permissionless network, the participants are known to each other, rather than anonymous and therefore fully untrusted. This means that while the participants may not fully trust one another (they may, for example, be competitors in the same industry), a network can be operated under a governance model that is built off of what trust does exist between participants, such as a legal agreement or framework for handling disputes.
+
+One of the most important of the platform’s differentiators is its support for pluggable consensus protocols that enable the platform to be more effectively customized to fit particular use cases and trust models. For instance, when deployed within a single enterprise, or operated by a trusted authority, fully byzantine fault tolerant consensus might be considered unnecessary and an excessive drag on performance and throughput. In situations such as that, a crash fault-tolerant (CFT) consensus protocol might be more than adequate whereas, in a multi-party, decentralized use case, a more traditional byzantine fault tolerant (BFT) consensus protocol might be required.
+
+Fabric can leverage consensus protocols that do not require a native cryptocurrency to incent costly mining or to fuel smart contract execution. Avoidance of a cryptocurrency reduces some significant risk/attack vectors, and absence of cryptographic mining operations means that the platform can be deployed with roughly the same operational cost as any other distributed system.
+
+The Fabric application stack has five layers:
+
+Prerequisite software: the base layer needed to run the software, for example, Docker.
+
+Fabric and Fabric samples: the Fabric executables to run a Fabric network along with sample code.
+
+Contract APIs: to develop smart contracts executed on a Fabric Network.
+
+Application APIs: to develop your blockchain application.
+
+The Application: your blockchain application will utilize the Application SDKs to call smart contracts running on a Fabric network.

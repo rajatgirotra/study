@@ -70,5 +70,55 @@ class PriceLevelManager;
 type T will define the implementation of creating price levels, iterating through them, adding/deleting/modifying orders at price level.
 type U will have information like the price level, the deque of Orders at this price level, the total size and volume at this price level.
 
-
 Create a Book class which will have a template parameter T which could be a simple type Bid or Ask, to designate if the Book is a buy or sell book.
+
+The template parameter U above in PriceLevelManager should be a simple class (let say PriceLevel) with
+1) total size (count of orders)
+2) total volume (volume of orders)
+3) std::deque<Orders>
+API
+getSize()
+getVolume()
+addOrder()
+removeOrder()
+iterator over the orders.
+this particular price point
+
+the template parameter T in PriceLevelManager is used to move through the price levels.
+We can have a simple class which wraps a map<int64_t (priceLevel), sp<PriceLevel>
+or a class which uses veb data structure for better performance.
+API()
+1) insert(priceLevel)
+2) remove(priceLevel)
+3) successor(priceLevel)
+4) predecessor(priceLevel)
+5) find(priceLevel)
+6) minPrice()
+7) maxPrice()
+
+PriceLevelManager will have template parameters T and U and API would be like
+addBucket()
+removeBucket()
+minPrice()
+maxPrice()
+findBucket()
+prevBucket()
+nextBucket()
+iterator class. --> for buy book, must iterate in increasing order, for sell bucket must iterate in decreasing order.
+Basically the operations in the iterator class like ++, ++(postfix), --, --(postfix), * (dereference), must be templated for Buy and Sell types.
+The equal function doesnt need to be templated.
+The ctor of this iterator must set the initial price to minPrice() for sellbook, and maxPrice() for buybook.
+begin() and end() for iterators
+
+
+LOB:
+a) addOrder
+b) removeOrder
+c) volumeForPricePoint()
+d) besBid()
+e) bestOffer()
+f) bids_begin(), end()
+g) ask_begin(), end()
+h) iterator class
+i) isBookCrossed()
+j) matchOrders()
