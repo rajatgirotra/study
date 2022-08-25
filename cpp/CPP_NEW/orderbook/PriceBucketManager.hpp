@@ -19,11 +19,11 @@ namespace raj {
 
         bool removeBucket(uint64_t price) { return m_buckets.remove(price); }
 
-        price_bucket_type nextBucket(uint64_t price) { return m_buckets.successor(price); }
+        price_bucket_type nextBucket(uint64_t price)  const noexcept { return m_buckets.successor(price); }
 
-        price_bucket_type prevBucket(uint64_t price) { return m_buckets.predecessor(price); }
+        price_bucket_type prevBucket(uint64_t price) const noexcept { return m_buckets.predecessor(price); }
 
-        price_bucket_type findBucket(uint64_t price) { return m_buckets.find(price); }
+        price_bucket_type findBucket(uint64_t price) const noexcept { return m_buckets.find(price); }
 
         uint64_t minPrice() const noexcept { return m_buckets.minPrice();  }
         uint64_t maxPrice() const noexcept { return m_buckets.maxPrice();  }
@@ -79,6 +79,28 @@ namespace raj {
                 this->operator++();
                 return tmp;
             }
+
+            iterator& operator -- () noexcept {
+                price_bucket_type pb{};
+                if constexpr (BidAskTrait == Side::BUY) {
+                    pb = pbm.nextBucket(m_price);
+                } else {
+                    pb = pbm.prevBucket(m_price);
+                }
+                if(!pb) {
+                    m_price = 0;
+                } else {
+                    m_price = pb->pricePoint();
+                }
+                return *this;
+            }
+
+            iterator operator -- (int) noexcept {
+                auto tmp = *this;
+                this->operator--();
+                return tmp;
+            }
+
 
             bool operator == (const iterator& rhs) const noexcept {
                 return (m_price == rhs.m_price);

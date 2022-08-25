@@ -23,21 +23,21 @@ namespace raj {
             m_buckets.erase(price);
         }
 
-        price_bucket_type find(uint64_t price) noexcept {
+        price_bucket_type find(uint64_t price) const noexcept {
             if(auto it = m_buckets.find(price); it != m_buckets.end()) {
                 return it->second;
             }
             return nullptr;
         }
 
-        price_bucket_type successor(uint64_t price) noexcept {
+        price_bucket_type successor(uint64_t price) const noexcept {
             if(auto it = m_buckets.upper_bound(price); it != m_buckets.end()) {
                 return it->second;
             }
             return nullptr;
         }
 
-        price_bucket_type predecessor(uint64_t price) noexcept {
+        price_bucket_type predecessor(uint64_t price) const noexcept {
             if(auto it = m_buckets.lower_bound(price); it != m_buckets.end()) {
                 if(price <= it->second->pricePoint()) {
                     if(it == m_buckets.begin()) {
