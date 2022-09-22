@@ -89,7 +89,7 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #add_subdirectory(RValueReferences)
 #add_subdirectory(lambda_bind_and_related)
 #add_subdirectory(thread_mutex_atomic_lock_free)
-#add_subdirectory(CPP_17_20)
+add_subdirectory(CPP_17_20)
 #add_subdirectory(exceptions)
 #add_subdirectory(python_c_api)
 #add_subdirectory(practice)
@@ -99,7 +99,7 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #add_subdirectory(filesystem)
 #add_subdirectory(parallel)
 #add_subdirectory(smart_pointers)
-add_subdirectory(orderbook)
+#add_subdirectory(orderbook)
 
 #if(BUILD_TESTS)
 #    message(NOTICE "building unit tests is enabled")

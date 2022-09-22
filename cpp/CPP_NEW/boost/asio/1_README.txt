@@ -8,9 +8,9 @@ to perform I/O, we will need an I/O object also. Examples:
 
 boost::asio::ip::tcp::socket socket(io_context);
 
-synchronous operations will wither throw an exception of type boost::system::system_error or return an error code of type boost::system::error_code.
+synchronous operations will either throw an exception of type boost::system::system_error or return an error code of type boost::system::error_code.
 
-asynchronous operations will need to register a handler that will be called by asio (the thread in which the handler is called is provided by the user only by calling run() method on the io_context object). Note that the handler signature can be different depending on the async operation you are trying to perform.
+asynchronous operations will need to register a handler that will be called by asio  (the thread in which the handler is called is provided by the user only by calling run() method on the io_context object). Note that the handler signature can be different depending on the async operation you are trying to perform.
 
 =======================================================================================================================================
 async operations are the basic building blocks as asio. Async Op is started by an initiating function. and the callback handlers are called completion handlers. If an initating function requires temporary resources like memory, file descriptor, thread etc.. these resources must be released before calling the corresponding completion handler.
@@ -84,18 +84,56 @@ Similarly the Allocator associated with the Async agent is used to manage memory
 And the Cancellation_Slot associated with the Async agent is used to cancel async operations. There can only be one cancellation slot per Async Agent.
 =======================================================================================================================================
 Completion Tokens
-You already have seen that initiating functions accept a Completion handler. This completion handler is called a Completion Token. But that is not the only Completion Token that you can pass. There are others. Passing a Completion handler makes the initiating function trigger the asyn operation right away.
+You already have seen that initiating functions accept a Completion handler. This completion handler is called a Completion Token. But that is not the only Completion Token that you can pass. There are others. Passing a Completion handler makes the initiating function trigger the async operation right away.
+socket.async_read_some(buffer, [](error_code e, size_t) {  // ... });
 
 use_future Completion Token
-auto futureObject = socket.async_read_some(buffer, use_future) --> This makes the operation behave like a promise and future pair. The initiating function doesnt launch the asyn operation right away. it waits till someone calls get() or wait() on the future object.
+auto futureObject = socket.async_read_some(buffer, use_future) --> This makes the operation behave like a promise and future pair. The initiating function doesn't launch the async operation right away. it waits till someone calls get() or wait() on the future object.
 Example: size_t n = futureObject.get();
 
-Similarly you have use_awaitable completion token in which the initiating function behaves like it is an awaitable based co-routine. You will need to read about co-routines in C++ to understand this fully. But in a nutshell, the async op is not immediately called. rather will wait till the operation is co_await-ed.
+Similarly, you have use_awaitable completion token in which the initiating function behaves like it is an awaitable based co-routine. You will need to read about co-routines in C++ to understand this fully. But in a nutshell, the async op is not immediately called. rather will wait till the operation is co_await-ed.
 awaitable<void> foo() {
     size_t n = co_await socket.async_read_some(buffer, use_awaitable);
     ...
 }
 
 yield_context Completion token
-socket.async_read_some(buffer, yield); // will cause the initating buffer to start the async op and also blocks the co-routine till the operation is complete.
-=======================================================================================================================================
+socket.async_read_some(buffer, yield); // will cause the initiating buffer to start the async op and also blocks the co-routine till the operation is complete.
+
+You can even have user defined Completion Tokens but that's a bit complex.
+Did you notice something?? See again the return types of the initiating function async_read_some?? The return types are actually changing based on the CompletionToken. How??
+
+Basically CompletionTokens provide a customization point at both the initiating step and the completion step.
+1) At initiating step but customizing the return type of the initiating function. Also, the CompletionToken decides if the async operation will immediately be called
+   or be deferred;
+2) At the completion step by providing a ConcreteToken i.e. a Completion Handler.
+But how?? this is done using async_result<> class. How exactly?
+
+For this the async initiating functions need to first define the Completion Handler Signatures, which describe the arguments that will be passed to its Completion Handler.
+If you look at the api of example: async_read, async_resolve, they all define Completion Handler signature (there can be more than one signatures for an initiating function.
+
+Then, the operation’s initiating function takes the completion signature (as documented in the API), completion token (use_future, use_awaitable, deferred etc), and its internal
+implementation and passes them to the async_result trait. The async_result trait is a customisation point that
+combines these to first produce a concrete completion handler, and then launch the async operation.
+
+The async_result<> traits class is used for determining:
+a) the concrete completion handler type to be called at the end of the asynchronous operation;
+b) the initiating function return type; and
+c) how the return value of the initiating function is obtained.
+The trait allows the handler and return types to be determined at the point where the specific completion handler signature is known.
+This template may be specialised for user-defined completion token types. The primary template assumes that the CompletionToken template parameter is the completion handler.
+Lets see the class definition. It is very trivial
+
+template <typename CompletionToken, typename Signature>
+class async_result {
+   public:
+   using completion_handler_type = CompletionToken;  // a) above
+   using return_type = void; // b) above
+   explicit async_result(const completion_handler_type& h) {
+       (void)h; // basically a no-op
+   }
+
+   return_type get() {} // c) above
+}
+}
+============================================================================================================================================
