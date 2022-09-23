@@ -104,36 +104,61 @@ You can even have user defined Completion Tokens but that's a bit complex.
 Did you notice something?? See again the return types of the initiating function async_read_some?? The return types are actually changing based on the CompletionToken. How??
 
 Basically CompletionTokens provide a customization point at both the initiating step and the completion step.
-1) At initiating step but customizing the return type of the initiating function. Also, the CompletionToken decides if the async operation will immediately be called
-   or be deferred;
-2) At the completion step by providing a ConcreteToken i.e. a Completion Handler.
+1) At initiating step but customizing the return type of the initiating function.
+2) At the completion step, the CompletionToken decides if the async operation will immediately be called or be deferred; and also how to retrieve the result of the async operation.
 But how?? this is done using async_result<> class. How exactly?
 
 For this the async initiating functions need to first define the Completion Handler Signatures, which describe the arguments that will be passed to its Completion Handler.
 If you look at the api of example: async_read, async_resolve, they all define Completion Handler signature (there can be more than one signatures for an initiating function.
 
-Then, the operation’s initiating function takes the completion signature (as documented in the API), completion token (use_future, use_awaitable, deferred etc), and its internal
-implementation and passes them to the async_result trait. The async_result trait is a customisation point that
-combines these to first produce a concrete completion handler, and then launch the async operation.
+Now look at the API of a sample async_read_some() async operation. It takes a concrete Completion Token as an argument (like use_future, use_awaitable, deferred etc).
 
-The async_result<> traits class is used for determining:
-a) the concrete completion handler type to be called at the end of the asynchronous operation;
-b) the initiating function return type; and
-c) how the return value of the initiating function is obtained.
-The trait allows the handler and return types to be determined at the point where the specific completion handler signature is known.
-This template may be specialised for user-defined completion token types. The primary template assumes that the CompletionToken template parameter is the completion handler.
-Lets see the class definition. It is very trivial
+Inside the async_read_some() function, the async_result<> class is used to convert this concrete completion token into a concrete completion handler based on the completion handler signature. the async_result<> must also define the return type of the initiating function and type of the concrete completion handler. The async_result<> class is also responsible for launching the async operation. So the async_result<> class has a lot of responsibility
+
+1) define typedef "return_type" for return type of the initiating function
+2) define typedef "completion_handler_type" for type of the concrete completion handler.
+3) manufacture the concrete completion handler. this will be called when the async operation completes.
+4) launch the async operation. this happens inside the async_result<>::initate() function.
 
 template <typename CompletionToken, typename Signature>
 class async_result {
    public:
-   using completion_handler_type = CompletionToken;  // a) above
-   using return_type = void; // b) above
+   using completion_handler_type = CompletionToken;
+   using return_type = void;
    explicit async_result(const completion_handler_type& h) {
        (void)h; // basically a no-op
    }
 
-   return_type get() {} // c) above
-}
-}
+   return_type get() {}
+};
+============================================================================================================================================
+
+Buffers
+
+boost asio provides mutable_buffer and constant_buffer classes which provide an abstraction over an array of bytes. think of them as:
+mutable_buffer = std::pair<void*, size_t> // size_t in bytes
+const_buffer = std::pair<const void*, size_t> // size_t in bytes
+
+boost asio also provides support for scatter-gather operations. which means that when reading from an external device, boost asio can write the data to multiple mutable_buffers(i.e. scatter read). Similarly when writing to an external device, boost asio can write data from multiple const_buffers (i.e. gather write). To achieve this boost asio provides two concepts called MutableBufferSequence and ConstBufferSequence. Any class which conform to these concepts can be used for scatter-gather operations. example: std::vector, std::list, std::array, boost::array are container classes which already fulfill these requirements.
+
+You normally use read(), write() functions with a char buffer and the size in bytes to read or write. But boost::asio provides you a helper class called boost::asio::streambuf (derives from std::streambuf). This asio::streambuf class can internally hold multiple objects of some character array type (think that internally data is stored in a MutableBufferSequence or ConstBufferSequence). So you can use the read(), write() functions with asio::streambuf. The streambuf class provides a separate input and output sequence. Example:
+
+boost::asio::streambuf sb;
+size_t n = boost::asio::read_until(socket, sb, '\n');
+boost::asio::streambuf::const_buffers_type bufs = sb.data(); // data() returns a class satisfying ConstBufferSequence representing all buffers in the input sequence.
+// you can even iterate the "bufs" container using boost::asio::buffers_iterator<> as if it is a continuous sequence of characters.
+string line(boost::asio::buffers_begin(bufs), boost::asio::buffers_end(bufs) + n); // note that you are not iterating over individual buffers in ConstBufferSequence. The buffers_iterator<> class provides an abstraction over the underlying bufs as a single contiguous sequence of bytes.
+
+streambuf::prepare(size_t n) function: Ensure that the output sequence can accomodate n characters, reallocating character array objects as necessary. Will return a MutableBufferSequence such that the sum of the sizes of all its buffers sum up to n. This API must be called before calling commit() API.
+
+streambuf::consume(size_t n) function: will consume n bytes from the input sequence.
+
+streambuf::commit(size_t n) function: will append n characters from output sequence to input sequence. Increments output sequence by n characters.
+
+So basically, you need to call prepare() first to prepare the output sequence, following by some function calls to write data to output sequence followed by commit() to append the data from output to input sequence.
+
+API's to use for reading/writing exact number of bytes: read(), async_read(), write(), async_write()
+API's to use for reading/writing some number of bytes: read_some(), async_read_some(), write_some(), async_write_some()
+
+API's for line based protocols: async_read_until() - Line based protocol are protocols where messages are delimited by character sequence "\r\n", or some other delimiter.
 ============================================================================================================================================
