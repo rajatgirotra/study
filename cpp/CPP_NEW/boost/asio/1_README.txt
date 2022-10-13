@@ -67,10 +67,13 @@ struct associated_allocator {
 };
 
 Also convenience wrappers assocaited_R_t<T, C> and get_associated_R(t, c) are also available.
+
+If you see carefully the asio::io_context has a typedef "executor_type" and also defines a "get_executor()" function. So the type asio::io_context can also be used
+as the first parameter type S in associated_executor_t<io_context, C>
 =======================================================================================================================================
 
 Child Agents:
-Async Agents may also compose Child Async Agents within them. Also the parent agent may propogate the aoosciated characteristics to the child agents. From the point of view of parent, when the final completion handler in the child executes, the parent agent is resumed.
+Async Agents may also compose Child Async Agents within them. Also the parent agent may propagate the associated characteristics to the child agents. From the point of view of parent, when the final completion handler in the child executes, the parent agent is resumed.
 Trivial really..
 =======================================================================================================================================
 Every Async agent has an associated Executor. Executor determines how the Completion handlers are queued and run. There can be many possible strategies
@@ -104,12 +107,12 @@ You can even have user defined Completion Tokens but that's a bit complex.
 Did you notice something?? See again the return types of the initiating function async_read_some?? The return types are actually changing based on the CompletionToken. How??
 
 Basically CompletionTokens provide a customization point at both the initiating step and the completion step.
-1) At initiating step but customizing the return type of the initiating function.
+1) At initiating step by customizing the return type of the initiating function.
 2) At the completion step, the CompletionToken decides if the async operation will immediately be called or be deferred; and also how to retrieve the result of the async operation.
 But how?? this is done using async_result<> class. How exactly?
 
 For this the async initiating functions need to first define the Completion Handler Signatures, which describe the arguments that will be passed to its Completion Handler.
-If you look at the api of example: async_read, async_resolve, they all define Completion Handler signature (there can be more than one signatures for an initiating function.
+If you look at the api of example: async_read, async_resolve, they all define Completion Handler signature (there can be more than one signature for an initiating function.
 
 Now look at the API of a sample async_read_some() async operation. It takes a concrete Completion Token as an argument (like use_future, use_awaitable, deferred etc).
 
@@ -118,7 +121,7 @@ Inside the async_read_some() function, the async_result<> class is used to conve
 1) define typedef "return_type" for return type of the initiating function
 2) define typedef "completion_handler_type" for type of the concrete completion handler.
 3) manufacture the concrete completion handler. this will be called when the async operation completes.
-4) launch the async operation. this happens inside the async_result<>::initate() function.
+4) launch the async operation. this happens inside the async_result<>::initiate() function.
 
 template <typename CompletionToken, typename Signature>
 class async_result {
@@ -139,7 +142,7 @@ boost asio provides mutable_buffer and constant_buffer classes which provide an 
 mutable_buffer = std::pair<void*, size_t> // size_t in bytes
 const_buffer = std::pair<const void*, size_t> // size_t in bytes
 
-boost asio also provides support for scatter-gather operations. which means that when reading from an external device, boost asio can write the data to multiple mutable_buffers(i.e. scatter read). Similarly when writing to an external device, boost asio can write data from multiple const_buffers (i.e. gather write). To achieve this boost asio provides two concepts called MutableBufferSequence and ConstBufferSequence. Any class which conform to these concepts can be used for scatter-gather operations. example: std::vector, std::list, std::array, boost::array are container classes which already fulfill these requirements.
+boost asio also provides support for scatter-gather operations. which means that when reading from an external device, boost asio can write the data to multiple mutable_buffers(i.e. scatter read). Similarly, when writing to an external device, boost asio can write data from multiple const_buffers (i.e. gather write). To achieve this boost asio provides two concepts called MutableBufferSequence and ConstBufferSequence. Any class which conform to these concepts can be used for scatter-gather operations. example: std::vector, std::list, std::array, boost::array are container classes which already fulfill these requirements.
 
 You normally use read(), write() functions with a char buffer and the size in bytes to read or write. But boost::asio provides you a helper class called boost::asio::streambuf (derives from std::streambuf). This asio::streambuf class can internally hold multiple objects of some character array type (think that internally data is stored in a MutableBufferSequence or ConstBufferSequence). So you can use the read(), write() functions with asio::streambuf. The streambuf class provides a separate input and output sequence. Example:
 
@@ -149,7 +152,7 @@ boost::asio::streambuf::const_buffers_type bufs = sb.data(); // data() returns a
 // you can even iterate the "bufs" container using boost::asio::buffers_iterator<> as if it is a continuous sequence of characters.
 string line(boost::asio::buffers_begin(bufs), boost::asio::buffers_end(bufs) + n); // note that you are not iterating over individual buffers in ConstBufferSequence. The buffers_iterator<> class provides an abstraction over the underlying bufs as a single contiguous sequence of bytes.
 
-streambuf::prepare(size_t n) function: Ensure that the output sequence can accomodate n characters, reallocating character array objects as necessary. Will return a MutableBufferSequence such that the sum of the sizes of all its buffers sum up to n. This API must be called before calling commit() API.
+streambuf::prepare(size_t n) function: Ensure that the output sequence can accommodate n characters, reallocating character array objects as necessary. Will return a MutableBufferSequence such that the sum of the sizes of all its buffers sum up to n. This API must be called before calling commit() API.
 
 streambuf::consume(size_t n) function: will consume n bytes from the input sequence.
 

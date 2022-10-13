@@ -73,7 +73,7 @@ vector<string> permutations(const std::set<char>& charSet, int K) {
 
 int main() {
    std::set<char> charSet {'a', 'b', 'c', 'd'};
-   int K = 1;
+   int K = 2;
 
    //std::set<char> charSet {'a', 'b'};
    //int K = 3;
