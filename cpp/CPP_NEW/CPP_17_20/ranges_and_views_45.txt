@@ -1,0 +1,51 @@
+Ranges
+======
+until c++17, the way to work with elements in a container and the standard algorithms is to use iterators.
+algorithms would take two iterators pointing to the begin and end of sequence. and these begin and end functions would be
+provided by the containers themselves. With C++20 however a new concept of range is introduced.
+
+A range is an object that allows you to iterate over a sequence. A range object could be an array type or any other type that
+allows begin() and end() functions. this change brings a lot of other changes
+
+1) New implementation of standard algorithms which take range objects as arguments.
+2) helper functions for creating and dealing with range objects
+3) some concepts for ranges.
+
+Note that by default, container classes (vector, list, deque, set, map etc) are ranges as they provide begin() and end() functions.
+
+the new algorithms for working with ranges are defined in the std::ranges namespace.
+
+Views
+=====
+views are lightweight ranges (i.e. they are also range objects only) that
+1) reference other ranges and sub-ranges.
+2) allow you to filter the elements of the referenced ranges
+3) allow you to transform the elements of the referenced ranges
+4) generate a sequence of values themselves.
+
+To create these views. the standard provides a number of range adoptor functions in the std::ranges::views namespace.
+namespace std {
+namespace views = std::ranges::views; // so std::views is same as std::ranges::views
+}
+
+A few range adaptor functions we will see next are:
+std::views::filter()
+std::views::transform()
+std::views::take()
+std::views::keys()
+std::views::iota()
+etc.
+
+Note that all range and view objects are defined in std::ranges namespace and these adaptor functions are defined in std::views.
+so ADL (argument dependent lookup wont work for these range adaptor functions which take range as their arguments, because ADL will only
+search in std::ranges namespace. that is why the range adaptor functions should always be fully qualified.
+
+generally, programmers do:
+namespace rng = std::ranges;
+namespace vws = std::views;
+
+Never do this:
+using namespace std::views; // this brings a number of common names in scope like transform, filter, keys etc which can very easily collide
+with other functions or variable names; mostly leading to compile time errors and sometimes undefined behavior at runtime.
+
+Let's see some range and views in action.
