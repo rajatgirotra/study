@@ -40,7 +40,7 @@ concept GeoObject = requires(T obj) {
 
 template <typename T>
 concept ColoredGeoObject =
-    GeoObject<T> && requires(T obj) {
+    GeoObject<T> && requires(T obj) { // ColoredGeoObject Subsumes GeoObject concept
       obj.setColor(Color{});
         { obj.getColor() } -> std::convertible_to<Color>;
 };

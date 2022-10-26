@@ -125,3 +125,6 @@ target_link_libraries(concepts_42 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_opt
 
 add_executable(concepts_43 concepts_43.cpp)
 target_link_libraries(concepts_43 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(concepts_44 concepts_44.cpp)
+target_link_libraries(concepts_44 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
