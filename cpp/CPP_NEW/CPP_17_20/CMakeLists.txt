@@ -140,3 +140,9 @@ target_link_libraries(ranges_and_views_48 PRIVATE ${PROJECT_NAME_LOWERCASE}::pro
 
 add_executable(ranges_and_views_49 ranges_and_views_49.cpp)
 target_link_libraries(ranges_and_views_49 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(ranges_and_views_50 ranges_and_views_50.cpp)
+target_link_libraries(ranges_and_views_50 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(ranges_and_views_51 ranges_and_views_51.cpp)
+target_link_libraries(ranges_and_views_51 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
