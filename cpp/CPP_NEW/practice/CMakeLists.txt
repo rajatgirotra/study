@@ -11,3 +11,6 @@ target_link_libraries(practice_jul2021 PRIVATE project_warnings project_options)
 
 add_executable(lock_free_array lock_free_array.cpp)
 target_link_libraries(lock_free_array PRIVATE pthread project_options project_warnings)
+
+add_executable(practice_oct2022 practice_oct2022.cpp)
+target_link_libraries(practice_oct2022 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_options)

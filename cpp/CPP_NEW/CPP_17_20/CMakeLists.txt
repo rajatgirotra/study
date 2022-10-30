@@ -158,3 +158,30 @@ target_link_libraries(ranges_and_views_54 PRIVATE ${PROJECT_NAME_LOWERCASE}::pro
 
 add_executable(ranges_and_views_55 ranges_and_views_55.cpp)
 target_link_libraries(ranges_and_views_55 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(jthread_56 jthread_56.cpp)
+target_link_libraries(jthread_56 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(jthread_57 jthread_57.cpp)
+target_link_libraries(jthread_57 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(jthread_58 jthread_58.cpp)
+target_link_libraries(jthread_58 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(jthread_59 jthread_59.cpp)
+target_link_libraries(jthread_59 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(jthread_60 jthread_60.cpp)
+target_link_libraries(jthread_60 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(stop_source_stop_token_61 stop_source_stop_token_61.cpp)
+target_link_libraries(stop_source_stop_token_61 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(jthread_62 jthread_62.cpp)
+target_link_libraries(jthread_62 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(latch_barrier_63 latch_barrier_63.cpp)
+target_link_libraries(latch_barrier_63 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(semaphore_64 semaphore_64.cpp)
+target_link_libraries(semaphore_64 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
