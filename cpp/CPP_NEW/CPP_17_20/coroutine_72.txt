@@ -1,0 +1,22 @@
+Let's next talk about Awaitables and Awaiters.
+
+co_await is actually an operator. just like sizeof. So it can take something as an argument i.e. its operand. that something is called an Awaitable.
+Now the various different implementations of an Awaitable are nothing but Awaiters. Awaiters have to provide three specific member functions to deal with
+the suspension and resumption of a coroutine.
+
+At this point, the difference between Awaitable and Awaiter seems blurry.
+
+Awaitables are used whenever co_await and co_yield is called. co_await causes some member function in your awaiter to be called which can decide whether
+to approve or reject the suspension, or perform any other logic for suspensions and resumptions.
+
+std::suspend_always and std::suspend_never are examples of awaiters. Let's look at the three member functions.
+
+1) bool await_ready() --> This is called immediately before a coroutine is suspended. If it returns true, the coroutine is not suspended at all.
+Note that in this function, the coroutine is not suspended yet. So do not call resume() or destroy() in this function.
+
+2) auto await_suspend(awaitHdl) --> This is called immediately after the coroutine is suspended. The argument is the std::coroutine_handle<> of the coroutine
+that is suspended. The beauty of this function is its return type. In this function you can decide to immediately resume the suspended coroutine. You can also
+transfer control to another coroutine. Different return types allow you to specify this in different ways. We will see examples in a bit.
+
+3) auto await_resume() --> This is called immediately after the coroutine is resumed. It can return a value, which would be the value
+ that the co_await/co_yield expression yields. It is used by the caller of the coroutine to send values back into the coroutine when a coroutine is resumed.
