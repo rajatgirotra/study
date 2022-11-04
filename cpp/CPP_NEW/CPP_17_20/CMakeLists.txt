@@ -185,3 +185,21 @@ target_link_libraries(latch_barrier_63 PRIVATE ${PROJECT_NAME_LOWERCASE}::projec
 
 add_executable(semaphore_64 semaphore_64.cpp)
 target_link_libraries(semaphore_64 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(coroutine_66 coroutine_66.cpp)
+target_link_libraries(coroutine_66 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(coroutine_67 coroutine_67.cpp)
+target_link_libraries(coroutine_67 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(coroutine_69 coroutine_69.cpp)
+target_link_libraries(coroutine_69 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(coroutine_70 coroutine_70.cpp)
+target_link_libraries(coroutine_70 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(coroutine_71 coroutine_71.cpp)
+target_link_libraries(coroutine_71 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+
+add_executable(scratch scratch.cpp)
+target_link_libraries(scratch PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
