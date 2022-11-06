@@ -1,5 +1,4 @@
 #include "Spinlock.hpp"
-#include <iostream>
 namespace cs {
     namespace common {
         namespace system {
@@ -27,3 +26,7 @@ namespace cs {
         }
     }
 }
+
+/*
+ * this is a good spinlock. let's use atomic_bool instead which is guaranteed to be lock free.
+ */
