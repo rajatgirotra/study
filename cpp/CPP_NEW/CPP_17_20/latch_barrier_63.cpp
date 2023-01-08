@@ -10,7 +10,7 @@ latch.arrive_and_wait(); // does count_down and wait in one step.
 latch.try_wait(); // will return true if latch value is 0, false otherwise. will return immediately.
 
 std::latch and std::barrier are very similar. However, in contrast to latches, when reaching zero an (optional)
-callback is called and the std::barrier counter reinitializes to the initial count again.
+callback is called and the std::barrier counter re-initializes to the initial count again.
 
 A barrier is useful when multiple threads repeatedly run perform something together. Whenever all threads have done their task,
 the optional callback can process the result or new state and after that the asynchronous computation can continue with the loop
@@ -47,7 +47,7 @@ int main() {
 
     std::vector<std::jthread> threadVec;
 
-    for(int idx = 0; idx < values.size(); ++idx) {
+    for(auto idx = 0UL; idx < values.size(); ++idx) {
         threadVec.push_back(std::jthread ([idx, &values, &bar] () {
             for(int i = 0; i < 5; ++i) {
                 values[idx] = sqrt(values[idx]);

@@ -50,12 +50,12 @@ stringstreams are used for input and output from memory.
 
 narror and wide character streams differ in the type of character sequence passed between the formatting and transport layers.
 
-Also IOStreams can be extended by adding new stream classes for supporting new external devices. This is achieved by means of inheritence. Similary, you can add support for new type of characters apart from narrow and wide character streams (like Jchar for Japanese characters). This is achieved by means of templates. 
+Also IOStreams can be extended by adding new stream classes for supporting new external devices. This is achieved by means of inheritance. Similarly, you can add support for new type of characters apart from narrow and wide character streams (like Jchar for Japanese characters). This is achieved by means of templates.
 the IOStreams class hierarchy is
 
 1) ios_base --> non template class that contains functionality common to all stream class irrespective of the type of characters handled.
 2) basic_ios<charT> --> template class containing functionality common to the type of character sequence handled.
-3) we have three classes derived fromo basic_ios. these are basic_istream<charT>, basic_ostream<charT>, and basic_iostream<charT>
+3) we have three classes derived from basic_ios. these are basic_istream<charT>, basic_ostream<charT>, and basic_iostream<charT>
 4) each of these three classes contain two concrete implementations. one for file streams and one for string streams.
    basic_ifstream<charT>, basic_istringstream<charT> inherit from basic_istream<charT>
    basic_ofstream<charT>, basic_ostringstream<charT> inherit from basic_ostream<charT>
@@ -79,9 +79,9 @@ clog, wclog (corresponding C stream is stderr)
 
 cerr and clog is same except that clog is buffered and cerr is not buffered by default.
 
-Also cin and cout are tied i.e. they are synchronized. If you read anything from cin, the first cout is flushed().
+Also cin and cout are tied i.e. they are synchronized. If you read anything from cin, then first cout is flushed().
 
-The reason to choose shift operators for streams (<< and >>) is because it has lower precedence than other operators so it is easy to write code like cout << a+b*c, and the expression a+b*c is evaluated first, otherwise we would need to paranthesize everything.
+The reason to choose shift operators for streams (<< and >>) is because it has lower precedence than other operators so it is easy to write code like cout << a+b*c, and the expression a+b*c is evaluated first, otherwise we would need to parenthesize everything.
 
 Format Parameters
 -----------------

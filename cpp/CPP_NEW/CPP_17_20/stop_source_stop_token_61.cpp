@@ -3,7 +3,7 @@
  * asynchronously; using stop_token, stop_source and stop_callbacks.
  * How does it work.
  * 1) You would create an object of stop_source --> By default when you create a stop_source, a shared stop state
-      is created by the constructor on the heap. Since this shared stop state is on the heap, it is indipendent of 
+      is created by the constructor on the heap. Since this shared stop state is on the heap, it is independent of
       the lifetime of the associated stop_source, stop_token and stop_callback objects.
 
       This shared state on the heap is managed automatically and destroyed automatically when the last stop_source, stop_token
@@ -18,7 +18,7 @@
       Somewhere in your code you will use ssrc.request_stop() to request a thread to stop asynchronously.
     
    4) the thread which is requested to stop, can either choose to periodically poll the stop_token if a stop was
-    requested. Otherwise it can choose to create stop_callback objects which will be called when a stop is requested.
+    requested. Otherwise, it can choose to create stop_callback objects which will be called when a stop is requested.
 
     you can also choose to create a stop_source without creating a shared stop state upfront (as that requires resources).
     You can see the stop_source API on cppreference. it is very trivial.

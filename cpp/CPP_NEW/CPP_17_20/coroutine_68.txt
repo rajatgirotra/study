@@ -1,7 +1,7 @@
 The CoroTask interface we created had disabled copying and moving. With this we can't even move around the coroutine interface object. This is a serious limitation.
-However if we enable copying, this would copy the coroutine_handle member. So we would have multiple handles pointing to the same coroutine frame on the heap. What if one handle changes the state of the coroutine? the other handle will be completely oblivious to it. the coroutine_handle<> object is opaque us, it definitely might be maintaing some state inside.
+However, if we enable copying, this would copy the coroutine_handle member. So we would have multiple handles pointing to the same coroutine frame on the heap. What if one handle changes the state of the coroutine? the other handle will be completely oblivious to it. the coroutine_handle<> object is opaque to us, it definitely might be maintaining some state inside.
 
-But we can enable move semantics. That should be fine. Typically it will be something like this:
+But we can enable move semantics. That should be fine. Typically, it will be something like this:
 
 CoroTask(CoroTask&& rhs) noexcept : m_handle(std::move(rhs.m_handle)) {
    rhs.m_handle = nullptr;

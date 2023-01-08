@@ -1,5 +1,5 @@
 /*
-contrast this with jthread_3.cpp. We deliberately exit the thread even before main thread
+contrast this with jthread_58.cpp. We deliberately exit the thread even before main thread
 requests for cancellation. Note that in this case, the stop_callback doesn't get called as thread
 has terminated already. jthread automatically handles this by de-registering the callback handler
 when it goes out of scope.

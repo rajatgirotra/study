@@ -3,7 +3,9 @@ std::jthread has a new feature where you can request thread cancellation using s
 So your thread callable can take std::stop_token as a first argument and inside your callable, you
 can periodically check if someone has requested for your thread to be cancelled.
 
-There is a one to one relation between a jthread and its stop_token by default. Meaning when you dont pass any stop_token, yourself, the default implementation passes a unique stop_token for every thread. However, it is really trivial to create a single stop_source and pass that stop_source to all the threads as normal arguments.
+There is a one-to-one relation between a jthread and its stop_token by default. Meaning when you don't pass any stop_token,
+ yourself, the default implementation passes a unique stop_token for every jthread. However, it is really trivial to create a
+ single stop_source and pass that stop_source to all the threads as normal arguments.
 */
 #include <thread>
 #include <string>

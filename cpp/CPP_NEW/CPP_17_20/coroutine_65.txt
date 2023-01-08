@@ -9,13 +9,13 @@ co_return --> used to return a value to the caller when the coroutine ends.
 coroutines restrictions:
 -----------------------
 1) They can not have a return statement. They must use co_return keyword only to return a value at the end of the coroutine.
-2) They cannot be constexpr. That's because they are stateful and all of the state can be managed at run-time, not compile time.
+2) They cannot be constexpr. That's because they are stateful and all the state can be managed at run-time, not compile time.
 
 Coroutines are stateful, but they are stackless.
 
 Stackless
 ---------
-When ordinary function foo() calls foo1(), at the end of foo1(), control reaches back to foo(). However this doesn't happen with coroutines. If a coroutine coro() calls another sub-routine coro1(), then the behavior is different. we discuss that later in this text.
+When ordinary function foo() calls foo1(), at the end of foo1(), control reaches back to foo(). However, this doesn't happen with coroutines. If a coroutine coro() calls another sub-routine coro1(), then the behavior is different. we discuss that later in this text.
 
 Stateful
 --------
@@ -27,14 +27,14 @@ How do get access to this coroutine frame?? C++20 provides two classes for that.
    bool done() --> return true if the coroutine has ended.
    void destroy() --> to destroy the coroutine state on memory.
    promise_type promise() --> to provide the promise object it holds (basically its template parameter)
-   = nullptr --> You can even compare this class to nullptr. Example: "if (!handle)" is valid comparison.
+   == nullptr --> You can even compare this class to nullptr. Example: "if (!handle)" is valid comparison.
 
 2) promise_type --> a promise_type class is something that we need to define on our own. This class MUST provide some member functions. These member functions are called at various stages of the coroutine's lifetime. We say that the promise_type provides various customization points for your coroutine.
 
 Coroutine interface
 -------------------
 A coroutine interface class is also something that the user needs to define. It has 3 main purposes.
-1) become a holder for the underlying std::condition_variable<> object
+1) become a holder for the underlying std::coroutine_handle<> object
 2) define which is the promise_type to use. Either it could define a nested promise_type or a using promise_type = SomeClass, also any other way.
 3) provide an interface to the caller of the coroutine to deal with the coroutine. It can provide any member function/variables it wants. This is the return type of the coroutine function you write.
 
@@ -45,7 +45,7 @@ lets understand the various functions which execute in a coroutine's lifetime.
 struct promise_type {
     auto get_return_object() {
 	    // CoroTask is the coroutine interface class you create to deal with the coroutine.
-	    return CoroTask(std::condition_variable<promise_type>::from_promise(*this));
+	    return CoroTask(std::coroutine_handle<promise_type>::from_promise(*this));
 	}
 	auto initial_suspend() { return std::suspend_always{}; }
 	auto unhandled_exception() { std::terminate(); }
@@ -60,9 +60,9 @@ When a coroutine is first created. the compiler will automatically create a coro
 2) create a promise_type on the heap, and call the "get_return_object()" object. In this function, you must create the std::coroutine_handle<> object and also the Coroutine interface object which the caller will use.
 3) the compiler will then call initial_suspend(). this function tells you whether your coroutine should immediately start after getting created or should be initially suspended.
 When we return std::suspend_always{}, the coroutine will be suspended after creation. std::suspend_always{} and std::suspend_never{} are examples of Awaiters. We will discuss awaiters later.
-4) Similary unhandled_exception() is called when an exception is thrown in the coroutine which is not caught.
+4) Similarly unhandled_exception() is called when an exception is thrown in the coroutine which is not caught.
 5) return_void() --> if your coroutine doesnt return any value at the end, you should create this function.
-6) return_value() --> if your coroutine returns a value at the end using co_return, you shoule use this function.
+6) return_value() --> if your coroutine returns a value at the end using co_return, you should use this function.
 7) yield_value() --> if your coroutine yields a value using co_yield, you should define this function.
 8) final_suspend() --> define the behavior when your coroutine finishes.
 
