@@ -207,5 +207,3 @@ target_link_libraries(coroutine_73 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_op
 add_executable(coroutine_74 coroutine_74.cpp)
 target_link_libraries(coroutine_74 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
 
-add_executable(scratch scratch.cpp)
-target_link_libraries(scratch PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)

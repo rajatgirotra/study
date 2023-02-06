@@ -43,29 +43,31 @@ install(TARGETS ${PROJECT_NAME_LOWERCASE}_project_options EXPORT ${PROJECT_TARGE
 include(cmake/StaticAnalyzers.cmake)
 
 # Python3
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+#find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+find_package(Python3 REQUIRED COMPONENTS Interpreter)
 message(STATUS "using ${Python3_INTERPRETER_ID}, ${Python3_VERSION} executable: ${Python3_EXECUTABLE},"
         " include-path: ${Python3_INCLUDE_DIRS},"
         " libs: ${Python3_LIBRARIES}")
 
 # Boost
-find_package(Boost REQUIRED QUIET COMPONENTS system date_time)
+#find_package(Boost REQUIRED QUIET COMPONENTS system date_time)
+find_package(Boost REQUIRED)
 message(STATUS "using Boost ${Boost_VERSION_STRING}, include-path: ${Boost_INCLUDE_DIRS},"
         " libs - ${Boost_LIBRARIES}")
 
 ## Google Benchmark
-find_package(benchmark 1.5.3 EXACT REQUIRED QUIET COMPONENTS)
+find_package(benchmark 1.7.1 EXACT REQUIRED QUIET COMPONENTS)
 message(STATUS "using Google Benchmark ${}, include-path: ${benchmark_INCLUDE_DIRS},"
         " libs - ${benchmark_LIBS}")
 
 # Find SQLite3
-find_package(SQLite3 3.38.5 EXACT REQUIRED QUIET)
+find_package(SQLite3 3.40.1 EXACT REQUIRED QUIET)
 message(STATUS "using sqlite3 ${SQLite3_VERSION}, include-path: ${SQLite3_INCLUDE_DIRS},"
         " libs - ${SQLite3_LIBRARIES}")
 
 # find valgrind program
-find_program(VALGRIND_EXECUTABLE NAMES valgrind REQUIRED)
-message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
+#find_program(VALGRIND_EXECUTABLE NAMES valgrind REQUIRED)
+#message(STATUS "using valgrind: ${VALGRIND_EXECUTABLE}")
 
 # Find Google-protobuf
 find_package(Protobuf REQUIRED QUIET)

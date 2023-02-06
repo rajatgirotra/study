@@ -22,10 +22,10 @@ class CPPStudyConan(ConanFile):
     default_options = {'shared': False, 'fPIC': True, 'lto': False }
 
     requires = (
-            'boost/1.76.0',
-            'benchmark/1.5.3',
-            'sqlite3/3.38.5',
-            'protobuf/3.20.0'
+            'boost/1.81.0',
+            'benchmark/1.7.1',
+            'sqlite3/3.40.1',
+            'protobuf/3.21.9'
              )
 
     exports_sources = ['CMakeLists.txt', 'cmake*', 'src*']
@@ -40,7 +40,7 @@ class CPPStudyConan(ConanFile):
         # self.build_requires('gtest/1.10.0', force_host_context=True)
 
     def validate(self):
-        check_min_cppstd(self, "17")
+        check_min_cppstd(self, "20")
 
     def generate(self):
         tc = CMakeToolchain(self)

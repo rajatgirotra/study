@@ -12,6 +12,6 @@ target_link_libraries(practice_jul2021 PRIVATE ${PROJECT_NAME_LOWERCASE}::projec
 add_executable(lock_free_array lock_free_array.cpp)
 target_link_libraries(lock_free_array PRIVATE pthread ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
 
-add_executable(practice_oct2022 practice_oct2022.cpp)
-target_link_libraries(practice_oct2022 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_options)
-target_compile_features(practice_oct2022 PRIVATE cxx_std_20)
+#add_executable(practice_oct2022 practice_oct2022.cpp)
+#target_link_libraries(practice_oct2022 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_options)
+#target_compile_features(practice_oct2022 PRIVATE cxx_std_20)
