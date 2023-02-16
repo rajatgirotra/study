@@ -38,6 +38,7 @@ struct FreqStack {
           if(m_stacks.rbegin()->second.empty()) {
               m_stacks.erase(m_stacks.rbegin()->first);
           }
+          --m_count[res];
           return res;
       }
 };
@@ -68,4 +69,11 @@ int main() {
   }catch(const std::exception& e) {
       cout << "Exception caught: " << e.what() << endl;
   }
+
+  fq.push(5);
+  fq.push(2);
+  cout << "popped: " << fq.pop() << endl;
+  fq.push(5);
+  fq.push(2);
+  cout << "popped: " << fq.pop() << endl;
 }
