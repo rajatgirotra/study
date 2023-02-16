@@ -47,7 +47,7 @@ int main() {
 
 
     // packaged task wrapping a std::bind expression
-    std::packaged_task<int(int, int)> task_3(std::bind(std::ref(f), _1, -10));
+    std::packaged_task<int(int, int)> task_3(std::bind(std::ref(f), _2, -10));
     auto future_3 = task_3.get_future();
     auto t = std::thread(std::move(task_3), 10, -5);
     t.join();

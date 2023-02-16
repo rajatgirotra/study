@@ -5,6 +5,10 @@ add_executable(practice_cpp_14 practice.cpp)
 target_link_libraries(practice_cpp_14 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_warnings)
 target_compile_features(practice_cpp_14 PRIVATE cxx_std_14)
 
+add_executable(practice_cpp_20 practice.cpp)
+target_link_libraries(practice_cpp_20 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(practice_cpp_20 PRIVATE cxx_std_20)
+
 add_executable(practice_jul2021 practice_jul2021.cpp)
 target_link_libraries(practice_jul2021 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
 #target_compile_features(practice_jul2021 PRIVATE cxx_std_14)

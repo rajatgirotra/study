@@ -28,7 +28,7 @@ class CPPStudyConan(ConanFile):
             'protobuf/3.21.9'
              )
 
-    exports_sources = ['CMakeLists.txt', 'cmake*', 'src*']
+    exports_sources = ['CMakeLists.txt', 'cmake*', 'src*', 'CPP_17_20*']
 
     def set_version(self):
         content = tools.load(os.path.join(self.recipe_folder, 'CMakeLists.txt'))
@@ -40,7 +40,7 @@ class CPPStudyConan(ConanFile):
         # self.build_requires('gtest/1.10.0', force_host_context=True)
 
     def validate(self):
-        check_min_cppstd(self, "20")
+        check_min_cppstd(self, "17")
 
     def generate(self):
         tc = CMakeToolchain(self)

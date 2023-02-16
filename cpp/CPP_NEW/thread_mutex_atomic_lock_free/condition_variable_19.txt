@@ -16,7 +16,7 @@ std::cv_status condition_variable::wait_until(std::unique_lock<std::mutex>, std:
 
 All the above wait(), wait_for(), wait_until() also take a Boolean predicate.
 void condition_variable::wait(std::unique_lock<std::mutex>, Predicate pred); // is same as
-while(!pred()) { cv.wait(lock); } // ie keep waiting until pred is true
+while(!pred()) { cv.wait(lock); } // ie keep waiting until pred is true. So if you want to break out of the while loop, return true.
 
 bool condition_variable::wait_for(std::unique_lock<std::mutex>, std::chrono::duration, Predicate pred);
 // return false if predicate is false after the timeout expires, otherwise true.

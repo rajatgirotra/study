@@ -1,95 +1,130 @@
 #include <iostream>
-#include <iomanip>
-#include <semaphore>
+#include <string>
+#include <future>
 #include <thread>
-#include <chrono>
 #include <mutex>
-#include <queue>
-#include <vector>
 #include <syncstream>
-#include <coroutine>
-#include <memory>
+#include <latch>
+#include <chrono>
+#include <cxxabi.h>
+#include <typeinfo>
+#include <semaphore>
+#include <random>
+#include <thread>
 using namespace std;
-using namespace std::literals;
 
-struct [[nodiscard]] CoroGen {
-    struct promise_type {
-    private:
-        int m_value{};
-    public:
-        auto get_return_object() noexcept {
-            return CoroGen{CoroGen::CoroHdl::from_promise(*this)};
-        }
+#define USE_CPU_FENCE 0
+#define USE_SINGLE_HW_THREAD 1
 
-        auto initial_suspend() noexcept { return std::suspend_always{}; }
-        auto final_suspend() noexcept { return std::suspend_always{}; }
-        void return_void() noexcept {}
-        auto yield_value(int val) noexcept {
-            m_value = val;
-            return std::suspend_always{};
-        }
-        void unhandled_exception() noexcept { std::terminate(); };
+#if USE_SINGLE_HW_THREAD == 1
+#include <sched.h>
+#include <cassert>
+#include <unistd.h>
+#include <errno.h>
+#include <cstring>
+#include <pthread.h>
+#endif
 
-        int getValue() const noexcept { return m_value; }
-    };
-    using CoroHdl = std::coroutine_handle<promise_type>;
-
-    explicit CoroGen(CoroHdl handle) : m_handle(std::move(handle)) {}
-    ~CoroGen() noexcept { reset(); }
-
-    //disable copy
-    CoroGen(const CoroGen&) = delete;
-
-    // enable move
-    CoroGen(CoroGen&& arg) : m_handle(std::move(arg.m_handle)) {}
-    CoroGen& operator = (CoroGen&& rhs) {
-        if(this != &rhs) {
-            reset();
-            m_handle = std::move(rhs.m_handle);
-            rhs.m_handle = nullptr;
-        }
-        return *this;
+std::string demangled_name(const char* mangled_name) {
+    int res{-1};
+    auto name = abi::__cxa_demangle(mangled_name, nullptr, nullptr, &res);
+    string demangled(name);
+    if(res != 0) {
+        return mangled_name;
+    } else {
+        free(name);
+        return demangled;
     }
-
-    bool resume() noexcept {
-        if(!m_handle || m_handle.done()) {
-            return false;
-        }
-        m_handle.resume();
-        return !m_handle.done();
-    }
-    int getValue() const noexcept {
-        return m_handle.promise().getValue();
-    }
-
-private:
-    CoroHdl m_handle;
-
-    void reset() noexcept {
-        if(m_handle) {
-            m_handle.destroy();
-            cout << "CoroGen frame destroyed\n";
-        }
-    }
-};
-
-CoroGen coro() {
-    cout << "\tcoro() started\n";
-    for(int i = 0; i < 5; ++i) {
-        cout << "\t\tcoro() " << i << endl;
-        co_yield i;
-    }
-    cout << "\tcoro() ended\n";
 }
 
-int main() {
-    auto task = coro();
+auto syncOut = [](std::ostream& os = std::cout) {
+    return std::osyncstream(os);
+};
 
-    cout << "In Main\n";
-    while(task.resume()) {
-        auto val = task.getValue();
-        cout << "\tcoro suspended and yielded: " << val << "\n";
+int X = 0, Y = 0, r1 = 0, r2 = 0;
+std::counting_semaphore<2> endSema(0);
+std::binary_semaphore beginSema1(0), beginSema2(0);
+
+void threadOne() {
+    while(true) {
+        // wait on semaphore
+        beginSema1.acquire();
+
+        // introduce random delay
+        static std::random_device r;
+        static std::default_random_engine engine(r());
+        std::uniform_int_distribution<uint32_t> dist(1, 10000);
+        while(dist(engine) % 8 != 0);
+
+        // set X and get r2
+        X = 1;
+#if USE_CPU_FENCE == 1
+        asm volatile("mfence" ::: "memory");
+#elif USE_SINGLE_HW_THREAD == 1
+        asm volatile("" ::: "memory");
+#endif
+        r2 = Y;
+        // signal endSema
+        endSema.release();
     }
-    cout << "Main Ended\n";
+}
 
+void threadTwo() {
+    while(true) {
+        // wait on semaphore
+        beginSema2.acquire();
+
+        // introduce random delay
+        static std::random_device r;
+        static std::default_random_engine engine(r());
+        std::uniform_int_distribution<uint32_t> dist(1, 10000);
+        while(dist(engine) % 8 != 0);
+
+        // set Y and get r1
+        Y = 1;
+#if USE_CPU_FENCE == 1
+        asm volatile("mfence" ::: "memory");
+#elif USE_SINGLE_HW_THREAD == 1
+        asm volatile("" ::: "memory");
+#endif
+        r1 = X;
+
+        // signal endSema
+        endSema.release();
+    }
+}
+
+
+int main() {
+    std::jthread t1(std::cref(threadOne));
+    std::jthread t2(std::cref(threadTwo));
+
+#if USE_SINGLE_HW_THREAD == 1
+    cpu_set_t cpus;
+    CPU_ZERO(&cpus);
+    CPU_SET(6, &cpus);
+    if(pthread_setaffinity_np(t1.native_handle(), sizeof(cpu_set_t), &cpus) != 0) {
+        syncOut() << "sched_setaffinity failed with error: " << strerror(errno) << endl;
+        return 1;
+    }
+    if(pthread_setaffinity_np(t2.native_handle(), sizeof(cpu_set_t), &cpus) != 0) {
+        syncOut() << "sched_setaffinity failed with error: " << strerror(errno) << endl;
+    }
+
+#endif
+
+    int reorders = 0;
+    int iterations = 0;
+    do {
+        X = Y = r1 = r2 = 0;
+        beginSema1.release();
+        beginSema2.release();
+
+        endSema.acquire();
+        endSema.acquire();
+
+        if(r1 == 0 && r2 == 0) {
+            syncOut() << ++reorders << " reorders in " << iterations << " iterations\n";
+        }
+    } while(++iterations <= std::numeric_limits<int>::max() - 10);
 }
