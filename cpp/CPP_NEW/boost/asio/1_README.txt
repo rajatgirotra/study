@@ -13,7 +13,7 @@ synchronous operations will either throw an exception of type boost::system::sys
 asynchronous operations will need to register a handler that will be called by asio  (the thread in which the handler is called is provided by the user only by calling run() method on the io_context object). Note that the handler signature can be different depending on the async operation you are trying to perform.
 
 =======================================================================================================================================
-async operations are the basic building blocks as asio. Async Op is started by an initiating function. and the callback handlers are called completion handlers. If an initating function requires temporary resources like memory, file descriptor, thread etc.. these resources must be released before calling the corresponding completion handler.
+async operations are the basic building blocks as asio. Async Op is started by an initiating function. and the callback handlers are called completion handlers. If an initiating function requires temporary resources like memory, file descriptor, thread etc.. these resources must be released before calling the corresponding completion handler.
 this way we can avoid peak resource usage when a completion handler again calls an initiating function forming a loop. Example:
 
 socket.async_read(args.., process_buffer);
@@ -24,7 +24,7 @@ void process_buffer() {
 }
 
 So basically think about Async Op as a composition of an initiating function and a corresponding completion handler. 
-Now there is another notional entity called Async agent. Think of an async agent as some kind of entity containing one or more Async Operations. Every Async Operation must be run as part of some Async Agent. Multiple Async Agents may peform work concurrently. So an Async Agent are to Async Operations what a thread is to sequential operations. Inside the Async agent, the Async Op's run sequentially. i.e.
+Now there is another notional entity called Async agent. Think of an async agent as some kind of entity containing one or more Async Operations. Every Async Operation must be run as part of some Async Agent. Multiple Async Agents may perform work concurrently. So an Async Agent are to Async Operations what a thread is to sequential operations. Inside the Async agent, the Async Op's run sequentially. i.e.
 
 Initiating Function called
 Completion Handler called
@@ -33,7 +33,7 @@ Completion Handler called
 Initiating function called
 Completion Handler called...
 
-But why do we have this composition of Asyn Op's inside an Async Agent. That's because an Async Agent has associated characteristics that specifies how an Async Op should behave when it is part of that Async Agent. What are these characteristics?
+But why do we have this composition of Async Op's inside an Async Agent. That's because an Async Agent has associated characteristics that specifies how an Async Op should behave when it is part of that Async Agent. What are these characteristics?
 
 1) Allocator --> how the Async Op's should obtain and free memory resources.
 2) A cancellation slot --> How the Async Op's support cancellation
@@ -66,7 +66,7 @@ struct associated_allocator {
     static type get(const T& t, const Allocator& c) noexcept { t.get_allocator(); }
 };
 
-Also convenience wrappers assocaited_R_t<T, C> and get_associated_R(t, c) are also available.
+Also, convenience wrappers assocaited_R_t<T, C> and get_associated_R(t, c) are also available.
 
 If you see carefully the asio::io_context has a typedef "executor_type" and also defines a "get_executor()" function. So the type asio::io_context can also be used
 as the first parameter type S in associated_executor_t<io_context, C>
@@ -87,7 +87,7 @@ Similarly the Allocator associated with the Async agent is used to manage memory
 And the Cancellation_Slot associated with the Async agent is used to cancel async operations. There can only be one cancellation slot per Async Agent.
 =======================================================================================================================================
 Completion Tokens
-You already have seen that initiating functions accept a Completion handler. This completion handler is called a Completion Token. But that is not the only Completion Token that you can pass. There are others. Passing a Completion handler makes the initiating function trigger the async operation right away.
+You already have seen that initiating functions accept a Completion handler. This completion handler is a type of Completion Token. But that is not the only Completion Token that you can pass. There are others. Passing a Completion handler makes the initiating function trigger the async operation right away.
 socket.async_read_some(buffer, [](error_code e, size_t) {  // ... });
 
 use_future Completion Token
