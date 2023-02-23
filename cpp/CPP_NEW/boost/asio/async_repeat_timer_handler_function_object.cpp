@@ -1,32 +1,31 @@
 #include <iostream>
 #include <boost/asio.hpp>
+#include <string>
 #include <boost/bind/bind.hpp>
 using namespace std;
-
 namespace asio = boost::asio;
 
-struct printer {
-private:
+struct Printer {
+    asio::io_context& m_io;
     asio::steady_timer m_timer;
-    int m_count{0};
+    int m_count {};
 
-public:
-    explicit printer(asio::io_context& io) : m_timer(io, asio::chrono::seconds(1)) {
-        m_timer.async_wait(boost::bind(&printer::print, this));
+    Printer(asio::io_context& io) : m_io(io), m_timer(m_io, asio::chrono::seconds(1)), m_count(0) {
+        m_timer.async_wait(boost::bind(&Printer::print, this, asio::placeholders::error));
     }
 
-    void print() {
+    void print(const boost::system::error_code& ec) {
         if(m_count < 5) {
-            cout << "Timer count " << m_count << endl;
+            cout << "Timer expired, count: " << m_count << endl;
             ++m_count;
             m_timer.expires_at(m_timer.expiry() + asio::chrono::seconds(1));
-            m_timer.async_wait(boost::bind(&printer::print, this));
+            m_timer.async_wait(boost::bind(&Printer::print, this, asio::placeholders::error));
         }
     }
 };
 
 int main() {
     asio::io_context io;
-    printer p(io);
+    Printer p(io);
     io.run();
 }
