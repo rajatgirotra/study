@@ -1,51 +1,58 @@
 #include <iostream>
+#include <string>
 #include <boost/asio.hpp>
-#include <boost/array.hpp>
+#include <boost/bind/bind.hpp>
+#include <array>
+#include <algorithm>
 using namespace std;
-using boost::asio::ip::tcp;
 namespace asio = boost::asio;
 
 int main(int argc, char** argv) {
-    if (argc != 2) {
-        cerr << "Usage:\n\tsync_daytime_client <hostname>\n";
-        exit (-1);
+
+    if(argc != 2) {
+        cout << "Usage:\n\t" << argv[0] << " <Host>\n";
+        return -1;
     }
 
-    asio::io_context io;
-    tcp::resolver resolver(io);
+    //1. create io_context
+    asio::io_context io{};
 
-    boost::system::error_code ec{};
-    auto endpoints = resolver.resolve(argv[1], "13", ec);
-    if(ec) {
-        cerr << "error [" << (ec.category() == asio::error::system_category ? strerror(ec.value()) : ec.message()) << "] resolving daytime server for host: " << argv[1] << endl;
-        exit(-1);
-    }
-    tcp::socket socket(io);
-    cout << "Endpoints\n";
-    for(auto iter = endpoints.begin(); iter != endpoints.end(); ++iter) {
-        cout << iter->host_name() << "  " << iter->service_name() << " "
-        << ", family: " << iter->endpoint().protocol().family() << ", port: " << iter->endpoint().port()
-        << ", type: " << iter->endpoint().protocol().type() << endl;
-    }
-    cout << endl;
-    asio::connect(socket, endpoints, ec);
-    if(ec) {
-        cerr << "error [" << (ec.category() == asio::error::system_category ? strerror(ec.value()) : ec.message()) << "] connecting to host: " << argv[1] << endl;
-        exit(-1);
-    }
+    //2. create a tcp resolver
+    asio::ip::tcp::resolver resolver(io);
 
-    for(;;) {
-        // keep on reading and dumping to cout until the server disconnects.
-        boost::array<char, 128> buf{};
-        auto len = socket.read_some(asio::buffer(buf), ec);
-        if(ec == boost::asio::error::eof) {
-            // server disconnected.
-            break;
-        } else if (ec) {
-            cerr << "error [" << (ec.category() == asio::error::system_category ? strerror(ec.value()) : ec.message()) << "] reading from socket" << endl;
-            exit(-1);
+    //3. resolve all possible endpoints
+//    auto endpoints = resolver.resolve(argv[1], "daytime");
+    auto endpoints = resolver.resolve("", "7777"); // empty hostname means localhost
+
+    // print endpoints for fun
+    std::for_each(endpoints.begin(), endpoints.end(), [](const asio::ip::basic_resolver_entry<asio::ip::tcp>& entry) {
+        cout << "Endpoint, host_name: " << entry.host_name() << ", service_name: " << entry.service_name() << ", address: " << entry.endpoint().address().to_string()
+             << ", port: " << entry.endpoint().port() << endl;
+    });
+
+    //4.create a tcp::socket, and try connecting to endpoints one at a time until you successfully connect
+    asio::ip::tcp::socket socket(io);
+    asio::connect(socket, endpoints);
+
+    cout << "connection established, local ip & port: (" << socket.local_endpoint().address().to_string() << ", " << socket.local_endpoint().port()
+         << "), remote ip & port: (" << socket.remote_endpoint().address().to_string() << ", " << socket.remote_endpoint().port() << ")\n";
+
+    //5. continuously receive TCP stream of bytes until the server closes the connection
+    try {
+        for(;;) {
+            std::array<char, 128> buffer{};
+            boost::system::error_code ec{};
+            auto len = socket.read_some(asio::buffer(buffer), ec);
+            if(ec == asio::error::eof) {
+                cout << "EOF\n";
+                break;
+            } else if(ec) {
+                throw boost::system::system_error(ec);
+            }
+            cout.write(buffer.data(), len);
         }
-
-        std::cout.write(buf.data(), len);
+    } catch(const boost::exception& e) {
+        cerr << "Exception caught: \n";
     }
+
 }

@@ -4,7 +4,7 @@ target_link_libraries(sync_timer PRIVATE Boost::headers)
 add_executable(async_timer async_timer.cpp)
 target_link_libraries(async_timer PRIVATE Boost::headers pthread)
 
-add_executable(async_repeat_timer async_repeat_timer.cpp)
+add_executable(async_repeat_timer async_repeat_timer.cpp sync_daytime_server.cpp)
 target_link_libraries(async_repeat_timer PRIVATE Boost::headers pthread)
 
 add_executable(async_repeat_timer_handler_function_object async_repeat_timer_handler_function_object.cpp)
@@ -15,3 +15,6 @@ target_link_libraries(strand_usage PRIVATE Boost::headers Boost::thread pthread)
 
 add_executable(sync_daytime_client sync_daytime_client.cpp)
 target_link_libraries(sync_daytime_client PRIVATE Boost::headers Boost::thread pthread)
+
+add_executable(sync_daytime_server sync_daytime_server.cpp)
+target_link_libraries(sync_daytime_server PRIVATE Boost::headers Boost::thread pthread)
