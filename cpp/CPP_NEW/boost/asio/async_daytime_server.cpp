@@ -6,6 +6,8 @@
 #include <ctime>
 #include <string>
 #include <thread>
+#include <vector>
+#include <algorithm>
 using namespace std;
 namespace asio = boost::asio;
 
@@ -15,31 +17,43 @@ string getTimeNow() {
     return string(x);
 }
 
-class TCPConnection {
+class TCPServer;
+
+class TCPConnection : public std::enable_shared_from_this<TCPConnection> {
     asio::io_context& m_io;
     asio::ip::tcp::socket m_socket;
+    TCPServer& m_tcpserver;
 
     using TCPConnectionPtr = std::shared_ptr<TCPConnection>;
 
 public:
     static std::atomic_int m_active_connections;
-    explicit TCPConnection(asio::io_context& io) : m_io(io), m_socket(m_io) {}
+    explicit TCPConnection(asio::io_context& io, TCPServer& server) : m_io(io), m_socket(m_io), m_tcpserver(server) {}
 
     ~TCPConnection() {
         atomic_fetch_sub(&m_active_connections, 1);
+        cout << "In destructor\n";
         cout << "Active Connections: " << atomic_load(&m_active_connections) << endl;
     }
 
-    static TCPConnectionPtr create(asio::io_context& io) {
-        return std::make_shared<TCPConnection>(io);
+    static TCPConnectionPtr create(asio::io_context& io, TCPServer& server) {
+        return std::make_shared<TCPConnection>(io, server);
     }
 
     asio::ip::tcp::socket& socket() noexcept { return m_socket; }
 
+    void terminate(TCPConnectionPtr conn);
+
     void start() {
         atomic_fetch_add(&m_active_connections, 1);
+        cout << "Active connections: " << atomic_load(&m_active_connections) << endl;
         boost::asio::async_write(m_socket, asio::buffer(getTimeNow()), [this] (const boost::system::error_code& ec, size_t bytes_transferred) {
-            // ignore err and bytes transferred
+            // ignore err and bytes transferred.
+            // the physical TCP connection is still live at this point. a FIN will be sent at the end of this CompletionHandler.
+            cout << "in async write\n";
+            cout << "socket: is_open, " << m_socket.is_open() << " " << m_socket.local_endpoint().address().to_string() << ", " << m_socket.local_endpoint().port() << endl;
+            std::this_thread::sleep_for(5s);
+            terminate(shared_from_this());
         });
     }
 };
@@ -47,24 +61,45 @@ public:
 class TCPServer {
     asio::io_context& m_io;
     asio::ip::tcp::acceptor m_acceptor;
+    std::vector<std::shared_ptr<TCPConnection>> m_connections;
 public:
     explicit TCPServer(asio::io_context& io) : m_io(io), m_acceptor(m_io, asio::ip::basic_endpoint(asio::ip::tcp::v4(), 7777)) {
         start();
     }
 
+    void terminate(std::shared_ptr<TCPConnection> conn) {
+        auto iter = std::find_if(begin(m_connections), end(m_connections), [conn](const auto& ptr) {
+            // connection id.
+            return conn == ptr;
+        });
+
+        if (iter != m_connections.end())
+            m_connections.erase(iter);
+    }
+
     void start() {
-        auto conn = TCPConnection::create(m_io);
+        auto conn = TCPConnection::create(m_io, *this);
+        m_connections.emplace_back(conn);
+        cout << "A conn use_count: " << conn.use_count() << endl;
 
         m_acceptor.async_accept(conn->socket(), [this, conn](const boost::system::error_code& ec) {
+            cout << "B conn use_count: " << conn.use_count() << endl;
+            this->start();
             if(!ec)
                 conn->start();
-            this->start();
         });
     }
-    // The conn shared_ptr gets destroyed when start() finishes, so counting the number of active connections is a challenge
+    // The conn shared_ptr gets destroyed when start() finishes, because it is part of the lambda closure class. and the closure object gets destroyed at the end
+    // of this function. Since we are reducing the active connection count in the TCPConnection destructor, the count is reduced even when the physical connection
+    // is still live. the physical connection is destroyed only at the end of async_write() function. so accessing "this" in async_write() will be undefined behavior
+    // so we have to create a vector to keep connection shared ptr, so connection object use_count stays > 0.
 };
 
 std::atomic_int TCPConnection::m_active_connections{0};
+
+void TCPConnection::terminate(TCPConnectionPtr conn) {
+    m_tcpserver.terminate(conn);
+}
 
 int main() {
     asio::io_context io;
