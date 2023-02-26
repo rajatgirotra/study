@@ -20,6 +20,8 @@ The asio::execution_context class represents a place where function objects will
 
 class asio::io_context : public asio::execution_context {};
 
+Later on we will right our own execution_context that schedules the CompletionHandlers by priority and calls them.
+
 How does the asio::execution_context work? --> Internally it holds a map of Services. Service is a user defined class which derives from asio::execution_context::service
 
 class MyService : public asio::execution_context::service {
@@ -82,4 +84,7 @@ auto make_strand(ExecutorContext&& executorContext) {
 
 When using async_* functions and passing a CompletionHandler to them and to serialize on the CompletionHandlers, you can use a strand. But you must submit a FO which internally used the strand. for that we use the asio::bind_executor() function.
 
-asio::bind_executor(asio::strand, SomeFunctionObject); // will return a FO which uses strand internally, so CompletionHandlers are synchronized.
+asio::bind_executor(asio::strand, SomeFunctionObject); // will bind the FO with the asio::strand executor.
+
+similarly we also have asio::bind_allocator(SomeAllocator, SomeFunctionObject) --> which will use SomeAllocator class to create objects of SomeFunctionObject.
+Later we will show how to use it.
