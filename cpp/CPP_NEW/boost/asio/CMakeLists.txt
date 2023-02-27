@@ -33,3 +33,6 @@ target_link_libraries(async_daytime_udp_server PRIVATE Boost::headers Boost::thr
 
 add_executable(allocation allocation.cpp)
 target_link_libraries(allocation PRIVATE Boost::headers Boost::thread pthread)
+
+add_executable(ref_counted_buffer ref_counted_buffer.cpp)
+target_link_libraries(ref_counted_buffer PRIVATE Boost::headers Boost::thread pthread)
