@@ -1,3 +1,6 @@
+// A simple asynchronous TCP echo server.
+// to test it, you can download from Boost Asio C++03 examples, a sample blocking_tcp_echo_client client app.
+
 #include <iostream>
 #include <boost/asio.hpp>
 #include <memory>
@@ -77,7 +80,7 @@ public:
     };
 };
 
-class TCPConnection : enable_shared_from_this <TCPConnection> {
+class TCPConnection : public enable_shared_from_this <TCPConnection> {
     tcp::socket m_socket;
     std::array<char, 2048> m_data;
     handle_memory m_memory;
@@ -120,7 +123,7 @@ public:
     }
 };
 
-class TCPServer : std::enable_shared_from_this<TCPServer> {
+class TCPServer : public std::enable_shared_from_this<TCPServer> {
     asio::io_context& m_io;
     tcp::acceptor m_acceptor;
 
@@ -132,10 +135,10 @@ public:
     void start_accept() {
         auto conn = std::make_shared<TCPConnection>(m_io);
         m_acceptor.async_accept(conn->socket(), [this, conn] (const boost::system::error_code& ec) {
-            start_accept();
             if(!ec) {
                 conn->start();
             }
+            start_accept();
         });
     }
 };
