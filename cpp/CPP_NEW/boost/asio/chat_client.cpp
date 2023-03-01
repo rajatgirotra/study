@@ -44,8 +44,8 @@ public:
         boost::system::error_code ec{};
         auto ep = asio::connect(m_socket, m_endpoints, ec);
         if(ec) {
-            cout << "connect failed: " << ec.to_string() << endl;
-            return;
+            cout << "connect failed: " << ec.message() << endl;
+            exit(1);
         }
         this->handle_connect(ep);
     }
@@ -58,8 +58,8 @@ public:
     void handle_read_header() noexcept {
         asio::async_read(m_socket, asio::buffer(m_msg_recv.data(), ChatMessage::HEADER_LENGTH), [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
             if(ec) {
-                cout << "read header failed: " << ec.to_string() << endl;
-                return;
+                cout << "read header failed: " << ec.message() << endl;
+                exit(1);
             } else if(!self->m_msg_recv.decoder_header()) {
                 cout << "decode header failed.\n";
                 return;
@@ -71,8 +71,8 @@ public:
     void handle_read_body() noexcept {
         asio::async_read(m_socket, asio::buffer(m_msg_recv.data(), m_msg_recv.bodyLength()), [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
             if(ec) {
-                cout << "read body failed: " << ec.to_string() << endl;
-                return;
+                cout << "read body failed: " << ec.message() << endl;
+                exit(1);
             }
             cout << "Received: ";
             std::cout.write(self->m_msg_recv.data(), self->m_msg_recv.bodyLength());
@@ -83,14 +83,14 @@ public:
     void write(const string& msg) noexcept  {
         if(msg.size() > ChatMessage::MAX_MSG_SIZE) {
             cout << "failed to send msg: msg too long!\n";
-            return;
+            exit(1);
         }
         auto msgPtr = std::make_shared<ChatMessage>();
         msgPtr->bodyLength(msg.size());
         ::memcpy(msgPtr->data(), msg.data(), msg.size());
         if(!msgPtr->encode_header()) {
             cout << "failed to send msg: msg encoding failed\n";
-            return;
+            exit(1);
         }
         this->do_write(msgPtr);
     }
@@ -106,8 +106,8 @@ public:
             asio::async_write(m_socket, asio::buffer(m_msgs.front()->data(), m_msgs.front()->bodyLength() + ChatMessage::HEADER_LENGTH),
                               [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
                 if(ec) {
-                    cout << "failed to send msg to ChatServer: " << ec.to_string() << endl;
-                    return;
+                    cout << "failed to send msg to ChatServer: " << ec.message() << endl;
+                    exit(1);
                 }
                 self->m_msgs.pop_front();
                 if(!self->m_msgs.empty()) {
