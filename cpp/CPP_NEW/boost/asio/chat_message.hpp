@@ -32,7 +32,7 @@ struct ChatMessage {
 
     bool encode_header() noexcept {
         std::array<char, HEADER_LENGTH> header{};
-        sprintf(header.data(), "0.4d", m_body_length);
+        sprintf(header.data(), "%04d", static_cast<int>(m_body_length));
         memcpy(m_msg.data(), header.data(), HEADER_LENGTH);
         return true;
     }
