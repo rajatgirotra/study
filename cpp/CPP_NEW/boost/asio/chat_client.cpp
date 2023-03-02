@@ -18,7 +18,7 @@ using tcp = asio::ip::tcp;
 
 using ChatMessagePtr = std::shared_ptr<ChatMessage>;
 
-class ChatClient : std::enable_shared_from_this<ChatClient> {
+class ChatClient : public std::enable_shared_from_this<ChatClient> {
 public:
     ChatClient(asio::io_context& io, const tcp::resolver::results_type& endpoints) : m_io(io), m_endpoints(endpoints),
                                                                                      m_socket(m_io) {
@@ -60,7 +60,7 @@ public:
             if(ec) {
                 cout << "read header failed: " << ec.message() << endl;
                 exit(1);
-            } else if(!self->m_msg_recv.decoder_header()) {
+            } else if(!self->m_msg_recv.decode_header()) {
                 cout << "decode header failed.\n";
                 return;
             }
@@ -69,13 +69,13 @@ public:
     }
 
     void handle_read_body() noexcept {
-        asio::async_read(m_socket, asio::buffer(m_msg_recv.data(), m_msg_recv.bodyLength()), [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
+        asio::async_read(m_socket, asio::buffer(m_msg_recv.body(), m_msg_recv.bodyLength()), [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
             if(ec) {
                 cout << "read body failed: " << ec.message() << endl;
                 exit(1);
             }
             cout << "Received: ";
-            std::cout.write(self->m_msg_recv.data(), self->m_msg_recv.bodyLength());
+            std::cout.write(self->m_msg_recv.body(), self->m_msg_recv.bodyLength());
             self->handle_read_header();
         });
     }
@@ -87,7 +87,7 @@ public:
         }
         auto msgPtr = std::make_shared<ChatMessage>();
         msgPtr->bodyLength(msg.size());
-        ::memcpy(msgPtr->data(), msg.data(), msg.size());
+        ::memcpy(msgPtr->body(), msg.data(), msg.size());
         if(!msgPtr->encode_header()) {
             cout << "failed to send msg: msg encoding failed\n";
             exit(1);
@@ -103,12 +103,17 @@ public:
 
     void handle_write(bool inProgress) noexcept {
         if(!inProgress) {
-            asio::async_write(m_socket, asio::buffer(m_msgs.front()->data(), m_msgs.front()->bodyLength() + ChatMessage::HEADER_LENGTH),
+            asio::async_write(m_socket, asio::buffer(m_msgs.front()->data(), m_msgs.front()->length()),
                               [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
                 if(ec) {
                     cout << "failed to send msg to ChatServer: " << ec.message() << endl;
                     exit(1);
                 }
+//                cout << "sent " << bytes << " bytes in message\n";
+//                for(auto i = 0; i < self->m_msgs.front()->length(); ++i) {
+//                    cout << self->m_msgs.front()->m_msg[i];
+//                }
+                cout << endl;
                 self->m_msgs.pop_front();
                 if(!self->m_msgs.empty()) {
                     self->handle_write(false);

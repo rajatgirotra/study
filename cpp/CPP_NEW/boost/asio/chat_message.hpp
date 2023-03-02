@@ -13,22 +13,25 @@
 #include <cstring>
 #include <cstdio>
 #include <charconv>
+#include <iostream>
 struct ChatMessage {
     static constexpr std::size_t HEADER_LENGTH = 4;
     static constexpr std::size_t MAX_MSG_SIZE = 512;
 
     ChatMessage() = default;
 
-    const char* body() const noexcept { return m_msg.data(); }
-    char* body() noexcept { return m_msg.data(); }
+    const char* body() const noexcept { return m_msg.data() + HEADER_LENGTH; }
+    char* body() noexcept { return m_msg.data() + HEADER_LENGTH; }
 
-    const char* data() const noexcept { return m_msg.data() + HEADER_LENGTH; }
-    char* data() noexcept { return m_msg.data() + HEADER_LENGTH; }
+    const char* data() const noexcept { return m_msg.data(); }
+    char* data() noexcept { return m_msg.data(); }
 
     std::size_t bodyLength() const noexcept { return m_body_length; }
     void bodyLength(std::size_t newLength) noexcept {
         m_body_length = std::min(newLength, MAX_MSG_SIZE);
     }
+
+    std::size_t length() const noexcept { return HEADER_LENGTH + m_body_length; }
 
     bool encode_header() noexcept {
         std::array<char, HEADER_LENGTH> header{};
@@ -37,9 +40,11 @@ struct ChatMessage {
         return true;
     }
 
-    bool decoder_header() noexcept {
+    bool decode_header() noexcept {
         auto [ptr, ec] = std::from_chars(m_msg.data(), m_msg.data() + HEADER_LENGTH, m_body_length, 10);
+//        std::cout << "decoding result, ec: " << make_error_code(ec) << ", bodyLength: " << m_body_length << std::endl;
         if(ec == std::errc() && m_body_length < MAX_MSG_SIZE) {
+
             return true;
         } else {
             m_body_length = 0;
@@ -47,7 +52,7 @@ struct ChatMessage {
         }
     }
 
-private:
+public:
     std::size_t m_body_length {};
     std::array<char, HEADER_LENGTH + MAX_MSG_SIZE> m_msg {};
 };
