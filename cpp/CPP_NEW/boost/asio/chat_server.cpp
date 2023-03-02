@@ -40,6 +40,17 @@ public:
     void leave(ChatParticipantPtr participant) {
         m_participants.erase(participant);
     }
+
+    void deliver(const ChatMessage& msg) {
+        // make sure we retain only the last 100 messages.
+        m_msgs.emplace_back(msg);
+        while(m_msgs.size() > MAX_MSGS) {
+            m_msgs.pop_front();
+        }
+        std::for_each(m_participants.begin(), m_participants.end(), [&msg] (const ChatParticipantPtr& participant ) {
+            participant->deliver(msg);
+        });
+    }
 };
 
 class ChatSession : public enable_shared_from_this<ChatSession>, public ChatParticipant {
@@ -48,6 +59,7 @@ private:
     tcp::socket m_socket;
     ChatRoom& m_room;
     ChatMessage m_msg;
+    std::deque<ChatMessage> m_write_msgs;
 public:
     ChatSession(asio::io_context& io, ChatRoom& room) : m_io(io), m_socket(m_io), m_room(room) {}
 
@@ -66,11 +78,13 @@ public:
                 cout << "failed to read msg header: " << ec.message() << endl;
                 // remove this participant
                 self->m_room.leave(self->shared_from_this());
+                return;
             }
             if(!self->m_msg.decoder_header()) {
                 cout << "failed to decode chat msg: " << ec.message() << endl;
                 // remove this participant
                 self->m_room.leave(self->shared_from_this());
+                return;
             }
             self->handle_read_body();
         });
@@ -84,17 +98,32 @@ public:
                 cout << "failed to read msg body: " << ec.message() << endl;
                 // remove this participant
                 self->m_room.leave(self->shared_from_this());
+                return;
             }
-            self->deliver(self->m_msg);
-            self->handle_read_header();
+            self->m_room.deliver(self->m_msg);
+            self->handle_read_header(); // read next message.
         });
     }
 
-    void deliver(ChatMessage msg) {
-        asio::async_write(m_socket, asio::buffer(msg.data(), ChatMessage::HEADER_LENGTH + ChatMessage::MAX_MSG_SIZE),
-                          [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
-//            if(ec)
-        });
+    void deliver(const ChatMessage& msg) {
+        bool need_to_write = m_write_msgs.empty();
+        m_write_msgs.push_back(msg);
+        handle_write(need_to_write);
+    }
+
+    void handle_write(bool need_to_write) {
+        if(need_to_write) {
+            asio::async_write(m_socket, asio::buffer(m_write_msgs.front().data(), ChatMessage::HEADER_LENGTH + m_write_msgs.front().bodyLength()),
+                              [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
+                if(ec) {
+                    cout << "failed writing chat msg: " << ec.message();
+                    self->m_room.leave(self->shared_from_this());
+                    return;
+                }
+                self->m_write_msgs.pop_front();
+                self->handle_write(!self->m_write_msgs.empty());
+            });
+        }
     }
 };
 

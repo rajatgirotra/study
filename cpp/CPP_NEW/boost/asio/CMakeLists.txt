@@ -39,3 +39,6 @@ target_link_libraries(ref_counted_buffer PRIVATE Boost::headers Boost::thread pt
 
 add_executable(chat_client chat_client.cpp)
 target_link_libraries(chat_client PRIVATE Boost::headers Boost::thread pthread)
+
+add_executable(chat_server chat_server.cpp)
+target_link_libraries(chat_server PRIVATE Boost::headers Boost::thread pthread)
