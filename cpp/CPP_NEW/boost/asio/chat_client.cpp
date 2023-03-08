@@ -56,7 +56,9 @@ public:
     }
 
     void handle_read_header() noexcept {
-        asio::async_read(m_socket, asio::buffer(m_msg_recv.data(), ChatMessage::HEADER_LENGTH), [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
+        asio::async_read(m_socket, asio::buffer(m_msg_recv.data(), ChatMessage::HEADER_LENGTH),
+                         asio::transfer_all(),
+                         [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
             if(ec) {
                 cout << "read header failed: " << ec.message() << endl;
                 exit(1);
@@ -69,13 +71,16 @@ public:
     }
 
     void handle_read_body() noexcept {
-        asio::async_read(m_socket, asio::buffer(m_msg_recv.body(), m_msg_recv.bodyLength()), [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
+        asio::async_read(m_socket, asio::buffer(m_msg_recv.body(), m_msg_recv.bodyLength()),
+                         asio::transfer_all(),
+                         [self = shared_from_this()] (const boost::system::error_code& ec, size_t bytes) {
             if(ec) {
                 cout << "read body failed: " << ec.message() << endl;
                 exit(1);
             }
             cout << "Received: ";
             std::cout.write(self->m_msg_recv.body(), self->m_msg_recv.bodyLength());
+            cout << endl;
             self->handle_read_header();
         });
     }
@@ -147,6 +152,9 @@ int main(int argc, char** argv) {
     while(true) {
         string msg;
         std::getline(cin, msg);
+        if(msg.empty()) {
+            continue;
+        }
         io.post([msg, client] () {client->write(msg);});
     }
 
