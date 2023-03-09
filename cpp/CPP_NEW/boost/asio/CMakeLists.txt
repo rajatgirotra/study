@@ -42,3 +42,5 @@ target_link_libraries(chat_client PRIVATE Boost::headers Boost::thread pthread)
 
 add_executable(chat_server chat_server.cpp)
 target_link_libraries(chat_server PRIVATE Boost::headers Boost::thread pthread)
+
+add_subdirectory(http1)
