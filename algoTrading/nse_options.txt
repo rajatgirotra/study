@@ -1,0 +1,81 @@
+Open Interest
+=============
+It is the number of outstanding contracts that havent been squared off yet. In Google if you type NSE Options chain, it will take you to a page where you can see all the options for a particular underlying (i.e. what all strikes are available for trading, their Open Interst, change in open interest, Intrinsic Value, expiry date, last trade price, best buy, best offer etc). If you look at the Open Interest for calls of various strikes, you will see different values. The row where Call Open Interest is maximum is called Resistence (i.e. it is unlikely underlying will cross that strike price). Similarly, the row where Put Open Interest is maximum is called Support (i.e. it is unlikely that underlying will go below that strike price). But why are these levels Resistence and Support?
+
+Lets understand Open Interest better: For equity markets, there are fixed number of shares which get traded. But for F&O, new contracts get created when new traders/participants enter the market.
+
+Let say trader A and B enter the market and take opposite positions at the same time. (A buys 10 lots and one B sells 10 lots). This will cause an Open Interest (OI) of 10 lots to be created. Later lets say A sells 5 and another new trader C buys those 5 lots. So Open Interest will not change. as the 5 lots have just changed hands. So for Open Interest to be created, both sides must be new positions.
+
+So let say Open Interest for BANKNIFTY for strike 41500 for Call option is 5lacs. this means that 5lacs contracts are currently outstanding. i.e. all traders together have bought 5 lacs and sold 5 lacs calls at the strike price which are not yet squared off. So now if 5 lacs contracts are open why is this level considered resistance. the traders with long position think that underlying BANKNIFTY will go beyond 41500 and the traders with short position think that underlying will not go above 41500. Then why Resistence. It is because buying options is very cheap and not super risky compared to selling options. selling options invites a lot of margin to be deposited + there is risk of unlimited loss. So always the sellers or writers view is considered. So sellers believe that underlying will not go above 41500 thus becoming Resistence.
+
+Similarly, if OI is maxiumum for 39000 strike price, the writers of put options make that level as the SUPPORT level. ie put writers believe that BANKNIFTY will not go below 39000.
+
+BANKNIFTY
+=========
+It is an Index of 12 most liquid banks traded on NSE, like HDFC, ICICI, Kotak, Axis, SBI, Bank of Baroda, Indusland Bank etc.
+
+Future Contract Spec
+-------------------
+Lot size: 40
+Tick size: 0.05 INR
+Tick Value: 40 * 0.05 = 2.00 INR
+Expiry Date: Last Thursday of expiry month. If that is business holiday, then precding day. Futures are available for current and next two months. They are called near month, next month, and far month
+Daily Settlement price: Last half hours weighted average price (for purpose of mark to market settlement)
+
+Options Spec
+------------
+Lot size: 40
+Tick size: 0.05
+Tick Value: 2 INR
+Strikes available: if underying INDEX is > 6000 (almost always the case), there will be strikes available at 100 INR difference for any given expiry date.
+Expiry Date: Last Thursday of expiry month. If that is business holiday, then precding day. Futures are available for current and next two months. They are called near month, next month, and far month
+
+Nifty 50
+========
+
+Future contract spec
+--------------------
+Lot size: Variable (currently 50). Basically when a new future is created, the notional value (i.e underlying price * lot size) should not be less than 5 lac INR.
+Tick size: 0.05
+Tick Value: 2.50 INR (50 * 0.05)
+Expiry Date: Last Thursday of expiry month. If that is business holiday, then precding day. Futures are available for current and next two months. They are called near month, next month, and far month
+
+Option contract spec
+-------------------
+Lot size: Variable (currently 50). Basically when a new option is created, the notional value (i.e underlying price * lot size) should not be less than 5 lac INR.
+Tick size: 0.05
+Tick Value: 2.50 INR (50 * 0.05)
+Expiry Date: Last Thursday of expiry month. If that is business holiday, then precding day. Futures are available for current and next two months. They are called near month, next month, and far month
+strikes available: 4 weekly expiries, 3 monthly expiries (near, next, far month), 3 quarterly month expiries (March/June/Sep/Dec), 8 semi-annual expiries (June/Dec)
+
+
+Base Prices
+------------
+Base price of the options contracts, on introduction of new contracts, would be the theoretical value of the options contract arrived at, based on Black-Scholes model of calculation of options premiums or the settlement price as computed by Clearing Corporation.
+
+The options price for a Call, computed as per the following Black Scholes formula:
+C = S * N (d1) - X * e- rt * N (d2)
+
+and the price for a Put is : P = X * e- rt * N (-d2) - S * N (-d1)
+
+where :
+d1 = [ln (S / X) + (r + σ2 / 2) * t] / σ * sqrt(t)
+d2 = [ln (S / X) + (r - σ2 / 2) * t] / σ * sqrt(t)
+= d1 - σ * sqrt(t)
+
+C = price of a call option
+P = price of a put option
+S = price of the underlying asset
+X = Strike price of the option
+r = rate of interest
+t = time to expiration
+σ = volatility of the underlying
+
+N represents a standard normal distribution with mean = 0 and standard deviation = 1
+ln represents the natural logarithm of a number. Natural logarithms are based on the constant e (2.71828182845904).
+
+Rate of interest may be the relevant MIBOR rate or such other rate as may be specified.
+
+The base price of the contracts on subsequent trading days, will be the daily settlement price of the options contracts as computed by clearing corporation.
+
+
