@@ -83,6 +83,7 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 
 #add_subdirectory(advanced)
 add_subdirectory(boost)
+add_subdirectory(packet_parser)
 #add_subdirectory(chrono)
 #add_subdirectory(constexpr)
 #add_subdirectory(hashes_maps_sets)
