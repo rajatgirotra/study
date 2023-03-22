@@ -53,6 +53,8 @@ void DecoderUtil::decode_addOrder(char *start, InAddOrder &order) {
     // ticker
     std::memcpy(order.m_ticker, start, 8);
     start += 8;
+    char* pos = std::strchr(order.m_ticker, ' ');
+    if(pos != nullptr) { *pos = '\0'; }
 
     // price
     decode_s32(start, order.m_price);

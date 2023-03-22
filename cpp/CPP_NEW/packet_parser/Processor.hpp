@@ -30,9 +30,11 @@ public:
 
     Packet getNext() noexcept {
         assert(!m_outOfSeqPkts.empty());
-        auto pkt = m_outOfSeqPkts.top();
+        auto&& pkt = m_outOfSeqPkts.top();
+        //hack as priority_queue doesn't support move only types during pop().
+        Packet& ncPkt = const_cast<Packet&>(pkt);
         m_outOfSeqPkts.pop();
-        return pkt;
+        return std::move(ncPkt);
     }
 
     void parsePacket(const Packet& pkt);

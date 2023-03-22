@@ -8,11 +8,20 @@ struct Packet {
     std::uint16_t m_size {};
     std::uint32_t m_seqNo {};
     std::uint16_t m_payloadSize{};
-    std::array<char, (1<<16) + 6> m_payload {}; // allocate enough space. 65536 bytes + 6 bytes for size and seqNo.
+    std::array<char, (1<<16)> m_payload {}; // 65536 bytes is enough space.
 
     bool operator > (const Packet& rhs) const noexcept {
         return this->m_seqNo > rhs.m_seqNo;
     }
+
+    Packet() = default;
+    // disable copy
+    Packet(const Packet&) = delete;
+    Packet& operator = (const Packet&) = delete;
+
+    // enable move
+    Packet(Packet&&) = default;
+    Packet& operator = (Packet&&) = default;
 };
 
 enum struct Side : char {
