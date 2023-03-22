@@ -1,15 +1,16 @@
 #include "Parser.hpp"
 #include "InputFormat.hpp"
-#include "DecoderUtils.hpp"
+#include "Decoder.hpp"
 #include "Processor.hpp"
 #include <iostream>
+
 
 void Parser::onUDPPacket(char* buffer, uint16_t packetSize) {
     static Processor processor;
     try {
         // decode packet
         Packet pkt;
-        DecoderUtil::decode_packet(buffer, pkt);
+        Decoder::decode_packet(buffer, pkt);
 
         // ignore duplicate and empty packets
         if(pkt.m_seqNo < processor.nextExpectedSeqNo() || pkt.m_payloadSize == 0) {

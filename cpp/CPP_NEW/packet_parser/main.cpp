@@ -3,6 +3,13 @@
 #include "Parser.hpp"
 #include <cstdio>
 #include <arpa/inet.h>
+#include "OutputFormat.hpp"
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <array>
+#include <cassert>
+#include "Encoder.hpp"
 
 int main(int argc, char** argv) {
 //    std::array<char, 7> buffer{};
@@ -46,6 +53,23 @@ int main(int argc, char** argv) {
 
     close(fd);
 
+    std::cout << sizeof(OutOrderReplaced) << std::endl;
+
+    std::ofstream ofs("/tmp/abc.out", std::ios_base::trunc | std::ios_base::binary);
+
+    assert(ofs.is_open());
+    OutAddOrder outAddOrder;
+    outAddOrder.m_timestamp = 0x0102030405060708;
+    outAddOrder.m_orderRefNo = 0xABCDEF1009080705;
+    outAddOrder.m_side = 'S';
+    std::memcpy(outAddOrder.m_ticker, "SPY", 3);
+    outAddOrder.m_size = 0x123;
+    outAddOrder.m_price = 123.5;
+
+    std::array<char, 44> outBuffer;
+    Encoder::encode_addOrder(outBuffer.data(), outAddOrder);
+    ofs.write(outBuffer.data(), sizeof(OutAddOrder));
+    ofs.close();
     return 0;
 
 }

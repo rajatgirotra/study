@@ -12,7 +12,7 @@ class InOrderExecuted;
 class InOrderCancelled;
 class InOrderReplaced;
 
-struct DecoderUtil {
+struct Decoder {
     static void decode_u16(char* start, uint16_t& result);
     static void decode_u32(char* start, uint32_t& result);
     static void decode_s32(char* start, int32_t& result);

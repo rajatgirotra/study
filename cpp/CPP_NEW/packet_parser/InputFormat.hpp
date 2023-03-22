@@ -4,6 +4,11 @@
 #include <cstdint>
 #include <ostream>
 
+enum struct Side : char {
+    Buy,
+    Sell
+};
+
 struct Packet {
     std::uint16_t m_size {};
     std::uint32_t m_seqNo {};
@@ -24,10 +29,6 @@ struct Packet {
     Packet& operator = (Packet&&) = default;
 };
 
-enum struct Side : char {
-    Buy,
-    Sell
-};
 
 struct InAddOrder {
     char m_msgType {'A'};
@@ -35,7 +36,7 @@ struct InAddOrder {
     std::uint64_t m_orderRefNo {};
     Side m_side{};
     std::uint32_t m_size{};
-    char m_ticker[9]{};
+    std::string m_ticker;
     std::int32_t m_price{};
 
     friend std::ostream& operator << (std::ostream& os, const InAddOrder&);
