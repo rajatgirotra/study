@@ -4,6 +4,7 @@ add_library(parser STATIC
         InputFormat.cpp
         OutputFormat.cpp
         Processor.cpp
+        OrderManager.cpp
         Parser.cpp)
 
 add_executable(Solution main.cpp)
