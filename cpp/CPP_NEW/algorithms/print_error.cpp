@@ -60,21 +60,41 @@ string solution(const string& text, int Y, int Z) {
     auto startIdx = (Y-Z >= 0 ? static_cast<string::size_type>(Y-Z) : prevLineStartIdx);
     auto endIdx = (static_cast<string::size_type>(Y+Z) >= text.size() ? nextLineEndIdx : static_cast<string::size_type>(Y+Z));
 
-    cout << "ErrLine Start, End: " << errLineStartIdx << "  " << errLineEndIdx << endl;
-    cout << "PrevLine Start, End: " << prevLineStartIdx << "  " << prevLineEndIdx << endl;
-    cout << "NextLine Start, End: " << nextLineStartIdx << "  " << nextLineEndIdx << endl;
-    cout << "Start Idx: " << startIdx << endl;
-    cout << "End Idx: " << endIdx << endl;
-    cout << endl << endl;
+    // cout << "ErrLine Start, End: " << errLineStartIdx << "  " << errLineEndIdx << endl;
+    // cout << "PrevLine Start, End: " << prevLineStartIdx << "  " << prevLineEndIdx << endl;
+    // cout << "NextLine Start, End: " << nextLineStartIdx << "  " << nextLineEndIdx << endl;
+    // cout << "Start Idx: " << startIdx << endl;
+    // cout << "End Idx: " << endIdx << endl;
+    // cout << endl << endl;
 
-    return "";
+    string result(text, startIdx, static_cast<unsigned long>(Y) - startIdx + 1);
+
+    if(endIdx >= errLineEndIdx) {
+        result.append(text, static_cast<unsigned long>(Y + 1), errLineEndIdx - static_cast<unsigned long>(Y));
+    } else {
+        result.append(text, static_cast<unsigned long>(Y + 1), endIdx - static_cast<unsigned long>(Y)).append("\n");
+    }
+
+    // append blank line with caret
+    if(!result.empty() && result.back() != '\n') result.append("\n");
+    if(errLineStartIdx >= startIdx) {
+        result.append(static_cast<unsigned long>(Y) - errLineStartIdx, ' ').append("^\n");
+    } else {
+        result.append(static_cast<unsigned long>(Y) - startIdx, ' ').append("^\n");
+    }
+
+    // append line after
+    if(endIdx > errLineEndIdx) {
+        result.append(text, nextLineStartIdx, endIdx-nextLineStartIdx+1);
+    }
+    return result;
 }
 
 int main() {
     string S1 = "// comment\n"
-               "int main() {\n"
-               "    return 0\n"
-               "}\n";
+                "int main() {\n"
+                "    return 0\n"
+                "}\n";
 
     string S2 = "123";
 
@@ -84,7 +104,16 @@ int main() {
                 "each part, and newlines must be literal as\n"
                 "usual.";
 
-    solution(S1, 36, 126);
-    solution(S2, 1, 0);
+    auto res1 = solution(S1, 36, 126);
+    cout << res1 << endl;
 
+    auto res2= solution(S2, 1, 0);
+    cout << res2 << endl;
+
+    auto res3 = solution(S3, 121, 43);
+    cout << res3 << endl;
+
+    auto res4 = solution(S3, 165, 43);
+    cout << res4 << endl;
 }
+

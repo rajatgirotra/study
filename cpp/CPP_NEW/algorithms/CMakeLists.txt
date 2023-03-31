@@ -3,3 +3,12 @@ target_link_libraries(print_error PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warn
 
 add_executable(squares_in_2d_plane squares_in_2d_plane.cpp)
 target_link_libraries(squares_in_2d_plane PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(manhattan_distance manhattan_distance.cpp)
+target_link_libraries(manhattan_distance PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(is_prime is_prime.cpp)
+target_link_libraries(is_prime PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(count_primes count_primes.cpp)
+target_link_libraries(count_primes PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
