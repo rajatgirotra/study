@@ -15,3 +15,6 @@ target_link_libraries(count_primes PRIVATE ${PROJECT_NAME_LOWERCASE}_project_war
 
 add_executable(all_possible_strings all_possible_strings.cpp)
 target_link_libraries(all_possible_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(alphabetically_smallest_strings alphabetically_smallest_strings.cpp)
+target_link_libraries(alphabetically_smallest_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
