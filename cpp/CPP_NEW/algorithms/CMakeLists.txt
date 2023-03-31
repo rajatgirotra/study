@@ -1,2 +1,5 @@
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(squares_in_2d_plane squares_in_2d_plane.cpp)
+target_link_libraries(squares_in_2d_plane PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
