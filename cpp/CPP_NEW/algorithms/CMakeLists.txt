@@ -12,3 +12,6 @@ target_link_libraries(is_prime PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warning
 
 add_executable(count_primes count_primes.cpp)
 target_link_libraries(count_primes PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(all_possible_strings all_possible_strings.cpp)
+target_link_libraries(all_possible_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
