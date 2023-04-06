@@ -21,3 +21,10 @@ target_link_libraries(alphabetically_smallest_strings PRIVATE ${PROJECT_NAME_LOW
 
 add_executable(n_queens n_queens.cpp)
 target_link_libraries(n_queens PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(array_product_exclude_self array_product_exclude_self.cpp)
+target_link_libraries(array_product_exclude_self PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(snake_case_to_camel_case snake_case_to_camel_case.cpp)
+target_link_libraries(snake_case_to_camel_case PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
