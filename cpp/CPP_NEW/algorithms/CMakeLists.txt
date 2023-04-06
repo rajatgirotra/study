@@ -28,3 +28,8 @@ target_link_libraries(array_product_exclude_self PRIVATE ${PROJECT_NAME_LOWERCAS
 add_executable(snake_case_to_camel_case snake_case_to_camel_case.cpp)
 target_link_libraries(snake_case_to_camel_case PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(biggest_spike biggest_spike.cpp)
+target_link_libraries(biggest_spike PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(coin_change coin_change.cpp)
+target_link_libraries(coin_change PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
