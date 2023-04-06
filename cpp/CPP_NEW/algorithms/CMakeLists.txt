@@ -18,3 +18,6 @@ target_link_libraries(all_possible_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_pro
 
 add_executable(alphabetically_smallest_strings alphabetically_smallest_strings.cpp)
 target_link_libraries(alphabetically_smallest_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(n_queens n_queens.cpp)
+target_link_libraries(n_queens PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
