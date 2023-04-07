@@ -45,3 +45,18 @@ target_link_libraries(count_one_bits_in_integer PRIVATE ${PROJECT_NAME_LOWERCASE
 
 add_executable(stock_price_buy_sell stock_price_buy_sell.cpp)
 target_link_libraries(stock_price_buy_sell PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(sqrt sqrt.cpp)
+target_link_libraries(sqrt PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(minimum_bits_to_zero minimum_bits_to_zero.cpp)
+target_link_libraries(minimum_bits_to_zero PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(minimum_bits_to_zero_2 minimum_bits_to_zero_2.cpp)
+target_link_libraries(minimum_bits_to_zero_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(minimum_bits_to_zero_3 minimum_bits_to_zero_3.cpp)
+target_link_libraries(minimum_bits_to_zero_3 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(linked_list_detect_cycle linked_list_detect_cycle.cpp)
+target_link_libraries(linked_list_detect_cycle PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
