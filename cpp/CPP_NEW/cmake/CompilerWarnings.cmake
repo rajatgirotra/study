@@ -11,7 +11,7 @@ function(set_project_warnings warnings)
             -Wunused # warn on anything being unused
             -Woverloaded-virtual # warn if you overload (not override) a virtual function
             -Wpedantic # warn if non-standard C++ is used
-            -Wconversion # warn on type conversions that may lose data
+            -Wno-conversion # warn on type conversions that may lose data
             -Wno-sign-conversion # warn on sign conversions
             -Wnull-dereference # warn if a null dereference is detected
             -Wduplicated-cond # warn when if/else branches have duplicated conditions

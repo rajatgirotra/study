@@ -32,7 +32,7 @@ int maxAreaBruteForce(const vector<int>& height) {
 
 // O(n)
 int maxAreaOptimized(const vector<int>& height) {
-    int l = 0, r = height.size() - 1;
+    int l = 0, r = static_cast<int>(height.size()) - 1;
     int maxArea = 0;
     while (l < r) {
         maxArea = std::max(std::min(height[l], height[r]) * (r-l), maxArea);

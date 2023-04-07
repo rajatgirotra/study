@@ -33,3 +33,15 @@ target_link_libraries(biggest_spike PRIVATE ${PROJECT_NAME_LOWERCASE}_project_wa
 
 add_executable(coin_change coin_change.cpp)
 target_link_libraries(coin_change PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(container_with_most_water container_with_most_water.cpp)
+target_link_libraries(container_with_most_water PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(count_islands count_islands.cpp)
+target_link_libraries(count_islands PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(count_one_bits_in_integer count_one_bits_in_integer.cpp)
+target_link_libraries(count_one_bits_in_integer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(stock_price_buy_sell stock_price_buy_sell.cpp)
+target_link_libraries(stock_price_buy_sell PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
