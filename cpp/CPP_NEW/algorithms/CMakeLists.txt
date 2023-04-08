@@ -60,3 +60,6 @@ target_link_libraries(minimum_bits_to_zero_3 PRIVATE ${PROJECT_NAME_LOWERCASE}_p
 
 add_executable(linked_list_detect_cycle linked_list_detect_cycle.cpp)
 target_link_libraries(linked_list_detect_cycle PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(subarray_sum_equals_k subarray_sum_equals_k.cpp)
+target_link_libraries(subarray_sum_equals_k PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
