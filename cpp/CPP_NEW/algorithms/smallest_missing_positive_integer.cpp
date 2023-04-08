@@ -49,6 +49,7 @@ finally iterate over 1..4
 #include <iostream>
 #include <algorithm>
 #include <random>
+#include <cstdint>
 #include <iterator>
 #include <array>
 #include <cmath>
@@ -86,6 +87,49 @@ void smallest_missing_positive_integer(std::array<int, N>& arr) {
     
     cout << "smallest missing positive integer: " << idx << endl;
 }
+template <size_t N>
+void smallest_missing_positive_integer2(std::array<int, N>& arr) {
+    // change all negative numbers to 0
+    for(auto&& val : arr) {
+        val = std::max(0, val);
+    }
+
+    // iterate through each element
+    // if 0 change it to -(arr.size()+1)
+    // if element is positive, store -1 at index (element-1) if that index is in bounds of the array.
+    // if value is already negative, do nothing
+    for(auto&& val : arr) {
+        // we could have negative values in the array as we are storing negative only
+        // to mark positive elements
+        auto posVal = std::abs(val) - 1;
+        if(posVal < 0) {
+            // if val was 0, we do nothing for 0 values in the array and leave them as is
+            continue;
+        } else if (posVal > 0 && posVal < arr.size()) {
+            // if value at arr[posVal] is negative already, leave it like that
+            // else if it is positive, then change it to negative.
+            // else if it is zero, store (arr.size()+1)*-1
+            if(arr[posVal] == 0) {
+                arr[posVal] = (arr.size() + 1) * -1;
+            } else {
+                arr[posVal] = std::min(arr[posVal], arr[posVal] * -1);
+            }
+        }
+    }
+
+    // now just iterate through 1..arr.size()-1 and check if element at index-1 is negative or not.
+    // if not negative, return index
+    int idx = 1;
+    for(idx = 1; idx < arr.size(); ++idx) {
+        if (arr[idx-1] >= 0) {
+            cout << "Smallest missing positive integer2: " << idx << endl;
+            return;
+        }
+    }
+
+    cout << "Smallest missing positive integer2: " << idx << endl;
+}
+
 
 int main() {
     // std::array<int, 3> arr {1, 2, 0};
@@ -94,4 +138,5 @@ int main() {
     std::copy(begin(arr), end(arr), std::ostream_iterator<int>(cout, "  "));
     cout << endl;
     smallest_missing_positive_integer(arr);
+    smallest_missing_positive_integer2(arr);
 }

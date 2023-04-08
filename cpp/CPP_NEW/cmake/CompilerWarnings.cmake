@@ -23,6 +23,7 @@ function(set_project_warnings warnings)
             -Wformat=2 # warn on security issues around functions that format output
             -fconcepts-diagnostics-depth=2
             -Wno-sign-compare
+            -Wno-overflow
             # (ie printf)
             )
 

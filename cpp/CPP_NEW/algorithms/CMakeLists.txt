@@ -66,3 +66,6 @@ target_link_libraries(subarray_sum_equals_k PRIVATE ${PROJECT_NAME_LOWERCASE}_pr
 
 add_executable(string_remove_adjacent string_remove_adjacent.cpp)
 target_link_libraries(string_remove_adjacent PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(smallest_missing_positive_integer smallest_missing_positive_integer.cpp)
+target_link_libraries(smallest_missing_positive_integer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
