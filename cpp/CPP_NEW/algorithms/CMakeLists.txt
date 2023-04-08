@@ -69,3 +69,6 @@ target_link_libraries(string_remove_adjacent PRIVATE ${PROJECT_NAME_LOWERCASE}_p
 
 add_executable(smallest_missing_positive_integer smallest_missing_positive_integer.cpp)
 target_link_libraries(smallest_missing_positive_integer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(sliding_window_maximum_array sliding_window_maximum_array.cpp)
+target_link_libraries(sliding_window_maximum_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
