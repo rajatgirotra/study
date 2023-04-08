@@ -22,9 +22,10 @@ using namespace std;
 
 template<size_t N>
 std::pair<int, int> two_sum_brute_force(std::array<int, N> arr, int k) {
-    for(int i = 0; i < arr.size()-1; ++i) {
-        for(int j = i+1; j < arr.size(); ++j) {
-            if (arr[i] + arr[j] == k) {
+    // for every element, traverse the array to look for K - element.
+    for(int i = 0; i < N-1; ++i) {
+        for(int j = i+1; j < N; ++j) {
+            if(arr[i] + arr[j] == k) {
                 return std::make_pair(i, j);
             }
         }
@@ -35,14 +36,14 @@ std::pair<int, int> two_sum_brute_force(std::array<int, N> arr, int k) {
 //8 8 4 18 -17 -3 -13 -7 14 4
 template<size_t N>
 std::pair<int, int> two_sum(std::array<int, N> arr, int k) {
-    std::unordered_map<int, int> m; // key is element, value is array index
-    for(int i = 0; i < arr.size(); ++i) {
-        auto iter = m.find(k-arr[i]);
-        if(iter != m.end()) {
-            return std::make_pair(iter->second, i);
-        } else {
-            m.emplace(arr[i], i);
+    std::unordered_map<int, int> m{}; // element and index map
+    // for every element, search for K - element in hash Map.
+    for(auto iter = arr.begin(); iter != arr.end(); ++iter) {
+        auto it = m.find(k - *iter);
+        if(it != m.end()) {
+            return std::make_pair(it->second, std::distance(arr.begin(), iter));
         }
+        m[*iter] = std::distance(arr.begin(), iter);
     }
     return std::make_pair(-1, -1);
 }
@@ -63,9 +64,9 @@ int main() {
     int x = dist2(engine);
     int y = x;
     do {
-        y = dist2(engine); // if index x and y are same, we wil never be able to find two sum.
+        y = dist2(engine); // if index x and y are same, we will never be able to find two sum.
     } while(x == y);
-    
+
     cout << "Indices for k: " << x << ", " << y << endl;
     int k = arr[x] + arr[y];
 

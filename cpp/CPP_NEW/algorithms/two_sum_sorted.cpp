@@ -21,22 +21,19 @@ using namespace std;
 
 template<size_t N>
 std::pair<int, int> two_sum_sorted(std::array<int, N> arr, int k) {
-    auto first = arr.begin();
-    auto last = arr.end();
-    --last;
-    while (first < last) {
-        if ((*first + *last) < k) {
-            ++first;
-        } else if ((*first + *last) > k) {
-            --last;
+    auto start = arr.begin(), end = arr.end() - 1;
+    while(start < end) {
+        if((*start + *end) == k) {
+            return std::make_pair(std::distance(arr.begin(), start),
+                                  std::distance(arr.begin(), end));
+        } else if ((*start + *end) < k) {
+            ++start;
         } else {
-            // we found the indices
-            return std::make_pair(std::distance(arr.begin(), first), std::distance(arr.begin(), last));
+            --end;
         }
     }
     return std::make_pair(-1, -1);
 }
-
 
 int main() {
     std::array<int, 10> arr{};
@@ -55,7 +52,7 @@ int main() {
     do {
         y = dist2(engine); // if index x and y are same, we wil never be able to find two sum.
     } while(x == y);
-    
+
     int k = arr[x] + arr[y];
 
     std::sort(arr.begin(), arr.end());
