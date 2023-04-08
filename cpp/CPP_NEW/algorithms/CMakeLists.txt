@@ -63,3 +63,6 @@ target_link_libraries(linked_list_detect_cycle PRIVATE ${PROJECT_NAME_LOWERCASE}
 
 add_executable(subarray_sum_equals_k subarray_sum_equals_k.cpp)
 target_link_libraries(subarray_sum_equals_k PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(string_remove_adjacent string_remove_adjacent.cpp)
+target_link_libraries(string_remove_adjacent PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
