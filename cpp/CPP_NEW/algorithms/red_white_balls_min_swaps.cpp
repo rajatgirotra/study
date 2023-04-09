@@ -11,20 +11,19 @@ using namespace std;
 // the strategy is to bring all Red Balls into the middle instead of bringing them together on the left or the right.
 
 int solution(const string& s) {
-    // first find out the index of all red balls
-    std::vector<int> reds;
-    for(auto idx = 0; idx < s.size(); ++idx) {
-        if (s[idx] == 'R')
-            reds.emplace_back(idx);
+    // get indices of all red balls
+    std::vector<int> reds{};
+    for(auto i = 0; i < s.size(); ++i) {
+        if(s[i] == 'R') reds.push_back(i);
     }
 
-    int count {0};
-    size_t sp = 0, ep = reds.size()-1;
+    auto sp = 0;
+    auto ep = reds.size()-1;
+    int count{};
     while(sp < ep) {
-        count += reds[ep] - reds[sp] -ep + sp;
-        if(count > 1000000000) {
-           return -1;
-        }
+        // reds[ep] - reds[sp] tells you how many total balls are there when you start from reds[sp] to reach reds[ep]
+        // ep - sp - gives you how many of those balls above are actually red. So you don't need to swap red balls. So we subtract (ep-sp)
+        count += reds[ep] - reds[sp] - ep + sp;
         ++sp;
         --ep;
     }

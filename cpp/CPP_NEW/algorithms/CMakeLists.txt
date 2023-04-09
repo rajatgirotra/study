@@ -90,3 +90,6 @@ target_link_libraries(rotate_2d_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_
 
 add_executable(rotate_array rotate_array.cpp)
 target_link_libraries(rotate_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(red_white_balls_min_swaps red_white_balls_min_swaps.cpp)
+target_link_libraries(red_white_balls_min_swaps PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
