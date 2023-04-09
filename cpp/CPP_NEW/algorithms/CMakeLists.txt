@@ -87,3 +87,6 @@ target_link_libraries(three_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnin
 
 add_executable(rotate_2d_array rotate_2d_array.cpp)
 target_link_libraries(rotate_2d_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rotate_array rotate_array.cpp)
+target_link_libraries(rotate_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
