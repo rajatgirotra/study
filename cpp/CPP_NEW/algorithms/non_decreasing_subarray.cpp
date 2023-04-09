@@ -10,8 +10,8 @@ Consider: [2, 4, 2, 2] --> We compare elements in pairs.
 to decrease the left element, otherwise if we increase the right element, the following element may become less than
 the new right, reducing our chances to make a NON-DECREASING array; as in this case.
 
-When decreasing the left element, we can only go as low as the element before it. And when increasing the right element, 
-we can only go as high as the left element (because we dont want to go uncessarily to a very high value). Lets' try.
+When decreasing the left element, we can only go as low as the element before it. And when increasing the right element,
+we can only go as high as the left element (because we don't want to go unnecessarily to a very high value). Lets' try.
 */
 #include <iostream>
 #include <algorithm>
@@ -32,30 +32,29 @@ using namespace std;
 
 template <size_t N>
 bool non_decreasing_arr_possible(std::array<int, N>& arr) {
-    // check elements in pairs
-    bool changed {false};
-    for(size_t i = 0; i < arr.size() - 1; ++i) {
-        if (arr[i] <= arr[i+1]) {
-            continue; // normal case
+    // check elements in pair
+    bool oneEditDone {false};
+    for(int i = 0; i < N - 1; ++i) {
+        if(arr[i] <= arr[i+1]) {
+            continue;
         }
-        // we need to make a change; but have we made a change already
-        if (changed) {
-            cout << "\nModified arr: ";
-            std::copy(begin(arr), end(arr), std::ostream_iterator<int>(cout, "  "));
+        if(oneEditDone) {
+            cout << "Modified arr : ";
+            std::copy(begin(arr), end(arr), ostream_iterator<int>(cout, "  "));
+            cout << endl;
             return false;
         }
-
-        // try to decrease left element first
-        if(i == 0 || arr[i-1] <= arr[i+1]) {
+        oneEditDone = true;
+        // try to reduce the left element
+        if( i == 0 || arr[i-1] <= arr[i+1]) {
             arr[i] = arr[i+1];
         } else {
-            // increase right element
             arr[i+1] = arr[i];
         }
-        changed = true;
     }
-    cout << "\nModified arr: ";
-    std::copy(begin(arr), end(arr), std::ostream_iterator<int>(cout, "  "));
+    cout << "Modified arr : ";
+    std::copy(begin(arr), end(arr), ostream_iterator<int>(cout, "  "));
+    cout << endl;
     return true;
 }
 
@@ -74,6 +73,7 @@ int main() {
 
     cout << "Array: ";
     std::copy(begin(arr), end(arr), std::ostream_iterator<int>(cout, "  "));
+    cout << endl;
     auto res = non_decreasing_arr_possible(arr);
     cout << "\nNon decreasing array possible: " << std::boolalpha << res << endl;
 }

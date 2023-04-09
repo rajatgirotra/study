@@ -93,3 +93,6 @@ target_link_libraries(rotate_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_war
 
 add_executable(red_white_balls_min_swaps red_white_balls_min_swaps.cpp)
 target_link_libraries(red_white_balls_min_swaps PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(non_decreasing_subarray non_decreasing_subarray.cpp)
+target_link_libraries(non_decreasing_subarray PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
