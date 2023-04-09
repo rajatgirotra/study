@@ -96,3 +96,6 @@ target_link_libraries(red_white_balls_min_swaps PRIVATE ${PROJECT_NAME_LOWERCASE
 
 add_executable(non_decreasing_subarray non_decreasing_subarray.cpp)
 target_link_libraries(non_decreasing_subarray PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(move_zeros_to_end move_zeros_to_end.cpp)
+target_link_libraries(move_zeros_to_end PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)

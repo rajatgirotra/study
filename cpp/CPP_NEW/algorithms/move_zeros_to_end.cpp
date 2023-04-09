@@ -10,20 +10,18 @@ using namespace std;
 
 template <size_t N>
 void move_zeros(std::array<int, N>& arr) {
-    // do like we do quick partition in quick sort. 
-    // whenever you find a non zero element, bring it forward. After one iteration, all zeros 
-    // will be at the end.
+    // same as quick sort partition function
     int j = -1;
-    for(int i = 0; i < N; ++i) {
-        if(arr[i] != 0) {
+    for(int p = 0; p < arr.size(); ++p) {
+        if(arr[p] > 0) {
             ++j;
-            std::swap(arr[i], arr[j]);
+            std::swap(arr[p], arr[j]);
         }
     }
 }
 
 int main() {
-    std::array<int, 6> arr{};
+    std::array<int, 10> arr{};
 
     std::random_device r;
     std::default_random_engine engine(r());
@@ -37,10 +35,10 @@ int main() {
 
     std::generate(begin(arr), end(arr), gen);
     std::transform(begin(arr), end(arr), begin(arr), [](const int& value) {
-        std::random_device r;
-        std::default_random_engine engine(r());
-        std::uniform_int_distribution dist(2, 10);
-        return value * dist(engine);
+        std::random_device rd;
+        std::default_random_engine eng(rd());
+        std::uniform_int_distribution dis(2, 10);
+        return value * dis(eng);
     });
 
     cout << "Array: ";
