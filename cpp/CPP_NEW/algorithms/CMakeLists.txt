@@ -81,3 +81,6 @@ target_link_libraries(two_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings
 
 add_executable(two_sum_sorted two_sum_sorted.cpp)
 target_link_libraries(two_sum_sorted PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(three_sum three_sum.cpp)
+target_link_libraries(three_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
