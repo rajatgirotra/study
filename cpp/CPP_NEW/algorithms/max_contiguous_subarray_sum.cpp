@@ -18,15 +18,15 @@ using namespace std;
 
 template<size_t N>
 void maximum_contiguous_subarray_sum(int (&arr)[N]) {
-    int maxSum = std::numeric_limits<int>::min();
-    int curSum = 0;
-    for(int i = 0; i < N; ++i) {
-        curSum += arr[i];
-        curSum = std::max(curSum, arr[i]);
-        maxSum = std::max(curSum, maxSum);
+    int maxSum = arr[0], runningSum = arr[0];
+    for(int i = 1; i < N; ++i) {
+        runningSum += arr[i];
+        runningSum = std::max(runningSum, arr[i]);
+        maxSum = std::max(maxSum, runningSum);
     }
-    cout << "\nMaximum subarray sum: " << maxSum << endl;
+    cout << "Max contiguous subarray sum: " << maxSum << endl;
 }
+
 
 int main() {
     int arr[8] {};
@@ -42,6 +42,8 @@ int main() {
     std::copy(begin(arr), end(arr), ostream_iterator<int>(cout, " "));
     cout << endl;
 
-    // int x[] {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     maximum_contiguous_subarray_sum(arr);
+    //    int x[]{-4, 2, -4, 2, 4, -2, -2, -3 };
+    //    int x[] {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    //    maximum_contiguous_subarray_sum(x);
 }

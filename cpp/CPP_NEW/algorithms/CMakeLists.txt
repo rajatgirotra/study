@@ -99,3 +99,6 @@ target_link_libraries(non_decreasing_subarray PRIVATE ${PROJECT_NAME_LOWERCASE}_
 
 add_executable(move_zeros_to_end move_zeros_to_end.cpp)
 target_link_libraries(move_zeros_to_end PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(max_contiguous_subarray_sum max_contiguous_subarray_sum.cpp)
+target_link_libraries(max_contiguous_subarray_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
