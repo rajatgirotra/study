@@ -105,3 +105,12 @@ target_link_libraries(max_contiguous_subarray_sum PRIVATE ${PROJECT_NAME_LOWERCA
 
 add_executable(max_contiguous_subarray_product max_contiguous_subarray_product.cpp)
 target_link_libraries(max_contiguous_subarray_product PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(max_contiguous_subarray_size_k max_contiguous_subarray_size_k.cpp)
+target_link_libraries(max_contiguous_subarray_size_k PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(obstacles_1 obstacles_1.cpp)
+target_link_libraries(obstacles_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(obstacles_2 obstacles_2.cpp)
+target_link_libraries(obstacles_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
