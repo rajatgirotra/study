@@ -120,3 +120,6 @@ target_link_libraries(assembly_line_chaining_dp PRIVATE ${PROJECT_NAME_LOWERCASE
 
 add_executable(sorted_arrangements sorted_arrangements.cpp)
 target_link_libraries(sorted_arrangements PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(biohazard biohazard.cpp)
+target_link_libraries(biohazard PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
