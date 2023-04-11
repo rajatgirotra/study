@@ -114,3 +114,6 @@ target_link_libraries(obstacles_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warn
 
 add_executable(obstacles_2 obstacles_2.cpp)
 target_link_libraries(obstacles_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(assembly_line_chaining_dp assembly_line_chaining_dp.cpp)
+target_link_libraries(assembly_line_chaining_dp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
