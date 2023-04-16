@@ -123,3 +123,6 @@ target_link_libraries(sorted_arrangements PRIVATE ${PROJECT_NAME_LOWERCASE}_proj
 
 add_executable(biohazard biohazard.cpp)
 target_link_libraries(biohazard PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(huffman_coding_decoding huffman_coding_decoding.cpp)
+target_link_libraries(huffman_coding_decoding PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
