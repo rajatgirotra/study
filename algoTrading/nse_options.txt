@@ -78,4 +78,55 @@ Rate of interest may be the relevant MIBOR rate or such other rate as may be spe
 
 The base price of the contracts on subsequent trading days, will be the daily settlement price of the options contracts as computed by clearing corporation.
 
+Volatility
+==========
+What is it? volatility is a measure of the fluctuation in the price of a stock over a given period. By definition, we say that volatility is the annualized Standard Deviation of past stock price movements. Let's say over the past 1 year, the day-to-day stock price movements (eg: closing price) of a stock are plotted in a graph, and that graph looks like a normal distribution curve (i.e. bell curve). Then we can say that over the past 1 year, 68% of times the stock price has been in the range of one standard deviation away (up and down). Similarly, we can say that, 95% of the times the stock price has been in the range of two standard deviation away (up and down). This can come in handy when we are figuring the potential range of movements of a stock price.
 
+There are two types of volatility. Historical volatility and Implied Volatility. 
+Historical volatility: the annualized standard deviation of the past stock price movements.
+
+Implied volatility: this is what the marketplace is implying will be the volatility of the stock in the future, BASED ON THE PRICE OF THE OPTION.
+This point is important to understand. Historical volatility is derived from historical prices of the stock itself. But implied volatility is measured from the price of option. Due to certain market changes (like some announcement, some court decision etc), the traders will alter their trading pattern which will impact the price of the option (make it go up or down) INDEPENDENT FROM THE PRICE OF THE UNDERLYING STOCK. Keep in mind, it’s not the options’ intrinsic value (if any) that is changing. Only the options’ time value is affected. The reason the options’ time value will change is because of changes in the perceived potential range of future price movement on the stock (remember you had studied that its the Expected Future price of a stock which changes and that causes the future price of the stock to change, either go down(contango) or go up(backwardation). Implied volatility can then be derived from the cost of the option. In fact, if there were no options traded on a given stock, there would be no way to calculate implied volatility.
+
+So implied volatility is a dynamic figure that changes based on activity in the options marketplace. Usually, when implied volatility increases, the price of options will increase as well, assuming all other things remain constant. So when implied volatility increases after a trade has been placed, it’s good for the option owner and bad for the option seller.  Conversely, if implied volatility decreases after your trade is placed, the price of options usually decreases. That’s good if you’re an option seller and bad if you’re an option owner. 
+
+We will see later how Implied volatility is derived, but just remember it is figure arrived at with general consensus in the marketplace. Implied volatility is also measured on an annual basis. It is a PERCENTAGE OF THE STOCK PRICE INDICATING A ONE STANDARD DEVIATION MOVE OVER THE COURSE OF ONE YEAR. Example:
+Stock Price: $50 (think of this like the mean price in a bell curve, i.e. u)
+Implied volatility: 20%.
+So u - 20% and u + 20% is $40 and $60 (i.e. one S.D up and down). 
+So the market thinks that on average 68% of the times, the price of the stock will be between $40 and $60 in the next one year. 
+
+Implied Volatility and Option Price
+===================================
+What came first? If you look at any option pricing formula, the variables used to derive option price are
+1) underlying stock price
+2) time to expiration
+3) interest rates
+4) dividends
+5) strike price/exercise price
+6) Implied volatility.
+
+But just now we said, that Implied volatility is derived from the option's price. So what came first? IV or Option price. Basically, what happens is that the at-the-money (ATM) option contracts are the most heavily traded in each expiration month. So market makers can allow simple supply and demand to set the at-the-money price for at-the-money options (without needing implied volatility). Then, once the at-the-money option prices are determined, implied volatility can be calculated using simple algebra.
+
+Once the implied volatility is determined for the at-the-money contracts in any given expiration month, market makers then use pricing models and advanced volatility skews to determine implied volatility at other strike prices that are less heavily traded. So you’ll generally see variances in implied volatility at different strike prices and expiration months.
+
+Since at-the-money option is typically the most heavily traded contract, it will be the primary reflection of what the marketplace expects the underlying stock to do in the future. So ALWAYS KEEP A CLOSE EYE ON THE AT-THE-MONEY OPTION EXTRACTS.
+
+It can’t be emphasized enough, however, that implied volatility is what the marketplace expects the stock to do in theory. And as you probably know, the real world doesn’t always operate in accordance with the theoretical world.
+
+So IV gives an annualized percentage of the stock price. But the options you trade are always in the range of 30 to 90 days (1-3 months). So there is a formula to calculate the IV for short terms. http://www.option-price.com/implied-volatility.php
+
+Options Delta
+=============
+As a general rule, in-the-money options will move more than out-of-the-money options, and short-term options will react more than longer-term options to the same price change in the stock. As expiration nears, the delta for in-the-money calls will approach 1, reflecting a one-to-one reaction to price changes in the stock. Delta for out-of the-money calls will approach 0 and won’t react at all to price changes in the stock. That’s because if they are held until expiration, calls will either be exercised and “become stock” or they will expire worthless and become nothing at all.  As expiration approaches, the delta for in-the-money puts will approach -1 and delta for out-of-the-money puts will approach 0.  That’s because if puts are held until expiration, the owner will either exercise the options and sell stock or the put will expire worthless.
+
+As an option gets further in-the-money, the probability it will be in-the- money at expiration increases as well. So the option’s delta will increase. As an option gets further out-of-the-money, the probability it will be in-the-money at expiration decreases. So the option’s delta will decrease.
+
+Options Gamma
+=============
+Gamma is the rate that delta will change based on a $1 change in the stock price. So if delta is the “speed” at which option prices change, you can think of gamma as the “acceleration.” So options with the highest gamma are the most responsive to changes in the price of the underlying stock.
+Basically, the price of near-term at-the-money options will exhibit the most explosive response to price changes in the stock.
+
+Options Vega
+===========
+You can think of vega as the amount call and put prices will change, in theory, for a corresponding one-point change in implied volatility. Vega does not have any effect on the intrinsic value of options; it only affects the “time value” of an option’s price.  Typically, as implied volatility increases, the value of options will increase. That’s because an increase in implied volatility suggests an increased range of potential movement for the stock.
