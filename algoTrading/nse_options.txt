@@ -1,6 +1,6 @@
 Open Interest
 =============
-It is the number of outstanding contracts that havent been squared off yet. In Google if you type NSE Options chain, it will take you to a page where you can see all the options for a particular underlying (i.e. what all strikes are available for trading, their Open Interst, change in open interest, Intrinsic Value, expiry date, last trade price, best buy, best offer etc). If you look at the Open Interest for calls of various strikes, you will see different values. The row where Call Open Interest is maximum is called Resistence (i.e. it is unlikely underlying will cross that strike price). Similarly, the row where Put Open Interest is maximum is called Support (i.e. it is unlikely that underlying will go below that strike price). But why are these levels Resistence and Support?
+It is the number of outstanding contracts that havent been squared off yet. In Google if you type NSE Options chain, it will take you to a page where you can see all the options for a particular underlying (i.e. what all strikes are available for trading, their Open Interst, change in open interest, Implied Volatility, expiry date, last trade price, best buy, best offer etc). If you look at the Open Interest for calls of various strikes, you will see different values. The row where Call Open Interest is maximum is called Resistence (i.e. it is unlikely underlying will cross that strike price). Similarly, the row where Put Open Interest is maximum is called Support (i.e. it is unlikely that underlying will go below that strike price). But why are these levels Resistence and Support?
 
 Lets understand Open Interest better: For equity markets, there are fixed number of shares which get traded. But for F&O, new contracts get created when new traders/participants enter the market.
 
@@ -88,12 +88,12 @@ Historical volatility: the annualized standard deviation of the past stock price
 Implied volatility: this is what the marketplace is implying will be the volatility of the stock in the future, BASED ON THE PRICE OF THE OPTION.
 This point is important to understand. Historical volatility is derived from historical prices of the stock itself. But implied volatility is measured from the price of option. Due to certain market changes (like some announcement, some court decision etc), the traders will alter their trading pattern which will impact the price of the option (make it go up or down) INDEPENDENT FROM THE PRICE OF THE UNDERLYING STOCK. Keep in mind, it’s not the options’ intrinsic value (if any) that is changing. Only the options’ time value is affected. The reason the options’ time value will change is because of changes in the perceived potential range of future price movement on the stock (remember you had studied that its the Expected Future price of a stock which changes and that causes the future price of the stock to change, either go down(contango) or go up(backwardation). Implied volatility can then be derived from the cost of the option. In fact, if there were no options traded on a given stock, there would be no way to calculate implied volatility.
 
-So implied volatility is a dynamic figure that changes based on activity in the options marketplace. Usually, when implied volatility increases, the price of options will increase as well, assuming all other things remain constant. So when implied volatility increases after a trade has been placed, it’s good for the option owner and bad for the option seller.  Conversely, if implied volatility decreases after your trade is placed, the price of options usually decreases. That’s good if you’re an option seller and bad if you’re an option owner. 
+So implied volatility is a dynamic figure that changes based on activity of traders in the options marketplace. Usually, when implied volatility increases, the price of options will increase as well, assuming all other things remain constant. So when implied volatility increases after a trade has been placed, it’s good for the option owner and bad for the option seller.  Conversely, if implied volatility decreases after your trade is placed, the price of options usually decreases. That’s good if you’re an option seller and bad if you’re an option owner. 
 
 We will see later how Implied volatility is derived, but just remember it is figure arrived at with general consensus in the marketplace. Implied volatility is also measured on an annual basis. It is a PERCENTAGE OF THE STOCK PRICE INDICATING A ONE STANDARD DEVIATION MOVE OVER THE COURSE OF ONE YEAR. Example:
-Stock Price: $50 (think of this like the mean price in a bell curve, i.e. u)
+Stock Price: $50 (think of this like the mean price in a bell curve, i.e. μ)
 Implied volatility: 20%.
-So u - 20% and u + 20% is $40 and $60 (i.e. one S.D up and down). 
+So μ - 20% and μ + 20% is $40 and $60 (i.e. one S.D. up and down). 
 So the market thinks that on average 68% of the times, the price of the stock will be between $40 and $60 in the next one year. 
 
 Implied Volatility and Option Price
@@ -116,6 +116,16 @@ It can’t be emphasized enough, however, that implied volatility is what the ma
 
 So IV gives an annualized percentage of the stock price. But the options you trade are always in the range of 30 to 90 days (1-3 months). So there is a formula to calculate the IV for short terms. http://www.option-price.com/implied-volatility.php
 
+Lets say underlying stock is at $50. and traders are buying ATM options for $10 and OTM for $2. i.e. ATM options are pricier. It means traders expect a big move in either direction. i.e. option buyers (whether call or put buyers) think that stock would trade above $60 or below $40.
+
+Now implied volatility (like insurance companies, casinos etc) have an over expectation of the actual move in the stock. Eg: if IV is 20% (stock at $50), when we actually see how the stock moves over time, we see that it actually just moves less than 20% in the Long term. So IV always bakes in an over expectation of the stock moving. So stock movement may only be up or down by 8 instead of 10 in this case. This is a very important point. Why? because if IV is high, there is over expectation baked in already due to which option price is higher than it should be actually. So in Long term, it always pays of to SELL OPTIONS., as option sellers like insurance companies always have this baked in edge over option buyers.
+If you compare IV vs HV for DIA (Dow Jones Industrial Average), you will see that the difference is roughly 6.25%. That's the over expectation baked in.
+
+Implied Volatility Rank
+======================
+Lets say that APPL and GE both have 20% IV. Is it high or low? How do we quantify it. The correct way is to see the IV chart and look at the IV high and low. and based on that we arrive at a rank for the current IV you see.
+A higher IV Rank means its a good opportunity to sell that option as there is over expectation baked in the market. It is important to look at IV charts when trading options.
+
 Options Delta
 =============
 As a general rule, in-the-money options will move more than out-of-the-money options, and short-term options will react more than longer-term options to the same price change in the stock. As expiration nears, the delta for in-the-money calls will approach 1, reflecting a one-to-one reaction to price changes in the stock. Delta for out-of the-money calls will approach 0 and won’t react at all to price changes in the stock. That’s because if they are held until expiration, calls will either be exercised and “become stock” or they will expire worthless and become nothing at all.  As expiration approaches, the delta for in-the-money puts will approach -1 and delta for out-of-the-money puts will approach 0.  That’s because if puts are held until expiration, the owner will either exercise the options and sell stock or the put will expire worthless.
@@ -130,3 +140,48 @@ Basically, the price of near-term at-the-money options will exhibit the most exp
 Options Vega
 ===========
 You can think of vega as the amount call and put prices will change, in theory, for a corresponding one-point change in implied volatility. Vega does not have any effect on the intrinsic value of options; it only affects the “time value” of an option’s price.  Typically, as implied volatility increases, the value of options will increase. That’s because an increase in implied volatility suggests an increased range of potential movement for the stock.
+
+Candlestick chart
+================
+Whenever you look at any graph, a single candlestick means a time frame. it could be a day, a week or month, a year or some other time frame. Each candlestick has 4 things.
+1) Open
+2) Close
+3) High
+4) Low
+For that time frame. You can then choose to view the graph over a time period, lets say a year or 30 days etc. A green candlestick is bullish and red candlestick is bearish.
+
+Simple Moving Average
+=====================
+Just a simple average (mean) over a time frame. Example a 20 day moving average will be 
+(Day1 + Day2 + Day3 + ... + Day20) / 20. Then on Day 21, SMA would be (Day2 + Day3 + ... + Day21)/20. Moving averages are used to smoothen out the movements in stocks and understand what the trend is - bullish, bearish or flat.
+The problem with SMA is that there is no weight given to any data point, so sometimes there is a lag in the SMA. I.e. SMA drops much later compared to the stock you are reading, so you can miss identiying a trend. So for that we can use weighted moving average or exponential moving average.
+
+Weighted Moving Average
+======================
+WMA = (3 * A(t)) + (2 * A(t-1)) + (1 * A(t-2)) / 6 . Trivial A(t) is the most latest moving average, A(t-1) is the moving average before that and A(t-2) even older. So higher weight is given to latest moving average.
+
+Exponential Moving Average
+=========================
+EMA(t) = (X * A(t-1)) + ((1-X) * EMA(t-1)), where X is a constant called the smoothing constant, A(t-1) is the actual moving average and EMA(t-1) is the forcasted moving average.
+
+INDIA VIX
+=========
+VIX means volatility index. It is also called the fear index. VIX gives you the expected price fluctation (in terms of percentage) in the underlying index over a certain period.
+
+India VIX is a volatility index computed by NSE based on the order book of NIFTY Options. For this, the best bid-ask quotes of near and next-month NIFTY options contracts which are traded on the F&O segment of NSE are used. India VIX indicates the investor‟s perception of the market‟s volatility in the near term i.e. it depicts the expected market volatility over the next 30 calendar days. Higher the India VIX values, higher the expected volatility and viceversa. India VIX uses the computation methodology of CBOE, with suitable amendments to adapt to the NIFTY options order book using cubic splines, etc.
+
+Just like IV is for a particular stock price or a particular strike and expiry date of an option, same way we have VIX for Indices. When does VIX go up and down. VIX goes up when there is fear in the market. If the market is falling, and there is fear in the market that the market will further go down, the VIX will go up (because PE writers will get worried). Similarly, if market is going higher, and there is a perception that it will continue to go up, the VIX will go up (because CE writers will get worried + short sellers will also get scared).
+
+How does VIX effect what CE and PE you should trade? Lets say, VIX is 18% and Index is 8000. Since market expects index to be in the 8000 ± 18% range, so if you are option seller, you should sell Put below 8000-18% strike and sell Calls above 8000+18%.
+
+A good way to estimate the VIX yourself is, lets say it is April month and about 17 trading sessions are left, and in the month of may around 20 trading sessions are left. If i look at ATM options of May expiry and find that Index at 8000, PE for 700, CE for 900, we say that 700+900 = 1600 ie. 20% from 8000. so 20% is volatility over the next 37 trading sessions. But if you think the market is not likely to make ± 18%, you can sell the 8000 straddle (i.e. short straddle strategy).
+
+SGX Nifty 50 Index Futures
+===========================
+Nifty is also traded in SGX. There are two sessions T and T+1. T means morning session and evening means T+1 evening session
+T session timings: Opening: 9.00 am - 6.10 pm SGT (i.e. 6:30 am - 3:40pm IST)
+T+1 session timings: Opening: 6.40 pm - 5.15 am (i.e. 4:10 pm - 2:45 am IST)
+SGX Nifty is like your girlfriend. It wont let you sleep, and India NIFTY is like your wife.. so unprectible :-)
+Contract Size: US$2 x SGX Nifty 50 Index Futures Price
+Tick size: 0.5 index points (ie US$1)
+

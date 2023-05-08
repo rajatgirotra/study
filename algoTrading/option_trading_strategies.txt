@@ -1,0 +1,8 @@
+https://www.option-price.com/implied-volatility.php
+https://www.optionsprofitcalculator.com/
+
+
+Covered Call
+============
+Sell calls for which you already own the underlying stock
+
