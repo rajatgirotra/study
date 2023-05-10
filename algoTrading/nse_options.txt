@@ -131,6 +131,8 @@ How to tell if Option Premiums are High or Cheap
 By looking at their Implied Volatilities, and their IV Rank or Percentile.
 If IVRank is high, it means there is a lot of over expectation baked in, i.e. the option prices are high. If IVRank is low, it means there is less of over expectation baked in, i.e. option prices are low.
 
+But do you want to buy options when IV is low. Not really, low IV only means less of over expectation is baked in, so we still might profit by selling options, just that we should maintain low positions.
+
 Options Delta
 =============
 As a general rule, in-the-money options will move more than out-of-the-money options, and short-term options will react more than longer-term options to the same price change in the stock. As expiration nears, the delta for in-the-money calls will approach 1, reflecting a one-to-one reaction to price changes in the stock. Delta for out-of the-money calls will approach 0 and won’t react at all to price changes in the stock. That’s because if they are held until expiration, calls will either be exercised and “become stock” or they will expire worthless and become nothing at all.  As expiration approaches, the delta for in-the-money puts will approach -1 and delta for out-of-the-money puts will approach 0.  That’s because if puts are held until expiration, the owner will either exercise the options and sell stock or the put will expire worthless.
