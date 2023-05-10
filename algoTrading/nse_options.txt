@@ -126,6 +126,11 @@ Implied Volatility Rank
 Lets say that APPL and GE both have 20% IV. Is it high or low? How do we quantify it. The correct way is to see the IV chart and look at the IV high and low. and based on that we arrive at a rank for the current IV you see.
 A higher IV Rank means its a good opportunity to sell that option as there is over expectation baked in the market. It is important to look at IV charts when trading options.
 
+How to tell if Option Premiums are High or Cheap
+=================================================
+By looking at their Implied Volatilities, and their IV Rank or Percentile.
+If IVRank is high, it means there is a lot of over expectation baked in, i.e. the option prices are high. If IVRank is low, it means there is less of over expectation baked in, i.e. option prices are low.
+
 Options Delta
 =============
 As a general rule, in-the-money options will move more than out-of-the-money options, and short-term options will react more than longer-term options to the same price change in the stock. As expiration nears, the delta for in-the-money calls will approach 1, reflecting a one-to-one reaction to price changes in the stock. Delta for out-of the-money calls will approach 0 and won’t react at all to price changes in the stock. That’s because if they are held until expiration, calls will either be exercised and “become stock” or they will expire worthless and become nothing at all.  As expiration approaches, the delta for in-the-money puts will approach -1 and delta for out-of-the-money puts will approach 0.  That’s because if puts are held until expiration, the owner will either exercise the options and sell stock or the put will expire worthless.

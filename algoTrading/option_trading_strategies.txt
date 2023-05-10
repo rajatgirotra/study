@@ -1,8 +1,36 @@
 https://www.option-price.com/implied-volatility.php
 https://www.optionsprofitcalculator.com/
 
+Market Variables to watch for during option trading
+
+VIX (India VIX)
+Standard Deviation (1 SD, 2 SD etc)
+Advances/Declines (to get overall market sentiment)
+SGX Nifty
+Open Interest
+Volume
+Resistence and Support levels
+Implied Volatility
+
 
 Covered Call
 ============
-Sell calls for which you already own the underlying stock
+• sell calls for which you already own the underlying stock
+• aim is to pocket the premium, and if possible also not get assigned and keep owning the stock(i.e. option should be OTM at expiry). So, the strike price you choose should be out-of-the money.
+• choose an expiry atleast 30-45 days in the future.
+• normally a premium of 2% of the stock value is considered good.
+• If premium is too high and you are getting lured, think twice. Read the news. May be some market movement is coming.
 
+LEAPS
+=====
+• Buy long term calls. The goal here is to reap benefits similar to those you’d see if you owned the stock, while limiting the risks you’d face by having the stock in your portfolio. In effect, your LEAPS call acts as a “stock substitute.”
+• LEAPS are longer-term options. The term stands for “Long-term Equity AnticiPation Securities,”. Options with more than 9 monthsi (1 year preferably) until expiration are considered LEAPS.
+• You want to buy a LEAPS call/put that is deep in-the-money. A general rule of thumb to use is to look for a delta of 0.80 or more at the strike price you choose. (ATM options have a delta of 0.5/-0.5 for calls and puts respectively). consider a LEAPS call that is at least 20% of the stock price in-the-money.
+• The deeper in-the-money you go, the more expensive your option will be. That’s because it will have more “intrinsic value.” But the benefit is that it will also have a higher delta. And the higher your delta, the more your option will behave as a stock substitute.
+
+Sell Cash Secured Put
+=====================
+• If you are bullish in a stock but you think it is already to expensive, so you dont want to buy now, but if price comes down, then you want to buy, consider this strategy.
+• You sell a put which is Out of the money (i.e. strike price is below the stock price). Consider selling the first out of the money strike option around 30-45 days to expiration.
+• Hope for stock price to fall ONLY slightly below the strike price, so you will get assigned; and will need to buy the stock with the secured cash you have. But your purchise price will be effectively lower than strike price as you have earned a premium.
+• the downside is when the stock tanks too much. You will then need to stock for long term hoping that it rises.
