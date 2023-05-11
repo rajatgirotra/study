@@ -163,6 +163,8 @@ Just a simple average (mean) over a time frame. Example a 20 day moving average 
 (Day1 + Day2 + Day3 + ... + Day20) / 20. Then on Day 21, SMA would be (Day2 + Day3 + ... + Day21)/20. Moving averages are used to smoothen out the movements in stocks and understand what the trend is - bullish, bearish or flat.
 The problem with SMA is that there is no weight given to any data point, so sometimes there is a lag in the SMA. I.e. SMA drops much later compared to the stock you are reading, so you can miss identiying a trend. So for that we can use weighted moving average or exponential moving average.
 
+One fact that most always be remembered however, is that Moving Averages have lag inherently built into them. What this means is actually pretty simple. The longer the timeframe being used, the more lag there will be. Likewise, the shorter the timeframe, the less lag there will be. Basically, Moving averages with shorter timeframes tend to stay close to prices and will move right after prices move. Longer timeframes have much more cumbersome data and their moves lag behind the market’s move much more significantly. As for what time frames should be used, it really is up to the trader’s discretion. Typically any period under 20 days would be considered short term, anything between 20 and 60 would be medium term and of course anything longer than 60 days would be viewed as long term.
+
 Weighted Moving Average
 ======================
 WMA = (3 * A(t)) + (2 * A(t-1)) + (1 * A(t-2)) / 6 . Trivial A(t) is the most latest moving average, A(t-1) is the moving average before that and A(t-2) even older. So higher weight is given to latest moving average.
@@ -170,6 +172,16 @@ WMA = (3 * A(t)) + (2 * A(t-1)) + (1 * A(t-2)) / 6 . Trivial A(t) is the most la
 Exponential Moving Average
 =========================
 EMA(t) = (X * A(t-1)) + ((1-X) * EMA(t-1)), where X is a constant called the smoothing constant, A(t-1) is the actual moving average and EMA(t-1) is the forcasted moving average.
+
+Support and Resistance
+=======================
+Another fairly basic use for Moving Averages is identifying areas of support and resistance. Generally speaking, Moving averages can provide support in an uptrend and also they can provide resistance in a downtrend. While this can work for shorter term periods (20 days or less), the support and resistance provided by Moving Averages, can become even more readily apparent in longer term situations.
+
+Crossovers
+==========
+Crossovers require the use of two Moving Averages of varying length on the same chart. The two Moving averages should be of two different term lengths. For example a 50 Day Simple Moving Average (medium-term) and a 200 Day Simple Moving Average (long-term) The signals or potential trading opportunities occur when the shorter term SMA crosses above or below the longer term SMA.
+Bullish Crossover – Occurs when the shorter term SMA crosses above the longer term SMA. Also known as a Golden Cross.
+Bearish Crossover – Occurs when the shorter term SMA crosses below the longer term SMA. Also known as a Dead Cross;
 
 INDIA VIX
 =========
