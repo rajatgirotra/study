@@ -86,6 +86,6 @@ int main()
  *
  * So unless we add std::launch::async in all calls above, the functions may or may not run by the time main ends.
  *
- * Also it is possible to get the result of async calls using std::future.get() but we will discuss it later during std multithreading.
- * Also compile it using -lpthread, otherwise you get a runtime exception.
+ * Also, it is possible to get the result of async calls using std::future.get() but we will discuss it later during std multithreading.
+ * Also compile it using -pthread, otherwise you get a runtime exception.
  */

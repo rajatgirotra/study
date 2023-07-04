@@ -31,7 +31,7 @@ The stages of IOStreams TEXT I/O
 
 Code conversion
 --------------
-Is only required when the character representation resulting from formatting is different from the external character representation of the external device or when the external representation differs from the representation that can be parsed by IOStreams. Example, let say you have a multibyte character file. i.e some characters are one byte, some 2 bytes, some 4 bytes, etc. This kind of representation cannot be parsed by IOStreams. So it will convert all characters to wide characters i.e. wchar_t which IOStream understands.  Similarly for output.
+Is only required when the character representation resulting from formatting is different from the external character representation of the external device or when the external representation differs from the representation that can be parsed by IOStreams. Example, let say you have a multibyte character file. i.e. some characters are one byte, some 2 bytes, some 4 bytes, etc. This kind of representation cannot be parsed by IOStreams. So it will convert all characters to wide characters i.e. wchar_t which IOStream understands.  Similarly, for output.
 
 You can think of IOStream as a layered architecture with two layers
 1) Formatting Layer --> responsible for formatting/buffering
@@ -41,16 +41,16 @@ The IOStreams library is an open and extensible framework. which means both the 
 
 The transport layer can be extended by adding more external devices.
 
-Also IOStream is not only an abstract framework providing abstract classes. It provides concrete implementation classes like
+Also, IOStream is not only an abstract framework providing abstract classes. It provides concrete implementation classes like
 1) filestreams and string streams
 2) narrow and wide character streams
 
 filestreams are used for input and output from external devices which exhibit file like behavior. i.e. provide open()/close() type functions (files, sockets, pipes etc)
 stringstreams are used for input and output from memory.
 
-narror and wide character streams differ in the type of character sequence passed between the formatting and transport layers.
+narrow and wide character streams differ in the type of character sequence passed between the formatting and transport layers.
 
-Also IOStreams can be extended by adding new stream classes for supporting new external devices. This is achieved by means of inheritance. Similarly, you can add support for new type of characters apart from narrow and wide character streams (like Jchar for Japanese characters). This is achieved by means of templates.
+Also, IOStreams can be extended by adding new stream classes for supporting new external devices. This is achieved by means of inheritance. Similarly, you can add support for new type of characters apart from narrow and wide character streams (like Jchar for Japanese characters). This is achieved by means of templates.
 the IOStreams class hierarchy is
 
 1) ios_base --> non template class that contains functionality common to all stream class irrespective of the type of characters handled.
@@ -79,7 +79,7 @@ clog, wclog (corresponding C stream is stderr)
 
 cerr and clog is same except that clog is buffered and cerr is not buffered by default.
 
-Also cin and cout are tied i.e. they are synchronized. If you read anything from cin, then first cout is flushed().
+Also, cin and cout are tied i.e. they are synchronized. If you read anything from cin, then first cout is flushed().
 
 The reason to choose shift operators for streams (<< and >>) is because it has lower precedence than other operators so it is easy to write code like cout << a+b*c, and the expression a+b*c is evaluated first, otherwise we would need to parenthesize everything.
 
@@ -332,7 +332,7 @@ The stream classes do no directly access the external devices to read or write c
 Normally you will not need to worry about stream synchronization as it is managed automatically by the stream buffer classes when the buffers need to be emptied or filled. Output stream buffers implement a function overflow() which triggers synchronization. similarly input streams implement a function underflow(). Also you dont directly call these functions. Read on..
 
 For output streams, the stream class provides a function flush().
-For output streams, the stream class provides a function sync().
+For input streams, the stream class provides a function sync().
 Both these functions call a function called pubsync() of the underlying stream buffer class. the pubsync() function calls a protected virtual function sync(). When you write your own stream buffer class, you will need to override the sync() function to trigger stream synchronization.
 
 Output file stream buffer classes implement sync() and call overflow() to trigger synchronization.

@@ -68,7 +68,7 @@ int main() {
     // passing, x as read-write and y as read-only
     auto w = [&x, y] { cout << "x: " << x << "   y:" << y << endl;
                        ++x;
-                       //--y; // cannot modify
+//                       --y; // cannot modify
                     };
     y = -99;
     w();

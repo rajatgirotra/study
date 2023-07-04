@@ -1,6 +1,6 @@
 /*
- * std::ostream_iterator: the c'tor takes an ostream object by reference and the overloaded *() operator writes to the stream.
- * std::istream_iterator: the c'tor takes an istream object by reference and the overloaded *() operator reads from the stream.
+ * std::ostream_iterator: the c'tor takes an ostream object by reference and the overloaded =() operator writes to the stream.
+ * std::istream_iterator: the c'tor takes an istream object by reference and the overloaded ++() and ++(int) operators read from the stream.
 
  * std::front_insert_iterator: the c'tor takes a container by reference and the overloaded =() operator calls push_front() on the container.
  * std::back_insert_iterator: the c'tor takes a container by reference and the overloaded =() operator calls push_back() on the container.

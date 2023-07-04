@@ -36,7 +36,7 @@ int main() {
     } catch(std::exception &ex) {
         std::cerr << "(1) Exception: " << ex.what() << std::endl;
         e = std::current_exception();
-        e2 = std::make_exception_ptr(ex); // ex is of type std::exception&, so when passed as reference to std::make_exception_ptr,
+        e2 = std::make_exception_ptr(ex); // ex is of type std::exception&, so when passed by value to std::make_exception_ptr,
         // template argument E will be std::exception and argument to make_exception_ptr will also be std::exception.
         // so basically object slicing has occurred.
     }

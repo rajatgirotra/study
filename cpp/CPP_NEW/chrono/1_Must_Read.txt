@@ -9,7 +9,7 @@ Duration is easiest.
 template <typename Rep, typename Period = ratio<1>>
 class duration {};
 
-Rep represents the number of ticks. Since its a number, it is an IntegralType. Lets assume int64_t for now.
+Rep represents the number of ticks. Since it's a number, it is an IntegralType. Let's assume int64_t for now.
 Period represents the number of seconds elapsed in going from one tick to the next. So if we have
 
 using nanoseconds = std::chrono::duration<int64_t, ratio<1, 1000000000>>;

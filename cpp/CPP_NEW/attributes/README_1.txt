@@ -2,7 +2,7 @@ C++11/14 have tried to standardize attributes.
 attributes are just a special syntax supported by your compiler that helps the compiler generate code/warnings etc that the
 developer intends and also gives the code reviewer an understanding of what the developer is intending.
 
-You would seen in GCC.
+You would have seen in GCC.
 
 struct S {
 ...

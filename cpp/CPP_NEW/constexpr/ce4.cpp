@@ -15,6 +15,7 @@ double square(double x) noexcept {
 }
 
 constexpr uint64_t twice(uint64_t x);
+
 /*
  * Both declaration and definition must be constexpr. And must be defined in the header file itself. If a constexpr function is not defined
  * inside the header, the compiler can not see the definition of the constexpr functions while compiling all the other source files.
@@ -28,7 +29,7 @@ constexpr uint64_t twice(uint64_t x);
 int main() {
     // Case 1. parameter x is constexpr, so compiler can evaluate x/2 at compile time.
     constexpr double half_one = half_of(1);  // note this. This is how you tell the compiler that you need constexpr evaluation.
-    // the standard guarantees that half_one must be available at compile time because the function is constexpr as the parameters are also known at compile time.
+    // the standard guarantees that half_one must be available at compile time because the function is constexpr and the parameters are also known at compile time.
     // so we can use static_assert
     static_assert(half_one == 0.5, "They should be equal");
 

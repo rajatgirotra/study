@@ -129,7 +129,7 @@ int main() {
      * pair<iterator, bool> try_emplace(const key_type& k, Args&&... args) --> no-op if key already exists. Otherwise call's emplace(std::piecewise_construct, forward_as_tuple(k), forward_as_tuple(std::forward<Args>(args)...);
      * pair<iterator, bool> try_emplace(key_type&& k, Args&&... args) --> no-op if key already exists. Otherwise call's emplace(std::piecewise_construct, forward_as_tuple(std::move(k)), forward_as_tuple(std::forward<Args>(args)...);
      *
-     * try_emplace() IS VERY HELPFUL WHEN INSERTING ELEMENTS IN HASH MAP WHICH HAS MOVE ONLY TYPES.
+     * try_emplace() IS VERY HELPFUL WHEN INSERTING ELEMENTS IN HASH MAP WHERE VALUE TYPES ARE MOVE ONLY TYPES.
      * Lets create a HashMap of <string, std::unique_ptr<Foo>> and try to use emplace, insert, try_emplace. Then we should know better.
      * this function does not move from rvalue arguments if the insertion does not happen, which makes it easy to manipulate
      * maps whose values are move-only types. See try_emplace.cpp in this folder
