@@ -1,4 +1,5 @@
 public class Account {
+    private static String bankName; // just some dummy static variable
     private String m_accountNumber;
     private double m_accountBalance;
     private String m_customerName;
@@ -19,6 +20,7 @@ public class Account {
         this.m_customerName = m_customerName;
         this.m_customerEmail = m_customerEmail;
         this.m_customerPhone = m_customerPhone;
+        Account.bankName = "HDFC Bank";
     }
 
     public String getAccountNumber() {
@@ -73,5 +75,8 @@ public class Account {
             this.m_accountBalance -= money_out;
             System.out.println("Withdrawal of $" + money_out + " successful from account " + this.m_accountNumber + ". Clear balance is $" + this.m_accountBalance);
         }
+    }
+    public static String getBankName() {
+        return Account.bankName;
     }
 }

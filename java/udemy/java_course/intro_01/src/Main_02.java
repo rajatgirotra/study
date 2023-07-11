@@ -59,9 +59,12 @@ public class Main_02 {
         System.out.println("isSleeping: " + isSleeping + ", isAwake: " + isAwake.toString());
 
         // remember
-        // the notation x -=y literally means x = (data type of x) (x - y). So x - y gives a double of 4.5 which when casted to int gives 4.
+        // the notation x -=y literally means x = (data type of x) (x - y). So x - y gives a double of 4.5 which when cast to int gives 4.
         int r = 10;
         r -= 5.5;
         System.out.println("the value of r is " + r + ".. Surprised??");
+
+        // String object is immutable. Everytime you concatenate string objects. a new object is created and old one is destroyed automatically.
+        // So it is not preferred way to create strings by concatenating. Rather it is preferred to use the StringBuilder class.
     }
 }
