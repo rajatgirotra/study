@@ -45,5 +45,23 @@ public class Main_02 {
         float myFloatValue = 5; // no 5F?? because 5 is an int and is allowed to initialize a float or double.
         double myDoubleValue = 5;
 
+        // However, prefer using BigDecimal in favor of floats and doubles. BigDecimal gives you more precise decimal results.
+
+        // char type in Java uses two bytes. You can initialize it either with a character, or with its unicode value or its decimal value
+        char d1 = 'D';
+        char d2 = '\u0044';
+        char d3 = 68;
+        System.out.println(d1 + " " + d2 + " " + d3);
+
+        // boolean has two values (true or false
+        boolean isSleeping = true;
+        Boolean isAwake = Boolean.FALSE;
+        System.out.println("isSleeping: " + isSleeping + ", isAwake: " + isAwake.toString());
+
+        // remember
+        // the notation x -=y literally means x = (data type of x) (x - y). So x - y gives a double of 4.5 which when casted to int gives 4.
+        int r = 10;
+        r -= 5.5;
+        System.out.println("the value of r is " + r + ".. Surprised??");
     }
 }
