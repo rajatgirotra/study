@@ -46,7 +46,7 @@ boost::mpl::vector<signed char, short, int, long> signed_types;
 
    template <unsigned long N>
    int_ {
-       typedef int type;
+       typedef int_<N> type;
        typedef int value_type;
        static const int value = N;
        ... and more

@@ -15,3 +15,12 @@ int main() {
     for (auto i = 0; i < 10; ++i)
         cout << l() << "\n";
 }
+
+/*
+i = 1, j = 0 --> Begin
+j = 1, i = 0 return i = 0
+j = 1, i = 1 return i = 1
+j = 2, i = 1 return i = 1
+j = 3, i = 2 return i = 2
+
+*/

@@ -15,8 +15,8 @@ using namespace std;
 struct Baz {
     auto foo() {
 //        return [=] { std::cout << s << '\n'; };
-        return [obj = *this] { std::cout << obj.s << '\n'; };
-//        return [*this] { std::cout << s << '\n'; };
+//        return [obj = *this] { std::cout << obj.s << '\n'; };
+        return [*this] { std::cout << s << '\n'; };
     }
     std::string s;
 };
