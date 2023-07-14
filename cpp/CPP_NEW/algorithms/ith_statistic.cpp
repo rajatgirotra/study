@@ -59,9 +59,9 @@ int main() {
         return dist(engine);
     };
 
-//    std::array<int, 8> arr{-3, 0, 8, 9, 6, 2, 4, -4 };
+    // elements in arr should be unique
     std::array<int, 8> arr{4, 8, 6, -1, 1, -8, 2, -7};
-//    std::generate(begin(arr), end(arr), gen);
+    std::generate(begin(arr), end(arr), gen);
     cout << "Input array: ";
     std::copy(begin(arr), end(arr), std::ostream_iterator<int>(cout, " "));
     cout << endl;
