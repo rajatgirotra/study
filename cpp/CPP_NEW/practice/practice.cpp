@@ -28,23 +28,40 @@
 #include <variant>
 #include <iomanip>
 #include <typeinfo>
+#include <random>
+#include <iterator>
+#include <ranges>
+#include <cmath>
 using namespace std;
 using namespace std::chrono;
 using namespace std::literals;
 
+/*
+ * return all prime numbers strictly less than given number n.
+ */
 
-auto sum() {
-    return 0;
+bool is_prime(int N) {
+    if(N < 2) return false;
+    else if (N == 2 || N == 3) return true;
+    for(int i = 2; i <= static_cast<int>(sqrt(N)); ++i) {
+        if(N % i == 0) return false;
+    }
+    return true;
 }
 
-template <typename First, typename... Rest>
-auto sum(First f, Rest... r) {
-    std::common_type_t<First, Rest...> res {};
-    res += sum(r...);
-    return res + f;
+int count_primes(int N) {
+    int res {};
+    for(int i = 2; i <= N; ++i) {
+        if(is_prime(i)) {
+            ++res;
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+    return res;
 }
 
 int main() {
-    auto x = sum(1, 2., 3.5);
-    cout << x << endl;
+    int n = 70;
+    cout << count_primes(n) << endl;
 }

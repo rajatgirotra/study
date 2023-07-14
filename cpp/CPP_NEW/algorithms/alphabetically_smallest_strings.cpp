@@ -82,3 +82,12 @@ int main() {
     }
     return 0;
 }
+/*
+ * permutations:
+ababa
+ababc
+abaca
+abacb
+abcab
+abcac
+ */

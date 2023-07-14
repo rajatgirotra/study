@@ -126,3 +126,6 @@ target_link_libraries(biohazard PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnin
 
 add_executable(huffman_coding_decoding huffman_coding_decoding.cpp)
 target_link_libraries(huffman_coding_decoding PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(ith_statistic ith_statistic.cpp)
+target_link_libraries(ith_statistic PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
