@@ -138,3 +138,6 @@ target_link_libraries(minimum_size_subarray_sum PRIVATE ${PROJECT_NAME_LOWERCASE
 
 add_executable(sum_of_two_fractions sum_of_two_fractions.cpp)
 target_link_libraries(sum_of_two_fractions PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(largest_word_in_dictionary largest_word_in_dictionary.cpp)
+target_link_libraries(largest_word_in_dictionary PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
