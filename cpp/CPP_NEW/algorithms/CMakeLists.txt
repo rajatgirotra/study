@@ -132,3 +132,6 @@ target_link_libraries(ith_statistic PRIVATE ${PROJECT_NAME_LOWERCASE}_project_wa
 
 add_executable(leetcode_166 leetcode_166.cpp)
 target_link_libraries(leetcode_166 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(minimum_size_subarray_sum minimum_size_subarray_sum.cpp)
+target_link_libraries(minimum_size_subarray_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
