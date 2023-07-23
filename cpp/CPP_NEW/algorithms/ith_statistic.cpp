@@ -15,7 +15,7 @@ int randomized_partition(std::array<int, N>& arr, int p, int r) {
     std::swap(arr[index], arr[r]);
     int pivot = arr[r];
     int j = p-1;
-    for(int i = p; i < r-1; ++i) {
+    for(int i = p; i <= r-1; ++i) {
         if(arr[i] < pivot) {
             ++j;
             std::swap(arr[i], arr[j]);
