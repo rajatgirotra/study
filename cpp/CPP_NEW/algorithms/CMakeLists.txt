@@ -144,3 +144,9 @@ target_link_libraries(largest_word_in_dictionary PRIVATE ${PROJECT_NAME_LOWERCAS
 
 add_executable(intervals intervals.cpp)
 target_link_libraries(intervals PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(maximum_rainwater_trapped maximum_rainwater_trapped.cpp)
+target_link_libraries(maximum_rainwater_trapped PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(search_in_sorted_rotated_array search_in_sorted_rotated_array.cpp)
+target_link_libraries(search_in_sorted_rotated_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
