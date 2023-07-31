@@ -150,3 +150,6 @@ target_link_libraries(maximum_rainwater_trapped PRIVATE ${PROJECT_NAME_LOWERCASE
 
 add_executable(search_in_sorted_rotated_array search_in_sorted_rotated_array.cpp)
 target_link_libraries(search_in_sorted_rotated_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(gcd_of_strings gcd_of_strings.cpp)
+target_link_libraries(gcd_of_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
