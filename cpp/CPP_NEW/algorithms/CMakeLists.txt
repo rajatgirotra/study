@@ -153,3 +153,6 @@ target_link_libraries(search_in_sorted_rotated_array PRIVATE ${PROJECT_NAME_LOWE
 
 add_executable(gcd_of_strings gcd_of_strings.cpp)
 target_link_libraries(gcd_of_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(isomorphic_strings isomorphic_strings.cpp)
+target_link_libraries(isomorphic_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
