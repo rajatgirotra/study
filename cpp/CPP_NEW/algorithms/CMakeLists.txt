@@ -156,3 +156,6 @@ target_link_libraries(gcd_of_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_w
 
 add_executable(isomorphic_strings isomorphic_strings.cpp)
 target_link_libraries(isomorphic_strings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(print_parenthesis print_parenthesis.cpp)
+target_link_libraries(print_parenthesis PRIVATE ${PROJECT_NAME_LOWERCASE}_project_warnings ${PROJECT_NAME_LOWERCASE}_project_warnings)
