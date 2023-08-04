@@ -182,28 +182,36 @@ target_link_libraries(jthread_62 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_opti
 
 add_executable(latch_barrier_63 latch_barrier_63.cpp)
 target_link_libraries(latch_barrier_63 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(latch_barrier_63 PRIVATE cxx_std_20)
 
 add_executable(semaphore_64 semaphore_64.cpp)
 target_link_libraries(semaphore_64 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(semaphore_64 PRIVATE cxx_std_20)
 
 add_executable(coroutine_66 coroutine_66.cpp)
 target_link_libraries(coroutine_66 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(coroutine_66 PRIVATE cxx_std_20)
 
 add_executable(coroutine_67 coroutine_67.cpp)
 target_link_libraries(coroutine_67 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(coroutine_67 PRIVATE cxx_std_20)
 
 add_executable(coroutine_69 coroutine_69.cpp)
 target_link_libraries(coroutine_69 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(coroutine_69 PRIVATE cxx_std_20)
 
 add_executable(coroutine_70 coroutine_70.cpp)
 target_link_libraries(coroutine_70 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(coroutine_70 PRIVATE cxx_std_20)
 
 add_executable(coroutine_71 coroutine_71.cpp)
 target_link_libraries(coroutine_71 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(coroutine_71 PRIVATE cxx_std_20)
 
 add_executable(coroutine_73 coroutine_73.cpp)
 target_link_libraries(coroutine_73 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
+target_compile_features(coroutine_73 PRIVATE cxx_std_20)
 
 add_executable(coroutine_74 coroutine_74.cpp)
 target_link_libraries(coroutine_74 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
-
+target_compile_features(coroutine_74 PRIVATE cxx_std_20)

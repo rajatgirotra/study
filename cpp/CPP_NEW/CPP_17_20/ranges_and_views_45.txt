@@ -23,7 +23,7 @@ views are lightweight ranges (i.e. they are also range objects only) that
 3) allow you to transform the elements of the referenced ranges
 4) generate a sequence of values themselves.
 
-To create these views. the standard provides a number of range adoptor functions in the std::ranges::views namespace.
+To create these views. the standard provides a number of range adaptor functions in the std::ranges::views namespace.
 namespace std {
 namespace views = std::ranges::views; // so std::views is same as std::ranges::views
 }

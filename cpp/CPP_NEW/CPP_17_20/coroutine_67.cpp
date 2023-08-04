@@ -84,5 +84,5 @@ First the compilation throws a warning about discarding return value from callin
 Second, the cout statements in coro() are not run. that's because the coro() sub-coroutine is
 never resumed.
 
-Lets fix both these things next
+Let's fix both these things next
 */

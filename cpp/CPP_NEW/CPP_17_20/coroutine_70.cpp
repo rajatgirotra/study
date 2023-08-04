@@ -60,10 +60,10 @@ struct [[nodiscard]] Generator {
         }
 
         struct iterator {
-            using iterator_category_tag = std::input_iterator_tag;
+            using iterator_category = std::input_iterator_tag;
             using value_type = T;
-            using distance_type = std::ptrdiff_t;
-            using pointer_type = T*;
+            using difference_type = std::ptrdiff_t;
+            using pointer = T*;
             using reference = T&;
             private:
                Generator::CoroHdl m_handle;
