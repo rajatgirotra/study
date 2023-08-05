@@ -24,108 +24,120 @@
 #include <string>
 #include <coroutine>
 #include <exception>
+#include <syncstream>
 using namespace std;
+
+auto syncOut (std::ostream& os= std::cout) {
+    return osyncstream(os);
+}
 
 struct [[nodiscard]] CoroTask {
     struct promise_type;
     using CoroHdl = std::coroutine_handle<promise_type>;
-
-    struct promise_type {
-        auto get_return_object() noexcept {
-            return CoroTask{CoroTask::CoroHdl::from_promise(*this)};
-        }
-
-        auto initial_suspend() const noexcept { return std::suspend_always{}; }
-        auto final_suspend() const noexcept { return std::suspend_always{}; }
-        void return_void () noexcept { }
-        void unhandled_exception() noexcept { std::terminate(); }
-        CoroHdl m_innerHandle{};
-    };
-
-    //ctor and dtor
-    explicit CoroTask(CoroHdl handle) : m_handle(std::move(handle)) {
-    }
+private:
+    CoroHdl m_handle{nullptr};
+public:
+    explicit CoroTask(auto handle) : m_handle(handle) {}
     ~CoroTask() { reset(); }
 
-    //disable copy
+    // disable copy and enable move
     CoroTask(const CoroTask&) = delete;
 
-    // enable move
-    CoroTask(CoroTask&& arg) : m_handle(std::move(arg.m_handle)) {
-        arg.m_handle = nullptr;
+    CoroTask(CoroTask&& rhs) : m_handle(std::move(rhs.m_handle)) {
+        rhs.m_handle = nullptr;
     }
 
     CoroTask& operator = (CoroTask&& rhs) noexcept {
         if(this != &rhs) {
             reset();
-            this->m_handle = std::move(rhs.m_handle);
+            m_handle = std::move(rhs.m_handle);
             rhs.m_handle = nullptr;
         }
         return *this;
     }
 
-    void setName(string s) {
-        m_taskName = std::move(s);
-    }
-
-    const string& getName() const noexcept { return m_taskName; }
-
-    bool resume() noexcept {
+    bool resume() {
         if(!m_handle || m_handle.done()) {
             return false;
         }
 
-        CoroHdl deepestHandle = m_handle;
-        while(deepestHandle.promise().m_innerHandle && !deepestHandle.promise().m_innerHandle.done()) {
-            deepestHandle = deepestHandle.promise().m_innerHandle;
+        // resume should look into the deepest coroutine_handle and resume that.
+        CoroHdl deepest_coro = m_handle;
+        while(deepest_coro.promise().m_inner_handle && !deepest_coro.promise().m_inner_handle.done()) {
+            deepest_coro = deepest_coro.promise().m_inner_handle;
         }
-        deepestHandle.resume();
+        deepest_coro.resume();
         return !m_handle.done();
     }
 
-    auto await_ready() noexcept { return false; }
-    auto await_suspend(CoroHdl awaitHdl) noexcept {
-//        cout << m_taskName << ", awaitHdl address: " << std::addressof(awaitHdl) << endl;
-        awaitHdl.promise().m_innerHandle = m_handle;
-        return true;
-    }
-    void await_resume() noexcept { }
-
-    void print() const noexcept {
-        cout << m_taskName << ", m_handle: " << std::addressof(m_handle) << endl;
-    }
-
-private:
-    CoroHdl m_handle;
-    string m_taskName{};
-
-    void reset() noexcept {
+    void reset() {
         if(m_handle) {
             m_handle.destroy();
             m_handle = nullptr;
         }
     }
+
+    struct promise_type {
+        auto get_return_object() {
+            return CoroTask(CoroHdl::from_promise(*this));
+        }
+
+        auto initial_suspend() const noexcept { return std::suspend_always{}; }
+        auto final_suspend() const noexcept { return std::suspend_always{}; }
+
+        void unhandled_exception() { std::terminate(); }
+
+        void return_void() noexcept {}
+
+//        auto yield_value(auto val) noexcept { return std::suspend_always; }
+
+        CoroHdl m_inner_handle{};
+    };
+
+    bool await_ready() const noexcept { return false; }
+    void await_suspend(CoroHdl await_handle) const noexcept {
+        // Note the await_handle is the coroutine_handle<> of the outer coroutine.
+        // but the *this object is that of the inner coroutine
+        await_handle.promise().m_inner_handle = m_handle;
+    }
+
+    void await_resume() const noexcept { }
 };
 
-CoroTask coro2() {
-    cout << "\t\tcoro2() started\n";
-    co_await std::suspend_always{};
-    cout << "\t\tcoro2() ended\n";
+CoroTask coroThree() {
+    syncOut() << "\t\tcoroThree started\n";
+    co_await  std::suspend_always{};
+    syncOut() << "\t\tcoroThree done\n";
 }
 
-CoroTask coro1() {
-    cout << "\tcoro1() started\n";
-    co_await coro2();
-    cout << "\tcoro1() ended\n";
+CoroTask coroTwo() {
+    syncOut() << "\t\tcoroTwo started\n";
+    co_await coroThree();
+    syncOut() << "\t\tcoroTwo done\n";
+}
+
+CoroTask coroOne() {
+    syncOut() << "\tcoroOne started\n";
+    co_await coroTwo();
+    syncOut() << "\tcoroOne done\n";
 }
 
 int main() {
-    cout << "In main - START\n";
-    auto task = coro1();
-//    task.setName("coro1");
-//    task.print();
+    auto task = coroOne();
+    cout << "coroOne created\n";
     while(task.resume()) {
-        cout << "coro1() suspended\n";
+        cout << "coroOne suspended\n";
     }
-    cout << "In main - END\n";
+    cout << "coroOne finished\n";
 }
+
+/* the most important thing to remember is the co_await call.
+ * it is called like this:
+ * co_await coroTwo() or
+ * co_await coroThree()
+ * What this does is initialize the coroutine interface objects (CoroTask) for coroTwo and coroThree. and since these coroutine interface objects
+ * also implement the Awaitable contract functions (await_*), the co_await call is allowed.
+ *
+ * So when co_await callTwo() is called, the coroutine awaited is CoroOne, so the await_suspend(await_handle) of coroTwo()'s coroutine interface object
+ * is called and await_handle argument is the std::coroutine_interface<> of the coroOne() coroutine.
+ */
