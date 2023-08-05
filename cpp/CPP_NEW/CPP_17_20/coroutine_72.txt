@@ -25,3 +25,15 @@ transfer control to another coroutine. Different return types allow you to speci
 await_suspend(awaitHandle)
 1) If it returns void, the coroutine is suspended.
 2) await_suspend can also return a totally different coroutine_handle<> (maybe a sub-coroutine handle). In that case, the returned coroutine is resumed immediately. And since await_suspend() signals that there should be no suspension and some coroutine must run, await_resume() will never be called.
+
+Coroutine constraints:
+=====================
+Coroutines are not allowed to have return statements.
+Coroutines cannot be constexpr or consteval.
+Coroutines cannot have return type auto or other placeholder types.
+main() cannot be a coroutine.
+A constructor or destructor cannot be a coroutine.
+A coroutine may be static. A coroutine may be a member function if it is not a constructor or destructor.
+A coroutine may even be a lambda. However, it should never capture anything. (it can, but it should NEVER)
+Another advice is to never declare coroutine parameters as references. Otherwise, fatal runtime errors with
+undefined behavior may occur.

@@ -63,7 +63,7 @@ CoroTask coro(int max) {
     cout << "\tcoro start\n";
     for(int value = 1; value <= max; ++value) {
         cout << "\tcoro " << value << "\n";
-        co_await Awaiter{};
+        co_await Awaiter{}; // Note that a new Awaiter object is created everytime co_await is called and destructed after await_resume() is called.
     }
     cout << "\tcoro end\n";
 }

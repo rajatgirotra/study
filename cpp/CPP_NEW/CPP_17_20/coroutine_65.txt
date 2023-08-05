@@ -61,9 +61,26 @@ When a coroutine is first created. the compiler will automatically create a coro
 3) the compiler will then call initial_suspend(). this function tells you whether your coroutine should immediately start after getting created or should be initially suspended.
 When we return std::suspend_always{}, the coroutine will be suspended after creation. std::suspend_always{} and std::suspend_never{} are examples of Awaiters. We will discuss awaiters later.
 4) Similarly unhandled_exception() is called when an exception is thrown in the coroutine which is not caught.
-5) return_void() --> if your coroutine doesnt return any value at the end, you should create this function.
+5) return_void() --> if your coroutine doesn't return any value at the end, you should create this function.
 6) return_value() --> if your coroutine returns a value at the end using co_return, you should use this function.
 7) yield_value() --> if your coroutine yields a value using co_yield, you should define this function.
 8) final_suspend() --> define the behavior when your coroutine finishes.
 
-With that information. Lets start writing some code.
+Only one out of return_void() or return_value() must be defined. It is undefined behavior if coroutines are implemented in a way that they sometimes may and
+ sometimes may not return a value.
+
+ However, overloading of return_value() is allowed to return different types. Example:
+ struct promise_type {
+  void return_value(int val) {
+     // reaction to co_yield for int
+     ...
+     // - process returned int
+   }
+   void return_value(std::string val) { // reaction to co_yield for string
+      ...
+     // - process returned string
+   }
+
+  Similarly, yield_value() can also be overloaded.
+
+With that information. Let's start writing some code.
