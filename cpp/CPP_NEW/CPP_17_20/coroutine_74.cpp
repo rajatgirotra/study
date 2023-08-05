@@ -89,16 +89,18 @@ public:
 
         void return_void() noexcept {}
 
-//        auto yield_value(auto val) noexcept { return std::suspend_always; }
-
         CoroHdl m_inner_handle{};
     };
 
     bool await_ready() const noexcept { return false; }
-    void await_suspend(CoroHdl await_handle) const noexcept {
+    auto await_suspend(CoroHdl await_handle) const noexcept {
         // Note the await_handle is the coroutine_handle<> of the outer coroutine.
         // but the *this object is that of the inner coroutine
         await_handle.promise().m_inner_handle = m_handle;
+
+        // note the subtle difference when this is return enabled. it means no suspension is required and the inner sub coroutine should be
+        // resumed straightaway.
+        return m_handle;
     }
 
     void await_resume() const noexcept { }

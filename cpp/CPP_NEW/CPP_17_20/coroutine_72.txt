@@ -20,3 +20,8 @@ transfer control to another coroutine. Different return types allow you to speci
 
 3) auto await_resume() --> This is called immediately after the coroutine is resumed. It can return a value, which would be the value
  that the co_await/co_yield expression yields. It is used by the caller of the coroutine to send values back into the coroutine when a coroutine is resumed.
+
+
+await_suspend(awaitHandle)
+1) If it returns void, the coroutine is suspended.
+2) await_suspend can also return a totally different coroutine_handle<> (maybe a sub-coroutine handle). In that case, the returned coroutine is resumed immediately. And since await_suspend() signals that there should be no suspension and some coroutine must run, await_resume() will never be called.
