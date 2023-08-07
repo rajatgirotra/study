@@ -215,3 +215,5 @@ target_compile_features(coroutine_73 PRIVATE cxx_std_20)
 add_executable(coroutine_74 coroutine_74.cpp)
 target_link_libraries(coroutine_74 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings)
 target_compile_features(coroutine_74 PRIVATE cxx_std_20)
+
+add_subdirectory(modules)

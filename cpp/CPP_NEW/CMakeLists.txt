@@ -42,6 +42,18 @@ install(TARGETS ${PROJECT_NAME_LOWERCASE}_project_options EXPORT ${PROJECT_TARGE
 # allow for static analysis options
 include(cmake/StaticAnalyzers.cmake)
 
+
+# make sure c++ 20 is set
+set(CMAKE_CXX_STANDARD 20)
+# turn on the dynamic depends for ninja
+set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP 1)
+# turn on the experimental API
+set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API  "2182bf5c-ef0d-489a-91da-49dbc3090d2a")
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    include(cmake/gcc_modules.cmake)
+endif()
+
+
 # Python3
 #find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 find_package(Python3 REQUIRED COMPONENTS Interpreter)

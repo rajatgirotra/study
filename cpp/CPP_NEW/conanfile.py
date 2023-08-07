@@ -40,7 +40,7 @@ class CPPStudyConan(ConanFile):
         # self.build_requires('gtest/1.10.0', force_host_context=True)
 
     def validate(self):
-        check_min_cppstd(self, "17")
+        check_min_cppstd(self, "20")
 
     def generate(self):
         tc = CMakeToolchain(self)
