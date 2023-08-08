@@ -48,7 +48,8 @@ set(CMAKE_CXX_STANDARD 20)
 # turn on the dynamic depends for ninja
 set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP 1)
 # turn on the experimental API
-set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API  "2182bf5c-ef0d-489a-91da-49dbc3090d2a")
+#set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API  "2182bf5c-ef0d-489a-91da-49dbc3090d2a") # for cmake 3.26
+set(CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API  "aa1f7df0-828a-4fcd-9afc-2dc80491aca7") # for cmake 3.27
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     include(cmake/gcc_modules.cmake)
 endif()
