@@ -77,8 +77,8 @@ struct name_extractor
 {
   typedef std::string result_type;
 
-  const result_type& operator()(const employee& e)const{return e.name;}
-  result_type&       operator()(employee* e)const{return e->name;}
+  const result_type& operator()(const employee& e) const {return e.name;}
+  const result_type& operator()(employee* e) const {return e->name;}
 }; 
 
 Your MIC can contain either "employee" or "employee*".

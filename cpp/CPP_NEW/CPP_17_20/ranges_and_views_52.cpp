@@ -1,5 +1,5 @@
 /*
- * You have already seen how to create a range with an iterator and setinel using std::ranges::subrange.
+ * You have already seen how to create a range with an iterator and sentinel using std::ranges::subrange.
  * Similarly to create a range with an iterator and count, the easiest way is to use the range adaptor function
  * std::views::counted(). It creates a view to the first n elements starting at some begin iterator/pointer.
  */

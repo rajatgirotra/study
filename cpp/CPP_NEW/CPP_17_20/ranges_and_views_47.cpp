@@ -3,15 +3,27 @@
 #include <ranges>
 #include <algorithm>
 #include <iterator>
+#include <cxxabi.h>
+#include <cassert>
 using namespace std;
 namespace rng = std::ranges;
 namespace vws = std::views;
+
+string demangle(const char* const mangled_name) {
+    int res = -1;
+    auto str = abi::__cxa_demangle(mangled_name, nullptr, nullptr, &res);
+    assert(res == 0);
+    string ret(str);
+    free(str);
+    return ret;
+}
 
 int main() {
     std::vector intVec{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 
     // create a view of only the first 5 elements of intVec.
     auto v = vws::take(intVec, 5);
+//    auto v = vws::counted(intVec.begin(), 5);
     std::ranges::copy(v, std::ostream_iterator<int>(cout, "  "));
     cout << endl;
 
@@ -22,10 +34,14 @@ int main() {
 
     // transform the view by squaring all elements
     auto v2 = vws::transform(intVec, [](const auto &elem) { return elem * elem; });
+//    auto v2 = vws::transform(intVec, [](auto &elem) { return (elem *= elem); });
     std::ranges::copy(v2, std::ostream_iterator<int>(cout, "  "));
+    cout << "\ntype of view returned by vws::filter(..):  " << demangle(typeid(decltype(v)).name()) << endl;
     cout << endl;
 
-    // did transform modify original intVec
+    // did transform modify original intVec, answer is it depends. Normally when adaptor functions are called with range parameter as an lvalue, you get a reference_view.
+    // reference_views can be used for both reading/writing. However, when adaptor functions are called with rvalue/temporaries, we don't get a reference_view.
+    // so reading is ok, but not writing.
     cout << "Original collection: ";
     std::ranges::copy(intVec, std::ostream_iterator<int>(cout, "  "));
     cout << endl;

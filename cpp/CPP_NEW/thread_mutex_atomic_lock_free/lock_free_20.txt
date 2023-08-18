@@ -41,13 +41,13 @@ Remember the important fact the processor IS NOT DOING INSTRUCTION RE-ORDERING. 
 We even have a sample programme where we spawn two threads similar to above, and execute them randomly at different times and repeatedly to see
 when the reads/writes are re-ordered.
 
-Look at ordering_21.cpp next
+Look at reordering_22.cpp next
 
 There are two ways of preventing this re-ordering of reads and writes.
 
 1) Force the two threads to run on the same core/processor, by setting the affinity of a thread to a cpu. in 2_ordering.cpp
    we use "pthread_setaffinity_np" to do that. A single processor/core will never see its own reads and writes out of order
-   even if the threads are pre-empted at any arbitrary times. This is because a processor will always read from the latest copy of
+   even if the threads are preempted at any arbitrary times. This is because a processor will always read from the latest copy of
    x or y from its own cache. This also explains the cache - coherency problems which occurs into multiprocessor systems.
 
 2) The other way is to use a barrier to prevent the reordering of a store followed by a load operation. On x86, there are several ways available

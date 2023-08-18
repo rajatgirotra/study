@@ -95,9 +95,9 @@ option(RUN_TESTS "Run Tests after successful build. RUN_TESTS=ON will NOT run un
 #target_link_libraries(auto_with_brace_initialization PRIVATE project_options project_warnings)
 
 #add_subdirectory(advanced)
-#add_subdirectory(boost)
+add_subdirectory(boost)
 #add_subdirectory(packet_parser)
-add_subdirectory(algorithms)
+#add_subdirectory(algorithms)
 #add_subdirectory(chrono)
 #add_subdirectory(constexpr)
 #add_subdirectory(hashes_maps_sets)
@@ -120,38 +120,39 @@ add_subdirectory(practice)
 #add_subdirectory(orderbook)
 #add_subdirectory(ob)
 
-#if(BUILD_TESTS)
-#    message(NOTICE "building unit tests is enabled")
-#
-#    # Google test
-#    #    find_package(GTest REQUIRED COMPONENTS GTest::gtest_main GTest::gmock_main GTest::gmock GTest::gtest)
-#    include(FetchContent)
-#    FetchContent_Declare(
-#            googletest
-#            GIT_REPOSITORY https://github.com/google/googletest.git
+if(BUILD_TESTS)
+    message(NOTICE "building unit tests is enabled")
+
+    # Google test
+    #    find_package(GTest REQUIRED COMPONENTS GTest::gtest_main GTest::gmock_main GTest::gmock GTest::gtest)
+    include(FetchContent)
+    FetchContent_Declare(
+            googletest
+            GIT_REPOSITORY https://github.com/google/googletest.git
+            GIT_TAG f8d7d77
 #            GIT_TAG origin/master # master
-#         #  GIT_TAG e2239ee6043f73722e7aa812a459f54a28552929 # release 1.11.0
-#    )
-#
-#    # For Windows: Prevent overriding the parent project's compiler/linker settings
-#    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-#    FetchContent_MakeAvailable(googletest)
-#
-#    message(STATUS "googletest populated: ${googletest_POPULATED}, src dir: ${googletest_SOURCE_DIR}, build dir: ${googletest_BINARY_DIR}")
-#    set(ENABLE_TESTING ON)
-#    include(CTest)
-#    include(GoogleTest)
-#    add_subdirectory(test)
-#    if(RUN_TESTS)
-#        # TODO. Code to call ctest to run all the discovered tests.
-#        message(NOTICE "running unit tests is enabled")
-#    else()
-#        message(NOTICE "running unit tests is disabled")
-#    endif()
-#else()
-#    if(RUN_TESTS)
-#        message(FATAL_ERROR "RUN_TESTS=ON, but unit tests are not built. enable unit tests builds with -DBUILD_TESTS=ON")
-#    endif()
-#    message(NOTICE "building unit tests is disabled")
-#endif()
-#
+         #  GIT_TAG e2239ee6043f73722e7aa812a459f54a28552929 # release 1.11.0
+    )
+
+    # For Windows: Prevent overriding the parent project's compiler/linker settings
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
+
+    message(STATUS "googletest populated: ${googletest_POPULATED}, src dir: ${googletest_SOURCE_DIR}, build dir: ${googletest_BINARY_DIR}")
+    set(ENABLE_TESTING ON)
+    include(CTest)
+    include(GoogleTest)
+    add_subdirectory(test)
+    if(RUN_TESTS)
+        # TODO. Code to call ctest to run all the discovered tests.
+        message(NOTICE "running unit tests is enabled")
+    else()
+        message(NOTICE "running unit tests is disabled")
+    endif()
+else()
+    if(RUN_TESTS)
+        message(FATAL_ERROR "RUN_TESTS=ON, but unit tests are not built. enable unit tests builds with -DBUILD_TESTS=ON")
+    endif()
+    message(NOTICE "building unit tests is disabled")
+endif()
+

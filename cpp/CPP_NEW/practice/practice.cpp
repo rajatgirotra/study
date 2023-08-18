@@ -1,67 +1,90 @@
 #include <iostream>
 #include <string>
-#include <future>
-#include <thread>
-#include <mutex>
-#include <syncstream>
-#include <latch>
-#include <chrono>
-#include <cxxabi.h>
-#include <typeinfo>
-#include <semaphore>
-#include <random>
-#include <thread>
-#include <exception>
-#include <system_error>
-#include <unordered_map>
-#include <string_view>
-#include <fstream>
-#include <iterator>
-#include <algorithm>
-#include <functional>
-#include <set>
-#include <type_traits>
-#include <string>
-#include <memory>
-#include <cassert>
-#include <array>
-#include <variant>
-#include <iomanip>
-#include <typeinfo>
-#include <random>
-#include <iterator>
 #include <ranges>
-#include <cmath>
+#include <concepts>
+#include <memory>
+#include <fstream>
+#include <algorithm>
+#include <iterator>
+#include <tuple>
+#include <boost/multi_index_container.hpp>
+#include <boost/multi_index/identity.hpp>
+#include <boost/multi_index/member.hpp>
+#include <boost/multi_index/mem_fun.hpp>
+#include <boost/multi_index/global_fun.hpp>
+#include <boost/multi_index/composite_key.hpp>
+#include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index/hashed_index.hpp>
 using namespace std;
-using namespace std::chrono;
-using namespace std::literals;
+namespace rng = std::ranges;
+namespace vws = std::views;
 
-/*
- * return all prime numbers strictly less than given number n.
- */
 
-bool is_prime(int N) {
-    if(N < 2) return false;
-    else if (N == 2 || N == 3) return true;
-    for(int i = 2; i <= static_cast<int>(sqrt(N)); ++i) {
-        if(N % i == 0) return false;
+
+struct Employee {
+    int m_id;
+    string m_firstName;
+    string m_lastName;
+
+    Employee(int id, string fname, string lname) : m_id(id), m_firstName(std::move(fname)), m_lastName(std::move(lname)) {
     }
-    return true;
-}
 
-int count_primes(int N) {
-    int res {};
-    for(int i = 2; i <= N; ++i) {
-        if(is_prime(i)) {
-            ++res;
-            cout << i << " ";
-        }
+    auto operator <=> (const Employee& rhs) const noexcept {
+        return m_id <=> rhs.m_id;
     }
-    cout << endl;
-    return res;
-}
+
+    bool operator == (const Employee& rhs) const noexcept {
+        return m_id == rhs.m_id;
+    }
+
+    friend ostream& operator << (ostream& os, const std::shared_ptr<Employee>& rhs) {
+        os << "Employee: (" << rhs->m_id << ", " << rhs->m_firstName << ", " << rhs->m_lastName << ")";
+        return os;
+    }
+};
 
 int main() {
-    int n = 70;
-    cout << count_primes(n) << endl;
+    using EmployeeSet = boost::multi_index_container<std::shared_ptr<Employee>,
+                          boost::multi_index::indexed_by <
+                            boost::multi_index::ordered_non_unique< boost::multi_index::identity<Employee>>,
+                              boost::multi_index::hashed_non_unique<
+                                boost::multi_index::composite_key<
+                                  std::shared_ptr<Employee>,
+                                  BOOST_MULTI_INDEX_MEMBER(Employee, string, m_firstName),
+                                  BOOST_MULTI_INDEX_MEMBER(Employee, string, m_lastName)
+                                >
+                              >
+                            >
+                        >;
+
+    EmployeeSet es;
+    auto& id_index = es.get<0>();
+
+    auto empRajat = std::make_shared<Employee>(10, "Rajat", "Girotra");
+
+    auto res = id_index.insert(empRajat);
+    if(res.second) {
+        cout << "Inserted " << *(res.first) << endl;
+    }
+
+    auto empRajat2 = std::make_shared<Employee>(1, "Rajat", "Girotra");
+    auto res2 = id_index.insert(empRajat2);
+    if(res2.second) {
+        cout << "Inserted " << *(res2.first) << endl;
+    } else {
+        cout << "Failed to insert " << *(res2.first) << endl;
+    }
+
+    auto& hash_index = es.get<1>();
+    auto empIter = hash_index.find(std::make_tuple("Rajat", "Girotra"));
+    if(empIter != hash_index.end()) {
+        cout << "Found " << *(empIter) << endl;
+    }
+
+    auto range = hash_index.equal_range(std::make_tuple("Rajat", "Girotra"));
+    auto [rFirst, rSecond] = range;
+    while(rFirst != rSecond) {
+        cout << "Found via equal range " << *(rFirst) << endl;
+        ++rFirst;
+    }
 }

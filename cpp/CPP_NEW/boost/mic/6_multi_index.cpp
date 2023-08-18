@@ -66,7 +66,7 @@ struct my_extractor {
 typedef boost::multi_index_container < EmployeeDetails,
             indexed_by <
                 //0th index based on employee id.
-                ordered_unique < identity <EmployeeDetails> >, //Required operator < to be defined for EmployeeDetails
+                ordered_unique < boost::multi_index::identity <EmployeeDetails> >, //Required operator < to be defined for EmployeeDetails
                 //1st index, based on home phone number. 
                 ordered_non_unique < BOOST_MULTI_INDEX_MEMBER(EmployeeDetails, std::string, home_phone_number) >,
                 //2nd index, based on cell phone number 

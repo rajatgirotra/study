@@ -1,5 +1,5 @@
 /*
- * Very simple RAII over std::mutex. std::unique_guard constructor locks the mutex and destructor unlocks it
+ * Very simple RAII over std::mutex. std::lock_guard constructor locks the mutex and destructor unlocks it
  * Also has another ctor which doesn't lock but just adopts it. so that the destructor will call unlock.
  */
 #include <iostream>

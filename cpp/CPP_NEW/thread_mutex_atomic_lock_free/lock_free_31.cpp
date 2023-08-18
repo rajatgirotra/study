@@ -8,7 +8,7 @@ std::atomic<int> ready(0);
 
 void foo()
 {
-    for(int i = 0; i < 10000; ++i)
+    for(int i = 0; i < 5; ++i)
     {
 //    asm volatile("mfence" ::: "memory");
         auto x = ready.load(std::memory_order_acquire);
@@ -31,7 +31,7 @@ void foo()
 
 void bar()
 {
-    for(int i = 0; i < 10000; ++i)
+    for(int i = 0; i < 5; ++i)
     {
         auto x = ready.load(std::memory_order_acquire);
         //   asm volatile("mfence" ::: "memory");
@@ -45,6 +45,7 @@ void bar()
             std::this_thread::yield();
             cout << "two \n";
             std::this_thread::yield();
+
         }
         std::this_thread::yield();
         ready.store(0, std::memory_order_release);

@@ -17,7 +17,7 @@ Most future operations API's have undefined behavior if valid()==false before th
 6) std::future_status wait_for()
 7) std::future_status wait_until()
 std::future_status can be
-a) deferred: meaning the async task hasn't begin operation
+a) deferred: meaning the async task hasn't begun operation
 b) ready: the result is available.
 c) timeout: the operation expired.
 
