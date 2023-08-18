@@ -1,6 +1,6 @@
 /*
  * Projections:
- * Most of the std::ranges::algorithms() take a final argument which is a projection. It is way to transform the value begin processed by the algorithm.
+ * Most of the std::ranges::algorithms() take a final argument which is a projection. It is way to transform the value processed by the algorithm.
  * Example: Lets say you have a sequence of positive and negative numbers, and you want to sort them. But during sorting, you want to consider their absolute values.
  * So you have two choices.
  * 1) Introduce your own lambda comparator

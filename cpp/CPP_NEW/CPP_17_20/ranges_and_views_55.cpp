@@ -3,10 +3,10 @@
  * they refer to no longer exists.
  *
  * this can happen,
- * 1) if they iterators of the range are independent of the lifetime of the underlying range.
+ * 1) if the iterators of the range are independent of the lifetime of the underlying range.
  * 2) or if the iterators themselves store the values which need to be iterated upon.
  *
- * C++20 introduces a concept std::ranges::borrows_range which is satisfied if the iterators can still be used when the underlying range
+ * C++20 introduces a concept std::ranges::borrowed_range which is satisfied if the iterators can still be used when the underlying range
  * no longer exists.
  *
  * now the ranges which you have seen till now are:
@@ -18,7 +18,7 @@
  *
  * 1) std::ranges::iota_view --> in this view, the iterator itself stores the current value to be used and incremented.
  * 2) std::ranges::empty_view --> in this view, the iterator always points to the end iterator so there are no elements to be traversed.
- * 3) views where the iterators directly refer to the underlying range on which the view is contructed. This is the case with
+ * 3) views where the iterators directly refer to the underlying range on which the view is constructed. This is the case with
  *    3.a) std::string_view
  *    3.b) std::ranges::ref_view
  *    3.c) std::span
@@ -34,13 +34,30 @@
 #include <algorithm>
 #include <iterator>
 #include <vector>
+#include <cxxabi.h>
+#include <cassert>
 using namespace std;
 namespace rng = std::ranges;
 namespace vws = std::views;
 
-int main() {
-//    auto v = std::views::take(std::vector{0, 8, 15}, 2); // this is a compile time error.
+string demangle(const char* const mangled_name) {
+    int res = -1;
+    auto str = abi::__cxa_demangle(mangled_name, nullptr, nullptr, &res);
+    assert(res == 0);
+    string ret(str);
+    free(str);
+    return ret;
+}
 
-    auto pos6 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
-    std::cout << *pos6 << endl;  // runtime ERROR even if 8 found
+int main() {
+    auto v = std::views::take(std::vector{0, 8, 15}, 2);
+    auto pos8 = rng::find(v, 8);
+    cout << *pos8 << endl;
+    cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // not a ref_view, an owning_view
+
+    //    auto pos8 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
+//    auto v2 = vws::counted(std::vector{0, 8, 15}.begin(), 2);
+//    auto pos8 = rng::find(v2, 8);
+//    std::cout << *pos8 << endl;  // runtime ERROR even if 8 found
+//    cout << "type of v2: " << demangle(typeid(decltype(v2)).name()) << endl; // v2 is std::span
 }
