@@ -118,8 +118,10 @@ But Ethereum supports it.. How?? and Since Ethereum has smart contracts or code 
 1) EVM --> The solidity language always runs inside a Ethereum Virtual Machine. That means it doesnt know anything about the host system, environment etc. There is 100% gaurantee that whatever you do inside an EVM stays there. So your system and its file are completely safe. EVM has its own microkernel, memory, storage, stack space etc.
 
 2) Loops --> Ethereum blockchain requires that anyone who wants to execute code in a smart contract must pay. This payment must be done in Ether. So if anyone writes ineffecient code or write long computational/infinite loops, it will cost them a lot of Ether, so they will not do that, as soon they will run out of Ether.
-However the price of Ether can fluctaute everyday based on market, so they introduced something calles as Gas. They created a spreadsheet and provided the number of "Gas" units you need all primitive operations (like ADD, MULTIPLY, DIVIDE, BITWISE OPS etc etc) and their corresponding Gas units required. This Gas units are mostly constent. And to convert between Ether and Gas, they have their own Exchange Rate. This Exchange Rate is modified based on Consensus, so that the Gas prices remain largely unchanged.
+However the price of Ether can fluctaute everyday based on market, so they introduced something calles as Gas. They created a spreadsheet and provided the number of "Gas" units you need to run all primitive operations (like ADD, MULTIPLY, DIVIDE, BITWISE OPS etc etc) and their corresponding Gas units required. This Gas units are mostly constant. And to convert between Ether and Gas, they have their own Exchange Rate. This Exchange Rate is modified based on Consensus, so that the Gas prices remain largely unchanged.
 You can go to ethergasstation.info/ for more information.
+
+However as of July 1' 2023. Ether Gas station is retired.
 
 Decentralized Autonomous Organizations (DAO's)
 ==============================================

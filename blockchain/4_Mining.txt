@@ -20,13 +20,13 @@ so total hashes available = 16 * 16 * .. 64 times approximately 1.15792089E77 i.
 With 8 leading zeroes, the number of hashes available = 16*16*16... 56 times approx 2.69599467E67 i.e. 2 * 10^67
 With 19 leading zeroes, the number of hashes available = 16*16*16... 45  times approx 1.53249554E54 i.e. 10^54
 
-So the probability that a random nonce will be having 19 leading zeros = 10^45/10^77 = 1E-32 = 0.00000000000000000000000000000032%
+So the probability that a random nonce will be having 19 leading zeros = 10^54/10^77 = 1E-32 = 0.00000000000000000000000000000032%
 That's the probability! So now you have an idea how small it is and why we just need to brute force it.
 
 Mining Pools
 ============
 Now there are companies like Slushpool, AntPool, BTC.com etc which provide mining pools. i.e. you can setup your own hardware for Bitcoin and join the mining pools provided by these companies. These companies will run the Bitcoin mining on your hardware and the hardware of other users cooperatively to mine BTC. and whenever you successfully mine a BTC, the reward is distributed among all the participants by distributing in the same ratio as the hash capacity you provide to the pool. You can see the distribution of the various mining pools at BTC.com https://btc.com/btc/insights-pools.
-For example, if 5 systems are mining a block. Then may be system will check all nonce between 0-100million, system will check all nonce between 100,000,001 and 200million and so on.
+For example, if 5 systems are mining a block. Then may be one system will check all nonce between 0-100million, another system will check all nonce between 100,000,001 and 200million and so on.
 
 Hash Rate
 ==========
@@ -42,7 +42,7 @@ Mining on Laptop
 ================
 An average gaming laptop will have a Hash Rate of 100MH/s (100 million hashes per second).
 
-Let say we are mining on a laptop. The nonce is a 32 but unsiged number so its range is 0 - 4,294,967,295 (approx 4 billion)
+Let say we are mining on a laptop. The nonce is a 32 bit unsigned number so its range is 0 - 4,294,967,295 (approx 4 billion)
 So on a gaming laptop it will take around 40 seconds to complete the full nonce range. This means you should be able to mine a block every 40 seconds. So why we cant mine it so fast? Let's see.
 With current mining difficulty of 19 leading zeros, the hash range is 10^54.
 and the total nonce is only 4 billion. Which is much less then the hash range. So what is the guarantee that the 4 billion much smaller nonce range will give us a hash with 19 leading zeros. 

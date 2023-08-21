@@ -80,7 +80,7 @@ scriptSig: ..signatures... <serialized script>
 We will understand PS2H some other day.
 
 
-OP_HASH160 = ripemd160(sha256(x)) # you already know that sha256 and ripemd160 are SHA algos alsi used to generate bitcoin addresses.
+OP_HASH160 = ripemd160(sha256(x)) # you already know that sha256 and ripemd160 are SHA algos also used to generate bitcoin addresses.
 
 
 Lets further understand this

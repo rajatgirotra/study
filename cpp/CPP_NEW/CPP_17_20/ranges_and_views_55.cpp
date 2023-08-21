@@ -50,14 +50,19 @@ string demangle(const char* const mangled_name) {
 }
 
 int main() {
-    auto v = std::views::take(std::vector{0, 8, 15}, 2);
-    auto pos8 = rng::find(v, 8);
-    cout << *pos8 << endl;
-    cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // not a ref_view, an owning_view
+//    auto v = std::views::take(std::vector{0, 8, 15}, 2);
+//    auto pos8 = rng::find(v, 8);
+//    cout << *pos8 << endl;
+//    cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // not a ref_view, an owning_view
 
     //    auto pos8 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
 //    auto v2 = vws::counted(std::vector{0, 8, 15}.begin(), 2);
 //    auto pos8 = rng::find(v2, 8);
 //    std::cout << *pos8 << endl;  // runtime ERROR even if 8 found
 //    cout << "type of v2: " << demangle(typeid(decltype(v2)).name()) << endl; // v2 is std::span
+
+//    auto pos8 = rng::find(std::vector{0, 8, 15}, 8);
+//    cout << *pos8 << endl; // dangling pointer std::ranges::dangling
+
+    [[maybe_unused]] auto pos5 = std::ranges::find(std::views::take(std::vector{0, 8, 15}, 2), 8);
 }
