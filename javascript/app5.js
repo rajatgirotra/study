@@ -1,11 +1,56 @@
-function greet(name) {
-    name = name || 'rajat'
-    console.log(name); // undefined when greet() is called without parameter
-    console.log('hello ' + name); // shows 'hello undefined'
+/*
+
+The keywords let and var both declare new variables in JavaScript. The difference between let and var is in the scope of the variables they create:
+
+Variables declared by let are only available inside the block where they’re defined.
+Variables declared by var are available throughout the function in which they’re declared.
+
+*/
+function varScoping() {
+  var x = 1;
+
+  if (true) {
+    var x = 2; // can be declared again.
+    console.log(x); // will print 2
+  }
+
+  console.log(x); // will print 2
 }
 
-greet(); // passed without parameter
-greet('vidhu')
+function letScoping() {
+  let x = 1;
 
-// before ES6, developers used a neat trick to set a default for name if name is undefined. the first line of the function would be:
-// name = name || "default value"; || returns the first operand that coerces to true.
+  if (true) {
+    let x = 2;
+    console.log(x); // will print 2
+  }
+
+  console.log(x); // will print 1
+}
+// In varScoping(), one x variable is used throughout the function, even though an x variable is declared in two different places with different values.
+// even if we replace the first "let x = 1" with "var x = 1", still we will say output as 2 and 1.
+
+
+function nestedScopeTest() {
+  if (true) {
+    var functionVariable = 1;
+    let blockVariable = 2;
+     
+    console.log(functionVariable);
+    console.log(blockVariable);
+  }
+
+  console.log(functionVariable);
+  console.log(blockVariable); // will throw an error.
+}
+
+varScoping();
+letScoping();
+nestedScopeTest();
+
+// One final point to note is that when working outside of function bodies, at a global level, let does not create a property on the global object, whereas var does. Therefore:
+// Global variables
+var x = 1;
+let y = 2;
+console.log(this.x); // will print 1
+console.log(this.y); // will print undefined
