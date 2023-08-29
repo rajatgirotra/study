@@ -1,0 +1,21 @@
+{
+  "name": "express_5",
+  "version": "1.0.0",
+  "description": "Example express node application",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Rajat Girotra",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.29.3"
+  }
+}

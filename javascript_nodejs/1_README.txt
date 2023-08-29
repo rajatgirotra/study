@@ -17,8 +17,8 @@ Ok, now if you google, you'll find many implementation of Javascript engines use
 One of these is called V8 javascript engine developed by Google and used by Google chrome. It is written in C++.
 
 A very good feature of V8 is that it is embeddable and extensible. So a company called Joyent extended this V8 in the following way.
-V8 allows you to define hooks which is a way of telling Javascript V8 engine that if you find this particular text, function in javascript
-which is not defined in the Javascript standard (like a function, myFunction()), then call this particular function which I am defining. 
+V8 allows you to define hooks which is a way of telling Javascript V8 engine that if you find this particular text/function in javascript
+which is not defined in the Javascript standard (like a function, myFunction(), print(), load() etc), then call this particular function which I am defining. 
 
 So this company called Joyent created anothter piece of software called Node (written again in C++, targeted for many different OS'es)
 and created a lot of functions(hooks) , so they basically extended Javascript to give it server side capabilities.
@@ -30,4 +30,4 @@ Just say:
 
 node app.js & it will run your javascript
 
-Lets get going.
+Let's get going. See 2_README.txt next
