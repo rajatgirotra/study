@@ -4,6 +4,7 @@ public class Main_02 {
     public static void main(String[] args) {
         System.out.println("Byte size: " + Byte.SIZE + " bits, range (" + Byte.MIN_VALUE + " to " + Byte.MAX_VALUE + ")");
         System.out.println("Short size: " + Short.SIZE + " bits, range (" + Short.MIN_VALUE + " to " + Short.MAX_VALUE + ")");
+        System.out.println("Character size: " + Character.SIZE + " bits, range (" + Character.MIN_VALUE + " to " + Character.MAX_VALUE + ")");
         // default type for integer literals is int
         System.out.println("Int size: " + Integer.SIZE + " bits, range (" + Integer.MIN_VALUE + " to " + Integer.MAX_VALUE + ")");
         System.out.println("Long size: " + Long.SIZE + " bits, range (" + Long.MIN_VALUE + " to " + Long.MAX_VALUE + ")");

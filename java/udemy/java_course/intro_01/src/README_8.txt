@@ -33,5 +33,7 @@ you can do it using the "jar cvfm <jar_file> <manifest.txt> <input-files>" comma
 you can also use the "jar cfe app.jar MyApp MyApp.class" (i.e. e option). This overrides the Main-Class already defined in the manifest file if any.
 You can then just run the application directly using "java -jar <jar_file>"
 
+jar cfe app.jar foo.MyApp foo/MyApp.class # if the entry point is inside a package.
+
 Setting Application Entry Point
 ================================
