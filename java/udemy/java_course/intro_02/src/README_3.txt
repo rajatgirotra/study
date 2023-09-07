@@ -18,3 +18,4 @@ if (unknownObject instanceof Adventure adventure) {
 }
 when the if condition is true, adventure is already available, otherwise we dont use it.
 
+See README_RANDOM_4.txt

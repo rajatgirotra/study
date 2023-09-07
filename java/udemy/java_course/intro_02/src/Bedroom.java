@@ -18,7 +18,7 @@ name of type String; wall1, wall2, wall3, wall4 of type Wall; ceiling of type Ce
 getLamp() which returns an object of type Lamp, and makeBed() which prints a message that the bed is being made and also calls the make() method in the Bed class.
 
 */
-package intro_02;
+package intro_02.src;
 class Lamp {
     private String style;
     private boolean battery;
