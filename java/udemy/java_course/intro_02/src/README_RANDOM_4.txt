@@ -26,6 +26,12 @@ Compare char[] arrays using Array.equals()
 
 one of the String ctors takes a char[] also as an argument
 
+Other important methods on java.util.Arrays:
+sort(), fill(), copyOf(), equals(), binarySearch().
+copyOf() will copy array of primitives. For Objects, it will copy object references.
+
+char[], int[] objects also extend java.lang.Object by default.
+
 
 What is JVM
 ============
