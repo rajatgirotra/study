@@ -52,3 +52,24 @@ Why gradlew
 gradlew means gradle wrapper. they are a wrapper script which you can checkin along with source code in github. They should be used all the time,
 instead of using gradle. When you checkout some JVM repo from github, which has gradle build system, you can still build the project without a gradle
 installation. That's because the gradle wrapper scripts have all the logic built-in to do a successful build.
+
+closures
+========
+why do we have both closures and functions in groovy. Closures are also functions which can be copied and passed around. The reason is that many functions take closures as arguments.
+And those functions may not immediately call the closures. They may call it at some later point.
+
+Example:
+plugins {
+    id 'java'
+}
+
+the plugin function is called with a closure as argument. and since paranthesis is optional while calling a function, they are omiited here.
+We can also have the same call like this.
+
+plugins ({
+    id 'java'
+})
+
+Inside the closure, the id() method is called with the parameter 'java'
+
+All of the global functions like plugins, repositories, dependencies, etc are called on the project object which gradle creates internally.
