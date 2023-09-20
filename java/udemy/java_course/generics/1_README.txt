@@ -42,3 +42,23 @@ void do(List<? extends Animal> lst) {
         item.makeNoise(); // this should work
     }
 }
+
+Another bounded generic is <T super Animal>
+Lets assume we have the following hierarchy of classes.
+
+Object -> Animal 
+Animal -> Cat
+Animal -> Dog
+Cat -> Manx
+Dog -> Terrier
+
+public class MyClass<T super Cat> // this isn't allowed
+{
+    T obj; // basically T could be Cat, or Animal or Object
+    // so if Animal impments makeNoise(), and T type if Object, how can makeNoise() be called?
+    // that's why <T super Cat> is invalid.
+}
+
+See GenericsPlaygroud.java for more
+
+

@@ -68,4 +68,5 @@ public class LambdaExample {
 
 /*
  * If you interface has more than one abstract methods, you need to use an anonymous inner class.
+ * Please read FunctionalProgramming.java next.
  */

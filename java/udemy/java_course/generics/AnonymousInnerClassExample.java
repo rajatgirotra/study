@@ -44,3 +44,5 @@ public class AnonymousInnerClassExample {
         runnable.run();
     }    
 }
+
+/* Please read OptionalExample.java next */
