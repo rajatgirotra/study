@@ -20,6 +20,8 @@ There are plugins for running reports, plugins for running Groovy code, plugins 
 For executing java classes: exec plugin by Codehaus
 Maven dependency plugin to resolve project dependencies
 Maven assembly plugin to assembly your project for distribution (like a jar file with all dependencies, a tar.gz file, a war or ear file etc)
+Maven exec plugin to execute java programs, example: "mvn exec:java -Dexec.mainClass=org.sonatype.mavenbook.weather.Main"
+
 
 Maven has a concept of a Project. A project is defined using
 1) Group Identifier
@@ -40,6 +42,7 @@ to find out all the attributes/parameters (-D options supported for a plugin or 
 
 To get detail only for a single goal, run:
 mvn help:describe -Dplugin=compiler -Dgoal=compile -Ddetail
+mvn help:describe -Dplugin=exec -Dfull
 
 A Mojo in maven is just a fancy name for a plugin goal.
 
@@ -49,6 +52,9 @@ mvn archetype:generate -DgroupId=org.sonatype.mavenbook.ch03 -DartifactId=simple
 
 a pom.xml file in your project is what makes mvn do its work. However, your project pom inherits from the Super POM that Maven has internally.
 maven also takes into account any parent POM files, user settings and active profiles before building an effective POM which is the actual POM maven uses.
+
+user settings file is: ~/.m2/settings.xml
+A file containing user-specific configuration for authentication, repositories, and other information to customize the behavior of Maven.
 
 to see the effective pom, run "mvn help:effective-pom" in the project ${basedir}
 We will learn about parent POM's, user settings and active profiles later on.
@@ -78,9 +84,9 @@ You also have a "site" phase which is used to generate a site and documentation 
 Project dependencies
 ====================
 project dependencies are listed inside the POM.xml file. Very trivial. You dont need to list dependencies of dependencies.
-Maven can figure that out on its own. whenever maven downloads a dependency, a POM.xml file that dependency is also downloaded in the ~/.m2 folder.
+Maven can figure that out on its own. whenever maven downloads a dependency, a POM.xml file for that dependency is also downloaded in the ~/.m2 folder.
 This pom.xml is very important for maven to figure out transitive dependencies.
-Also when you run "mvn install" a modified version of your project pom is also installed into the ~/.m2 folder so other users of your project can use it.
+Also, when you run "mvn install" a modified version of your project pom is also installed into the ~/.m2 folder so other users of your project can use it.
 Project dependencies listed in pom.xml have a <scope> element and also an <optional> element.
 A test-scoped dependency is a dependency that is available on the classpath only during test compilation and test execution. If your project has war
 or ear packaging, a test-scoped dependency would not be included in the project’s output archive. Example is junit.
