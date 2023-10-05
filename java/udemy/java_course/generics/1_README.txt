@@ -30,11 +30,11 @@ Let say you have List<Cats> cats. and a function expects List<Object>
 void do(List<Object> lst) {
 
 }
-calling do(cats); will result in compile time error. Allthough Cat is derived from Object, but List<Cat> doesnt derive from List<Object>,
- so its not possible. The workaround is to use a generic wildcard.
+calling do(cats); will result in compile time error. Although Cat is derived from Object, but List<Cat> doesn't derive from List<Object>,
+ so it's not possible. The workaround is to use a generic wildcard.
 
 void do(List<?> lst) {
-    // ? just means i am not sure the generic type of List, so basically allow everything.
+    // ? just means I am not sure the generic type of List, so basically allow everything.
 }
 or can also specify a bounded generic with wildcard
 void do(List<? extends Animal> lst) {
@@ -55,10 +55,12 @@ Dog -> Terrier
 public class MyClass<T super Cat> // this isn't allowed
 {
     T obj; // basically T could be Cat, or Animal or Object
-    // so if Animal impments makeNoise(), and T type if Object, how can makeNoise() be called?
+    // so if Animal implements makeNoise(), and T type if Object, how can makeNoise() be called?
     // that's why <T super Cat> is invalid.
+
+    // basically "T super Cat" would mean that T could only be safely treated as an Object, nothing else.
 }
 
-See GenericsPlaygroud.java for more
+See GenericsPlayground.java for more
 
 

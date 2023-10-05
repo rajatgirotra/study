@@ -7,7 +7,7 @@
  * 
  *  The lambda expression returns you a variable of the lambda class manufactured by the jvm.
  */
-package generics;
+package org.example;
 
 @FunctionalInterface
 interface Printer {
@@ -67,6 +67,6 @@ public class LambdaExample {
 }
 
 /*
- * If you interface has more than one abstract methods, you need to use an anonymous inner class.
+ * If your interface has more than one abstract methods, you need to use an anonymous inner class.
  * Please read FunctionalProgramming.java next.
  */

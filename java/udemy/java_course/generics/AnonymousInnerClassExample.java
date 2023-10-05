@@ -6,11 +6,11 @@
  * 4) You create the anonymous inner class simple by creating an object of a normal class, followed by the class body inside {}. See below.
  */
 
-package generics;
+package org.example;
 
-class Animal {
+class Animal2 {
     public void makeNoise() {
-        System.out.println("Generic animal cannot make a noise");
+        System.out.println("Generic Animal2 cannot make a noise");
     }
 }
 
@@ -18,11 +18,11 @@ class Animal {
 
 public class AnonymousInnerClassExample {
     public static void main(String[] args) {
-        Animal generic = new Animal(); // regular Animal object
+        Animal2 generic = new Animal2(); // regular Animal2 object
         generic.makeNoise();
 
-        // anonymous inner class extending Animal
-        Animal dog = new Animal() {
+        // anonymous inner class extending Animal2
+        Animal2 dog = new Animal2() {
             @Override
             public void makeNoise() {
                 System.out.println("Woof Woof!!");

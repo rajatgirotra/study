@@ -1,4 +1,4 @@
-package generics;
+package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,8 @@ public class GenericsPlayground {
         @SuppressWarnings("unused")
         List<? extends Animal> animals5 = new ArrayList<Manx>();
 
-        // <? super Dog> means ? can be Dog or any of its super type. So ? can Dog, or Animal or Object, but not Terrier or Cat or Manx
+        // <? super Dog> means ? can be Dog or any of its super type. So ? can be Dog, or Animal or Object,
+        // but not Terrier or Cat or Manx
         // also <? super Dog> is MODIFIABLE
         List<? super Dog> dogs1 = new ArrayList<Dog>();
         dogs1.add(new Dog());
@@ -77,7 +78,7 @@ public class GenericsPlayground {
 
     public static void ext(List<? extends Animal> list) {
         // extends applies READ-ONLY
-        // so can we do really here. The only thing is that we must treat list to be list<Animal>
+        // so what can we really do here. The only thing is that we must treat list to be list<Animal>
         // and deal with it like that
         list.forEach(System.out::println);
     }
@@ -94,7 +95,6 @@ public class GenericsPlayground {
         for(Object o : list) {
             System.out.println(o.getClass().getName());
         }
-
     }
 }
 
