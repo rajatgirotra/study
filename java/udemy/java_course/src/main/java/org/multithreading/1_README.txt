@@ -29,4 +29,6 @@ CounterThread ct = new CounterThread();
 Thread someObj = new Thread(ct);
 ct.start();
 
-The 1st way is good enough, if you are sure your class doesnt need to extend any other class except Thread. Otherwise it is good to just implement Runnable.
+The 1st way is good enough, if you are sure your class doesn't need to extend any other class except Thread. Otherwise, it is good to just implement Runnable.
+
+/* Read MultithreadingExample.java next */

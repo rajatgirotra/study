@@ -44,3 +44,7 @@ public class MultithreadingExample {
         t2.start();
     }
 }
+
+/*
+Read Multi2.java next
+ */
