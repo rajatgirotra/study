@@ -1,7 +1,9 @@
 package org.multithreading;
 
 import org.jetbrains.annotations.NotNull;
-import static org.multithreading.ThreadColors.*;
+
+import static org.multithreading.ThreadColors.ANSI_PURPLE;
+import static org.multithreading.ThreadColors.ANSI_RED;
 
 public class AnotherThread extends Thread {
     public AnotherThread(@NotNull String name) {
