@@ -1,0 +1,88 @@
+HKSE/SEHK (HongKong Stock Exchange) -> OCG (Orion Central Gateway)
+===================================
+
+StockConnect and Shenzhen Connect
+=================================
+Through Shanghai-Hong Kong Stock Connect and Shenzhen-Hong Kong Stock Connect, Hong Kong and foreign investors can trade certain securities (A shares and exchange traded funds (“ETFs”)) listed on Shanghai Stock Exchange ("SSE") and Shenzhen Stock Exchange ("SZSE")("Northbound Trading") while mainland China investors can trade certain securities (shares and ETFs) listed on The Stock Exchange of Hong Kong Limited (“SEHK”) ("Southbound Trading").
+
+BCAN ID --> Broken to Client Assigned ID
+CID -> Client Identification Information
+
+Singapore Stock Exchange (SGX) -> Have REACH trading engine based on Nasdaq OMX. Access is via Omnet API or via standard FIX5.0
+==============================
+We have many vendors who we can speak with also like Fidessa, FIS, IRESS, Horizon, Raptor Financial etc.
+
+Taiwan Stock Exchange: A vendor KWAY is available (supports FIX 4.2). Mostly everybody uses it. They provide multiple services.
+=====================
+KWAY services are like:
+XTRADE/XTRADE2 --> XTrade2.0 provides a fast, easy and powerful trading system for all brokers with the highest trading speed in the industry.
+Adopt the second generation of core processing technology, with expandable function modules and complete security check mechanism.
+XTRADE also has a GUI.
+
+XBOS --> Settlement & Clearing Management System for Cash Equities
+XBOS is built up with Client/Server structure. XBOS provides auto settlement transfer and auto allocation mechanism for faster and easier at settlement works. To meet multi-layer regulation, XBOS offers clear and complete amendment log for future checking and auditing. Friendly window user interface gives Operations precise and efficient ways to complete daily settlement processes.
+
+Its a complex system. Better to use KWAY as local vendor.
+
+
+KOREA (has 3 exchanges KOSPI, KOSDAQ, KONEX)
+============================================
+KONEX:
+KONEX (Korea New Exchange) is an securities exchange exclusively for small and medium-sized enterprises (SMEs) and venture companies prior to listing on KOSDAQ.
+
+KOSDAQ:
+The KOSDAQ market was launched in July 1996 for the purpose of providing funds for startup companies as well as SMEs in such tech-savvy area as IT (information technology), BT (bio technology) and CT (culture technology).
+
+KOSPI:
+The KOSPI market, which is a benchmark stock market of Korea, has listed global corporations such as Samsung Electronics, Hyundai Motor, POSCO and LG Electronics since its opening back in 1956
+
+the term KRX or KORSE (mean Korea Stock Exchange which means all 3 markets together). KRX trading protocol itself is called EXTURE (version 3 current)
+
+A vendor Koscom provides a system called EXTURE+ System. Koscom is also called Powerbase
+
+
+Thailand (SET)
+===============
+Thailand provides both FIX and OUCH protocols. They even have a vendor called FS (FreewillSolutions) which provides a product called SMART Trade (iFIS)
+
+Phillippines
+============
+provides FIX 5.0 (SP1) spec. https://documents.pse.com.ph/wp-content/uploads/sites/15/2021/01/PSE-FIX-Specification-v1.2-14-October-2014.pdf
+Market data is on ITCH on top of TCPSouBin v3.0.
+Also google for Technistock Philippines.
+
+Indonesia
+=========
+FIX 5.0. Vendor available is called CakraTech: https://www.cakra-tech.co.id/solution/enterprise 
+
+Malaysia
+========
+Direct 5.0 is available.
+
+BSE (Bombay Stock Exchange)
+==========================
+ETI (Enhanced Trading Interface)
+
+NSE (National Stock Exchange)
+=============================
+NNF (Neat --) or NNF Trimmed
+
+
+Japan (TSE)
+===========
+Arrowhead
+
+Japan(CHIX/CBOE)
+================
+BOE version 3
+
+Japan (SBINext)
+===============
+
+Japan (TOSTNET)
+===============
+
+Japan (JSDA)
+============
+
+
