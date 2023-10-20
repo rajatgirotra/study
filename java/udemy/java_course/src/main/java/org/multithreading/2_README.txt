@@ -48,3 +48,24 @@ public void foo() {
     }
 }
 
+Drawbacks of using synchronized
+===============================
+1) It can not be interrupted. If lock/monitor is unavailable, the thread will forever hang.
+2) There is nothing like tryLock() available or nothing like timedLock() available.
+3) synchronized locking is not fair. If several threads are blocked and the monitor becomes available,
+any thread can acquire it. Adding fair-ness also adds runtime cost to synchronization.
+
+So to overcome these issues we can use lock object from the java.util.concurrent package called ReentrantLock.
+1) this lock has tryLock()
+2) has tryLock(timeout)
+3) can be fair if constructed by passing "true" as first argument.
+4) can get hold count. i.e. how many times lock() has been called. Equal number of unlock() calls will release the lock.
+5) and other functions too..
+
+We will use it shortly.
+
+But first we will write a simple Message class with two synchronized methods read() and write().
+read() and write() strictly consume and strictly produce a single String object alternately. When read() reads "Finished",
+ it means end of producing more Strings and the program can terminate.
+
+Please read Message.java next
