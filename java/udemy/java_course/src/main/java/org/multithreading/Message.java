@@ -42,11 +42,13 @@ public class Message {
 
     public static void main(String[] args) {
         Message obj = new Message();
-        try (ExecutorService es = Executors.newFixedThreadPool(2)) {
-           es.execute(new StrictConsumer(obj));
-           es.execute(new StrictProducer(obj));
+        try {
+            ExecutorService es = Executors.newFixedThreadPool(2);
+            es.execute(new StrictConsumer(obj));
+            es.execute(new StrictProducer(obj));
+            es.shutdown();
+        } catch(Exception e) {
 
-           es.shutdown();
         }
     }
 }
