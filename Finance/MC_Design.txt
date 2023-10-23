@@ -1,0 +1,52 @@
+HSBC Implementation of OMS:
+
+HSBC had
+1) external clients connecting via their DMA offering.
+2) Algo clients where very large orders were processed by an Execution engine. Very large orders are typically broken down into smaller grouped orders where this grouping may be done based on parameters like time, volume, price, liquidity considerations etc.
+3) Internal traders who are trading from various central locations like New York, London, HK, Dubai etc.
+
+Current Design
+==============
+1) Based on Disruptor pattern. Think of Disruptor as a Concurrent Ring Buffer. There is only one thread which is writing to disruptor ring buffer, and one thread which is reading off it.
+2) Designed for high throughput, low latency.
+3) Concurrent ring buffer means its an async event processing system.
+4) All orders, executions, cancels etc go to that one thread which will write to the disruptor.
+5) The reader thread will do the following:
+   5.a) Read each message and perform deserialization
+   5.b) Journal the message on disk for book-keeping
+   5.c) Event Replication: Messages are replicated to multiple Warm standby OMS'es
+   5.d) Have business logic which is run.
+6) After business logic is run, the message goes to an outbound disruptor and gets consumed by various other services like Algo Engines, FIX Proxies, Market Connectivity systems, View Servers, Smart Oject Routers etc.
+7) If primary goes down, Warmup/standby will assume leadership as it has all the state available from primary OMS.
+
+Basically the Primary OMS is
+a) The golden source of order state
+
+Drawbacks over time
+1) What if one of the processes listening off the outbound disruptor crashes and comes back up, it would want to refresh its states, or basically re-hydrate itself.
+If Primary OMS has to handle this request, it may slow down the live order flow.
+2) Not as performant (may be can achieve 1-10ms latency)
+3) If multiple processes are talking to the same OMS, it becomes a natural bottleneck over time.
+
+So they came up with an alternate design called the Sequencer.
+
+1) You have a process called the Sequencer running at the core. IT IS SINGLE THREADED.
+2) It listens to Command on a Command Bus.
+3) Sequence all the commands on the command bus, generate globally unique ID's for the command message.
+4) Journal those messages and Replicate on a separate thread.
+5) Send the result of the processing back on the bus as an Event. So a Command message has a corresponding Event message.
+6) Based on MULTICAST. All Events on the event bus are multicast to all connected services listening on the event bus.
+7) If two orders from a client are received at roughly same time, which ever enters Sequencer first will be sent to market first. So Sequencer guarantees no out of order processing.
+8) There are secondary sequencers which have multiple processes attached to its MULTICAST Command and Event Bus. Example: There is a Replay Server which can replay the complete state of messages if a connected service goes down and comes up. There is no affect to the live order flow in this case.
+9) You can horizontally scale up this solution. Lets say you want to segregate the flow based on symbols as volumes are too high for a single Sequencer to handle. You can have a FIX Proxy service which is connected to both MULTICAST Command and Event buses on the two Sequencers. The FIX Proxy will read the symbol and publish the Command on the correct Sequencer.
+
+Other technologies used
+=======================
+Velocitimetrics (now aquired by Beeks software for performance monitoring). Have multiple TAPS installed on MULTICAST and other network connections to study end to end flow.
+Velocitimetrics also provides out of the box decoders for SBE, ChronicleWire, GoogleProtobuf.
+Aeron Multicast bus (see Github)
+PTP (alternative to NTP ie Network Time Protocol) for added precision
+Solarflare for Kernel bypass
+SBE encoding. Other encodings could be ChronicleWire, Protobuf, Custom
+GC Free techniques like (String Interning using ConcurrentHashMap, Off Heap Memory - i.e. memory not allocated by JVM)
+
