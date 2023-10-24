@@ -1,5 +1,6 @@
 books/
 **/numpy_pandas/exercises/
+target/
 clion/
 R/
 fromSCB/
