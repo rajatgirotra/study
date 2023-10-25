@@ -52,6 +52,14 @@ public class FilesListWalkFind {
             throw new RuntimeException(e);
         }
 
+        System.out.println("============= DirectoryStream ================");
+        try(var ds = Files.newDirectoryStream(path,
+                Files::isRegularFile)) {
+            ds.forEach(d -> System.out.println(FilesListWalkFind.listDir(d)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
 
     }
 
@@ -70,3 +78,7 @@ public class FilesListWalkFind {
         }
     }
 }
+
+/*
+Please read WalkFileTree.java next
+ */
