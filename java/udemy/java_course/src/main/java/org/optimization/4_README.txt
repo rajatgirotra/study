@@ -16,7 +16,7 @@ Sampling profilers have a timer thread which goes off at regular intervals. At e
 and determine which thread each thread is running. That method is then charged with having been executed since the timer previously fired.
 
 Sampling profilers are subject to all sorts of sampling errors. Let's say two methods methodA and methodB are executing and methodA is executing longer than methodB.
-However, each time profiler thread executes, it find methodB executing. That's why it is recommended to run the profiler longer and also reduce the time
+However, each time profiler thread executes, it finds methodB executing. That's why it is recommended to run the profiler longer and also reduce the time
 interval between samples.
 However running the profiler longer is also not very good, as profiling is intrusive and it can affect the overall performance numbers of your application.
 So it is advised to strike a balance here.
@@ -30,3 +30,18 @@ That's why profilers which use this interface are called async profilers.
 
 Instrument Profilers
 ---------------------
+Instrument profilers are much more intrusive than sampling profilers, so you should use them with caution. These profilers work by altering the bytecode of your application
+class files as they are loaded (like adding code to count method invocations etc). Since they can have a performance impact on your application, only use them as for second level
+analysis. So you could stick to sampling profilers first, and only add those sections (packages, class files) of your code under instrument profilers where you know is the real
+bottlenecks in your code. That limits their impact on the application’s performance. Normally instrument profilers will filter out private methods and only show public interfaces
+in the instrumented results.
+
+Blocked Threads
+---------------
+Some profilers might even filter out thread which are blocked (may be on a lock/monitor, or network I/O, or a wait() call etc). Most of the time this is OK. But sometimes
+you should check your code and ascertain that the blocked threads are OK and expected.
+
+Native Profilers
+-----------------
+Some profilers can also profile native (C/C++) code which is very helpful. If a native profiler shows that time in GC dominates the CPU usage, tuning the collector is the right thing to do.
+If it shows significant time in the compilation threads, however, that is usually not affecting the application’s performance.
