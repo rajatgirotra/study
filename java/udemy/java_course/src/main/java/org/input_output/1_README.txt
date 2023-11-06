@@ -44,4 +44,4 @@ Benefits of java.nio classes are:
 5) Retrieve file metadata and attributes easily.
 6) More performant.
 
-Lets look at some code now. Please read FileMethods.java next
+Let's look at some code now. Please read FileMethods.java next

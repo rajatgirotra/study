@@ -124,12 +124,6 @@ class StatsVisitor2 extends SimpleFileVisitor<Path> {
 }
 
 /*
-How to count and print the size of each folder under the given path?
-Basically we have to aggregate the file size of all files in a folder and add to its parent.
-Remember it's a DFS search.
-Create a Map of folderName, Size.
-Store the initialPath and initialCount.
-
-Please read WalkFileTree2.java next
+Please see 2_README.txt next
  */
 
