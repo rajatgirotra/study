@@ -31,8 +31,13 @@ bytes and converts them to characters using the Charset provided during construc
 bytes to characters. You can even wrap an InputStreamReader inside a BufferedReader for more efficiency.
 
 "BufferedReader reader = new BufferedReader (new InputStreamReader (System.in));"
+System.in is an InputStream.
 
 Java also provides a convenience class "FileReader" which extends InputStreamReader. This class is used for reading characters in the
 default Charset and with default byte-buffer size.
 
 "BufferedReader reader = new BufferedReader (new FileReader ("foo.txt"));" # still good to wrap in BufferedReader for efficiency.
+
+/*
+Please see SimpleFileReader.java next
+*/

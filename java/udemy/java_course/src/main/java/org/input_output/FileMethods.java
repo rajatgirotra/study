@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class FileMethods {
     public static void main(String[] args) {
-        File file = new File("input.txt");
+        File file = new File("org/input_output/input.txt");
 
         System.out.println("input.txt isFile: " + file.isFile());
         System.out.println("input.txt getAbsolutePath(): " + file.getAbsolutePath());
