@@ -19,5 +19,3 @@ James Evans     36Marketing      56000NY
 Grace Baker     27HR             48000TX
 Liam Brooks     32Finance        68000IL
 Charlotte Hill  28IT             57000WA
-
-
