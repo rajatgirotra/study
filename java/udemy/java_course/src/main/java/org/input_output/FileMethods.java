@@ -16,7 +16,7 @@ public class FileMethods {
         System.out.println("input.txt exists: " + file.exists());
         System.out.println("input.txt canRead, canWrite, canExecute" + file.canRead() + " " + file.canWrite() + " " + file.canExecute());
         System.out.println("input.txt path: " + file.getPath());
-        System.out.println("input.txt parent: " + file.getPath());
+        System.out.println("input.txt parent: " + file.getParent());
 
         try (FileReader reader = new FileReader("FileMethods.java")) {
             // do file operations.

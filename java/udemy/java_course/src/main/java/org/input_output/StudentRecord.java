@@ -75,4 +75,36 @@ public class StudentRecord {
                 + "," + internshipMonth
                 + "," + String.format("%.2f", gpa);
     }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public int getYearOfEnrollment() {
+        return yearOfEnrollment;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public String getInternshipMonth() {
+        return internshipMonth;
+    }
+
+    public double getGpa() {
+        return gpa;
+    }
 }

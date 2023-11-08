@@ -40,3 +40,7 @@ public class SimpleWriters {
 
     }
 }
+
+/*
+Please read JavaWriterClasses.java next
+ */
