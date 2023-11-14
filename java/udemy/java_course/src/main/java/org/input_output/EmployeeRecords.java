@@ -96,3 +96,7 @@ public class EmployeeRecords {
     }
 
 }
+
+/*
+PrimitiveSerialization.java next
+ */
