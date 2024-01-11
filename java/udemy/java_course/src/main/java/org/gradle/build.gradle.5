@@ -1,0 +1,28 @@
+task startSession {
+  doLast {
+    chant() // calling a function chant()
+  }
+}
+
+// lets define the function chant. Every groovy script is given a property ant which can be used for calling Ant tasks.
+def chant() {
+  ant.echo(message: "Repeat after me...")
+}
+
+// now we use the "times" method on the java.lang.Number to do something multiple times.
+3.times { // i.e. repeat this block three times.
+  task "yayGradle$it" { // inside the "times" method, the $it variable will give you the index of the current iteration.
+   // we are using that and defining dynamic tasks. i.e. tasks with different names, yayGradle0, yayGradle1, yayGradle2
+    doLast {
+      println "Gradle rocks!"
+    }
+  }
+}
+
+// now we use gradle's dependsOn keyword to indicate dependencies between tasks.
+yayGradle0.dependsOn startSession
+yayGradle2.dependsOn yayGradle1, yayGradle0
+task groupTherapy(dependsOn: yayGradle2) // smaller way of defining a task with the paranthesis but with arguments
+
+// run it like "gradle -q groupTherapy" or gradle groupTherapy"
+// camel case task names like groupTherapy or yayGradle0/1/2 can also be run using a shortcut, "gradle -q gT" for groupTherapy and "gradle -q gY2" for yayGradle2.

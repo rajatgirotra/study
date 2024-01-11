@@ -1,0 +1,11 @@
+gradle commands
+===============
+
+gradle init --> to create gradle skeleton files
+
+gradle -q "TaskName" --> run a task defined in build.gradle, -q means quiet mode
+
+gradle -q tasks --> display gradle tasks names (displays tasks in the build step task group and the helper task group)
+gradle -q tasks --all --> displays all gradle tasks (including user defined tasks, tasks that are not categorized into any task group will show in a heading of "Others")
+
+gradle -q properties --> emit a list of all properties in your project. Most of these properties are provided by the gradle's project object, others are provided by the user

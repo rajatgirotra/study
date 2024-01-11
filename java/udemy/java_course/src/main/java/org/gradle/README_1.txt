@@ -50,8 +50,8 @@ perform some logic, like compile, invoke test, package jar etc.
 Why gradlew
 ===========
 gradlew means gradle wrapper. they are a wrapper script which you can checkin along with source code in github. They should be used all the time,
-instead of using gradle. When you checkout some JVM repo from github, which has gradle build system, you can still build the project without a gradle
-installation. That's because the gradle wrapper scripts have all the logic built-in to do a successful build.
+instead of using gradle. When you checkout some Java repo from github, which has gradle build system, you can still build the project without a gradle
+installation. That's because the gradle wrapper scripts have all the logic built-in to download the correct version of gradle for your project and use that version of gradle for building your project.
 
 closures
 ========
@@ -63,7 +63,7 @@ plugins {
     id 'java'
 }
 
-the plugin function is called with a closure as argument. and since paranthesis is optional while calling a function, they are omiited here.
+the plugins function is called with a closure as argument. and since paranthesis is optional while calling a function, they are omitted here.
 We can also have the same call like this.
 
 plugins ({
