@@ -1,7 +1,7 @@
 Tuning Flags
 ===========
 There are many tuning flags available to tune the JVM performance. tools like jcmd and jinfo let you inspect and modify these flags.
-Before we understand the meaning of these flags, lets first what what values these flags can take on.
+Before we understand the meaning of these flags, lets first see what values these flags can take on.
 
 Default values -> tuning flags have some default values. These defaults can be either same across all platforms or we can have platform specific defaults.
 When you run "jcmd <processId> VM.flags -all", it tell you whether a flag has platform specific default or not. "pd product" means platform dependent default.
