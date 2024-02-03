@@ -9,3 +9,5 @@ gradle -q tasks --> display gradle tasks names (displays tasks in the build step
 gradle -q tasks --all --> displays all gradle tasks (including user defined tasks, tasks that are not categorized into any task group will show in a heading of "Others")
 
 gradle -q properties --> emit a list of all properties in your project. Most of these properties are provided by the gradle's project object, others are provided by the user
+
+gradle :<sub_project>:<task_name> --console=plain --> to run a task in a sub-project

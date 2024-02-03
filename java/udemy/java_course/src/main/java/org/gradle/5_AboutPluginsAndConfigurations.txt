@@ -1,0 +1,57 @@
+A gradle project can have a root project and multiple sub projects. With this setting, gradle needs a settings.gradle file at the root of your source tree; which defines the name of your root project and the various sub projects. Each sub project in turn has its own build.gradle script.
+
+How gradle runs:
+1) Read the settings.gradle file and create a Settings object. Initialize the gradle build.
+2) Read the individual build.gradle file for every sub-project and create separate Project instances for each sub-project. Understand the tasks and create a task graph
+3) See which tasks needs to be executed and runs those. Tasks can also be run in parallel.
+
+A plugin can add:
+1) tasks to a project.
+2) new DSL blocks
+3) properties and methods.
+4) configurations
+5) other things..
+
+Tasks can be either aggregate/lifecycle tasks or actionable tasks. aggregated tasks dont do anything. they are only used by other plugins to apply some actionable tasks to these actionable tasks.
+
+Each task can have input and output.
+
+Gradle by default applies a plugin called "base". The "base" plugin only adds aggregated tasks.
+Create a build.gradle which applies the "base" plugin; and run "gradle tasks --all". You will only see a few help tasks and build setup tasks
+Then apply the "java" plugin and run "gradle tasks --all" again and observe the difference. Note that tasks can be grouped togther into groups like "help tasks", "Build setup tasks", "Verification Tasks", "Other tasks" etc.
+
+Configurations
+=============
+Configurations are used to define the scope of the dependencies of your project. scope means when the dependencies should be added to classpath, during compile, during runtime, during testCompile, during annoationProcessing etc etc.
+
+Also configurations have three types:'
+1) declared configuration: Just declare the dependencies of your project. It doesnt tell anything about when the dependency is needed.
+2) resolveable configuration: Where you define when a dependency is needed. consumers of a java library will typically define it.
+3) consumable configuration: The producers define what dependencies are consumable.
+Dont worry, we will study of all this in detail shortly.
+
+About plugins
+============
+It is difficult to document everything a plugin provides so I will write important parts so I can remember.
+
+base plugin
+-----------
+Just adds aggregate/lifecycle tasks like:
+clean
+check
+assemble
+build (builds everything, including running all tests, producting artifact and generating documentation).
+build<Configuration>: execute any task that is required to create any artifact attached to the configuration
+clean<Task>
+
+Other things you can define in base plugin
+base {
+  archiveName (default is $Project.name)
+  libsDirectory (default is layout.buildDirectory.dir("libs")) # location of jars.
+  distsDirectory (default is layout.buildDirectory.dir("distributions")) # location of other non-jar distribution files.
+
+
+java plugin
+-----------
+Applies the "base" plugin by itself. Important things in java plugin
+
