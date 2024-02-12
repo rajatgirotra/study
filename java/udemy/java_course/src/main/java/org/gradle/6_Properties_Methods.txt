@@ -1,0 +1,52 @@
+A lot of confusion arrises on how to use Properties and Methods and how to lookup the gradle api to check which property and method we can use in the build script; or inside a task or inside a DSL block. Lets understand that.
+
+A Project has properties at 5 scopes
+1) In the Project API itself. There are many getXXX() methods on the Project API. You can use those methods or the XXX property itself in the build.gradle script. Example:
+a) getRootProject() for rootProject
+b) getAllprojects() for allprojects
+c) getArtifacts() for artifacts
+d) getBuildDir() for buildDir
+e) getLayout() for layout etc
+
+2) extra properties. Gradle allows to store any arbitarary key value pair on the Project object which can be accessed like a property. The only caveat is that you must define these properties on the "ext" namespace. After that, you can access them as regular properties (even without the "ext" namespace). Example:
+project.ext.foo1 = "bar1"
+task someTask {
+  ext.foo2 = "bar2"
+}
+subprojects { ext.${foo3} = false }
+
+3) The extensions (i.e. the DSL blocks) added by plugins can also be accessed as properties on the Project object with the same name as the name of the extension. Example:
+java {
+  targetCompatibility = ..
+  sourceCompatibility = ..
+} is same as:
+
+project.java {
+  targetCompatibility = ..
+  sourceCompatibility = ..
+}
+
+4) the tasks of the project. The tasks can be accessed as read only properties.
+
+5) The extra properties inherited from the project's parent; recursively up to the root project
+
+Gradle will search for a property in the same order as defined above. Similar you have dynamic methods defined at 5 scopes
+
+1) The Project API itself
+2) the build file. i.e. those defined in the BuildFile gradle API object.
+3) The extensions added to the Project by plugins. Each extension can be accessed as a method which takes a Closure or Action as a parameter.
+4) the tasks of the project. A method is added for each task (method name is same as task name) which takes a single Closure or Action as a parameter.
+   this method internally calls Tasks.configure(groovy.lang.Closure) function with the Closure provided.
+5) the methods of the parent project, recursively up to the root project.
+6) A property of the project whose value is a closure.
+
+
+
+
+Similarly Task also has properties at 3 scopes
+1) The Task level itself.
+2) The extensions added to the task by plugins. Each extension is available as a read-only property with the same name as the extension.
+3) The extra properties of the task. I.e. any name value pair you add. Example:
+task someTask {
+  ext.SomeKey = SomeValue
+}
