@@ -1,0 +1,47 @@
+What is Kotlin DSL?
+
+You know already that you can write gradle build scripts, settings file, init files either in Kotlin DSL or in Groovy DSL.  Kotlin DSL is preferred syntax. For Kotlin DSL scripts, end your build scripts with .kts extension like:
+
+settings.gradle.kts
+build.gradle.kts
+init.gradle.kts
+
+These Kotlin DSL scripts are nothing but Kotline code, which is compiled and executed by Gradle(gradle has an embedded kotlin compiler). A DSL script file will automatically import a plethora of Gradle packages called the gradle default imports. you can view a list of gradle default imports here. https://docs.gradle.org/current/userguide/writing_build_scripts.html#script-default-imports
+
+Additionally, Kotlin DSL scripts, also import some Kotlin packages by default:
+
+org.gradle.kotlin.dsl
+org.gradle.kotlin.dsl.plugins.dsl
+org.gradle.kotlin.dsl.precompile
+
+So a lot of classes, methods, functions, properties are available for use without using any explicit import statements.
+The complete kotlin-dsl API can be viewed here: https://docs.gradle.org/current/kotlin-dsl/
+
+Gradle Kotlin DSL scripts are compiled by Gradle during the configuration phase of your build. Deprecation warnings found by the Kotlin compiler are reported on the console when compiling the scripts.
+Use org.gradle.kotlin.dsl.allWarningsAsErrors=true gradle property to fail your build if you use any deprecated Kotlin DSL feature.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+kotlin-dsl plugin.
+
+It is just a plugin that gives you a lot of intellisense in Intellij Idea. You are encouraged to use it. You dont need to apply the kotlin-dsl to your main project build scripts. you only need to apply this plugin when writing custom build logic in buildSrc projects, or included builds or gradle plugins. Using the kotlin-dsl plugin will
+1) Add support for compiling Kotlin source files.
+2) Add the kotlin-stdlib, kotlin-reflect, gradleKotlinDsl() dependencies to the compileOnly and testImplementation configurations; so you can use those kotlin libraries in your Kotlin code.
+3) Configures the kotlin compiler with same settings as that for Kotlin DSL scripts.
+
+Note that we should avoid specifying a version for the kotlin-dsl plugin. because each Gradle release is meant to be used with a specific version of the kotlin-dsl plugin and compatibility between arbitrary Gradle releases and kotlin-dsl plugin versions is not guaranteed. Gradle ships with kotlin-compiler-embeddable plus matching versions of kotlin-stdlib and kotlin-reflect libraries which is what 'kotlin-dsl' plugin configures.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Minimum configuration for using kotlin-dsl plugin
+
+plugins {
+    `kotlin-dsl`
+}
+
+repositories {
+    // The org.jetbrains.kotlin.jvm plugin requires a repository
+    // where to download the Kotlin compiler dependencies from.
+    mavenCentral()
+}
+
+

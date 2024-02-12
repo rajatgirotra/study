@@ -2,7 +2,7 @@ There are two types of tasks in gradle
 1) Simple task
 2) Enhanced task
 
-A simple task just encloses an action closure. that action closure defines the behavior of your task.
+A simple task just encloses an action closure. that action closure defines the behavior of your task (by defining doFirst, doLast actions).
 An enhanced task is where the behavior of a task is built into the task itself (i.e. in the api code). This kind of task provides some properties which can be used to configure the task. Most gradle plugins use enhanced tasks. You dont need to implement the task behavior as you do with simple tasks. You simply use the task and configure the task using its properties.
 
 Some important command line options for gradle are:
@@ -15,3 +15,101 @@ Some important command line options for gradle are:
 --stacktrace --> print stacktrace on error
 -q --> quiet
 --offline --> only look for dependencies in cache, and do not look into remote repositories.
+
+
+Tasks can be either aggregate/lifecycle tasks or actionable tasks. aggregated tasks dont do anything. they are only used by other plugins to apply some actionable tasks to these lifecycle tasks.
+You will generally always run one the lifecycle tasks and all the attached actionable tasks will run for you.
+Each task can have input and output.
+
+How to create taks
+==================
+
+tasks.register("hello") { // "hello" is the task name.
+  doLast { // doLast is an Action
+     println 'Hello World'
+  }
+
+  group = "My Custom Task" // the group to which this task belongs
+  description = "A lovely greeting task" // some description which will show when you run help on a task (./gradlew help --task hello)
+}
+
+tasks.register("intro") {
+  dependsOn tasks.hello // creating dependencies on other tasks. Whenever we run "intro", "hello" will also run if it is not up to date
+}
+
+tasks are created using tasks.register(), but after creation, if you want to configure them, like adding group, description, action, dependsOn etc. you can use "tasks.named(taskName)". See below an example:
+
+4.times { counter -> // counter will be 0, 1, 2, 3
+  tasks.register("task$counter) { 
+    doLast {
+      println 'I am task number $counter'
+    }
+  }
+}
+
+tasks.named('task0') {
+  dependsOn ('task2', 'task3')
+}
+
+Task Types
+==========
+Gradle defines a task hierarchy.
+Task (interface)
+AbstractTask (class)
+DefaultTask (class)
+
+by default, each task is of type DefaultTask. There are many other important Task types which derive from DefaultTask like
+1) Copy
+2) Delete
+3) JavaCompile
+4) JavaExec
+5) Test
+6) TaskReportTask
+7) Zip
+8) Jar
+9) JacocoReport
+
+But you can also create new classes which extend from DefaultTask and then create new tasks which extend your newly defined class.
+
+Kotlin syntax
+--------------
+abstract class HelloTask : DefaultTask() {
+  @TaskAction
+  fun hello() {
+    println 'Hello from hellotask' 
+  }
+}
+
+Groovy syntax
+-------------
+class HelloTask extends DefaultTask {
+  @TaskAction
+  void hello() {
+    println 'Hello from hellotask'
+  }
+}
+
+Note that the DefaultTask does not provide any action.
+
+tasks.register<HelloTask>("hello") {
+   group = 'some group'
+   description = 'some description'
+}
+
+./gradlew :hello # will automatically the hello action.
+
+There are many built in types already defined by gradle. Example: Copy task. To create a new task of type Copy, do
+
+tasks.register("copyTask", Copy) {
+  from("source")
+  into("target")
+  include("*.war")
+}
+
+Tasks also have some inputs and outputs. Lets see that in action.
+See build.gradle.7 next
+
+Tasks can be defined either in:
+1) the build.gradle file or
+2) the buildSrc directory at your project root
+3) or can be made part of a plugin. this plugin can then be applied in your project.

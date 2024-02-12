@@ -1,4 +1,4 @@
-Gradle is a build system for Java. It has an extension API which is written in Java. So gradle needs a JVM to run. To interact with gradle's java api, gradle provides a DSL (Domain specific language) using Groovy. i.e. it defines certain code blocks which you can use in the gradle build script to tell gradle what to do.
+Gradle is a build system for Java. It has an extension API which is written in Java. So gradle needs a JVM to run. To interact with gradle's java api, gradle provides a DSL (Domain specific language) using Groovy or Kotlin. i.e. it defines certain code blocks which you can use in the gradle build script to tell gradle what to do.
 
 Behind the scenes, gradle api has a "Project" interface and in turn many other interfaces are defined which extend the "Project" interface. example:
 1) DependencyHandler
@@ -6,10 +6,58 @@ Behind the scenes, gradle api has a "Project" interface and in turn many other i
 3) Task
 4) Action (which extends Task) etc etc.
 
-gradle always creates an object of a concrete class which derives from Project. All the elements/blocks that you define in your build.gradle file interact with this object.
-
-gradle defines many phases in its build lifecycle. And for every phase, you can define hooks/listeners/callbacks where you can monitor or configure your build system.
+You can create multi-project builds in gradle. i.e. you can have multiple build.gradle files for each project you want to build. In multi-project builds, you have a main(root) project and then multiple sub projects. Gradle will create a new Project instance for each project you are building. All the elements/blocks that you define in your build.gradle file interact with this object.
 
 Have a look at the gradle java api here: https://docs.gradle.org/current/javadoc/index.html
 and the gradle dsl here: https://docs.gradle.org/current/dsl/index.html
 
+A multi-project layout might look like:
+basic-multiproject
+.
+├── app
+│   ...
+│   └── build.gradle.kts
+├── lib
+│   ...
+│   └── build.gradle.kts
+└── settings.gradle.kts
+
+settings.gradle.kts would contain:
+------------------------------------
+rootProject.name = "basic-multiproject"
+include("app")
+include("lib")
+
+The include() method takes Project Path argument. The "project path" is assumed to be equal to the relative physical file system path (although you can change that but not recommended as it makes your build files difficult to comprehend). For example,
+For example, a project path "services:api" is mapped by default to a folder "./services/api"
+
+Project descriptors
+===================
+To configure these projects in your settings.build file, you need to refer to these projects. How do you do that? For that gradle provides project descriptors. Example:
+
+println 'rootProject.name' # root project is always accessible by its name
+println 'project(:app).name # the colon represents the rootProject and app means the "app" project under the rootProject.
+
+# Changing the projectDir of a sub project
+project(:project-a).projectDir = file("custom/my-project-a")
+project(:project-a).buildFileName = "project-a.gradle.kts
+
+Warning
+=======
+
+├── app
+│   ...
+│   └── build.gradle.kts  # First subproject
+├── subs // Gradle may see this as a subproject
+│   └── web // Gradle may see this as a subproject
+│       └── my-web-module // Intended subproject
+│           ...
+│           └── build.gradle.kts # second subproject
+└── settings.gradle.kts
+
+if you write "project(:subs:web:my-web-module)", gradle may think that :subs and :subs:web are also sub projects and may create phantom build files.
+To avoid this phantom build files, do
+
+include(:my-web-module)
+project(:my-web-module).projectDir = "subs/web/my-web-module"
+p

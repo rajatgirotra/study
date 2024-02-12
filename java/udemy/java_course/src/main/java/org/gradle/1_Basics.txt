@@ -1,6 +1,16 @@
 Gradle is also a build tool like maven. Installing is trivial. Just like maven. Its written in Java and needs atleast Java 8. Just download the zip file,
 extract it put the bin/ folder in $PATH
 
+Gradle runs in the JVM. By default, gradle will use the same JVM version for compiling/testing your project in which gradle itself is running.
+But you can always change that by using the toolchains or sourceCompatibility and targetCompatibility properties as you will see later.
+
+Also any version of gradle cannot run in any JVM. Gradle publishes its compatability matrix where it defines:
+1) The minimum jdk version for running a particular version of gradle. Example: for running gradle 8.6 and beyond, you need atleast JDK 21.
+2) The minimum jdk version that gradle can use for compiling/testing your software. Example: for compiling with JDK17 and beyond, you need minimum
+gradle version 7.3
+
+https://docs.gradle.org/current/userguide/compatibility.html
+
 gradle -version
 
 Creating a new project with gradle

@@ -1,0 +1,32 @@
+plugins {
+  id 'java-library'
+}
+
+abstract class CreateFileTask extends DefaultTask {
+  @Input
+  abstract Property<String> getFileName()
+
+  @Input
+  String fileTxt = "Hello from Create File Task"
+
+  // ctor
+  CreateFileTask() {
+     fileName.convention("myFile.txt") // convention just means default value
+  }
+
+  @OutputFile
+  File myFile = new File()
+
+  @TaskAction
+  void createFile() {
+     myFile.createNewFile(fileName.get())
+     myFile.write(fileTxt)
+  }
+}
+
+tasks.register('createFile', CreateFileTask) {
+  group = "My Custom Tasks"
+  description = "A task to create myFile.txt file with some test content"
+  fileName = "rajat.txt" // fileName
+}
+

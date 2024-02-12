@@ -49,9 +49,59 @@ base {
   archiveName (default is $Project.name)
   libsDirectory (default is layout.buildDirectory.dir("libs")) # location of jars.
   distsDirectory (default is layout.buildDirectory.dir("distributions")) # location of other non-jar distribution files.
+}
 
 
 java plugin
 -----------
-Applies the "base" plugin by itself. Important things in java plugin
+Applies the "base" plugin by itself. Important tasks in java plugin:
 
+compileJava
+processResources
+classes (An aggrgate task which dependsOn compile and and processResources). A lot of plugin depend on the classes task.
+
+compileTestJava (depends on classes)
+processTestResources
+testClasses (depends on compileTestJava, processTestResources)
+
+jar (dependsOn classes)
+test (dependsOn testClasses)
+
+clean
+clean<TaskName> - Clean the outputs of a task
+
+compile<SourceSet>Java (in src/main/java and src/test/java, "main" and "test" are source sets).
+
+assemble.dependsOn(jar) --> means you can run "assemble" and it will run everything till jar
+check.dependsOn(test) --> means you can "check" task and it will run all tests.
+build.dependsOn(check, assemble) --> means you can run "build" task and it will build sources, tests and also create jar
+build<ConfigName> --> Try and find out
+
+you can use the "sourceSets" DSL block to modify or add new source sets. Have a look at SourceSet API and SourceDirectorySet API.
+
+sourceSets {
+  main { # this is a SourceSet
+    java {  # this is a SourceDirectorySet
+        srcDirs = ...
+        excludes = ...
+    }
+  }
+
+  test {
+     ...
+  }
+}
+
+Configurations added
+====================
+implementation
+compileOnly
+compileClasspath extends compileOnly, implementation # this can be resolved.
+annotationProcessor
+runtimeOnly
+runtimeClasspath extends runtimeOnly, implementation # this can be resolved
+testImplementation extends implementation
+testCompileOnly
+testCompileClasspath extends testCompileClasspath, testCompileOnly
+testRuntimeOnly extends runtimeOnly
+testRuntimeClasspath extends testRuntimeOnly, testImplementation
