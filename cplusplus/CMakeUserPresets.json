@@ -1,0 +1,10 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "/home/rajatgirotra/study/cplusplus/build/Release/generators/CMakePresets.json",
+        "/home/rajatgirotra/study/cplusplus/build/Debug/generators/CMakePresets.json"
+    ]
+}

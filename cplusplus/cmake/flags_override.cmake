@@ -1,0 +1,5 @@
+# Override CMake default values
+set(CMAKE_CXX_FLAGS_DEBUG_INIT "-O0 -g3")
+set(CMAKE_C_FLAGS_DEBUG_INIT "-O0 -g3")
+set(CMAKE_CXX_FLAGS_RELEASE_INIT "-O3 -g3")
+set(CMAKE_C_FLAGS_RELEASE_INIT "-O3 -g3")
