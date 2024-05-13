@@ -98,4 +98,6 @@ public class GenericsPlayground {
     }
 }
 
-/* Please read AnonymousInnerClassExample.java next */
+/*
+Please read about ArrayAndGenerics.java next
+ */

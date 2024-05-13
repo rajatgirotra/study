@@ -16,6 +16,20 @@ print('df \n%s' % df)
 print('\ndf["B"]\n%s' % df['B'])
 print('\ndf.B\n%s' % df.B)
 
+# Typically
+# 1. Single-level indexing: Indexing a single element of a DataFrame, e.g., df['column_name'][index], usually returns a copy of that element rather than a view of the DataFrame.
+
+# 2. Slicing: Slicing operations, such as df[start:end] or df.iloc[start_row:end_row, start_col:end_col], typically return views of the original DataFrame, meaning they share the same underlying data. Changes made to the sliced DataFrame will reflect in the original DataFrame, and vice versa.
+
+# 3. Boolean indexing: When you use boolean indexing, e.g., df[df['column'] > value], it generally returns a view.
+
+# 4. Chained indexing: Using chained indexing, such as df['column'][index], might return a copy rather than a view. It's recommended to avoid chained indexing to ensure predictable behavior.
+
+# infact, Copy-on-Write will become the new default in pandas 3.0. This means than chained indexing will never work (as chained operation will always modify the copy). As a consequence, the SettingWithCopyWarning won’t be necessary anymore. pandas recommends turning Copy-on-Write on to leverage the improvements with
+
+# ` pd.options.mode.copy_on_write = True `
+
+
 # Slicing will always give rows
 print('\ndf[:3]\n%s' % df[:3])
 

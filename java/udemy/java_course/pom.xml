@@ -32,6 +32,13 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.13.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.openhft/chronicle-map -->
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>chronicle-map</artifactId>
+            <version>3.25ea5</version>
+        </dependency>
+
     </dependencies>
 
 </project>

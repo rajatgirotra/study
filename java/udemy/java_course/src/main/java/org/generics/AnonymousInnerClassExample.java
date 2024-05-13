@@ -20,6 +20,7 @@ public class AnonymousInnerClassExample {
     public static void main(String[] args) {
         Animal2 generic = new Animal2(); // regular Animal2 object
         generic.makeNoise();
+        System.out.println("generic variable class name: " + generic.getClass().getName());
 
         // anonymous inner class extending Animal2
         Animal2 dog = new Animal2() {

@@ -1,0 +1,23 @@
+In Java, a class loader is a JVM component which is responsible for reading the class files and creating a java.lang.Class for your the class. A java.lang.Class object needs to be created first before the JVM can create instances of your class.
+
+How many Class loaders are there in Java? Java has three class loaders; and they form a hierarchy.
+
+1. Bootstrap class loader --> this is the first class loader to come up when JVM starts. It is not written in Java, but native language (C/C++). Because there is nothing in the JVM that can read class files yet. So the bootstrap class loader cannot be in Java as there is nothing to interpret the code yet. The Bootstrap class loader is used to load all the main java classes like those in the java.lang, java.util, java.io, java.nio packages. Basically the bootstrap loader will read the rt.jar which is the main run-time jar which contains all these packages.
+
+2. Extension class loader --> This is the next class loader used to load another set of architecture dependant packages which are bundled with your JDK.
+
+3. Then you have your system class loader --> This is used to load your source code classes.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Finding a resource:
+
+you would have seen a function on the java.lang.Class object called getResource() or getResourceAsStream(). This function is used to find and load resource files like images, text, config, video, html, xml, audio etc. The actual implementation of finding a resource is actually on the ClassLoader object and not the Class object. the Class object's getResource*() functions just delegate to the class'es ClassLoader. Note that there is a subtle difference between ClassLoader.getResource() and Class.getResource().
+
+Basically, ClassLoader.getResource() takes only an absolute path of the resource. the Class.getResource() function can be passed either a relative or an absolute path and it will convert its argument to an absolute path before delegating to the ClassLoader.getResource() based on the below rules.
+
+Class.getResource(String name)
+1) if name begins with "/", it is assumed to be an absolute path. the function just remove the first /, and passes the rest of the path to ClassLoader.getResource(). So if name = "/com/rajatgirotra/tutorial/example.txt", then "com/rajatgirotra/tutorial/example.txt" is passed to ClassLoader. ClassLoader will try to find the com/rajatgirotra/tutorial/example.txt on the java classpath.
+
+2) if name doesnt begin with /, it is assumed to be a relative path. the path is always relative to the package of the class. So if your Class<?> is an object of a class you wrote in the com.rajatgirotra.tutorial, and the relative path is "myResources/all/myPhoto.jpg", then the absolute path will be "com/rajatgirotra/tutorial/myResources/all/myPhoto.jpg"
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------

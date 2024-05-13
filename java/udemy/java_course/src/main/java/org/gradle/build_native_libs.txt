@@ -1,0 +1,44 @@
+The first thing to do is use the cpp-application or cpp-library plugin.
+
+plugins {
+    id 'cpp-application' // or 'cpp-library'
+}
+version = '1.2.1'
+
+Declaring these plugin will allow you to run many tasks like
+1) compileDebugCpp and compileReleaseCpp
+2) linkDebug and linkRelease (used for creating executable or shared libraries)
+3) createDebug and createRelease (used for creating static libraries)
+These tasks are also tied to the core gradle lifecycle tasks.
+
+Now c++ builds have AOL types (i.e. architecture, os, linker) and also a build_type. These are called dimensions in gradle. So we have
+1) build_type dimension. Value will be "debug" or "release"
+2) targetMachine dimension. This covers architecture and OS both.
+For example, I can configure my application to support more than one targetMachines like this:
+application {
+    targetMachines = [
+        machines.linux.x86_64,
+        machines.windows.x86, machines.windows.x86_64,
+        machines.macOS.x86_64
+    ]
+}
+
+A variant in gradle is a combination of dimensions. and dimensions themselves are orthogonal.
+
+The dependencies for your C++ project have to be specified inside the application or library {} block. You have to specify
+1) the location of the dependency and
+2) when the dependency is needed, compile time, link time, run time etc
+Example:
+
+application {
+    dependencies {
+        implementation project(':common') --> implementation means the common library is needed for compiling and linking
+        project(':boost') --> project means another project that is being referenced.
+    }
+}
+
+A number of configurations are also introduced by those plugins:
+implementation --> used for compiling, linking and runtime
+cppCompileVariant --> A variant that is only needed during compiling.
+nativeLinkVariant --> A variant that is only needed during run time 
+
