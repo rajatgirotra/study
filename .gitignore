@@ -9,6 +9,7 @@ GPATH
 GRTAGS
 *.pyc
 *.s
+*.env
 *.class
 build/
 static_cdn/
