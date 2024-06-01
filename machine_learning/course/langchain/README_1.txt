@@ -1,7 +1,7 @@
-LLM standards for Large Language Model. These are artifical intelligence models created to understand and generate text. Examples include
+LLM standards for Large Language Model. These are artificial intelligence models created to understand and generate text. Examples include
 1) ChatGPT
 2) Llama
-3) Bard
+3) Bard (Gemini)
 4) Claude etc
 
 Langchain: Langchain is a framework for designed for integrating these LLM models into your own applications. Langchain is available in many common programming languages like python, go, javascript etc.
@@ -46,7 +46,7 @@ You could create a pipeline with two chains.
 1) a code generation chain
 2) a generating code checking chain.
 
-The Input and Output and mostly dictionaries. The Input dictionary contains all the keys defined in your prompt template and the output dictionary contains the input dictionary + a special key which contains the result of the chain.
+The Input and Output are mostly dictionaries. The Input dictionary contains all the keys defined in your prompt template and the output dictionary contains the input dictionary + a special key which contains the result of the chain.
 
 So a chain in a langchain is a foundation piece to make reusable text generation pipelines
 
@@ -56,10 +56,10 @@ I created a new conda environment "openai". I installed the following packages:
 openai
 langchain-core --> Required
 langchain --> Required
-langchain-community --> community contributions to work with vector databses, different LLMs' etc
+langchain-community --> community contributions to work with vector databases, different LLMs' etc
 langchain-openai --> optimized version of langchain api's to work with openai LLM called ChatGPT.
 python (3.12.3)
 Lets start coding now!
 
-I even signed up for a paid account on openai platform and payed 5 USD as LLM requests will travel over HTTP to openai servers. We are not using any locally installed LLM's for now.
+I even signed up for a paid account on openai platform and paid 5 USD as LLM requests will travel over HTTP to openai servers. We are not using any locally installed LLM's for now.
 and using openai platform isn't free. I created a pycode project and generated an openai key. that is used when working with langchain.
