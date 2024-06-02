@@ -1,0 +1,33 @@
+Let's now move on to sematic search using langchain. Assume you want your llm model to read and digest your projects multiple confluence/wiki pages such that you can ask
+questions from the model later on. The information in these pages can be thought of as FACTS. When user asks some question, we can:
+1) either present the prompt will all the FACTS (whether relevant to the question of not) and then put the users questions. This isn't a good idea. Why:
+   a) The prompt becomes too big. and LLM models aren't too good with such big prompts.
+   b) your queries will also take longer and will be much costlier.
+2) or you could find the most relevant section in the FACTS around the users question and only present those reduced FACTS to the prompt. This is done using semantic search.
+
+Semantic Search
+===============
+In semantic search, we create embeddings using embedding creation algorithms. Embeddings are vectors of real numbers between -1 and 1. Each entry in the vector represents a score
+of some dimension of the FACT. Example, consider the following three sentences and lets create an embedding which has just two values:
+1) how closely the FACT talks about bravery.
+2) how closely the FACT represents a happy state of mind.
+
+Sentence                                                Brave = 1, Fear = -1                            Happy = 1, Sad = -1                 Embedding
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+The brave boy jumped happily                                1                                               1                               [1, 1]
+from rock to rock.
+
+The boy was not timid and felt good                         0.5                                             0.4                             [0.5, 0.4]
+in jumping from rock to rock.
+
+Although filled with fear, the boy jumped                   -1                                              0                               [-1, 0]
+from rock to rock
+
+Real world embeddings vectors have size in thousands. I.e. they capture more than 1000 dimensions of a FACT statement.
+
+These embeddings are then plotted on a graph as vectors. and then we can calculate the relative distances between these vectors. This is a mathematical concept. But to understand, you can say there
+are two ways to calculate the distance between vectors. One is called "Squared L2" and the other is called "Cosine Similarity.". "Squared L2" is about calculating the Euclidean distance between two vectors.
+and "Cosine Similarity" calculates the Cosine of the angle between two vectors. Basically the idea is the same: The less the distance between two vectors, the more closely, the two vectors i.e. the two FACTS
+are related.
+
+Next, lets work on some simple FACTS file (a text file) and create some embeddings for those facts.
