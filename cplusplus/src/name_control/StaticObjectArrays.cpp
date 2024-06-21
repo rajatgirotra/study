@@ -1,7 +1,7 @@
 /*
 
-You can also create static const objects of class types and arrays of such objects. However, you cannot initialize them using the inline syntax allowed for static consts of integral built-in types:
-
+You can also create static const objects of class types and arrays of such objects. However, you cannot initialize them using the inline syntax allowed for
+ static consts of integral built-in types:
 */
 
 //: C10:StaticObjectArrays.cpp

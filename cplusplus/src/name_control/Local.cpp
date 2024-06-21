@@ -1,6 +1,7 @@
 /*
 
-You can easily put static data members in classes that are nested inside other classes. The definition of such members is an intuitive and obvious extension  you simply use another level of scope resolution. However, you cannot have static data members inside local classes (a local class is a class defined inside a function). Thus,
+You can easily put static data members in classes that are nested inside other classes. The definition of such members is an intuitive and obvious extension
+ you simply use another level of scope resolution. However, you cannot have static data members inside local classes (a local class is a class defined inside a function). Thus,
 
 */
 

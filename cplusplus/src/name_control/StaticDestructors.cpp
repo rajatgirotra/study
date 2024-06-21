@@ -1,7 +1,8 @@
 /*
-
-Like ordinary destruction, destruction of static objects occurs in the reverse order of initialization. However, only objects that have been constructed are destroyed. Fortunately, the C++ development tools keep track of initialization order and the objects that have been constructed. Global objects are always constructed before main( ) is entered and destroyed as main( ) exits, but if a function containing a local static object is never called, the constructor for that object is never executed, so the destructor is also not executed. For example,
-
+Like ordinary destruction, destruction of static objects occurs in the reverse order of initialization. However, only objects that have been constructed are destroyed.
+ Fortunately, the C++ development tools keep track of initialization order and the objects that have been constructed. Global objects are always constructed before main()
+ is entered and destroyed as main() exits, but if a function containing a local static object is never called, the constructor for that object is never executed,
+ so the destructor is also not executed. For example,
 */
 
 //: C10:StaticDestructors.cpp

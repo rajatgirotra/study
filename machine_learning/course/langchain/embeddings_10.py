@@ -2,6 +2,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from dotenv import load_dotenv
 from langchain.embeddings import OpenAIEmbeddings
+from langchain_chroma import Chroma
 
 load_dotenv()
 
@@ -36,3 +37,18 @@ print(type(emb), len(emb))
 # WARNING: DO NOT UNCOMMENT LINES BELOW. IT TAKES TIME TO GENERATE EMBEDDINGS AND COSTS MONEY.
 # for doc in docs:
 #     emb = embeddings.embed_query(doc.page_content)
+
+# I installed chromadb already (pip install chromadb)
+
+db = Chroma.from_documents(
+    docs,
+    embedding=embeddings,
+    persist_directory='emb'
+)
+
+results = db.similarity_search_with_score('What is an interesting fact about the English language?')
+for result in results:
+    print("\n")
+    print(result[1])
+    print(result[0].page_content)
+    print('---')

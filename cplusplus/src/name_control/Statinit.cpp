@@ -6,13 +6,13 @@ using namespace std;
 int x = 100;
 
 class WithStatic {
-  static int x;
-  static int y;
+    static int x;
+    static int y;
 public:
-  void print() const {
-    cout << "WithStatic::x = " << x << endl;
-    cout << "WithStatic::y = " << y << endl;
-  }
+    void print() const {
+        cout << "WithStatic::x = " << x << endl;
+        cout << "WithStatic::y = " << y << endl;
+    }
 };
 
 int WithStatic::x = 1;

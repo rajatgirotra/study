@@ -32,6 +32,12 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.13.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.78.1</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/net.openhft/chronicle-map -->
         <dependency>
             <groupId>net.openhft</groupId>

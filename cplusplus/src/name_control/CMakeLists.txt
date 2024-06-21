@@ -1,0 +1,38 @@
+add_executable(name_control_a1a2 a1.cpp a2.cpp)
+target_link_libraries(name_control_a1a2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_23 2.cpp 3.cpp)
+target_link_libraries(name_control_23 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_imp1_imp2 imp1.cpp imp2.cpp)
+target_link_libraries(name_control_imp1_imp2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_local Local.cpp)
+target_link_libraries(name_control_local PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_local_extern LocalExtern.cpp)
+target_link_libraries(name_control_local_extern PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_local_temp temp.cpp)
+target_link_libraries(name_control_local_temp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_static_init Statinit.cpp)
+target_link_libraries(name_control_static_init PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_static_variable_in_function StaticVariablesInFunctions.cpp)
+target_link_libraries(name_control_static_variable_in_function PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_static_objects_in_function StaticObjectsInFunctions.cpp)
+target_link_libraries(name_control_static_objects_in_function PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_static_object_arrays StaticObjectArrays.cpp)
+target_link_libraries(name_control_static_object_arrays PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_static_destructors StaticDestructors.cpp)
+target_link_libraries(name_control_static_destructors PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_static_array StaticArray.cpp)
+target_link_libraries(name_control_static_array PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(name_control_singleton Singleton.cpp)
+target_link_libraries(name_control_singleton PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)

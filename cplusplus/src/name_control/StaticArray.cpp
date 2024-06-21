@@ -1,9 +1,7 @@
 /*
-
 static array initialization
-
-Chapter 8 introduced the static const variable that allows you to define a constant value inside a class body. Its also possible to create arrays of static objects, both const and non-const. The syntax is reasonably consistent:
-
+Chapter 8 introduced the static const variable that allows you to define a constant value inside a class body.
+ It's also possible to create arrays of static objects, both const and non-const. The syntax is reasonably consistent:
 */
 
 
