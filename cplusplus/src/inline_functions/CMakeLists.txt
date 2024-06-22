@@ -1,0 +1,2 @@
+add_executable(inline_functions_evaluation_order EvaluationOrder.cpp)
+target_link_libraries(inline_functions_evaluation_order PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
