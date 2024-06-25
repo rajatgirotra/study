@@ -1,11 +1,7 @@
 /*
-
 The most common place youll see references is as function arguments and return values. When a reference is used as a function argument, any modification to the reference inside the function will cause changes to the argument outside the function. Of course, you could do the same thing by passing a pointer, but a reference has much cleaner syntax. (You can think of a reference as nothing more than a syntax convenience, if you want.)
-
 If you return a reference from a function, you must take the same care as if you return a pointer from a function. Whatever the reference is connected to shouldnt go away when the function returns, otherwise youll be referring to unknown memory.
-
 Heres an example:
-
 */
 
 
@@ -29,7 +25,7 @@ int& g(int& x)
 
 int& h() 
 {
-  int q;
+  [[maybe_unused]] int q;
 //return q;  // Error
   static int x = -79;
   return x; // Safe, x lives outside this scope
