@@ -1,9 +1,0 @@
-Inheritance and static member functions
-
-static member functions act the same as non-static member functions:
-
-   1. They inherit into the derived class.
-   2. If you redefine a static member, all the other overloaded functions in the base class are hidden.
-   3. If you change the signature of a function in the base class, all the base class versions with that function name are hidden (this is really a variation of the previous point).
-
-However, static member functions cannot be virtual (a topic covered thoroughly in Chapter 15).
