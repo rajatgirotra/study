@@ -1,0 +1,29 @@
+add_executable(dynamic_object_creation_const_binding Const_Binding.cpp)
+target_link_libraries(dynamic_object_creation_const_binding  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_malloc_class MallocClass.cpp)
+target_link_libraries(dynamic_object_creation_malloc_class  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_new_and_delete NewAndDelete.cpp)
+target_link_libraries(dynamic_object_creation_new_and_delete  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_new_bad_void_pointer_deletion BadVoidPointerDeletion.cpp)
+target_link_libraries(dynamic_object_creation_new_bad_void_pointer_deletion  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_framis Framis.cpp)
+target_link_libraries(dynamic_object_creation_framis  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_array_operator_new ArrayOperatorNew.cpp)
+target_link_libraries(dynamic_object_creation_array_operator_new  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_global_operator_new GlobalOperatorNew.cpp)
+target_link_libraries(dynamic_object_creation_global_operator_new  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_abc abc.cpp)
+target_link_libraries(dynamic_object_creation_abc  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_new_handler NewHandler.cpp)
+target_link_libraries(dynamic_object_creation_new_handler  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(dynamic_object_creation_placement_new PlacementOperatorNew.cpp)
+target_link_libraries(dynamic_object_creation_placement_new  PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)

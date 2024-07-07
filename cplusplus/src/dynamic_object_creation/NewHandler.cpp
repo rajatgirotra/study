@@ -15,8 +15,8 @@ void out_of_memory()
 int main() {
    set_new_handler(out_of_memory);
    while(1) {
-     cout << "Allocating 1000000000 integers" << endl;
-      new int[1000000000]; // Exhausts memory
+     //cout << "Allocating 10000000000 integers" << endl;
+      new int[1ULL << 30]; // Exhausts memory
    }
 } ///:~
 

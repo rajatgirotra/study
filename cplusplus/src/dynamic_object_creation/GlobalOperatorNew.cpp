@@ -20,8 +20,7 @@ Here.s a simple example showing how to overload the global new and delete:
 #include <cstdlib>
 using namespace std;
 
-void* operator new(size_t sz) throw (bad_alloc)
-//void* operator new(size_t sz) //--> Both are OK.
+void* operator new(size_t sz)
 {
    cout<<"Global Operator New Bytes requested = "<<sz<<endl;
    void* m = malloc(sz);
@@ -30,7 +29,7 @@ void* operator new(size_t sz) throw (bad_alloc)
    return m;
 }
 
-void operator delete(void* m)
+void operator delete(void* m) noexcept
 {
    cout<<"Global Operator Delete"<<endl;
    free(m);

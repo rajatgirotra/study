@@ -22,7 +22,10 @@ It's worth making a point that if you call delete for a void*, it's almost certa
       }
       ~Object() { 
         cout << "Destructing object " << id << endl;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-incomplete"
         delete []data; // OK, just releases storage,
+#pragma GCC diagnostic pop
         // no destructor calls are necessary
       }
     };
@@ -31,7 +34,10 @@ It's worth making a point that if you call delete for a void*, it's almost certa
       Object* a = new Object(40, 'a');
       delete a;
       void* b = new Object(40, 'b');
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-incomplete"
       delete b;
+#pragma GCC diagnostic pop
     } ///:~
 
 /*

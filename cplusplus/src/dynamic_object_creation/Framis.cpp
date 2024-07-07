@@ -25,7 +25,7 @@ class Framis
     out<<"Framis::~Framis()"<<endl;
   }
 
-  void* operator new(size_t sz) throw(bad_alloc);
+  void* operator new(size_t sz);
 
   void operator delete(void*);
 
@@ -34,14 +34,14 @@ class Framis
 unsigned char Framis::pool[ psize * sizeof(Framis)];
 bool Framis::isAllocated[psize] = {false};
 
-void* Framis::operator new(size_t sz) throw(bad_alloc)
+void* Framis::operator new(size_t size)
 {
   int i;
   for(i = 0; i < psize; ++i)
   {
     if(!isAllocated[i])
     {
-      out<<"SZ = "<<sz<<endl;
+      out<<"SIZE = "<<size<<endl;
       isAllocated[i] = true;
       out<<"Allocating  block "<<i<<endl;
       return (pool + (i * sizeof(Framis)));
@@ -56,7 +56,7 @@ void Framis::operator delete(void* m)
   if (!m)
     return;
 
-  int block = (char*)m - (char*)pool;
+  int block = static_cast<unsigned char*>(m) - static_cast<unsigned char*>(pool);
   block /= sizeof(Framis);
 
   if(isAllocated[block])
@@ -80,7 +80,7 @@ int main()
     }
 
     new Framis;
-  } catch(bad_alloc)
+  } catch(bad_alloc&)
   { out<<"Caught: Out of memory"<<endl; }
 
   delete poFramis[10];

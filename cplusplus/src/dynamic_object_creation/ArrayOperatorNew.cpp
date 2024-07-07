@@ -18,7 +18,10 @@
       }
       void operator delete(void* p) {
         trace << "Widget::delete" << endl;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-incomplete"
         ::delete []p;  /* To call the default delete */
+#pragma GCC diagnostic pop
       }
       void* operator new[](size_t sz) {
         trace << "Widget::new[]: "
@@ -27,7 +30,11 @@
       }
       void operator delete[](void* p) {
         trace << "Widget::delete[]" << endl;
-        ::delete []p;
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-incomplete"
+          ::delete []p;  /* To call the default delete */
+#pragma GCC diagnostic pop
+
       }
     };
 

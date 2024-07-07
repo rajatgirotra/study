@@ -1,9 +1,7 @@
 /*
 
 placement new & delete
-
 There are two other, less common, uses for overloading operator new( ).
-
    1. You may want to place an object in a specific location in memory. This is especially important with hardware-oriented embedded systems where an object may be synonymous with a particular piece of hardware.
    2. You may want to be able to choose from different allocators when calling new.
 
@@ -43,7 +41,7 @@ cout<<"~X::X() this = "<<this<<endl;
 void* operator new(size_t sz, void* loc);
 };
 
-void* X::operator new(size_t sz, void* loc)
+void* X::operator new(size_t, void* loc)
 {
    return loc;
 }
