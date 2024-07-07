@@ -1,0 +1,111 @@
+add_executable(polymorphism_instrument2 Instrument2.cpp)
+target_link_libraries(polymorphism_instrument2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_instrument3 Instrument3.cpp)
+target_link_libraries(polymorphism_instrument3 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_instrument4 Instrument4.cpp)
+target_link_libraries(polymorphism_instrument4 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_instrument5 Instrument5.cpp)
+target_link_libraries(polymorphism_instrument5 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_virtual_call_inside_a_ctor virtual_call_inside_a_ctor.cpp)
+target_link_libraries(polymorphism_virtual_call_inside_a_ctor PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_virtual_call_inside_a_function virtual_call_inside_a_function.cpp)
+target_link_libraries(polymorphism_virtual_call_inside_a_function PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_early Early.cpp)
+target_link_libraries(polymorphism_early PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_pure_virtual_definitions PureVirtualDefinitions.cpp)
+target_link_libraries(polymorphism_pure_virtual_definitions PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_pure_virtual_dtor PureVirtualDestructors.cpp)
+target_link_libraries(polymorphism_pure_virtual_dtor PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_sizes Sizes.cpp)
+target_link_libraries(polymorphism_sizes PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+#target_link_options(polymorphism_sizes PRIVATE -Wno-error=invalid-offsetof) # not sure why this doesnt work.
+
+add_executable(polymorphism_unabstract Unabstract.cpp)
+target_link_libraries(polymorphism_unabstract PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_virtual_dtors VirtualDestructors.cpp)
+target_link_libraries(polymorphism_virtual_dtors PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_virtuals_in_dtors VirtualsInDestructors.cpp)
+target_link_libraries(polymorphism_virtuals_in_dtors PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_pure_virtual_private PureVirtualPrivate.cpp)
+target_link_libraries(polymorphism_pure_virtual_private PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_name_hiding2 NameHiding2.cpp)
+target_link_libraries(polymorphism_name_hiding2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_variant_return VariantReturn.cpp)
+target_link_libraries(polymorphism_variant_return PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_adding_virtuals AddingVirtuals.cpp)
+target_link_libraries(polymorphism_adding_virtuals PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_object_slicing ObjectSlicing.cpp)
+target_link_libraries(polymorphism_object_slicing PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_private_virtuality private_virtuality.cpp)
+target_link_libraries(polymorphism_private_virtuality PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_protected_virtual ProtectedVirtual.cpp)
+target_link_libraries(polymorphism_protected_virtual PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_private_virtual_functions PrivateVirtualFunctions.cpp)
+target_link_libraries(polymorphism_private_virtual_functions PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_operator_polymorphism OperatorPolymorphism.cpp)
+target_link_libraries(polymorphism_operator_polymorphism PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_multiple_vptr MultipleVPTR.cpp)
+target_link_libraries(polymorphism_multiple_vptr PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_1 1.cpp)
+target_link_libraries(polymorphism_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_2 2.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_3 3.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_4 4.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_5 5.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_6 6.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_7 7.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_8 8.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_9 9.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_10 10.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_11 11.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_12 12.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_13 13.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(polymorphism_14 14.cpp)
+target_link_libraries(polymorphism_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
