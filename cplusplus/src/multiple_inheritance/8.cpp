@@ -1,6 +1,6 @@
 /*
 
-Breaking the tie; if you dont understand what this is; read 7.cpp first
+Breaking the tie; if you don't understand what this is; read 7.cpp first
 
 */
 
@@ -17,11 +17,12 @@ public:
 class Left : virtual public Top {
 public:
   void f() {}
+  int f(string) { return -99; }
 };
  
 class Right : virtual public Top {
 public:
-  int f(string s) {}
+  int f(string) { return 0;}
 };
  
 class Bottom : public Left, public Right {
@@ -33,7 +34,8 @@ public:
  
 int main() {
   Bottom b;
-  b.Left::f(); 
+  b.Left::f();
+  cout << b.Right::f("") << endl;
   //b.f("ABC");
 } ///:~
  

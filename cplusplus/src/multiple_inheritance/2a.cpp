@@ -25,13 +25,13 @@ int main()
 Derv2 objDerv2;
 Base*  poBase = NULL;
 Derv*  poDerv = NULL;
-Derv2* poDerv2 = NULL;
+[[maybe_unused]] Derv2* poDerv2 = NULL;
 
 poBase = &objDerv2;
 cout<<"Address of objDerv2 = "<<&objDerv2<<endl;
 cout<<"Address in poBase  = "<<poBase<<endl;
 
-poDerv = &objDerv2;
+//poDerv = &objDerv2;
 cout<<"Address in poDerv  = "<<poDerv<<endl;
 return 0;
 }

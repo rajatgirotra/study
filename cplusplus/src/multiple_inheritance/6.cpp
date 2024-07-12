@@ -1,17 +1,12 @@
 /*
+Having discussed virtual base classes, we can now illustrate the full story of object initialization. Since virtual bases give rise to shared subobjects, it makes sense that they should
+ be available before the sharing takes place. So the order of initialization of subobjects follows these rules, recursively:
 
-Having discussed virtual base classes, we can now illustrate the full story of object initialization. Since virtual bases give rise to shared subobjects, it makes sense that they should be available before the sharing takes place. So the order of initialization of subobjects follows these rules, recursively:
-
-1.      All virtual base class subobjects are initialized, in top-down, left-to-right order according to where they appear in class definitions.
-
-2.      Non-virtual base classes are then initialized in the usual order.
-
-3.      All member objects are initialized in declaration order.
-
-4.      The complete objects constructor executes.
-
+1. All virtual base class subobjects are initialized, in top-down, left-to-right order according to where they appear in class definitions.
+2. Non-virtual base classes are then initialized in the usual order.
+3. All member objects are initialized in declaration order.
+4. The complete objects constructor executes.
 The following program illustrates this behavior:
-
 */
 
 //: C09:VirtInit.cpp
@@ -64,8 +59,8 @@ public:
 class E : public A, virtual public B, virtual public C {
   M m;
 public:
-  E(const string& s) : C("from E"), A("from E"),
-  B("from E"), m("in E") {
+  E(const string& s) : B("from E"), C("from E"), A("from E"),
+   m("in E") {
     cout << "E " << s << endl;
   }
 };
@@ -73,8 +68,8 @@ public:
 class F : virtual public C, virtual public B, public D {
   M m;
 public:
-  F(const string& s) : B("from F"), C("from F"),
-  D("from F"), m("in F") {
+  F(const string& s) : C("from F"), B("from F"),
+                       D("from F"), m("in F") {
     cout << "F " << s << endl;
   }
 };

@@ -24,7 +24,7 @@ int main()
 {
    cout<<"Size of Base: " << sizeof(Base)<<endl;
    cout<<"Size of Derv: " << sizeof(Derv)<<endl; // --> The derived class is given an additional field, which is a pointer to the Base class object.
-    // so its size is: x + y + VPTR + pointer to Base = 4 * 4 = 16 bytes.
+    // so its size is: sizeof(Base) + 4 bytes for y + pointer to base + any padding = 16 + 4 + 8 + 4 = 32 bytes
    return 0;
 }
 

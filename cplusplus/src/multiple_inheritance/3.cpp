@@ -1,7 +1,5 @@
 /*
-
-With the syntax weve seen so far, if you have multiple base classes, and if those base classes in turn have a common base class, you will have two copies of the top-level base, as you can see in the following example:
-
+With the syntax we have seen so far, if you have multiple base classes, and if those base classes in turn have a common base class, you will have two copies of the top-level base, as you can see in the following example:
 */
 
 
@@ -38,7 +36,7 @@ public:
 int main() {
   Bottom b(1, 2, 3, 4);
   cout << sizeof b << endl; // 20
-//  cout << "Top.x = " << b.x << endl;  //--> Errorneous line, Top::x is ambiguous.
+//  cout << "Top.x = " << b.x << endl;  //--> Erroneous line, Top::x is ambiguous.
 //  cout << "Top.y = " << b.y << endl; //This is OK.
 //   Top* poTop = new Bottom(1, 2, 3, 4); //--> Errorneous line, Top is an ambiguous Base of Bottom.
 } ///:~

@@ -1,7 +1,5 @@
 /*
-
 Functions with the same name occurring in different branches of a hierarchy often conflict. The following hierarchy has no such problem
-
 */
 
 //: C09:Dominance.cpp
@@ -29,14 +27,14 @@ public:
 #endif
 };
  
-class Bottom : public Left, public Right {
+class Bottom : public Left, public Right { // In the VTABLE for Bottom, the function f() is ambiguous
     public:
 //	using Right::f;
 };
  
 int main() {
   Bottom b;
-  //b.Right::f(); // Calls Right::f()
+  b.Right::f(); // Calls Right::f()
    b.f();
 } ///:~
 

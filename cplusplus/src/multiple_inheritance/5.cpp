@@ -1,9 +1,8 @@
 /* Read 4.cpp first */
-
 /*
-
-These rules of responsibility apply not only to initialization, but to all operations that span the class hierarchy. Consider the stream inserter in the previous code. We made the data protected so we could cheat and access inherited data in operator<<(ostream&, const Bottom&). It usually makes more sense to assign the work of printing each subobject to its corresponding class and have the derived class call its base class functions as needed. What would happen if we tried that with operator<<( ), as the following code illustrates?
-
+These rules of responsibility apply not only to initialization, but to all operations that span the class hierarchy. Consider the stream inserter in the previous code.
+We made the data protected so we could cheat and access inherited data in operator<<(ostream&, const Bottom&). It usually makes more sense to assign the work of printing each subobject to
+ its corresponding class and have the derived class call its base class functions as needed. What would happen if we tried that with operator<<( ), as the following code illustrates?
 */
 //: C09:VirtualBase2.cpp
 // How NOT to implement operator<<.

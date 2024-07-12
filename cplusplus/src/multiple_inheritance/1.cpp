@@ -1,6 +1,6 @@
 /*
 
-One use of multiple inheritance that is not controversial pertains to interface inheritance. In C++, all inheritance is implementation inheritance, because everything in a base class, interface and implementation, becomes part of a derived class. It is not possible to inherit only part of a class (the interface alone, say). As Chapter 14 of Volume 1 explains, private and protected inheritance make it possible to restrict access to members inherited from base classes when used by clients of a derived class object, but this doesnt affect the derived class; it still contains all base class data and can access all non-private base class members.
+One use of multiple inheritance that is not controversial pertains to interface inheritance. In C++, all inheritance is implementation inheritance, because everything in a base class, interface and implementation, becomes part of a derived class. It is not possible to inherit only part of a class (the interface alone, say). As Chapter 14 of Volume 1 explains, private and protected inheritance make it possible to restrict access to members inherited from base classes when used by clients of a derived class object, but this doesn't affect the derived class; it still contains all base class data and can access all non-private base class members.
 
 Interface inheritance, on the other hand, only adds member function declarations to a derived class interface and is not directly supported in C++. The usual technique to simulate interface inheritance in C++ is to derive from an interface class, which is a class that contains only declarations (no data or function bodies). These declarations will be pure virtual functions, except for the destructor. Here is an example:
 
@@ -38,8 +38,18 @@ public:
   void print(ostream& os) const { os << myData; }
   int toInt() const { return myData; }
   string toString() const {
+      // convert integer to ordinal string
     ostringstream os;
     os << myData;
+    if(myData%10 == 1 && myData != 11) {
+        os << "st";
+    } else if (myData%10 == 2 && myData != 12) {
+        os << "nd";
+    } else if (myData%10 == 3 && myData != 13) {
+        os << "rd";
+    } else {
+        os << "th";
+    }
     return os.str();
   }
 };
@@ -54,11 +64,11 @@ void testIntable(const Intable& n) {
 }
  
 void testStringable(const Stringable& s) {
-  cout << s.toString() + "th" << endl;
+  cout << s.toString() << endl;
 }
  
 int main() {
-  Able a(7);
+  Able a(71);
   testPrintable(a);
   testIntable(a);
   testStringable(a);

@@ -1,7 +1,5 @@
 /*
-
 When you inherit from a base class, you get a copy of all the data members of that base class in your derived class. The following program shows how multiple base subobjects might be laid out in memory:
-
 */
 
 //: C09:Offset.cpp
