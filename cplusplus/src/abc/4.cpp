@@ -5,6 +5,8 @@ class CBase {
 public:
    virtual void dummy()
    { cout<<"CBase::dummy"<<endl; }
+
+    virtual ~CBase() {}
 };
 class CDerived: public CBase { };
 

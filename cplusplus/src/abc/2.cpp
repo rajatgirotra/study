@@ -5,6 +5,8 @@ class CBase {
 public:
    virtual void dummy()
    { cout<<"CBase::dummy"<<endl; }
+
+   virtual ~CBase() {}
 };
 class CDerived: public CBase { };
 
@@ -12,10 +14,12 @@ int main()
 {
 
 CBase b; CBase* pb = 0;
-CDerived d; CDerived* pd = 0;
+CDerived d;
+[[maybe_unused]] CDerived* pd = 0;
 
 pb = dynamic_cast<CBase*>(&d);     // ok: derived-to-base
-pd = dynamic_cast<CDerived*>(&b);  /* this does not work */
+pb = &d;
+//pd = dynamic_cast<CDerived*>(&b);  /* this does not work */
 if(pd == 0) cout<<"pd is 0"<<endl;
 pd = dynamic_cast<CDerived*>(pb); /* this works !! */
 

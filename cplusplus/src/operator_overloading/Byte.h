@@ -5,7 +5,7 @@
 // Member overloaded operators
 #ifndef BYTE_H
 #define BYTE_H
-#include "../require.h"
+#include <cassert>
 #include <iostream>
 // Member functions (implicit "this"):
 class Byte { 
@@ -27,13 +27,13 @@ public:
   }
   const Byte
     operator/(const Byte& right) const {
-    require(right.b != 0, "divide by zero");
+    assert(right.b != 0);
     return Byte(b / right.b);
   }
   const Byte
     operator%(const Byte& right) const {
-    require(right.b != 0, "modulo by zero");
-    return Byte(b % right.b);
+      assert(right.b != 0);
+      return Byte(b % right.b);
   }
   const Byte
     operator^(const Byte& right) const {
@@ -79,13 +79,13 @@ public:
     return *this;
   }
   Byte& operator/=(const Byte& right) {
-    require(right.b != 0, "divide by zero");
+      assert(right.b != 0);
     if(this == &right) {/* self-assignment */}
     b /= right.b;
     return *this;
   }
   Byte& operator%=(const Byte& right) {
-    require(right.b != 0, "modulo by zero");
+      assert(right.b != 0);
     if(this == &right) {/* self-assignment */}
     b %= right.b;
     return *this;

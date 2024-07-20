@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// subscript operators are always overloaded in pairs
 class A {
 public:
 	static const unsigned int SIZE = 20;

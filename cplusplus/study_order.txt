@@ -5,9 +5,9 @@ inheritance_&_composition
 polymorphism_&_virtual_functions
 dynamic_object_creation
 multiple_inheritance
-
 operator_overloading
 abc
+
 rtti
 exception handling
 templates
