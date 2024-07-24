@@ -4,6 +4,9 @@ target_link_libraries(operator_overloading_byte_test PRIVATE ${PROJECT_NAME_LOWE
 add_executable(operator_overloading_integer_test Integer.cpp IntegerTest.cpp)
 target_link_libraries(operator_overloading_integer_test PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(operator_overloading_temp temp.cpp)
+target_link_libraries(operator_overloading_temp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(operator_overloading_overloading_unary_operator OverloadingUnaryOperators.cpp)
 target_link_libraries(operator_overloading_overloading_unary_operator PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
@@ -15,3 +18,12 @@ target_link_libraries(operator_overloading_operator_overloading_syntax PRIVATE $
 
 add_executable(operator_overloading_subscript_overload SubscriptOverload.cpp)
 target_link_libraries(operator_overloading_subscript_overload PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(operator_overloading_operator_comma OverloadingOperatorComma.cpp)
+target_link_libraries(operator_overloading_operator_comma PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(operator_overloading_smart_pointer SmartPointer.cpp)
+target_link_libraries(operator_overloading_smart_pointer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(operator_overloading_nested_smart_pointer NestedSmartPointer.cpp)
+target_link_libraries(operator_overloading_nested_smart_pointer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
