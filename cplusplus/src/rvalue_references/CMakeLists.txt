@@ -1,0 +1,32 @@
+add_executable(rvalue_references_1 1.cpp)
+target_link_libraries(rvalue_references_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_2 2.cpp)
+target_link_libraries(rvalue_references_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_3 3.cpp)
+target_link_libraries(rvalue_references_3 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_6 6.cpp)
+target_link_libraries(rvalue_references_6 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_11 11.cpp)
+target_link_libraries(rvalue_references_11 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_15 15.cpp)
+target_link_libraries(rvalue_references_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_18 18.cpp)
+target_link_libraries(rvalue_references_18 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_19 19.cpp)
+target_link_libraries(rvalue_references_19 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_20 20.cpp)
+target_link_libraries(rvalue_references_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_21 21.cpp)
+target_link_libraries(rvalue_references_21 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(rvalue_references_23 23.cpp)
+target_link_libraries(rvalue_references_23 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
