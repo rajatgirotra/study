@@ -7,9 +7,9 @@ dynamic_object_creation
 multiple_inheritance
 operator_overloading
 abc
-
 rtti
 exception handling
+
 templates
 strings
 general

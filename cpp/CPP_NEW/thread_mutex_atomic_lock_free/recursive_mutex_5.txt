@@ -1,4 +1,0 @@
-/*
-same as std::mutex, except that the std::recursive_mutex can be locked multiple times over. Every call to lock should be followed
- by a call to unlock(), so that the thread can release the mutex.
-*/

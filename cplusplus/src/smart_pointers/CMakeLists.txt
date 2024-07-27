@@ -1,0 +1,8 @@
+add_executable(smart_pointers_about_unique_ptrs_1 about_unique_ptrs_1.cpp)
+target_link_libraries(smart_pointers_about_unique_ptrs_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(smart_pointers_about_shared_ptrs_2 about_shared_ptrs_2.cpp)
+target_link_libraries(smart_pointers_about_shared_ptrs_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(smart_pointers_const_unique_ptr_in_class_3 const_unique_ptr_in_class_3.cpp)
+target_link_libraries(smart_pointers_const_unique_ptr_in_class_3 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)

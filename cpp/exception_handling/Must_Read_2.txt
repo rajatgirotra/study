@@ -1,9 +1,0 @@
-/* Re-throwing an exception */
-You usually want to rethrow an exception when you have some resource that needs to be released, such as a network connection or heap memory that needs to be deallocated. (See the section .Resource Management. later in this chapter for more detail). If an exception occurs, you don.t necessarily care what error caused the exception.you just want to close the connection you opened previously. After that, you.ll want to let some other context closer to the user (that is, higher up in the call chain) handle the exception. In this case the ellipsis specification is just what you want. You want to catch any exception, clean up your resource, and then rethrow the exception for handling elsewhere. You rethrow an exception by using throw with no argument inside a handler:
-
-catch(...) {
-cout << "an exception was thrown" << endl;
-// Deallocate your resource here, and then rethrow
-  throw;
-}
-
