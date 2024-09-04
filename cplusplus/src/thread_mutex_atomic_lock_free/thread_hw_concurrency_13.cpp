@@ -23,7 +23,8 @@ int main() {
                     std::lock_guard<std::mutex> lg(iomutex);
                     cout << "Thread " << i << " running on cpu: " << sched_getcpu() << endl;
                 }
-                std::this_thread::sleep_for(1s);
+                std::this_thread::yield();
+                std::this_thread::sleep_for(100ms);
             }
         }));
     }

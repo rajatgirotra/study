@@ -13,5 +13,5 @@ add_subdirectory(algorithms)
 #add_subdirectory(rtti) # This is not done
 #add_subdirectory(smart_pointers)
 #add_subdirectory(rvalue_references)
-add_subdirectory(sfinae_and_enable_if) # this is not done
-#add_subdirectory(thread_mutex_atomic_lock_free)
+#add_subdirectory(sfinae_and_enable_if)
+add_subdirectory(thread_mutex_atomic_lock_free)
