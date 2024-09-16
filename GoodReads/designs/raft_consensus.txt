@@ -1,0 +1,47 @@
+Raft consensus algorithm
+------------------------
+Raft is a consensus algorithm used to manage replication of a sequence of events such that all the servers agree on the sequence of events even in the case of failures.
+Raft can be broken down into multiple sub-problems:
+1) Leader election
+2) Log replication
+3) Safety
+
+Leader election
+--------------
+Raft operates in terms of "Terms". A term is an election cycle. Think about term as a count of the election cycle. i.e. 1st leader election, 2nd leader election and so on.
+
+During a term, all servers are in a state called "follower".
+
+When a follower does not hear from a leader in a specified timeout, it promotes itself to a state called "candidate". And then it starts an election cycle. To start the election cycle, it will increment it's term count and requests for vote from the other servers.
+
+Other servers will vote for a candidate if:
+1. They haven't voted for any other server already in that term.
+2. The candidate's log or event is at-least as up to date as their own.
+
+If a candidate receives votes from the majority (i.e. say 3 out of 5 servers), it becomes the leader. A candidate will always have a self vote so it needs only two more votes if there are 5 servers.
+
+If starts heartbeat messages to other servers to assert that it is now the leader.
+
+Log replication
+---------------
+The leader is responsible for managing the replicated log across all servers.
+
+When a client sends a command/event to the leader, the leader adds the command/event to its log/journal and then sends special "AppendEntries" messages to the followers to replicate the entry.
+
+Followers will append the entry to their journal and send back an acknowledgement.
+
+Once the leader receives acknowledgemets from the majority of the servers, it is considered committed.
+
+The leader then uses the event and processes it internally.
+
+Safety
+------
+Raft ensures that if one server has committed an entry in its log, no other server can ever have a different entry at that same index in their logs.
+
+This is guaranteed by the leader election process: a candidate must have an up-to-date log before it can be elected leader.
+
+Even of Odd numbers of servers
+--------------------------------
+Majority Calculation: If you have an even number of servers, the majority is still more than half of the servers. For example, with 4 servers, the majority is 3. This setup works perfectly fine in Raft, but it doesn't offer any advantage in terms of fault tolerance compared to having 3 servers.
+
+So basically you have n servers and n is odd, there is no benefit of having n+1 servers.

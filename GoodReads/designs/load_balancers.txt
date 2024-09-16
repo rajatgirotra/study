@@ -1,0 +1,30 @@
+We have network load balancers and application load balancers. Load balancers are used to distribute network or application traffic across multiple servers. This is done such that no one server gets saturated, improving the availability, reliability and performance of your applications. LB's ensure that no server gets overwhelmed. Most of the high traffic websites will use LB's.
+
+LB's listen for incoming traffic on a dedicated IP and port. For every request, a LB will select one of the available servers to furnish the request. There are several algorithms a LB can use to distribute the traffic to the application servers like:
+1) round robin (often called a dump LB) -> useful for stateless applications
+2) random select --> useful for stateless applications
+3) least connections -> useful for stateless applications
+4) smart LB: this kind of LB monitors the health and usage of the application servers. If an app server is hardly used, it can auto scale it down. If all servers are 80-90% used, it can use the auto scaling service to spawn new instances. If an app server crashes, LB will not send new requests to that load balancer until it becomes active again.
+
+NLB's are particularly used in Web applications, database services.
+
+Sticky sessions or persistence sessions
+=======================================
+To ensure that a users session with a website is consistenly handled by the same server, even when using a NLB, we can use sticky sessions. This technique allows a LB to remember which server was assigned to handle a particular user's sessions and continue routing all subsequent rquests from that user to the same server. Example: a NLB can use 
+1) IP Hashing: The LB uses the client's IP address and port combination to generate a unique hash. This hash determines which server will handle the users request. As long as the users IP address and port are same, the requests will be routed to the same server.
+
+2) Session Cookies: For HTTP requests, the LB can insert a special cookie in the response message which identifies the server handling their session. When user makes a subsequent request, the LB will read this cookie to route the request to the corresponding server. AWS's Elastic Load Balancer uses a cookie called "AWSELB" for this purpose.
+
+But remember that sticky sessions can lead to uneven load distribution. If one server is handling too many sessions, it may become saturated.
+Also, if the server handling a session goes down, the user might lose their sessions unless the session data is stored in a shared or distributed store across all servers.
+
+NLB failover
+===========
+If you are using your NLB to server HTTP traffic, you can have a failover/secondary NLB preferably in another data center. You will have to configure a DNS (using a DNS provider) to point to your primary LB. You also need to configure the DNS to switch to the secondary LB if your primary one becomes unavailable. But since you have split the LB across different data centers, you will need to have multiple app servers in both regions and they need to share the data for that application in real time or near real time using some form of data replication. For data replication, read data_replication.txt. in such a setup remember that the DNS entries may be cached by the browser or by the client's DNS server, so in those cases, your client may still keep connecting to the old failed LB. To handle such cases, we set a very low TTL (Time to Live, like 30 secs) in the DNS records. A TTL setting tells browser on how soon they should look DNS table again to resolve the correct IP.
+
+If you are using NLB to handle TCP traffic, you can distribute traffic based on IP hashing.
+
+NLB failover for raw TCP traffic
+================================
+If you want to setup NLB in an active standby mode for distributing raw TCP traffic, you can AWS NLB, Azure Load Balancer or an HAProxy (an open source load balancer) with KeepAlived (an open source software package providing HA and failover capabilities like Virtual IP management, Health checking etc).
+These load balancers need to be setup using a Virtual (VIP) that both load balancers can bind to. You need to setup a health check that monitors the status of the active load balancer. The health checks should be configured to detect failure quickly and trigger failover.

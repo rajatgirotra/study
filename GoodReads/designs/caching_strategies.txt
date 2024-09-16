@@ -1,0 +1,47 @@
+There are multiple caching strategies which we can use and each has its own applicability.
+Caching is required to prevent doing complex and time consuming operations over and over by storing the result of the operation once and also returning it when the complex operation is requested again. This could be some time consuming API in code, or some database read etc.
+
+Types of caching strategies
+===========================
+
+Read aside caching
+------------------
+Probably the most commonly used caching strategy.
+1. A complex operation is requested.
+2. You check if the result of the operation is already computed/fetched and cached.
+3. If yes, you return it, otherwise (a cache miss occurs) you perform the operation and store the result in cache.
+Example is Redis, memcached.
+
+To handle writes:
+1. you can send them to the database directly. But that will make data in the cache stale. That is why you should have a TTL (time to live) for your cache entries.
+2. as you write to the DB, you can invalidate your cache entry.
+
+So basically you have a combination of read aside + write around cache now.
+
+Advantages
+__________
+Resilient to cache failures. If cache failure occurs, your fetch time will increase (as it will go to DB always). But the system will still function,
+although with reduced capacity. 
+Another benefit is that the data model of the cache can be different than the data model in the database. You may only store a subset of the DB data or transform it before you store to cache.
+
+Read through cache
+--------------------
+In a read aside cache, the application is responsible for maintaining the cache. However, in read through cache, there is a cache provider which sits in line with the database and is responsible for loading data from the DB and caching it. So the cache provider maintains the cache. 
+Also the data model of the cached data has to be the same as the data model of the database.
+Both read aside and read through caches are lazily loaded caches.
+Common for read heavy workloads. like a new story feed. You will also need to warm up the cache otherwise the first access will always result in cache miss.
+
+Write through cache
+-------------------
+Similar to write through cache, the cache sits in-line with the database. Application will direct all writes to the cache, and the cache will in turn write to the DB. It must be coupled with a read through cache. Only then you will get the benefits of fast reads. The benefit of write through cache is that you do not need to worry about cache invalidation or putting TTL on your cache entries, as the write also go through the cache, so data consistency is maintained. An example of this is the DynamoDB DAX accelerator.
+
+Write around cache
+-----------------
+A write through cache can result in cache thrashing. which means that the write operations will also update the cache and may be those written entries will not be read often. So a write around strategy is used with read through cache strategy.
+In this strategy, write operations are directory only to the underlying storage and bypass the cache entirely. However, entries updated in DB which are already in the read through cache will be inconsistent for the duration of the TTL. If you invalidate the entry in the read through cache everytime a entry is written in the DB, then the read of the same entry will cause some delay as it will result in a cache miss. 
+
+Actually, this can also be combined with the read aside cache as well.
+
+Write back or Write Behind
+---------------------------
+Write back or write behind is similar to Write through, just that this is asynchronous. It caches all writes and can also batch them and persist to database in one request. So it is also able to handle some DB downtime based on it capacity. It works well for mixed workloads where the most recently updated and accessed data is always available in cache.

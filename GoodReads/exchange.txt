@@ -1,0 +1,54 @@
+Designing a stock exchange?
+===========================
+Questions/functional requirements
+----------------------------------
+What do we want to trade? Stocks, FnO etc.
+Message types supported: New/Amends/Cancels
+Order types supported: Limit/Market
+TIF supported: Day/GTC/GTD
+How many users? likely thousands of users trading at the same time.
+How many symbols? say 100 symbols?
+How many orders/day: Say atleast a billion.
+Exchange is a regulated industry: So we need to run some risk checks as well.
+Wallet management: Order resting on the orderbook should withhold funds to prevent overspending.
+
+Non functional requirements
+---------------------------
+Latency: target latency in low ms round trip for 99th percentile
+High availability: target 4 nines, i.e. 99.99%
+Fault tolerance: Fast recovery mechanism is needed to the limit the impact of the incident.
+Security: Must peform KYC on clients. Also for website, must prevent DDos attacks (Distributed Denial of Service)
+
+Lets start with some Back of the envelope estimation
+----------------------------------------------------
+back of the envelope estimation is done to calculate QPS i.e. queries per second) & Peak QPS. Read back_of_the_envelope_estimation.txt
+
+With 100 symbols and 1,000,000,000 orders/day and assuming 6.5 hours of trading per day. Gives us a QPS of:
+1 billion / (6.5 * 60 * 60) i.e. approx 43000 orders/sec.
+Peak QPS = say 5 times the QPS i.e. ~215000 orders/sec
+Also trading volume is much higher in the opening and closing sessions.
+
+Types of clients
+----------------
+Institutional clients: and they may have different requirements like:
+1) Retailers: They can look at the market data in a browser or mobile app and place an order.
+2) Pension funds: They made trade infrequently, but when they do, they want to break their large order into smaller orders to limit price impact.
+3) Market makers: they would need low latency trading abilities.
+
+Typical Design of an exchange
+-----------------------------
+Trading flow:
+Forward path:
+User -> Broker -> Exchange Client Gateway -> (Exchange Order Manager -> Exchange Risk Checks -> Exchange Order Manager) -> Exchange Sequencer -> Exchange Matching Engine.
+Exchange Order Manager -> Wallet Management -> Exchange Order Manager
+
+Reverse path:
+Exchange Matching Engine -> Exchange Sequencer -> Exchange Order Manager -> Exchange Client Gateway -> Broker -> User
+
+Market Data flow:
+Exchange Matching Engine -> Market Data Publisher -> Data Service -> Broker
+
+Reporting flow:
+Exchange Order Manager -> Reporter -> Database (orders, acks, fills)
+
+Each of these workflow have a different 

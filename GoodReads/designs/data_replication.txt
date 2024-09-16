@@ -1,0 +1,32 @@
+For real-time data replication where your data is stored in multiple binary files on disk, there are several tools and techniques available that can help you keep these files synchronized across different servers or locations. the choice of tool depends on factors like
+1. size of the files
+2. frequency of changes to the files.
+3. network bandwidth
+4. specific requirements of the application.
+
+Some of the possible solutions are:
+a. rsync --> typically used for periodic synchronization
+
+b. inotify: kernel subsystem on linux or ReadDirectoryChangesW on windows: It monitors filesystem events like creation, modification and deletion.
+
+c. isyncd: a daemon that combines 'inotify' and 'rsync' to enable real time communication.
+
+d. GlusterFS and Ceph --> These are distributed file systems which automatically replicate and synchronize files across multiple servers.
+
+e. AWS S3 --> automatic replication across multiple availability zones. Similarly we have Azure Geo-Redundant Storage and Google cloud storage.
+
+f. custom script which uses inotify and network protocols.
+
+g. ZFS, LVM --> Tools which provide entire file system mirroring
+
+h. Real time File Replication software like DRBD (Distributed Replicated Block Device), Rclone, Unison: They may be using inotify/rsync under the hood.
+
+You can also build a custom solution or replicator and also think about strategies like:
+
+Checkpointing: Periodically take snapshots or checkpoints of the memory-mapped file’s state. Store these snapshots on durable storage, such as a distributed file system (e.g., Ceph, HDFS) or cloud storage (e.g., Amazon S3, Google Cloud Storage). If the data center goes down, you can restart replication from the last checkpoint.
+
+Write-Ahead Logging (WAL): Implement a WAL mechanism where changes to the memory-mapped file are first written to a log before being applied. This log should be stored on durable storage. If a failure occurs, you can replay the log to restore the memory-mapped file to its last consistent state.
+
+Quorum-Based Replication: Use a quorum-based replication strategy where data is considered committed only when a majority of replicas acknowledge it. This reduces the risk of data loss in case a data center goes down. An example is RAFT consensus algorithm.
+
+

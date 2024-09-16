@@ -1,0 +1,53 @@
+Lets understand how databases are scaled using horizontal and vertical scaling and sharding. sharding is just an optimization technique. sharding is a special type of partitioning. Here we talk about horizontal sharding (i.e. splitting your tables into smaller units rowwise). If your database is getting saturated, how would you handle it?
+
+Option 1
+--------
+Vertical scaling: May be double the limits depending on what you are having a problem with. HDD/SSD, RAM, CPUs, caches. But there is a limit of how much can you vertically scale. There is a concept of diminishing returns with vertical scaling. Doubling your capacity doesnt give you double the performance boost.
+
+Option 2
+--------
+Horizontal scaling: 
+1) You have a master node here. i.e. write requests are received here and persisted to DB.
+2) You have multiple slave or read replicas (i.e. copies of database). they will serve read requests. Here we have a problem of eventual consistency due to race conditions when master node writes to DB and when the read replicas are updated resulting in stale data.
+For high availablity, we can have a load balancer for the slaves (read replicas). For the high availablity of the master (writer node), we can just promote one of the read replicas to be the master.
+
+Option 3
+--------
+Sharding is a database architecture pattern where data is horizontally partitioned across multiple database instances, known as "shards." Each shard holds a subset of the data, and together, all shards form the complete dataset. Sharding is often used to improve performance, scalability, and manageability of large databases.
+
+Sharding splits the data across multiple database instances based on some criteria (like a key or a range). Each shard contains rows of data, making it a form of horizontal partitioning.
+ 
+A shard key (or partition key) determines how the data is distributed across shards. It could be based on a user ID, geographic location, or any other data attribute.
+
+Each shard is a separate database instance that contains a subset of the overall data. These instances are typically on separate servers or virtual machines.
+
+Shards can be replicated to provide redundancy and fault tolerance. If one shard fails, its replica can take over.
+
+Now when a request comes in how do you know which shard is the data in. So here you have two options:
+1) A global index or directory or table can be used to map which shard contains a particular piece of data. This helps in locating the data across different shards.
+2) You take the algorithmic approach where you need some form of predictable hashing functioning.
+
+The problem with 1 is that you have a single point of failure (SPOF) which is your global index. The whole reason you introduced sharding was to solve this very problem. 
+
+When a request comes in, it must now be first forwarded to a Routing Layer (some form of Restful endpoint or app), which can interpret your request and work out which shard your data is on and forward the request onto that shard. This Routing layer can get complex as it needs to handle failover nodes, needs to handle SPOF if you are using a global index or directory or table to store you shard locations. This isn't something that you can just building using Click click click. You need to build it.
+
+Advantages:
+1) Scalability (By chunking your data and introducing more and more shards as you need)
+2) Availability and Fault tolerance (replicating shards). Infact even if you dont have replication and a shard fails, not all database is down as othet shards are available.
+
+Disadvantages:
+1) Complexity.
+    a) Partition mapping: Global index or algorithmic way
+    b) Add a new routing layer.
+    c) Resharding (if you have non-uniform shards)
+    d) Complicates analytical type queries: As data has to be fetched from multiple shards and then may be needs to be joined by application.
+
+A critical step is selecting an appropriate shard key. This key should evenly distribute data across shards to avoid hotspots (overloaded shards) and should be based on how the data is accessed. For example, if most queries are based on user IDs, then user ID might be a good shard key.
+
+For reads, the application uses the shard key to determine which shard to query. Some queries might need to hit multiple shards (e.g., aggregations across all users), which can be more complex and slower than querying a single shard.
+
+MongoDB: Supports sharding out of the box.
+MySQL: Can be sharded using tools like Vitess or custom sharding logic.
+Cassandra: Uses a consistent hashing mechanism for sharding.
+CockroachDB: Implements a distributed architecture with built-in sharding.
+

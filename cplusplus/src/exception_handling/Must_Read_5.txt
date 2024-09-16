@@ -1,0 +1,22 @@
+Throwing Standard Exceptions
+You can throw standard exceptions inside your own library or program. All standard exception
+classes that enable you to do this have only one parameter to create the exception: a string
+(class string is described in Chapter 11) that will become the description returned by
+what(). For example, the class logic_error is defined as follows:
+namespace std {
+class logic_error : public exception {
+public:
+explicit logic_error (const string& whatString);
+};
+}
+The set of standard exceptions that provide this ability contains class logic_error and its
+derived classes, class runtime_error and its derived classes, as well as class
+ios_base::failure. Thus, you can't throw exceptions of the base class exception and any
+exception class that is provided for language support.
+To throw a standard exception, you simply create a string that describes the exception and use it
+to initialize the thrown exception object:
+string s;
+...
+throw out_of_range(s);
+Implicit conversions from char* to string exist, so you can also use a string literal directly:
+throw out_of_range("out_of_range exception (somewhere, somehow)");

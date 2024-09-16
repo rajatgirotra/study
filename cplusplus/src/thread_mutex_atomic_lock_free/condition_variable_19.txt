@@ -1,0 +1,42 @@
+Very trivial concept
+--------------------
+std::condition_variable is a synchronization primitive that can block one or more threads until some condition is true. and another
+thread signals that the condition is true using the notify_one(), notify_all() calls of the condition variable.
+
+API:
+
+void condition_variable::wait(std::unique_lock<std::mutex>); // will relinquish the lock and suspend the thread and add it to the queue of threads
+waiting for the condition to be true
+
+std::cv_status condition_variable::wait_for(std::unique_lock<std::mutex>, std::chrono::duration);
+// same as above, but this is a timed wait. return value can be std::cv_status::timeout or std::cv_status::no_timeout
+
+std::cv_status condition_variable::wait_until(std::unique_lock<std::mutex>, std::chrono::timepoint);
+// same as above, but this is a timed wait. return value can be std::cv_status::timeout or std::cv_status::no_timeout
+
+All the above wait(), wait_for(), wait_until() also take a Boolean predicate.
+void condition_variable::wait(std::unique_lock<std::mutex>, Predicate pred); // is same as
+while(!pred()) { cv.wait(lock); } // ie keep waiting until pred is true. So if you want to break out of the while loop, return true.
+
+bool condition_variable::wait_for(std::unique_lock<std::mutex>, std::chrono::duration, Predicate pred);
+// return false if predicate is false after the timeout expires, otherwise true.
+
+Usage:
+
+std::condition_variable cv;
+bool event = false;
+std::mutex mtx;
+
+Thread 1 --> checking if event happened
+{
+    std::unique_lock<std::mutex> ul(mtx); // must use unique_lock only
+    cv.wait(ul, [] { return event == true;  }); // ie keep waiting until (event == true) is not satisfied.
+}
+
+Thread 2 --> setting the event and notifying
+{
+    std::lock_guard<std::mutex> lg(mtx);
+    event = true;
+}
+cv.notify_one();
+

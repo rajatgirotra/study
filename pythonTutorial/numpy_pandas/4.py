@@ -2,7 +2,7 @@
 
 import numpy as np
 
-# Intersting stuff- Boolean Indexing
+# Interesting stuff-Boolean Indexing
 # You know already that ndarray supports vectorization. ndarray also works with comparison functions
 # eg:
 arr = np.random.randn(2, 3)

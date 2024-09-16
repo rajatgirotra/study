@@ -1,0 +1,19 @@
+Reliable UDP (RUDP) is a communication protocol that builds on the basic User Datagram Protocol (UDP) to add reliability features typically found in Transmission Control Protocol (TCP). While UDP is known for its simplicity and low latency, it does not guarantee the delivery, order, or integrity of the data packets it sends. RUDP addresses these limitations by incorporating features like:
+
+Acknowledgments (ACKs): The receiver sends back an acknowledgment for each packet received. If the sender does not receive an acknowledgment within a certain time, it will retransmit the packet.
+
+Sequencing: Each packet is assigned a sequence number, allowing the receiver to detect missing packets and reassemble out-of-order packets correctly.
+
+Retransmission: If a packet is lost or corrupted, RUDP allows the sender to retransmit it based on the feedback received from the receiver.
+
+Flow Control: This mechanism controls the rate at which data is sent, preventing the sender from overwhelming the receiver.
+
+Congestion Control: RUDP may also implement congestion control algorithms similar to TCP to avoid network congestion.
+
+RUDP is useful in scenarios where low-latency communication is crucial but some level of reliability is also needed, such as in real-time multimedia streaming, gaming, or applications where occasional packet loss can be tolerated but not completely ignored.
+
+In the case of Reliable UDP (RUDP), the reliability features have to be implemented at the application level or through a specialized library or protocol that extends the basic UDP functionality. Since UDP itself does not provide these features, it is up to the application developer to add mechanisms like acknowledgments, retransmission, sequencing, and flow/congestion control.
+
+several RUDP implementations exist like QUIC, RTP/RTCP/uTP/Custom implementations.
+
+If your application requires both the low overhead and latency of UDP and the reliability of TCP, you would either need to use one of these existing protocols or implement similar features in your own code.

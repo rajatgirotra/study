@@ -1,0 +1,32 @@
+Atomicity
+
+What is it??
+A MEMORY OPERATION is said to be atomic if it completes in one step relative to other threads.
+When you perform an atomic store, no other thread can read its value half-complete.
+
+When can memory operations be non-atomic?? There are multiple reasons:
+1) Because the memory operation uses multiple CPU instructions.
+2) Because sometimes a single CPU instructions can be non-atomic.
+3) Non-atomic simple because you think it is atomic.
+
+If you access an atomic variable using a non-atomic operation, you'll have a data race and undefined behavior.
+Worse you can have torn reads or torn writes (ie half reads and half writes)
+
+In C and C++, every operation is presumed non-atomic unless otherwise specified by the compiler or hardware vendor
+EVEN PLAIN 32-BIT INTEGER ASSIGNMENT (like i = 10).
+
+The language standards have nothing to say about atomicity in this case. Maybe INTEGER ASSIGNMENT IS ATOMIC, MAYBE IT ISN'T.
+Since non-atomic operations don't make any guarantees, plain integer assignment in C is non-atomic by definition.
+
+In practice, we usually know more about our target platforms than that. For example, ITS COMMON KNOWLEDGE THAT ON ALL MODERN
+X86, X64, ITANIUM, sparc, arm AND pOWERpc PROCESSORS, PLAIN 32-BIT INTEGER ASSIGNMENT IS ATOMIC AS LONG AS THE TARGET VARIABLE IS NATURALLY ALIGNED.
+ie all LOADS AND STORES OF INTEGERS ARE ATOMIC AS LONG AS THEY ARE NATURALLY ALIGNED.
+
+ie i = 10 is atomic if i is aligned on a double word boundary.
+
+In C++11, you can use atomic loads and stores using the C++11 atomic library.
+
+A shared resource like a simple boolean or integer, or a complex struct must always be atomic so that reads and writes are always atomic.
+
+AS A RULE OF THUMB, every shared resource should be atomic in lock-free programming.
+If you are using locks, it does not really matter, as it will be protected by the lock.
