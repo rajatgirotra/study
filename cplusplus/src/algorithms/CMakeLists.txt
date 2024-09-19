@@ -10,6 +10,12 @@ target_link_libraries(algos_iterate_integers_in_file PRIVATE ${PROJECT_NAME_LOWE
 add_executable(algos_two_sum_unsorted two_sum_unsorted.cpp)
 target_link_libraries(algos_two_sum_unsorted PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(algos_best_time_to_buy_sell_stock best_time_to_buy_sell_stock.cpp)
+target_link_libraries(algos_best_time_to_buy_sell_stock PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_best_time_to_buy_sell_stock_2 best_time_to_buy_sell_stock_2.cpp)
+target_link_libraries(algos_best_time_to_buy_sell_stock_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error
     PRIVATE
