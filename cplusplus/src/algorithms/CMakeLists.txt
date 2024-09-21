@@ -7,14 +7,21 @@ target_link_libraries(algos_min_order_statistic PRIVATE ${PROJECT_NAME_LOWERCASE
 add_executable(algos_iterate_integers_in_file iterate_integers_in_file.cpp)
 target_link_libraries(algos_iterate_integers_in_file PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
-add_executable(algos_two_sum_unsorted two_sum_unsorted.cpp)
-target_link_libraries(algos_two_sum_unsorted PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-
 add_executable(algos_best_time_to_buy_sell_stock best_time_to_buy_sell_stock.cpp)
 target_link_libraries(algos_best_time_to_buy_sell_stock PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
 add_executable(algos_best_time_to_buy_sell_stock_2 best_time_to_buy_sell_stock_2.cpp)
 target_link_libraries(algos_best_time_to_buy_sell_stock_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_two_sum_unsorted two_sum_unsorted.cpp)
+target_link_libraries(algos_two_sum_unsorted PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_two_sum_sorted two_sum_sorted.cpp)
+target_link_libraries(algos_two_sum_sorted PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_three_sum three_sum.cpp)
+target_link_libraries(algos_three_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error
