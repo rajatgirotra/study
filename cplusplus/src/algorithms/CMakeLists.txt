@@ -22,6 +22,8 @@ target_link_libraries(algos_two_sum_sorted PRIVATE ${PROJECT_NAME_LOWERCASE}_pro
 add_executable(algos_three_sum three_sum.cpp)
 target_link_libraries(algos_three_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(algos_max_volume_of_water max_volume_of_water.cpp)
+target_link_libraries(algos_max_volume_of_water PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error
