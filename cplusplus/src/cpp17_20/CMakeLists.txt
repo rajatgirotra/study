@@ -1,0 +1,74 @@
+add_executable(cpp17_20_mix1 mix_1.cpp)
+target_link_libraries(cpp17_20_mix1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_mix2 mix_2.cpp)
+target_link_libraries(cpp17_20_mix2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_evaluation_order_4 evaluation_order_4.cpp)
+target_link_libraries(cpp17_20_evaluation_order_4 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_structured_bindings_5 structured_bindings_5.cpp)
+target_link_libraries(cpp17_20_structured_bindings_5 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_variable_template_6 variable_template_6.cpp)
+target_link_libraries(cpp17_20_variable_template_6 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_variable_template_7 variable_template_7.cpp)
+target_link_libraries(cpp17_20_variable_template_7 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_std_optional_8 std_optional_8.cpp)
+target_link_libraries(cpp17_20_std_optional_8 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_std_variant_9 std_variant_9.cpp)
+target_link_libraries(cpp17_20_std_variant_9 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_std_variant_10 std_variant_10.cpp)
+target_link_libraries(cpp17_20_std_variant_10 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_std_variant_11 std_variant_11.cpp)
+target_link_libraries(cpp17_20_std_variant_11 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_std_variant_12 std_variant_12.cpp)
+target_link_libraries(cpp17_20_std_variant_12 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_std_variant_13 std_variant_13.cpp)
+target_link_libraries(cpp17_20_std_variant_13 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_spaceship_operator_32 spaceship_operator_32.cpp)
+target_link_libraries(cpp17_20_spaceship_operator_32 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_spaceship_operator_33 spaceship_operator_33.cpp)
+target_link_libraries(cpp17_20_spaceship_operator_33 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_spaceship_operator_34 spaceship_operator_34.cpp)
+target_link_libraries(cpp17_20_spaceship_operator_34 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_46 ranges_and_views_46.cpp)
+target_link_libraries(cpp17_20_range_and_views_46 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_47 ranges_and_views_47.cpp)
+target_link_libraries(cpp17_20_range_and_views_47 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_48 ranges_and_views_48.cpp)
+target_link_libraries(cpp17_20_range_and_views_48 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_49 ranges_and_views_49.cpp)
+target_link_libraries(cpp17_20_range_and_views_49 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_50 ranges_and_views_50.cpp)
+target_link_libraries(cpp17_20_range_and_views_50 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_51 ranges_and_views_51.cpp)
+target_link_libraries(cpp17_20_range_and_views_51 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_52 ranges_and_views_52.cpp)
+target_link_libraries(cpp17_20_range_and_views_52 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_53 ranges_and_views_53.cpp)
+target_link_libraries(cpp17_20_range_and_views_53 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_54 ranges_and_views_54.cpp)
+target_link_libraries(cpp17_20_range_and_views_54 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_range_and_views_55 ranges_and_views_55.cpp)
+target_link_libraries(cpp17_20_range_and_views_55 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

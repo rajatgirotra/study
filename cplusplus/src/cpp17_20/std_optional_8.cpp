@@ -101,7 +101,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
         optS1 = objS; // 2nd time onwards it performs copy assignment.
 		/* How it works internally?? std::optional creates a boolean to track if optional is std::nullopt or set.
 		 * Additionally, it has a union of {
-			   _Empty_Byte _empty_byte; // some empty structure. i.e one byte size
+			   _Empty_Byte _empty_byte; // some empty structure. i.e. one byte size
 			   T m_payload;
 	    };
 		so if std::optional is unset. it uses placement new syntax to initialize m_payload; hence ctor is called.

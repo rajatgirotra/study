@@ -32,12 +32,14 @@ A few range adaptor functions we will see next are:
 std::views::filter()
 std::views::transform()
 std::views::take()
-std::views::keys()
+std::views::keys(), std::views::values(), std::views::elements<N>()
 std::views::iota()
 etc.
 
+std::views::elements<N>: If you have a view whose underlying is a sequence of tuple or pair, or if you have an associative container like map etc, then you can use elements<N> range adaptor to get a view of each Nth element of the tuple, pair in your sequence or the Nth element in a map etc. So to get the keys of a map, you can say elements<0>. In fact, keys() and values() are just convenience functions for elements<0> and elements<1> respectively.
+
 Note that all range and view objects are defined in std::ranges namespace and these adaptor functions are defined in std::views.
-so ADL (argument dependent lookup wont work for these range adaptor functions which take range as their arguments, because ADL will only
+so ADL (argument dependent lookup won't work for these range adaptor functions which take range as their arguments, because ADL will only
 search in std::ranges namespace. that is why the range adaptor functions should always be fully qualified.
 
 generally, programmers do:

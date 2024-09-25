@@ -34,7 +34,7 @@ int main() {
     std::ranges::copy(coll, ostream_iterator<int>(cout, " "));
     cout << endl;
 
-    // sort elements in descending order but with custom compartor
+    // sort elements in descending order but with custom compartor (this is not a projection)
     std::ranges::sort(coll, [](const auto& a, const auto& b) {
        return std::abs(a) >= std::abs(b);
     });

@@ -11,6 +11,8 @@ struct Base {
     bool operator < (const Base& rhs) const {
         return this->m_base_i < rhs.m_base_i;
     }
+
+//    auto operator <=> (const Base& rhs) const = default;
 };
 
 struct Derived : public Base {

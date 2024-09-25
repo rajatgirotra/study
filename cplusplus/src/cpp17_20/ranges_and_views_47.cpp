@@ -5,6 +5,7 @@
 #include <iterator>
 #include <cxxabi.h>
 #include <cassert>
+#include <tuple>
 using namespace std;
 namespace rng = std::ranges;
 namespace vws = std::views;
@@ -39,13 +40,34 @@ int main() {
     cout << "\ntype of view returned by vws::filter(..):  " << demangle(typeid(decltype(v)).name()) << endl;
     cout << endl;
 
-    // did transform modify original intVec, answer is it depends. Normally when adaptor functions are called with range parameter as an lvalue, you get a reference_view.
+    // did transform modify original intVec, answer is it depends. Normally when adaptor functions are called with range parameter as lvalue, you get a reference_view.
     // reference_views can be used for both reading/writing. However, when adaptor functions are called with rvalue/temporaries, we don't get a reference_view.
     // so reading is ok, but not writing.
     cout << "Original collection: ";
     std::ranges::copy(intVec, std::ostream_iterator<int>(cout, "  "));
     cout << endl;
 
+    const std::vector<std::tuple<int, char, std::string>> vt {
+        {1, 'A', "α"},
+        {2, 'B', "β"},
+        {3, 'C', "γ"},
+        {4, 'D', "δ"},
+        {5, 'E', "ε"},
+    };
+
+    auto&& element_0_view = vws::elements<0>(vt);
+    cout << "element<0> view: ";
+    rng::copy(element_0_view, std::ostream_iterator<int>(cout, "  "));
+
+    auto&& element_1_view = vws::elements<1>(vt);
+    cout << "\nelement<1> view: ";
+    rng::copy(element_1_view, std::ostream_iterator<char>(cout, "  "));
+
+    auto&& element_2_view = vws::elements<2>(vt);
+    cout << "\nelement<2> view: ";
+    rng::copy(element_2_view, std::ostream_iterator<string>(cout, "  "));
+
+    cout << endl;
     // views can be nested. create a view of only elements that are divisible by 3. square them and choose only the first 2.
     auto final_view = vws::take(vws::transform(vws::filter(intVec, [](const auto &elem) {
         return elem % 3 == 0;

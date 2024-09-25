@@ -14,7 +14,7 @@
  * So basically you only need to implement == and < operators. All others can reuse these two.
  * Since this is a lot of boilerplate, C++20 made two changes.
  *
- * 1) Since C++20, operator == implies !=. I.e. if you have overloaded ==, you dont need to overload !=.
+ * 1) Since C++20, operator == implies !=. I.e. if you have overloaded ==, you don't need to overload !=.
  *    As for a != b, the compiler will try 1) a != b, 2) !(a==b), 3) !(b==a) in that order.
  *    a and b doesn't necessarily be the same types. They can be different types.
  *

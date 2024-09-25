@@ -72,6 +72,22 @@ struct Coord {
     auto operator <=> (const Coord& rhs) const = default;
 };
 
+struct IntegerCoord {
+    int m_x {};
+    int m_y {};
+    int m_z {};
+
+    auto operator <=> (const IntegerCoord& rhs) const = default;
+};
+
+struct StringCoord {
+    std::string m_x {};
+    std::string m_y {};
+    std::string m_z {};
+
+    auto operator <=> (const StringCoord& rhs) const = default;
+};
+
 int main() {
     IntegerWrapper v1, v2;
     v1.m_val = 5;
