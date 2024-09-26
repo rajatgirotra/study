@@ -72,3 +72,24 @@ target_link_libraries(cpp17_20_range_and_views_54 PRIVATE ${PROJECT_NAME_LOWERCA
 
 add_executable(cpp17_20_range_and_views_55 ranges_and_views_55.cpp)
 target_link_libraries(cpp17_20_range_and_views_55 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_jthread_56 jthread_56.cpp)
+target_link_libraries(cpp17_20_jthread_56 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_jthread_57 jthread_57.cpp)
+target_link_libraries(cpp17_20_jthread_57 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_jthread_58 jthread_58.cpp)
+target_link_libraries(cpp17_20_jthread_58 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_jthread_59 jthread_59.cpp)
+target_link_libraries(cpp17_20_jthread_59 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_jthread_60 jthread_60.cpp)
+target_link_libraries(cpp17_20_jthread_60 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_stop_source_stop_token_61 stop_source_stop_token_61.cpp)
+target_link_libraries(cpp17_20_stop_source_stop_token_61 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_jthread_62 jthread_62.cpp)
+target_link_libraries(cpp17_20_jthread_62 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
