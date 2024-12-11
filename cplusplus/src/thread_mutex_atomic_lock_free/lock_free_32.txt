@@ -6,7 +6,7 @@ shared memory in-order (no StoreStore reordering), pulled from shared memory in-
 and instructions are always executed in-order (no LoadStore reordering). StoreLoad reordering, however, still remains possible.
 
 Why?? u ask is StoreLoad still possible.
-Because CPU is always faster than memory. So it actually buffers all its write and therefore can read ahead of a load.
+Because CPU is always faster than memory. So it actually buffers all its write and therefore can read ahead of a store.
 So a StoreLoad re-ordering is possible.
 
 In a sequentially consistent memory model, there is no memory reordering. It's as if the entire program execution is reduced to a

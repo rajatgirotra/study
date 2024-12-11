@@ -93,3 +93,6 @@ target_link_libraries(cpp17_20_stop_source_stop_token_61 PRIVATE ${PROJECT_NAME_
 
 add_executable(cpp17_20_jthread_62 jthread_62.cpp)
 target_link_libraries(cpp17_20_jthread_62 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_throw throw.cpp)
+target_link_libraries(cpp17_20_throw PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

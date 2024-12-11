@@ -1,0 +1,8 @@
+add_executable(asio_synchronous_daytime_client_udp synchronous_daytime_client_udp.cpp)
+target_link_libraries(asio_synchronous_daytime_client_udp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_synchronous_daytime_server_udp synchronous_daytime_server_udp.cpp)
+target_link_libraries(asio_synchronous_daytime_server_udp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_asynchronous_daytime_server_udp asynchronous_daytime_server_udp.cpp)
+target_link_libraries(asio_asynchronous_daytime_server_udp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)

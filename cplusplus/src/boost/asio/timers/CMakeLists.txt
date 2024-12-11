@@ -1,0 +1,14 @@
+add_executable(asio_sync_timer sync_timer.cpp)
+target_link_libraries(asio_sync_timer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_async_timer async_timer.cpp)
+target_link_libraries(asio_async_timer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_async_timer_recursive async_timer_recursive.cpp)
+target_link_libraries(asio_async_timer_recursive PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_async_timer_recursive_2 async_timer_recursive_2.cpp)
+target_link_libraries(asio_async_timer_recursive_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_async_strand async_strand.cpp)
+target_link_libraries(asio_async_strand PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)

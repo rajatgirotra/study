@@ -1,0 +1,8 @@
+add_executable(asio_synchronous_daytime_client_tcp synchronous_daytime_client_tcp.cpp)
+target_link_libraries(asio_synchronous_daytime_client_tcp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_synchronous_daytime_server_tcp synchronous_daytime_server_tcp.cpp)
+target_link_libraries(asio_synchronous_daytime_server_tcp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
+
+add_executable(asio_asynchronous_daytime_server_tcp asynchronous_daytime_server_tcp.cpp)
+target_link_libraries(asio_asynchronous_daytime_server_tcp PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
