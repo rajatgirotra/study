@@ -15,6 +15,7 @@
 #include <iterator>
 using namespace std;
 
+// use a two pointer approach.
 template <size_t N>
 auto best_time_to_buy_sell_stock(const std::array<size_t, N>& stock_prices) {
     size_t l = 0;

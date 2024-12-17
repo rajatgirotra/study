@@ -162,7 +162,7 @@ int main() {
     std::uniform_int_distribution<int> dist(-100 , 100);
 
     // random number generator
-    auto gen = [&dist, &engine] () { return dist(engine);};
+    auto gen = [&dist, &engine] () mutable { return dist(engine);};
 
     int arr[15]{};
 

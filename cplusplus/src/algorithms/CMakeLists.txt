@@ -13,6 +13,9 @@ target_link_libraries(algos_best_time_to_buy_sell_stock PRIVATE ${PROJECT_NAME_L
 add_executable(algos_best_time_to_buy_sell_stock_2 best_time_to_buy_sell_stock_2.cpp)
 target_link_libraries(algos_best_time_to_buy_sell_stock_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(algos_best_time_to_buy_sell_stock_3 best_time_to_buy_sell_stock_3.cpp)
+target_link_libraries(algos_best_time_to_buy_sell_stock_3 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(algos_two_sum_unsorted two_sum_unsorted.cpp)
 target_link_libraries(algos_two_sum_unsorted PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
@@ -24,6 +27,18 @@ target_link_libraries(algos_three_sum PRIVATE ${PROJECT_NAME_LOWERCASE}_project_
 
 add_executable(algos_max_volume_of_water max_volume_of_water.cpp)
 target_link_libraries(algos_max_volume_of_water PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_max_earnings_from_taxi max_earnings_from_taxi.cpp)
+target_link_libraries(algos_max_earnings_from_taxi PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_subarray_sum_equals_k subarray_sum_equals_k.cpp)
+target_link_libraries(algos_subarray_sum_equals_k PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_max_contiguous_subarray max_contiguous_subarray.cpp)
+target_link_libraries(algos_max_contiguous_subarray PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_top_k_frequent_elements top_k_frequent_elements.cpp)
+target_link_libraries(algos_top_k_frequent_elements PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error

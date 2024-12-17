@@ -30,7 +30,7 @@
     b) but what if the callable was never registered by the time request_stop() was called?? If the callable is registered after
     request_stop() was called, the callable will be called immediately in the thread registering this callback.
 
-    c) If the thread has already finished (i.e. the callable also has been destroyed), the callable will never be called.
+    c) If the thread has already finished (i.e. the callable also has been destroyed), the callback will never be called.
 */
 
 #include <iostream>
