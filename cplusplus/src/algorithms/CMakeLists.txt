@@ -40,6 +40,9 @@ target_link_libraries(algos_max_contiguous_subarray PRIVATE ${PROJECT_NAME_LOWER
 add_executable(algos_top_k_frequent_elements top_k_frequent_elements.cpp)
 target_link_libraries(algos_top_k_frequent_elements PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(algos_climbing_stairs climbing_stairs.cpp)
+target_link_libraries(algos_climbing_stairs PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error
     PRIVATE

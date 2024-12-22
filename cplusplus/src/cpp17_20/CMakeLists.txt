@@ -34,6 +34,9 @@ target_link_libraries(cpp17_20_std_variant_12 PRIVATE ${PROJECT_NAME_LOWERCASE}_
 add_executable(cpp17_20_std_variant_13 std_variant_13.cpp)
 target_link_libraries(cpp17_20_std_variant_13 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp17_20_concepts_14 concepts_14.cpp)
+target_link_libraries(cpp17_20_concepts_14 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(cpp17_20_spaceship_operator_32 spaceship_operator_32.cpp)
 target_link_libraries(cpp17_20_spaceship_operator_32 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
@@ -42,6 +45,33 @@ target_link_libraries(cpp17_20_spaceship_operator_33 PRIVATE ${PROJECT_NAME_LOWE
 
 add_executable(cpp17_20_spaceship_operator_34 spaceship_operator_34.cpp)
 target_link_libraries(cpp17_20_spaceship_operator_34 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_36 concepts_36.cpp)
+target_link_libraries(cpp17_20_concepts_36 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_37 concepts_37.cpp)
+target_link_libraries(cpp17_20_concepts_37 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_38 concepts_38.cpp)
+target_link_libraries(cpp17_20_concepts_38 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_39 concepts_39.cpp)
+target_link_libraries(cpp17_20_concepts_39 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_40 concepts_40.cpp)
+target_link_libraries(cpp17_20_concepts_40 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_41 concepts_41.cpp)
+target_link_libraries(cpp17_20_concepts_41 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_42 concepts_42.cpp)
+target_link_libraries(cpp17_20_concepts_42 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_43 concepts_43.cpp)
+target_link_libraries(cpp17_20_concepts_43 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp17_20_concepts_44 concepts_44.cpp)
+target_link_libraries(cpp17_20_concepts_44 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
 add_executable(cpp17_20_range_and_views_46 ranges_and_views_46.cpp)
 target_link_libraries(cpp17_20_range_and_views_46 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

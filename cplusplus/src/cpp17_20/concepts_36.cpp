@@ -76,7 +76,7 @@ auto maxValueAutoArgumentsConstraint(const IsPointer auto a, const IsPointer aut
 // you can use the trailing requirements clause, that way you can use decltype(*a) and dectype(*b)
 
 auto maxValueAutoArgumentsConstraintWithTrailingRequires(const IsPointer auto a, const IsPointer auto b)
-requires std::three_way_comparable<decltype(*a), decltype(*b)> {
+requires std::three_way_comparable_with<decltype(*a), decltype(*b)> {
     return maxValueAutoArguments(*a, *b);
 }
 
@@ -90,14 +90,19 @@ int main() {
 
     cout << "maxValueWithConcept(x, y): " << maxValueWithConcept(x, y) << endl;
     cout << "maxValueWithConcept(&x, &y): " << maxValueWithConcept(&x, &y) << endl;
-    int* px = &x, *py = &y;
-    cout << "maxValueWithConcept(&px, &py): " << maxValueWithConcept(&px, &py) << endl; // works recursively. as &px, &py are int**
+    int *px = &x, *py = &y;
+    cout << "maxValueWithConcept(&px, &py): " << maxValueWithConcept(&px, &py)
+         << endl; // works recursively. as &px, &py are int**
 
     cout << "minValueTypeConstraint(&x, &y): " << minValueTypeConstraint(&x, &y) << endl;
 
     cout << "maxValueAutoArgumentsConstraint(&x, &y): " << maxValueAutoArgumentsConstraint(&x, &y) << endl;
     double d = 1.5;
 //    double* pd = &d;
-    cout << "maxValueAutoArgumentsConstraint(&x, &pd): " << maxValueAutoArgumentsConstraint(&x, &d) << endl; // when using auto, a and b can be different types.
+    cout << "maxValueAutoArgumentsConstraint(&x, &pd): " << maxValueAutoArgumentsConstraint(&x, &d)
+         << endl; // when using auto, a and b can be different types.
+
+    cout << "maxValueAutoArgumentsConstraintWithTrailingRequires(px, py): "
+         << maxValueAutoArgumentsConstraintWithTrailingRequires(px, py) << endl;
 }
 

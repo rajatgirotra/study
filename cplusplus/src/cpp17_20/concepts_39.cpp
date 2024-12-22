@@ -45,9 +45,9 @@ void addVersion2(Coll& coll, const T& value) {
 
 int main() {
    vector<int> intVec;
-//   add(intVec, 25.5);
+   add(intVec, 25.5);
 
     addVersion2(intVec, 5);
-    addVersion2(intVec, 5.6);
+//    addVersion2(intVec, 5.6);
 }
 
