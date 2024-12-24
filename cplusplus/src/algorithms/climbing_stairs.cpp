@@ -64,7 +64,6 @@ size_t climbing_stairs_1(int n) {
 size_t climbing_stairs_fibonacci(int n) {
     assert(n > 0);
     size_t res{1};
-    if(n == 1) return res;
     auto gen = [i = 1, j = 2] () mutable {
         i = std::exchange(j, i+j);
         return i;

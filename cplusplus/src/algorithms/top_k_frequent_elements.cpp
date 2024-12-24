@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <unordered_map>
 #include <vector>
@@ -10,7 +8,7 @@ class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         vector<int> result{};
-        std::unordered_map<int, int> itemCountMap{}; // map of elements and their frequeny count.
+        std::unordered_map<int, int> itemCountMap{}; // map of elements and their frequency count.
         for(auto item : nums) {
             ++itemCountMap[item];
         }
