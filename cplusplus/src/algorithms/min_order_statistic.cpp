@@ -12,7 +12,7 @@ If N is even, then it will be 3(n-2)/2 + 2 comparisons. So upper bound is 3n/2 (
  For the ith order statistic, we use Randomized select algorithm. Just like randomized partitions in quicksort, we randomly select a pivot element and
 partition the array around it.  If we are lucky, we find the ith order statistic in the partitioned array. If not, we recursively call the algorithm on the
  left OR right partition depending on the value of i. The complexity will be O(n) in the average case. O(n2) in the worst case. Worst case is when
- you are unlucky and also partition around the largest element. That is the reason we use randomized partitioning so that randomness will avoid worst case scenario.
+ you are unlucky and always partition around the largest element. That is the reason we use randomized partitioning so that randomness will avoid worst case scenario.
  */
 
 #include <iostream>

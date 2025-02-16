@@ -16,3 +16,5 @@
 add_subdirectory(algorithms)
 #add_subdirectory(cpp17_20)
 #add_subdirectory(boost)
+add_subdirectory(scratch)
+

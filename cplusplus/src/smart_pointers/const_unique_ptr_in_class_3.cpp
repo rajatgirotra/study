@@ -28,14 +28,14 @@ namespace {
 
 class Holder {
 private:
-    // trivial attempt. Fails with error: error: ISO C++ forbids flexible array member ‘m_array’
+//     trivial attempt. Fails with error: error: ISO C++ forbids flexible array member ‘m_array’
 //    const std::unique_ptr<Base> m_array[] {
 //            std::make_unique<A>(),
 //            std::make_unique<B>(),
 //            std::make_unique<C>()
 //    };
 
-    // need to hard code number 3; which isn't the best choice.
+//     need to hard code number 3; which isn't the best choice.
 //    const std::unique_ptr<Base> m_array[3] {
 //        std::make_unique<A>(),
 //        std::make_unique<B>(),
@@ -49,7 +49,7 @@ private:
 //        std::make_unique<C>()
 //    };
 
-    // use vector. But fails. Why? because std::initializer_list<> elements much be copyable
+    // use vector. But fails. Why? because std::initializer_list<> elements must be copyable
     // std::unique_ptr<> is only moveable type
 //    const std::vector<std::unique_ptr<Base>> m_array {
 //        std::make_unique<A>(),

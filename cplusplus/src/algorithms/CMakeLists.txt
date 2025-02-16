@@ -46,6 +46,43 @@ target_link_libraries(algos_climbing_stairs PRIVATE ${PROJECT_NAME_LOWERCASE}_pr
 add_executable(algos_majority_element majority_element.cpp)
 target_link_libraries(algos_majority_element PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(algos_majority_element_2 majority_element_2.cpp)
+target_link_libraries(algos_majority_element_2 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_most_frequent_even_element most_frequent_even_element.cpp)
+target_link_libraries(algos_most_frequent_even_element PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_largest_increasing_subsequence largest_increasing_subsequence.cpp)
+target_link_libraries(algos_largest_increasing_subsequence PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_number_of_islands number_of_islands.cpp)
+target_link_libraries(algos_number_of_islands PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_surrounded_regions surrounded_regions.cpp)
+target_link_libraries(algos_surrounded_regions PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_dijkstra dijkstra.cpp)
+target_link_libraries(algos_dijkstra PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_subarray_product_less_than_k subarray_product_less_than_k.cpp)
+target_link_libraries(algos_subarray_product_less_than_k PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_max_area_of_island max_area_of_island.cpp)
+target_link_libraries(algos_max_area_of_island PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_egg_drop egg_drop.cpp)
+target_link_libraries(algos_egg_drop PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_egg_drop_memoization egg_drop_memoization.cpp)
+target_link_libraries(algos_egg_drop_memoization PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_egg_drop_more_optimized egg_drop_more_optimized.cpp)
+target_link_libraries(algos_egg_drop_more_optimized PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_longest_common_subsequence longest_common_subsequence.cpp)
+target_link_libraries(algos_longest_common_subsequence PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error
     PRIVATE

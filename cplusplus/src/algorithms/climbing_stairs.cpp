@@ -44,7 +44,8 @@ namespace vws = std::views;
 size_t climbing_stairs_1_helper(int n, int k, std::unordered_map<int, size_t>& countMap) {
     if(k > n) {
         return 0;
-    } else if (k == n) {
+    }
+    if (k == n) {
         return 1;
     }
     auto iter = countMap.find(k);

@@ -94,13 +94,13 @@ class CPlusPlusConan(ConanFile):
         # What if you depend on boost and boost provides a binary (like some code generator) that you need to run at
         # build time, then you can define the run=True below. It will put BOOST_ROOT/bin in the path at build time.
         # and this dependency is propagated to the consumers downstream..
-        self.requires("boost/1.84.0", headers=True, libs=True)
+        self.requires("boost/1.86.0", headers=True, libs=True)
 
     # build_requirements is called after "requirements". Technically, all you do in build_requirements() can be done
     # inside the "requirements" function; but it is still good to separate the tool requirements and test requirements
     # inside the build_requirements() function.
     def build_requirements(self):
-        self.test_requires("gtest/1.14.0")
+        self.test_requires("gtest/1.15.0")
 
     # source() method is used to fetch code from third-party. Like github, bitbucket etc.
     def source(self):
