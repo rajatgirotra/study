@@ -5,7 +5,7 @@
  * but just treat them as one function.
  *
  * Same can now be done for class static member variables (const or non-const).
- * A variable declared inline has the same semantics as a function declared inline: it can be defined, identically, in multiple
+ * A static member variable declared inline has the same semantics as a function declared inline: it can be defined, identically, in multiple
  * translation units, must be defined in every translation unit in which it is used, and the behaviour of the program is as if
  * there was exactly one variable.
  */

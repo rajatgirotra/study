@@ -34,6 +34,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <cstdint>
 using namespace std;
 
 void possible_strings(const std::set<char>& charSet, int K, std::string& permutation, std::vector<bool>& used, std::vector<std::string>& result) {

@@ -13,7 +13,7 @@
 #add_subdirectory(rvalue_references)
 #add_subdirectory(sfinae_and_enable_if)
 #add_subdirectory(thread_mutex_atomic_lock_free)
-add_subdirectory(algorithms)
+#add_subdirectory(algorithms)
 #add_subdirectory(cpp17_20)
 #add_subdirectory(boost)
 add_subdirectory(scratch)
