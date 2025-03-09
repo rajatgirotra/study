@@ -43,6 +43,10 @@ target_link_libraries(cpp17_20_inline_variables_16 PRIVATE ${PROJECT_NAME_LOWERC
 add_executable(cpp17_20_if_constexpr_20 if_constexpr_20.cpp)
 target_link_libraries(cpp17_20_if_constexpr_20 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp17_20_integer_sequence_31 integer_sequence_31.cpp)
+target_link_libraries(cpp17_20_integer_sequence_31 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+
 add_executable(cpp17_20_spaceship_operator_32 spaceship_operator_32.cpp)
 target_link_libraries(cpp17_20_spaceship_operator_32 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
