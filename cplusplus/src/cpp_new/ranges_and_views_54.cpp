@@ -1,4 +1,8 @@
 /*
+ * Views on lvalues usually have reference semantics. this means that usually:
+ *    If elements of the referred range are modified, the elements of the view were modified.
+ *    If elements of the view are modified, the elements of the referred range were modified.
+ *
  * borrowed_iterators: A lot of algorithms in std::ranges namespace which take a range parameter return an iterator as a result.
  * but what if the range parameter is passed as a temporary (prvalue). the returned iterator should not be referenced - otherwise
  * it will cause undefined behavior because the range object is already destroyed after the algorithm is executed.
@@ -31,7 +35,7 @@ int main() {
     auto pos = std::ranges::find(getData(), 2);
     static_assert(std::is_same_v<decltype(pos), std::ranges::dangling>);
 
-//    cout << *pos << endl; // error. will not compile, saving you from runtime undefined behavior.
+    // cout << *pos << endl; // error. will not compile, saving you from runtime undefined behavior.
 
     // the way out is to use lvalue instead to capture the return value from getData(). this extends the lifetime of the temporary.
     auto&& data = getData();

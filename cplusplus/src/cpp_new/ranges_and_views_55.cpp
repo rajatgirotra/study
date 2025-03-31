@@ -50,10 +50,10 @@ string demangle(const char* const mangled_name) {
 }
 
 int main() {
-//    auto v = std::views::take(std::vector{0, 8, 15}, 2);
-//    auto pos8 = rng::find(v, 8);
-//    cout << *pos8 << endl;
-//    cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // not a ref_view, an owning_view
+    auto v = std::views::take(std::vector{0, 8, 15}, 2);
+    auto pos8 = rng::find(v, 8);
+    cout << *pos8 << endl;
+    cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // not a ref_view, an owning_view
 
 //    auto pos8 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
 //    auto v2 = vws::counted(std::vector{0, 8, 15}.begin(), 2);
