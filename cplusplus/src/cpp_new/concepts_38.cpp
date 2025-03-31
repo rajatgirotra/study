@@ -24,7 +24,8 @@ template <typename Coll, typename T>
 concept SupportsPushBack = requires(Coll c, T v) {
     c.push_back(v);
     std::is_copy_constructible_v<T>;
-    std::convertible_to<T, typename Coll::value_type>;
+    requires std::convertible_to<T, typename Coll::value_type>; // as std::convertible_to is a concept, we need to use the requires clause
+    std::is_convertible_v<T, typename Coll::value_type>; // or we can use this instead.
 };
 
 template <typename Coll, typename T>

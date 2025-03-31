@@ -64,3 +64,30 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
     process(cgl); // chooses process with ColoredGeoObject concept
 }
 
+/*
+template<typename T>
+requires std::is_convertible_v<T, int>
+void print(T) {
+...
+}
+
+template<typename T>
+requires (std::is_convertible_v<T, int> && sizeof(int) >= 4)
+void print(T) {
+...
+}
+print(42); // ERROR: ambiguous (if both constraints are true)
+This is an error because std::is_convertible_v is not a concept so compiler cannot create a subsumption graph.
+so both variants of print() collide and result in ambiguous overloads.
+
+template<typename T>
+requires std::convertible_to<T, int>
+void print(T) {}
+
+template<typename T>
+requires (std::convertible_to<T, int> && sizeof(int) >= 4)
+void print(T) {}
+
+print(42);
+Now here the second variant is more specialized as std::convertible_to<> is a concept.
+*/

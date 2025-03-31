@@ -84,4 +84,7 @@ int main() {
 
     static_assert(my_strlen("RajatGirotra") == 12);
 
+    rng::copy(intVec, std::ostream_iterator<int>(cout, "  "));
+    cout << endl;
+
 };

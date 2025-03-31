@@ -5,7 +5,7 @@
  * 1) a begin() iterator and a sentinel
  * 2) a begin() iterator and a count.
  *
- * But how do we really create those ranges?? using std::ranges::subrange<>
+ * But how do we really create those ranges?? using rng::subrange<>
  * rng::subrange<> is a helper class which can create view objects for you (which are valid range objects).
  * All you have to do to create a subrange is to pass a begin() iterator and sentinel to it.
  */
@@ -14,13 +14,14 @@
 #include <algorithm>
 #include <string>
 #include <cassert>
+#include <vector>
 using namespace std;
 namespace rng = std::ranges;
 namespace vws = std::views;
 
 template<auto End>
 struct EndValue {
-    bool operator== (auto pos) const {
+    bool operator== (auto pos) const noexcept {
         return *pos == End; // end is where iterator points to End
     }
 };
@@ -29,17 +30,17 @@ int main()
 {
     std::vector coll = {42, 8, 0, 15, 7, -1};
 // define a range referring to coll with the value 7 as end:
-    std::ranges::subrange range{coll.begin(), EndValue<7>{}};
+    rng::subrange range{coll.begin(), EndValue<7>{}}; // i.e. 42, 8, 0, 15
 // sort the elements of this range:
-    std::ranges::sort(range);
+    rng::sort(range);
 // print the elements of the range:
-    std::ranges::for_each(range,
+    rng::for_each(range,
                           [] (auto val) {
                               std::cout << ' ' << val;
                           });
     std::cout << '\n';
 // print all elements of coll up to -1:
-    std::ranges::for_each(coll.begin(), EndValue<-1>{},
+    rng::for_each(coll.begin(), EndValue<-1>{},
                           [] (auto val) {
                               std::cout << ' ' << val;
                           });

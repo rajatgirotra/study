@@ -69,11 +69,11 @@ vector<string> permutations(const std::set<char> &charSet, int K) {
 }
 
 int main() {
-    //    std::set<char> charSet {'a', 'b', 'c', 'd'};
-    //    int K = 2;
-
-    std::set<char> charSet{'a', 'b'};
+    std::set<char> charSet {'a', 'b', 'c', 'd'};
     int K = 3;
+
+    // std::set<char> charSet{'a', 'b'};
+    // int K = 3;
 
     auto res = permutations(charSet, K);
     cout << "permutations:\n";

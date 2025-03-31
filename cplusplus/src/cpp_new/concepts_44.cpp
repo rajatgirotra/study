@@ -47,6 +47,7 @@ int main() {
  * template<typename T>
  * concept ContCopy = std::ranges::contiguous_range<T> && std::copyable<T>;
  *
- * Here the ContCopy is more constrained. because contiguous_range concept subsumes input_range and std::copyable subsumes swappable.
+ * Here the ContCopy is more constrained. because contiguous_range concept subsumes input_range and std::copyable subsumes swappable (you can check
+ * their implementation on cppreference).
  * So we should be aware of which standard concepts subsume which ones.
  */

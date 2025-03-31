@@ -112,6 +112,14 @@ target_link_libraries(algos_max_distance_unequal_elements PRIVATE ${PROJECT_NAME
 add_executable(algos_itch_market_data itch_market_data.cpp)
 target_link_libraries(algos_itch_market_data PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(algos_coin_energy coin_energy.cpp)
+target_link_libraries(algos_coin_energy PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(algos_ai_playground ai_playground.cpp)
+target_link_libraries(algos_ai_playground PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+
+
 add_executable(print_error print_error.cpp)
 target_link_libraries(print_error
     PRIVATE

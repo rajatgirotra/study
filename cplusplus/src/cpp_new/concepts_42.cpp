@@ -3,10 +3,12 @@
  * 1) an ad-hoc compile time boolean expression
  * 2) a requires expression
  * 3) a concept.
+ * 4) a compile time boolean variable (defined using constexpr or constinit)
+ * 5) a compile time function (defined using consteval)
  *
  * CONSTRAINTS can be joined together using && or ||
  *
- * Read Section 3.3 Contraints in details of C++20 book on some cool ways to specify contraints.
+ * Read Section 3.3 Contraints in details of C++20 book on some cool ways to specify constraints.
  */
 
 #include <iostream>
@@ -44,9 +46,9 @@ requires requires (T val) {
 }
 void some_func() {}
 
-// But this is a simple concept involving only one template parameter. What if you have a concept involving multiple paramaters?
+// But this is a simple concept involving only one template parameter. What if you have a concept involving multiple parameters?
 // how do you use it in a type constraint?? Let's see.
-// std::convertible_to<FROM, TO> is a std concept involving two template parameters. WE can se such contraints which involve multiple
+// std::convertible_to<FROM, TO> is a std concept involving two template parameters. WE can use such constraints which involve multiple
 // parameters as type constraints, and the parameter type or the return value is then used as the first argument. See below what it means.
 
 template <std::convertible_to<int> T> // the template parameter T is used as the first argument to std::convertible_to.

@@ -44,13 +44,14 @@ auto maxValue(const T& a, const T& b) requires std::three_way_comparable_with<de
  */
 template <typename T>
 requires requires(T p) { *p; }
-auto minValue(T a, T b) {
+decltype(auto) minValue(const T& a, const T& b) {
     return a < b ? a : b;
 }
 
 int main() {
-    auto px = std::make_unique<int>(10);
-    auto py = std::make_unique<int>(20);
+    auto px = std::make_unique<int>(20);
+    auto py = std::make_unique<int>(10);
     cout << maxValue(px, py) << endl;
+    cout << *minValue(px, py) << endl; // wrong answer.
 }
 
