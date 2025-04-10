@@ -10,7 +10,7 @@ gevent-websocket==0.9.5
 python-socketio==1.0
 Werkzeug==0.11.3
 WTForms==2.1
-Flask==0.10.1
+Flask==2.3.2
 quickfix==1.14.3
 gevent-socketio==0.3.6
 Django==1.9.4
