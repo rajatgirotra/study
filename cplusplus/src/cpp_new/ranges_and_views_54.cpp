@@ -11,6 +11,8 @@
  * When a standard algo returns a borrowed_iterator type, it means it employs special code to check if its range argument is
  * a prvalue. If yes, it returns a special value std::ranges::dangling. this value can only be copied. Using it (de-referencing it)
  * results in compile time error. Otherwise, if the range argument is lvalue, it is safe to de-reference the returned borrowed_iterator type.
+ *
+ * This is the reason a borrowed_iterator type was called a safe iterator in the early version of the standard.
  */
 #include <iostream>
 #include <ranges>
@@ -46,4 +48,16 @@ int main() {
 
     // Note that borrowed iterators can still dangle if the underlying range object goes out of scope and gets destroyed.
     // This will result in undefined behavior at runtime.
+
+    /* By using type std::ranges::borrowed_iterator_t<>, algorithms declare the returned iterator as borrowed. This means that the
+     * algorithm always returns an iterator that is safe to use after the statement. If it could dangle, a special return value
+     * std::ranges::dangling is used to signal this and convert possible runtime errors into compile-time errors.
+     */
 }
+
+/*
+ * process(std::ranges::find(getData(), 42)); // compile time error
+ *
+ * Note that in the above case, the range returned by getData() gets destroyed only after the process() function call,
+ * still find returns std::ranges::dangling.
+ */
