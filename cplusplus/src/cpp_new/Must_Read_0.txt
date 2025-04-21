@@ -1,0 +1,3 @@
+Literal vs non-literal types and aggregate types.
+=================================================
+https://chatgpt.com/share/67fdbbf0-8644-8000-82e2-5f80aa2fa136

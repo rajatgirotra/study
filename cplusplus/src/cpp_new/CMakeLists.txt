@@ -158,5 +158,13 @@ target_link_libraries(cpp_lambda_with_template_parameters_79 PRIVATE ${PROJECT_N
 add_executable(cpp_lambda_with_template_parameters_80 lambda_with_template_parameters_80.cpp)
 target_link_libraries(cpp_lambda_with_template_parameters_80 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp_constinit_consteval_81 constinit_consteval_81.cpp)
+target_link_libraries(cpp_constinit_consteval_81 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_constinit_consteval_82 constinit_consteval_82.cpp)
+target_link_libraries(cpp_constinit_consteval_82 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(cpp_new_throw throw.cpp)
 target_link_libraries(cpp_new_throw PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_subdirectory(cpp_modules)

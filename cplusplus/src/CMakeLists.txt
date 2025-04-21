@@ -17,4 +17,5 @@
 add_subdirectory(cpp_new)
 #add_subdirectory(boost)
 add_subdirectory(scratch)
+add_subdirectory(snippets)
 

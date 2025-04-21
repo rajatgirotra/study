@@ -1,0 +1,164 @@
+C++20 introduced modules. modules allow you to club both declarations and definitions inside one file. You can selectively choose
+which functions, classes, namespaces, variables etc you want to be used by users of your module and only "export" them selectively
+using the "export" keyword. Users of the module can use the module using the "import" keyword and all those exported functions, classes,
+namespaces, variables etc will become visible and usable.
+
+There are 4 different types of module files. Please note that cpp standard does not enforce any specific file extension for those modules files,
+so different compilers do things differently. The standard expects compilers to inspect the source code to identify which type of module file it is.
+We will indicate below which file extensions to use for which module files.
+
+1. primary module interface unit
+--------------------------------
+Every module can only ever have one primary module interface unit. It contains declarations (and may contain definitions also) for the types that are exported to the outside world. No other module file can export anything to outside world except this primary module interface unit. How do we tell if a module file is PMIU? By its syntax.
+
+We will use the extension .cppm for PMIU.
+
+Syntax
+-----
+module; // Global module fragment
+
+// Can only have pre-processor directives here like #includes, #defines etc.
+// Anything in this area is used by the module but never exported.
+
+export module B; // identifies a PMIU.
+
+2. Interface partition
+----------------------
+Sometimes the main PMIU can get huge, so an Interface partition module file can be used. This can only contain declaration and definitions for symbols which
+will be imported by the main PMIU and then exported to the outside world by the PMIU. Sometimes, mutiple developers or different teams work on different implementations
+of the same module, so interface partitions become a logical choice.
+
+We will use the extension .cppm for "interface partition", i.e. same as that for PMIU.
+
+Syntax
+------
+module;
+
+export module MyModule:Consumer; // syntax is "export module MainModuleName:InterfaceName"
+
+export class Consumer {...};
+
+// Then the PMIU must do.
+module;
+export module MyModule;  //Importing an interface partition without exporting it is not allowed. So must always use the "export import" together.
+export import :Consumer;
+
+3. Module Implementation Units.
+-------------------------------
+These module files are only supposed to have the implementation i.e. definition of the symbols declared and exported in the PMIU or in the "interface partition" files.
+These are like normal source code translation units for module code. We will use the normal ".cpp" file extension for these module implementation units.
+You can have multiple of these module implementation units.
+
+Syntax
+------
+module; // global module fragment
+....
+module MyModule; // identifies a module implementation unit for module named MyModule.
+
+4. Internal partitions
+-----------------------
+These module files are used to contain declaration and definitions of symbols which are used locally inside the module and not exported outside. These should not be visible or reachable to code outside of your module (i.e. users of your module should not be able to access symbols here). We will use the extension ".cppp" for internal partitions.
+
+Syntax
+------
+module;
+...
+module MyModule:Order; // internal partition declaration.
+struct Order {...};
+
+then later PMIU will do:
+module;
+
+export module MyModule;
+import :Order;
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Note that modules do not introduce any scope. symbols defined at global scope are available at global scope only when those symbols are used. Also, dots are allowed
+in the module name identifiers. Eg: Math.Square is a valid module name. It has no special meaning except some visual effect.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+How are modules compiled: Module compilation is done in two phases:
+• Precompile the declarations (including all generic code), which converts the declarations into a compiler-specific format (Built Module Interface) which is a .gcm file for gcc,
+a .pcm file for clang, a .ifc file for Visual C++.
+
+• Compile the definition, which creates the usual object files.
+
+Example: a mod0.cppm file get converted to compiler specific format called Square.gcm (assuming mod0.cppm declares a module named Square).
+mod0.cppm also get compiled into mod0.o (i.e. object file).
+
+Square.gcm is used by main.cpp (i.e. main.cpp imports Squares), to generate main.o.
+main.o and mod0.o are together used at link time to generate executable a.out
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+Using cmake for building modules
+
+module support for C++20 was added in cmake 3.28 onwards.
+CMake requires some help from the compilers. This is formulated in the form of a p1689r5 paper. This paper defines a format (json) for describing dependencies of source files.
+gcc 14 onwards supports p1689. Basically the compilers will go through the sources and create dynamic dependency information (scan phase) and then collate them (2nd phase)
+into dynamic dependencies for a target.
+
+Only Ninja generator supports modules.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+How conan and cmake are used for modules
+To understand that, lets say you have the following code below:
+
+'''
+import fmt;       // < ---- new!
+
+int main() {
+  fmt::print("Hello, world!\n");
+}
+'''
+and you run the command:
+g++ -std=c++20 -o hello_world.cpp.o -c hello_world.cpp
+hello_world.cpp:1:8: fatal error: module 'fmt' not found
+import fmt;
+~~~~~~~^~~
+1 error generated.
+
+In order to resolve import fmt, the compiler needs to locate the binary module interface (BMI) for the module named fmt. BMIs are files that are generated in addition to object files, and encodes the information for the exported declarations. Every compiler has its own format/compiler flags for specifying where the BMI file is.
+
+BMIs are not compatible across compilers (they are implementation specific) and are also not expected to be compatible across different versions of the same compiler. Inconsistent compiler flags can also render a BMI invalid for the importer - that is, if the importer is being compiled with different (potentially incompatible) flags than when the BMI was first generated.
+
+Now in conan package_info() you can always use the cpp_info attribute and add cxxflags for the compiler to find the BMI, but we should not do that. Why? Various reasons:
+1. First, we would need to use Conan in a way that enforces strict compatibility. A package like the above would only be compatible with that specific compiler and version. Roughly, this means ensuring that for Conan, a package compiled with GCC 13.1 is different and not compatible with one compiled with GCC 13.2, and that a package built with C++20 is different and not compatible with one built with C++ 23.
+
+2. For a library such as {fmt} that is built with -fvisibility=hidden, Clang rejects a BMI when the importer does not have this flag enabled and is using the default visibility.
+
+3. Clang will reject BMIs where the original source file does not exist in the local filesystem - this would make it impossible to build packages on one machine (e.g. CI) and consume it on another. For a lot of our users, this is a deal breaker. Strictly speaking, the importer only needs a BMI and not the original sources. But we need to take into account that the source files are still referenced by the compiler when reporting errors.
+
+4. GCC does not currently support compiler flags to specify where the BMIs are for specific modules, but rather, it supports a global module mapper. While we could create this with Conan, we would still need to cooperate with the build system on the consumer side.
+
+All this means that we would need to package the module interface (i.e. cppm, cppp files etc) alongside the library binaries. From the packaging perspective, this isn’t too dissimilar from packaging a header file: it’s still text files with C++ source code, something like:
+
+└-- lib
+    |-- cxx
+    |   └-- foo.cppm     ---> this is a module interface (does `export module foo`)
+    └-- libfoo.a
+
+However, this changes everything on the consumer side. If we have a project that imports modules from external libraries, we now need full cooperation from our build system: it needs to be aware of the module interfaces, and the compiler needs to be invoked at the right time in order to produce the BMIs before the importers require them.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+The way to use cmake for modules is to use file sets in cmake: example: a.cpp and b.cpp contain modules code and A depends on B and B depends on nothing.
+
+Example for producer side:
+==========================
+add_library(simple)
+target_sources(simple PRIVATE FILE_SET cxx_modules TYPE CXX_MODULES FILES a.cpp b.cpp) # this will make sure the scan dependency tool is used as per p1689.
+install() command also now has CXX_MODULES_BMI --> This is used for
+
+Example for consumer side:
+==========================
+add_library(fmt::fmt SHARED IMPORTED)
+
+# ...
+
+target_sources(fmt::fmt
+  INTERFACE
+  FILE_SET "fmt_module"
+  TYPE "CXX_MODULES"
+  BASE_DIRS "${_IMPORT_PREFIX}/lib/cxx/miu"
+  FILES "${_IMPORT_PREFIX}/lib/cxx/miu/src/fmt.cc"
+)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Lets try to write a simple module and consume it next.

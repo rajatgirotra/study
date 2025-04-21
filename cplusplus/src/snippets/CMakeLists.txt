@@ -1,0 +1,2 @@
+add_executable(snippets_thread_pool thread_pool.cpp)
+target_link_libraries(snippets_thread_pool PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
