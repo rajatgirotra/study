@@ -1,0 +1,67 @@
+What all can be exported?
+
+//namespaces
+
+export namespace ABCD {
+// everything in namespace ABCD is exported.
+}
+
+namespace MyStream {
+  export using std::cout; // export std::cout as MyStream::cout
+}
+
+'''
+import LogModule
+export using LogModule::Logger; // Logger is exported as a type in global scope. i.e. ::Logger
+'''
+
+'''
+export namespace LogModule {
+   using LogModule::Logger; // export Logger in the namespace LogModule as LogModule::Logger:
+}
+'''
+
+export using ::globalLogger; // export global symbol globalLogger.
+
+// types
+export class MyClass;
+export struct MyStruct;
+export union MyUnion;
+export enum class MyEnum;
+export using String = std::string; // exporting std::string as String.
+
+//objects
+export std::string GLOBAL_CONNECTION_STRING;
+
+//lambda
+export auto myLambda = [](){};
+
+// friend functions.
+export friend std::ostream& operator<< (std::ostream&, const MyType&);
+----------------------------------------------------------------------------------------------------------------------
+
+private module fragment -->
+This allows programmers to have declarations and definitions within the primary interface that are neither visible
+nor reachable by any other module or translation unit. You export the declaration ONLY, but not it's definition. and the definition resides inside
+a private module fragment.
+
+example: sample_pmiu.cppm
+
+export module MyMod;
+
+export class C;
+export print(const C& c);
+
+module: private; // following symbols are not even implicitly exported
+
+class C {...};
+void print(const C& c) {c.print()};
+
+Using export afterward using "module :private" to export anything is an error. So "module :private" should be the last thing.
+
+For consumers of this module, C will be an incomplete type. But references and pointers to type C will still be valid. i.e.
+'''
+import MyMod;
+ C c; // error,
+ print(c); // OK
+'''
