@@ -15,6 +15,7 @@
 #add_subdirectory(thread_mutex_atomic_lock_free)
 #add_subdirectory(algorithms)
 add_subdirectory(cpp_new)
+add_subdirectory(cpp_new/cpp_modules)
 add_subdirectory(boost)
 #add_subdirectory(scratch)
 #add_subdirectory(snippets)

@@ -140,6 +140,27 @@ target_link_libraries(cpp_new_jthread_62 PRIVATE ${PROJECT_NAME_LOWERCASE}_proje
 add_executable(cpp_new_jthread_62_a jthread_62_a.cpp)
 target_link_libraries(cpp_new_jthread_62_a PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp_coroutines_66 coroutine_66.cpp)
+target_link_libraries(cpp_coroutines_66 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_coroutines_67 coroutine_67.cpp)
+target_link_libraries(cpp_coroutines_67 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_coroutines_69 coroutine_69.cpp)
+target_link_libraries(cpp_coroutines_69 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_coroutines_70 coroutine_70.cpp)
+target_link_libraries(cpp_coroutines_70 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_coroutines_71 coroutine_71.cpp)
+target_link_libraries(cpp_coroutines_71 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_coroutines_73 coroutine_73.cpp)
+target_link_libraries(cpp_coroutines_73 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_coroutines_74 coroutine_74.cpp)
+target_link_libraries(cpp_coroutines_74 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(cpp_range_and_views_75 ranges_and_views_75.cpp)
 target_link_libraries(cpp_range_and_views_75 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
@@ -167,4 +188,7 @@ target_link_libraries(cpp_constinit_consteval_82 PRIVATE ${PROJECT_NAME_LOWERCAS
 add_executable(cpp_new_throw throw.cpp)
 target_link_libraries(cpp_new_throw PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
-add_subdirectory(cpp_modules)
+add_executable(cpp_new_std_invoke_apply std_invoke_apply.cpp)
+target_link_libraries(cpp_new_std_invoke_apply PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+

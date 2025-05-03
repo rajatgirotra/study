@@ -36,7 +36,7 @@ Coroutine interface
 A coroutine interface class is also something that the user needs to define. It has 3 main purposes.
 1) become a holder for the underlying std::coroutine_handle<> object
 2) define which is the promise_type to use. Either it could define a nested promise_type or a using promise_type = SomeClass, also any other way.
-3) provide an interface to the caller of the coroutine to deal with the coroutine. It can provide any member function/variables it wants. This is the return type of the coroutine function you write.
+3) provide an interface to the caller of the coroutine to deal with the coroutine. It can provide any member function/variables it wants. This class is the return type of the coroutine function you write.
 
 coroutine lifetime
 ------------------
