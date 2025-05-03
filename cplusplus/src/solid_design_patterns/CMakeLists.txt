@@ -1,0 +1,3 @@
+add_executable(solid_design_patterns_single_responsibility single_responsibility.cpp)
+target_link_libraries(solid_design_patterns_single_responsibility PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings pthread)
+

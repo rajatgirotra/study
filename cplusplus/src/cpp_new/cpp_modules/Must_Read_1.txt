@@ -25,7 +25,7 @@ export module B; // identifies a PMIU.
 2. Interface partition
 ----------------------
 Sometimes the main PMIU can get huge, so an Interface partition module file can be used. This can only contain declaration and definitions for symbols which
-will be imported by the main PMIU and then exported to the outside world by the PMIU. Sometimes, mutiple developers or different teams work on different implementations
+will be imported by the main PMIU and then exported to the outside world by the PMIU. Sometimes, multiple developers or different teams work on different implementations
 of the same module, so interface partitions become a logical choice.
 
 We will use the extension .cppm for "interface partition", i.e. same as that for PMIU.
@@ -40,8 +40,8 @@ export class Consumer {...};
 
 // Then the PMIU must do.
 module;
-export module MyModule;  //Importing an interface partition without exporting it is not allowed. So must always use the "export import" together.
-export import :Consumer;
+export module MyModule;
+export import :Consumer; //Importing an interface partition without exporting it is not allowed. So must always use the "export import" together.
 
 3. Module Implementation Units.
 -------------------------------
@@ -93,7 +93,7 @@ Using cmake for building modules
 
 module support for C++20 was added in cmake 3.28 onwards.
 CMake requires some help from the compilers. This is formulated in the form of a p1689r5 paper. This paper defines a format (json) for describing dependencies of source files.
-gcc 14 onwards supports p1689. Basically the compilers will go through the sources and create dynamic dependency information (scan phase) and then collate them (2nd phase)
+gcc 14 onwards supports p1689r5. Basically the compilers will go through the sources and create dynamic dependency information (scan phase) and then collate them (2nd phase)
 into dynamic dependencies for a target.
 
 Only Ninja generator supports modules.
@@ -122,7 +122,7 @@ BMIs are not compatible across compilers (they are implementation specific) and 
 Now in conan package_info() you can always use the cpp_info attribute and add cxxflags for the compiler to find the BMI, but we should not do that. Why? Various reasons:
 1. First, we would need to use Conan in a way that enforces strict compatibility. A package like the above would only be compatible with that specific compiler and version. Roughly, this means ensuring that for Conan, a package compiled with GCC 13.1 is different and not compatible with one compiled with GCC 13.2, and that a package built with C++20 is different and not compatible with one built with C++ 23.
 
-2. For a library such as {fmt} that is built with -fvisibility=hidden, Clang rejects a BMI when the importer does not have this flag enabled and is using the default visibility.
+2. For a library such as {fmt} that is built with -fvisibility=hidden, Clang rejects a BMI when the importer does not have this flag enabled and is using the default visibility. The -fvisibility=hidden flag in GCC is used to control symbol visibility when building shared libraries. Specifically, it sets the default visibility of symbols (functions, variables, etc.) to "hidden", meaning they will not be exported from the shared object unless explicitly marked to be visible using __attribute__((visibility("default"))). Example: void __attribute__((visibility("default"))) exported_function();
 
 3. Clang will reject BMIs where the original source file does not exist in the local filesystem - this would make it impossible to build packages on one machine (e.g. CI) and consume it on another. For a lot of our users, this is a deal breaker. Strictly speaking, the importer only needs a BMI and not the original sources. But we need to take into account that the source files are still referenced by the compiler when reporting errors.
 
@@ -143,7 +143,7 @@ The way to use cmake for modules is to use file sets in cmake: example: a.cpp an
 Example for producer side:
 ==========================
 add_library(simple)
-target_sources(simple PRIVATE FILE_SET cxx_modules TYPE CXX_MODULES FILES a.cpp b.cpp) # this will make sure the scan dependency tool is used as per p1689.
+target_sources(simple PRIVATE FILE_SET cxx_modules TYPE CXX_MODULES FILES a.cpp b.cpp) # this will make sure the scan dependency tool is used as per p1689r5.
 install() command also now has CXX_MODULES_BMI --> This is used for
 
 Example for consumer side:
@@ -161,4 +161,4 @@ target_sources(fmt::fmt
 )
 --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Lets try to write a simple module and consume it next.
+Let's try to write a simple module and consume it next.

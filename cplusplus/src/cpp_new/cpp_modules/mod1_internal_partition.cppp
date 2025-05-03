@@ -1,0 +1,14 @@
+module; // global module fragment
+
+#include <string>
+
+module MyModule:Order;
+
+struct Order {
+   std::string m_item;
+   int m_count;
+   double m_price;
+
+   public:
+   Order(std::string item, int c, double px) : m_item(std::move(item)), m_count(c), m_price(px) {}
+};

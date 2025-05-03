@@ -4,13 +4,20 @@ export module Square;
 
 int square(int i);
 
+// not exported.
+struct Data {
+};
+
 export class Square {
-private:
     int m_value;
 public:
     Square(int i) : m_value(square(i)) {}
 
     int getValue() const { return m_value; }
+
+    Data getData() const noexcept {
+        return Data();
+    }
 };
 
 export template <typename T>
