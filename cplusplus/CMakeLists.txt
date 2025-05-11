@@ -63,6 +63,10 @@ find_package(Boost REQUIRED)
 message(STATUS "using Boost ${Boost_VERSION_STRING}, include-path: ${Boost_INCLUDE_DIRS},"
         " libs - ${Boost_LIBRARIES}")
 
+find_package(gRPC REQUIRED)
+message(STATUS "using grpc ${gRPC_VERSION_STRING}, include-path: ${gRPC_INCLUDE_DIRS},"
+        " libs - ${gRPC_LIBRARIES}")
+
 add_executable(main main.cpp)
 
 add_subdirectory(src)

@@ -9,7 +9,7 @@ function(set_project_warnings warnings)
             -Wold-style-cast # warn for c-style casts
             -Wcast-align # warn for potential performance problem casts
             -Wunused # warn on anything being unused
-            -Woverloaded-virtual # warn if you overload (not override) a virtual function
+#            -Woverloaded-virtual # warn if you overload (not override) a virtual function
             -Wpedantic # warn if non-standard C++ is used
             -Wno-conversion # warn on type conversions that may lose data
             -Wno-sign-conversion # warn on sign conversions

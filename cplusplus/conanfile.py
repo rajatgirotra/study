@@ -8,6 +8,9 @@ from os.path import join
 import re
 import textwrap
 
+from tornado.options import options
+
+
 # Host context: Where the library/application is being run
 # Build context: Where the library/application is being built
 
@@ -95,6 +98,8 @@ class CPlusPlusConan(ConanFile):
         # build time, then you can define the run=True below. It will put BOOST_ROOT/bin in the path at build time.
         # and this dependency is propagated to the consumers downstream..
         self.requires("boost/1.86.0", headers=True, libs=True)
+        self.requires("grpc/1.69.0", headers=True, libs=True,
+                       options={})
 
     # build_requirements is called after "requirements". Technically, all you do in build_requirements() can be done
     # inside the "requirements" function; but it is still good to separate the tool requirements and test requirements

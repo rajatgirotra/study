@@ -161,6 +161,9 @@ target_link_libraries(cpp_coroutines_73 PRIVATE ${PROJECT_NAME_LOWERCASE}_projec
 add_executable(cpp_coroutines_74 coroutine_74.cpp)
 target_link_libraries(cpp_coroutines_74 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp_coroutines_66_delete coroutine_66_delete.cpp)
+target_link_libraries(cpp_coroutines_66_delete PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(cpp_range_and_views_75 ranges_and_views_75.cpp)
 target_link_libraries(cpp_range_and_views_75 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 

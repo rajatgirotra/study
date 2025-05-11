@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package helloworld;
+
+// The greeting service definition
+service Greeter {
+  // sends a greeting (unicast - Basic)
+  rpc SayHello(HelloRequest) returns (HelloReply) {}
+
+  // Unidirectional stream
+  rpc SayHelloStreamReply(HelloRequest) returns (stream HelloReply) {}
+
+  // Bidirectional stream
+  rpc SayHelloBidiStream(stream HelloRequest) returns (stream HelloReply) {}
+
+  rpc SayHelloAgain(HelloRequest) returns (HelloReply) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloReply {
+  string message = 1;
+}

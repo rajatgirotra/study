@@ -6,6 +6,7 @@
     "include": [
         "/home/rajatgirotra/study/cplusplus/build/Release/generators/CMakePresets.json",
         "/home/rajatgirotra/study/cplusplus/build/Debug/generators/CMakePresets.json",
-        "build/Debug/generators/CMakePresets.json"
+        "build/Debug/generators/CMakePresets.json",
+        "build/Release/generators/CMakePresets.json"
     ]
 }
