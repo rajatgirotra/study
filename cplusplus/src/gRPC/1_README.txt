@@ -130,11 +130,21 @@ True full-duplex communication over HTTP/2.
 "rpc Chat(stream ChatMessage) returns (stream ChatMessage);"
 Use case would be Chat applications or Trading systems or Real-time collaborative tools
 
-gRPC does a lot internall like:
+gRPC does a lot internally like:
 Framing
 Flow control
 Ordering
 Compression
 Stream lifecycle
-
-
+--------------------------------------------------------------------------------------------------------------------------------------------
+Metadata:
+During actual RPC, there is a lot of metadata exchange between client and server. this metadata is a list of key-value pairs where
+key is a string and value could be of type string or binary (keys where value is binary must end with "-bin"). Also, keys must not start
+with "grpc-", as those are reserved for internal gRPC use.
+--------------------------------------------------------------------------------------------------------------------------------------------
+Channels:
+A channel in gRPC provides a connection to a gRPC server on a specified host and port. A channel is used when creating a client stub (i.e.
+client stub constructor takes a Channel as argument).
+A channel has an associated state like "connected" or "idle".
+--------------------------------------------------------------------------------------------------------------------------------------------
+gRPC also supports deadlines/timeouts on RPC calls, RPC termination and cancelling an RPC.

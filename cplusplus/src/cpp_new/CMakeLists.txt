@@ -11,7 +11,7 @@ add_executable(cpp_new_structured_bindings_5 structured_bindings_5.cpp)
 target_link_libraries(cpp_new_structured_bindings_5 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
 add_executable(cpp_new_variable_template_6 variable_template_6.cpp)
-target_link_libraries(cpp_new_variable_template_6 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_link_libraries(cpp_new_variable_template_6 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers)
 
 add_executable(cpp_new_variable_template_7 variable_template_7.cpp)
 target_link_libraries(cpp_new_variable_template_7 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

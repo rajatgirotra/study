@@ -66,7 +66,7 @@ class GreeterClient {
     if (status.ok()) {
       return reply.message();
     } else {
-      std::cout << status.error_code() << ": " << status.error_message()
+      std::cerr << status.error_code() << ": " << status.error_message()
                 << std::endl;
       return "RPC failed";
     }
@@ -84,7 +84,7 @@ class GreeterClient {
     if (status.ok()) {
       return reply.message();
     } else {
-      std::cout << status.error_code() << ": " << status.error_message()
+      std::cerr << status.error_code() << ": " << status.error_message()
                 << std::endl;
       return "RPC failed";
     }
@@ -110,5 +110,6 @@ int main(int argc, char** argv) {
 
   reply = greeter.SayHelloAgain(user);
   std::cout << "Greeter received: " << reply << std::endl;
+
   return 0;
 }

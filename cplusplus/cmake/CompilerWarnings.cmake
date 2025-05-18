@@ -18,7 +18,7 @@ function(set_project_warnings warnings)
             -Wduplicated-branches # warn when if/else branches have duplicated code
             -Wlogical-op # warn bout logical operations being used where bitwise were probably wanted.
             -Wuseless-cast # warn if your perform a cast to the same type
-            -Wdouble-promotion # warn if float is implicit promoted to double
+#            -Wdouble-promotion # warn if float is implicit promoted to double
             -Wdeprecated-declarations
             -Wformat=2 # warn on security issues around functions that format output
             -fconcepts-diagnostics-depth=2
