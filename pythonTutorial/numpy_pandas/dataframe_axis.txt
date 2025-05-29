@@ -1,0 +1,24 @@
+Lets say you have dataframe:
+df:
+# Example DataFrame
+    A   B   C
+0   1   5   9
+1   2  NaN 10
+2  NaN  7  11
+3   4   8  NaN
+
+Concept:
+  axis=0 → Operate vertically (down the rows). Think of this as "along the columns."
+  Example:
+   df.isnull().any(axis=0) --> Means operate vertically down the rows and return True for the whole column if any value in that column is True.
+   so result will have [True, True, True] with index A, B, C
+
+   df.dropna(axis=0) --> Will drop the whole row if any value in that row contains na
+---------------------------------------------------------------
+  axis=1 → Operate horizontally (across the columns).  Think of this as "along the rows."
+  Example:
+  df.inull().any(axis=1) --> Means operate horizontally across the columns and return True for the whole row if any value in that row is True.
+  so result will have result = [False, True, True, True] with index = 0, 1, 2, 3
+
+  df.dropna(axis=1) --> will drop the whole column if any value in that column contains na.
+---------------------------------------------------------------
