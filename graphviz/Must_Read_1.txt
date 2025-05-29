@@ -1,0 +1,9 @@
+the basic utility to understand is "dot". It is used to create directed acyclic graphs. Graphs can have edges and nodes.
+Edges and nodes have attributes that define their layout and appearence (like color, size, shape, label, name etc). These attributes have values. Sometimes, using certain attribute values exposes more attributes. the syntax is very trivial. But before we move to syntax, we must understand how "dot" works in stages.
+
+The first step is to break any cycles which occur in the input graph by reversing the internal direction of certain cyclic edges. 
+The next step assigns nodes to discrete ranks or levels. In a top-to-bottom drawing, ranks determine Y coordinates. Edges that span more than one rank are broken into chains of “virtual” nodes and unit-length edges. 
+The third step orders nodes within ranks to avoid crossings.
+The fourth step sets X coordinates of nodes to keep edges short, and the final step routes edge splines.
+
+"dot" understand the DOT language. Lets looks at example next.

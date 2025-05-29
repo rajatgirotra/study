@@ -1,0 +1,10 @@
+/*Where and how do we specify the attributes of the graph, nodes, and edges.*/
+
+digraph G {
+  size = "4,4"; /* this is a graph attribute */
+  main [shape=box]; /* this is a node attribute */
+  node [shape=box,style=filled,color="0.7 0.3 1.0"]; /* All nodes below will use these attributes as default */
+  code -> compile [style=dotted]; /* this is an edge attribute */
+  edge [coloe=red]; /* all edges below will use these attributes as default */ 
+  main -> run;
+}

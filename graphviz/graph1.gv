@@ -1,0 +1,14 @@
+digraph G { /* start with the digraph keyword followed by the name of the graph */
+  main -> parse -> execute; /* A node is first created when it is first seen */
+  main -> init; /* an edge is created when it is first seen */
+  main -> cleanup;
+  execute -> make_string;
+  execute -> printf;
+  init -> make_string;
+  main -> printf;
+  execute -> compare;
+}
+
+/* This graph will use the default attributes for nodes and edges as we have not specified anything.
+To create a graph, run: "dot -Tjpg graph1.gv -o graph1.jpg"
+*/

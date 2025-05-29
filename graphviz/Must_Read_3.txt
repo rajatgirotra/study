@@ -1,0 +1,44 @@
+Some the default attributes for nodes, edges and graphs:
+Refer to https://www.graphviz.org/doc/info/attrs.html for the full list
+
+graph
+====
+size = "4, 4"; 
+
+nodes
+====
+shape
+label
+style
+color
+
+edges
+====
+style
+label
+color
+
+
+Node shapes
+===========
+node shapes are broadly classified into two categories:
+  Polygon based
+  record based
+
+There are several built in attribute values for "shape" attribute for polygon shaped nodes like: box, polygon, ellipse, triangle, invtriangle, circle, point, egg, plaintext, diamond, trapezium, parallelogram, house, hexagon, octagon, doublecircle, doubleoctagon, tripleoctagon, invtrapezium, invhouse, Mdiamond, Msquare, Mcircle, none etc.
+Full list here: www.graphviz.org/doc/info/shapes.html
+The "shape=polygon" attribute exposes all of the polygon parameters, and is used to create shapes that are not predefined. Example: polygon exposes attributes
+a. sides=N, the number of sides of the polygon
+b. skew=<-1.0 to 1.0>, how much the the shape should be slanted to the left or to the right
+c. distortion=<-1.0 to 1.0>, how much the polygon should be shrinked from top to bottom.
+When using other predefined shapes like : hexagon, pentagon, the following attributes are important:
+1. peripheries=N, where N is a number and sets the number of boundary curves.
+2. orientation=N, where N is in degrees and specifies the clockwise rotation of the polygon.
+3. regular=true/false, If true(recommended), the vertices of the polygon will lie on a circle whose center is the center of the shape.
+
+Record-based nodes form the other class of node shapes. These include the shapes record and Mrecord. The two are identical except that the latter has rounded corners. These nodes represent recursive lists of fields, which are drawn as alternating horizontal and vertical rows of boxes. So think of a big rectangle box separated by lines into smaller rectangles both horizontally and vertically. To specify the recursive structure of a record node, we use the "label" attribute. Please see record.gv
+
+Write code on your own to create the graph in sample_1.png and sample_2.png. Then later compare to the png how accurate you were.
+Dont checkin the dot files to git. just discard them so next you are compelled to learn again if you forget.
+
+
