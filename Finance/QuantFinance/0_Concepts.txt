@@ -1,0 +1,17 @@
+Mean reversion
+==============
+
+Mean reverting behavior in algorithmic trading refers to the tendency of an asset’s price to revert to its historical average (mean) over time. Traders who use mean reversion strategies assume that deviations from this mean are temporary and that prices will eventually return to their long-term average. 
+Not all assets are mean-reverting. A stock in a strong trend may never return to its previous mean, leading to large losses. Stop-loss mechanisms and dynamic adjustments are crucial.
+
+The strategy relies on statistical measures like moving averages, Bollinger Bands, standard deviations, and z-scores to identify when a price has deviated significantly from the mean.
+
+Stationarity: The asset or spread must exhibit mean-reverting properties (i.e., it should not be a random walk). This is often tested using statistical tests like the Augmented Dickey-Fuller (ADF) test.
+
+Entry and Exit Rules:
+
+Buy (Long): When the asset's price drops significantly below its mean, expecting it to revert upward.
+Sell (Short): When the asset's price rises significantly above its mean, expecting it to revert downward.
+Positions are usually closed when the price returns to the mean.
+
+Another common form of mean reversion strategy is "Pairs Trading" i.e. a strategy where two correlated assets (e.g., stock pairs) are traded based on their relative deviation from a historical relationship.

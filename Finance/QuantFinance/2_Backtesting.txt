@@ -1,0 +1,18 @@
+backtesting is carried out by exposing your particular strategy algorithm to a stream of historical financial data, which leads to a set of trading signals. Each trade (which we will mean here to be a ’round-trip’ of two signals) will have an associated profit or loss. The accumulation of this profit/loss over the duration of your strategy backtest will lead to the total profit and loss (also known as the ’P & L’ or ’PnL’).
+
+Strategy identification and creation must be done through a strategy pipeline. Every strategy must go through this pipeline. There are many filters we set at different stages in the pipeline to filter out any strategies that do not meet certain criteria. So this filteration mechanism provides a way to eliminate strategies that do not meet our performance needs.
+
+There are many microstructure issues in developing a strategy. i.e. elements that are not indicators or parameters but still affect your strategies performance. These are things like latency on the forward and reverse paths, transaction costs, order routing etc. Backtesting allows you to test the affects of these microstructures on your strategy.
+
+You can always optimize your strategy by tweaking the configuration values associated with your strategy such that you get the best performance.
+
+You can compare different strategies by looking at their relative performance and things like Sharpe Ratio and Drawdown characteristics.
+
+We must remember that as strategy frequencies rise, i.e. a lot of trading signals are generated and there is a lot of buys and sells, it becomes very difficult to correctly model the microstructures of a strategy. In these high frequency stratgies, the speed of the execution system becomes the key to strategy performance, which is likely the case with ultra high frequency strategies.
+
+There are many biases that affect the performance of a backtest. In almost all cases, these biases artificially inflate the results from a backtest rather than deflate it. So we should look at backtest results as a sort of UPPER BOUND on the performance of a strategy. Lets look at these biases below.
+
+Optimization Bias:
+
+
+
