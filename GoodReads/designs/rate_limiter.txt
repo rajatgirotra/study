@@ -1,0 +1,45 @@
+Rate Limiter concept is used to limit the maximum number of requests from a client to a server within a defined period of time. It could be HTTP requests, TCP requests or any other kind of requests.
+
+Rate limiting is used to prevent resource starvation caused by Denial of Service (DoS) attacks. Almost all APIs published by large tech companies enforce some form of rate limiting.
+For example, Twitter(now X) limits the number of tweets to 300 per 3 hours. Google docs APIs have the following default limit: 300 per user per 60 seconds for read requests. A rate limiter prevents DoS attacks, either intentional or unintentional, by blocking the excess calls.
+
+Prevent servers from being overloaded. To reduce server load, a rate limiter is used to filter out excess requests caused by bots or users’ misbehavior.
+
+Reduce cost. Limiting excess requests means fewer servers and allocating more resources to high priority APIs. Rate limiting is extremely important for companies that use paid third party APIs. For example, you are charged on a per-call basis for the following external APIs: check credit, make a payment, retrieve health records, etc. Limiting the number of calls is essential to reduce costs.
+
+Rate Limiter could be implemented:
+1. on client side or server side (server side is common & anyway client side is easy to forge by malicious actors and sometimes you may not have access to the client implementation).
+2. limit could be defined 
+   a. on the session (if session has a state)
+   b. based on client IP
+   c. based on user ID or anything else.
+3. It could be implemented in application code or be a standalone service.
+4. Could be distributed (i.e. rate limiter be shared across different servers or processes).
+
+Common rate limiting algo's are:
+===============================
+
+Token bucket
+Leaking bucket
+Sliding window Algo
+
+Token bucket is easiest to implement: Every request needs to get a token to be serviced. if tokens have exhausted, request will be dropped. Tokens are replnished after a defined interval. You many need multiple buckets to be implemented for
+1. each API endpoint.
+2. have a different bucket for each IP address or TCP session.
+3. have a global bucket if you have some global rate limiting.
+You need two parameters here: bucket size, and bucket fill rate. example, bucket size 10 means 10 requests, fill rate could be per min, per sec etc.
+See issue_with_token_bucket.png
+
+Leaky bucket
+The leaking bucket algorithm is similar to the token bucket except that requests are processed at a fixed rate. It is usually implemented with a first-in-first-out (FIFO) queue. The algorithm works as follows:
+When a request arrives, the system checks if the queue is full. If it is not full, the request is added to the queue.
+Otherwise, the request is dropped.
+Requests are pulled from the queue and processed at regular intervals.
+
+Sliding Window logic
+You maintain a sliding window of the number of requests. Example, lets say rate limit is 200 requests/min, then you can have
+1. An array of size 200. By default everything is 0 in the array. set idx = 0.
+2. If a request comes in and arr[idx] == 0, then just allow the request and set arr[idx] = current_timestamp and do idx = (idx+1)/200.
+3. else if arr[idx] != 0, then compare arr[idx] with current timestamp. If diff is under 60 sec, drop request; otherwise set arr[idx] = current timestamp. and set idx = (idx + 1)/200.
+
+In a distributed environment, you could have multiple rate limiter. How will those rate limiter services exchange the state? If client1 sends requests to rate limiter 1 and client 2 send requests to rate limiter 2, then it is fine, as both can maintain the rates individually for client 1 and 2. But what if client 1 sends rate limit requests to 2nd rate limiter. It doesnt have any count of requests for that client 1. In this case, either one option is that you have sticky sessions, i.e. client 1 always sends to rate limiter 1 and client 2 to rate limiter 2. But sticky sessions are not recommended. So the other way is to have a distributed cache like Redis, where each rate limiter writes its state so it is shared with other rate limiters.

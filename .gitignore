@@ -82,3 +82,8 @@ dist/*
 .firebase
 .firebaserc
 node_modules/
+
+graphviz/*.jpg
+graphviz/*.png
+
+cplusplus/src/scratch/*

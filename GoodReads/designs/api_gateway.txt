@@ -1,0 +1,7 @@
+Usually in cloud microservices architecture, where a client can sends requests to servers via an API, there is an API Gateway in the middle which is responsible for doing multiple things, like:
+
+1. support rate limiting,
+2. SSL termination
+3. authentication
+4. IP whitelisting
+5. servicing static content
