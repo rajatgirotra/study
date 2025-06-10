@@ -1,8 +1,11 @@
 LLM standards for Large Language Model. These are artificial intelligence models created to understand and generate text. Examples include
-1) ChatGPT
+1) ChatGPT from openAI. some recent models are gpt-4o, gpt-4o-mini, gpt-o1, o3-mini etc
 2) Llama
-3) Bard (Gemini)
-4) Claude etc
+3) Gemini from google - gemini-2-0-flash
+4) Claude from Anthropic (claude-3-7-Sonnet)
+5) deepseek (chinese model) - deepseek v3 and r1 models
+6) Groq: LLMs including Llama 3.3
+7) Ollama: local open source LLMs including LLama 3.2
 
 Langchain: Langchain is a framework for designed for integrating these LLM models into your own applications. Langchain is available in many common programming languages like python, go, javascript etc.
 
