@@ -1,0 +1,23 @@
+The first project is debate. Where we have two agents. A debate agent which produces reasoable arguments either for the motion or against.
+The other is a judge agent who is unbiased and chooses who wins the debate based on the arguments provided.
+
+The second project will be finanical_research. We have two agents here, a researcher agent which produces comprehensive data on a company, and an analyst agent which studies
+that data and produces a detailed report on the company like its earnings, philosophy, future prospects in a structured and concise manner. However, the problem is 
+that the report produced is only upto Q2 2023, because the training data from LLM is only that much recent. To overcome this, we use a tool called SerperDevTool. SerperDevTool
+leverages Google API's to perform lightening fast searches. We provide this tool in the crew.py class in the @agent decorator for the "researcher" agent.
+Also, you can see that the analysis_task defines a context and in that context it provides the "research_task". this means that the output from "research_task" will be input to analysis_task.
+
+The third project is about a stock picker. We create multiple agents here.
+1. an agent who is a financial analyst who picks up the most trending companies in news. around 2-3 companies
+2. an agent which digs up all the latest news, outlook, earnings, future_prospects, historic share prices about these companies.
+3. an agent which uses this information to decide which is the best company to decide and prints its reasoning also for that.
+   Also this agent uses Pushover tool to send a push notification to your phone.
+4. A manager agent just to show how an agent can delegate (handoff work) to other agents.
+We also look at structured outputs in this project using the "output_pydantic" argument
+We also demonstrate the use of memory in CrewAI. We will create these memory objects inside the @crew function in crew.py and give these objects as arguments when creating the Crew.
+
+Next we will create a coder project. The crew in the coder project will be given some additional parameters like "allow_code_generation=True" and "code_execution_method=safe". This
+makes sure our Crew is able to generate and run code. Generate code is fine, But running code is not ordinary. CrewAI native can connect to a docker image to run your code inside a docker container and returning your the result of that operation.
+
+
+
