@@ -5,5 +5,5 @@ We'll study
 2) Multiple linear regression
 3) Polynomial regression
 4) Support Vector regression (SVR)
-5) DecisionTree Classification
-6) RandomForest Classification
+5) DecisionTree Regression
+6) RandomForest Regression

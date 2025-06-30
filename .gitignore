@@ -26,6 +26,7 @@ tf_files/
 .DS_Store
 .ipynb_checkpoints/
 **/delete/
+**/output/
 gdb.txt
 .lock-waf_linux_build
 .idea/**
@@ -87,3 +88,6 @@ graphviz/*.jpg
 graphviz/*.png
 
 cplusplus/src/scratch/*
+
+/.venv
+.env

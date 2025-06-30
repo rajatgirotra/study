@@ -12,6 +12,7 @@ dependencies = [
     "gradio>=5.22.0",
     "httpx>=0.28.1",
     "ipywidgets>=8.1.5",
+    "langchain>=0.3.25",
     "langchain-anthropic>=0.3.10",
     "langchain-community>=0.3.20",
     "langchain-experimental>=0.3.4",

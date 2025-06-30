@@ -85,3 +85,6 @@ that the agent might use in future tasks.
 
 * Entity Memory --> Specialized memory for tracking entities — people, places, companies, etc. — and their properties. Works like a knowledge graph or key-value store.
 Keeping track of facts and attributes tied to named entities. Avoiding redundant queries for known facts.
+================================================================================================================================================
+
+Before you go on to 6_README.txt, please see all projects in crewai_projects folder
