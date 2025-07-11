@@ -17,7 +17,7 @@ struct Base {
 
 struct Derived : public Base {
     int m_derived_i {0};
-//    auto operator <=> (const Derived& rhs) const = default;
+    // auto operator <=> (const Derived& rhs) const = default;
     std::strong_ordering operator <=> (const Derived& rhs) const {
         if (this->m_base_i == rhs.m_base_i) {
             if (this->m_derived_i == rhs.m_derived_i) {

@@ -182,7 +182,7 @@ std::copyable auto foo(auto) {
 int main() {
     [[maybe_unused]] HasHashInvalid<Dummy> h1;
     // why this succeeds. because StdHashExists only makes sure that type "std::hash<T>" is valid for T. which will be true for all T.
-    //to really make sure we have std::hash<> overriden for T, we must try to create an object of std::hash<> type.
+    //to really make sure we have std::hash<> overridden for T, we must try to create an object of std::hash<> type.
 
     [[maybe_unused]] HasHashValid<Dummy> h2;
 

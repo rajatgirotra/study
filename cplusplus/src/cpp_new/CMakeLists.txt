@@ -188,6 +188,15 @@ target_link_libraries(cpp_constinit_consteval_81 PRIVATE ${PROJECT_NAME_LOWERCAS
 add_executable(cpp_constinit_consteval_82 constinit_consteval_82.cpp)
 target_link_libraries(cpp_constinit_consteval_82 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp_range_and_views_83 ranges_and_views_83.cpp)
+target_link_libraries(cpp_range_and_views_83 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_84 ranges_and_views_84.cpp)
+target_link_libraries(cpp_range_and_views_84 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_85 ranges_and_views_85.cpp)
+target_link_libraries(cpp_range_and_views_85 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(cpp_new_throw throw.cpp)
 target_link_libraries(cpp_new_throw PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 

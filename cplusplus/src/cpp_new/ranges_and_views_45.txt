@@ -51,3 +51,10 @@ using namespace std::views; // this brings a number of common names in scope lik
 with other functions or variable names; mostly leading to compile time errors and sometimes undefined behavior at runtime.
 
 Let's see some range and views in action.
+
+Note that views are designed to be non-mutating by default — they generally provide read-only, lazily-evaluated access to an underlying range or container. So it is not okay for views to mutate or transform the original values in the underlying container unless explicitly designed to do so. However, this is a sematic constraint and not something force by a compiler.
+
+Even the transform view should take argument by value or by const reference and just return a mutated value, not modify the underlying value.
+
+If there is ONE RULE you must remember when working with views, it is:
+use views ad hoc (immediately after you define them).

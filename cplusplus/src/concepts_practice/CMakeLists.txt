@@ -1,0 +1,2 @@
+add_executable(concepts_practice_1 cp_1.cpp)
+target_link_libraries(concepts_practice_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

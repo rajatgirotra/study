@@ -77,5 +77,5 @@ int main() {
 }
 
 // C++20 also provides a new library std::ranges to deal with collections.
-// We will look at std::ranges later but std::ranges::input_range is a concept that allows a collection to be iterated over using begin() and end().
+// We will look at std::ranges later but std::ranges::input_range is a concept that validates that a collection can be iterated over using begin() and end().
 // in concepts_41.cpp we will write a full implementation for add() function to support insert() and push_back() with single or multiple values.

@@ -21,7 +21,7 @@ Other good features
 
 AMPS transaction log
 ====================
-AMPS uses a message store for replication which is called the AMPS transaction log. Same transaction log is also used for durable subscriptions and message replay.
+AMPS uses a message store for replication which is called the AMPS transaction log. Same transaction log is also used for durable subscriptions,message replay and replicating messages between multiple AMPS instances.
 
 More details
 ============

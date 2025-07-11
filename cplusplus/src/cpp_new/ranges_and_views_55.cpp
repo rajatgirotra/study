@@ -1,36 +1,5 @@
 /*
- * borrowed_ranges: A borrowed range is a range whose iterators are still valid and can be de-referenced even after the range
- * they refer to no longer exists.
- *
- * this can happen,
- * 1) if the iterators of the range are independent of the lifetime of the underlying range.
- * 2) or if the iterators themselves store the values which need to be iterated upon.
- *
- * C++20 introduces a concept rng::borrowed_range which is satisfied if the iterators can still be used when the underlying range
- * no longer exists.
- *
- * the concept of a borrowed range was introduced to allow ranges to work safely with temporaries.
- *
- * Ranges often return iterators that refer to data inside the range object. If the range is a temporary, and it gets destroyed after
- * passing it to an algorithm, then those iterators become dangling — unless the range is a borrowed_range.
- *
- * now the ranges which you have seen till now are:
- * 1) STL containers: These are obviously NOT borrowed ranges as their iterators refer to values stored in them.
- * 2) views: constructed using range adaptor function. any view created by passing a range object to the range adaptor functions
- *    as prvalue (a temporary); will again NOT be borrowed ranges.
- *
- * So which views can be borrowed ranges.
- *
- * 1) rng::iota_view --> in this view, the iterator itself stores the current value to be used and incremented.
- * 2) rng::empty_view --> in this view, the iterator always points to the end iterator so there are no elements to be traversed.
- * 3) views where the iterators directly refer to the underlying range on which the view is constructed. This is the case with
- *    3.a) std::string_view
- *    3.b) rng::ref_view
- *    3.c) std::span
- *    3.d) std::ranges:subrange
- *
- * Note that some range adaptor functions already check if their range parameter is prvalue. If yes, the invocation results
- * in compile time error. some range adaptors don't check for prvalues and rely on programmers.
+ * Some more example of borrowed_iterator and borrowed_range.
  */
 #include <iostream>
 #include <concepts>
@@ -54,52 +23,74 @@ string demangle(const char* const mangled_name) {
     return ret;
 }
 
+auto getData() {
+    return std::vector<int> {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+}
+
 int main() {
     std::vector coll{0, 8, 15}; // coll is not a borrowed range
-    auto pos0 = rng::find(coll, 8);
+    auto pos0 = rng::find(coll, 8); // coll is lvalue, so pos0 is valid iterator
     std::cout << "Pos0: " <<  *pos0 << endl;
 
-    // take returns a take_view<ref_view<...>>, take_view<> is a borrowed range, as it has an underlying_view.
-    auto rg_first_2 = vws::take(coll, 2);
-    auto pos1 = rng::find(rg_first_2, 8);
-    cout << "Pos1: " << *pos1 << endl;
+    std::vector<int> intVec {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    std::vector<int>::iterator pos1{};
+    {
+        auto rg_first_2 = vws::take(intVec, 7);
+        pos1 = rng::find(rg_first_2, 5); // rg_first_2 is lvalue, so pos1 is valid iterator.
+    }
+    // rg_first_2 is destroyed here, but no issues, as intVec still lives so iterator will be valid.
+    cout << "value (pos1): " << *pos1 << " found at index " << std::distance(begin(intVec), pos1) << endl;
 
-    [[maybe_unused]] auto  pos2 = rng::find(std::vector{8}, 8); // argument is rvalue, so return type if rng::danling.
-    // std::cout << *pos2 << endl;
+    std::vector<int>::iterator pos2{};
+    {
+        // std::vector<int> is not a borrowed range.
+        auto rg_first_2 = vws::take(getData(), 7);
+        // The resulting take_view<vector<int>> wraps a temporary non-borrowed range. But the lifetime of the temporary is now extended.
+        pos2 = rng::find(rg_first_2, 5); // since the lifetime of the temporary returned by getData() is extended, pos2 ia valid.
+    }
+    // now rg_first_2 goes out of scope and so does the temporary. So dereferencing pos2 is now undefined behavior. May or may not work.
+    cout << "value (pos2): " << *pos2 << " found at index \n";
 
-    [[maybe_unused]] auto pos3 = rng::find(vws::single(8), 8); // yields dangling
+    [[maybe_unused]] auto  pos3 = rng::find(std::vector{8}, 8); // argument is rvalue, so return type if rng::danling.
     // std::cout << *pos3 << endl;
 
+    // vws::single(8) returns a view of only the one element passed as argument. It just holds the element inside the view itself.
+    // so again it is NOT A borrowed range.
+    [[maybe_unused]] auto pos4 = rng::find(vws::single(8), 8); // yields dangling
+    // std::cout << *pos4 << endl;
+
     // iota_view is a borrowed range
-    [[maybe_unused]] auto pos4 = std::ranges::find(std::views::iota(8), 8);
+    [[maybe_unused]] auto pos5 = std::ranges::find(std::views::iota(8), 8);
     // borrowed range
-    std::cout << "Pos4: " << *pos4 << endl;
+    std::cout << "Pos5: " << *pos5 << endl;
 
-    [[maybe_unused]] auto pos5 = std::ranges::find(std::views::empty<int>, 8); // borrowed range
-    // std::cout << "Pos5: " << *pos5 << endl; // can dereference an iterator of an empty<> range.
+    [[maybe_unused]] auto pos6 = std::ranges::find(std::views::empty<int>, 8); // borrowed range
+    std::cout << "Pos6: " << *pos6 << endl; // can dereference an iterator of an empty<> range.
 
-    //auto counted_view = std::views::counted(std::vector{0, 8, 15}.begin(), 2);
+    auto counted_view = std::views::counted(std::vector{0, 8, 15}.begin(), 2);
     // views created by counted() adaptor are borrowed ranges. Why? Read the description at the end.
-    [[maybe_unused]] auto pos6 = std::ranges::find(std::views::counted(std::vector{0, 8, 15}.begin(), 2),8);
-    // std::cout << "Pos5: " << *pos5 << endl; // although counted() returns a borrowed_range, if the underlying range itself is a temporary, like std::vector{0, 8, 15} here
+    // counted() doesnt take a range, it takes an iterator as argument and a count of number of elements in the view.
+    [[maybe_unused]] auto pos7 = std::ranges::find(std::views::counted(std::vector{0, 8, 15}.begin(), 2),8);
+    std::cout << "Pos7: " << *pos7 << endl; // although counted() returns a borrowed_range, if the underlying range itself is a temporary, like std::vector{0, 8, 15} here
     // the iterator will be invalid after the function call the temporary will be destroyed.
+    // so even though pos7 may print correct value, it is actually undefined behavior.
 
     auto v = vws::take(std::vector{0, 8, 15}, 2);
-    auto pos7 = rng::find(v, 8);
-    cout << "Pos7: " << *pos7 << endl;
-    cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // not a ref_view, an owning_view
+    auto pos8 = rng::find(v, 8);
+    cout << "Pos8: " << *pos8 << endl;
+    cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // all this is ok. v is an lvalue so lifetime of vector is extended.
 
-     auto pos8 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
+    auto pos9 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
+    std::cout << "Pos9: " << *pos8 << endl;  // runtime ERROR even if 8 found
     // auto v2 = vws::counted(std::vector{0, 8, 15}.begin(), 2);
-    // auto pos8 = rng::find(v2, 8);
-    std::cout << "Pos8: " << *pos8 << endl;  // runtime ERROR even if 8 found
+    // auto pos9 = rng::find(v2, 8);
     // cout << "type of v2: " << demangle(typeid(decltype(v2)).name()) << endl; // v2 is std::span
 
-    // [[maybe_unused]] auto pos9 = rng::find(std::vector{0, 8, 15}, 8);
-    // cout << *pos9 << endl; // dangling pointer rng::dangling
+    [[maybe_unused]] auto pos10 = rng::find(std::vector{0, 8, 15}, 8);
+    // cout << *pos10 << endl; // pos10 will be rng::dangling
 
-    // [[maybe_unused]] auto pos5 = rng::find(vws::take(std::vector{0, 8, 15}, 2), 8);
-    // cout << *pos5 << endl;
+    [[maybe_unused]] auto pos11 = rng::find(vws::take(std::vector{0, 8, 15}, 2), 8);
+    // cout << *pos11 << endl; // pos11 will be dangling
 }
 
 /* For continuing studying ranges and views, start at ranges_and_views_75.cpp
