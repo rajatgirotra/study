@@ -47,6 +47,19 @@ void add(Coll& coll, const T& value) {
     }
 }
 
+template <typename Coll, typename... Vals>
+requires ConvertsWithNarrowing<std::common_type_t<decay_t<decltype(std::forward<Vals>)...>>, typename Coll::value_type>
+void add(Coll& coll, Vals&&... values) {
+    if constexpr (PushbackContainer<Coll>) {
+        // vector, deque, list
+        // insert one by one to end of container using push_back
+        // will need std::integer_sequence for that
+    } else {
+        // insert one by one using insert.
+        // will need std::integer_sequence for that
+    }
+}
+
 int main() {
     std::vector<int> iVec;
     add(iVec, 42);
@@ -74,5 +87,7 @@ int main() {
     int vals[] = {0, 8, 18};
     add(iVec, vals);
 
-//    add(dVec, vals); // ERROR: narrowing
+//    add(dVec, vals); // ERROR
+
+    add(dVec, 1, 2, 3, 4, 5); // narrowing
 }

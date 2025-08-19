@@ -35,12 +35,14 @@ int main() {
     {
         auto rg_first_2 = vws::take(intVec, 5);
         pos = rng::find(rg_first_2, 3);
+        // trivial to understand
     }
 
     std::vector<int>::iterator pos2{};
     {
         auto rg_first_2 = vws::take(getData(), 5);
         pos2 = rng::find(rg_first_2, 3);
+        cout << "value " << *pos2 << " found at index " << std::distance(begin(intVec), pos2) << endl;
     }
 
     cout << "value " << *pos2 << " found at index " << std::distance(begin(intVec), pos2) << endl;

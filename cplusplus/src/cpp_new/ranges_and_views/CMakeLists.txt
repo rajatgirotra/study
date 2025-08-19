@@ -1,0 +1,41 @@
+add_executable(cpp_new_range_and_views_46 ranges_and_views_46.cpp)
+target_link_libraries(cpp_new_range_and_views_46 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_47 ranges_and_views_47.cpp)
+target_link_libraries(cpp_new_range_and_views_47 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_48 ranges_and_views_48.cpp)
+target_link_libraries(cpp_new_range_and_views_48 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_49 ranges_and_views_49.cpp)
+target_link_libraries(cpp_new_range_and_views_49 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_50 ranges_and_views_50.cpp)
+target_link_libraries(cpp_new_range_and_views_50 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_51 ranges_and_views_51.cpp)
+target_link_libraries(cpp_new_range_and_views_51 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_52 ranges_and_views_52.cpp)
+target_link_libraries(cpp_new_range_and_views_52 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_53 ranges_and_views_53.cpp)
+target_link_libraries(cpp_new_range_and_views_53 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_54 ranges_and_views_54.cpp)
+target_link_libraries(cpp_new_range_and_views_54 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_range_and_views_55 ranges_and_views_55.cpp)
+target_link_libraries(cpp_new_range_and_views_55 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_75 ranges_and_views_75.cpp)
+target_link_libraries(cpp_range_and_views_75 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_83 ranges_and_views_83.cpp)
+target_link_libraries(cpp_range_and_views_83 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_84 ranges_and_views_84.cpp)
+target_link_libraries(cpp_range_and_views_84 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_85 ranges_and_views_85.cpp)
+target_link_libraries(cpp_range_and_views_85 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

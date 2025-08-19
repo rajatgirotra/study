@@ -1,5 +1,5 @@
 add_executable(interprocess_1 1_managed_shared_memory.cpp)
-target_link_libraries(interprocess_1 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings Boost::date_time)
+target_link_libraries(interprocess_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings Boost::headers Boost::date_time)
 
 add_executable(interprocess_2 2_managed_shared_memory.cpp)
 target_link_libraries(interprocess_2 PRIVATE ${PROJECT_NAME_LOWERCASE}::project_options ${PROJECT_NAME_LOWERCASE}::project_warnings Boost::date_time)
