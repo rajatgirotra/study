@@ -14,10 +14,10 @@ ip::managed_shared_memory segment(ip::create_only, "MySharedMemory", SIZE_IN_BYT
 
 2. Various API's to create/reserve space on it and get a handle to that space.
  a. Creating NAMED objects using a "construct<>" API.
-    Every object or array of objects that is created is given a NAME. this name is sent to or already known to other processes using the same shared memory object. They can use the "find<>" API to get the pointer to that storage.
+    Every object or array of objects that is created is given a NAME. this name is sent to or already known to other processes which are using the same shared memory object. They can use the "find<>" API to get the pointer to that storage.
 
  b. Creating UNNAMED or anonymous objects.
-    you can create objects without a name using the same "construct<>" API. find<> functions have no sense here, since anonymous objects have no name. We can only destroy the anonymous object via a pointer. So how to use them. You can use these together with a unique instance explained below. Basically get a pointer to an anonymous instance (may be an array of some object type) and use "unique instance" construct to have a single pointer to the starting location of this vector.
+    you can create objects without a name using the same "construct<>" API. find<> functions have no sense here, since anonymous objects have no name. We can only destroy the anonymous object via a pointer. So how to use them. You can use these together with a unique instance explained below. Basically get a pointer to an anonymous instance (maybe an array of some object type) and use "unique instance" construct to have a single pointer to the starting location of this vector.
 
  c. Creating unique objects.
    the api allows you to create "ONE AND ONLY ONE" unique object of any given type. Maybe you want to emulate some Singleton type across processes. this can be done using this construct. Since it is unique, you really don't need a name for this object. You can use the same "construct<>" and "find<>" api's to create a unique instance for any type. You can create several unique instances but each must be a different type.
@@ -68,7 +68,7 @@ class rbtree_best_fit {
 The segment manager initializes the memory algorithm and tells this memory manager that it should not use the memory where the rest of the segment manager's member are placed for dynamic allocations (you see that depicted in the diagram above). The other members of the segment manager are a recursive mutex (defined by the memory algorithm's mutex_family::recursive_mutex typedef member), and two indexes (maps): one to implement named allocations, and another one to implement "unique instance" allocations. The memory needed to store these two indexes (maps) is also allocated by the memory algorithm
 
 The first index is a map with a pointer to a c-string (the name of the named object) as a key and a structure with information of the dynamically allocated object (the most important being the address and the size of the object).
-The second index is used to implement "unique instances" and is basically the same as the first index, but the name of the object comes from a typeid(T).name() operation
+The second index is used to implement "unique instances" and is basically the same as the first index, but the name of the object comes from a typeid(T).name() operation.
 
 As seen, the segment manager knows nothing about shared memory/memory mapped files. The segment manager itself does not allocate portions of the segment, it just asks the memory algorithm to allocate the needed memory from the rest of the segment. The segment manager is a class built above the memory algorithm that offers named object construction, unique instance constructions, and many other services..
 
@@ -76,3 +76,17 @@ It is defined as:
 template<class CharType, class MemoryAlgorithm, template<class IndexConfig> class IndexType>
 class segment_manager;
 We specify the character type to be used to identify named objects, followed by the memory algorithm that will control dynamically the portions of the memory segment, and also the index type that will store the [name pointer, object information] mapping.
+================================================================================================================
+Ok, all this is good for allocating POD types on managed memory. But what about creating objects which can dynamically allocate memory, like std containers. example: vector could create memory dynamically. that memory should also be allocated on the managed memory. To make that possible, boost interprocess provides a special allocator which can be passed as the "Allocator" template parameter to these containers. The allocator objects are very simple. They store the segment_manager object and they always allocate memory on the managed object using the segment manager (via its memory algorithm). Example:
+
+#include <boost/algorithm/allocator/allocator.hpp>
+using namespace boost::interprocess;
+
+using ShmemAllocator = allocator<double, managed_share_memory::segment_manager>;
+using MyVector = std::vector<double, ShmemAllocator>;
+
+managed_shared_memory segment(create_only, "MySharedMemory", 65536);
+const ShmemAllocator alloc_inst(segment.get_segment_manager());
+auto* ptr = segment.construct<MyVector>("MyVector")(alloc_inst);
+================================================================================================================
+
