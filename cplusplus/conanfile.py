@@ -100,6 +100,7 @@ class CPlusPlusConan(ConanFile):
         self.requires("boost/1.86.0", headers=True, libs=True)
         self.requires("grpc/1.69.0", headers=True, libs=True,
                        options={})
+        self.requires("benchmark/1.9.4", headers=True, libs=True)
 
     # build_requirements is called after "requirements". Technically, all you do in build_requirements() can be done
     # inside the "requirements" function; but it is still good to separate the tool requirements and test requirements
@@ -140,3 +141,7 @@ class CPlusPlusConan(ConanFile):
 
     def package_id(self):
         pass
+
+
+# Command I use:
+# conan install . -pr:h default -pr:b default -c tools.cmake.cmaketoolchain:generator=Ninja -s:a build_type=Release --build=missing

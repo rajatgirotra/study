@@ -1,0 +1,40 @@
+@startuml
+
+autonumber
+'as keyword is used to rename the participant
+'order keyword is used to assign an order from left to right on the diagram
+/'
+this is a multiline comment.
+the default order is the same as declared in the file.
+'/
+participant Participant as Foo #lightgreen
+actor Actor as Foo1 order 10 #red
+control Control as Foo3 order 20 #green
+entity Entity as Foo4 order 30 #cyan
+database Database as Foo5 order 40 #orange
+collections Collections as Foo6 order 50 #magenta
+queue Queue as Foo7 order 60 #blue
+boundary Boundary as Foo2 order 5 #yellow
+
+/' declaring a participant in multiple lines for more control '/
+participant Participant [
+  =Title
+  ----
+  ""Subtitle""
+]
+'participant with non-letters
+participant "α β γ"
+
+participant "A very long\nline" as L #red
+
+Foo --> Foo1 : To Actor
+Foo --> Foo2 : To Boundary
+Foo --> Foo3 : To Control
+Foo --> Foo4 : To Entity
+Foo --> Foo5 : To Database
+Foo --> Foo6 : To Collections
+Foo --> Foo7 : To Queue
+Foo -> Foo: Multiline\ncomment
+L <- L: Multiline\ncomment but\non the other side
+
+@enduml

@@ -32,7 +32,7 @@ p1.x = p1.x + p1.x # this is pythonic.
 
 # But what if we want the value of x to be always between 0 and 1000. If anyone sets -ive, we force it to 0. If anyone
 # sets > 1000, we cap it to 1000. That is the whole reason we need encapsulation ie. the set_x() method.
-# Here properties come into use. property() is actually a builtin function in python which returns a property object.
+# Here properties come into use. property() is actually a builtin function/decorator in python which returns a property object.
 # property(fget=None, fset=None, fdel=None, doc=None). ie no arguments are mandatory.
 # property = property() creates an empty property object.
 # property.getter(get_x)
@@ -60,13 +60,13 @@ class P2(object):
 
 
 p2 = P2()
-print 'default value is %s' % p2.x
+print ('default value is %s' % p2.x)
 p2.x = 987
-print 'value is %s' % p2.x
+print ('value is %s' % p2.x)
 p2.x = 1030
-print 'value is %s' % p2.x
+print ('value is %s' % p2.x)
 p2.x = -10
-print 'value is %s' % p2.x
+print ('value is %s' % p2.x)
 
 # you can also use the @property decorator which is more ideal. See below:
 
@@ -90,13 +90,13 @@ class P3(object):
             self._x = arg
 
 p3 = P3()
-print 'default value in p3 is %s' % p3.x
+print ('default value in p3 is %s' % p3.x)
 p3.x = 987
-print 'value is %s' % p3.x
+print ('value is %s' % p3.x)
 p3.x = 1030
-print 'value is %s' % p3.x
+print ('value is %s' % p3.x)
 p3.x = -10
-print 'value is %s' % p3.x
+print ('value is %s' % p3.x)
 
 
 class Magic(object):
@@ -106,4 +106,6 @@ class Magic(object):
             return 'It works!!'
         return inner
 
-print (repr(Magic()))
+magic = Magic()
+print (f'{magic!r}')
+# magic!r means calls repr(magic), this means calls magic.__repr__. This must return a string as python expects __repr__ to return string. Here we are return a function object (inner). We craftfull pack __repr__ in a property. what this does is that when magic.__repr__() is called, since __repr__ is now a property, whatever it returns (a function object basically) is called again due to trailing (). So basically this provides a good way to intercept api's and install your own api.

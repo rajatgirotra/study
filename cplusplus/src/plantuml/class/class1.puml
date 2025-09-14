@@ -1,0 +1,16 @@
+@startuml
+'different types of entities in a class diagram
+class spmc_persistence_reader
+circle circle
+'() and <> are just a short notations for circle and diamond.
+() some_name_for_circle
+<> diamond
+struct struct
+exception exception
+interface interface
+metaclass metaclass
+entity entity
+protocol protocol
+stereotype stereotype
+annotation annotation
+@enduml

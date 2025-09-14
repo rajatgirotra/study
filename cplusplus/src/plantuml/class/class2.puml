@@ -1,0 +1,54 @@
+@startuml
+'simple inheritence
+abstract BankAccount
+class CheckingAccount
+class SavingsAccount
+BankAccount <|-- CheckingAccount : < derives
+BankAccount <|-- SavingsAccount : < derives
+
+'simple realization (i.e. implementation of an interface class)
+interface Component
+class ConcreteComponentA
+class ConcreteComponentB
+Component <|.. ConcreteComponentA : < implements
+Component <|.. ConcreteComponentB : < implements
+
+/'
+Association (weak association)
+The most abstract way to describe static relationship between classes is using the Association link,
+which simply states that there is some kind of link or dependency between two classes or more.
+below we show such an abstract relationship between class A and B. May be class A has some methods
+which either take objects of class B or return it.
+'/
+class classA
+class classB
+classA --> classB : is used by
+
+/'
+Aggregation (Shared Association)
+In cases where there’s a part-of relationship between ClassA (whole) and ClassB (part), we can be more specific and
+use the aggregation link instead of the association link, highlighting that the same ClassB instance can also be
+aggregated by other classes in the application (therefore aggregation is also known as shared association).
+
+Aggregation says that the part can exist on its own as well. The aggregation link is usually used to stress the point that ClassA instance is not the exclusive
+container of ClassB instance, as in fact the same ClassB instance has another container/s.
+'/
+class Order
+class Car
+'both Order and Car can hold an Engine reference
+class Engine
+Order o-- Engine : order holds engine reference
+Car o-- Engine : order holds engine reference
+
+/'
+Composition (Not-Shared Association)
+We should be more specific and use the composition link in cases where in addition to the part-of relationship between ClassA and ClassB - there’s a strong lifecycle
+dependency between the two, meaning that when ClassA is deleted then ClassB is also deleted as a result.
+'/
+class Person
+class Hand
+class Leg
+Person "1" *-- "2" Hand : person contains hand
+Person *-- Leg : person contains leg
+@enduml
+

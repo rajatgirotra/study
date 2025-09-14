@@ -1,0 +1,62 @@
+@startuml
+'text alignment using skinparam sequenceMessageAlign
+'by default text aligns to left
+autonumber
+
+skinparam sequenceMessageAlign center
+skinparam responseMessageBelowArrow true
+
+participant Alice as A
+participant Bob as B
+
+participant Rajat as R #lightblue
+participant Vidhu as V #hotpink
+
+A --> B: Center
+'this is not a response message
+R <-> V: Married
+'the below is a response msg. so text is below the arrow
+A <- V : Response
+
+'many types of arrows are possible
+B -[#red]>x A
+B -[#blue]> A
+B --> A
+'reset autonumber using "autonumber <start> <increment>"
+autonumber 40 10
+B -[#orange]->> A
+B -[#cyan]>> A
+B -[#yellow]\ A
+B \\[#navy]- A
+autonumber 15
+B //[#green]-- A
+B ->o A
+B -> A
+B o\\-- A
+B <-> A
+B <->o A
+B o<->o A
+/'
+autonumber can also take a format for how to print the number
+0 in the format means digit if available or otherwise 0,
+# means digit if available and space if absent
+we can also use some HTML like <b> for bold, <u> for underline
+<font color=red>
+'/
+autonumber 1 1 "<b><u>00</u>"
+A -> B
+
+autonumber 10 1 "Message <b><i><font color=red>00</i>"
+A -> B
+
+autonumber stop
+A -> B : No autonumber on this one
+
+autonumber resume
+A -> B : autonumber resumed on this one
+note right
+try also
+<math>d/dxf(x)=lim_(h->0)(f(x+h)-f(x))/h</math>
+end note
+
+@enduml

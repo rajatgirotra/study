@@ -67,6 +67,11 @@ find_package(gRPC REQUIRED)
 message(STATUS "using grpc ${gRPC_VERSION_STRING}, include-path: ${gRPC_INCLUDE_DIRS},"
         " libs - ${gRPC_LIBRARIES}")
 
+find_package(benchmark REQUIRED)
+message(STATUS "using google benchmark ${benchmark_VERSION_STRING}, include-path: ${benchmark_INCLUDE_DIRS},"
+        " libs - ${benchmark_LIBRARIES}")
+
+
 add_executable(main main.cpp)
 
 add_subdirectory(src)

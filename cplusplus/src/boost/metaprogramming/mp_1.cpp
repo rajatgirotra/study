@@ -20,6 +20,11 @@ namespace detail {
         using expand = int[];
         (void)expand {0, ((void)std::forward<Callable>(f)(Types{}), 0)...};
     }
+
+    /*
+     * ListType is actually a template class itself. This is a very common pattern to find the template parameters (T...)
+     * of a template class which is passed as a template argument itself.
+     */
     template <typename ListType> struct MySizeOfImpl {};
     template <template <typename...> class ListType, typename... Types> struct MySizeOfImpl<ListType<Types...>> {
         using type = std::integral_constant<std::size_t, sizeof...(Types)>;
@@ -77,7 +82,7 @@ int main() {
     });
 
     // mp_if<Condition, T, E> is very similar to std::conditional_t
-    static_assert(std::is_same_v<mp11::mp_if<true_type, A, B>, A>);
+    static_assert(std::is_same_v<mp11::mp_if<mp11::mp_true, A, B>, A>);
     static_assert(std::is_same_v<my_mp_if<false_type, A, B>, B>);
 
     // mp_identity<T>::type is T

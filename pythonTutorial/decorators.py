@@ -17,7 +17,7 @@ class Base (object):
     i = 12345  # can be accessed as Base.i
     tricks = []  # again shared by all instance using Base.tricks
 
-    # C;tor
+    # C'tor
     def __init__(self, firstname, lastname):
         # Define all member variables here
         self.fname = firstname
@@ -28,7 +28,7 @@ class Base (object):
         print('foo() ', self.fname, self.lname)
 
     # Lets declare a classmethod-
-    # A class method is a speciall method which gets the class object
+    # A class method is a special method which gets the class object
     # as its first argument instead of the this pointer (ie the self variable)
     # There are two ways you can do this.
     def cls_method(cls, *args):
@@ -53,7 +53,7 @@ class Base (object):
     # @a(args)
     # @b
     # void foo(*fooArgs) means
-    # foo = a(arg)(b(foo))  # ie b takes foo and retuns a functio object
+    # foo = a(arg)(b(foo))  # ie b takes foo and retuns a function object
     # then a is called with argument arg. "a" must return a function object
     # which takes a function object returned by b.
 

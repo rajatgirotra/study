@@ -1,0 +1,31 @@
+uv is a tool written in rust which aims to be a all in one tool for python. It can create virtual environments, download and install packages from pip, manage your python project and dependencies, run python applications and also install python tools in a common area so they are available for the user globally (i.e. outside of virtual envs, ex: in $HOME/.local/bin)
+
+install using a curl command on uv website
+
+1. create python project
+uv init <appName> --app (for creating application)
+uv init <appName> --lib (for creating a python library)
+uv init <appName> --package (for creating python package)
+uv init <appName> --script (for creating python scripts)
+Many other options are available.
+uv will create a new folder with <appName> and create a complete project structure inside it. It will include files like .git, .gitignore, .python-version, pyproject.toml, uv.lock, main.py
+
+2. add dependencies, ex:
+uv add requests flask
+will create a new virtual env in .venv, and maintain dependencies in pyproject.toml. you should not need to manually edit pyproject.toml file.
+
+3. running application
+uv run main.py
+will create virtual env (if missing) and activate it and run your application.
+
+4. when you distribute your application source via github. the other side only needs to run:
+uv sync. This ensures that they get exactly the same virtual env with same dependencies so everything remains consistent. uv uses pyproject.toml and uv.lock files for this. so uv.lock file should also be checked into source control.
+
+5. uv tool install ruff
+To install python applications globally. After you are done, you can run "uv tool uninstall ruff". If you don't want to install and you can still use by running "uvx run ruff". uvx is another tool that comes with uv. uvx will install the tool, run your command and then uninstall it.
+
+6. uv pip <subcommand>. you can also use uv as a frontend for pip. this way you dont have to learn a new tool and also you get the added advantage of uv performance.
+
+Run uv --help or uv <subcommand> --help. Its very trivial actually.
+
+

@@ -41,3 +41,31 @@ def debug(func):
         print(f'{func.__name__} returned {value!r}')
         return value
     return wrapper_debug
+
+# let's try to write a decorator which can optionally take some arguments too.
+# example: a decorator "repeat" which by default repeats twice, but can take an argument 'count' and repeats the function 'count' times.# basically, the thing to remember is that repeat(count=4) and repeat(func) both are to be supported so "func" could be none at times and we need to an if condition based on that "func" being None or not.
+def repeat(func=None, *, count=2):
+    assert count >=0, "repeat count cannot be zero or negative"
+    def decorator(func):
+       assert callable(func), f"expected callable, got {type(func).__name__}"
+       @functools.wraps(func)
+       def wrapper_repeat(*args, **kwargs):
+           for i in range(count-1):
+               func(*args, **kwargs)
+           return func(*args, **kwargs)
+       return wrapper_repeat
+
+    if func is None:
+        return decorator
+    return decorator(func)
+
+@repeat
+def say_whee():
+    print('Whee')
+
+@repeat(3)
+def dwim():
+    print('Do not repeat!')
+
+say_whee()
+dwim()

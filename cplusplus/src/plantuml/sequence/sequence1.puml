@@ -1,0 +1,16 @@
+@startuml
+
+autonumber
+== initialization ==
+
+Alice -> Bob : authentication request
+Bob --> Alice : authentication response
+
+== repetition ==
+
+'use --> for dotted sequence line
+Alice --> Bob : another authentication request
+'for better readability, leave actor names as is and change arrow direction
+Alice <- Bob : another authentication response
+
+@enduml

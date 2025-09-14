@@ -1,0 +1,2 @@
+add_executable(benchmark_understanding benchmark_understanding.cpp)
+target_link_libraries(benchmark_understanding PRIVATE benchmark::benchmark_main ${PROJECT_NAME_LOWERCASE}_project_options  ${PROJECT_NAME_LOWERCASE}_project_warnings)

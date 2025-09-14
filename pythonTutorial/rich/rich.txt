@@ -1,0 +1,24 @@
+rich is a python api which allows you to beautify and add variety of colors to your terminal. It is a library which has many packages. it supports
+1. various colors and styles
+2. pretty printing data structures in a format which is pleasing and easily understood.
+3. supports emojis.
+4. formating of tables with colors
+5. progress bars
+6. beautiful logging and tracebooks.
+7. support for syntax highlighting, language support (even Markdown is supported) 
+
+pip install rich
+pip install rich_tools (for converting pandas dataframes to beautiful colored tables)
+
+start with "python -m rich"
+
+Console class
+============
+the Console class provided by Rich is used to do all the heavy lifting of formatting your terminal text. You only need a single object of this class you just create a console.py which creates a console object which can be imported everywhere. the console ctor detects the terminal capabilities like color system, terminal size, encoding etc.
+
+Syntax Highlighting
+===================
+
+
+rich provides a print function which can be used instead of normal python print
+

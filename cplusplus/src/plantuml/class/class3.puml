@@ -1,0 +1,42 @@
+@startuml
+-enum Team {
+RISK
+PAS
+TFS
+}
+
++class Employee << Singleton >> {
+# firstName
+# lastName
+# id
+-- Ctor and Dtor --
++Employee(first, last, id)
++\~Employee()
+.. Simple getters ..
+{static} string company() const
++name()
++std::size_t id()
++Team team()
+== Printer ==
++ostream& operator << (ostream& os, const Employee&)
+}
+Employee --> Team : > uses
+note top of Employee : "Very primitive class\n for you!"
+
+'how to add namespace(just encapsulate in package)
+package "raf.shm" {
+'add template arguments
++class spmc_persister_base<MappedType,\
+MappedTypeWrapper=default> {
+  int size()
+}
+
+'Add your own Spot character and color"
+#class Date << (D,orchid) >> {
+}
+
+package "raf.messages" {
+class marking
+}
+}
+@enduml

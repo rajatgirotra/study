@@ -1,0 +1,61 @@
+in python we can have scripts, modules, packages and libraries.
+scripts: very basic .py file which you can call using "python scriptName.py"
+module: a python file with some classes, functions, variables which you import using "import myModule" and then use the classes, functions, variables using myModule.<Class/Function/Variable>
+packages: a collection of modules organized in a directory structure. Each directory has a __init__.py file. you can import packages and modules in a package to use them.
+libraries: a collection of multiple packages and modules which are related. Examples: numpy, pandas, matplotlib, requests etc are all libraries.
+
+In python, these packages are packaged and distributed in two ways:
+1. either the source distribution (usually a .tar.gz file)
+2. or binary distribution (usually a .whl i.e. a wheel file). An older way to package python packages is called egg, but we will not discuss it here.
+
+There are multiple tools(called backends) available to package up your python source code. Some of these are:
+* setuptools - probably the most widely used and adopted tool. depends on a setup.py file to list name, version, author, dependencies, package_directory, etc information.
+
+* sckit-build-core - Another backend which is especially useful if you write custom and complex C++ code and bindings for those in python. It requires CMake, a gcc/clang compiler and can build the native dependency for you as part of the package install. Definitely use this if your C++ source code is complex.
+
+* filt - another very basic pure python package manager.
+
+* poetry - yet an another python based python manager
+
+* hatchling - definitely another python based python manager
+
+You already bknow how to create and manage a modern python project using pyproject.toml file instead of requirements.txt. the same pyproject.toml file can be used to also build and package your project. A pyproject.toml file can have a section which lists the backend you want to use. Example: for setuptools we use:
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+For scikit-build-core, we have:
+[build-system]
+requires = ["scikit-build-core>=0.3.0"]
+build-backend = "scikit_build_core.build"
+
+For filt
+[build-system]
+requires = ["flit_core>=3.2"]
+build-backend = "flit_core.buildapi"
+
+For hatchling
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+to actually build your project using pyproject.toml, we give the command:
+"python -m build" or "uv build"
+python -m build --wheel    # just wheel
+python -m build --sdist    # just source
+
+====================================================
+pip install .  # Pip looks at pyproject.toml, builds a wheel behind the scenes, then installs it. Equivalent to building + installing in one step.
+pip install -e . # Doesn’t copy your files into site-packages. Instead, it creates a link to your working directory, so changes in your source code are immediately visible when you import it. Very handy during development.
+pip install git+https://github.com/user/repo.git # pip will clone the repo, build the wheel using whatever backend is in pyproject.toml, and install it
+====================================================
+
+Let's try to learn how to build a python project both using setuptools and then using pyproject.toml
+
+
+
+
+this will build your binary wheel file which you can install using pip or uv
+pip install pip install dist/mypackage-0.1.0-cp39-cp39-linux_x86_64.whl
+uv add dist/mypackage-0.1.0-cp39-cp39-linux_x86_64.whl
