@@ -1,0 +1,24 @@
+@startuml
+'using skinparam command to play with colors
+skinparam class {
+BackgroundColor PaleGreen
+ArrowColor Orange
+BorderColor Purple
+'stereotypes classes can also have their custom fonts, size, color, alignment etc
+BackgroundColor<<Foo>> Wheat
+BorderColor<<Foo>> Tomato
+}
+
+skinparam stereotypeCBackgroundColor Yellow
+'note: NO SPACE SHOULD BE GIVEN FOR GIVING STEREOTYPES
+skinparam stereotypeCBackgroundColor<<Foo>> DimGray
+
+Class01 "1" *-- "many" Class02 : contains
+Class03 o- Class04 : aggregation
+
+class Class05 <<Foo>>
+class Class06 <<Foo>>
+Class05 "1" *-- "many" Class06 : contains
+Class07 o-- Class08 : aggregation
+
+@enduml

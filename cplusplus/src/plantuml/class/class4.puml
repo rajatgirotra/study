@@ -1,0 +1,37 @@
+@startuml
+'by default links between classes are shown vertically. But you can
+'make changes so it shows horizontally. Let's see
+'you have to use a single dot like below.
+Room -- Student
+Room1 o- Student1
+Room2 *- Student2
+Room3 -o Student3
+Room4 <|-o Student4
+
+'another way is to use left, right, up, down keywords (more intuitive)
+foo -left-> dummyLeft
+foo -right-o dummyRight
+foo -up-* dummyUp
+foo -down-|> dummyDown
+
+'left to right direction
+'if you enable the line below, plantuml will draw everything to to bottom.
+'not sure how this works really.
+
+'instead of a line/arrow to depict relationships between classes, we can have a whole class called an "association class".
+'then we can add details about that association in that class.
++class Pupil {
+ Name
+}
+
+'0 or more pupils can enroll in 1 or more courses.
+Pupil "0..*" -- "1..*" Course
+(Pupil, Course) . Enrollment
+hide empty members
+class Enrollment {
+.. Members ..
++drop()
++cancel()
+}
+
+@enduml

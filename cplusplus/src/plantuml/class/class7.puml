@@ -1,0 +1,26 @@
+@startuml
+'page (hpages)x(vpages) is used to split a large drawing into multiple pages
+page 3X2
+skinparam pageMargin 10
+skinparam pageExternalColor gray
+skinparam pageBorderColor black
+
+'layout of classes using together. you can use the together keyword to group classes together as if they are all in the same namespace.
+class Together3
+class Bar1
+class Together1
+class Bar2
+class Together2
+
+together {
+  class Together1
+  class Together2
+  class Together3
+}
+
+Together1 -> Together2
+
+'or you can use hidden links for forcing the layout.
+Together2 -[hidden]--> Bar1
+Bar1 -[hidden]> Bar2
+@enduml

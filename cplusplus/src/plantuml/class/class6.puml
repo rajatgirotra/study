@@ -1,0 +1,23 @@
+@startuml
+'playing more with color
+
+'changing the complete background. We are giving two color separated by a /.
+'use separators \, or | or - to control the direction of the gradient
+skinparam backgroundcolor AntiqueWhite/Gold
+skinparam class {
+ 'default background color for all classes. We will override it below
+ BackgroundColor Wheat|CornflowerBlue
+}
+
+'can setup color at package level also
+package example #GreenYellow/LightGoldenRodYellow {
+class Dummy
+}
+
+'override color for one class
+class Foo #red-green
+note left of Foo #blue\9932CC
+    this is my
+    note on this class
+end note
+@enduml

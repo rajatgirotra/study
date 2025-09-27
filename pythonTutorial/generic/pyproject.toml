@@ -1,0 +1,18 @@
+[project]
+name = "generic"
+version = "0.1.0"
+description = "study and understanding of useful python features, concepts, tools and packages"
+readme = "README.md"
+authors = [
+    { name = "Rajat Girotra", email = "rajatgirotra@yahoo.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic[email]>=2.11.9",
+    "pyyaml>=6.0.3",
+    "rich>=14.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,0 +1,23 @@
+@startuml
+'some more concepts
+
+class BaseClass
+
+'create package called net.dummy with classes Meeting and Person
+'Meeting holds Person objects (aggregation)
+'BaseClass is base of Person
+'BaseClass is base of Meeting
+package net.dummy #DDDDDD {
+  BaseClass <|-- Meeting
+  BaseClass <|-- Person
+  Meeting o-- Person
+}
+
+'have another "unused" namespace with class Person
+package net.unused {
+  'doesnt work.
+  'BaseClass <|-- Person
+}
+'the following works
+BaseClass <|-- net.unused.Person
+@enduml

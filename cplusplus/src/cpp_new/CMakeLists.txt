@@ -1,7 +1,8 @@
-add_subdirectory(concepts)
+add_subdirectory(general)
+#add_subdirectory(concepts)
 #add_subdirectory(cpp_modules)
 #add_subdirectory(ranges_and_views)
-add_subdirectory(format)
+#add_subdirectory(format)
 
 add_executable(cpp_new_mix1 mix_1.cpp)
 target_link_libraries(cpp_new_mix1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
