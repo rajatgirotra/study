@@ -1,0 +1,26 @@
+__init__ : constructor method for a class
+
+__eq__ : support == for your class objects
+__lt__ : support < operator for your class objects
+__le__ : support less than equal to for your class objects
+__gt__ : support > operator for your class objects
+__ge__ : support greater than equal to for your class objects
+__ne__ : supports != operator for your class objects
+
+
+__add__ : defines + operator for your class objects
+__sub__ : defines - operator for your class objects
+__mul__ : defines * operator for your class objects
+__truediv__ : defines / operator for your class objects
+
+__len__ : define len(obj) to be allowed
+__getitem__ : allow defining index of operator for your class. i.e. []
+
+__hash__ : allow your class object to be used in a HashMap.
+
+__str__: returns a string that represents your object of the class. str() will call __str__()
+__repr_: returns a string that represents your object of the class. repr() will call repr method. Format = ClassName(field, field2 etc)
+
+
+
+

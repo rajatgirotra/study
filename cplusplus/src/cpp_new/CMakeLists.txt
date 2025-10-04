@@ -46,6 +46,12 @@ target_link_libraries(cpp_new_inline_variables_16 PRIVATE ${PROJECT_NAME_LOWERCA
 add_executable(cpp_new_if_constexpr_20 if_constexpr_20.cpp)
 target_link_libraries(cpp_new_if_constexpr_20 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp_new_string_view_25 std_string_view_25.cpp)
+target_link_libraries(cpp_new_string_view_25 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_new_string_view_26 std_string_view_26.cpp)
+target_link_libraries(cpp_new_string_view_26 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
 add_executable(cpp_new_integer_sequence_31 integer_sequence_31.cpp)
 target_link_libraries(cpp_new_integer_sequence_31 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 

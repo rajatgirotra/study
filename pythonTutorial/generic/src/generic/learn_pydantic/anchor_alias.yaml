@@ -1,0 +1,20 @@
+default_server_config: &server_defaults
+  host: 127.0.0.1
+  port: 8080
+
+timeouts: &timeouts
+  connect_timeout: 10
+  read_timeout: 30
+
+web_service_1:
+  <<: [*timeouts, *server_defaults] # this is a merge key. i.e. merge host, port, timeout but anything locally defined will take precedence.
+  name: "Service A"
+  read_timeout: 60
+  write_timeout: 20
+
+web_service_2:
+  <<: *server_defaults
+  name: "Service B"
+  port: 8081 # Override a default value
+  connect_timeout: 10
+  read_timeout: 5

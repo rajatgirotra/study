@@ -25,6 +25,9 @@ struct member_variable : std::false_type {};
 template <typename T, typename C>
 struct member_variable<C T::*> : std::true_type {};
 
+template <typename T>
+inline constexpr bool member_variable_v = member_variable<T>::value;
+
 template <auto N>
 void foo() {
     if constexpr (member_variable<decltype(N)>::value) {
@@ -59,7 +62,7 @@ struct MyClass {
 
 static const int VALUE = 10;
 constexpr const int* pValue = &VALUE;
-const int& valueRef = VALUE;
+constexpr const int& valueRef = VALUE;
 
 struct StaticConfig {
     int m_i;
@@ -93,6 +96,7 @@ int main() {
     // so &VALUE qualifies, because it is an address of a constant expression.
     // pValue does not qualify, as it is a runtime variable holding a pointer value, and variables cannot be used as NTTPs.
     // if you make pValue constexpr, then yes you can use it.
+    foo<valueRef>();
 
     [[maybe_unused]] MyClass myClass;
     myClass.m_real = 3.14;
