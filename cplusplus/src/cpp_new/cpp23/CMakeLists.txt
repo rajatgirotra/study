@@ -1,0 +1,8 @@
+add_executable(cpp23_signed_unsigned_size_t signed_unsigned_size_t.cpp)
+target_link_libraries(cpp23_signed_unsigned_size_t PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp23_lambda_simplification lambda_simplification.cpp)
+target_link_libraries(cpp23_lambda_simplification PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp23_if_consteval if_consteval.cpp)
+target_link_libraries(cpp23_if_consteval PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

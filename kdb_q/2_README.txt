@@ -32,8 +32,8 @@ real values i.e. 4 byte floats having single precision are usefless in finance. 
 char data type just holds a single character in ASCII or Unicode. special characters can also be stored using escape sequence \.
 Example: "\"" for quotes, "\\" for backslash, "\r, \n, \t" for line feed, tab, new line etc.
 
-Symbol and strings are different in Q. Symbols cannot be broken down into characters. they are precided by a back tick. Example: `helloworld. Symbols can have blanks and special chars too
-string are a sequence of characters enclosed inside quotes. You can create a symbol from a string using casting. Example:
+Symbol and strings are different in Q. Symbols cannot be broken down into characters. they are precided by a back tick. Example: `helloworld. Symbols can have blanks and special chars too.
+strings are a sequence of characters enclosed inside quotes. You can create a symbol from a string using casting. Example:
 
 `$"a very long symbol with blanks"
 

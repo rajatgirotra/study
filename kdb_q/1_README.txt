@@ -10,12 +10,12 @@ comments are written using \
 System command
 ==============
 
-q has a system command which allows you to play with q environment. Most of the system command accept optional arguments. When no arguments are provided, the default value for that option is displayed. Some of the example of q commands are. 
+q has a system command which allows you to play with q environment. Most of the system command accept optional arguments. When no arguments are provided, the default value for that option is displayed. Some of the example of q system commands are. 
 
 \l <script.q> / to load a q script or directory
 
 \a / list tables in the current namespace. See namespaces below
-\ ns / list tables in the ns namespace
+\a ns / list tables in the ns namespace
 
 \cd /some/path / change to directory /some/path. 
 \cd / print the current directory
@@ -33,13 +33,13 @@ q has a system command which allows you to play with q environment. Most of the 
 
 You can also use system command like this:
 
-system [cmd]eg:
+system [cmd], eg:
 system "l /path/to/someScript.q"
 
 
 Namespaces
 ==========
-In q you can define variables. by what happens when you load from so many different sources which all use a common variable. There will be nameclashes. to avoid this you can create namespaces. namespaces are automatically created when you decalare a variable in a namespace. The default namespace is the root namespace identified by a dot ".". In any namespace you can execute the command: key` to view the namespaces there. Under the hood namespaces are implemented as q dictionaries. Infact you can also change your context to any available namespace by using the \d system command. When you change to any context, you can still access global variables in other namespace using relative paths. Example:
+In q you can define variables. by what happens when you load from so many different sources which all use a common variable. There will be nameclashes. to avoid this you can create namespaces. namespaces are automatically created when you decalare a variable in a namespace. The default namespace is the root namespace identified by a dot ".". In any namespace you can execute the command: key` to view the namespaces there. Under the hood namespaces are implemented as q dictionaries. that is why you are able to use the "key" keyword on them. Infact you can also change your context to any available namespace by using the \d system command. When you change to any context, you can still access global variables in other namespace using relative paths. Example:
 
 q).jab.util.counter:0 / will automatically create namespace .jab.util with variable counter = 0
 q)\d .jab
@@ -73,7 +73,7 @@ So how does namespacing work to more than 1 level down? It does. Just remember t
 Views
 =====
 A view is a calculation that is re-evaluated on demand. A view can be thought of a variable whose value depends on other variables and the value itself is lazily computed on demand.
-A view is created using the syntax. The following defines a view called myview which depends on vars a and b.
+A view is created using the double colon syntax "::" The following defines a view called myview which depends on vars a and b.
 
 q)myview::a+b
 q)a:1
