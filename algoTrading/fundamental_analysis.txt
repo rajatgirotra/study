@@ -1,0 +1,130 @@
+Earnings per share 
+==================
+Higher EPS means better stock. When looking at EPS, look at NTM (estimated EPS for the Next Twelve Months). This is because markets tend to look ahead.
+Ideally, price should follow earnings. If earnings go up, so should price and vice-versa. You should not buy when earnings are going down. You should buy when earnings are going up.
+https://www.koyfin.com/
+
+P/E ratio
+=========
+P/E = Price ÷ Earnings per share
+It tells you how many years of earnings the market is willing to pay for the stock.
+Example if P = 100, and EPS = 10, P/E = 100/10 = 10 (i.e. you are willing to pay earnings of 10 years upfront).
+
+Another example is lets say you buy a shop on the street for 10 lacs which earns 1 lac every where. so you are paying 10 years of saving upfront to buy the shop.
+Typically you do this because you are confident that the earnings will go up in the future. or you think it is a very stable and risk free investment and you can hold it for long term.
+i.e.
+High P/E → Investors expect strong future growth or view it as a low-risk, high-quality company.
+
+if Price = 10, EPS = 2, P/E ratio = 10/2 = 5. this could mean that either the business is stable and undervalued (so a good stock to buy) or really the business is declining (that's why the market isn't willing to pay more). So Low P/E → Market thinks growth will be slow, earnings are risky, or the business is declining.
+
+So if P/E is high (think is the stock overvalued or is it high because there is a potential growth expected or is it a stable and high quality investment which people hold for long term.
+if P/E is low (think is the stock undervalues or is the earnings/revenues/ROIC/NetIncome/EBITDA) declining.
+
+Book Value
+==========
+Book value is the Total Assets - Total Liabilities i.e. the net asset of a company. It is the value of the company if all its assets are liquidated today.
+Book value per share (BVPS) is simply the Book Value divided by the number of outstanding shares.
+
+P/B ratio
+=========
+Another important metric specially for companies which are asset heavy like Banks (loans and other products are assets), real estate (land is asset) and manufacturing (machinery is asset).
+P/B ratio is Price of share divided by the BVPS. its value could be >1, <1, or =1.
+Example: a company could have
+assets = 10 billion
+liabilities = 4 billion
+shares in the market = 1 billion
+price per share = $8.
+Book value = 10 - 4 = 6 billion
+BVPS = 6e9/1e9 = $6
+P/B ratio = $8/$6 = 1.33
+i.e. investors are paying a 33% premium over its fair net asset value to buy the stock. Generally if:
+P/B ratio >1, means either the stock is overvalued or the company is in growth phase and investors are willing to pay a premium
+P/B ratio <1, means either the stock is undervalued or the company is in distress.
+P/B ratio = 1 means a stable, fairly valued.
+P/B ratio > 3 means really overvalued. This will be the case when investors think the growth will come in future and not from its current assets (so they buy the stock, driving price and P/B ratio up).
+
+Balance Sheets/Financial statements
+===================================
+What to see
+1. Growth --> is the business making profit YoY?
+2. If yes, what are the margins for this business.
+3. ROI --> What is the return on investment.
+
+Look at assets/liabilities/equity in the balance sheet/financial statements.
+See Assets_Liabilities_Equity.png and Operating_Expenses_Margins.png
+
+Basically you need to understand each and every term carefully:
+
+Revenue --> Total value a company fetchs from sales of goods and services.
+COGS (Cost Of good sold) --> similar to cost price.
+
+Assume you sold 150 cups of coffee at $5 which cost $3 to you.
+Revenue = 150 * 5 = 750
+COGS = 450
+
+Gross Profit --> Simply Revenue - COGS (i.e. only accounts for direct cost associated example $3 per cup is your cost which includes raw materials like cup, beans, syrups etc, milk etc).
+
+Operating Expenses --> includes other associated costs like rent, salaries, R&D, labor costs, deprecation, marketing, utilities etc.
+
+EBIT (Earnings before Interests and Taxes) or Operating Profit = Gross Profit - Operating Expenses
+
+EBITDA (Earnings before Interests and Taxes and Deprecation and Amortization) --> Gross Profit - Operating Expenses + Deprecation + Amortization, i.e. EBIT + Deprecation + Amortization
+What is happening is that EBITDA shows a companies core operational performance by excluding financing decisions (interest), tax environments and non-cash accounting charges (deprecation/amortization). So EBITDA measures a companies overall operational profitability and cash flow from core business activities.
+
+Pre Tax income is income after paying out interests. = EBIT - Interests
+
+Net income is income after tax = Pre Tax Income - Taxes
+
+Earnings Per share: net income divided by outstanding shares will give you the earnings per share.
+
+So if revenue = $1000, COGS = $400, Gross Profit is $600. If Operating Expenses = $350 and Deprecation is $50, so EBIT = $600 - $400 = 200.
+EBITDA = $200 + Deprecation $50 = $250.
+So basically Gross profit of $600 and EBITDA of $250 means you spent $350 as cash flow for the daily run of your business.
+
+Return on Equity (ROE %)
+========================
+So ROE is an important metric from stakeholder point of view. It tells you how much is the real return on every one dollar of equity that you hold in a company.
+ROE% is calculated as Net Income % (total stakeholder equity). Total stakeholder equity is nothing but the book value (i.e. total assets - total liabilities). A high ROE suggests the company is efficient at using its equity base to generate profits. but there is one caveat here. ROE can be artificially inflated by high financial leverage (taking on a lot of debt). A company with massive debt can boost ROE even if its underlying business isn't exceptionally profitable. This makes ROE riskier in isolation. We will see an example below. Always look at ROE and Equity to Debt ratio together.
+
+Return on Invested Capital (ROIC %)
+===================================
+ROIC measures the return a company generates on ALL the capital invested in it, both debt and equity. It answers the question:  "How effectively does this company use ALL its permanent capital (from both lenders and shareholders) to generate profits from its core operations?"
+
+Formula: ROIC = NOPAT / Invested Capital
+
+NOPAT means Net Operating Profit After Tax. This is a company's operating profit (EBIT) adjusted for taxes (i.e apply tax on EBIT to get NOPAT). Key: It excludes interest expense/income to remain "capital structure neutral."
+
+Invested Capital: The sum of all debt and equity capital that is "put to work" in the business. A common calculation is: Equity + Interest-bearing Debt - ExcessCash. It represents the total pool of money the business has to operate with.
+
+ROIC is the ultimate measure of capital allocation efficiency. It shows how good management is at investing money (from any source) into the business to generate operating returns. It is unaffected by the company's debt/equity mix, making it excellent for comparing companies across different industries.
+
+ROIC is most meaningful when compared to the company's Weighted Average Cost of Capital (WACC). If ROIC > WACC, the company is creating value. If ROIC < WACC, it is destroying value, even if it reports a net profit. We will discuss WACC later.
+
+Imagine two identical companies, Company A and Company B, each with $100 in operating assets that generate $15 in annual operating profit (EBIT). The corporate tax rate is 20%.
+Company A (No Debt): Financed entirely with $100 of equity.
+NOPAT = EBIT x (1 - Tax Rate) = $15 x 0.8 = $12
+Net Income = same as NOPAT here, since no interest = $12
+ROE = $12 / $100 Equity = 12%
+ROIC = $12 NOPAT / $100 Invested Capital = 12%
+
+Company B (Uses Debt): Financed with $50 equity + $50 debt (with a 4% interest rate).
+Interest Expense = $50 Debt x 4% = $2.
+Net Income = (EBIT - Interest) x (1 - Tax) = ($15 - $2) x 0.8 = $10.4
+Shareholders' Equity = $50.
+ROE = $10.4 / $50 = 20.8% (Looks much better than Company A!)
+ROIC Calculation:
+NOPAT is the same as Company A: $12 (We don't subtract interest).
+Invested Capital = $50 Equity + $50 Debt = $100.
+ROIC = $12 / $100 = 12% (The same as Company A).
+
+The Takeaway: Company B's ROE (20.8%) is much higher than A's (12%), making it look more efficient to shareholders. However, its ROIC (12%) is identical to A's, revealing that their core business operations are equally profitable. The higher ROE is purely a result of using leverage (debt), which adds risk but magnifies equity returns.
+
+
+If you look at the two statements above, you will see net income of 88 and total equity of 1000. So 88/1000 = 8.8% return on equity.
+return on invested capital (ROIC) = 96$ (i.e. profit before Interest and Tax, i.e. EBIT) / 1100 (total capital including equity + interest) = 96/1100 = 8.7%
+book value per share?? = earlier you had 10 shares at $100, now you have 1088 total capital divided in 10 shares i.e. $109 per share. so a 9% YoY growth.
+
+Separate out good and bad businessess
+======================================
+
+

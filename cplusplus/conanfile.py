@@ -97,7 +97,7 @@ class CPlusPlusConan(ConanFile):
         # What if you depend on boost and boost provides a binary (like some code generator) that you need to run at
         # build time, then you can define the run=True below. It will put BOOST_ROOT/bin in the path at build time.
         # and this dependency is propagated to the consumers downstream..
-        self.requires("boost/1.86.0", headers=True, libs=True)
+        self.requires("boost/1.89.0", headers=True, libs=True)
         self.requires("grpc/1.69.0", headers=True, libs=True,
                        options={})
         self.requires("benchmark/1.9.4", headers=True, libs=True)

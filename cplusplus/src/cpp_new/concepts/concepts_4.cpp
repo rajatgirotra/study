@@ -7,7 +7,7 @@
 #include <atomic>
 using namespace std;
 
-// create a template function which takes a Collection and a value and inserts it in the collection.
+// create a template function which takes a Collection and a value and inserts it in the collection using simple push_back().
 //template <typename Coll, typename T>
 //void add(Coll& coll, const T& value) {
 //    coll.push_back(value);
@@ -24,7 +24,7 @@ template <typename Coll, typename T>
 concept SupportsPushBack = requires(Coll c, T v) {
     c.push_back(v);
     std::is_copy_constructible_v<T>;
-    requires std::convertible_to<T, typename Coll::value_type>; // as std::convertible_to is a concept, we need to use the requires clause
+    requires std::convertible_to<T, typename Coll::value_type>;    // as std::convertible_to is a concept, we need to use the requires clause
     std::is_convertible_v<T, typename Coll::value_type>; // or we can use this instead.
 };
 

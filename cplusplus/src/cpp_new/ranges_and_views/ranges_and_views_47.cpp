@@ -29,6 +29,7 @@ int main() {
     cout << endl;
     cout << "\ntype of view returned by vws::take(..):  " << demangle(typeid(decltype(v)).name()) << endl;
     /* Type of take view: std::ranges::take_view<std::ranges::ref_view<std::vector<int, std::allocator<int> > > > */
+    /* Note that sizeof owning_view and ref_view are different suggesting that owning_view owns the underlying range */
 
     // create a view from intVec where elements are divisible by 3.
     auto v1 = vws::filter(intVec, [](const auto &elem) { return elem % 3 == 0; });

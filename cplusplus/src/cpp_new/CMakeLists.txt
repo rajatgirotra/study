@@ -1,9 +1,11 @@
 #add_subdirectory(general)
+add_subdirectory(chrono)
 #add_subdirectory(concepts)
 #add_subdirectory(cpp_modules)
 #add_subdirectory(ranges_and_views)
 #add_subdirectory(format)
-add_subdirectory(cpp23)
+#add_subdirectory(cpp23)
+add_subdirectory(cpp26)
 
 add_executable(cpp_new_mix1 mix_1.cpp)
 target_link_libraries(cpp_new_mix1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

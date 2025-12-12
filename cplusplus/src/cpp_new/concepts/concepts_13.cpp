@@ -35,6 +35,7 @@ int main() {
     {
         auto rg_first_2 = vws::take(intVec, 5);
         pos = rng::find(rg_first_2, 3);
+        cout << "A value " << *pos << " found at index " << std::distance(begin(intVec), pos) << endl;
         // trivial to understand
     }
 

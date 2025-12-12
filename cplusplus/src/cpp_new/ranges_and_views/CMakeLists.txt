@@ -39,3 +39,9 @@ target_link_libraries(cpp_range_and_views_84 PRIVATE ${PROJECT_NAME_LOWERCASE}_p
 
 add_executable(cpp_range_and_views_85 ranges_and_views_85.cpp)
 target_link_libraries(cpp_range_and_views_85 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_86 ranges_and_views_86.cpp)
+target_link_libraries(cpp_range_and_views_86 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+add_executable(cpp_range_and_views_scratch scratch.cpp)
+target_link_libraries(cpp_range_and_views_scratch PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

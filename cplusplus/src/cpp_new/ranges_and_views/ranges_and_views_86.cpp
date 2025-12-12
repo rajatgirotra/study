@@ -1,5 +1,5 @@
 /*
- * DO's and DONT's with views
+ * DOs and DON'ts with views
  */
 #include <iostream>
 #include <concepts>
@@ -27,20 +27,18 @@ string demangle(const char* const mangled_name) {
 auto getValues()
 {
     std::vector coll{1, 2, 3, 4, 5};
-    return coll | std::views::drop(2); // ERROR: return reference to local range.
+    // return coll | std::views::drop(2); // ERROR: return reference to local range.
     // since coll is an lvalue, the resulting view would be a ref_view.
 
     // return std::move(coll) | std::views::drop(2); // This is OK.
 }
 
-auto getValues()
-{
-    return std::vector {1, 2, 3, 4, 5} | std::views::drop(2); // OK
-    // the resulting view will be an owning_view.
-}
+// auto getValues()
+// {
+//     return std::vector {1, 2, 3, 4, 5} | std::views::drop(2); // OK
+//     // the resulting view will be an owning_view.
+// }
 
 int main() {
-
-
 }
 

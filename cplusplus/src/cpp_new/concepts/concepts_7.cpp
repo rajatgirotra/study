@@ -82,7 +82,7 @@ namespace std {
 template<typename T>
 concept StdHashExistsInvalid = requires(T t)
 {
-    typename std::hash<T>;
+    typename std::hash<T>; // invalid as this will always be true for any T.
 };
 
 template<typename T>
@@ -90,6 +90,13 @@ concept StdHashExistsValid = requires(T t)
 {
     std::hash<T>{};
 };
+
+template<typename T>
+concept StdHashExistsValid2 = requires(T t)
+{
+    std::is_constructible_v<std::hash<T>>;
+};
+
 
 
 template<StdHashExistsInvalid T>

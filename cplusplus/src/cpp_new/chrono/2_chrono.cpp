@@ -32,7 +32,7 @@ int main()
     real_hours_type real_hrs2(sec); //this is because real_hours_type first template parameter is a double, so it will be assigned a fractional value.
     cout << real_hrs2.count() << endl;
 
-//    seconds_type sec2(real_hrs2); //now the reverse is not possible as the source type is double and target is int. so use duration_cast
+    // seconds_type sec2(real_hrs2); //now the reverse is not possible as the source type is double and target is int. so use duration_cast
     seconds_type sec2 = duration_cast<seconds_type>(real_hrs2);
     cout << sec2.count() << endl;
     return 0;

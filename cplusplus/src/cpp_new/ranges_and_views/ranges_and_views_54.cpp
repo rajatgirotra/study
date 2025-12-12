@@ -37,7 +37,7 @@
  * 1) rng::iota_view --> in this view, the iterator itself stores the current value to be used and incremented.
  * 2) rng::empty_view --> in this view, the iterator always points to the end iterator so there are no elements to be traversed.
  * 3) views where the iterators directly refer to the underlying range on which the view is constructed. This is the case with
- *    3.a) std::string_view (is borrowed_range because it points to a buffer in an underlyin string object)
+ *    3.a) std::string_view (is borrowed_range because it points to a buffer in an underlying string object)
  *    3.b) rng::ref_view (because it points to an underlying buffer)
  *    3.c) std::span
  *    3.d) std::ranges:subrange

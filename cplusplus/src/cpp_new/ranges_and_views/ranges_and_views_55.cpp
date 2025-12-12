@@ -65,14 +65,14 @@ int main() {
     std::cout << "Pos5: " << *pos5 << endl;
 
     [[maybe_unused]] auto pos6 = std::ranges::find(std::views::empty<int>, 8); // borrowed range
-    std::cout << "Pos6: " << *pos6 << endl; // can dereference an iterator of an empty<> range.
+    // std::cout << "Pos6: " << *pos6 << endl; // can't dereference an iterator of an empty<> range.
 
-    auto counted_view = std::views::counted(std::vector{0, 8, 15}.begin(), 2);
+    [[maybe_unused]] auto counted_view = std::views::counted(std::vector{0, 8, 15}.begin(), 2);
     // views created by counted() adaptor are borrowed ranges. Why? Read the description at the end.
     // counted() doesnt take a range, it takes an iterator as argument and a count of number of elements in the view.
     [[maybe_unused]] auto pos7 = std::ranges::find(std::views::counted(std::vector{0, 8, 15}.begin(), 2),8);
     std::cout << "Pos7: " << *pos7 << endl; // although counted() returns a borrowed_range, if the underlying range itself is a temporary, like std::vector{0, 8, 15} here
-    // the iterator will be invalid after the function call the temporary will be destroyed.
+    // the iterator will be invalid after the function call and the temporary will be destroyed.
     // so even though pos7 may print correct value, it is actually undefined behavior.
 
     auto v = vws::take(std::vector{0, 8, 15}, 2);
@@ -80,8 +80,8 @@ int main() {
     cout << "Pos8: " << *pos8 << endl;
     cout << "type of v: " << demangle(typeid(decltype(v)).name()) << endl; // all this is ok. v is an lvalue so lifetime of vector is extended.
 
-    auto pos9 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
-    std::cout << "Pos9: " << *pos8 << endl;  // runtime ERROR even if 8 found
+    [[maybe_unused]] auto pos9 = rng::find(vws::counted(std::vector{0, 8, 15}.begin(), 2), 8);
+    std::cout << "Pos9: " << *pos9 << endl;  // runtime ERROR even if 8 found
     // auto v2 = vws::counted(std::vector{0, 8, 15}.begin(), 2);
     // auto pos9 = rng::find(v2, 8);
     // cout << "type of v2: " << demangle(typeid(decltype(v2)).name()) << endl; // v2 is std::span

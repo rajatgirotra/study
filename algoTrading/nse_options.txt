@@ -90,7 +90,49 @@ This point is important to understand. Historical volatility is derived from his
 
 So implied volatility is a dynamic figure that changes based on activity of traders in the options marketplace. Usually, when implied volatility increases, the price of options will increase as well, assuming all other things remain constant. So when implied volatility increases after a trade has been placed, it’s good for the option owner and bad for the option seller.  Conversely, if implied volatility decreases after your trade is placed, the price of options usually decreases. That’s good if you’re an option seller and bad if you’re an option owner. 
 
-We will see later how Implied volatility is derived, but just remember it is figure arrived at with general consensus in the marketplace. Implied volatility is also measured on an annual basis. It is a PERCENTAGE OF THE STOCK PRICE INDICATING A ONE STANDARD DEVIATION MOVE OVER THE COURSE OF ONE YEAR. Example:
+Implied Volatility is the market’s perception of how much the underlying asset will move (up or down) in the future. It is implied because the option’s price already reflects the expected movement — IV is backed out from the option’s price.  
+  High IV → Market expects big moves → Options become more expensive
+  Low IV → Market expects calm → Options become cheaper
+
+IV does not say direction, only magnitude.
+
+Think of IV as the “temperature” of the options market.
+
+Why Is IV Important?
+====================
+Options buyers need movement to make money. Without movement:
+
+Calls lose value if the price doesn’t go up enough.
+Puts lose value if the price doesn’t go down enough.
+Sellers (writers) profit from time decay and low movement.
+
+So IV determines:
+
+whether an option is overpriced or underpriced
+how much premium you pay or receive
+how fast option prices will react to news or expectations
+
+What’s Special About At-The-Money (ATM) Options?
+==================================================
+ATM options are the ones whose strike ≈ current underlying price.
+
+Example:
+Stock = ₹100
+ATM Call = Strike 100
+ATM Put = Strike 100
+
+ATM options have the highest sensitivity to IV. This is extremely important.
+The Greek Vega (sensitivity of option price to IV changes) is max for ATM options. If IV rises by 1%, ATM option prices increase the most. If IV drops, ATM options lose value the fastest.
+
+So IV changes primarily show up in ATM option prices.
+
+Why does ATM have the highest Vega?
+===================================
+Think of ATM as the “most uncertain” point. OTM options have lower probability of finishing profitable. ITM options already have intrinsic value.
+But ATM options? They’re right on the fence. Small movements decide profit/loss. So any increase in expected movement dramatically affects their value. This is why IV crush after an event (e.g., earnings) hits ATM options the hardest.
+
+We will see later how Implied volatility is derived, but just remember it is figure arrived at with general consensus in the marketplace. 
+Implied volatility is also measured on an annual basis. It is a PERCENTAGE OF THE STOCK PRICE INDICATING A ONE STANDARD DEVIATION MOVE OVER THE COURSE OF ONE YEAR. Example:
 Stock Price: $50 (think of this like the mean price in a bell curve, i.e. μ)
 Implied volatility: 20%.
 So μ - 20% and μ + 20% is $40 and $60 (i.e. one S.D. up and down). 
@@ -110,7 +152,7 @@ But just now we said, that Implied volatility is derived from the option's price
 
 Once the implied volatility is determined for the at-the-money contracts in any given expiration month, market makers then use pricing models and advanced volatility skews to determine implied volatility at other strike prices that are less heavily traded. So you’ll generally see variances in implied volatility at different strike prices and expiration months.
 
-Since at-the-money option is typically the most heavily traded contract, it will be the primary reflection of what the marketplace expects the underlying stock to do in the future. So ALWAYS KEEP A CLOSE EYE ON THE AT-THE-MONEY OPTION EXTRACTS.
+Since at-the-money option is typically the most heavily traded contract(i.e. the most liquid), it will be the primary reflection of what the marketplace expects the underlying stock to do in the future. So ALWAYS KEEP A CLOSE EYE ON THE AT-THE-MONEY OPTION EXTRACTS.
 
 It can’t be emphasized enough, however, that implied volatility is what the marketplace expects the stock to do in theory. And as you probably know, the real world doesn’t always operate in accordance with the theoretical world.
 

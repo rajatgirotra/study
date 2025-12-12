@@ -1,4 +1,4 @@
-AMPS (Advancec Message Processing System) is a messaging middleware built with the following design goals.
+AMPS (Advanced Message Processing System) is a messaging middleware built with the following design goals.
 1. Low latency
 2. High throughput
 3. scalable (distributed)

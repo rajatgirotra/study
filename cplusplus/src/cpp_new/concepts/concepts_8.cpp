@@ -1,5 +1,5 @@
 /*
- * Support add() function for putting a single or multiple values in a std container (be it vecor, set, deque, map)
+ * Support add() function for putting a single or multiple values in a std container (be it vector, set, deque, map)
  */
 
 #include <iostream>

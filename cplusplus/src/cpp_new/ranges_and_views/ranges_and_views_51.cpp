@@ -31,6 +31,8 @@ int main()
     std::vector coll = {42, 8, 0, 15, 7, -1};
 // define a range referring to coll with the value 7 as end:
     rng::subrange range{coll.begin(), EndValue<7>{}}; // i.e. 42, 8, 0, 15
+    // auto range = vws::take(coll, 4);
+
 // sort the elements of this range:
     rng::sort(range);
 // print the elements of the range:

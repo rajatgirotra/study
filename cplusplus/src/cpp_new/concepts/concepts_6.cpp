@@ -1,5 +1,5 @@
 /*
- * Let's take the same example as concepts_38.cpp, but now we want to support both push_back() and insert() via the add() function.
+ * Let's take the same example as concepts_5.cpp, but now we want to support both push_back() and insert() via the add() function.
  * i.e. if collection has insert(), use that, otherwise use push_back() if the collection has push_back()
  *
  * We are only interested in push_back() vs insert() and ignore other requirements like is_copy_constructible and convertible_to

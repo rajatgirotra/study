@@ -4,8 +4,6 @@
 #include <thread>
 using namespace std;
 
-
-
 int main() {
     auto t1 = std::chrono::high_resolution_clock::now(); // t1 is time_point
     std::this_thread::sleep_for(std::chrono::seconds(1));
