@@ -1,3 +1,6 @@
 add_executable(cpp_new_non_type_template_parameter non_type_template_parameter_1.cpp)
 target_link_libraries(cpp_new_non_type_template_parameter PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+add_executable(cpp_new_source_location_string_view source_location_string_view.cpp)
+target_link_libraries(cpp_new_source_location_string_view PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+

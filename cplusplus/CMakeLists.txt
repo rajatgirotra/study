@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
+cmake_minimum_required(VERSION 3.27)
 
 set(CMAKE_USER_MAKE_RULES_OVERRIDE "${CMAKE_SOURCE_DIR}/cmake/flags_override.cmake")
 project(cplusplus VERSION 1.0.0 DESCRIPTION "cplusplus" LANGUAGES C CXX)
@@ -72,6 +73,9 @@ message(STATUS "using google benchmark ${benchmark_VERSION_STRING}, include-path
         " libs - ${benchmark_LIBRARIES}")
 
 
-add_executable(main main.cpp)
+add_executable(cpp_new_main main.cpp)
+target_link_libraries(cpp_new_main PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+
+
 
 add_subdirectory(src)

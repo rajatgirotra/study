@@ -1,4 +1,4 @@
-#add_subdirectory(general)
+add_subdirectory(general)
 add_subdirectory(chrono)
 #add_subdirectory(concepts)
 #add_subdirectory(cpp_modules)

@@ -92,8 +92,8 @@ int main() {
     // pointers and references
     foo<&VALUE>(); // pointer
     foo<pValue>(); // pointer (will fail to compile if pValue is not constexpr)
-    // n C++20, a non-type template argument must be a constant expression of a permitted type (integral, pointer, reference, structural object, etc.).
-    // so &VALUE qualifies, because it is an address of a constant expression.
+    // in C++20, a non-type template argument must be a constant expression of a permitted type (integral, pointer, reference, structural object, etc.).
+    // so &VALUE qualifies because it is an address of a constant expression.
     // pValue does not qualify, as it is a runtime variable holding a pointer value, and variables cannot be used as NTTPs.
     // if you make pValue constexpr, then yes you can use it.
     foo<valueRef>();

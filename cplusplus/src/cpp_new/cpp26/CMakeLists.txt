@@ -18,6 +18,10 @@ add_executable(cpp26_span_initiailizer_list span_initializer_list.cpp)
 target_link_libraries(cpp26_span_initiailizer_list PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 target_compile_options(cpp26_span_initiailizer_list PRIVATE -std=c++2c) # to enable cpp26
 
+add_executable(cpp_26_template_for template_for.cpp)
+target_link_libraries(cpp_26_template_for PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(cpp_26_template_for PRIVATE -std=c++2c) # to enable cpp26
+
 #add_executable(cpp26_signed_unsigned_size_t signed_unsigned_size_t.cpp)
 #target_link_libraries(cpp26_signed_unsigned_size_t PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 #target_compile_options(cpp26_signed_unsigned_size_t PRIVATE -std=c++2c)

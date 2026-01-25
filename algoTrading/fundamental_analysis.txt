@@ -52,6 +52,9 @@ What to see
 
 Look at assets/liabilities/equity in the balance sheet/financial statements.
 See Assets_Liabilities_Equity.png and Operating_Expenses_Margins.png
+If you look at the two statements above, you will see net income of 88 and total equity of 1000. So 88/1000 = 8.8% return on equity.
+return on invested capital (ROIC) = 96$ (i.e. profit before Interest and Tax, i.e. EBIT) / 1100 (total capital including equity + interest) = 96/1100 = 8.7%
+book value per share?? = earlier you had 10 shares at $100, now you have 1088 total capital divided in 10 shares i.e. $109 per share. so a 9% YoY growth.
 
 Basically you need to understand each and every term carefully:
 
@@ -119,10 +122,106 @@ ROIC = $12 / $100 = 12% (The same as Company A).
 
 The Takeaway: Company B's ROE (20.8%) is much higher than A's (12%), making it look more efficient to shareholders. However, its ROIC (12%) is identical to A's, revealing that their core business operations are equally profitable. The higher ROE is purely a result of using leverage (debt), which adds risk but magnifies equity returns.
 
+Revenue Growth
+==============
+We should look at revenue growth YoY to see what the company is doing. Revenue should be growing YoY ideally.
 
-If you look at the two statements above, you will see net income of 88 and total equity of 1000. So 88/1000 = 8.8% return on equity.
-return on invested capital (ROIC) = 96$ (i.e. profit before Interest and Tax, i.e. EBIT) / 1100 (total capital including equity + interest) = 96/1100 = 8.7%
-book value per share?? = earlier you had 10 shares at $100, now you have 1088 total capital divided in 10 shares i.e. $109 per share. so a 9% YoY growth.
+Gross Margins
+============
+Should be stead of increasing. Gross margins is (Gross Profit)/Revenue
+
+EBIT Margins
+============
+i.e. EBIT/Revenues --> This will tell you how efficient the company is. so check this value YoY.
+
+EPS Growth
+===========
+check this value YoY. EPS Growth is current year EPS/prior year EPS
+
+PEG Ratio
+=========
+The P/E-to-Growth (PEG) ratio is a valuation metric that adjusts a company's Price-to-Earnings (P/E) ratio for its expected earnings growth rate.
+Formula: PEG Ratio = (P/E Ratio) ÷ (Annual EPS Growth Rate %)
+Core Idea: It attempts to answer: "Is this stock's price justified by its growth prospects?" It puts the P/E ratio into context by considering how fast earnings are growing.
+Which P/E ratio to use here (Trailing or Forward):
+Trailing P/E: Uses earnings from the past 12 months. More factual.
+Forward P/E: Uses estimated future earnings (next 12 months). More common for PEG as it pairs with future growth.
+Choice: There's debate, but consistency is key. Most analysts use Forward P/E with the forward growth rate.
+
+Annual EPS Growth rate: This is the estimated annual earnings-per-share (EPS) growth rate, typically over the next 3-5 years. It comes from analyst consensus estimates (e.g., "the Street expects 15% annual EPS growth"). This is the most subjective and critical input.
+
+The pioneer of this metric, Peter Lynch, popularized this framework:
+PEG = 1: Theoretically "Fair Value." The stock's price is in perfect equilibrium with its expected growth rate. You're paying $1 for every 1% of growth.
+PEG < 1: Potentially Undervalued. The market may be undervaluing the stock's growth prospects. A lower PEG suggests a better "growth-at-a-reasonable-price" (GARP) opportunity.
+PEG > 1: Potentially Overvalued. The market is pricing in more growth than analysts project, or there is a premium for quality. A very high PEG (>1.5 or 2) often signals an expensive stock.
+
+Practical Applications & Scenarios. 
+Comparing Companies Within an Industry: This is its best use.
+-------------------------------------------------------------
+Example: Tech Company A has a P/E of 30 and expected growth of 20% → PEG = 1.5.
+Tech Company B has a P/E of 25 and expected growth of 25% → PEG = 1.0.
+Analysis: Although Company A has a higher P/E, that doesn't tell the whole story. Company B has a lower PEG, suggesting it offers more growth per unit of price paid. It appears to be a better value relative to its growth rate.
+
+Assessing High P/E Stocks: It helps determine if a sky-high P/E is justified.
+-----------------------------------------------------------------------------
+A stock with a P/E of 60 looks extremely expensive. But if its expected growth rate is 50%, its PEG = 1.2, which is only slightly above the "fair value" benchmark. The market is pricing in spectacular growth.
+
+Screening for "GARP" Stocks:
+----------------------------
+Growth at a Reasonable Price investors use PEG < 1 (or sometimes < 1.5) as a filter to find companies with strong growth that aren't excessively priced.
+
+example Company XYZ:
+Current Stock Price: $100
+Estimated EPS (Next Year): $5
+Forward P/E Ratio: $100 / $5 = 20x
+Estimated Annual EPS Growth Rate (Next 5 Years): 15%
+PEG Ratio: 20 / 15 = 1.33
+Interpretation: A PEG of 1.33 suggests the market is pricing XYZ at a moderate premium to its growth rate (since >1). It may be fairly valued or slightly overvalued unless the company has other strengths (e.g., a bulletproof balance sheet, a moat) that justify the premium. An investor would compare this 1.33 to the PEG ratios of its direct competitors.
+
+Debt-to-Equity-Ratio
+=====================
+he Debt-to-Equity Ratio (D/E Ratio) is a cornerstone of fundamental analysis that measures a company's financial leverage—essentially, how much it relies on borrowed money versus owned money to finance its assets.
+
+It’s a solvency and leverage ratio that compares a company’s total liabilities to its shareholder equity. It shows the proportion of financing coming from creditors (debt) versus owners (equity).
+Formula: D/E Ratio = Total Liabilities ÷ Total Shareholders' Equity
+Alternative (More Conservative) Formula: D/E Ratio = (Total Liabilities - Cash & Equivalents) ÷ Shareholders' Equity
+This "Net Debt" version is often used in industries where cash is considered non-operational.44There is no single "good" or "bad" D/E ratio. Interpretation depends entirely on context:
+
+Comparison to Industry Averages: This is the most important step.
+Capital-Intensive Industries (Utilities, Telecom, Manufacturing, Airlines) naturally have high D/E ratios (often 2.0 or more). They have stable cash flows to service large, predictable debts used to buy expensive assets (power plants, aircraft, factories).
+
+Asset-Light, Tech, or Service Industries (Software, Consulting) typically have low D/E ratios (often < 0.5 or even negative equity). They don't need massive debt to operate.
+
+The Benchmark Rules of Thumb:
+D/E > 2.0: Generally considered high risk for most industries (outside of utilities/finance).
+D/E = 1.0: A balanced, moderate level of leverage. Debt and equity financing are equal.
+D/E < 0.5: Considered conservative/low risk.
+D/E = 0: The company has no debt (all-equity financed).
+Negative D/E: This occurs when Shareholders' Equity is negative (liabilities exceed assets). This is a major red flag, often called "balance sheet insolvency."
+Trend Analysis Over Time:
+Is the company's D/E ratio increasing over several quarters? It's taking on more leverage, which could be for expansion (potentially good) or to cover losses (bad).
+Is it decreasing? The company is paying down debt or growing equity, becoming less risky.
+
+Valuation
+=========
+look at Valuation.png and think at what price could we value this company.
+1. we could say the price could be the cash assets/outstanding shares at year 5. i.e. 1029/100 = 10.29
+2. we could say the price could be the (book value)/outstanding shares at year 5. i.e. (assets - liabilities)/100 = 1729/100 = 17.29
+3. we could say the price could be the earnings per share i.e. 21.1
+4. we could look at growth rate and margins as well. If that is increasing YoY we will need to account for that as well. May be we come up with some intelligent multiple on top of 1 or 2 or 3 above.
+
+Once you identify a good stock, how do you know the correct price level to buy it? That is where we need to value it. To value a stock, we will need two key things.
+1. An earnings forecast for your company. this the managers in your company can provide (things like expected sales growth, expected revenue growth, expected cost growth, labor cost growth etc).
+2. a comparable multiple from a peer or similar stock like a PEG Ratio (see below).
+
+For these similar stocks:
+you can look at their P/E ratio.
+you can look at their estimated growth rate.
+P/E ratio divided by growth rate will give you the PEG ratio. P/E ratio could be like 20 and growth rate could be 16%. so PEG ratio would be 20/16 = 1.25
+Similarly you find the PEG ratio for other similar stocks also. Generally you will notice that as P/E ratio increases, growth percentage also follows it. unless there is some stock which is very very popular and a lot of people buy it even though its growth estimate isn't too high.
+
+From 1 (earnings forecast), we calculate the earnings per share (EPS) and the estimated growth of the company. Then you have already have the PEG ratio for similar stocks. You use the PEG ratio and the growth estimate to find the P/E ratio. then from this P/E ratio and the estimated EPS you reverse calculate the Price of the share.
+
 
 Separate out good and bad businessess
 ======================================
