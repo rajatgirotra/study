@@ -52,8 +52,7 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 # Python3
-#find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
-find_package(Python3 REQUIRED COMPONENTS Interpreter)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
 message(STATUS "using ${Python3_INTERPRETER_ID}, ${Python3_VERSION} executable: ${Python3_EXECUTABLE},"
         " include-path: ${Python3_INCLUDE_DIRS},"
         " libs: ${Python3_LIBRARIES}")
@@ -72,10 +71,10 @@ find_package(benchmark REQUIRED)
 message(STATUS "using google benchmark ${benchmark_VERSION_STRING}, include-path: ${benchmark_INCLUDE_DIRS},"
         " libs - ${benchmark_LIBRARIES}")
 
+# nanobind
+find_package(nanobind CONFIG REQUIRED)
 
 add_executable(cpp_new_main main.cpp)
 target_link_libraries(cpp_new_main PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-
-
 
 add_subdirectory(src)

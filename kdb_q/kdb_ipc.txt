@@ -1,0 +1,33 @@
+KDB can work in client server configuration where a client session can connect to a server using the hopen command. the hopen command returns you an opaque handler which can be used to issue remote commands from client to server (both synchronous and asynchronous). Using hopen, you can connect to:
+1. a filesystem handle
+example:
+q) h: hopen ":path/to/file.dat" / filehandle
+q) h"2+2"
+q) h"system\"l /some/sp.q\"" / run sp.q remotely on server
+q) h "select from sp where s in `s2`s3" / fetch from server
+q) (neg h)"a:2" / run asynchronously
+q) hclose h
+q) h "til 5"
+': Bad file descriptor
+
+
+2. a process handle: you can connect in many of the available protocols. example:
+q) h: hopen ":unix://5050:girotrar:password" / connect over a unix domain socket (latency is very low)
+q) h: hopen `:unixs://5050:girotrar:password / unix domain socket with SSL/TLS
+q) h: hopen `:someserver.apac.com:5050:girotrar:password / simple tcp connection specifying host, port, username, password
+q) h: hopen `:someserver.apac.com:5050:girotrar:password / simple tcp connection specifying host, port, username, password
+q) h: hopen `:fifo://filename / some fifo queue (not sure on this)
+q) hclose h
+
+3) A local port (where server and client are on the same machine)
+q) hopen `::5010 / compare this with `:someserver.apac.com:5050, ::5010 means hostname is null which defaults to localhost.
+q) hopen 5010 / same as above
+
+4) all the above commands can also take more arguments, like timeout etc. Example
+q) h: hopen (":host:port:user:password";10000) / timeout in milliseconds. i.e. 10 seconds here
+
+You can specify the connection either as a symbol or as a string. Both are acceptable.
+
+If you want to just execute a remote command once, without creating a handle, that is possible using the following syntax.
+
+q) `::[(":localhost:5000:username:password";5000);"2+3"]

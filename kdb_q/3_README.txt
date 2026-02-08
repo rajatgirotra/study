@@ -103,6 +103,7 @@ q)([] c1; c2) / creating a table from lists. column names will be c1 and c2.
 q) cols tbl / list columns of table 'tbl'
 q) meta tbl / display metadata for each column, which shows type of column, domain of any foreign key or link columns and any attributes associated with the column.
 q) tables `. / list all the tables in the root namespace
+q) tables [] / list all the tables in the current namespace
 q) count tbl / return row count for table
 q) value tbl[0] / return a list of all fields in the row at index 0.
 
@@ -126,3 +127,12 @@ q) k:flip (enlist `eid)!enlist 1001 1002 1003 / keys table
 
 to create a keyed table manually, you place the keys inside the [] when creating your table
 q)kt:([eid: 1001+til 4] name: `Rajat`Vidhu`Myra`Viraj; iq: 10 20 30 40)
+
+// keyed table s and p, keyed table sp with foreign key also
+q) s:([s:`s1`s2`s3`s4`s5] name:`smith`jones`blake`clark`adams; status:20 10 30 20 30; city:`london`paris`paris`london`athens) / creating a table with primary keys in []
+q) p:([p:`p1`p2`p3`p4`p5`p6] name:`nut`bolt`screw`screw`cam`cog; color:`red`green`blue`red`blue`red; weight:12 17 17 14 12 19; city:`london`paris`rome`london`paris`london)
+q) sp:([]
+ s:`s$`s1`s1`s1`s1`s4`s1`s2`s2`s3`s4`s4`s1; / specifying foreign key i.e. fkey as `table_name$`primary_key
+ p:`p$`p1`p2`p3`p4`p5`p6`p1`p2`p2`p2`p4`p5; / specifying foreign key i.e. fkey as `table_name$`primary_key 
+ qty:300 200 400 200 100 100 300 400 200 200 300 400)
+

@@ -31,19 +31,31 @@ q has a system command which allows you to play with q environment. Most of the 
 
 \p  / listening port
 
+\P 12 / chage decimal precision to 12 digits
+
 You can also use system command like this:
 
 system [cmd], eg:
 system "l /path/to/someScript.q"
 
+Sometimes you want to store the output of a system command but its not possible by just using the shorthand notation i.e. \P, \cd, \a etc
+So you can explicitly use the "system" command to store the result. example:
+q) show p:system "P"
+q) p
+7i / default is 7 decimal points
+
+If you give a system command that q doesn't recognize, it will pass it to the operating system. example:
+q) \ls -ltr / q doesn't recognize \ls
+
 
 Namespaces
 ==========
-In q you can define variables. by what happens when you load from so many different sources which all use a common variable. There will be nameclashes. to avoid this you can create namespaces. namespaces are automatically created when you decalare a variable in a namespace. The default namespace is the root namespace identified by a dot ".". In any namespace you can execute the command: key` to view the namespaces there. Under the hood namespaces are implemented as q dictionaries. that is why you are able to use the "key" keyword on them. Infact you can also change your context to any available namespace by using the \d system command. When you change to any context, you can still access global variables in other namespace using relative paths. Example:
+In q you can define variables. by what happens when you load from so many different sources which all use a common variable. There will be nameclashes. to avoid this you can create namespaces. namespaces are automatically created when you decalare a variable in a namespace. The default namespace is the root namespace identified by a dot ".". 
+In any namespace you can execute the command: key`.ns to view the objects defined in that namespace. Under the hood namespaces are implemented as q dictionaries. that is why you are able to use the "key" keyword on them. Infact you can also change your context to any available namespace by using the \d system command. When you change to any context, you can still access global variables in other namespace using relative paths. Example:
 
 q).jab.util.counter:0 / will automatically create namespace .jab.util with variable counter = 0
 q)\d .jab
-q.jab)show  .util.counter
+q.jab)show  .util.counter / .util.counter will work relative to .jab
 
 A problem arises here. 
 
@@ -69,6 +81,15 @@ So how does namespacing work to more than 1 level down? It does. Just remember t
 2. whenever you define any function, any global variables it uses should be from the same context.
 3. Best practice is to always use fully qualified name so that there is no ambiguity.
 4. Always refer to global entities using fully qualified names.
+
+KDB reserves all the "single character" namespaces. It also defines the following namespaces:
+
+.h	Functions for converting files into various formats and for web-console display
+.j	Functions for converting between JSON and q dictionaries
+.m	Objects in memory domain 1
+.Q	Utility functions
+.q	Definitions of q keywords
+.z	System variables and functions, and hooks for callbacks
 
 Views
 =====

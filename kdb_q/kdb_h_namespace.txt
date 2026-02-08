@@ -1,0 +1,7 @@
+the .h namespace in kdb contains function, objects for:
+1. marking up strings to HTML.
+2. converting data into various formats.
+3. composing HTTP responses.
+4. web-console display.
+
+We will explore this later

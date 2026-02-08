@@ -1,0 +1,67 @@
+In KDB operators are overloaded. What it means is that the meaning of the operator depends on context. So we list here some examples of operators and their uses.
+
+operator ~  
+operator =
+===========
+Is mainly used for DEEP matching. i.e. it will operate on the whole object and check if those two objects are equal in value, type and also structure.
+operator = checks for element wise equality, unlike ~
+q) 10 ~ 10
+1b
+
+q) 10 ~ 10f
+0b   / different types
+
+q) `a`b ~ `a`b
+1b
+
+q) (1 2;3 4) ~ (1 2;3 4)
+1b
+
+q) ([]a:1 2; b:3 4) ~ ([]b:3 4; a:1 2)
+0b / even column order matters as its a different structure
+
+q) x ~ () / test for empty?
+1b
+
+q) 1 2 ~ ()
+0b
+
+q)"abc" = "abc"
+111b
+
+q)"abc" ~ "abc"
+1b
+
+operator ?
+==========
+Find index in sequence
+example: sequence ? value
+q)(`a;`b;`c;`d) ? `b
+1
+
+q)(`a;`b;`c;`d) ? `x / returns the count of elements
+
+q) n ? limit / generate n values from 0 to limit - 1. Examples
+q) 2 ? 4 / generate two values from [0..3] (repeats are allowed)
+
+q) 3 ? `a`b`c`d / same as above
+
+q) -3 ? 10 / don't repeat
+1 8 4
+
+q) / dictionary lookup
+q) d:`a`b`c!10 20 30
+q) d ? `c / will return 30
+q) d ? `x / will return 0N
+`b`a`d
+
+operator ::
+===========
+:: is not really an operator. :: is just a generic null type. i.e. a null of an unknown type. Example:
+q) x:: / means x is null of some type
+q) x: 10 / x is now 10
+
+if a function has no explicit return type, q returns null, i.e. ::
+q) f:{a:1}
+q)f[]
+::

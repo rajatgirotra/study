@@ -1,0 +1,20 @@
+the .z namespace in q is used for system variables and functions, command line parameter evaluation etc.
+q can be invoked with a script name or with multiple command line options. Some of these are q specific, while others can be user specific parameters which the script can process as part of its own business logic.
+
+You can look at this page to see command line options identified by q and their meaning. https://code.kx.com/q/basics/cmdline/
+
+q [file] [-option [parameters] … ]
+
+Options
+ -b blocked                    -q quiet mode
+ -c console size               -r replicate
+ -C HTTP size                  -s secondary threads
+ -e error traps                -S random seed
+ -E TLS Server Mode            -t timer ticks
+ -g garbage collection         -T timeout
+ -l log updates                -u disable syscmds
+ -L log sync                   -u usr-pwd local
+ -m memory domain              -U usr-pwd
+ -o UTC offset                 -w workspace
+ -p listening port             -W start week
+ -P display precision          -z date format     
