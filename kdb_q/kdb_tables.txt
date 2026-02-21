@@ -1,0 +1,89 @@
+q) /create table using column names and list of values
+q) t1: ([]name: `Aman`Ruksar`Ahana; iq:100 200 300)
+
+q) / internally in q, a table is nothing but a column dictionary. Each column is stored as a dictionary of values.
+q) / in your head think of column dictionary as a python dictionary {"key1": [valA, valB, valC], "key2": [val1, val2, val3]} 
+q) dc:`name`iq!(`Dent`Beeblebrox`Prefect;98 42 126)
+q) type dc / will print 99h as dc is a dictionary. 
+q) dc[`name] / access column dictionary by column
+q) dc[;2] / access by row 2 (indexed by 0)
+q) dc[;1 2]`name / access row 1 and 2 and get the names as a list
+q) dc[;1 2]`name`iq / access row 1 and 2 and get the names and iq as 2 separate lists.
+
+q) t: flip dc / flip a column dictionary to get a table (2nd way of creating a table)
+/ think of the dictionary as a list of column dictionaries.
+q) type t / 98h
+q) / access style will be reverse of column dictionary.
+q) t[2] / access 2nd row of the table. this will return it as column dictionary ie 99h
+q) t[1 2] / access 1st and 2nd row. this will return as table 98h
+q) t[2;`name] / access 2nd row, then the name column. same as t[2]`name
+q) t[10] / out of bounds access will return null values for the respective type.
+q) t[;`iq] / access a column by leaving the row index null
+q) t[`iq] / q provides this shortcut also
+q) t.name / possible, but dont use as it is not supported inside functions
+
+q) c1: `a`b`c
+q) c2: 10 20 30
+q) t: ([]c1;c2) / q will generate column names on its own, in this case, columns name will be c1 and c2
+q) ([] c1:1+til 5; c2:42) / q loves vectorization. so it will propogate c2:42 through the column
+
+q)flip `c1`c2`c3!(`a`b`c;42;1.1) / same thing. q will vectorize atoms throughout the column.
+
+q) cols t / get list of column names
+q) meta t / get metadata on each column. (name, type, any foreign keys, attributes etc))
+q) \a / list tables in the current namespace. you can also use the "tables" function for it.
+
+q) value t[0] / simply get all values in second row. same as t[0]`col1`col2`col3..
+
+q)type (`name`iq!(`Dent;98); `nome`iq!(`Beeblebrox;42)) / nothing but a general list with 2 items (both dictionaries)
+0h
+
+q)type (`name`iq!(`Dent;98); `name`iq!(`Beeblebrox;42)) / however the moment q sees an opportunity to create a table, it will create one.
+98h
+
+q) enlist `a`b!10 20 / `a`b:10 20 is a dictionary but enlisting it converts it to a table. Very handy
+
+/ note that deletion in q tables is expensive. So instead of deleting, we could create a column to indicate if a row is deleted. If yes, we can filter it out
+
+/create an empty table. i.e. just with the column names.
+q) empty_table: ([]name: `symbol$(); iq: `long$())
+q) empty_table: / putting a colon in the end show the definition of the table.
+q) empty_table: ([]name: 0#`; iq: 0#1) / another way to create an empty table. 0#` means take 0 elements from a list of symbols, 0#1 means take 0 elements from list of integers.
+
+/ basic sql operations on table
+q) select from t where name=`Dent,iq=98
+q) count t
+q) null t / means check each cell value. If null evaluate to true, if not null evaluate to false. so the result is another table of same structure as t but boolean data type.
+q) not null t / same as above but just opposite.
+q)select joker: name, age: iq from t / rename columns in output
+
+q) / keyed table. It is a DICTIONARY which maps a kay table to a value table. So a keyed table is actually a dictionary.
+/ note that KDB/q doesn't strictly require key to be unique.
+/ lets create a table of keys and table of values and join them together to create a keyed table
+q) v: flip `name`iq!(`Dent`Beeblebrox`Prefect;98 42 126)
+q) k: flip (enlist `eid)!(enlist 1001 1002 1003)
+q) kt:k!v / kt will be a keyed table.
+q) kt: (flip (enlist `eid)!(enlist 1001 1002 1003))!(flip `name`iq!(`Dent`Beeblebrox`Prefect;98 42 126)) / creating in one step
+q) kt: ([eid: 1001 1002 1003] name: `Dent`Beeblebrox`Prefect; iq: 98 42 126) / alternate syntax
+q) ktempty:([eid:`int$()] `symbol$name:(); iq:`int$()) / empty keyed table
+q) ktempty:([eid:0#0] name:0#`; iq:0#0) / another empty keyed table
+
+/ since kt is dictionary, access values by using key as index. see how to specify the key
+q) kt[(enlist `eid)!(enlist 1001 1002)]
+q) kt[1001] / shortcut way and preferred way of accesing value in keyed table.
+q) kt[1001 1002] / you can't retrieve multiple rows like this. why? because we can have multiple key cols, and kdb/q thinks you have specified values for each of the 2 key columns.
+q) / to retrieve multiple rows, you have to specify a list where each value itself is a list of the keys.
+q) kt[(enlist 1001;enlist 1002)] / this will work.
+q) kt[((1002;`G36902);(1003;`S897123))] / if you had 2 key cols, employee id and SSN number.
+q) kt[1002;`iq] or kt[1002][`iq] / get raw value in cell
+q) / best way to access multiple rows is
+q) kt ([]eid: 1001 1002) / provide an anonymous table with the keys you are interested in
+q) /since you already know you can access multiple values in dict by providing multiple keys on the left side of the # operator, you have another shortcut for accessing multiple rows in a keyed table below.
+q) ([]eid:1001 1002)#kt
+q) key kt / will return the keys
+q) keys kt / will return the list of key column names (note the subtle difference between key and keys)
+q) cols kt / will return list of both key and value column names
+q) value kt / will return the values
+q) / just like in a normal dict, you can perform reverse lookup using ? operator, similarly you can do that for keyed table as well.
+q) kt?(`Dent;98) / will return eid:1001
+q) kt?((`Dent;98);(`Prefect;126)) / will return eid:1001 and 1003

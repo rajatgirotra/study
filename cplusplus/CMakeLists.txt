@@ -77,4 +77,5 @@ find_package(nanobind CONFIG REQUIRED)
 add_executable(cpp_new_main main.cpp)
 target_link_libraries(cpp_new_main PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 
+include(CTest)
 add_subdirectory(src)

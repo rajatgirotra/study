@@ -107,7 +107,7 @@ class CPlusPlusConan(ConanFile):
     # inside the "requirements" function; but it is still good to separate the tool requirements and test requirements
     # inside the build_requirements() function.
     def build_requirements(self):
-        self.test_requires("gtest/1.15.0")
+        self.test_requires("gtest/1.17.0")
 
     # source() method is used to fetch code from third-party. Like github, bitbucket etc.
     def source(self):
@@ -118,6 +118,7 @@ class CPlusPlusConan(ConanFile):
         tc.variables['BITS'] = 64 if self.settings.arch == 'x86_64' else "32"
         tc.variables['ENABLE_LTO'] = bool(self.options.lto)
         tc.variables['CMAKE_VERBOSE_MAKEFILE'] = True
+        tc.variables['ENABLE_TESTING'] = True
         tc.generate()
         deps = CMakeDeps(self)
         deps.generate()

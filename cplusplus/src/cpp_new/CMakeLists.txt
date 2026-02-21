@@ -1,5 +1,5 @@
-add_subdirectory(general)
-add_subdirectory(chrono)
+#add_subdirectory(general)
+#add_subdirectory(chrono)
 #add_subdirectory(concepts)
 #add_subdirectory(cpp_modules)
 #add_subdirectory(ranges_and_views)

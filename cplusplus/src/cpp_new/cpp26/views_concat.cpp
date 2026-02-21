@@ -81,8 +81,8 @@ int main() {
     // c_view is gone by now.
     std::println("pos2: {}", *pos2); // print gibberish, undefined behavior
 
-    auto pos3 = [&]() {
-        return rng::find(vws::concat(v1, v1), 4); // find 101, argument c_view to find() is rvalue, so returned borrowed_iterator_t is dangling.
+    [[maybe_unused]] auto pos3 = [&]() {
+        return rng::find(vws::concat(v1, v1), 4); // find 4, argument c_view to find() is rvalue, so returned borrowed_iterator_t is dangling.
     }();
     // std::println("pos3: {}", *pos3); // cannot dereference, it is ranges::dangling rightly
 }

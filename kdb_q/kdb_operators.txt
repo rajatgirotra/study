@@ -20,7 +20,7 @@ q) (1 2;3 4) ~ (1 2;3 4)
 q) ([]a:1 2; b:3 4) ~ ([]b:3 4; a:1 2)
 0b / even column order matters as its a different structure
 
-q) x ~ () / test for empty?
+q) x ~ () / test for empty? () is generic empty list, so will return true only if x is an empty generic list.
 1b
 
 q) 1 2 ~ ()
@@ -49,11 +49,18 @@ q) 3 ? `a`b`c`d / same as above
 q) -3 ? 10 / don't repeat
 1 8 4
 
+q)/ so
+q)list?value / get index of value in list. if not found, return count of items in list.
+q)count?limit / generate count items from [0..limit]. repetitions are allowed
+q)-count?limit / generate count items from [0..limit]. repetitions are NOT allowed.
+q)count?list / generate count items from elements in list
+
 q) / dictionary lookup
 q) d:`a`b`c!10 20 30
-q) d ? `c / will return 30
-q) d ? `x / will return 0N
-`b`a`d
+q) d ? 30 / will return `c. It is a value to key lookup
+q) d ? 40 / will return empty string `, if value is not found.
+q) d[`a] / will return 10 as expected
+q) d[`z] / will return 0N, i.e. value not found.
 
 operator ::
 ===========
@@ -64,4 +71,9 @@ q) x: 10 / x is now 10
 if a function has no explicit return type, q returns null, i.e. ::
 q) f:{a:1}
 q)f[]
-::
+:: / this isn't right. Need to check and clear documentation later
+
+operator ^
+==========
+operator ^ is used to default a value if it is 
+

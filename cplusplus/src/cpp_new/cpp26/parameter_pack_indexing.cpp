@@ -31,7 +31,7 @@ void print_type_and_value(T&& t) {
     std::println("type: {}, value: {}", demangle(typeid(T).name()), std::forward<T>(t));
 }
 
-// cpp26 paramter pack indexing
+// cpp26 parameter pack indexing
 template <auto Index, typename... Args>
 void func26(Args&&... args) {
     print_type_and_value(args...[Index]); // simple

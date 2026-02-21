@@ -1,0 +1,10 @@
+if(BUILD_TESTING)
+    find_package(GTest REQUIRED)
+    include(GoogleTest)
+
+    add_executable(cpp_new_gtest_1 gtest_1.cpp)
+    target_include_directories(cpp_new_gtest_1 PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include/>)
+    target_link_libraries(cpp_new_gtest_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+    target_link_libraries(cpp_new_gtest_1 PRIVATE GTest::gtest GTest::gtest_main GTest::gmock)
+    gtest_discover_tests(cpp_new_gtest_1 DISCOVERY_TIMEOUT 5)
+endif()
