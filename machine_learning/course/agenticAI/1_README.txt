@@ -1,3 +1,8 @@
+You must read 0_README.txt first.
+After that if you are intersted to learn how to use an AI coding agent, you should look into the folder aicoder.
+However, if you are interested in knowing how to write an ai agent yourself, and use tools etc, keep following in this folder.
+
+
 I purchased a udemy course. To setup my environment,
 I installed cursor IDE (was an AppImage download from their website and I ran as ./CursorIde.AppImage --no-sandbox)
 I installed uv - a very fast package manager for python (replacement for anaconda).

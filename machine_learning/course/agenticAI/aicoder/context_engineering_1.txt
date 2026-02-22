@@ -1,0 +1,54 @@
+To excel at using an AI coding agent, you must be able to build the context to give to your agent. The better the context you provide to the input to your LLM, the better will be the response.
+Context engineering is a new word for the previous Prompt engineering. because a prompt can now have context (like tools to use, input images, files, folder, project etc)
+
+The first and very crucial part of a prompt/context is the "System Prompt". It defines the behavior and persona of the agent.
+It is followed by description of the "Tools".
+
+So remember Context should have:
+
+1. System Prompt:
+2. Tools
+3. Memory/Resources: Information that you want to persist across multiple conversations.
+4. Then finally the actual input which includes:
+   Conversation History/Messages (chat)
+   User Messages
+   LLM replies
+   Code generated
+   Tools called
+   Results of code and tools
+5. AGENTS.md --> A very very special file that an AI coding agent must be provided with. You can think of a resource that persists. With Claude its claude.md, with Gemini its Gemini.md
+
+the AGENTS.md will have a lot of information on the project like:
+* repo location
+* coding standards
+* our objectives of the project.
+
+
+All of this information above together forms the "Context Window". every LLM has a limit to how many tokens can be fit into a Context. Why? because an LLM can only look far back only upto a point to look at the input sequence of tokens.
+So if you try to pass in more tokens than what it can accept in its "Context Window", then it will fail.
+
+Remember that performance starts to degrade (you start getting poorer results) if your Context Window grows.
+
+Some coding agents have support for compacting, where the agent tries to transparently summarize the conversation, so that it can free up space in the "context window".
+So 
+ the below gets summarized into
+
+4. Then finally the actual input which includes:
+   Conversation History/Messages (chat)
+   User Messages
+   LLM replies
+   Code generated
+   Tools called
+   Results of code and tools
+
+4. Then finally the actual input which includes:
+    Summary of earlier messages.
+
+Some people do tend to fear compacting (they lack trust on the compactor capability), so they tend to stop the ai agent and re-run it with a fresh AGENTS.md file and start everything afresh.
+
+Context Window size of different LLM's:
+
+GPT 5.2: 400,000 tokens
+Claude Sonet: 200, 000 tokens
+Gemini Antigravity: 1million tokens
+
