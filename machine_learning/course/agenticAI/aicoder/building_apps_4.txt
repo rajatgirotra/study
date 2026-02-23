@@ -1,0 +1,47 @@
+Simple Game
+===========
+Lets build a small game without giving any context to the agent. Bring up any agent of your choice (say cursor AI) and open the chat window and put the following prompt:
+"Please build a website for a simple 3D 1st person shooter game in an arena against 1 computer opponent controlled by arrow keys and space bar to shoot."
+See how the agent builds it. You can them prompt if further to make changes like:
+  * make the shooter look like a human enemy. 
+  * add more colors
+  * make the game harder etc.
+
+Kanban board
+============
+git clone https://github.com/ed-donner/kanban.git
+you can clone this repo which contains a single AGENTS.md file only.  We can use this markdown file to ask various coding agents to plan and build the MVP project (a kanban dashboard).
+ 
+Cursor AI (by Anysphere)
+-----------------------
+In cursor AI, you can just open the AI settings and set the "Auto-Run" mode to "run automatically" (this will be the YOLO mode). Make sure you put the agent in "Plan" mode, so it will plan multiple stages in which to build the MVP and add functionality. Once it is done, it will show you a planning markdown and ask your permission to start implementation. Approve it. Then later see what it builds. and may be have some follow up questions/requirements.
+
+Make sure the AI agent is given specific instructions when it tries to fix somethings. In general, AI agents try to prodict the bug and apply a fix; which may or may not work. So as a good practice, as the agent to "Reproduce the bug. provide evidence of that. then do root cause analysis. and then fix the bug and provide evidence".
+
+cursor AI also shows how much context is getting used, so keep an eye on that too.
+
+Github Copilot (jointly by Microsoft and OpenAI)
+-------------------------------------------------
+I did the same in Github copilot in Jetbrains. I did not see an option where I could put co pilot in auto run mode so I had to repeadetly approve all the work it was doing.
+
+Codex agent (by OpenAI)
+----------------------
+There are many ways you can use the codex cli coding agent. But you will need to install it first using "npm i -g @openai/codex".
+1. command line: Start the CLI by using "codex" command.
+
+2. Jetbrains: clion has inbuilt integration for Codex CLI client. So I used it. The results were ok.
+
+3. VSCode plugin: I did not try it.
+
+Claude agent (by Anthropic)
+---------------------------
+There are many ways you can use the claude cli coding agent. But you will need to install it first using "curl -fsSL https://claude.ai/install.sh | bash".
+
+1. command line: Start the CLI by using "claude" command.
+
+2. Jetbrains: clion has inbuilt integration for claude CLI client. So I used it.
+
+3. Claude has a separate plugin for Jetbrains which can launch the claude command line inside the IDE. This is similar to option 1 really but inside the IDE.
+
+3. VSCode plugin: I did not try it.
+
