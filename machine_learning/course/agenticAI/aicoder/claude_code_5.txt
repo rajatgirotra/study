@@ -1,0 +1,100 @@
+the first thing we do after installing claude code is:
+/login 
+
+then we cd into our project and run
+/init # this will go through your entire code base and create a CLAUDE.md. Although this is good for a start, but always focus and keep an eye on your CLAUDE.md and make sure you make changes yourself there as you want to be absolutely correct.
+
+/context # this command will show you how much of the context window you have used up. Pretty cool.
+
+We gave claude a prompt to do code review.
+Please carry out a comprehensive code review of the entire repo, and write a report with actions to code_review.md in docs folder.
+Claude code ran 3 agents in parallel. Later it reported that a .env is exposed in git. so you must rotate your key. When confronted, it actually blamed one of its sub agents (called exploration agent). So even claude can be incorrect at times.
+
+/context (keep checking your context)
+then we gave it another prompt to fix those code review issues.
+"Please go ahead and fix all the critical, high and medium priority issues and retest everything and let me know when everything."
+
+/compact # clear conversation history but keep a summary. Generally do this at the end of a chat so that claude doesn't have to do it on the fly when its working on a big task"
+# Always have a human eye on what the coding agent is doing.
+
+/status # shows a status panel. shows three panels "Status Config Usage"
+
+---------------------------------------------------------------------------------------------------------------------------
+
+#opencode (An open source coding agent) that is very popular and allows you to use some free models + paid models like Claude/GPT/Gemini and more.
+# Install using "curl -fsSL https://opencode.ai/install | bash"
+# go to your project (cd into it)
+# and start opencode (run opencode)
+/models command allows you to switch between models
+
+# We can ask opencode "GLM 4.7 Free" model to also do a code review of the same PM project. Same prompt we gave to Claude. Lets compare
+
+/connect ---> to connect to another provoder like OpenCode Zen, Copilot, Gemini, Anthropic, OpenAI etc, OpenRouter
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Then you have AMP which is also a coding agent which can connect to different providers. It has a terminal extension.
+They have AMP Free which gives you some free credits per day but shows you some adds.
+
+curl -fsSL https://ampcode.com/install.sh | bash
+
+It doesnt allow you to pickup a model.
+Use Ctrl+S to rush into differemt modes of the model (rush, deep, smart)
+
+Lets use deep and run code review again
+---------------------------------------------------------------------------------------------------------------------------
+
+Claude code is designed to work with Anthropic models, but they do allow you to use other models too. (Mostly stick to Claude models) but this is just for your reference.
+Export the following environment variables.
+ANTHROPIC_DEFAULT_HAIKU_MODEL=""
+ANTHROPIC_DEFAULT_SONNET_MODEL=""
+ANTHROPIC_DEFAULT_OPUS_MODEL=""
+ANTHROPIC_BASE_URL="https://openrouter.ai/api" # which endpoint to connect to?
+ANTHROPIC_AUTH_TOKEN="OPENROUTER_API_KEY" # which endpoint to connect to?
+ANTHROPIC_API_KEY=""
+
+Then run claude --model "modelName" and run
+/models command to see your model name
+---------------------------------------------------------------------------------------------------------------------------
+Claude code deep dive
+
+/login
+/model
+/status
+/context
+/help
+/compact [WIth some instructions]
+/copy: Copy Claude's last response or a code block to clipboard
+/clear: Clear conversation history and free up context
+/config
+/rewind (for checkpointing)
+/stats: You claude code history and usage
+Shift + Tab (Toggle to Plan Mode)
+Ctrl + O (show detailed transcript)
+.claude directory --> settings.local.json (permissons to run things without asking)
+@ ---> Very Very useful. Claude understand @ at the claude prompt and also inside markdown files. So inside your CLAUDE.md, just put @AGENTS.md and you can use both copilot (which uses AGENTS.md) and claude together (which uses CLAUDE.md)
+@ will just insert the contents of the file right there.
+@ in claude prompt also shows you the internal agents that claude has.
+
+Ctrl + b --> to run the current prompt in the background and you can run another prompt.
+---------------------------------------------------------------------------------------------------------------------------
+Claude has 2 levels of granularity:
+
+Session: (conversations you have with Claude) - You can give a name to it and also chose to resume claude with a session name.
+
+Checkpointing: Applies to a session. Every prompt is considered a checkpoint. You can go back using rewind to go back in conversion may be to 2 chats before and also reset the code changes at that point. That is pretty cool.
+Claude cannot go backwards and undo any scripts it may have run.
+
+# for our conversation today, I would like you to be witty and snarky with me please.
+/rename # give a name to a session.
+/claude --resume
+---------------------------------------------------------------------------------------------------------------------------
+YOLO Mode in claude
+claude --dangerously-skip-permissions
+
+---------------------------------------------------------------------------------------------------------------------------
+Ralph Loops in Claude
+In claude
+/plugin install ralph-loop@claude-plugins-official
+Now we have plugin installed so we can run commands from the new plugin
+/ralph-loop:ralph-loop "Please significantly improve this project. Add user management, multiple kanban boards in a user, and other feature to build out a comprehensive Project Management application....." --max-iterations 10
