@@ -1,0 +1,69 @@
+Lets discuss MCP tools in claude code now. in MCP (model context protocol), we have:A
+MCP Server --> this is the main tool which someone has written and published and can be used by anyone.
+MCP Host --> the main application that the user interacts with. It is responsible for running the LLM, managing the conversion, deciding which MCP servers are available, etc. So Claude agent is our MCP Host.
+MCP Client --> Just a connector between MCP Host and MCP server. It speaks the MCP protocol. MCP client sends request to an MCP server. Receives responses and returns them to the host. Think of mCP client as an adaptor or transport layer.
+
+Usually when you use an MCP Server, it can be used in 2 ways. One is local in which you download/install the mcp tool locally and it runs on your computer. The other is remote(cloud) in which the server can run in the cloud or remotely on another machine.
+
+The problem with MCP at the moment is that there are multiple marketplaces from where you can download and install MCP Servers. In fact the official MCP marketplace is less active and other marketplaces are more active.
+
+Official marketplace is: https://registry.modelcontextprotocol.io/
+Another way to find an MCP tool in market place is to google "github anthropic mcp server" and you get this link: https://github.com/modelcontextprotocol/servers. At this link you can find further links to MCP servers which you are looking for.
+
+Other popular MCP marketplaces include : https://glama.ai/mcp/servers and https://mcp.so/. You have to be careful when chosing because everyone can contribute here so you will find many versions/forks/duplicates of the same MCP server, so always be careful which one you install.
+
+================================= ================================= =================================
+
+A popular MCP server for software developers is context7. Context7 fetches up-to-date code examples and documentation right into your LLM's context. No tab-switching, no hallucinated APIs that don't exist, no outdated code generation. It really helps you when you are working on some specific version of a library/application and want to know about some design/code example etc.
+
+You can use a prompt like this: "Always use Context7 MCP when I need library/API documentation, code generation, setup or configuration steps without me having to explicitly ask."
+
+When you are done using an MCP server, you can remove it, otherwise sometime your context window may get hogged with these MCP tools which you don't even use. In fact I think claude now lists the available MCP servers and the loaded  MCP servers separately. Only the loaded ones will occupy space in the context window.
+
+Polygon-IO is another MCP server which gives you delayed stock prices of equities.
+
+================================= ================================= =================================
+
+SKILLS in claude
+----------------
+
+Skills are similar to MCP but much light weight. Skills were introduced after MCP. You can equip you coding agent with specific skills like raising an MR, performing a code review etc.
+Creating a skill is easy. There is a convention to it which you must follow. In Claude, you create a markdown file (yes LLM and agents love markdown files) in your projects .claude directory. Exact location is .claude/skills/<YOUR SKILL NAME>/SKILL.md
+This SKILL.md also has a convention. It should have a NAME and DESCRIPTION first at the top (we call it skill metadata). After that everything that a SKILL can do is listed (all the instructions on how and what it should do). Level 3 is resources + code. If you want your SKILL to read/reference some more data and code you can put references to that at level 3. In fact in your .claude/skills/<YOUR SKILL NAME>/ folder, you can have many subfolders (with other markdown or scripts or any other data and files) which the skill requires to reference when carrying out a task.
+
+ Coding agents use "Progressive Disclousure", which means it will not read your complete markdown file into the context. It will only read the metadata (i.e. the NAME and DESCRIPTION) first, then it will read the next thing only when a SKILL is required to be used.
+
+Skills can be installed in $HOME/.claude/ for global skills or in your projects .claude/ for project specific skills.
+
+Just like MCP, SKILLS also have their own marketplace. Google "github Anthropic skills" and the skills folder in github for skills created by anthropic itself. specifically, see skill-creator"
+
+Another marketplace is https://skills.sh
+
+================================= ================================= =================================
+
+Now lets run some commands in claude to install/use/uninstall MCP servers and SKILLS.
+
+bash$> claude mcp add <MCPServer> -- <Launch Command>
+bash$> claude mcp add context7 -- npx -y @upstash/context7-mcp
+bash$> claude mcp add -e MASSIVE_API_KEY=OmYsSkjw4nvLBoDdbV3i8GDqp6TZH6UK -- uvx --from git+https://github.com/massive-com/mcp_massive@v0.8.1 mcp_massive
+
+bash$> npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
+
+================================= ================================= =================================
+
+Plugins
+-------
+Plugins is just a bundle of all MCP Servers, SKILLS, hooks (we will study hooks shortly), commands like (/context, /status, /rename etc) along with some more things.
+Right now plugins are designed for cluade code (its not available in other coding agents)
+
+/plugins --> command in claude (to show plugins from anthropic)
+/external_plugins --> command in claude (to show external plugins)
+
+Plugins marketplace: github anthropic "claude-plugins-official" (you will see /plugins and /external_plugins folder)
+
+You can add a new marketplace just within your company or project.
+
+
+================================= ================================= =================================
+
+Prefer to start with plugins when you want to find something. Example, if you want to install a skill, look for a plugin which has that skill.
