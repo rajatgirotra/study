@@ -1,7 +1,73 @@
+Assets = Liabilities + Equity.
+If you and your friend both invest 50k$ for a new coffee shop, then Liabilities = 0 (we dont owe anyone, Assets = 100K in bank account, Equity = 100K in bank account)
+The two sides (Assets, Liabilities + Equity) should always match.
+
+What does "equity" actually mean?
+Equity is the owners' claim on the assets after all debts are paid. If you sold every asset tomorrow and paid off every liability, whatever's left belongs to the equity holders.
+It's a residual concept: Equity = Assets − Liabilities.
+
+Later if you need a fancy espresso machine costing $40,000, but you don't want to drain cash. The bank lends the company $40,000.
+Now:
+Assets: $100,000 cash + $40,000 cash from loan = $140,000 cash
+Liabilities: $40,000 (loan owed to bank)
+Equity: still $100,000
+
+The shop earns $80,000 in profit over the year (revenue minus all expenses, including taxes). That profit, kept in the business, becomes retained earnings — a component of equity.
+Equity is now:
+Paid-in capital (the original $100,000 you and Priya put in): $100,000 (raised by you or in many fund raising rounds)
+Retained earnings (cumulative profits kept in the business): $80,000
+Total equity: $180,000
+If the company instead paid out $30,000 of that profit as dividends to you and Priya, retained earnings would be $50,000, and total equity $150,000. Dividends reduce equity because cash leaves the company and goes to owners.
+
+So what's inside Equity:
+1. Paid in capital (a.k.a. contributed capital)
+2. Retained earnings — cumulative profits the company has earned over its lifetime, minus any dividends paid out.
+3. Treasury stock (negative) — if the company buys back its own shares, that reduces equity. Shown as a negative number.
+4. Other comprehensive income (OCI) - gains/losses that bypass the income statement (e.g., unrealized FX translation gains on foreign subsidiaries, certain pension adjustments, unrealized gains on certain investments). A bit of a "parking lot" for items accounting rules want kept out of net income.
+
+When a company buys back its own shares, the outstanding share count goes down. Those shares effectively go back to the company itself, and depending on what the company does next, they're either:
+
+Held as "treasury stock" — the shares still legally exist but are owned by the company itself. They're not outstanding, they don't vote, they don't receive dividends, and they're not counted in EPS calculations.
+Retired/cancelled — the shares are extinguished entirely, reducing both authorized and outstanding share counts.
+Either way, from the market's perspective, outstanding shares decrease.
+
+Buybacks are economically similar to dividends — both return cash to shareholders — but with different mechanics:
+Dividend: every shareholder receives cash; share count unchanged; ownership percentages unchanged
+Buyback: only shareholders who sell receive cash; share count decreases; non-selling shareholders' ownership percentage increases
+This is why buybacks can mechanically boost EPS: same earnings, fewer shares = higher earnings per share. It's also why buybacks are sometimes criticized — they can flatter per-share metrics without the underlying business actually improving.
+
+Company statements
+==================
+A company has three core statements that fit together:
+
+Income Statement — revenue, expenses, profit (accrual-based, includes non-cash items like depreciation)
+Balance Sheet — assets, liabilities, equity at a point in time
+Cash Flow Statement — actual cash in and out, broken into three sections (see below section on cash flow statement)
+
+Debt vs Liabilities
+====================
+debt is money the company explicitly borrowed and pays interest on. 
+Operating liabilities arise naturally from running the business and typically don't carry interest. So debt is part of your liabilities i.e. All debt is a liability, but not all liabilities are debt. 
+
+
 Earnings per share 
 ==================
-Higher EPS means better stock. When looking at EPS, look at NTM (estimated EPS for the Next Twelve Months). This is because markets tend to look ahead.
+Higher EPS means better stock. When looking at EPS, look at NTM (estimated/forward) EPS for the Next Twelve Months. This is because markets tend to look ahead.
 Ideally, price should follow earnings. If earnings go up, so should price and vice-versa. You should not buy when earnings are going down. You should buy when earnings are going up.
+
+The most common types of EPS you'll see:
+Annual EPS — net income for the full fiscal year divided by shares outstanding
+Quarterly EPS — what companies report each quarter in their earnings releases (this is usually what moves stock prices on "earnings day")
+Trailing twelve months (TTM) EPS — sum of the last four quarters, which is what most P/E ratios on finance sites use by default
+Forward EPS — analyst estimates for the next year
+
+Forward EPS also has many flavors:
+NTM EPS — next twelve months, a rolling forward window (mirrors TTM but going forward)
+FY1 EPS — estimate for the current fiscal year
+FY2 EPS — estimate for the next fiscal year
+NFY (next fiscal year) — same as FY2
+
+So when you are seeing P/E ratio, pay attention to what EPS is used to calculate P/E ratio.
 https://www.koyfin.com/
 
 P/E ratio
@@ -10,7 +76,7 @@ P/E = Price ÷ Earnings per share
 It tells you how many years of earnings the market is willing to pay for the stock.
 Example if P = 100, and EPS = 10, P/E = 100/10 = 10 (i.e. you are willing to pay earnings of 10 years upfront).
 
-Another example is lets say you buy a shop on the street for 10 lacs which earns 1 lac every where. so you are paying 10 years of saving upfront to buy the shop.
+Another example is lets say you buy a shop on the street for 10 lacs which earns 1 lac every year. so you are paying 10 years of saving upfront to buy the shop.
 Typically you do this because you are confident that the earnings will go up in the future. or you think it is a very stable and risk free investment and you can hold it for long term.
 i.e.
 High P/E → Investors expect strong future growth or view it as a low-risk, high-quality company.
@@ -20,8 +86,8 @@ if Price = 10, EPS = 2, P/E ratio = 10/2 = 5. this could mean that either the bu
 So if P/E is high (think is the stock overvalued or is it high because there is a potential growth expected or is it a stable and high quality investment which people hold for long term.
 if P/E is low (think is the stock undervalues or is the earnings/revenues/ROIC/NetIncome/EBITDA) declining.
 
-Book Value
-==========
+Book Value (also called Equity)
+===============================
 Book value is the Total Assets - Total Liabilities i.e. the net asset of a company. It is the value of the company if all its assets are liquidated today.
 Book value per share (BVPS) is simply the Book Value divided by the number of outstanding shares.
 
@@ -69,10 +135,10 @@ Gross Profit --> Simply Revenue - COGS (i.e. only accounts for direct cost assoc
 
 Operating Expenses --> includes other associated costs like rent, salaries, R&D, labor costs, deprecation, marketing, utilities etc.
 
-EBIT (Earnings before Interests and Taxes) or Operating Profit = Gross Profit - Operating Expenses
+EBIT (Earnings before Interests and Taxes) or Operating Profit = Gross Profit - Operating Expenses (Note that Depreciation/Amortization is typically part of Operating Expenses)
 
 EBITDA (Earnings before Interests and Taxes and Deprecation and Amortization) --> Gross Profit - Operating Expenses + Deprecation + Amortization, i.e. EBIT + Deprecation + Amortization
-What is happening is that EBITDA shows a companies core operational performance by excluding financing decisions (interest), tax environments and non-cash accounting charges (deprecation/amortization). So EBITDA measures a companies overall operational profitability and cash flow from core business activities.
+What is happening is that EBITDA shows a companies core operational performance by excluding financing decisions (interest), tax environments and non-cash accounting charges (deprecation/amortization). So EBITDA measures a companies overall operational profitability and cash flow from core business activities. So remember, EBITDA does not include depreciation and amortization values. Deprecation and Amortization are non-cash charges so they are taken out from EBIT to calculate EBITDA to approximate the cash-generating ability of the core operations.
 
 Pre Tax income is income after paying out interests. = EBIT - Interests
 
@@ -84,10 +150,18 @@ So if revenue = $1000, COGS = $400, Gross Profit is $600. If Operating Expenses 
 EBITDA = $200 + Deprecation $50 = $250.
 So basically Gross profit of $600 and EBITDA of $250 means you spent $350 as cash flow for the daily run of your business.
 
+Depreciation → spreads the cost of tangible assets (machines, buildings, vehicles, servers) over their useful life
+Amortization → spreads the cost of intangible assets (patents, trademarks, software licenses, customer lists, goodwill from acquisitions) over their useful life
+
 Return on Equity (ROE %)
 ========================
 So ROE is an important metric from stakeholder point of view. It tells you how much is the real return on every one dollar of equity that you hold in a company.
-ROE% is calculated as Net Income % (total stakeholder equity). Total stakeholder equity is nothing but the book value (i.e. total assets - total liabilities). A high ROE suggests the company is efficient at using its equity base to generate profits. but there is one caveat here. ROE can be artificially inflated by high financial leverage (taking on a lot of debt). A company with massive debt can boost ROE even if its underlying business isn't exceptionally profitable. This makes ROE riskier in isolation. We will see an example below. Always look at ROE and Equity to Debt ratio together.
+ROE% is calculated as Net Income % (total stakeholder equity). Total stakeholder equity is nothing but the book value (i.e. total assets - total liabilities). A high ROE suggests the company is efficient at using its equity base to generate profits. but there is one caveat here. ROE can be artificially inflated by high financial leverage (taking on a lot of debt). A company with massive debt can boost ROE even if its underlying business isn't exceptionally profitable. This makes ROE riskier in isolation. We will see an example below. Always look at ROE and Equity to Debt ratio together. Think in your mind that denominator is Equity = Assets - Liabilities (so higher liabilities result in reducing the denominator) and increasing ROE%.
+
+Return on Assets
+================
+To compare operating performance without leverage distortion, analysts use:
+Return on Assets (ROA) = Net Income / Total Assets — uses the full asset base regardless of how it's funded. Less affected by capital structure.
 
 Return on Invested Capital (ROIC %)
 ===================================
@@ -108,6 +182,7 @@ Company A (No Debt): Financed entirely with $100 of equity.
 NOPAT = EBIT x (1 - Tax Rate) = $15 x 0.8 = $12
 Net Income = same as NOPAT here, since no interest = $12
 ROE = $12 / $100 Equity = 12%
+ROA = $12/100 = 12%
 ROIC = $12 NOPAT / $100 Invested Capital = 12%
 
 Company B (Uses Debt): Financed with $50 equity + $50 debt (with a 4% interest rate).
@@ -115,6 +190,7 @@ Interest Expense = $50 Debt x 4% = $2.
 Net Income = (EBIT - Interest) x (1 - Tax) = ($15 - $2) x 0.8 = $10.4
 Shareholders' Equity = $50.
 ROE = $10.4 / $50 = 20.8% (Looks much better than Company A!)
+ROA = $10.4 / $100 = 10.4% (because total assets is $100 - $50 + $50, i.e. total assets includes both equity + debt, remember Assets = Liability + Equity)
 ROIC Calculation:
 NOPAT is the same as Company A: $12 (We don't subtract interest).
 Invested Capital = $50 Equity + $50 Debt = $100.
@@ -162,6 +238,30 @@ Example: Tech Company A has a P/E of 30 and expected growth of 20% → PEG = 1.5
 Tech Company B has a P/E of 25 and expected growth of 25% → PEG = 1.0.
 Analysis: Although Company A has a higher P/E, that doesn't tell the whole story. Company B has a lower PEG, suggesting it offers more growth per unit of price paid. It appears to be a better value relative to its growth rate.
 
+Another Example: Two companies
+Company A — Mature business (think a utility)
+
+Stock price: $50
+EPS: $5
+P/E = 50 / 5 = 10
+Earnings growth rate: 5% per year
+PEG = 10 / 5 = 2.0
+
+Company B — Growth company (think a software firm)
+
+Stock price: $200
+EPS: $5
+P/E = 200 / 5 = 40
+Earnings growth rate: 50% per year
+PEG = 40 / 50 = 0.8
+
+On P/E alone, Company A looks cheap (10) and Company B looks expensive (40). But PEG flips the story:
+
+Company A: PEG of 2.0 — you're paying a lot per unit of growth, suggesting it's actually expensive relative to its growth.
+Company B: PEG of 0.8 — even though the P/E is high, the growth rate justifies it; you're paying less than $1 of P/E per 1% of growth.
+
+The intuition: a 40x P/E is fine if earnings are doubling every two years; a 10x P/E is concerning if earnings are barely moving.
+
 Assessing High P/E Stocks: It helps determine if a sky-high P/E is justified.
 -----------------------------------------------------------------------------
 A stock with a P/E of 60 looks extremely expensive. But if its expected growth rate is 50%, its PEG = 1.2, which is only slightly above the "fair value" benchmark. The market is pricing in spectacular growth.
@@ -180,12 +280,26 @@ Interpretation: A PEG of 1.33 suggests the market is pricing XYZ at a moderate p
 
 Debt-to-Equity-Ratio
 =====================
-he Debt-to-Equity Ratio (D/E Ratio) is a cornerstone of fundamental analysis that measures a company's financial leverage—essentially, how much it relies on borrowed money versus owned money to finance its assets.
+The Debt-to-Equity Ratio (D/E Ratio) is a cornerstone of fundamental analysis that measures a company's financial leverage—essentially, how much it relies on borrowed money versus owned money to finance its assets.
 
 It’s a solvency and leverage ratio that compares a company’s total liabilities to its shareholder equity. It shows the proportion of financing coming from creditors (debt) versus owners (equity).
 Formula: D/E Ratio = Total Liabilities ÷ Total Shareholders' Equity
 Alternative (More Conservative) Formula: D/E Ratio = (Total Liabilities - Cash & Equivalents) ÷ Shareholders' Equity
-This "Net Debt" version is often used in industries where cash is considered non-operational.44There is no single "good" or "bad" D/E ratio. Interpretation depends entirely on context:
+So if a company is financed by 50$ equity and 50$ debt, the D/E ratio will be 1%.
+
+Conservative company:
+Equity: $80, Debt: $20
+D/E = 0.25 — mostly equity-funded; low leverage
+
+Aggressive company:
+Equity: $20, Debt: $80
+D/E = 4.0 — heavily leveraged; for every $1 of shareholder capital, $4 is borrowed
+
+Highly leveraged (e.g., a bank or REIT):
+Equity: $10, Debt: $90
+D/E = 9.0 — extreme leverage, typical for financial institutions
+
+This "Net Debt" version is often used in industries where cash is considered non-operational. There is no single "good" or "bad" D/E ratio. Interpretation depends entirely on context:
 
 Comparison to Industry Averages: This is the most important step.
 Capital-Intensive Industries (Utilities, Telecom, Manufacturing, Airlines) naturally have high D/E ratios (often 2.0 or more). They have stable cash flows to service large, predictable debts used to buy expensive assets (power plants, aircraft, factories).
@@ -201,6 +315,14 @@ Negative D/E: This occurs when Shareholders' Equity is negative (liabilities exc
 Trend Analysis Over Time:
 Is the company's D/E ratio increasing over several quarters? It's taking on more leverage, which could be for expansion (potentially good) or to cover losses (bad).
 Is it decreasing? The company is paying down debt or growing equity, becoming less risky.
+
+There's no universal "good" D/E — it depends heavily on industry but you can use the below guidance.
+Software/tech  0.0–0.5
+Consumer goods 0.5–1.5
+Industrials/manufacturing 1.0–2.0
+Utilities  1.0–2.5 
+Banks 8.0–12.0+ 
+Real estate (REITs) 1.5–3.0+
 
 Valuation
 =========
@@ -221,6 +343,32 @@ P/E ratio divided by growth rate will give you the PEG ratio. P/E ratio could be
 Similarly you find the PEG ratio for other similar stocks also. Generally you will notice that as P/E ratio increases, growth percentage also follows it. unless there is some stock which is very very popular and a lot of people buy it even though its growth estimate isn't too high.
 
 From 1 (earnings forecast), we calculate the earnings per share (EPS) and the estimated growth of the company. Then you have already have the PEG ratio for similar stocks. You use the PEG ratio and the growth estimate to find the P/E ratio. then from this P/E ratio and the estimated EPS you reverse calculate the Price of the share.
+
+Cashflow statement
+==================
+Cash Flow Statement — actual cash in and out, broken into three sections:
+
+Operating activities (cash from running the business)
+Investing activities (cash for buying/selling long-term assets — this is where CapEx lives)
+Financing activities (cash from issuing debt/equity, paying dividends, buybacks)
+
+CapEx and FCF are derived from the cash flow statement. CapEx is the cash a company spends on long-term productive assets — property, plant, equipment, software, infrastructure — things expected to generate value for many years.  Examples:
+
+A factory buys new machinery: CapEx
+A retailer opens new stores: CapEx
+A telecom builds cell towers: CapEx
+A tech company buys servers for its data centers: CapEx
+A coffee shop buys a new espresso machine: CapEx
+On the cash flow statement, you'll see it under Cash Flow from Investing Activities, often labeled:
+"Purchases of property, plant and equipment"
+"Capital expenditures"
+"Additions to PP&E"
+
+Free Cash Flow (FCF)
+====================
+FCF is the cash a business generates after paying for everything it needs to maintain and grow operations. It's the cash truly available to be returned to shareholders, paid to debt holders, used for acquisitions, or held as cash.
+The most common definition:
+FCF=Operating Cash Flow − CapEx
 
 
 Separate out good and bad businessess
