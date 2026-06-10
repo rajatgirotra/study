@@ -1,8 +1,8 @@
 To excel at using an AI coding agent, you must be able to build the context to give to your agent. The better the context you provide to the input to your LLM, the better will be the response.
-Context engineering is a new word for the previous Prompt engineering. because a prompt can now have context (like tools to use, input images, files, folder, project etc)
+Context engineering is a new word for the previous Prompt engineering. because a prompt can now have context (like tools to use, input images, files, folder, project, etc)
 
 The first and very crucial part of a prompt/context is the "System Prompt". It defines the behavior and persona of the agent.
-It is followed by description of the "Tools".
+It is followed by a description of the "Tools".
 
 So remember Context should have:
 
@@ -29,9 +29,7 @@ So if you try to pass in more tokens than what it can accept in its "Context Win
 
 Remember that performance starts to degrade (you start getting poorer results) if your Context Window grows.
 
-Some coding agents have support for compacting, where the agent tries to transparently summarize the conversation, so that it can free up space in the "context window".
-So 
- the below gets summarized into
+Some coding agents have support for compacting, where the agent tries to transparently summarize the conversation so that it can free up space in the "context window". So the below gets summarized into
 
 4. Then finally the actual input which includes:
    Conversation History/Messages (chat)
@@ -44,7 +42,7 @@ So
 4. Then finally the actual input which includes:
     Summary of earlier messages.
 
-Some people do tend to fear compacting (they lack trust on the compactor capability), so they tend to stop the ai agent and re-run it with a fresh AGENTS.md file and start everything afresh.
+Some people do tend to fear compacting (they lack trust in the compactor capability), so they tend to stop the AI agent and re-run it with a fresh AGENTS.md file and start everything afresh.
 
 Context Window size of different LLM's:
 

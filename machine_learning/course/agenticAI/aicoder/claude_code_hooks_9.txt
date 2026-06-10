@@ -1,0 +1,9 @@
+Claude code allows you to run some code called hooks when certain events take place, like claude finishing some task, claude about to execute a tool etc.
+
+$HOME/.claude/settings.json is where you specify it. What can a hook do
+1. Run a bash command.
+2. Spawn a subagent
+3. Give a prompt to claude
+
+Just run /hooks in claude and its super trivial
+

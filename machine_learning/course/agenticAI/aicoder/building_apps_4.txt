@@ -37,7 +37,7 @@ Claude agent (by Anthropic)
 ---------------------------
 There are many ways you can use the claude cli coding agent. But you will need to install it first using "curl -fsSL https://claude.ai/install.sh | bash".
 
-1. command line: Start the CLI by using "claude" command.
+1. command line: Start the CLI by using "claude" command. Upgrade the CLI by using "claude upgrade".
 
 2. Jetbrains: clion has inbuilt integration for claude CLI client. So I used it.
 

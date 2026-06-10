@@ -1,7 +1,16 @@
-Lets discuss MCP tools in claude code now. in MCP (model context protocol), we have:A
+Let's discuss MCP tools in claude code now. in MCP (model context protocol), we have:A
 MCP Server --> this is the main tool which someone has written and published and can be used by anyone.
+
 MCP Host --> the main application that the user interacts with. It is responsible for running the LLM, managing the conversion, deciding which MCP servers are available, etc. So Claude agent is our MCP Host.
-MCP Client --> Just a connector between MCP Host and MCP server. It speaks the MCP protocol. MCP client sends request to an MCP server. Receives responses and returns them to the host. Think of mCP client as an adaptor or transport layer.
+
+MCP Client --> MCP Client lives inside the MCP host. It's the protocol-level component that speaks MCP — it initiates and maintains a 1:1 connection to a specific MCP server, sends requests, and relays results back to the model. One host can run multiple clients simultaneously (one per server). Think of MCP client as an adaptor or transport layer.
+
+How they relate to each other:
+User
+  └── MCP Host (Claude.ai / Claude Code)
+        ├── MCP Client ──► MCP Server A (e.g., Gmail)
+        ├── MCP Client ──► MCP Server B (e.g., Google Drive)
+        └── MCP Client ──► MCP Server C (e.g., GitHub)
 
 Usually when you use an MCP Server, it can be used in 2 ways. One is local in which you download/install the mcp tool locally and it runs on your computer. The other is remote(cloud) in which the server can run in the cloud or remotely on another machine.
 
@@ -10,7 +19,7 @@ The problem with MCP at the moment is that there are multiple marketplaces from 
 Official marketplace is: https://registry.modelcontextprotocol.io/
 Another way to find an MCP tool in market place is to google "github anthropic mcp server" and you get this link: https://github.com/modelcontextprotocol/servers. At this link you can find further links to MCP servers which you are looking for.
 
-Other popular MCP marketplaces include : https://glama.ai/mcp/servers and https://mcp.so/. You have to be careful when chosing because everyone can contribute here so you will find many versions/forks/duplicates of the same MCP server, so always be careful which one you install.
+Other popular MCP marketplaces include : https://glama.ai/mcp/servers and https://mcp.so/. You have to be careful when choosing because everyone can contribute here so you will find many versions/forks/duplicates of the same MCP server, so always be careful which one you install.
 
 ================================= ================================= =================================
 
@@ -53,10 +62,10 @@ bash$> npx skills add https://github.com/vercel-labs/agent-browser --skill agent
 
 Plugins
 -------
-Plugins is just a bundle of all MCP Servers, SKILLS, hooks (we will study hooks shortly), commands like (/context, /status, /rename etc) along with some more things.
-Right now plugins are designed for cluade code (its not available in other coding agents)
+Plugins is just a bundle of all MCP Servers, SKILLS, hooks (we will study hooks shortly), commands like (/context, /status, /rename etc), agents along with some more things.
+Right now plugins are designed for claude code (its not available in other coding agents)
 
-/plugins --> command in claude (to show plugins from anthropic)
+/plugin --> command in claude (to show plugins from anthropic)
 /external_plugins --> command in claude (to show external plugins)
 
 Plugins marketplace: github anthropic "claude-plugins-official" (you will see /plugins and /external_plugins folder)

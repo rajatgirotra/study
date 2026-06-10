@@ -18,10 +18,10 @@ Important things in your AGENTS.md
 ## Color Scheme
 ## Strategy
 ## Coding standards and guidelines. Examples
-1. Simpler is better - do not overcomplicate
+1. Simpler is better – do not overcomplicate
 2. Comments only when necessary
-3. Be concise, short README, no emokis
-4. IMPORTANT: Acoid overly defensive programming; avoid isinstance checks; only manage exceptions when necessary
+3. Be concise, short README, no emojis
+4. IMPORTANT: Avoid overly defensive programming; avoid isinstance checks; only manage exceptions when necessary
 5. Use uv; ALWAYS `uv run xxx` NEVER `python3 xxx`
 
 Invest time crafting a good AGENTS.md. That's where we need to sweat. We need to spend, time, and effort in writing very good AGENTS.md at various levels.

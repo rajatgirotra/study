@@ -1,0 +1,38 @@
+Very very trivial. 
+Just create a folder structure like this:
+
+my-plugin/.claude-plugin/plugin.json
+my-plugin/{commands,hooks,skills,agents}
+my-plugin/{LICENCE,README.md}
+my-plugin/commands/my-command.md
+my-plugin/hooks/hooks.json
+my-plugin/skills/myskill/SKILL.md
+my-plugin/agents/my-agent.md
+my-plugin/mcp.json
+
+plugin.json is just a trivial metadata file. Example:
+
+{
+  "name": "code-simplifier",
+  "version": "1.0.0",
+  "description": "Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality",
+  "author": {
+    "name": "Anthropic",
+    "email": "support@anthropic.com"
+  }
+}
+
+Folder structure again for your reference:
+
+example-plugin/
+├── .claude-plugin/
+│   └── plugin.json            # Plugin metadata
+├── .mcp.json                  # MCP server configuration
+├── skills/
+│   ├── example-skill/
+│   │   └── SKILL.md           # Model-invoked skill (contextual guidance)
+│   └── example-command/
+│       └── SKILL.md           # User-invoked skill (slash command)
+└── commands/
+    └── example-command.md     # Legacy slash command format (see note below)
+

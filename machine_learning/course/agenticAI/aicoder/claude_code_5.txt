@@ -12,9 +12,9 @@ Claude code ran 3 agents in parallel. Later it reported that a .env is exposed i
 
 /context (keep checking your context)
 then we gave it another prompt to fix those code review issues.
-"Please go ahead and fix all the critical, high and medium priority issues and retest everything and let me know when everything."
+"Please go ahead and fix all the critical, high and medium priority issues and retest everything and let me know when everything is fixed."
 
-/compact # clear conversation history but keep a summary. Generally do this at the end of a chat so that claude doesn't have to do it on the fly when its working on a big task"
+/compact # clear conversation history but keep a summary. Generally do this at the end of a chat so that claude doesn't have to do it on the fly when it's working on a big task."
 # Always have a human eye on what the coding agent is doing.
 
 /status # shows a status panel. shows three panels "Status Config Usage"
@@ -60,15 +60,13 @@ Claude code deep dive
 
 /login
 /model
-/status
+/status (/config /usage /stats) (All are related and bring up the same panel)
 /context
 /help
 /compact [WIth some instructions]
 /copy: Copy Claude's last response or a code block to clipboard
 /clear: Clear conversation history and free up context
-/config
 /rewind (for checkpointing)
-/stats: You claude code history and usage
 Shift + Tab (Toggle to Plan Mode)
 Ctrl + O (show detailed transcript)
 .claude directory --> settings.local.json (permissons to run things without asking)

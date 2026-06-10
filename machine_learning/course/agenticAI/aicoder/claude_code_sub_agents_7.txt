@@ -1,0 +1,103 @@
+Claude has many sub-agents:
+----------------------------
+
+Where is the agent setting?
+To make a specific agent the default for every session in a project, set agent in .claude/settings.json:
+
+{
+  "agent": "code-reviewer"
+}
+----------------------------
+
+Pass --agent <name> to start a session where the main thread takes on that subagent's system prompt, tool restrictions, and model (highest priority — overrides settings.json)
+claude --agent code-reviewer
+---------------------------
+
+@-mention (per-task)
+Type @ and pick the subagent from the typeahead — this ensures that specific subagent runs rather than leaving the choice to Claude: Claude
+@"code-reviewer (agent)" look at the auth changes
+----------------------------
+
+Natural language (soft suggestion)
+Use the code-reviewer subagent to check my recent changes
+----------------------------
+To disable a specific subagent, add it to permissions.deny in settings:
+{
+  "permissions": {
+    "deny": ["Agent(Explore)", "Agent(my-custom-agent)"]
+  }
+}
+----------------------------
+
+Viewing Available Sub-Agents
+Run /agents inside a Claude Code session — it opens a tabbed interface where you can:
+
+See all available subagents (built-in, user, project, plugin)
+View which ones are currently running
+Create, edit, or delete custom subagents
+----------------------------
+Claude Code includes several built-in subagents. Each inherits the parent conversation's permissions with additional tool restrictions. 
+Some build in sub agents:
+
+Explore - uses Haiku(fast) model - Read Only - used for File discovery, codebase search — skips CLAUDE.md for speed
+Plan - Inherits - Read Only - Used during plan mode to gather context before presenting a plan
+General-purpose - inherits - All Tools - Complex multi-step tasks requiring both exploration and modification
+statusline-setup - Sonnet model - When you run /statusline
+claude-code-guide - Haiku model - When you ask questions about Claude Code features
+
+----------------------------
+Subagents are Markdown files with YAML frontmatter stored in:
+
+.claude/agents/ — project-scoped (commit to version control)
+~/.claude/agents/ — user-scoped (available across all projects)
+
+BEGIN
+    See example YAML for a code-reviewer subagent
+    ---
+    name: code-reviewer
+    description: Reviews code for quality and best practices
+    tools: Read, Glob, Grep
+    model: sonnet
+    ---
+ 
+    You are a code reviewer. Analyze code and provide actionable feedback. Write your output to REVIEW.md
+END
+----------------------------
+
+Up to 10 subagents can run in parallel. Background subagents run concurrently while you continue working; foreground subagents block until complete
+-----------------------------
+inherit means the subagent uses the same model as your main conversation. If you don't specify a model field at all in the frontmatter, it also defaults to inherit. 
+So if you launch Claude Code with claude --model claude-opus-4-8, any subagent with model: inherit (or no model field) will also use Opus 4.8. If you switch models mid-session, inherited subagents follow along.
+The resolution order when a subagent runs is:
+
+CLAUDE_CODE_SUBAGENT_MODEL env var (if set)
+Per-invocation model parameter passed by Claude at delegation time
+The subagent definition's model frontmatter
+The main conversation's model (i.e., inherit)
+-----------------------------
+there is no single "default agent" — Claude Code runs as its main conversational self, not as any named subagent.
+Claude then automatically delegates to built-in subagents as needed:
+
+Explore — when it needs to search/read the codebase without making changes
+Plan — when you're in plan mode and it needs to gather context
+General-purpose — when a task requires both exploration and modification, or complex multi-step work
+
+So the "default" behaviour is really Claude orchestrating these built-ins transparently behind the scenes, rather than running as any one agent.
+-----------------------------
+Using an external coding agent
+You can even have the subagent run a bash command to trigger another totally different agent to do a review. Example:
+
+BEGIN
+    See example YAML for a code-reviewer subagent
+    ---
+    name: code-reviewer
+    description: Carry out review of PLAN.md using an external bash command.
+    ---
+ 
+    Trigger an external command to trigger a code review of the planning/PLAN.md file. Do not review yourself. Run 'codex exec "Please carry out review of PLAN.md... and write output to REVIEW.md..."'
+END
+-----------------------------
+
+Agent teams
+==========
+Agent teams are a bit different than subagents. Sub agent run independently and do not talk to other sub agents. Agent teams has multiple sub agents that form a team and collaborate/interact with each other.

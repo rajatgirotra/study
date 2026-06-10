@@ -1,0 +1,10 @@
+Just like you add skills under your project .claude directory or the $HOME/.claude directory to create skills, you can create commands in the same way.
+
+$HOME/.claude/skills/my-skill.md
+$HOME/.claude/commands/my-command.md
+
+Generally, commands are invoked by you explicitly and skills are invoked by the LLM when it feels a need for it. Also note that adding a skill automatically gives you a command to run that skill, so many users don't add explicit commands and just add skills and invoke the command directly themselves when needed. 
+
+Don't use commands folder as it is legacy. Add your command to skills folder only.
+
+.claude/skills/my-command/SKILL.md --> Commands can be added here.
