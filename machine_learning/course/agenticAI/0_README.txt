@@ -26,7 +26,7 @@ How do you write code using an agent & tools.
     gemini cli
     AMPcode cli
     kilocode cli
-    OpenCode cli
+    OpenCode cli (An Open Source CLI from OpenAI which allows you to run many free and paid models)
 
 CLI coding agents are really getting popular. There are multiple stages of evolvement of an Agentic coder.
 

@@ -1,0 +1,47 @@
+uv is a high-performance Python package and project manager written in Rust, developed by Astral — the same team behind the popular ruff linter. It replaces a whole toolbox of Python utilities — pip, virtualenv, pip-tools, pipx, and parts of poetry — with a single, modern CLI
+
+Install on linux using "curl -LsSf https://astral.sh/uv/install.sh | sh" # will install under $HOME/.local/bin/uv
+
+uv --version
+
+uv python install 3.12       # install a specific version
+uv python list               # list available/installed versions
+uv python pin 3.12           # pin current project to 3.12
+
+uv init my-project
+cd my-project
+
+my-project/
+├── pyproject.toml     # project metadata & deps
+├── .python-version    # pinned Python version
+├── .venv/             # auto-created virtual environment
+└── hello.py
+
+uv add requests          # add a dependency
+uv add "fastapi>=0.100"  # with version constraint
+uv add pytest --dev      # dev-only dependency
+uv remove requests       # remove a dependency
+# This automatically updates pyproject.toml and uv.lock (the lockfile).
+
+uv sync # To install all dependencies from an existing project (from the uv.lock file which is under version control)
+
+uv run hello.py                  # run a script
+uv run python -c "import sys; print(sys.version)"
+uv run pytest                    # run a tool/command in the venv
+# uv run ensures the correct venv and Python version are used — no need to activate the venv manually.
+
+uvx ruff check .         # run ruff without installing
+uvx black myfile.py      # format with black, no install needed
+uvx httpie https://...   # run httpie once
+# uvx is used to run tools ephemerally, run a CLI tool without permanently installing it. uvx downloads, runs, and discards. Great for one-off tools.
+
+# install tools globally
+uv tool install ruff        # install ruff globally
+uv tool install black
+uv tool list                # see installed tools
+uv tool uninstall ruff
+
+# lockfiles
+uv lock           # generate lockfile
+uv lock --upgrade # re-resolve everything, update uv.lock
+uv sync          # install exactly what's in the lockfile
