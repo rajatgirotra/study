@@ -8,6 +8,7 @@ GTAGS
 GPATH
 GRTAGS
 *.pyc
+*.DS_Store
 *.s
 *.env
 *.class
