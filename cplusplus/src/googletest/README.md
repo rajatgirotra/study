@@ -106,14 +106,20 @@ With max absolute error:
 
 ### Exception Matchers
 
-These matchers apply to callables that throw:
+Simple way to check a function throws an exception is:
+`EXPECT_THROW(statement, exception_type)`
+
+These matchers below apply to callables that throw:
 
 - `Throws<E>()` — callable throws `E`
 - `Throws<E>(m)` — callable throws `E` matching matcher `m`
 - `ThrowsMessage<E>(m)` — callable throws `E` with message matching `m`
 
+The throwing matchers specifically require a callable as "actual": `EXPECT_THAT(actual, matcher)`
+
 Example:
 
+The general usage format is:
 ```cpp
 auto argument = [] { throw std::runtime_error("error msg"); };
 
@@ -122,6 +128,15 @@ EXPECT_THAT(argument, Throws<std::runtime_error>(
     Property(&std::runtime_error::what, Eq("error msg"))));
 EXPECT_THAT(argument, ThrowsMessage<std::runtime_error>(HasSubstr("msg")));
 ```
+
+Remember:
+
+| Macro | Arg 1 | Arg 2 | Order enforced? |
+|---|---|---|---|
+| `EXPECT_EQ` | value | value | No (symmetric) |
+| `EXPECT_THROW` | statement | type | Yes |
+| `EXPECT_THAT` | actual value | matcher | Yes |
+| `EXPECT_THAT` + `Throws`/`ThrowsMessage` | callable | matcher | Yes |
 
 ## Cardinality
 
@@ -217,6 +232,27 @@ TEST(FooTest, DrawsLineSegment) {
 }
 ```
 
+InSequence puts all enclosed expectations into one chain — a total order. When you need something more nuanced — say A must precede both B and C, but B and C are unordered relative to each other — InSequence is too strong. For that you use named Sequence objects with the .InSequence(seq1, seq2) clause on individual expectations, which lets you express a partial order (a DAG).
+
+```cpp
+using ::testing::Sequence;
+
+TEST(FooTest, ForkOrdering) {
+  Sequence s1, s2;
+
+  EXPECT_CALL(m, A())
+      .InSequence(s1, s2);   // A belongs to both chains
+
+  EXPECT_CALL(m, B())
+      .InSequence(s1);       // s1:  A → B
+
+  EXPECT_CALL(m, C())
+      .InSequence(s2);       // s2:  A → C
+
+  Foo();
+}
+```
+
 ## Nice, Strict, and Naggy Mocks
 
 By default all mocks are **naggy**: if you don't set an expectation and the mock is called, gMock logs a warning.
@@ -243,31 +279,60 @@ To override the default action:
 ```cpp
 ON_CALL(mockObject, mockFunction(matchers)).WillByDefault(defaultAction);
 ```
+The core difference: `ON_CALL` sets behavior; `EXPECT_CALL` sets behavior and an assertion.
 
-If your object is complex but copy-constructible and trivially destructible, you can use `::testing::DefaultValue<T>`:
+`ON_CALL` says "if this method gets called, here's what it should do." It does not require the call to happen, and it never fails your test on its own. It only configures a default return/action.
+
+Recall the resolution order when a value-returning method is called:
+
+- Matching EXPECT_CALL with an action → use it
+- Else ON_CALL default (WillByDefault) → use it
+- Else the method's default action → for a method returning T, that means `return DefaultValue<T>::Get()`
+DefaultValue<T> customizes step 3. It's global, keyed purely by return type T, and completely independent of any particular mock object or method.
+
+Methods on DefaultValue are:
+```cpp
+using ::testing::DefaultValue;
+
+DefaultValue<int>::Set(42);      // fixed value; T must be copyable
+DefaultValue<int>::IsSet();      // → true
+DefaultValue<int>::Get();        // → 42  (what the default action calls)
+DefaultValue<int>::Clear();      // remove the override, restore built-in default
+```
 
 ```cpp
+/*
+SetFactory is the variant for when you can't hand over a copyable fixed value — most importantly move-only types, where a fresh
+ instance must be produced per call: if your object is complex, you can use `::testing::DefaultValue<T>`:
+*/
 DefaultValue<std::unique_ptr<Buzz>>::SetFactory([] {
   return std::make_unique<Buzz>(AccessLevel::kInternal);
-});
+}); // return a callable to manufacture a new object each time it is called.
+
+ON_CALL(mock, GetHandle()).WillByDefault(DoDefault());  // → returns DefaultValue<Handle>::Get()
 
 DefaultValue<std::unique_ptr<Buzz>>::Clear();
 ```
+`DefaultValue<T>` is a global mutable state with no scoping. A Set in one test leaks into every subsequent test in the binary until something calls Clear(). Always pair them, and make the cleanup exception-safe — a fixture's SetUp/TearDown, or a small RAII guard:
 
-Other options:
-
-- `DefaultValue<T>::Set(value);` — sets a default value for type `T`.
-- `DefaultValue<T>::Clear();` — clears the default.
+```cpp
+struct HandleDefault {
+  HandleDefault()  { DefaultValue<Handle>::Set(Handle::Invalid()); }
+  ~HandleDefault() { DefaultValue<Handle>::Clear(); }
+};
+```
 
 ## Verifying and Resetting the Mock
 
+gmock provides static methods on Mock that let you take manual control of things gmock normally does automatically at destruction. Two are about verification timing; the third is about leak detection. The main use is phase boundaries: a long-lived mock used across distinct stages of a test, where you want to check "phase 1's calls happened" before setting up phase 2.
 gMock verifies expectations when a mock object is destructed, but you can do it earlier:
+
 
 ```cpp
 using ::testing::Mock;
 
-Mock::VerifyAndClearExpectations(&mock_obj);
-Mock::VerifyAndClear(&mock_obj);
+Mock::VerifyAndClearExpectations(&mock_obj); // verifies expectations right away (errors are immediately reported) and clears expectations after it is done. return boolean.
+Mock::VerifyAndClear(&mock_obj); // same as above, but also additionally clears the ON_CALL defaults also.
 ```
 
 If you want to allow a mock object to leak (and skip verification), use:
@@ -278,7 +343,7 @@ Mock::AllowLeak(&mock_obj);
 
 ## Checkpoints
 
-Use `MockFunction<>` as checkpoints to verify which calls occur when.
+Use `MockFunction<>` as checkpoints to verify which calls occur when. A checkpoint injects a known landmark into the sequence whose real-time position you control, so the SUT's calls get pinned to the correct side of it. `MockFunction<F>` is just a tiny prebuilt mock class with one mocked method, `Call`, whose signature comes from `F`. So `MockFunction<void(std::string)>` gives you a mock with `void Call(std::string)`.
 
 ```cpp
 using ::testing::MockFunction;
@@ -287,6 +352,11 @@ TEST(FooTest, InvokesBarCorrectly) {
   MyMock mock;
   MockFunction<void(std::string)> checkpoint;
 
+/* 
+By putting EXPECT_CALL(checkpoint, Call("1")) into the same InSequence as the real expectations, you assert the SUT's calls land before/after that landmark.
+example: First Bar("a") before Call("1") → it must occur during Foo(1) at (A). If Foo(1) didn't call Bar("a"), then when the driver reaches
+ checkpoint.Call("1"), the sequence still expects Bar("a") first → failure.
+ */
   {
     InSequence seq;
     EXPECT_CALL(mock, Bar("a"));
@@ -309,6 +379,28 @@ TEST(FooTest, InvokesBarCorrectly) {
 R Call(T1, ..., Tn);
 std::function<R(T1, ..., Tn)> AsStdFunction();
 ```
+## AsStdFunction
+Sometimes the thing you want to test is: "does the code correctly call the callback I gave it?" But a callback is usually a std::function, and you can't set gmock expectations on a plain std::function — expectations only work on mock objects. So you're stuck between two things that don't fit together:
+- gmock expectations need a mock object
+- the code under test wants a std::function
+
+What `AsStdFunction()` does?
+----------------------------
+It bridges exactly that gap. MockFunction is the mock object (so you can set expectations on its Call method), and AsStdFunction() gives you a std::function wrapper around it that you can pass into the code. When the code invokes the std::function, that call flows straight through to the mock's Call — so your expectation sees it. One object, two faces:
+
+cb — the mock face, for setting expectations
+cb.AsStdFunction() — the std::function face, for passing in. See example below:
+
+```cpp
+void RetryTwice(const std::function<void()>& on_retry) {
+  on_retry();
+  on_retry();
+}
+MockFunction<void()> cb;
+EXPECT_CALL(cb, Call()).Times(2);      // expectation on the mock face
+RetryTwice(cb.AsStdFunction());        // pass the std::function face
+```
+So, AsStdFunction() lets you take a gmock mock and pass it somewhere that expects a std::function, so you can put expectations on a callback. That's the whole idea — it has nothing to do with sequencing or checkpoints; it just happens to live on the same MockFunction helper.
 
 ## References
 
