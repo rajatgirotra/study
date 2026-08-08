@@ -93,3 +93,5 @@ cplusplus/src/scratch/*
 
 /.venv
 .env
+
+*egg-info*

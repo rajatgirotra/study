@@ -1,0 +1,10 @@
+sample:
+  sale:
+    price: "$19.99"
+    min_qty: 3
+  point:
+    x: 10
+    y: 20
+  user:
+    name: "Rajat Girotra"
+    display_name: "RajG"

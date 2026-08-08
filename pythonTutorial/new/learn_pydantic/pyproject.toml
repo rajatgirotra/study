@@ -1,0 +1,22 @@
+[project]
+name = "learn-pydantic"
+version = "0.1.0"
+description = "learn python pydantic"
+readme = "README.md"
+authors = [
+    { name = "Rajat Girotra", email = "rajatgirotra@yahoo.com" }
+]
+requires-python = ">=3.14.7"
+dependencies = [
+    "pendulum>=3.2.0",
+    "pydantic>=2.13.4",
+    "pyyaml>=6.0.3",
+    "spyder-kernels>=3.1.5",
+]
+
+[project.scripts]
+learn-pydantic = "learn_pydantic:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
