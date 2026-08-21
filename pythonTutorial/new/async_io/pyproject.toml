@@ -1,0 +1,17 @@
+[project]
+name = "async-io"
+version = "0.1.0"
+description = "learn co-operative multitasking in python"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "numpy>=2.5.1",
+    "spyder-kernels>=3.1.5",
+]
+
+[project.scripts]
+async-io = "async_io:main"
+
+[build-system]
+requires = ["uv_build>=0.12.2,<0.13.0"]
+build-backend = "uv_build"

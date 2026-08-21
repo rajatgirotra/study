@@ -4,7 +4,7 @@
         "conan": {}
     },
     "include": [
-        "/home/rajatgirotra/study/cplusplus/build/Release/generators/CMakePresets.json",
-        "build/Release/generators/CMakePresets.json"
+        "build/gcc-15/Debug/generators/CMakePresets.json",
+        "build/gcc-16/Debug/generators/CMakePresets.json"
     ]
 }

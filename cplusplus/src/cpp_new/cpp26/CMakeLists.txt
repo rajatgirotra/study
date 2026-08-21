@@ -1,37 +1,34 @@
+add_subdirectory(reflect)
+
+
 add_executable(cpp26_placeholder_name placeholder_name.cpp)
 target_link_libraries(cpp26_placeholder_name PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp26_placeholder_name PRIVATE -std=c++2c) # to enable cpp26
-# not required as I changed to gnuc++26 in conanfile.py (i.e. at the global level)
+# target_compile_options(cpp26_placeholder_name PRIVATE -std=c++2c) # not required as long as you are using gcc16 with cppstd=gnu26 in your conan profile
 
 add_executable(cpp26_parameter_pack_indexing parameter_pack_indexing.cpp)
 target_link_libraries(cpp26_parameter_pack_indexing PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp26_parameter_pack_indexing PRIVATE -std=c++2c) # to enable cpp26
 
 add_executable(cpp26_saturating_math saturating_math.cpp)
 target_link_libraries(cpp26_saturating_math PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp26_saturating_math PRIVATE -std=c++2c) # to enable cpp26
 
 add_executable(cpp26_views_concat views_concat.cpp)
 target_link_libraries(cpp26_views_concat PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp26_views_concat PRIVATE -std=c++2c) # to enable cpp26
 
 add_executable(cpp26_span_initiailizer_list span_initializer_list.cpp)
 target_link_libraries(cpp26_span_initiailizer_list PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp26_span_initiailizer_list PRIVATE -std=c++2c) # to enable cpp26
 
 add_executable(cpp_26_template_for template_for.cpp)
 target_link_libraries(cpp_26_template_for PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp_26_template_for PRIVATE -std=c++2c) # to enable cpp26
 
 add_executable(cpp_26_simple_reflection simple_reflection.cpp)
 target_link_libraries(cpp_26_simple_reflection PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp_26_template_for PRIVATE -std=c++2c) # to enable cpp26
-
 
 add_executable(cpp_26_structured_bindings structured_bindings.cpp)
 target_link_libraries(cpp_26_structured_bindings PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
-#target_compile_options(cpp_26_template_for PRIVATE -std=c++2c) # to enable cpp26
 
 #add_executable(cpp26_signed_unsigned_size_t signed_unsigned_size_t.cpp)
 #target_link_libraries(cpp26_signed_unsigned_size_t PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
 #target_compile_options(cpp26_signed_unsigned_size_t PRIVATE -std=c++2c)
+
+add_executable(cpp_26_trivial_standard_aggregate trivial_standard_aggregate.cpp)
+target_link_libraries(cpp_26_trivial_standard_aggregate PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)

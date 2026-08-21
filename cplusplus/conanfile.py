@@ -35,7 +35,7 @@ class CPlusPlusConan(ConanFile):
 
     @property
     def _min_cppstd(self):
-        return "26"  # can tailor as needed
+        return "23"  # can tailor as needed
 
     def set_version(self):
         content = load(self, join(self.recipe_folder, 'CMakeLists.txt'))
@@ -79,7 +79,7 @@ class CPlusPlusConan(ConanFile):
             check_min_cppstd(self, self._min_cppstd)
 
     def layout(self):
-        cmake_layout(self, generator="Ninja")
+        cmake_layout(self)
 
     # to put your project dependencies
 

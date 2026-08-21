@@ -1,0 +1,3 @@
+add_executable(cpp26_reflect_1 reflect_1.cpp)
+target_link_libraries(cpp26_reflect_1 PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(cpp26_reflect_1 PRIVATE -freflection)

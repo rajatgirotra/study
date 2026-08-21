@@ -1,0 +1,23 @@
+add_executable(real_world_identity identity_1.cpp)
+target_link_libraries(real_world_identity PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(real_world_identity PRIVATE -freflection)
+
+add_executable(real_world_my_min_with_constraints my_min_with_constraints.cpp)
+target_link_libraries(real_world_my_min_with_constraints PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(real_world_my_min_with_constraints PRIVATE -freflection)
+
+add_executable(real_world_fixed_size_stack fixed_size_stack.cpp)
+target_link_libraries(real_world_fixed_size_stack PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(real_world_fixed_size_stack PRIVATE -freflection)
+
+add_executable(real_world_my_pair my_pair.cpp)
+target_link_libraries(real_world_my_pair PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(real_world_my_pair PRIVATE -freflection)
+
+add_executable(real_world_array_printer array_printer.cpp)
+target_link_libraries(real_world_array_printer PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(real_world_array_printer PRIVATE -freflection)
+
+add_executable(real_world_typelist typelist.cpp)
+target_link_libraries(real_world_typelist PRIVATE ${PROJECT_NAME_LOWERCASE}_project_options ${PROJECT_NAME_LOWERCASE}_project_warnings)
+target_compile_options(real_world_typelist PRIVATE -freflection)
