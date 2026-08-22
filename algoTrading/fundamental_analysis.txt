@@ -47,7 +47,7 @@ Cash Flow Statement — actual cash in and out, broken into three sections (see 
 Debt vs Liabilities
 ====================
 debt is money the company explicitly borrowed and pays interest on. 
-Operating liabilities arise naturally from running the business and typically don't carry interest. So debt is part of your liabilities i.e. All debt is a liability, but not all liabilities are debt. 
+Operating liabilities arise naturally from running the business and typically don't carry interest. So debt is part of your liabilities i.e. All debt is a liability, but not all liabilities are debt. Accounts payable is the classic. A restaurant orders $50,000 of ingredients from a supplier on 30-day terms. The food arrives today, cash leaves in 30 days. In between, that $50,000 sits on the balance sheet as a liability. The supplier didn't lend money — they extended trade credit, and there's no interest coupon attached. A company with $500M of accounts payable and no borrowings is unlevered; a company with $500M of bank loans is not, even though both show $500M of liabilities. operating liabilities show up in working capital and the operating section of the cash flow statement
 
 
 Earnings per share 
@@ -58,7 +58,7 @@ Ideally, price should follow earnings. If earnings go up, so should price and vi
 The most common types of EPS you'll see:
 Annual EPS — net income for the full fiscal year divided by shares outstanding
 Quarterly EPS — what companies report each quarter in their earnings releases (this is usually what moves stock prices on "earnings day")
-Trailing twelve months (TTM) EPS — sum of the last four quarters, which is what most P/E ratios on finance sites use by default
+Trailing twelve months (TTM) EPS — sum of the last four quarters, which is what most P/E ratios on finance sites use by default. if you think in your head it is just (last fiscal year EPS + current YTD EPS - previous YTD EPS (same period).
 Forward EPS — analyst estimates for the next year
 
 Forward EPS also has many flavors:
