@@ -8,7 +8,7 @@ greenlet==0.4.9
 pyzmq==15.2.0
 gevent-websocket==0.9.5
 python-socketio==1.0
-Werkzeug==0.11.3
+Werkzeug==2.2.3
 WTForms==2.1
 Flask==0.10.1
 quickfix==1.14.3
